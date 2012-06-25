@@ -9,7 +9,7 @@
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
                 <div class="sl-block">
-                    <div tal:replace="block/view" />
+                    <div tal:replace="structure block/view" />
                 </div>
             </tal:blocks>
         </div>

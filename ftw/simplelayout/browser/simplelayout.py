@@ -10,7 +10,7 @@ class SimplelayoutView(BrowserView):
     implements(ISimplelayoutView)
 
     def get_blocks(self):
-        for block in self.context.getFolderContents():
+        for block in self.context.listFolderContents():
             properties = queryMultiAdapter((block, self.request),
                                            IBlockProperties)
             if properties is None:

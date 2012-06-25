@@ -6,11 +6,10 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
-
     <five:registerPackage package="." initialize=".initialize" />
 
-
     <include package=".browser" />
+    <include package=".contents" />
 
     <genericsetup:registerProfile
         name="default"

@@ -11,4 +11,11 @@
         template="templates/simplelayout.pt"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IParagraph"
+        name="block_view"
+        permission="zope2.View"
+        template="templates/paragraph.pt"
+        />
+
 </configure>
