@@ -16,6 +16,8 @@ is necessary for GenericSetup profiles to work, for example.
 Here, we call the Archetypes machinery to register our content types
 with Zope and the CMF.
 """
+    import contents.page
+    import contents.paragraph
 
     content_types, constructors, _ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),

@@ -6,11 +6,15 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+
     <include package=".browser" />
 
     <genericsetup:registerProfile
         name="default"
-        title="ftw.simplelayout"
+        title="ftw.simplelayout default"
         directory="profiles/default"
         description="Simlelayout with sample types"
         provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -18,7 +22,7 @@
 
     <genericsetup:registerProfile
         name="library"
-        title="ftw.simplelayout"
+        title="ftw.simplelayout library"
         directory="profiles/library"
         description="Simlelayout library"
         provides="Products.GenericSetup.interfaces.EXTENSION"
