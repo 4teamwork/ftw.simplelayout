@@ -28,9 +28,9 @@ schema = atapi.Schema(
     )
 
 paragraph_schema = document.ATDocumentSchema.copy() + schema.copy()
-# paragraph_schema['excludeFromNav'].default = True
-# paragraph_schema['title'].required = False
-# paragraph_schema['description'].widget.visible = -1
+paragraph_schema['excludeFromNav'].default = True
+paragraph_schema['title'].required = False
+paragraph_schema['description'].widget.visible = -1
 
 class Paragraph(document.ATDocument):
     security = ClassSecurityInfo()
