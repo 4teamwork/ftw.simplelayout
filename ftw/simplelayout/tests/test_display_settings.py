@@ -49,3 +49,12 @@ class TestDisplaySettings(MockTestCase):
         settings.set_size({'width': 100, 'height': 50.3})
         self.assertEqual(settings.get_size(), {'width': 100, 'height': 50.3})
         self.assertTrue(isinstance(settings.get_size(), PersistentMapping))
+
+    def test_setter_condition(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+        with self.assertRaises(ValueError):
+            settings.set_size({'foo': 100})
+        with self.assertRaises(ValueError):
+            settings.set_position({'foo': 100})
