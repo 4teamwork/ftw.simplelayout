@@ -2,8 +2,7 @@ from zope.interface import implements
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes import atapi
 from ftw.simplelayout import config
-from Products.ATContentTypes.content.document import ATDocumentBase
-from Products.ATContentTypes.content.schemata import ATContentTypeSchema
+from Products.ATContentTypes.content import document
 from ftw.simplelayout.contents.interfaces import IParagraph
 
 from ftw.simplelayout import _
@@ -16,7 +15,6 @@ schema = atapi.Schema((
           widget=atapi.BooleanWidget(
               label=_(u"label_show_title", default="Show Title"),
           )),
-
     ),
     atapi.TextField(
         'text',
@@ -31,13 +29,13 @@ schema = atapi.Schema((
     ),
 )
 
-paragraph_schema = ATContentTypeSchema.copy() + schema.copy()
+paragraph_schema = document.ATDocumentSchema.copy() + schema.copy()
 paragraph_schema['excludeFromNav'].default = True
 paragraph_schema['title'].required = False
 paragraph_schema['description'].widget.visible = -1
 
 
-class Paragraph(ATDocumentBase):
+class Paragraph(document.ATDocument):
     security = ClassSecurityInfo()
     implements(IParagraph)
     schema = paragraph_schema

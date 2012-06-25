@@ -6,7 +6,7 @@
  <property name="description"></property>
  <property name="content_icon">document.gif</property>
  <property name="content_meta_type">Paragraph</property>
- <property name="product">ftw.simplelalyout</property>
+ <property name="product">ftw.simplelayout</property>
  <property name="factory">addParagraph</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>

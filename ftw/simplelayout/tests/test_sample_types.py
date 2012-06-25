@@ -24,14 +24,18 @@ class TestSampleTypes(TestCase):
         self.browser.addHeader('Authorization', 'Basic %s:%s' % (
             TEST_USER_NAME, TEST_USER_PASSWORD, ))
 
-    def test_add_page(self):
+    def test_add_types(self):
         self.browser.open(
             self.portal_url + '/demo-folder/createObject?type_name=Page')
         self.browser.getControl(name='title').value= u"A test page"
         self.browser.getControl(name='form.button.save').click()
-        import ipdb; ipdb.set_trace()
-        self.browser.open(self.portal_url + '/demo-folder/a-test-page')
         self.assertIn('A test page', self.browser.contents)
+
+        self.browser.open(
+            self.portal_url + '/demo-folder/a-test-page/createObject?type_name=Paragraph')
+        self.browser.getControl(name='title').value= u"A test paragraph"
+        self.browser.getControl(name='form.button.save').click()
+        self.assertIn('A test paragraph', self.browser.contents)
 
     def tearDown(self):
         super(TestSampleTypes, self).tearDown()
