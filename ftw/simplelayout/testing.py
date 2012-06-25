@@ -1,26 +1,16 @@
-from plone.testing import Layer
 from plone.testing import zca
-from zope.configuration import xmlconfig
+from ftw.testing.layer import ComponentRegistryLayer
 
 
-class SimplelayoutZCMLLayer(Layer):
+class SimplelayoutZCMLLayer(ComponentRegistryLayer):
     """A layer which only sets up the zcml, but does not start a zope
     instance.
     """
 
     defaultBases = (zca.ZCML_DIRECTIVES,)
 
-    def testSetUp(self):
-        self['configurationContext'] = zca.stackConfigurationContext(
-            self.get('configurationContext'))
-
-        import zope.traversing
-        xmlconfig.file('configure.zcml', zope.traversing,
-                       context=self['configurationContext'])
-
-
-    def testTearDown(self):
-        del self['configurationContext']
-
+    def setUp(self):
+        import ftw.simplelayout
+        self.load_zcml_file('tests.zcml', ftw.simplelayout)
 
 SIMPLELAYOUT_ZCML_LAYER = SimplelayoutZCMLLayer()
