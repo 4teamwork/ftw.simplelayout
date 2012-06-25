@@ -12,7 +12,7 @@ tests_require = [
 
 extras_require = {
     'tests': tests_require,
-}
+    }
 
 setup(name='ftw.simplelayout',
       version=version,
@@ -36,7 +36,7 @@ setup(name='ftw.simplelayout',
       author='4teamwork GmbH',
       author_email='mailto:info@4teamwork.ch',
       maintainer=maintainer,
-      url='',
+      url='https://github.com/4teamwork/ftw.simplelayout',
       license='GPL2',
 
       packages=find_packages(exclude=['ez_setup']),
