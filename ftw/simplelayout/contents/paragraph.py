@@ -8,12 +8,12 @@ from ftw.simplelayout.contents.interfaces import IParagraph
 from ftw.simplelayout import _
 
 schema = atapi.Schema((
-     atapi.BooleanField(
-         'showTitle',
-         schemata='default',
-         default=0,
-         widget=atapi.BooleanWidget(
-             label=_(u"label_show_title", default="Show Title"),
+    atapi.BooleanField(
+        'showTitle',
+        schemata='default',
+        default=0,
+        widget=atapi.BooleanWidget(
+            label=_(u"label_show_title", default="Show Title"),
          )),
     atapi.TextField(
         'text',
@@ -24,13 +24,14 @@ schema = atapi.Schema((
         widget=atapi.RichWidget(
             label=_(u'label_body_text', default=u'Body Text'),
             rows=25,
-            filter_buttons = ('image', ))),
+            filter_buttons=('image', ))),
     ))
 
 paragraph_schema = document.ATDocumentSchema.copy() + schema.copy()
 paragraph_schema['excludeFromNav'].default = True
 paragraph_schema['title'].required = False
 paragraph_schema['description'].widget.visible = -1
+
 
 class Paragraph(document.ATDocument):
     security = ClassSecurityInfo()
