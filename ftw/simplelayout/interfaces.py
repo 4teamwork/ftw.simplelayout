@@ -10,6 +10,9 @@ class ISimplelayout(Interface):
 
 
 class IBlockProperties(Interface):
+    """Adapter for getting and setting information such as the current
+    selected view for the block or the available views.
+    """
 
     def __init__(context, request):
         """Adapts context and request.
