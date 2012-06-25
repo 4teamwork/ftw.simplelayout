@@ -10,7 +10,9 @@ class SimplelayoutZCMLLayer(ComponentRegistryLayer):
     defaultBases = (zca.ZCML_DIRECTIVES,)
 
     def setUp(self):
-        import ftw.simplelayout
-        self.load_zcml_file('tests.zcml', ftw.simplelayout)
+        super(SimplelayoutZCMLLayer, self).setUp()
+
+        import ftw.simplelayout.tests
+        self.load_zcml_file('tests.zcml', ftw.simplelayout.tests)
 
 SIMPLELAYOUT_ZCML_LAYER = SimplelayoutZCMLLayer()
