@@ -13,7 +13,7 @@ class TestSimplelayoutView(TestCase):
 
         portal = self.layer['portal']
         self.context = portal.get(portal.invokeFactory(
-                'Folder', 'test-simplelayout-view'))
+                'Page', 'test-simplelayout-view'))
 
         transaction.commit()
 
@@ -30,5 +30,21 @@ class TestSimplelayoutView(TestCase):
         transaction.commit()
 
     def test_view_renders(self):
+        paragraph = self.context.get(self.context.invokeFactory(
+            'Paragraph', 'first-paragraph', title='First Paragraph',
+            text='the paragraph text'))
+
+        paragraph.reindexObject()
+        transaction.commit()
+
         self.browser.open(self.url)
         self.assertEqual(self.browser.url, self.url)
+        self.assertIn('the paragraph text', self.browser.contents)
+        self.assertNotIn('First Paragraph', self.browser.contents)
+
+        paragraph.setShowTitle(True)
+        transaction.commit()
+
+        self.browser.open(self.url)
+        self.assertEqual(self.browser.url, self.url)
+        self.assertIn('First Paragraph', self.browser.contents)
