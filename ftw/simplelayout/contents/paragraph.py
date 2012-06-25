@@ -7,7 +7,7 @@ from ftw.simplelayout.contents.interfaces import IParagraph
 
 from ftw.simplelayout import _
 
-schema = atapi.Schema(
+schema = atapi.Schema((
      atapi.BooleanField(
          'showTitle',
          schemata='default',
@@ -25,7 +25,7 @@ schema = atapi.Schema(
             label=_(u'label_body_text', default=u'Body Text'),
             rows=25,
             filter_buttons = ('image', ))),
-    )
+    ))
 
 paragraph_schema = document.ATDocumentSchema.copy() + schema.copy()
 paragraph_schema['excludeFromNav'].default = True
