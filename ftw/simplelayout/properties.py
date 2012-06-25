@@ -32,7 +32,6 @@ class SingleViewBlockProperties(object):
                            'support setting the view.')
 
 
-
 class MultiViewBlockProperties(object):
     """Block properites adapter for blocks where the user can choose from
     multiple views.

@@ -24,7 +24,8 @@ class DisplaySeetings(object):
 
     def get_storage(self):
         if DISPLAY_SETTINGS_KEY not in self.annotations:
-            storage = self.annotations[DISPLAY_SETTINGS_KEY] = PersistentMapping()
+            storage = PersistentMapping()
+            self.annotations[DISPLAY_SETTINGS_KEY] = storage
             return storage
         return self.annotations[DISPLAY_SETTINGS_KEY]
 
