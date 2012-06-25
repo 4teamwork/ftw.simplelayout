@@ -17,8 +17,6 @@ class SimplelayoutView(BrowserView):
                 continue
 
             view_name = properties.get_current_view_name()
-            if view_name is None:
-                continue
             view = block.restrictedTraverse(view_name)
 
             display_settings = queryMultiAdapter((block, self.request),
