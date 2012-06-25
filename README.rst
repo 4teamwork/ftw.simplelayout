@@ -28,7 +28,10 @@ Usage
 Links
 =====
 
-- Continuous integration: https://jenkins.4teamwork.ch/job/ftw.simplelayout/
+- Main github project repository: https://github.com/4teamwork/ftw.simplelayout
+- Issue tracker: https://github.com/4teamwork/ftw.simplelayout/issues
+- Package on pypi: http://pypi.python.org/pypi/ftw.simplelayout
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.simplelayout
 
 
 Copyright and License
