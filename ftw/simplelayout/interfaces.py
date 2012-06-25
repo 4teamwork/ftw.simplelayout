@@ -9,6 +9,11 @@ class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
 
+class ISimplelayoutView(Interface):
+    """@@simplelayout view interface.
+    """
+
+
 class IBlockProperties(Interface):
     """Adapter for getting and setting information such as the current
     selected view for the block or the available views.

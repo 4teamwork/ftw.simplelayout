@@ -3,6 +3,12 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
-
+    <browser:page
+        for="OFS.interfaces.IFolder"
+        name="simplelayout"
+        class=".simplelayout.SimplelayoutView"
+        permission="zope2.View"
+        template="templates/simplelayout.pt"
+        />
 
 </configure>
