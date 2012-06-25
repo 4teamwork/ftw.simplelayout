@@ -45,7 +45,7 @@ class IDisplaySettings(Interface):
         position -- dict with "top" and "left" keys.
         """
 
-    def get_position(position):
+    def get_position():
         """Returns the stored position information as dict with "top" and
         "left".
         Returns ``None`` when nothing is stored.
@@ -58,7 +58,7 @@ class IDisplaySettings(Interface):
         size -- dict with "width" and "height" keys.
         """
 
-    def get_size(size):
+    def get_size():
         """Returns the stored size information as dict with "width" and
         "height".
         Returns ``None`` when nothing is stored.

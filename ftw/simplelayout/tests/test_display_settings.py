@@ -1,7 +1,7 @@
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import SIMPLELAYOUT_ZCML_LAYER
 from ftw.testing import MockTestCase
-from zope.app.annotation.interfaces import IAttributeAnnotatable
+from zope.annotation import IAttributeAnnotatable
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
@@ -19,16 +19,19 @@ class TestDisplaySettings(MockTestCase):
         self.request = self.stub_request()
 
     def test_component_registered(self):
+        self.replay()
         component = queryMultiAdapter((self.context, self.request),
                                       IDisplaySettings)
         self.assertNotEqual(component, None)
 
     def test_implements_interface(self):
+        self.replay()
         component = queryMultiAdapter((self.context, self.request),
                                       IDisplaySettings)
         verifyClass(IDisplaySettings, component.__class__)
 
     def test_position(self):
+        self.replay()
         settings = getMultiAdapter((self.context, self.request),
                                    IDisplaySettings)
 
@@ -38,6 +41,7 @@ class TestDisplaySettings(MockTestCase):
         self.assertTrue(isinstance(settings.get_position(), PersistentMapping))
 
     def test_size(self):
+        self.replay()
         settings = getMultiAdapter((self.context, self.request),
                                    IDisplaySettings)
 

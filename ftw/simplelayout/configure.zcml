@@ -20,4 +20,6 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <adapter factory=".display.DisplaySeetings" />
+
 </configure>

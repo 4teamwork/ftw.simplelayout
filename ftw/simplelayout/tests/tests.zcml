@@ -6,6 +6,9 @@
     <include package="Products.Five" file="meta.zcml" />
     <include package="Products.GenericSetup" file="meta.zcml" />
 
+    <include package="zope.annotation" />
+
     <include package="ftw.simplelayout" />
+
 
 </configure>
