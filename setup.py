@@ -46,6 +46,7 @@ setup(name='ftw.simplelayout',
 
       install_requires=[
         'setuptools',
+        'zope.annotation',
         ],
 
       tests_require=tests_require,
