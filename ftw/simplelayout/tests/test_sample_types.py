@@ -35,10 +35,14 @@ class TestSampleTypes(TestCase):
             self.portal_url + '/demo-folder/a-test-page/createObject?type_name=Paragraph')
         self.browser.getControl(name='title').value= u"A test paragraph"
         self.browser.getControl(name='form.button.save').click()
+        self.browser.open(
+            self.portal_url + '/demo-folder/a-test-page/a-test-paragraph')
         self.assertIn('A test paragraph', self.browser.contents)
+
 
     def tearDown(self):
         super(TestSampleTypes, self).tearDown()
 
         portal = self.layer['portal']
         portal.manage_delObjects(['demo-folder'])
+        transaction.commit()
