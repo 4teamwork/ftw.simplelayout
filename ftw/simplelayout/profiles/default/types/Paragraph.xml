@@ -1,34 +1,38 @@
 <?xml version="1.0"?>
 <object name="Paragraph"
    meta_type="Factory-based Type Information with dynamic views"
-   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
- <property name="title">Paragraph</property>
- <property name="description"></property>
- <property name="content_icon">document.gif</property>
+   i18n:domain="ftw.simplelayout" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title" i18n:translate="">Paragraph</property>
+ <property name="description"
+      i18n:translate=""></property>
+ <property name="icon_expr"></property>
  <property name="content_meta_type">Paragraph</property>
  <property name="product">ftw.simplelayout</property>
  <property name="factory">addParagraph</property>
- <property name="immediate_view">base_view</property>
+ <property name="immediate_view">document_view</property>
  <property name="global_allow">False</property>
- <property name="filter_content_types">False</property>
+ <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
- <property name="default_view">base_view</property>
+ <property name="default_view">document_view</property>
  <property name="view_methods">
-  <element value="base_view"/>
+  <element value="document_view"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="atct_edit"/>
  <alias from="sharing" to="@@sharing"/>
  <alias from="view" to="(selected layout)"/>
  <action title="View" action_id="view" category="object" condition_expr=""
-    url_expr="string:${folder_url}/" visible="True"
-    i18n:attributes="title">
+    url_expr="string:${object_url}" visible="True" i18n:attributes="title">
   <permission value="View"/>
  </action>
  <action title="Edit" action_id="edit" category="object" condition_expr="not:object/@@plone_lock_info/is_locked_for_current_user|python:True"
-    url_expr="string:${object_url}/edit" visible="True"
-    i18n:attributes="title">
+    url_expr="string:${object_url}/edit" visible="True" i18n:attributes="title">
   <permission value="Modify portal content"/>
+ </action>
+ <action title="History" action_id="history" category="object"
+    condition_expr="" url_expr="string:${object_url}/atct_history"
+    visible="False" i18n:attributes="title">
+  <permission value="ATContentTypes: View history"/>
  </action>
 </object>
