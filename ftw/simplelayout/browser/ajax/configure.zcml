@@ -4,6 +4,13 @@
     i18n_domain="ftw.simplelayout">
 
     <browser:page
+        for="OFS.interfaces.IFolder"
+        name="sl-ajax-save-state"
+        class=".state.SaveStateView"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         for="*"
         name="sl-ajax-change-block-view"
         class=".changeblockview.ChangeBlockView"
