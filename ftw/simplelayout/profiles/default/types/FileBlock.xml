@@ -9,14 +9,14 @@
  <property name="content_meta_type">FileBlock</property>
  <property name="product">ftw.simplelayout</property>
  <property name="factory">addFileBlock</property>
- <property name="immediate_view">file_view</property>
+ <property name="immediate_view">@@redirect_to_parent</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">False</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
- <property name="default_view">file_view</property>
+ <property name="default_view">@@redirect_to_parent</property>
  <property name="view_methods">
-  <element value="image_view"/>
+  <element value="@@redirect_to_parent"/>
  </property>
  <alias from="(Default)" to="index_html"/>
  <alias from="edit" to="atct_edit"/>

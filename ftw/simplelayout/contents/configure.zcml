@@ -12,4 +12,22 @@
              *"
         />
 
+    <adapter
+        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
+        for="ftw.simplelayout.contents.interfaces.ILinkBlock
+             *"
+        />
+
+    <adapter
+        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
+        for="ftw.simplelayout.contents.interfaces.IFileBlock
+             *"
+        />
+
+    <adapter
+        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
+        for="ftw.simplelayout.contents.interfaces.IImageBlock
+             *"
+        />
+
 </configure>

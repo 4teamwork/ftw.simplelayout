@@ -20,4 +20,32 @@
         template="templates/paragraph.pt"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IFileBlock"
+        name="block_view"
+        permission="zope2.View"
+        template="templates/file.pt"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.ILinkBlock"
+        name="block_view"
+        permission="zope2.View"
+        template="templates/link.pt"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IImageBlock"
+        name="block_view"
+        permission="zope2.View"
+        template="templates/image.pt"
+        />
+
+    <browser:page
+        for="*"
+        name="redirect_to_parent"
+        class=".redirect_to_parent.RedirectToParent"
+        permission="zope2.View"
+        />
+
 </configure>

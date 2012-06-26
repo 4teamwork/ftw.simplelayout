@@ -9,14 +9,14 @@
  <property name="content_meta_type">LinkBlock</property>
  <property name="product">ftw.simplelayout</property>
  <property name="factory">addLinkBlock</property>
- <property name="immediate_view">link_redirect_view</property>
+ <property name="immediate_view">@@redirect_to_parent</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types"/>
  <property name="allow_discussion">False</property>
- <property name="default_view">link_redirect_view</property>
+ <property name="default_view">@@redirect_to_parent</property>
  <property name="view_methods">
-  <element value="link_redirect_view"/>
+  <element value="@@redirect_to_parent"/>
  </property>
  <alias from="(Default)" to="(dynamic view)"/>
  <alias from="edit" to="atct_edit"/>

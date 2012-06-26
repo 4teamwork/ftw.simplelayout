@@ -1,0 +1,10 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.simplelayout">
+
+    <h2 tal:content="here/Title"
+        tal:condition="here/getShowTitle | python: True" />
+
+
+</html>
