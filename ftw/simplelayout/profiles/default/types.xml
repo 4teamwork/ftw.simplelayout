@@ -5,4 +5,10 @@
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="Paragraph"
     meta_type="Factory-based Type Information with dynamic views" />
+  <object name="ImageBlock"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="FileBlock"
+    meta_type="Factory-based Type Information with dynamic views" />
+  <object name="LinkBlock"
+    meta_type="Factory-based Type Information with dynamic views" />
 </object>

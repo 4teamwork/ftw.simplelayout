@@ -14,9 +14,9 @@
  <property name="allowed_content_types" purge="False">
   <element value="Paragraph"/>
   <element value="Page"/>
-  <element value="File"/>
-  <element value="Link"/>
-  <element value="Image"/>
+  <element value="FileBlock"/>
+  <element value="LinkBlock"/>
+  <element value="ImageBlock"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">simplelayout</property>

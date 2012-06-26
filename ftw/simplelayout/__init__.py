@@ -18,6 +18,9 @@ with Zope and the CMF.
 """
     import contents.page
     import contents.paragraph
+    import contents.link
+    import contents.file
+    import contents.image
 
     content_types, constructors, _ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),

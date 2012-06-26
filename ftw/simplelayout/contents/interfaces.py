@@ -11,3 +11,15 @@ class IPage(Interface):
 
 class IParagraph(Interface):
     """Marker interface for paragraph content type"""
+
+
+class ILinkBlock(Interface):
+    """Marker interface for paragraph content type"""
+
+
+class IFileBlock(Interface):
+    """Marker interface for paragraph content type"""
+
+
+class IImageBlock(Interface):
+    """Marker interface for paragraph content type"""

@@ -3,5 +3,8 @@
   <factorytypes>
     <type portal_type="Page" />
     <type portal_type="Paragraph" />
+    <type portal_type="ImageBlock" />
+    <type portal_type="FileBlock" />
+    <type portal_type="LinkBlock" />
   </factorytypes>
 </object>
