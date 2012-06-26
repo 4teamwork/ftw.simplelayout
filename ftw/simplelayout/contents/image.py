@@ -7,10 +7,12 @@ from Products.Archetypes import atapi
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
 
+
 imagelock_schema = ATBlobSchema.copy()
 
-def addImageBlock(container, id, **kwargs):
-    return addATBlob(container, id, subtype='Image', **kwargs)
+
+def addImageBlock(container, id_, **kwargs):
+    return addATBlob(container, id_, subtype='Image', **kwargs)
 
 
 class ImageBlock(ATBlob):
@@ -22,4 +24,3 @@ class ImageBlock(ATBlob):
 
 
 atapi.registerType(ImageBlock, config.PROJECTNAME)
-

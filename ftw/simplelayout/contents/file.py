@@ -7,10 +7,12 @@ from Products.Archetypes import atapi
 from AccessControl import ClassSecurityInfo
 from zope.interface import implements
 
+
 fileblock_schema = ATBlobSchema.copy()
 
-def addFileBlock(container, id, **kwargs):
-    return addATBlob(container, id, subtype='File', **kwargs)
+
+def addFileBlock(container, id_, **kwargs):
+    return addATBlob(container, id_, subtype='File', **kwargs)
 
 
 class FileBlock(ATBlob):
@@ -22,4 +24,3 @@ class FileBlock(ATBlob):
 
 
 atapi.registerType(FileBlock, config.PROJECTNAME)
-

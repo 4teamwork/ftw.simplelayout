@@ -10,17 +10,19 @@ _ = MessageFactory('ftw.simplelayout')
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
 
-This is referenced from configure.zcml. Regstrations as a "Zope 2 product"
-is necessary for GenericSetup profiles to work, for example.
+    This is referenced from configure.zcml. Regstrations as a "Zope 2 product"
+    is necessary for GenericSetup profiles to work, for example.
 
-Here, we call the Archetypes machinery to register our content types
-with Zope and the CMF.
-"""
-    import contents.page
-    import contents.paragraph
-    import contents.link
-    import contents.file
-    import contents.image
+    Here, we call the Archetypes machinery to register our content types
+    with Zope and the CMF.
+    """
+
+    import ftw.simplelayout.contents.file
+    import ftw.simplelayout.contents.image
+    import ftw.simplelayout.contents.link
+    import ftw.simplelayout.contents.page
+    import ftw.simplelayout.contents.paragraph
+    ftw  # pylint: disable=W0104
 
     content_types, constructors, _ftis = atapi.process_types(
         atapi.listTypes(config.PROJECTNAME),
