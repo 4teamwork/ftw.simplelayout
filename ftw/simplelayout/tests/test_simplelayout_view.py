@@ -1,4 +1,5 @@
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from Products.CMFPlone.utils import _createObjectByType
 from plone.testing.z2 import Browser
 from unittest2 import TestCase
 import transaction
@@ -35,8 +36,9 @@ class TestSimplelayoutView(TestCase):
             text='the paragraph text'))
         paragraph.reindexObject()
 
-        ignored_file = self.context.get(self.context.invokeFactory(
-                'File', 'datii', title='Datii'))
+        ignored_file = _createObjectByType(
+            'File', self.context, id='datii', title='Datii')
+
         ignored_file.reindexObject()
 
         transaction.commit()
