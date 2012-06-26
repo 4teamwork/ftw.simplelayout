@@ -3,6 +3,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
+    <include package=".ajax" />
+
     <browser:page
         for="OFS.interfaces.IFolder"
         name="simplelayout"

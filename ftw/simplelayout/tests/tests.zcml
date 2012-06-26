@@ -9,6 +9,8 @@
     <include package="Products.Five" />
     <include package="zope.annotation" />
 
+    <include package="Products.CMFCore" file="permissions.zcml" />
+
     <include package="ftw.simplelayout" />
 
 
