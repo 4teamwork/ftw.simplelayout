@@ -9,6 +9,28 @@
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
                 <div class="sl-block">
+
+                    <ul tal:condition="block/editable"
+                        class="sl-controls">
+                        <li class="sl-edit">
+                            <a tal:attributes="href string:${here/absolute_url}/edit"
+                               i18n:translate="">Edit</a>
+                        </li>
+
+                        <li class="sl-delete">
+                            <a tal:attributes="href string:${here/absolute_url}/delete_confirmation"
+                               i18n:translate="">Edit</a>
+                        </li>
+
+                        <li class="seperator"><!-- --></li>
+
+                        <li tal:condition="block/available_views"
+                            tal:repeat="view block/available_views"
+                            tal:attributes="class string:sl-view-${view/name}"
+                            tal:content="view/label" />
+
+                    </ul>
+
                     <div tal:replace="structure block/view" />
                 </div>
             </tal:blocks>

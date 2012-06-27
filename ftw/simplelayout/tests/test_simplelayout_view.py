@@ -1,5 +1,6 @@
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from Products.CMFPlone.utils import _createObjectByType
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.testing.z2 import Browser
 from unittest2 import TestCase
 import transaction
@@ -20,6 +21,9 @@ class TestSimplelayoutView(TestCase):
 
         self.browser = Browser(self.layer['app'])
         self.browser.handleErrors = False
+        self.browser.addHeader('Authorization', 'Basic %s:%s' % (
+            TEST_USER_NAME, TEST_USER_PASSWORD, ))
+
         self.url = self.context.absolute_url() + '/@@simplelayout'
 
     def tearDown(self):
