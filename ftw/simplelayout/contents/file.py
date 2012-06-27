@@ -32,7 +32,6 @@ def addFileBlock(container, id_, **kwargs):
     return obj.getId()
 
 
-
 class FileBlock(ATBlob):
     """A blockish link type"""
     implements(IFileBlock)

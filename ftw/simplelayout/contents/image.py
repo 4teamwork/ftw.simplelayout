@@ -12,7 +12,6 @@ from zope.lifecycleevent import ObjectCreatedEvent
 from zope.lifecycleevent import ObjectModifiedEvent
 
 
-
 imagelock_schema = ATBlobSchema.copy()
 
 
@@ -31,7 +30,6 @@ def addImageBlock(container, id_, **kwargs):
     if not hasCMF22:
         notify(ObjectModifiedEvent(obj))
     return obj.getId()
-
 
 
 class ImageBlock(ATBlob):
