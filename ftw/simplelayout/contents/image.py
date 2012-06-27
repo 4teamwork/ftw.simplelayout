@@ -18,17 +18,14 @@ imagelock_schema = ATBlobSchema.copy()
 def addImageBlock(container, id_, **kwargs):
     subtype = 'Image'
     obj = ImageBlock(id_)
-    if subtype is not None:
-        markAs(obj, subtype)    # mark with interfaces needed for subtype
-    if not hasCMF22:
-        notify(ObjectCreatedEvent(obj))
+    markAs(obj, subtype)    # mark with interfaces needed for subtype
+    notify(ObjectCreatedEvent(obj))
+    # pylint: disable=W0212
     container._setObject(id_, obj, suppress_events=hasCMF22)
     obj = container._getOb(id_)
-    if hasCMF22:
-        obj.manage_afterAdd(obj, container)
+    # pylint: enable=W0212
     obj.initializeArchetype(**kwargs)
-    if not hasCMF22:
-        notify(ObjectModifiedEvent(obj))
+    notify(ObjectModifiedEvent(obj))
     return obj.getId()
 
 

@@ -10,4 +10,4 @@ class RedirectToParent(BrowserView):
         param = '/#%s' % context.id
 
         return self.context.REQUEST.RESPONSE.redirect(
-            context.aq_parent.absolute_url()+param)
+            context.aq_parent.absolute_url() + param)

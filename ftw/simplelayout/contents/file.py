@@ -3,7 +3,6 @@ from ftw.simplelayout import config
 from ftw.simplelayout.contents.interfaces import IFileBlock
 from plone.app.blob.content import ATBlob
 from plone.app.blob.content import ATBlobSchema
-from plone.app.blob.content import hasCMF22
 from plone.app.blob.markings import markAs
 from Products.Archetypes import atapi
 from zope.event import notify
@@ -15,20 +14,19 @@ from zope.lifecycleevent import ObjectModifiedEvent
 fileblock_schema = ATBlobSchema.copy()
 
 
+
 def addFileBlock(container, id_, **kwargs):
     subtype = 'File'
     obj = FileBlock(id_)
-    if subtype is not None:
-        markAs(obj, subtype)    # mark with interfaces needed for subtype
-    if not hasCMF22:
-        notify(ObjectCreatedEvent(obj))
-    container._setObject(id_, obj, suppress_events=hasCMF22)
+    markAs(obj, subtype)    # mark with interfaces needed for subtype
+
+    notify(ObjectCreatedEvent(obj))
+    # pylint: disable=W0212
+    container._setObject(id_, obj, suppress_events=False)
     obj = container._getOb(id_)
-    if hasCMF22:
-        obj.manage_afterAdd(obj, container)
+    # pylint: enable=W0212
     obj.initializeArchetype(**kwargs)
-    if not hasCMF22:
-        notify(ObjectModifiedEvent(obj))
+    notify(ObjectModifiedEvent(obj))
     return obj.getId()
 
 
