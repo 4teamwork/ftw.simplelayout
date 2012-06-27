@@ -14,7 +14,6 @@ from zope.lifecycleevent import ObjectModifiedEvent
 fileblock_schema = ATBlobSchema.copy()
 
 
-
 def addFileBlock(container, id_, **kwargs):
     subtype = 'File'
     obj = FileBlock(id_)
