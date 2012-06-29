@@ -5,13 +5,19 @@ version = '1.0a1'
 maintainer = 'Mathias Leimgruber'
 
 tests_require = [
-    'plone.app.testing',
+    'Products.CMFPlone',
+    'Products.GenericSetup',
     'ftw.testing',
-
+    'plone.app.testing',
+    'plone.testing',
+    'transaction',
+    'unittest2',
+    'zope.configuration',
     ]
 
 extras_require = {
     'tests': tests_require,
+    'test': tests_require,
     }
 
 setup(name='ftw.simplelayout',
@@ -46,7 +52,25 @@ setup(name='ftw.simplelayout',
 
       install_requires=[
         'setuptools',
+
+        'AccessControl',
+        'Acquisition',
+        'Persistence',
+        'Products.ATContentTypes',
+        'Products.Archetypes',
+        'Products.CMFCore',
+        'Zope2',
+        'plone.app.blob',
+        'plone.uuid',
+        'zExceptions',
         'zope.annotation',
+        'zope.component',
+        'zope.event',
+        'zope.i18nmessageid',
+        'zope.interface',
+        'zope.lifecycleevent',
+        'zope.publisher',
+
         ],
 
       tests_require=tests_require,
