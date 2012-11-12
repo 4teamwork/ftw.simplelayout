@@ -34,12 +34,9 @@ Links
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.simplelayout
 
 
-Copyright and License
-=====================
+Copyright
+=========
 
-This package is copyright by `4teamwork GmbH <http://www.4teamwork.ch/>`_
+This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
-``ftw.simplelayout`` is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+``ftw.simplelayout`` is licensed under GNU General Public License, version 2.
