@@ -40,3 +40,7 @@ Copyright
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.simplelayout`` is licensed under GNU General Public License, version 2.
+
+.. image:: https://cruel-carlota.pagodabox.com/a2410563766c51d4390fb7738fe40999
+   :alt: githalytics.com
+   :target: http://githalytics.com/4teamwork/ftw.simplelayout
