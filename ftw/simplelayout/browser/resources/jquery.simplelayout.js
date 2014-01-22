@@ -22,8 +22,8 @@
       console.info(settings.contentwidth / settings.columns);
       $container.masonry({
           itemSelector: settings.blocks,
-          isResizable: true
-          //columnWidth: get_grid()
+          isResizable: true,
+          columnWidth: get_grid()
           });
 
       // resize
@@ -43,7 +43,7 @@
           items: settings.blocks,
           placeholder: {
               element: function(current_item){
-                  var placeholder = $('<li class="block-sortable-placeholder sl-block"></li>'); // use settings.blocks
+                  var placeholder = $('<div class="block-sortable-placeholder sl-block"></div>'); // use settings.blocks
                   placeholder.css('width', current_item.css('width'));
                   placeholder.css('height', current_item.css('height'));
                   return placeholder[0];
