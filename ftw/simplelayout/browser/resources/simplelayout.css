@@ -1,0 +1,26 @@
+#content ul.simplelayout {
+    margin: 0;
+    list-style-type: none;
+}
+
+ul.simplelayout > li.sl-block {
+    display:block;
+    /*border: 1px solid #555;*/
+    margin: 0px;
+    list-style: none;
+    list-style-position: inside;
+    background-color: yellow;
+}
+
+.block-sortable-placeholder {
+    background: #aaa;
+}
+
+.dragging {
+    opacity: .8;
+    background: #ff6903; }
+
+
+#content {
+    border:1px solid red;
+}

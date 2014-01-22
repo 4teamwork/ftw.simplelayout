@@ -3,6 +3,11 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
+    <browser:resourceDirectory
+        name="ftw.simplelayout.resources"
+        directory="resources"
+        />
+
     <include package=".ajax" />
 
     <browser:page

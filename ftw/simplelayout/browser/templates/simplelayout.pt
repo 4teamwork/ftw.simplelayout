@@ -4,22 +4,31 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.simplelayout">
 
+
+<div metal:fill-slot="head_slot">
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+</div>
+
+
+
     <div metal:fill-slot="content-core">
 
-        <div class="simplelayout">
+        <ul class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
-                <div class="sl-block">
+                <li class="sl-block">
 
                     <ul tal:condition="block/editable"
                         class="sl-controls">
                         <li class="sl-edit">
-                            <a tal:attributes="href string:${here/absolute_url}/edit"
+                            <a tal:attributes="href string:${block/block/absolute_url}/edit"
                                i18n:translate="">Edit</a>
                         </li>
 
                         <li class="sl-delete">
-                            <a tal:attributes="href string:${here/absolute_url}/delete_confirmation"
-                               i18n:translate="">Edit</a>
+                            <a tal:attributes="href string:${block/block/absolute_url}/delete_confirmation"
+                               i18n:translate="">Delete</a>
                         </li>
 
                         <li class="seperator"><!-- --></li>
@@ -32,9 +41,9 @@
                     </ul>
 
                     <div tal:replace="structure block/view" />
-                </div>
+                </li>
             </tal:blocks>
-        </div>
+        </ul>
 
     </div>
 </html>
