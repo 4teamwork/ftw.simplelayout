@@ -1,19 +1,13 @@
-#content ul.simplelayout {
-    margin: 0;
-    list-style-type: none;
-}
 
-ul.simplelayout > li.sl-block {
+div.simplelayout > div.sl-block {
     display:block;
     /*border: 1px solid #555;*/
-    margin: 0px;
-    list-style: none;
-    list-style-position: inside;
+    margin: 0;
     background-color: yellow;
 }
 
 .block-sortable-placeholder {
-    background: #aaa;
+    background-color: #aaa !important;
 }
 
 .dragging {
