@@ -15,9 +15,9 @@
 
     <div metal:fill-slot="content-core">
 
-        <ul class="simplelayout">
+        <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
-                <li class="sl-block">
+                <div class="sl-block">
 
                     <ul tal:condition="block/editable"
                         class="sl-controls">
@@ -41,9 +41,9 @@
                     </ul>
 
                     <div tal:replace="structure block/view" />
-                </li>
+                </div>
             </tal:blocks>
-        </ul>
+        </div>
 
     </div>
 </html>
