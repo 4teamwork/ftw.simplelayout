@@ -6,7 +6,8 @@
       'blocks': '.sl-block',
       'columns': 2, // default is 2 possible columns
       'contentarea': '#content',
-      'contentwidth': 960, // REQUERES A STATIC WITH
+      'contentwidth': 960, // REQUERES A STATIC WIDTH
+      'resizeheightstep': 10
     }, options);
 
     function get_grid(){
@@ -28,7 +29,7 @@
 
       // resize
       $blocks.resizable({
-          grid: [ get_grid(), 10 ],
+          grid: [get_grid(), settings.resizeheightstep],
           minWidth: get_grid(),
           maxWidth: settings.contentwidth,
           resize: function( event, ui ) {
