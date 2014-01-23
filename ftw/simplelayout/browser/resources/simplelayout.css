@@ -1,9 +1,15 @@
 
+div.simplelayout {
+    position:relative;
+    height: auto;
+}
 div.simplelayout > div.sl-block {
     display:block;
     /*border: 1px solid #555;*/
     margin: 0;
+    padding: 0;
     background-color: yellow;
+    position: absolute;
 }
 
 .block-sortable-placeholder {
@@ -17,4 +23,9 @@ div.simplelayout > div.sl-block {
 
 #content {
     border:1px solid red;
+}
+
+.sl-block > .block-wrapper {
+    margin:0.5em;
+    background-color: orange;
 }

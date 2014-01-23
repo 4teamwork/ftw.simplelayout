@@ -46,7 +46,6 @@
     function init($container, $blocks){
       // Simplelayout depends on a fixed with content layout
       $(settings.contentarea).css('width', settings.contentwidth);
-      $blocks.css('width', settings.contentwidth);
 
       // masonry
       $container.masonry({

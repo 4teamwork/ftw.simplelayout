@@ -17,7 +17,9 @@
 
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
-                <div class="sl-block" tal:attributes="data-uuid block/uuid">
+                <div class="sl-block"
+                     tal:attributes="data-uuid block/uuid;
+                                     style block/style">
 
                     <ul tal:condition="block/editable"
                         class="sl-controls">
@@ -39,12 +41,19 @@
                             tal:content="view/label" />
 
                     </ul>
-                    <div class="blockWrapper">
+                    <div class="block-wrapper">
                       <div tal:replace="structure block/view" />
                     </div>
                 </div>
             </tal:blocks>
         </div>
+
+        <script type="text/javascript">
+
+          $(function(){
+            $('.simplelayout').simplelayout({'columns': 4});
+          });
+        </script>
 
     </div>
 </html>
