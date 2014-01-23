@@ -19,7 +19,7 @@ class SaveStateView(BrowserView):
     ...                   'top': 20},
     ...      'size': {'width': 100,
     ...               'height': 50}},
-
+    ...
     ...     {'uuid': '09987655',
     ...      'position': {'left': 5,
     ...                   'top': 6},
@@ -34,7 +34,9 @@ class SaveStateView(BrowserView):
         payload = self._load_objects(payload)
         self._update_order(payload)
         self._update_positions_and_sizes(payload)
-        return 'OK'
+        return json.dumps(
+            {'Status': 'OK',
+             'msg': 'Saved state of {0} blocks'.format(len(payload))})
 
     def _get_payload(self):
         payload = self.request.get('payload', None)

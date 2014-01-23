@@ -17,7 +17,7 @@
 
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
-                <div class="sl-block">
+                <div class="sl-block" tal:attributes="data-uuid block/uuid">
 
                     <ul tal:condition="block/editable"
                         class="sl-controls">
@@ -39,8 +39,9 @@
                             tal:content="view/label" />
 
                     </ul>
-
-                    <div tal:replace="structure block/view" />
+                    <div class="blockWrapper">
+                      <div tal:replace="structure block/view" />
+                    </div>
                 </div>
             </tal:blocks>
         </div>

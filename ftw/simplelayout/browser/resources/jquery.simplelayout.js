@@ -7,12 +7,41 @@
       'columns': 2, // default is 2 possible columns
       'contentarea': '#content',
       'contentwidth': 960, // REQUERES A STATIC WIDTH
-      'resizeheightstep': 10
+      'resizeheightstep': 10,
     }, options);
 
     function get_grid(){
       return settings.contentwidth / settings.columns;
     }
+
+    function save_state(items){
+      var payload = [];
+
+      items.each(function(i, item){
+        $item = $(item);
+        payload.push({
+          'uuid': $item.data('uuid'),
+          'position': $item.position(),
+          'size': {'width': $item.width(), 'height': $item.height()}
+        });
+      });
+
+      $.ajax('./sl-ajax-save-state',
+             {cache: false,
+              data: {'payload': JSON.stringify(payload)},
+              dataType:'json',
+              type: 'POST',
+              success: function(data, textStatus, jqXHR){
+                console.info(data);
+              },
+              error: function(xhr, status,error){
+                alert(status, error);
+              }
+      });
+
+
+    }
+
 
     function init($container, $blocks){
       // Simplelayout depends on a fixed with content layout
@@ -20,7 +49,6 @@
       $blocks.css('width', settings.contentwidth);
 
       // masonry
-      console.info(settings.contentwidth / settings.columns);
       $container.masonry({
           itemSelector: settings.blocks,
           isResizable: true,
@@ -34,7 +62,13 @@
           maxWidth: settings.contentwidth,
           resize: function( event, ui ) {
               ui.element.parent().masonry('reload');
+          },
+          stop: function(event, ui){
+              ui.element.parent().masonry('reload', function(){
+                save_state(this);
+              });
           }
+
       });
 
       // sortable
@@ -65,7 +99,10 @@
                   },
           stop:   function(event, ui) {
                      ui.item.removeClass('dragging').addClass('sl-block');
-                     ui.item.parent().masonry('reload');
+                     ui.item.parent().masonry('reload', function(){
+                       save_state(this);
+                     });
+
           }
      });
 
