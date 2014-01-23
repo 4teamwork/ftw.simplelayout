@@ -72,7 +72,7 @@
 
       // sortable
       $container.sortable({
-          distance: 12,
+          distance: 1,
           forcePlaceholderSize: true,
           items: settings.blocks,
           placeholder: {
