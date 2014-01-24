@@ -1,17 +1,9 @@
 (function($){
   $.fn.simplelayout = function(options){
-
-    // Defaults extended by given options
-    var settings = $.extend({
-      'blocks': '.sl-block',
-      'columns': 2, // default is 2 possible columns
-      'contentarea': '#content',
-      'contentwidth': 960, // REQUERES A STATIC WIDTH
-      'resizeheightstep': 10,
-    }, options);
+    this.settings = {};
 
     function get_grid(){
-      return settings.contentwidth / settings.columns;
+      return this.settings.contentwidth / this.settings.columns;
     }
 
     function save_state(items){
@@ -38,27 +30,39 @@
                 alert(status, error);
               }
       });
-
-
     }
 
 
-    function init($container, $blocks){
+    function init(element, options){
+
+      this.settings = $.extend({
+        'blocks': '.sl-block',
+        'columns': 2, // default is 2 possible columns
+        'contentarea': '#content',
+        'contentwidth': 960, // REQUERES A STATIC WIDTH
+        'resizeheightstep': 10,
+      }, options);
+
+      var $container = $(element);
+      var $blocks = $(this.settings.blocks, $container);
+
+
+
       // Simplelayout depends on a fixed with content layout
-      $(settings.contentarea).css('width', settings.contentwidth);
+      $(this.settings.contentarea).css('width', this.settings.contentwidth);
 
       // masonry
       $container.masonry({
-          itemSelector: settings.blocks,
+          itemSelector: this.settings.blocks,
           isResizable: true,
           columnWidth: get_grid()
           });
 
       // resize
       $blocks.resizable({
-          grid: [get_grid(), settings.resizeheightstep],
+          grid: [get_grid(), this.settings.resizeheightstep],
           minWidth: get_grid(),
-          maxWidth: settings.contentwidth,
+          maxWidth: this.settings.contentwidth,
           resize: function( event, ui ) {
               ui.element.parent().masonry('reload');
           },
@@ -74,7 +78,7 @@
       $container.sortable({
           distance: 1,
           forcePlaceholderSize: true,
-          items: settings.blocks,
+          items: this.settings.blocks,
           placeholder: {
               element: function(current_item){
                   var placeholder = $('<div class="block-sortable-placeholder sl-block"></div>'); // use settings.blocks
@@ -110,10 +114,8 @@
     }
 
     return this.each(function(){
-          var $container = $(this);
-          var $blocks = $(settings.blocks, $container);
 
-          init($container, $blocks);
+          init(this, options);
 
     });
 

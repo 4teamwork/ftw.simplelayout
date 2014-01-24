@@ -14,7 +14,7 @@
 
 
     <div metal:fill-slot="content-core">
-
+        <a href="#" class="add-block">Add Block</a>
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
                 <div class="sl-block"
