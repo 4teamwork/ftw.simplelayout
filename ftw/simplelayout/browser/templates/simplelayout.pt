@@ -51,7 +51,7 @@
         <script type="text/javascript">
 
           $(function(){
-            $('.simplelayout').simplelayout({'columns': 4});
+            $('.simplelayout').simplelayout('init', {'columns': 2}).simplelayout('layout');
           });
         </script>
 
