@@ -1,8 +1,59 @@
+/*****************************/
+// Simplaylout jQuery plugin
+//----------------------------
+// Version: 1.0a1
+// Author: Mathias Leimgruber
+// Dependencies:
+//   - jQuery Masonry v2.1.08
+//   - jQuery UI v1.8
+//     - jQuery UI sortable
+//     - jQuery UI resize
+/****************************/
+
 (function($){
+
+    // Private functions
 
     function get_grid(settings){
         return settings.contentwidth / settings.columns;
     }
+
+    function controls($element){
+      // Edit
+      $('.sl-edit a').prepOverlay({
+        subtype: 'ajax',
+        filter: "#content",
+        formselector: 'form[name=edit_form]',
+        noform: 'reload',
+        closeselector: '[name="form.button.cancel"]',
+        config: {
+          onLoad: function () {
+            if (window.initTinyMCE) {
+              window.initTinyMCE(document);
+            }
+          }
+        }
+      });
+
+      // Delete
+      $('.sl-delete a').prepOverlay({
+        subtype:'ajax',
+        urlmatch:'$',urlreplace:' #content > *',
+        formselector:'[action*="delete_confirmation"]',
+        noform:function(){
+          //remove deleted block manually, because we won't reload the
+          //hole page
+          // $('#'+uid).hide('blind',function(){
+          //     $(this).remove();
+          // });
+          // return 'close';
+          },
+        'closeselector':'[name="form.button.Cancel"]'
+        });
+
+    }
+
+    // Public functions
 
     var methods = {
         init: function(options){
@@ -24,6 +75,9 @@
                 }
 
                 $this.data('simplelayout', settings);
+
+                // Load controls
+                controls($this);
 
             });
         },
