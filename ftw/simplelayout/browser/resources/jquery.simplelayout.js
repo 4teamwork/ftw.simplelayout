@@ -82,6 +82,25 @@
             });
         },
 
+        destroy: function(options) {
+          return $(this).each(function() {
+            var $this = $(this);
+            var settings = $this.data('simplelayout');
+
+            if(typeof(settings) == 'undefined'){
+              console.info('Initialize plugin first, using $("SELECTOR").simplelayout("init", options)');
+              return;
+            }
+
+            var $blocks = $(settings.blocks, $this);
+
+            $this.removeData('simplelayout');
+            $this.masonry('destroy');
+            $this.sortable('destroy');
+            $blocks.resizable('destroy');
+          });
+        },
+
         layout: function(options){
 
           return this.each(function(){
