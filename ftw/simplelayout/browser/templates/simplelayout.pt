@@ -17,7 +17,7 @@
                      tal:attributes="data-uuid block/uuid;
                                      style block/style">
                   <div class="block-wrapper">
-
+                    <span class="ui-icon ui-icon-document sl-controls-toggler"></span>
                     <ul tal:condition="block/editable"
                         class="sl-controls">
                         <li class="sl-edit">

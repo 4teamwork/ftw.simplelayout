@@ -48,6 +48,21 @@ Private methods:
     }
 
     function controls($element){
+      var settings = $element.data('simplelayout');
+      var $blocks = $(settings.blocks, $element);
+
+
+      // Menu
+      var $controls = $('.sl-controls', $blocks).hide();
+      var $toggler = $('.sl-controls-toggler', $blocks);
+
+      $toggler.bind('click', function(){
+        $(this).next().toggle();
+
+      });
+
+
+
       // Edit
       $('.sl-edit a').prepOverlay({
         subtype: 'ajax',
@@ -85,7 +100,6 @@ Private methods:
       console.info($addlink);
 
       $addlink.bind('click', function(e){
-        settings = $element.data('simplelayout');
 
         if ($element.find('.sl-add-block').length !== 0){
           // Only one add block is allowed

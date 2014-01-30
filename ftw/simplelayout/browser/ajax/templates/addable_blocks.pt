@@ -1,11 +1,13 @@
-<ul class="sl-addable-blocks">
-  <li tal:repeat="blocktype view/addable_blocks">
+<div class="block-wrapper">
+  <ul class="sl-addable-blocks">
+    <li tal:repeat="blocktype view/addable_blocks">
 
-    <a tal:attributes="href string:./createObject?type_name=${blocktype};
-                       title blocktype"
-       tal:content="blocktype">
-       block type
-     </a>
+      <a tal:attributes="href string:./createObject?type_name=${blocktype};
+                         title blocktype"
+         tal:content="blocktype">
+         block type
+       </a>
 
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>
