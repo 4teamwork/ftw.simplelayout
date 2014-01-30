@@ -80,6 +80,31 @@ Private methods:
         'closeselector':'[name="form.button.Cancel"]'
         });
 
+      // add
+      $addlink = $element.prev();
+      console.info($addlink);
+
+      $addlink.bind('click', function(e){
+        settings = $element.data('simplelayout');
+
+        if ($element.find('.sl-add-block').length !== 0){
+          // Only one add block is allowed
+          return;
+        }
+
+        $block = $(
+          '<div style="width:' + settings.contentwidth + 'px" ' +
+               'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
+          '</div>');
+        $element.prepend($block);
+        $block.load('./@@addable-blocks-view', function(data){
+          $element.simplelayout('layout');
+          $element.masonry('reload');
+        });
+
+      });
+
+
     }
 
     // Public functions
@@ -127,6 +152,21 @@ Private methods:
             $this.masonry('destroy');
             $this.sortable('destroy');
             $blocks.resizable('destroy');
+          });
+        },
+
+        add: function(options){
+          return this.each(function(){
+            var $this = $(this);
+            var settings = $this.data('simplelayout');
+
+            if(typeof(settings) == 'undefined'){
+              console.info('Initialize plugin first, using $("SELECTOR").simplelayout("init", options)');
+              return;
+            }
+
+            $this.prev().click();
+
           });
         },
 
@@ -211,6 +251,11 @@ Private methods:
 
             if(typeof(settings) == 'undefined'){
               console.info('Initialize plugin first, using $("SELECTOR").simplelayout("init", options)');
+              return;
+            }
+
+            if ($this.find('.sl-add-block').length !== 0){
+              // The user is currently adding a new block - do store nothing.
               return;
             }
 
