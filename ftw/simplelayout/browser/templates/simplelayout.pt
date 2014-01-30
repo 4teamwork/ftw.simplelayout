@@ -7,11 +7,7 @@
 
 <div metal:fill-slot="head_slot">
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-
 </div>
-
-
 
     <div metal:fill-slot="content-core">
         <a href="#" class="add-block-link">Add Block</a>
