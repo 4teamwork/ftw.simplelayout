@@ -1,14 +1,43 @@
-/*****************************/
-// Simplaylout jQuery plugin
-//----------------------------
-// Version: 1.0a1
-// Author: Mathias Leimgruber
-// Dependencies:
-//   - jQuery Masonry v2.1.08
-//   - jQuery UI v1.8
-//     - jQuery UI sortable
-//     - jQuery UI resize
-/****************************/
+/**********************************************
+Simplaylout jQuery plugin
+----------------------------
+Version: 1.0a1
+Author: Mathias Leimgruber
+Dependencies:
+  - jQuery Masonry v2.1.08
+  - jQuery UI v1.8
+    - jQuery UI sortable
+    - jQuery UI resize
+
+Usage:
+
+Initialize...
+  $(SELECTOR).simplelayout();
+  $(SELECTOR).simplelayout(options);
+  $(SELECTOR).simplelayout('init', options);
+
+Arrange blocks...
+  $(SELECTOR).simplelayout('layout')
+
+Save block states...
+  $(SELECTOR).simplelayout('save')
+
+Destroy... (If you want)
+  $(SELECTOR).simplelayout('destroy')
+
+Default configuration:
+  {blocks: '.sl-block',
+   columns: 2,
+   contentarea: '#content',
+   contentwidth: 960,
+   resizeheightstep: 10}
+
+Private methods:
+  - get_grid (calculates the grid size)
+  - controls (Loads edit /
+              delete action for each block)
+
+**********************************************/
 
 (function($){
 
