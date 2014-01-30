@@ -8,12 +8,11 @@ div.simplelayout > div.sl-block {
     /*border: 1px solid #555;*/
     margin: 0;
     padding: 0;
-    background-color: yellow;
     position: absolute;
 }
 
 .block-sortable-placeholder {
-    background-color: #aaa !important;
+    background-color: #aaa;
 }
 
 .dragging {
@@ -27,7 +26,10 @@ div.simplelayout > div.sl-block {
 
 .sl-block > .block-wrapper {
     margin:0.5em;
-    background-color: orange;
+    border-left:1px dashed #aebdcc;
+    border-right:1px dashed #aebdcc;
+    border-top:1px dashed #aebdcc;
+    height: 100%;
 }
 
 .sl-add-block {
