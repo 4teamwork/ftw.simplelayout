@@ -5,11 +5,12 @@ version = '1.0a1'
 maintainer = 'Mathias Leimgruber'
 
 tests_require = [
-    'Products.CMFPlone',
-    'Products.GenericSetup',
+    'ftw.builder',
     'ftw.testing',
     'plone.app.testing',
     'plone.testing',
+    'Products.CMFPlone',
+    'Products.GenericSetup',
     'transaction',
     'unittest2',
     'zope.configuration',
