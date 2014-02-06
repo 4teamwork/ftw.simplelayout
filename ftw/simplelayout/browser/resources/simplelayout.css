@@ -1,0 +1,55 @@
+
+div.simplelayout {
+    position:relative;
+    height: auto;
+}
+div.simplelayout > div.sl-block {
+    display:block;
+    /*border: 1px solid #555;*/
+    margin: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.block-sortable-placeholder {
+    background-color: #aaa;
+}
+
+.dragging {
+    opacity: .8;
+    background: #ff6903; }
+
+.sl-block > .block-wrapper {
+    border-left:1px dashed #aebdcc;
+    border-right:1px dashed #aebdcc;
+    border-top:1px dashed #aebdcc;
+    border-bottom:1px dashed #aebdcc;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sl-block > .block-wrapper > .block-view-wrapper {
+    margin:0.5em;
+}
+
+.sl-add-block {
+
+}
+
+.sl-controls-toggler {
+    position: absolute;
+    z-index: 90;
+}
+
+#content ul.sl-controls {
+    position: absolute;
+    left:10px;
+    z-index: 90;
+    list-style-type: none;
+    background-color: #ddd;
+    border-radius: 3px;
+    margin:0;
+    padding:0.5em;
+    top:1em;
+    left:1em;
+}
