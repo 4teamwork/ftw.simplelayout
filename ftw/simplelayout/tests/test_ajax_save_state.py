@@ -1,7 +1,9 @@
-from Products.CMFCore.utils import getToolByName
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from plone.uuid.interfaces import IUUID
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -17,24 +19,16 @@ class TestSaveStateView(TestCase):
     def setUp(self):
         super(TestSaveStateView, self).setUp()
 
-        portal = self.layer['portal']
-        self.page = portal.get(portal.invokeFactory(
-            'Page', 'the-page', title='The Page'))
-
-        self.foo = self.page.get(self.page.invokeFactory(
-                'Paragraph', 'foo', title='Foo'))
-
-        self.bar = self.page.get(self.page.invokeFactory(
-                'Paragraph', 'bar', title='bar'))
-
-        self.baz = self.page.get(self.page.invokeFactory(
-                'Paragraph', 'baz', title='Baz'))
-
-    def tearDown(self):
-        super(TestSaveStateView, self).tearDown()
-
-        portal = self.layer['portal']
-        portal.manage_delObjects(['the-page'])
+        self.page = create(Builder('sl content page').titled(u'The Page'))
+        self.foo = create(Builder('sl textblock')
+                          .within(self.page)
+                          .titled(u'Foo'))
+        self.bar = create(Builder('sl textblock')
+                          .within(self.page)
+                          .titled(u'Bar'))
+        self.baz = create(Builder('sl textblock')
+                          .within(self.page)
+                          .titled(u'Baz'))
 
     def get_content_ids(self):
         # Returns content ids of direct children using catalog.
@@ -62,7 +56,7 @@ class TestSaveStateView(TestCase):
 
     def test_view_fails_without_payload(self):
         view = getMultiAdapter((self.page, TestRequest()),
-                                 name='sl-ajax-save-state')
+                               name='sl-ajax-save-state')
 
         with self.assertRaises(BadRequest) as cm:
             view()
@@ -76,8 +70,9 @@ class TestSaveStateView(TestCase):
         request = TestRequest(form={'payload': json.dumps(payload)})
 
         view = getMultiAdapter((self.page, request),
-                        name='sl-ajax-save-state')
-        self.assertEqual(view(), 'OK')
+                               name='sl-ajax-save-state')
+        self.assertEqual('{"Status": "OK", "msg": "Saved state of 1 blocks"}',
+                         view())
 
     def test_content_order(self):
         self.assertEqual(self.get_content_ids(),
@@ -98,14 +93,13 @@ class TestSaveStateView(TestCase):
 
     def test_block_positions(self):
         foo_settings = getMultiAdapter((self.foo, TestRequest()),
-                                   IDisplaySettings)
+                                       IDisplaySettings)
         bar_settings = getMultiAdapter((self.bar, TestRequest()),
-                                   IDisplaySettings)
+                                       IDisplaySettings)
 
         # Position is None when newer saved.
         self.assertEqual(foo_settings.get_position(), None)
         self.assertEqual(bar_settings.get_position(), None)
-
 
         # Set positions #1
         payload = [
@@ -147,14 +141,13 @@ class TestSaveStateView(TestCase):
 
     def test_block_size(self):
         foo_settings = getMultiAdapter((self.foo, TestRequest()),
-                                   IDisplaySettings)
+                                       IDisplaySettings)
         bar_settings = getMultiAdapter((self.bar, TestRequest()),
-                                   IDisplaySettings)
+                                       IDisplaySettings)
 
         # Size is None when newer saved.
         self.assertEqual(foo_settings.get_size(), None)
         self.assertEqual(bar_settings.get_size(), None)
-
 
         # Set sizes #1
         payload = [
