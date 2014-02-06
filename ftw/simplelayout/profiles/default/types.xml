@@ -11,4 +11,6 @@
     meta_type="Factory-based Type Information with dynamic views" />
   <object name="LinkBlock"
     meta_type="Factory-based Type Information with dynamic views" />
+  <object name="ftw.simplelayout.ContentPage" meta_type="Dexterity FTI" />
+  <object name="ftw.simplelayout.TextBlock" meta_type="Dexterity FTI" />
 </object>

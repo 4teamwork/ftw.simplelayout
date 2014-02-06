@@ -6,8 +6,9 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
-    <five:registerPackage package="." initialize=".initialize" />
+    <include package="plone.behavior" file="meta.zcml" />
 
+    <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".contents" />
 

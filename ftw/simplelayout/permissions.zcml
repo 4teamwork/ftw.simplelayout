@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="ftw.topics">
+
+    <permission
+        id="ftw.simplelayout.AddContentPage"
+        title="ftw.simplelayout: Add ContentPage"
+        />
+
+    <permission
+        id="ftw.simplelayout.AddTextBLock"
+        title="ftw.simplelayout: Add TextBlock"
+        />
+
+</configure>
