@@ -13,7 +13,7 @@ class AddableBlocks(BrowserView):
     def addable_blocks(self):
         # XXX - Dynamically get block types
         block_types = set(
-            ['FileBlock', 'ImageBlock', 'LinkBlock', 'TextBlock'])
+            ['ftw.simplelayout.TextBlock'])
         allowed_types = set(ISelectableConstrainTypes(
             self.context).getImmediatelyAddableTypes())
         return block_types & allowed_types

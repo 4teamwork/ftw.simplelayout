@@ -97,7 +97,6 @@ Private methods:
 
       // add
       $addlink = $element.prev();
-      console.info($addlink);
 
       $addlink.bind('click', function(e){
 

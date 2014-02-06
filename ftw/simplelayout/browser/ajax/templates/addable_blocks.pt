@@ -2,7 +2,7 @@
   <ul class="sl-addable-blocks">
     <li tal:repeat="blocktype view/addable_blocks">
 
-      <a tal:attributes="href string:./createObject?type_name=${blocktype};
+      <a tal:attributes="href string:./++add++${blocktype};
                          title blocktype"
          tal:content="blocktype">
          block type

@@ -12,7 +12,7 @@ class TestAddableBlocksView(TestCase):
         super(TestAddableBlocksView, self).setUp()
 
     def test_addable_blocks_view(self):
-        page = create(Builder('sl page'))
+        page = create(Builder('sl content page'))
 
         view = page.restrictedTraverse('@@addable-blocks-view')
 
@@ -21,10 +21,10 @@ class TestAddableBlocksView(TestCase):
         result.sort()
 
         self.assertEquals(
-            ['FileBlock', 'ImageBlock', 'LinkBlock', 'Paragraph'],
+            ['ftw.simplelayout.TextBlock', ],
             result)
 
     def test_addable_blocks_view_renders(self):
-        page = create(Builder('sl page'))
+        page = create(Builder('sl content page'))
         view = page.restrictedTraverse('@@addable-blocks-view')
         self.assertTrue(len(view()), 'Cannot render view.')
