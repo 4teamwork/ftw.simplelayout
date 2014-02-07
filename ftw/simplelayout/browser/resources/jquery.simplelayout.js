@@ -67,8 +67,15 @@ Private methods:
       $('.sl-edit a').prepOverlay({
         subtype: 'ajax',
         filter: "#content",
-        formselector: 'form[name=edit_form]',
-        noform: 'reload',
+        formselector: 'form',
+        noform:function(data, overlay){
+          var $block = overlay.source.closest('.sl-block');
+          var uuid = $block.data('uuid');
+          $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
+                      {uuid: uuid});
+          return 'close';
+          },
+
         closeselector: '[name="form.button.cancel"]',
         config: {
           onLoad: function () {

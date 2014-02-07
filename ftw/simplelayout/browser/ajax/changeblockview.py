@@ -1,4 +1,5 @@
 from ftw.simplelayout.interfaces import IBlockProperties
+from plone.app.uuid.utils import uuidToObject
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.publisher.browser import BrowserView
@@ -44,8 +45,12 @@ class ReloadBlockView(BrowserView):
     """Reloads the block view"""
 
     def __call__(self):
+        uuid = self.request.get('uuid', None)
+        if uuid is None:
+            raise BadRequest('No uuid provided.')
 
-        properties = getMultiAdapter((self.context, self.request),
+        obj = uuidToObject(uuid)
+        properties = getMultiAdapter((obj, obj.REQUEST),
                                      IBlockProperties)
-        return self.context.restrictedTraverse(
+        return obj.restrictedTraverse(
             properties.get_current_view_name())()
