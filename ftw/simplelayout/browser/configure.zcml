@@ -19,31 +19,10 @@
         />
 
     <browser:page
-        for="ftw.simplelayout.contents.interfaces.IParagraph"
+        for="ftw.simplelayout.contents.interfaces.ITextBlock"
         name="block_view"
         permission="zope2.View"
-        template="templates/paragraph.pt"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.IFileBlock"
-        name="block_view"
-        permission="zope2.View"
-        template="templates/file.pt"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.ILinkBlock"
-        name="block_view"
-        permission="zope2.View"
-        template="templates/link.pt"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.IImageBlock"
-        name="block_view"
-        permission="zope2.View"
-        template="templates/image.pt"
+        template="templates/textblock.pt"
         />
 
     <browser:page

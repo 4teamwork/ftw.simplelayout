@@ -50,7 +50,7 @@
         <script type="text/javascript">
 
           $(function(){
-            $('.simplelayout').simplelayout('init', {'columns': 2}).simplelayout('layout');
+            $('.simplelayout').simplelayout('init', {'columns': 4}).simplelayout('layout');
           });
         </script>
 

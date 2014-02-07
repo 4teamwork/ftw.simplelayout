@@ -5,21 +5,9 @@
 from zope.interface import Interface
 
 
-class IPage(Interface):
-    """Marker interface for page content type"""
+class ITextBlock(Interface):
+    """Marker interface for TextBlocks"""
 
 
-class IParagraph(Interface):
-    """Marker interface for paragraph content type"""
-
-
-class ILinkBlock(Interface):
-    """Marker interface for paragraph content type"""
-
-
-class IFileBlock(Interface):
-    """Marker interface for paragraph content type"""
-
-
-class IImageBlock(Interface):
-    """Marker interface for paragraph content type"""
+class IContentPage(Interface):
+    """Marker interface for ConetPages"""

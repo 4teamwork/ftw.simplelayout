@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <rolemap>
   <permissions>
-    <permission name="ftw.simplelayout: Add Page" acquire="False">
+    <permission name="ftw.simplelayout: Add ContentPage" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
-    <permission name="ftw.simplelayout: Add Paragraph" acquire="False">
+    <permission name="ftw.simplelayout: Add TextBlock" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />
     </permission>

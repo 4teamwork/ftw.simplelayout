@@ -1,9 +1,13 @@
-from Products.CMFPlone.utils import _createObjectByType
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.testbrowser import browsing
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.testing.z2 import Browser
+from Products.CMFPlone.utils import _createObjectByType
 from unittest2 import TestCase
 import transaction
+from plone.app.textfield.value import RichTextValue
 
 
 class TestSimplelayoutView(TestCase):
@@ -13,49 +17,36 @@ class TestSimplelayoutView(TestCase):
     def setUp(self):
         super(TestSimplelayoutView, self).setUp()
 
-        portal = self.layer['portal']
-        self.context = portal.get(portal.invokeFactory(
-                'Page', 'test-simplelayout-view'))
-
-        transaction.commit()
+        self.contentpage = create(Builder('sl content page'))
 
         self.browser = Browser(self.layer['app'])
         self.browser.handleErrors = False
         self.browser.addHeader('Authorization', 'Basic %s:%s' % (
             TEST_USER_NAME, TEST_USER_PASSWORD, ))
 
-        self.url = self.context.absolute_url() + '/@@simplelayout'
+        self.url = self.contentpage.absolute_url() + '/@@simplelayout'
 
-    def tearDown(self):
-        super(TestSimplelayoutView, self).tearDown()
+    @browsing
+    def test_view_renders(self, browser):
+        textblock = create(Builder('sl textblock')
+                           .titled('TextBlock title')
+                           .within(self.contentpage)
+                           .having(text=RichTextValue('The text'))
+                           .having(show_title=False))
 
-        portal = self.layer['portal']
-        portal.manage_delObjects(['test-simplelayout-view'])
+        textblock.reindexObject()
 
-        transaction.commit()
+        browser.login().visit(self.contentpage, view='@@simplelayout')
 
-    def test_view_renders(self):
-        paragraph = self.context.get(self.context.invokeFactory(
-            'Paragraph', 'first-paragraph', title='First Paragraph',
-            text='the paragraph text'))
-        paragraph.reindexObject()
+        self.assertEqual(browser.url, self.url)
+        self.assertEquals('The text', browser.css(
+            '.block-view-wrapper').first.text)
+        self.assertFalse(len(browser.css('.block-view-wrapper h2')))
 
-        ignored_file = _createObjectByType(
-            'File', self.context, id='datii', title='Datii')
-
-        ignored_file.reindexObject()
-
-        transaction.commit()
-
-        self.browser.open(self.url)
-        self.assertEqual(self.browser.url, self.url)
-        self.assertIn('the paragraph text', self.browser.contents)
-        self.assertNotIn('First Paragraph', self.browser.contents)
-        self.assertNotIn('Datii', self.browser.contents)
-
-        paragraph.setShowTitle(True)
+        textblock.show_title = True
         transaction.commit()
 
         self.browser.open(self.url)
-        self.assertEqual(self.browser.url, self.url)
-        self.assertIn('First Paragraph', self.browser.contents)
+        browser.visit(self.contentpage)
+        self.assertEquals('TextBlock title',
+                          browser.css('.block-view-wrapper h2').first.text)

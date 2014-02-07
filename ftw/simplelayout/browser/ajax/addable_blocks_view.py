@@ -1,5 +1,6 @@
-from zope.publisher.browser import BrowserView
+from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.publisher.browser import BrowserView
 
 
 class AddableBlocks(BrowserView):
@@ -12,6 +13,7 @@ class AddableBlocks(BrowserView):
     def addable_blocks(self):
         # XXX - Dynamically get block types
         block_types = set(
-            ['FileBlock', 'ImageBlock', 'LinkBlock', 'Paragraph'])
-        allowed_types = set(self.context.getLocallyAllowedTypes())
+            ['ftw.simplelayout.TextBlock'])
+        allowed_types = set(ISelectableConstrainTypes(
+            self.context).getImmediatelyAddableTypes())
         return block_types & allowed_types

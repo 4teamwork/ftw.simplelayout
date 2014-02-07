@@ -19,6 +19,13 @@
 
     <browser:page
         for="*"
+        name="sl-ajax-reload-block-view"
+        class=".changeblockview.ReloadBlockView"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="*"
         name="addable-blocks-view"
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"

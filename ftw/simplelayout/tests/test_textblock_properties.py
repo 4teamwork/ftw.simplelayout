@@ -1,4 +1,4 @@
-from ftw.simplelayout.contents.paragraph import Paragraph
+from ftw.simplelayout.contents.textblock import TextBlock
 from ftw.simplelayout.tests import test_singleview_block_properties
 from ftw.testing import MockTestCase
 
@@ -12,5 +12,5 @@ class TestParagraphProperties(TestSingleViewBlockProperties):
     def setUp(self):
         MockTestCase.setUp(self)
 
-        self.context = Paragraph('test-paragraph')
+        self.context = TextBlock('test-paragraph')
         self.request = self.stub_request()

@@ -67,8 +67,15 @@ Private methods:
       $('.sl-edit a').prepOverlay({
         subtype: 'ajax',
         filter: "#content",
-        formselector: 'form[name=edit_form]',
-        noform: 'reload',
+        formselector: 'form',
+        noform:function(data, overlay){
+          var $block = overlay.source.closest('.sl-block');
+          var uuid = $block.data('uuid');
+          $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
+                      {uuid: uuid});
+          return 'close';
+          },
+
         closeselector: '[name="form.button.cancel"]',
         config: {
           onLoad: function () {
@@ -84,20 +91,15 @@ Private methods:
         subtype:'ajax',
         urlmatch:'$',urlreplace:' #content > *',
         formselector:'[action*="delete_confirmation"]',
-        noform:function(){
-          //remove deleted block manually, because we won't reload the
-          //hole page
-          // $('#'+uid).hide('blind',function(){
-          //     $(this).remove();
-          // });
-          // return 'close';
+        noform:function(data, overlay){
+          overlay.source.closest('.sl-block').remove();
+          return 'close';
           },
         'closeselector':'[name="form.button.Cancel"]'
         });
 
       // add
       $addlink = $element.prev();
-      console.info($addlink);
 
       $addlink.bind('click', function(e){
 
@@ -106,12 +108,44 @@ Private methods:
           return;
         }
 
-        $block = $(
+        var $block = $(
           '<div style="width:' + settings.contentwidth + 'px" ' +
                'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
           '</div>');
         $element.prepend($block);
         $block.load('./@@addable-blocks-view', function(data){
+
+          $('.sl-addable-blocks a').prepOverlay({
+            subtype: 'ajax',
+            filter: "#content",
+            formselector: 'form',
+            noform: function(data, overlay){
+              var $newblock = $('.sl-block', data).eq(-1);
+              $newblock.attr('style', $block.attr('style'));
+              $('.sl-add-block', $element).replaceWith($newblock);
+
+              // $element.masonry('reload');
+              $element.simplelayout('layout');
+              $element.simplelayout('save');
+              controls($element);
+              return 'close';
+            },
+            closeselector: '[name="form.buttons.cancel"]',
+            afterpost: function(data, overlay){
+              console.info('bla');
+            },
+            config: {
+              onLoad: function () {
+                if (window.initTinyMCE) {
+                  window.initTinyMCE(document);
+                }
+              }
+
+            }
+
+
+          });
+
           $element.simplelayout('layout');
           $element.masonry('reload');
         });

@@ -4,8 +4,8 @@
       i18n:domain="ftw.simplelayout">
 
     <h2 tal:content="here/Title"
-        tal:condition="here/getShowTitle | python: True" />
+        tal:condition="here/show_title | python: True" />
 
-    <div tal:replace="structure here/getText" />
+    <div tal:replace="structure here/text/output" />
 
 </html>
