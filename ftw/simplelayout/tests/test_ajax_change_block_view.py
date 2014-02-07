@@ -126,3 +126,15 @@ class TestChangeBlockView(MockTestCase):
         self.assertEqual(
             str(cm.exception),
             'This object does not support changing the view.')
+
+    def test_block_reload_view(self):
+        self.expect(
+            self.foo.restrictedTraverse('block_view')()).result(
+            'The foo_view rendered.')
+
+        self.replay()
+
+        view = getMultiAdapter((self.foo, self.request),
+                               name='sl-ajax-reload-block-view')
+        self.assertEqual(view(), 'The foo_view rendered.')
+

@@ -38,3 +38,14 @@ class ChangeBlockView(BrowserView):
 
     def _render(self, view_name):
         return self.context.restrictedTraverse('@@' + view_name)()
+
+
+class ReloadBlockView(BrowserView):
+    """Reloads the block view"""
+
+    def __call__(self):
+
+        properties = getMultiAdapter((self.context, self.request),
+                                     IBlockProperties)
+        return self.context.restrictedTraverse(
+            properties.get_current_view_name())()
