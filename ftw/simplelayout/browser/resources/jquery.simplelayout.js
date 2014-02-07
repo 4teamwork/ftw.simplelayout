@@ -101,12 +101,44 @@ Private methods:
           return;
         }
 
-        $block = $(
+        var $block = $(
           '<div style="width:' + settings.contentwidth + 'px" ' +
                'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
           '</div>');
         $element.prepend($block);
         $block.load('./@@addable-blocks-view', function(data){
+
+          $('.sl-addable-blocks a').prepOverlay({
+            subtype: 'ajax',
+            filter: "#content",
+            formselector: 'form',
+            noform: function(data, overlay){
+              var $newblock = $('.sl-block', data).eq(-1);
+              $newblock.attr('style', $block.attr('style'));
+              $('.sl-add-block', $element).replaceWith($newblock);
+
+              // $element.masonry('reload');
+              $element.simplelayout('layout');
+              $element.simplelayout('save');
+              controls($element);
+              return 'close';
+            },
+            closeselector: '[name="form.buttons.cancel"]',
+            afterpost: function(data, overlay){
+              console.info('bla');
+            },
+            config: {
+              onLoad: function () {
+                if (window.initTinyMCE) {
+                  window.initTinyMCE(document);
+                }
+              }
+
+            }
+
+
+          });
+
           $element.simplelayout('layout');
           $element.masonry('reload');
         });
