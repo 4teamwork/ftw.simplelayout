@@ -84,13 +84,9 @@ Private methods:
         subtype:'ajax',
         urlmatch:'$',urlreplace:' #content > *',
         formselector:'[action*="delete_confirmation"]',
-        noform:function(){
-          //remove deleted block manually, because we won't reload the
-          //hole page
-          // $('#'+uid).hide('blind',function(){
-          //     $(this).remove();
-          // });
-          // return 'close';
+        noform:function(data, overlay){
+          overlay.source.closest('.sl-block').remove();
+          return 'close';
           },
         'closeselector':'[name="form.button.Cancel"]'
         });
