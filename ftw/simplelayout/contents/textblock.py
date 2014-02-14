@@ -2,6 +2,7 @@ from ftw.simplelayout import _
 from ftw.simplelayout.contents.interfaces import ITextBlock
 from plone.app.textfield import RichText
 from plone.dexterity.content import Item
+from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from zope import schema
 from zope.interface import implements
@@ -18,6 +19,9 @@ class ITextBlockSchema(model.Schema):
         default=True)
 
     text = RichText(title=_(u'label_text', default=u'Text'))
+
+    image = NamedBlobImage(title=_(u'label_image', default=u'Image'),
+                           required=False)
 
 
 class TextBlock(Item):
