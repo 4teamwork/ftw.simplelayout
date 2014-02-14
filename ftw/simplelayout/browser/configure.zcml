@@ -22,6 +22,7 @@
         for="ftw.simplelayout.contents.interfaces.ITextBlock"
         name="block_view"
         permission="zope2.View"
+        class=".textblock.TextBlockView"
         template="templates/textblock.pt"
         />
 

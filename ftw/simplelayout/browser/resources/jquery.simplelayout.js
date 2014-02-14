@@ -47,6 +47,42 @@ Private methods:
         return settings.contentwidth / settings.columns;
     }
 
+    function send_file_to_server(form_data, $block){
+      // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
+      var upload_url = './sl-ajax-image-upload';
+
+      var $xhr = $.ajax({
+        xhr: function(){
+          var xhrobj = $.ajaxSettings.xhr();
+          // Implement Progressbar
+          return xhrobj;
+        },
+        url: upload_url,
+        type: 'POST',
+        contentType: false,
+        processData: false,
+        cache: false,
+        data: form_data,
+        success: function(data){
+          var uuid = JSON.parse(data).uuid;
+
+          $('.block-view-wrapper', $block).load(
+            './@@sl-ajax-reload-block-view', {uuid: uuid}, function(data){
+              $block.data('uuid', uuid);
+              $block.removeClass('sl-add-block');
+              $block.closest('.simplelayout').masonry('reload').simplelayout('save');
+            });
+        },
+
+        error: function(xhr, status, error){
+          alert(status, error);
+        }
+
+
+      });
+
+    }
+
     function controls($element){
       var settings = $element.data('simplelayout');
       var $blocks = $(settings.blocks, $element);
@@ -102,6 +138,8 @@ Private methods:
       $addlink = $element.prev();
 
       $addlink.bind('click', function(e){
+        e.stopPropagation();
+        e.preventDefault();
 
         if ($element.find('.sl-add-block').length !== 0){
           // Only one add block is allowed
@@ -124,15 +162,14 @@ Private methods:
               $newblock.attr('style', $block.attr('style'));
               $('.sl-add-block', $element).replaceWith($newblock);
 
-              // $element.masonry('reload');
-              $element.simplelayout('layout');
+              $element.masonry('reload');
               $element.simplelayout('save');
               controls($element);
               return 'close';
             },
             closeselector: '[name="form.buttons.cancel"]',
             afterpost: function(data, overlay){
-              console.info('bla');
+              console.info('afterpost');
             },
             config: {
               onLoad: function () {
@@ -180,6 +217,66 @@ Private methods:
 
                 // Load controls
                 controls($this);
+
+                /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
+                $this.on('dragover', function (e){
+                  e.stopPropagation();
+                  e.preventDefault();
+
+                  if ($('.sl-add-block', $this).length === 0){
+                    var files = e.originalEvent.dataTransfer.items;
+                    $.each(files, function(index, file){
+                      var $block = $(
+                        '<div style="width:' + get_grid(settings) + 'px" ' +
+                             'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
+                             '<div class="block-wrapper">' +
+                               '<div class="block-view-wrapper">' + file + '</div>' +
+                             '</div>' +
+                        '</div>');
+                      $this.prepend($block);
+                    });
+
+                    $this.masonry('reload');
+                  }
+                });
+
+                $this.on('drop', function(e){
+                  e.stopPropagation();
+                  e.preventDefault();
+
+                  var files = e.originalEvent.dataTransfer.files;
+                  var $blocks = $('.sl-add-block', $(this));
+
+                  $.each(files, function(index, file){
+                    var $block = $blocks.eq(index);
+                    $('.block-view-wrapper', $block).html('uploading... ' + file.name);
+
+                    var data = new FormData();
+                    data.append('image', file);
+                    data.append('filename', file.name);
+
+                    send_file_to_server(data, $block);
+                  });
+
+                });
+
+
+                // $(document).on('dragleave', function (e){
+                //   e.stopPropagation();
+                //   e.preventDefault();
+
+                //   /* THIS IS NOT WORKING - FACK */
+                //   if (e.target === this){
+
+                //     if ($('.sl-add-block', $this).length !== 0){
+                //       console.info('leave');
+                //       $('.sl-add-block', $this).remove();
+                //       $this.masonry('reload');
+                //     }
+                //   }
+
+                // });
+                /*********************/
 
             });
         },
