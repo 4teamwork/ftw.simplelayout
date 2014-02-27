@@ -126,7 +126,9 @@ Private methods:
                 urlmatch:'$',urlreplace:' #content > *',
                 formselector:'[action*="delete_confirmation"]',
                 noform:function(data, overlay){
+                  var $container = overlay.source.closest('.simplelayout');
                   overlay.source.closest('.sl-block').remove();
+                  $container.masonry('reload');
                   return 'close';
                   },
                 'closeselector':'[name="form.button.Cancel"]'
