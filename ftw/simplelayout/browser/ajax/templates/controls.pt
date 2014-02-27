@@ -1,0 +1,19 @@
+<ul class="sl-controls">
+    <li class="sl-edit">
+        <a tal:attributes="href string:${view/block/absolute_url}/edit"
+           i18n:translate="">Edit</a>
+    </li>
+
+    <li class="sl-delete">
+        <a tal:attributes="href string:${view/block/absolute_url}/delete_confirmation"
+           i18n:translate="">Delete</a>
+    </li>
+
+    <li class="seperator"><!-- --></li>
+
+    <li tal:condition="view/views"
+        tal:repeat="view view/views"
+        tal:attributes="class string:sl-view-${view/name}"
+        tal:content="view/label" />
+
+</ul>
