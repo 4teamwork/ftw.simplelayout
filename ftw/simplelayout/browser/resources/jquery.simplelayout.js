@@ -71,7 +71,7 @@ Private methods:
             './@@sl-ajax-reload-block-view', {uuid: uuid}, function(data){
               $block.data('uuid', uuid);
               $block.removeClass('sl-add-block');
-              $block.closest('.simplelayout').masonry('reload').simplelayout('save');
+              $block.closest('.simplelayout').masonry('reload').simplelayout('layout').simplelayout('save');
               blockcontrols($block);
             });
         },
