@@ -107,6 +107,8 @@ Private methods:
                   var uuid = $block.data('uuid');
                   $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
                               {uuid: uuid});
+                  // hide menu
+                  $('.sl-controls-toggler', $block).next().hide();
                   return 'close';
                   },
 
