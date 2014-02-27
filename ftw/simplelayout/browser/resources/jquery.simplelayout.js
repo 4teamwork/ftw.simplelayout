@@ -71,6 +71,7 @@ Private methods:
               $block.data('uuid', uuid);
               $block.removeClass('sl-add-block');
               $block.closest('.simplelayout').masonry('reload').simplelayout('save');
+              blockcontrols($block);
             });
         },
 
@@ -83,65 +84,72 @@ Private methods:
 
     }
 
-    function controls($element){
-      var settings = $element.data('simplelayout');
-      var $blocks = $(settings.blocks, $element);
-
+    function blockcontrols($blocks){
 
       // Menu
-      var $controls = $('.sl-controls', $blocks).hide();
       var $toggler = $('.sl-controls-toggler', $blocks);
-
       $toggler.bind('click', function(){
-        $(this).next().toggle();
+        var $this = $(this);
+        if (!$this.next().hasClass('sl-controls')){
 
-      });
-
-
-
-      // Edit
-      $('.sl-edit a').prepOverlay({
-        subtype: 'ajax',
-        filter: "#content",
-        formselector: 'form',
-        noform:function(data, overlay){
-          var $block = overlay.source.closest('.sl-block');
+          var $block = $this.closest('.sl-block');
           var uuid = $block.data('uuid');
-          $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
-                      {uuid: uuid});
-          return 'close';
-          },
+          $.get('./sl-ajax-block-controls', {uuid: uuid}, function(data){
+            $this.after(data);
 
-        closeselector: '[name="form.button.cancel"]',
-        config: {
-          onLoad: function () {
-            if (window.initTinyMCE) {
-              window.initTinyMCE(document);
-            }
-          }
+              // Edit
+              $('.sl-edit a', $block).prepOverlay({
+                subtype: 'ajax',
+                filter: "#content",
+                formselector: 'form',
+                noform:function(data, overlay){
+                  var $block = overlay.source.closest('.sl-block');
+                  var uuid = $block.data('uuid');
+                  $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
+                              {uuid: uuid});
+                  return 'close';
+                  },
+
+                closeselector: '[name="form.button.cancel"]',
+                config: {
+                  onLoad: function () {
+                    if (window.initTinyMCE) {
+                      window.initTinyMCE(document);
+                    }
+                  }
+                }
+              });
+
+              // Delete
+              $('.sl-delete a').prepOverlay({
+                subtype:'ajax',
+                urlmatch:'$',urlreplace:' #content > *',
+                formselector:'[action*="delete_confirmation"]',
+                noform:function(data, overlay){
+                  overlay.source.closest('.sl-block').remove();
+                  return 'close';
+                  },
+                'closeselector':'[name="form.button.Cancel"]'
+                });
+          });
+
+        } else {
+          $this.next().toggle();
         }
+
       });
 
-      // Delete
-      $('.sl-delete a').prepOverlay({
-        subtype:'ajax',
-        urlmatch:'$',urlreplace:' #content > *',
-        formselector:'[action*="delete_confirmation"]',
-        noform:function(data, overlay){
-          overlay.source.closest('.sl-block').remove();
-          return 'close';
-          },
-        'closeselector':'[name="form.button.Cancel"]'
-        });
+    }
 
-      // add
-      $addlink = $element.prev();
+    function addblock($container){
+      var settings = $container.data('simplelayout');
+      var $addlink = $container.prev();
 
       $addlink.bind('click', function(e){
         e.stopPropagation();
         e.preventDefault();
 
-        if ($element.find('.sl-add-block').length !== 0){
+        if ($container.find('.sl-add-block').length !== 0){
           // Only one add block is allowed
           return;
         }
@@ -150,7 +158,7 @@ Private methods:
           '<div style="width:' + settings.contentwidth + 'px" ' +
                'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
           '</div>');
-        $element.prepend($block);
+        $container.prepend($block);
         $block.load('./@@addable-blocks-view', function(data){
 
           $('.sl-addable-blocks a').prepOverlay({
@@ -160,11 +168,11 @@ Private methods:
             noform: function(data, overlay){
               var $newblock = $('.sl-block', data).eq(-1);
               $newblock.attr('style', $block.attr('style'));
-              $('.sl-add-block', $element).replaceWith($newblock);
+              $('.sl-add-block', $container).replaceWith($newblock);
 
-              $element.masonry('reload');
-              $element.simplelayout('save');
-              controls($element);
+              $container.masonry('reload');
+              $container.simplelayout('save');
+              blockcontrols($newblock);
               return 'close';
             },
             closeselector: '[name="form.buttons.cancel"]',
@@ -183,8 +191,8 @@ Private methods:
 
           });
 
-          $element.simplelayout('layout');
-          $element.masonry('reload');
+          $container.simplelayout('layout');
+          $container.masonry('reload');
         });
 
       });
@@ -216,7 +224,8 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                controls($this);
+                blockcontrols((settings.blocks, $this));
+                addblock($this);
 
                 /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
                 $this.on('dragover', function (e){
@@ -229,6 +238,9 @@ Private methods:
                       var $block = $(
                         '<div style="width:' + get_grid(settings) + 'px" ' +
                              'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
+                                '<span class="ui-icon ui-icon-document sl-controls-toggler">' +
+                                '<!-- --></span>' +
+
                              '<div class="block-wrapper">' +
                                '<div class="block-view-wrapper">' + file + '</div>' +
                              '</div>' +
@@ -276,7 +288,7 @@ Private methods:
                 //   }
 
                 // });
-                /*********************/
+                /************************************************************/
 
             });
         },
