@@ -62,6 +62,7 @@ Private methods:
         contentType: false,
         processData: false,
         cache: false,
+        async: false,
         data: form_data,
         success: function(data){
           var uuid = JSON.parse(data).uuid;
