@@ -230,9 +230,17 @@ Private methods:
                 addblock($this);
 
                 /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
-                $this.on('dragover', function (e){
+
+                var counter = 0;
+                $this.on('dragenter', function (e){
                   e.stopPropagation();
                   e.preventDefault();
+
+                  if (counter === 0) {
+                    console.info('entered the page');
+                  }
+                  counter++;
+
 
                   if ($('.sl-add-block', $this).length === 0){
                     var files = e.originalEvent.dataTransfer.items;
@@ -274,22 +282,23 @@ Private methods:
 
                 });
 
+                $this.on('dragleave', function (e) {
 
-                // $(document).on('dragleave', function (e){
-                //   e.stopPropagation();
-                //   e.preventDefault();
+                  if (--counter === 0) {
+                    console.info('leave');
+                    $('.sl-add-block', $this).remove();
+                    $this.masonry('reload');
 
-                //   /* THIS IS NOT WORKING - FACK */
-                //   if (e.target === this){
+                  }
+                });
 
-                //     if ($('.sl-add-block', $this).length !== 0){
-                //       console.info('leave');
-                //       $('.sl-add-block', $this).remove();
-                //       $this.masonry('reload');
-                //     }
-                //   }
+                $(document).on('dragover', function (e)
+                {
+                  e.stopPropagation();
+                  e.preventDefault();
+                  //obj.css('border', '2px dotted #0B85A1');
+                });
 
-                // });
                 /************************************************************/
 
             });
