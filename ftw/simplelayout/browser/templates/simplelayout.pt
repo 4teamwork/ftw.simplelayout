@@ -10,41 +10,30 @@
 </div>
 
     <div metal:fill-slot="content-core">
+
         <a href="#" class="add-block-link">Add Block</a>
+
         <div class="simplelayout">
             <tal:blocks repeat="block view/get_blocks">
+
                 <div class="sl-block"
                      tal:attributes="data-uuid block/uuid;
                                      style block/style">
+
                   <div class="block-wrapper">
-                    <span class="ui-icon ui-icon-document sl-controls-toggler"></span>
-                    <ul tal:condition="block/editable"
-                        class="sl-controls">
-                        <li class="sl-edit">
-                            <a tal:attributes="href string:${block/block/absolute_url}/edit"
-                               i18n:translate="">Edit</a>
-                        </li>
 
-                        <li class="sl-delete">
-                            <a tal:attributes="href string:${block/block/absolute_url}/delete_confirmation"
-                               i18n:translate="">Delete</a>
-                        </li>
+                    <span tal:condition="block/editable"
+                          class="ui-icon ui-icon-document sl-controls-toggler"><!-- --></span>
 
-                        <li class="seperator"><!-- --></li>
-
-                        <li tal:condition="block/available_views"
-                            tal:repeat="view block/available_views"
-                            tal:attributes="class string:sl-view-${view/name}"
-                            tal:content="view/label" />
-
-                    </ul>
                     <div class="block-view-wrapper">
                       <div tal:replace="structure block/view" />
                     </div>
 
                   </div>
+
                 </div>
             </tal:blocks>
+
         </div>
 
         <script type="text/javascript">

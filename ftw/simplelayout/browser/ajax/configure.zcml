@@ -38,4 +38,12 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="*"
+        name="sl-ajax-block-controls"
+        class=".controls.BlockControls"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
 </configure>
