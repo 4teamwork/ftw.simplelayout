@@ -447,11 +447,19 @@ Private methods:
             var payload = [];
 
             $blocks.each(function(i, item){
-              $item = $(item);
+              var $item = $(item);
+              var $img = $('img', $item);
+              var imagestyles = false;
+
+              if ($img.length !== 0){
+                imagestyles = 'width:' + $img.css('width') + ';float: ' + $img.css('float') + ';';
+              }
+
               payload.push({
                 'uuid': $item.data('uuid'),
                 'position': $item.position(),
-                'size': {'width': $item.width(), 'height': $item.height()}
+                'size': {'width': $item.width(), 'height': $item.height()},
+                'imagestyles': imagestyles
               });
             });
 
