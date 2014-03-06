@@ -428,7 +428,7 @@ Private methods:
           });
         },
 
-        save: function(options){
+        save: function(callback){
           return this.each(function(){
             var $this = $(this);
             var settings = $this.data('simplelayout');
@@ -462,6 +462,9 @@ Private methods:
                     type: 'POST',
                     success: function(data, textStatus, jqXHR){
                       console.info(data);
+                      if(typeof callback == 'function'){
+                        callback.call(this, data);
+                      }
                     },
                     error: function(xhr, status,error){
                       alert(status, error);
