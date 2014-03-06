@@ -393,8 +393,8 @@ Private methods:
                       var img = ui.element.find('img');
 
                       img.resizable('disable');
-                      var new_width = img.width() * ratio / 100
-                      var new_height = img.height() * ratio / 100
+                      var new_width = img.width() * ratio / 100;
+                      var new_height = img.height() * ratio / 100;
                       img.width(new_width).height(new_height);
                       img.parent().width(new_width).height(new_height);
                       img.resizable('enable');
@@ -404,6 +404,31 @@ Private methods:
                       });
 
                     });
+                }
+            });
+
+            // Image resize
+            var image_grid = get_image_grid(settings);
+            $('img', $blocks).resizable({
+                containment: "parent",
+                handles: "e",
+                //ghost: true,
+                grid: [image_grid, 1],
+                minWidth: image_grid,
+                resize: function(event, ui){
+                  // Set height to preserve img ratio.
+                  // Manually, because aspectRatio does not work with grid option.
+                  var img = ui.originalElement;
+                  var orig_width = img.attr('width');
+                  var orig_height = img.attr('height');
+                  var ratio = orig_width / orig_height;
+                  ui.element.height(ui.element.width() / ratio);
+                },
+                stop: function(event, ui){
+                  var img = ui.originalElement;
+                  $this.simplelayout('save', function(){
+                    reload_block(img.parents('.sl-block'));
+                  });
                 }
             });
 
