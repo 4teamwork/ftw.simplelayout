@@ -84,6 +84,18 @@ Private methods:
       });
 
     }
+    function reload_block($block){
+      var uuid = $block.data('uuid');
+      $('.block-view-wrapper', $block).load(
+        './@@sl-ajax-reload-block-view',
+        {uuid: uuid},
+        function(){
+          $block.parent('.simplelayout').simplelayout('layout');
+        });
+      // hide menu
+      $('.sl-controls:visible', $block).hide();
+      return;
+    }
 
     function blockcontrols($blocks){
 
@@ -105,11 +117,7 @@ Private methods:
                 formselector: 'form',
                 noform:function(data, overlay){
                   var $block = overlay.source.closest('.sl-block');
-                  var uuid = $block.data('uuid');
-                  $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
-                              {uuid: uuid});
-                  // hide menu
-                  $('.sl-controls-toggler', $block).next().hide();
+                  reload_block($block);
                   return 'close';
                   },
 
