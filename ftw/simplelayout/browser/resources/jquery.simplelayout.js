@@ -412,6 +412,7 @@ Private methods:
             $('img', $blocks).resizable({
                 containment: "parent",
                 handles: "e",
+                zIndex: 91,
                 //ghost: true,
                 grid: [image_grid, 1],
                 minWidth: image_grid,
