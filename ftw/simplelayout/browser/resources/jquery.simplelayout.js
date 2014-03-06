@@ -47,6 +47,10 @@ Private methods:
         return settings.contentwidth / settings.columns;
     }
 
+    function get_image_grid(settings){
+        return settings.contentwidth / settings.columns /settings.images;
+    }
+
     function send_file_to_server(form_data, $block){
       // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
       var upload_url = './sl-ajax-image-upload';
@@ -225,6 +229,7 @@ Private methods:
                     var defaults = {
                         blocks: '.sl-block',
                         columns: 2, // default is 2 possible columns
+                        images: 2, // image columns
                         contentarea: '#content',
                         contentwidth: 960, // REQUERES A STATIC WIDTH
                         resizeheightstep: 10};
