@@ -29,10 +29,12 @@ class TestTextBlockView(TestCase):
         self.view = block.restrictedTraverse('@@block_view')
 
     def test_get_default_scaled_image(self):
-        # Plone default "mini" scale is 200 x 200 px.
+        # Width and height are currently hart coded  in the textblock view
         scale = self.view.get_scaled_image()
-        self.assertEquals(('width', 200), scale.key[-1])
-        self.assertEquals(('height', 200), scale.key[-2])
+        self.assertEquals(('width', 120), scale.key[-1])
+
+        # The height is set to 10000, so it doesn't matters while scaling.
+        self.assertEquals(('height', 10000), scale.key[-2])
 
     def test_scaled_image_based_on_image_styles(self):
 

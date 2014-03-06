@@ -47,7 +47,8 @@ class TestSaveStateView(TestCase):
                 'position': {'left': left,
                              'top': top},
                 'size': {'width': width,
-                         'height': height}}
+                         'height': height},
+                'imagestyles': 'width:100px;float:none;'}
 
     def test_view_registered(self):
         view = queryMultiAdapter((self.page, TestRequest()),
