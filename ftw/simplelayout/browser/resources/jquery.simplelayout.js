@@ -385,10 +385,26 @@ Private methods:
                 },
                 stop: function(event, ui){
                     ui.element.parent().masonry('reload', function(){
-                      $this.simplelayout('save');
+
+                      // Resize image manually - keep ratio
+                      var orig_width = ui.originalSize.width;
+                      var current_width = ui.element.width();
+                      var ratio = 100 / orig_width * current_width;
+                      var img = ui.element.find('img');
+
+                      img.resizable('disable');
+                      var new_width = img.width() * ratio / 100
+                      var new_height = img.height() * ratio / 100
+                      img.width(new_width).height(new_height);
+                      img.parent().width(new_width).height(new_height);
+                      img.resizable('enable');
+
+                      $this.simplelayout('save', function(){
+                        reload_block(ui.element);
+                      });
+
                     });
                 }
-
             });
 
             // sortable
