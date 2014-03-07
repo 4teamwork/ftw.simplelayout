@@ -30,6 +30,7 @@ Default configuration:
    columns: 2,
    contentarea: '#content',
    contentwidth: 960,
+   margin_right: 10,
    resizeheightstep: 10}
 
 Private methods:
@@ -230,6 +231,7 @@ Private methods:
                         columns: 2, // default is 2 possible columns
                         images: 2, // image columns
                         contentarea: '#content',
+                        margin_right: 10, // Margin right in px
                         contentwidth: 960, // REQUERES A STATIC WIDTH
                         resizeheightstep: 10};
 
@@ -367,6 +369,10 @@ Private methods:
             var $blocks = $(settings.blocks, $this);
             var grid = get_grid(settings);
 
+            // Apply padding to all block-view-wrapper
+            $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
+
+
             // masonry
             $this.masonry({
                 itemSelector: settings.blocks,
@@ -392,7 +398,7 @@ Private methods:
                       var img = ui.element.find('img');
 
                       img.resizable('disable');
-                      var new_width = img.width() * ratio / 100;
+                      var new_width = ((img.width() +  settings.margin_right) * ratio / 100) - settings.margin_right;
                       var new_height = img.height() * ratio / 100;
                       img.width(new_width).height(new_height);
                       img.parent().width(new_width).height(new_height);

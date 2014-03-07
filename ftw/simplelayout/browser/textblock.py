@@ -30,7 +30,8 @@ class TextBlockView(BrowserView):
             contentwidth = 960
             images = 2
             columns = 4
-            width = contentwidth / columns / images
+            margin_right = 10  # Pixel
+            width = (contentwidth / columns / images - margin_right)
 
             return scale.scale('image', width=width, height=height)
         else:
