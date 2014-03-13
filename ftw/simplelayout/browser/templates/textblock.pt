@@ -10,6 +10,6 @@
         <img tal:condition="here/image" tal:replace="structure view/img_tag" />
     </div>
 
-    <div tal:replace="structure here/text/output" />
+    <div tal:replace="structure here/text/output | nothing" />
 
 </html>

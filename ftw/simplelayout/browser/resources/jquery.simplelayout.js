@@ -78,6 +78,7 @@ Private methods:
               $block.removeClass('sl-add-block');
               $block.closest('.simplelayout').masonry('reload').simplelayout('save').simplelayout('layout');
               blockcontrols($block);
+              imagecontrols($block);
             });
         },
 
@@ -324,9 +325,10 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                blockcontrols((settings.blocks, $this));
+                var $blocks = $(settings.blocks, $this)
+                blockcontrols($blocks);
                 addblock($this);
-                imagecontrols((settings.blocks, $this));
+                imagecontrols($blocks);
 
                 /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
 
@@ -366,10 +368,10 @@ Private methods:
                   e.preventDefault();
 
                   var files = e.originalEvent.dataTransfer.files;
-                  var $blocks = $('.sl-add-block', $(this));
+                  var $addblocks = $('.sl-add-block', $(this));
 
                   $.each(files, function(index, file){
-                    var $block = $blocks.eq(index);
+                    var $block = $addblocks.eq(index);
                     $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
                     var data = new FormData();
