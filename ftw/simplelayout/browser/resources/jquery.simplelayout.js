@@ -96,6 +96,7 @@ Private methods:
         {uuid: uuid},
         function(){
           $block.parent('.simplelayout').simplelayout('layout');
+          imagecontrols($block);
         });
       // hide menu
       $('.sl-controls:visible', $block).hide();
@@ -108,9 +109,10 @@ Private methods:
       var $toggler = $('.sl-controls-toggler', $blocks);
       $toggler.bind('click', function(){
         var $this = $(this);
-        if (!$this.next().hasClass('sl-controls')){
+        var $block = $this.closest('.sl-block');
 
-          var $block = $this.closest('.sl-block');
+        if ($('.sl-controls', $block).length === 0){
+
           var uuid = $block.data('uuid');
           $.get('./sl-ajax-block-controls', {uuid: uuid}, function(data){
             $this.after(data);
@@ -152,7 +154,7 @@ Private methods:
           });
 
         } else {
-          $this.next().toggle();
+          $('.sl-controls', $block).toggle();
         }
 
       });
@@ -193,8 +195,8 @@ Private methods:
               return 'close';
             },
             closeselector: '[name="form.buttons.cancel"]',
-            afterpost: function(data, overlay){
-              console.info('afterpost');
+            appendTopost: function(data, overlay){
+              console.info('appendTopost');
             },
             config: {
               onLoad: function () {
@@ -215,6 +217,85 @@ Private methods:
       });
 
 
+    }
+
+    function imagecontrols($blocks){
+      var floatleft = $('<span class="imagefloat left ui-icon ui-icon-arrowthickstop-1-w" />').hide();
+      var floatright = $('<span class="imagefloat right ui-icon ui-icon-arrowthickstop-1-e" />').hide();
+      var floatnone = $('<span class="imagefloat none ui-icon ui-icon-arrowthick-2-e-w" />').hide();
+
+      floatright.appendTo($('.sl-img-wrapper', $blocks));
+      floatleft.appendTo($('.sl-img-wrapper', $blocks));
+      floatnone.appendTo($('.sl-img-wrapper', $blocks));
+
+      function change_image_float($el, direction){
+        $block = $el.parents('.sl-block');
+        $('.sl-img-wrapper img', $block).css('float', direction);
+        $block.parents('.simplelayout').simplelayout('save', function(){
+          reload_block($block);
+        });
+      }
+
+      $('.sl-img-wrapper', $blocks).on('mouseenter',
+        function(e){
+          // Handler in
+          e.stopPropagation();
+          e.preventDefault();
+
+          var $this = $(this);
+          var floatleft = $('.imagefloat.left', $this);
+          var floatright = $('.imagefloat.right', $this);
+          var floatnone = $('.imagefloat.none', $this);
+
+          floatleft.on('click', function(){change_image_float($(this), 'left');});
+          floatright.on('click', function(){change_image_float($(this), 'right');});
+          floatnone.on('click', function(){change_image_float($(this), 'none');});
+
+          var $img = $('img', $this);
+
+          var floatcss = $img.css('float');
+
+          if (floatcss === 'none'){
+            floatright.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() - floatright.width())
+                      .show();
+            floatleft.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', 0)
+                      .show();
+
+          } else if (floatcss === 'left') {
+            floatright.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() - floatleft.width())
+                      .show();
+            floatnone.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() / 2)
+                      .show();
+
+          } else if (floatcss === 'right') {
+            floatleft.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('right', $img.width() - 5) // Fix resizable space
+                      .show();
+            floatnone.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('right', $img.width() / 2)
+                      .show();
+          }
+
+        }).on('mouseleave', function(){
+          var $this = $(this);
+          var floatleft = $('.imagefloat.left', $this);
+          var floatright = $('.imagefloat.right', $this);
+          var floatnone = $('.imagefloat.none', $this);
+
+          floatright.hide();
+          floatleft.hide();
+          floatnone.hide();
+        });
     }
 
     // Public functions
@@ -245,6 +326,7 @@ Private methods:
                 // Load controls
                 blockcontrols((settings.blocks, $this));
                 addblock($this);
+                imagecontrols((settings.blocks, $this));
 
                 /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
 
@@ -372,7 +454,6 @@ Private methods:
             // Apply padding to all block-view-wrapper
             $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
 
-
             // masonry
             $this.masonry({
                 itemSelector: settings.blocks,
@@ -415,7 +496,7 @@ Private methods:
             // Image resize
             var image_grid = get_image_grid(settings);
             $('img', $blocks).resizable({
-                containment: "parent",
+                containment: ".block-wrapper",
                 handles: "e",
                 zIndex: 91,
                 //ghost: true,

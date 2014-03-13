@@ -38,13 +38,15 @@ class TextBlockView(BrowserView):
             width = int(parse_css(styles, 'width'))
             return scale.scale('image', width=width, height=height)
 
+    def get_style(self):
+        displaysettings = queryMultiAdapter((self.context, self.request),
+                                            IDisplaySettings)
+        return displaysettings.get_image_styles()
+
     def img_tag(self):
         """Manually create image tag, because we set width and height width
         the style attribute to not break the columns in simplelayout.
         """
-        displaysettings = queryMultiAdapter((self.context, self.request),
-                                            IDisplaySettings)
-        styles = displaysettings.get_image_styles()
         scale = self.get_scaled_image()
         return ('<img src="{url}" alt="{title}" title="{title}"'
                 'width="{width}" height="{height}"'
@@ -52,4 +54,4 @@ class TextBlockView(BrowserView):
                                                'title': self.context.Title(),
                                                'width': scale.width,
                                                'height': scale.height,
-                                               'style': styles}))
+                                               'style': self.get_style()}))

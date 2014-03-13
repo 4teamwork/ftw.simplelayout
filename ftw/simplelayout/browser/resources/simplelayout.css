@@ -53,3 +53,8 @@ div.simplelayout > div.sl-block {
     top:1em;
     left:1em;
 }
+
+span.imagefloat {
+    background-color: white;
+    opacity: 0.6;
+}
