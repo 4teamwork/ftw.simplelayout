@@ -9,6 +9,7 @@
         />
 
     <include package=".ajax" />
+    <include package=".controlpanel" />
 
     <browser:page
         for="OFS.interfaces.IFolder"
