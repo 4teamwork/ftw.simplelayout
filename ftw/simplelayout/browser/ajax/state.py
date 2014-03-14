@@ -18,13 +18,15 @@ class SaveStateView(BrowserView):
     ...      'position': {'left': 10,
     ...                   'top': 20},
     ...      'size': {'width': 100,
-    ...               'height': 50}},
+    ...               'height': 50},
+    ...     'imagestyles': width:100px;float:none},
     ...
     ...     {'uuid': '09987655',
     ...      'position': {'left': 5,
     ...                   'top': 6},
     ...      'size': {'width': 7,
-    ...               'height': 8}},
+    ...               'height': 8},
+    ...      'imagestyles': width:240px;float:left},},
     ...     ]
 
     """
@@ -34,6 +36,7 @@ class SaveStateView(BrowserView):
         payload = self._load_objects(payload)
         self._update_order(payload)
         self._update_positions_and_sizes(payload)
+
         return json.dumps(
             {'Status': 'OK',
              'msg': 'Saved state of {0} blocks'.format(len(payload))})
@@ -71,3 +74,4 @@ class SaveStateView(BrowserView):
                                       IDisplaySettings)
             display.set_position(item['position'])
             display.set_size(item['size'])
+            display.set_image_styles(item['imagestyles'])

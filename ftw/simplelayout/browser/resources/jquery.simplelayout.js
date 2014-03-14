@@ -30,6 +30,7 @@ Default configuration:
    columns: 2,
    contentarea: '#content',
    contentwidth: 960,
+   margin_right: 10,
    resizeheightstep: 10}
 
 Private methods:
@@ -45,6 +46,10 @@ Private methods:
 
     function get_grid(settings){
         return settings.contentwidth / settings.columns;
+    }
+
+    function get_image_grid(settings){
+        return settings.contentwidth / settings.columns / settings.images;
     }
 
     function send_file_to_server(form_data, $block){
@@ -71,8 +76,9 @@ Private methods:
             './@@sl-ajax-reload-block-view', {uuid: uuid}, function(data){
               $block.data('uuid', uuid);
               $block.removeClass('sl-add-block');
-              $block.closest('.simplelayout').masonry('reload').simplelayout('layout').simplelayout('save');
+              $block.closest('.simplelayout').masonry('reload').simplelayout('save').simplelayout('layout');
               blockcontrols($block);
+              imagecontrols($block);
             });
         },
 
@@ -84,6 +90,19 @@ Private methods:
       });
 
     }
+    function reload_block($block){
+      var uuid = $block.data('uuid');
+      $('.block-view-wrapper', $block).load(
+        './@@sl-ajax-reload-block-view',
+        {uuid: uuid},
+        function(){
+          $block.parent('.simplelayout').simplelayout('layout');
+          imagecontrols($block);
+        });
+      // hide menu
+      $('.sl-controls:visible', $block).hide();
+      return;
+    }
 
     function blockcontrols($blocks){
 
@@ -91,9 +110,10 @@ Private methods:
       var $toggler = $('.sl-controls-toggler', $blocks);
       $toggler.bind('click', function(){
         var $this = $(this);
-        if (!$this.next().hasClass('sl-controls')){
+        var $block = $this.closest('.sl-block');
 
-          var $block = $this.closest('.sl-block');
+        if ($('.sl-controls', $block).length === 0){
+
           var uuid = $block.data('uuid');
           $.get('./sl-ajax-block-controls', {uuid: uuid}, function(data){
             $this.after(data);
@@ -105,11 +125,7 @@ Private methods:
                 formselector: 'form',
                 noform:function(data, overlay){
                   var $block = overlay.source.closest('.sl-block');
-                  var uuid = $block.data('uuid');
-                  $('.block-view-wrapper', $block).load('./@@sl-ajax-reload-block-view',
-                              {uuid: uuid});
-                  // hide menu
-                  $('.sl-controls-toggler', $block).next().hide();
+                  reload_block($block);
                   return 'close';
                   },
 
@@ -139,7 +155,7 @@ Private methods:
           });
 
         } else {
-          $this.next().toggle();
+          $('.sl-controls', $block).toggle();
         }
 
       });
@@ -175,14 +191,13 @@ Private methods:
               $newblock.attr('style', $block.attr('style'));
               $('.sl-add-block', $container).replaceWith($newblock);
 
-              $container.masonry('reload');
-              $container.simplelayout('save');
+              $container.masonry('reload').simplelayout('save').simplelayout('layout');
               blockcontrols($newblock);
               return 'close';
             },
             closeselector: '[name="form.buttons.cancel"]',
-            afterpost: function(data, overlay){
-              console.info('afterpost');
+            appendTopost: function(data, overlay){
+              console.info('appendTopost');
             },
             config: {
               onLoad: function () {
@@ -205,6 +220,85 @@ Private methods:
 
     }
 
+    function imagecontrols($blocks){
+      var floatleft = $('<span class="imagefloat left ui-icon ui-icon-arrowthickstop-1-w" />').hide();
+      var floatright = $('<span class="imagefloat right ui-icon ui-icon-arrowthickstop-1-e" />').hide();
+      var floatnone = $('<span class="imagefloat none ui-icon ui-icon-arrowthick-2-e-w" />').hide();
+
+      floatright.appendTo($('.sl-img-wrapper', $blocks));
+      floatleft.appendTo($('.sl-img-wrapper', $blocks));
+      floatnone.appendTo($('.sl-img-wrapper', $blocks));
+
+      function change_image_float($el, direction){
+        $block = $el.parents('.sl-block');
+        $('.sl-img-wrapper img', $block).css('float', direction);
+        $block.parents('.simplelayout').simplelayout('save', function(){
+          reload_block($block);
+        });
+      }
+
+      $('.sl-img-wrapper', $blocks).on('mouseenter',
+        function(e){
+          // Handler in
+          e.stopPropagation();
+          e.preventDefault();
+
+          var $this = $(this);
+          var floatleft = $('.imagefloat.left', $this);
+          var floatright = $('.imagefloat.right', $this);
+          var floatnone = $('.imagefloat.none', $this);
+
+          floatleft.on('click', function(){change_image_float($(this), 'left');});
+          floatright.on('click', function(){change_image_float($(this), 'right');});
+          floatnone.on('click', function(){change_image_float($(this), 'none');});
+
+          var $img = $('img', $this);
+
+          var floatcss = $img.css('float');
+
+          if (floatcss === 'none'){
+            floatright.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() - floatright.width())
+                      .show();
+            floatleft.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', 0)
+                      .show();
+
+          } else if (floatcss === 'left') {
+            floatright.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() - floatleft.width())
+                      .show();
+            floatnone.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('left', $img.width() / 2)
+                      .show();
+
+          } else if (floatcss === 'right') {
+            floatleft.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('right', $img.width() - 5) // Fix resizable space
+                      .show();
+            floatnone.css('position', 'absolute')
+                      .css('top', $img.height() / 2)
+                      .css('right', $img.width() / 2)
+                      .show();
+          }
+
+        }).on('mouseleave', function(){
+          var $this = $(this);
+          var floatleft = $('.imagefloat.left', $this);
+          var floatright = $('.imagefloat.right', $this);
+          var floatnone = $('.imagefloat.none', $this);
+
+          floatright.hide();
+          floatleft.hide();
+          floatnone.hide();
+        });
+    }
+
     // Public functions
 
     var methods = {
@@ -217,7 +311,9 @@ Private methods:
                     var defaults = {
                         blocks: '.sl-block',
                         columns: 2, // default is 2 possible columns
+                        images: 2, // image columns
                         contentarea: '#content',
+                        margin_right: 10, // Margin right in px
                         contentwidth: 960, // REQUERES A STATIC WIDTH
                         resizeheightstep: 10};
 
@@ -229,8 +325,10 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                blockcontrols((settings.blocks, $this));
+                var $blocks = $(settings.blocks, $this);
+                blockcontrols($blocks);
                 addblock($this);
+                imagecontrols($blocks);
 
                 /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
 
@@ -270,10 +368,10 @@ Private methods:
                   e.preventDefault();
 
                   var files = e.originalEvent.dataTransfer.files;
-                  var $blocks = $('.sl-add-block', $(this));
+                  var $addblocks = $('.sl-add-block', $(this));
 
                   $.each(files, function(index, file){
-                    var $block = $blocks.eq(index);
+                    var $block = $addblocks.eq(index);
                     $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
                     var data = new FormData();
@@ -355,6 +453,9 @@ Private methods:
             var $blocks = $(settings.blocks, $this);
             var grid = get_grid(settings);
 
+            // Apply padding to all block-view-wrapper
+            $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
+
             // masonry
             $this.masonry({
                 itemSelector: settings.blocks,
@@ -372,10 +473,67 @@ Private methods:
                 },
                 stop: function(event, ui){
                     ui.element.parent().masonry('reload', function(){
-                      $this.simplelayout('save');
+
+                      var img = ui.element.find('img');
+                      var imagegrid = get_image_grid(settings);
+                      var orig_with_in_columns = ui.originalSize.width / grid;
+                      var new_with_in_columns = ui.element.width() / grid;
+                      var diff_in_columns = new_with_in_columns - orig_with_in_columns;
+                      var img_width_in_columns = (img.width() + settings.margin_right) / imagegrid;
+                      var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
+                      var new_img_width;
+
+                      if (new_img_width_in_columns < 1){
+                        // The image can not be smaller than one image column.
+                        new_img_width = imagegrid - settings.margin_right;
+
+                      } else if (img_width_in_columns / settings.images === orig_with_in_columns){
+                        // Special case if the image has the same size as the block.
+                        new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+                      } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
+                        // The image can not be bigger than the block.
+                        new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+                      } else {
+                        // Asynchronous resize
+                        new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
+                      }
+                      img.resizable('disable');
+
+                      img.width(new_img_width).height('auto');
+                      img.parent().width(new_img_width).height('auto');
+                      img.resizable('enable');
+
+                      $this.simplelayout('save', function(){
+                        reload_block(ui.element);
+                      });
+
                     });
                 }
+            });
 
+            // Image resize
+            var image_grid = get_image_grid(settings);
+            $('img', $blocks).resizable({
+                containment: ".block-wrapper",
+                handles: "e, w",
+                zIndex: 91,
+                grid: [image_grid, 1],
+                minWidth: image_grid,
+                resize: function(event, ui){
+                  // Set height to preserve img ratio.
+                  // Manually, because aspectRatio does not work with grid option.
+                  var img = ui.originalElement;
+                  var ratio = img.attr('width') / img.attr('height');
+                  ui.element.height(ui.element.width() / ratio);
+                },
+                stop: function(event, ui){
+                  var img = ui.originalElement;
+                  $this.simplelayout('save', function(){
+                    reload_block(img.parents('.sl-block'));
+                  });
+                }
             });
 
             // sortable
@@ -415,7 +573,7 @@ Private methods:
           });
         },
 
-        save: function(options){
+        save: function(callback){
           return this.each(function(){
             var $this = $(this);
             var settings = $this.data('simplelayout');
@@ -434,11 +592,19 @@ Private methods:
             var payload = [];
 
             $blocks.each(function(i, item){
-              $item = $(item);
+              var $item = $(item);
+              var $img = $('img', $item);
+              var imagestyles = false;
+
+              if ($img.length !== 0){
+                imagestyles = 'width:' + $img.css('width') + ';float: ' + $img.css('float') + ';';
+              }
+
               payload.push({
                 'uuid': $item.data('uuid'),
                 'position': $item.position(),
-                'size': {'width': $item.width(), 'height': $item.height()}
+                'size': {'width': $item.width(), 'height': $item.height()},
+                'imagestyles': imagestyles
               });
             });
 
@@ -449,6 +615,9 @@ Private methods:
                     type: 'POST',
                     success: function(data, textStatus, jqXHR){
                       console.info(data);
+                      if(typeof callback == 'function'){
+                        callback.call(this, data);
+                      }
                     },
                     error: function(xhr, status,error){
                       alert(status, error);

@@ -46,3 +46,9 @@ class DisplaySeetings(object):
 
     def get_size(self):
         return self.get_storage().get('size', None)
+
+    def get_image_styles(self):
+        return self.get_storage().get('imagestyles', None)
+
+    def set_image_styles(self, value):
+        self.get_storage()['imagestyles'] = value

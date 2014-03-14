@@ -58,3 +58,18 @@ class TestDisplaySettings(MockTestCase):
             settings.set_size({'foo': 100})
         with self.assertRaises(ValueError):
             settings.set_position({'foo': 100})
+
+    def test_imagestyles_getter_default(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+
+        self.assertIsNone(settings.get_image_styles())
+
+    def test_imagestyles_setter(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+
+        settings.set_image_styles('width:100px;')
+        self.assertEquals('width:100px;', settings.get_image_styles())
