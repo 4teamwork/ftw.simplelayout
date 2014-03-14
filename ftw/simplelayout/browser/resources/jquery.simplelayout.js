@@ -461,6 +461,9 @@ Private methods:
             // Apply padding to all block-view-wrapper
             $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
 
+            // Apply contentwith to container
+            $this.css('max-width', settings.contentwidth);
+
             // masonry
             $this.masonry({
                 itemSelector: settings.blocks,
