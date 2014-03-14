@@ -2,6 +2,7 @@ from ftw.simplelayout.interfaces import IDisplaySettings
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
 import cssutils
+import json
 
 
 def parse_css(styles, attr):
@@ -26,13 +27,7 @@ class TextBlockView(BrowserView):
         height = 10000
 
         if not styles:
-            # XXX: Get defaults from registry or current contentpage
-            contentwidth = 960
-            images = 2
-            columns = 4
-            margin_right = 10  # Pixel
-            width = (contentwidth / columns / images - margin_right)
-
+            width = self.calculate_min_image_width()
             return scale.scale('image', width=width, height=height)
         else:
             width = int(parse_css(styles, 'width'))
@@ -55,3 +50,17 @@ class TextBlockView(BrowserView):
                                                'width': scale.width,
                                                'height': scale.height,
                                                'style': self.get_style()}))
+
+    def get_simplelayout_view(self):
+        contentpage = self.context.aq_parent
+        return contentpage.restrictedTraverse(contentpage.getLayout())
+
+    def calculate_min_image_width(self):
+        view = self.get_simplelayout_view()
+        settings = json.loads(view.load_default_settings())
+
+        contentwidth = settings['contentwidth']
+        images = settings['images']
+        columns = settings['columns']
+        margin_right = settings['margin_right']
+        return contentwidth / columns / images - margin_right

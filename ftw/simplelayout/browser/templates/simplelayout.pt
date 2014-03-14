@@ -13,7 +13,8 @@
 
         <a href="#" class="add-block-link">Add Block</a>
 
-        <div class="simplelayout">
+        <div class="simplelayout"
+             tal:attributes="data-simplelayout-config view/load_default_settings">
             <tal:blocks repeat="block view/get_blocks">
 
                 <div class="sl-block"
@@ -39,7 +40,7 @@
         <script type="text/javascript">
 
           $(function(){
-            $('.simplelayout').simplelayout('init', {'columns': 4}).simplelayout('layout');
+            $('.simplelayout').simplelayout('init').simplelayout('layout');
           });
         </script>
 

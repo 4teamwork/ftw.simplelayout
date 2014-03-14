@@ -2,6 +2,8 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
+from ftw.simplelayout import _
+from zope import schema
 from zope.interface import Interface
 
 
@@ -71,3 +73,30 @@ class IDisplaySettings(Interface):
         "height".
         Returns ``None`` when nothing is stored.
         """
+
+
+class ISimplelayoutDefaultSettings(Interface):
+    """Stores simplelayout default settings for the hole site"""
+
+    columns = schema.Int(title=_(u'Amount of columns'),
+                         default=4,
+                         required=True)
+
+    images = schema.Int(title=_(u'Amount of image columns'),
+                        default=2,
+                        required=True)
+
+    contentwidth = schema.Int(title=_(u'Content width in pixel'),
+                              default=960,
+                              required=True)
+
+    margin_right = schema.Int(title=_(u'margin between blocks in pixel'),
+                              default=10,
+                              required=True)
+
+    contentarea = schema.TextLine(title=_(u'Content area selector'),
+                                  description=(
+                                  _(u'Danger: Change this only if you really '
+                                    'know what you are doing')),
+                                  default=u'#content',
+                                  required=True)

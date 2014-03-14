@@ -3,16 +3,24 @@ from AccessControl.SpecialUsers import nobody
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.interfaces import ISimplelayoutView
+from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
+from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
-
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 
 STYLE_ATTRIBUTE = ('top:{top}px;'
                    'left:{left}px;'
                    'width:{width}px;'
                    'height:{height}px;')
+
+CONFIG_TEMPLATE = ('{{"columns": {columns}, '
+                   '"images": {images}, '
+                   '"contentwidth": {contentwidth}, '
+                   '"margin_right": {margin_right}, '
+                   '"contentarea": "{contentarea}"}}')
 
 
 def get_style(settings):
@@ -29,6 +37,8 @@ def get_style(settings):
 
 class SimplelayoutView(BrowserView):
     implements(ISimplelayoutView)
+
+    columns = None
 
     def get_blocks(self):
         user = getSecurityManager().getUser()
@@ -55,3 +65,14 @@ class SimplelayoutView(BrowserView):
                 'style': get_style(display_settings),
                 'editable': user is not nobody and user.has_permission(
                     'cmf.ModifyPortalContent', block)}
+
+    def load_default_settings(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISimplelayoutDefaultSettings)
+
+        return CONFIG_TEMPLATE.format(
+            **{'columns': self.columns or settings.columns,
+               'images': settings.images,
+               'contentwidth': settings.contentwidth,
+               'margin_right': settings.margin_right,
+               'contentarea': settings.contentarea})
