@@ -31,7 +31,9 @@ class TestTextBlockView(TestCase):
     def test_get_default_scaled_image(self):
         # Width and height are currently hart coded  in the textblock view
         scale = self.view.get_scaled_image()
-        self.assertEquals(('width', 110), scale.key[-1])
+        width = self.view.calculate_min_image_width()
+
+        self.assertEquals(('width', width), scale.key[-1])
 
         # The height is set to 10000, so it doesn't matters while scaling.
         self.assertEquals(('height', 10000), scale.key[-2])
@@ -45,6 +47,10 @@ class TestTextBlockView(TestCase):
 
         scale = self.view.get_scaled_image()
         self.assertEquals(('width', 123), scale.key[-1])
+
+    def test_get_simplelayout_view(self):
+        self.assertEquals('simplelayout',
+                          self.view.get_simplelayout_view().__name__)
 
 
 class TestCssStyleParser(TestCase):
