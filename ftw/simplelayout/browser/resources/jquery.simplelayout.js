@@ -49,7 +49,7 @@ Private methods:
     }
 
     function get_image_grid(settings){
-        return settings.contentwidth / settings.columns /settings.images;
+        return settings.contentwidth / settings.columns / settings.images;
     }
 
     function send_file_to_server(form_data, $block){
@@ -325,7 +325,7 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                var $blocks = $(settings.blocks, $this)
+                var $blocks = $(settings.blocks, $this);
                 blockcontrols($blocks);
                 addblock($this);
                 imagecontrols($blocks);
@@ -474,17 +474,35 @@ Private methods:
                 stop: function(event, ui){
                     ui.element.parent().masonry('reload', function(){
 
-                      // Resize image manually - keep ratio
-                      var orig_width = ui.originalSize.width;
-                      var current_width = ui.element.width();
-                      var ratio = 100 / orig_width * current_width;
                       var img = ui.element.find('img');
+                      var imagegrid = get_image_grid(settings);
+                      var orig_with_in_columns = ui.originalSize.width / grid;
+                      var new_with_in_columns = ui.element.width() / grid;
+                      var diff_in_columns = new_with_in_columns - orig_with_in_columns;
+                      var img_width_in_columns = (img.width() + settings.margin_right) / imagegrid;
+                      var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
+                      var new_img_width;
 
+                      if (new_img_width_in_columns < 1){
+                        // The image can not be smaller than one image column.
+                        new_img_width = imagegrid - settings.margin_right;
+
+                      } else if (img_width_in_columns / settings.images === orig_with_in_columns){
+                        // Special case if the image has the same size as the block.
+                        new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+                      } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
+                        // The image can not be bigger than the block.
+                        new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+                      } else {
+                        // Asynchronous resize
+                        new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
+                      }
                       img.resizable('disable');
-                      var new_width = ((img.width() +  settings.margin_right) * ratio / 100) - settings.margin_right;
-                      var new_height = img.height() * ratio / 100;
-                      img.width(new_width).height(new_height);
-                      img.parent().width(new_width).height(new_height);
+
+                      img.width(new_img_width).height('auto');
+                      img.parent().width(new_img_width).height('auto');
                       img.resizable('enable');
 
                       $this.simplelayout('save', function(){
@@ -499,18 +517,15 @@ Private methods:
             var image_grid = get_image_grid(settings);
             $('img', $blocks).resizable({
                 containment: ".block-wrapper",
-                handles: "e",
+                handles: "e, w",
                 zIndex: 91,
-                //ghost: true,
                 grid: [image_grid, 1],
                 minWidth: image_grid,
                 resize: function(event, ui){
                   // Set height to preserve img ratio.
                   // Manually, because aspectRatio does not work with grid option.
                   var img = ui.originalElement;
-                  var orig_width = img.attr('width');
-                  var orig_height = img.attr('height');
-                  var ratio = orig_width / orig_height;
+                  var ratio = img.attr('width') / img.attr('height');
                   ui.element.height(ui.element.width() / ratio);
                 },
                 stop: function(event, ui){
