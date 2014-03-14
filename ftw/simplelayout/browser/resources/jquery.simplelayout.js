@@ -307,6 +307,11 @@ Private methods:
                 var $this = $(this);
                 var settings = $this.data('simplelayout');
 
+                var local_config = $this.data('simplelayout-config');
+                if (local_config !== undefined){
+                  options = local_config;
+                }
+
                 if(typeof(settings) == 'undefined') {
                     var defaults = {
                         blocks: '.sl-block',
