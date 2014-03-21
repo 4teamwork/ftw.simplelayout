@@ -2,14 +2,16 @@ from AccessControl import getSecurityManager
 from AccessControl.SpecialUsers import nobody
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IDisplaySettings
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.interfaces import ISimplelayoutView
+from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
+
 
 STYLE_ATTRIBUTE = ('top:{top}px;'
                    'left:{left}px;'
@@ -20,7 +22,8 @@ CONFIG_TEMPLATE = ('{{"columns": {columns}, '
                    '"images": {images}, '
                    '"contentwidth": {contentwidth}, '
                    '"margin_right": {margin_right}, '
-                   '"contentarea": "{contentarea}"}}')
+                   '"contentarea": "{contentarea}", '
+                   '"editable": {editable}}}')
 
 
 def get_style(settings):
@@ -66,6 +69,10 @@ class SimplelayoutView(BrowserView):
                 'editable': user is not nobody and user.has_permission(
                     'cmf.ModifyPortalContent', block)}
 
+    def can_modify(self):
+        return not api.user.is_anonymous() and api.user.get_permissions(
+            obj=self.context)['Modify portal content']
+
     def load_default_settings(self):
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISimplelayoutDefaultSettings)
@@ -75,4 +82,5 @@ class SimplelayoutView(BrowserView):
                'images': settings.images,
                'contentwidth': settings.contentwidth,
                'margin_right': settings.margin_right,
-               'contentarea': settings.contentarea})
+               'contentarea': settings.contentarea,
+               'editable': str(self.can_modify()).lower()})

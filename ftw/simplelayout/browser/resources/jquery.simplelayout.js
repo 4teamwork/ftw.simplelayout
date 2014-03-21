@@ -390,7 +390,8 @@ Private methods:
                         contentarea: '#content',
                         margin_right: 10, // Margin right in px
                         contentwidth: 960, // REQUERES A STATIC WIDTH
-                        resizeheightstep: 10};
+                        resizeheightstep: 10,
+                        editable: false};
 
                         settings = $.extend({}, defaults, options);
                 } else {

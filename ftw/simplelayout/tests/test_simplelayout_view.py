@@ -3,11 +3,10 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
+from plone.app.textfield.value import RichTextValue
 from plone.testing.z2 import Browser
-from Products.CMFPlone.utils import _createObjectByType
 from unittest2 import TestCase
 import transaction
-from plone.app.textfield.value import RichTextValue
 
 
 class TestSimplelayoutView(TestCase):

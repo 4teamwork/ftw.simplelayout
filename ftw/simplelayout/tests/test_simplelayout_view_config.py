@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from plone.app.testing import logout
 from unittest2 import TestCase
 import json
 
@@ -18,7 +19,8 @@ class TestSimpleayoutViewConfig(TestCase):
                        '"images": 2, '
                        '"contentwidth": 960, '
                        '"margin_right": 10, '
-                       '"contentarea": "#content"}')
+                       '"contentarea": "#content", '
+                       '"editable": true}')
 
     def test_load_simplelayout_default_config_from_registry(self):
 
@@ -43,3 +45,13 @@ class TestSimpleayoutViewConfig(TestCase):
         settings = json.loads(self.view.load_default_settings())
 
         self.assertEquals(1, settings['columns'])
+
+    def test_user_can_modify(self):
+        self.assertTrue(self.view.can_modify(),
+                        'The user should be able to modify the current page')
+
+    def test_user_cannot_modify(self):
+        logout()
+        self.assertFalse(
+            self.cp.restrictedTraverse('@@simplelayout').can_modify(),
+            'The user should NOT be able to modify the current page')
