@@ -11,7 +11,9 @@
 
     <div metal:fill-slot="content-core">
 
-        <a href="#" class="add-block-link">Add Block</a>
+        <div class="SimplelayoutPageControls" tal:condition="view/can_modify">
+            <a href="#" class="add-block-link">Add Block</a>
+        </div>
 
         <div class="simplelayout"
              tal:attributes="data-simplelayout-config view/load_default_settings">

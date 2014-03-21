@@ -20,12 +20,15 @@ div.simplelayout > div.sl-block {
     background: #ff6903; }
 
 .sl-block > .block-wrapper {
+    height: 100%;
+    overflow: hidden;
+}
+
+.documentEditable .sl-block > .block-wrapper {
     border-left:1px dashed #aebdcc;
     border-right:1px dashed #aebdcc;
     border-top:1px dashed #aebdcc;
     border-bottom:1px dashed #aebdcc;
-    height: 100%;
-    overflow: hidden;
 }
 
 .sl-add-block {

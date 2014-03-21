@@ -299,6 +299,76 @@ Private methods:
         });
     }
 
+    function dndupload($element, settings){
+      var counter = 0;
+      $element.on('dragenter', function (e){
+        e.stopPropagation();
+        e.preventDefault();
+
+        if (counter === 0) {
+          console.info('entered the page');
+        }
+        counter++;
+
+
+        if ($('.sl-add-block', $element).length === 0){
+          var files = e.originalEvent.dataTransfer.items;
+          $.each(files, function(index, file){
+            var $block = $(
+              '<div style="width:' + get_grid(settings) + 'px" ' +
+                   'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
+                      '<span class="ui-icon ui-icon-document sl-controls-toggler">' +
+                      '<!-- --></span>' +
+
+                   '<div class="block-wrapper">' +
+                     '<div class="block-view-wrapper">' + file + '</div>' +
+                   '</div>' +
+              '</div>');
+            $element.prepend($block);
+          });
+
+          $element.masonry('reload');
+        }
+      });
+
+      $element.on('drop', function(e){
+        e.stopPropagation();
+        e.preventDefault();
+
+        var files = e.originalEvent.dataTransfer.files;
+        var $addblocks = $('.sl-add-block', $(this));
+
+        $.each(files, function(index, file){
+          var $block = $addblocks.eq(index);
+          $('.block-view-wrapper', $block).html('uploading... ' + file.name);
+
+          var data = new FormData();
+          data.append('image', file);
+          data.append('filename', file.name);
+
+          send_file_to_server(data, $block);
+        });
+
+      });
+
+      $element.on('dragleave', function (e) {
+
+        if (--counter === 0) {
+          console.info('leave');
+          $('.sl-add-block', $element).remove();
+          $element.masonry('reload');
+
+        }
+      });
+
+      $(document).on('dragover', function (e)
+      {
+        e.stopPropagation();
+        e.preventDefault();
+      });
+
+    }
+
     // Public functions
 
     var methods = {
@@ -320,7 +390,8 @@ Private methods:
                         contentarea: '#content',
                         margin_right: 10, // Margin right in px
                         contentwidth: 960, // REQUERES A STATIC WIDTH
-                        resizeheightstep: 10};
+                        resizeheightstep: 10,
+                        editable: false};
 
                         settings = $.extend({}, defaults, options);
                 } else {
@@ -330,82 +401,13 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                var $blocks = $(settings.blocks, $this);
-                blockcontrols($blocks);
-                addblock($this);
-                imagecontrols($blocks);
-
-                /******** THIS IS SOME FANCY IMAGE UPLOAD STUFF - JUST PLAYING ARROUND *************/
-
-                var counter = 0;
-                $this.on('dragenter', function (e){
-                  e.stopPropagation();
-                  e.preventDefault();
-
-                  if (counter === 0) {
-                    console.info('entered the page');
-                  }
-                  counter++;
-
-
-                  if ($('.sl-add-block', $this).length === 0){
-                    var files = e.originalEvent.dataTransfer.items;
-                    $.each(files, function(index, file){
-                      var $block = $(
-                        '<div style="width:' + get_grid(settings) + 'px" ' +
-                             'class="sl-add-block '+ settings.blocks.slice(1) + '">'+
-                                '<span class="ui-icon ui-icon-document sl-controls-toggler">' +
-                                '<!-- --></span>' +
-
-                             '<div class="block-wrapper">' +
-                               '<div class="block-view-wrapper">' + file + '</div>' +
-                             '</div>' +
-                        '</div>');
-                      $this.prepend($block);
-                    });
-
-                    $this.masonry('reload');
-                  }
-                });
-
-                $this.on('drop', function(e){
-                  e.stopPropagation();
-                  e.preventDefault();
-
-                  var files = e.originalEvent.dataTransfer.files;
-                  var $addblocks = $('.sl-add-block', $(this));
-
-                  $.each(files, function(index, file){
-                    var $block = $addblocks.eq(index);
-                    $('.block-view-wrapper', $block).html('uploading... ' + file.name);
-
-                    var data = new FormData();
-                    data.append('image', file);
-                    data.append('filename', file.name);
-
-                    send_file_to_server(data, $block);
-                  });
-
-                });
-
-                $this.on('dragleave', function (e) {
-
-                  if (--counter === 0) {
-                    console.info('leave');
-                    $('.sl-add-block', $this).remove();
-                    $this.masonry('reload');
-
-                  }
-                });
-
-                $(document).on('dragover', function (e)
-                {
-                  e.stopPropagation();
-                  e.preventDefault();
-                  //obj.css('border', '2px dotted #0B85A1');
-                });
-
-                /************************************************************/
+                if (settings.editable){
+                  var $blocks = $(settings.blocks, $this);
+                  blockcontrols($blocks);
+                  addblock($this);
+                  imagecontrols($blocks);
+                  dndupload($this, settings);
+                }
 
             });
         },
@@ -424,8 +426,13 @@ Private methods:
 
             $this.removeData('simplelayout');
             $this.masonry('destroy');
-            $this.sortable('destroy');
-            $blocks.resizable('destroy');
+
+            if (settings.editable){
+              $this.sortable('destroy');
+              $blocks.resizable('destroy');
+              $('.sl-img-wrapper img', $blocks).resizable('destroy');
+            }
+
           });
         },
 
@@ -470,6 +477,10 @@ Private methods:
                 isResizable: true,
                 columnWidth: grid
                 });
+
+            if (!settings.editable){
+              return;
+            }
 
             // resize
             $blocks.resizable({
@@ -523,7 +534,7 @@ Private methods:
 
             // Image resize
             var image_grid = get_image_grid(settings);
-            $('img', $blocks).resizable({
+            $('.sl-img-wrapper img', $blocks).resizable({
                 containment: ".block-wrapper",
                 handles: "e, w",
                 zIndex: 91,
