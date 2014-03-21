@@ -528,7 +528,7 @@ Private methods:
                 handles: "e, w",
                 zIndex: 91,
                 grid: [image_grid, 1],
-                minWidth: image_grid,
+                minWidth: image_grid - settings.margin_right,
                 resize: function(event, ui){
                   // Set height to preserve img ratio.
                   // Manually, because aspectRatio does not work with grid option.
