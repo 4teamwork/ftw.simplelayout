@@ -28,10 +28,6 @@ div.simplelayout > div.sl-block {
     overflow: hidden;
 }
 
-.sl-block > .block-wrapper > .block-view-wrapper {
-
-}
-
 .sl-add-block {
     height:200px;
 }
@@ -57,4 +53,12 @@ div.simplelayout > div.sl-block {
 span.imagefloat {
     background-color: white;
     opacity: 0.6;
+}
+
+.sl-img-wrapper.float-image-left {
+    padding-right: 0.5em
+}
+
+.sl-img-wrapper.float-image-right {
+    padding-left: 0.5em
 }

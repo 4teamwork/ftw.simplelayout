@@ -39,7 +39,6 @@ class TestTextBlockView(TestCase):
         self.assertEquals(('height', 10000), scale.key[-2])
 
     def test_scaled_image_based_on_image_styles(self):
-
         display = queryMultiAdapter((self.view.context, self.view.request),
                                     IDisplaySettings)
 
@@ -51,6 +50,19 @@ class TestTextBlockView(TestCase):
     def test_get_simplelayout_view(self):
         self.assertEquals('simplelayout',
                           self.view.get_simplelayout_view().__name__)
+
+    def test_get_default_image_wrapper_css_class(self):
+        self.assertEquals('sl-img-wrapper float-image-none',
+                          self.view.get_image_wrapper_css_class())
+
+    def test_get_change_image_wrapper_css_class(self):
+        display = queryMultiAdapter((self.view.context, self.view.request),
+                                    IDisplaySettings)
+
+        display.set_image_styles('width:123px;float:left')
+
+        self.assertEquals('sl-img-wrapper float-image-left',
+                          self.view.get_image_wrapper_css_class())
 
 
 class TestCssStyleParser(TestCase):

@@ -5,11 +5,11 @@ import cssutils
 import json
 
 
-def parse_css(styles, attr):
+def parse_css(styles, attr, default=None):
     parsed = cssutils.parseStyle(styles)
     value = getattr(parsed, attr)
     if not value:
-        return None
+        return default
 
     value = value.rstrip('px')
     return value
@@ -64,3 +64,11 @@ class TextBlockView(BrowserView):
         columns = settings['columns']
         margin_right = settings['margin_right']
         return contentwidth / columns / images - margin_right
+
+    def get_image_wrapper_css_class(self):
+        displaysettings = queryMultiAdapter((self.context, self.request),
+                                            IDisplaySettings)
+        styles = displaysettings.get_image_styles()
+
+        direction = parse_css(styles, 'float', 'none')
+        return 'sl-img-wrapper float-image-{0}'.format(direction)
