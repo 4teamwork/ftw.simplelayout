@@ -401,11 +401,13 @@ Private methods:
                 $this.data('simplelayout', settings);
 
                 // Load controls
-                var $blocks = $(settings.blocks, $this);
-                blockcontrols($blocks);
-                addblock($this);
-                imagecontrols($blocks);
-                dndupload($this, settings);
+                if (settings.editable){
+                  var $blocks = $(settings.blocks, $this);
+                  blockcontrols($blocks);
+                  addblock($this);
+                  imagecontrols($blocks);
+                  dndupload($this, settings);
+                }
 
             });
         },
@@ -424,8 +426,13 @@ Private methods:
 
             $this.removeData('simplelayout');
             $this.masonry('destroy');
-            $this.sortable('destroy');
-            $blocks.resizable('destroy');
+
+            if (settings.editable){
+              $this.sortable('destroy');
+              $blocks.resizable('destroy');
+              $('.sl-img-wrapper img', $blocks).resizable('destroy');
+            }
+
           });
         },
 
@@ -470,6 +477,10 @@ Private methods:
                 isResizable: true,
                 columnWidth: grid
                 });
+
+            if (!settings.editable){
+              return;
+            }
 
             // resize
             $blocks.resizable({
@@ -523,7 +534,7 @@ Private methods:
 
             // Image resize
             var image_grid = get_image_grid(settings);
-            $('img', $blocks).resizable({
+            $('.sl-img-wrapper img', $blocks).resizable({
                 containment: ".block-wrapper",
                 handles: "e, w",
                 zIndex: 91,
