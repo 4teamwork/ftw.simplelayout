@@ -90,13 +90,15 @@ Private methods:
       });
 
     }
-    function reload_block($block){
+    function reload_block(e){
+      var $block = $(this);
       var uuid = $block.data('uuid');
+
       $('.block-view-wrapper', $block).load(
         './@@sl-ajax-reload-block-view',
         {uuid: uuid},
         function(){
-          $block.parent('.simplelayout').simplelayout('layout');
+          e.data.container.simplelayout('layout');
           imagecontrols($block);
         });
       // hide menu
@@ -125,7 +127,7 @@ Private methods:
                 formselector: 'form',
                 noform:function(data, overlay){
                   var $block = overlay.source.closest('.sl-block');
-                  reload_block($block);
+                  $block.trigger('sl-block-reload');
                   return 'close';
                   },
 
@@ -233,7 +235,7 @@ Private methods:
         $block = $el.parents('.sl-block');
         $('.sl-img-wrapper img', $block).css('float', direction);
         $block.parents('.simplelayout').simplelayout('save', function(){
-          reload_block($block);
+          $block.trigger('sl-block-reload');
         });
       }
 
@@ -407,6 +409,13 @@ Private methods:
                   addblock($this);
                   imagecontrols($blocks);
                   dndupload($this, settings);
+
+                  // Events
+                  $blocks.bind(
+                    'sl-block-reload',
+                    {settings: settings, container: $this},
+                    reload_block);
+
                 }
 
             });
@@ -525,7 +534,7 @@ Private methods:
                       img.resizable('enable');
 
                       $this.simplelayout('save', function(){
-                        reload_block(ui.element);
+                        ui.element.trigger('sl-block-reload');
                       });
 
                     });
@@ -550,7 +559,8 @@ Private methods:
                 stop: function(event, ui){
                   var img = ui.originalElement;
                   $this.simplelayout('save', function(){
-                    reload_block(img.parents('.sl-block'));
+                    // reload_block(img.parents('.sl-block'));
+                    img.parents('.sl-block').trigger('sl-block-reload');
                   });
                 }
             });
@@ -634,7 +644,7 @@ Private methods:
                     type: 'POST',
                     success: function(data, textStatus, jqXHR){
                       console.info(data);
-                      if(typeof callback == 'function'){
+                      if(typeof callback === 'function'){
                         callback.call(this, data);
                       }
                     },
