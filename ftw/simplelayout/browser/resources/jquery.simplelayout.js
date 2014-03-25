@@ -38,6 +38,12 @@ Private methods:
   - controls (Loads edit /
               delete action for each block)
 
+Events:
+  - "sl-block-reloaded" This event is triggered after a block has succesfully
+    reloaded. An additional data argument is passed if you bind this event.
+    The data argument contains the settings and the current simplelayout
+    container.
+
 **********************************************/
 
 (function($){
@@ -90,17 +96,18 @@ Private methods:
       });
 
     }
-    function reload_block($block){
+    function reload_block(e){
+      var $block = $(this);
       var uuid = $block.data('uuid');
+
       $('.block-view-wrapper', $block).load(
         './@@sl-ajax-reload-block-view',
         {uuid: uuid},
         function(){
-          $block.parent('.simplelayout').simplelayout('layout');
-          imagecontrols($block);
+          $block.trigger('sl-block-reloaded',
+                         {settings: e.data.settings,
+                          container: e.data.container});
         });
-      // hide menu
-      $('.sl-controls:visible', $block).hide();
       return;
     }
 
@@ -125,7 +132,7 @@ Private methods:
                 formselector: 'form',
                 noform:function(data, overlay){
                   var $block = overlay.source.closest('.sl-block');
-                  reload_block($block);
+                  $block.trigger('sl-block-reload');
                   return 'close';
                   },
 
@@ -233,7 +240,7 @@ Private methods:
         $block = $el.parents('.sl-block');
         $('.sl-img-wrapper img', $block).css('float', direction);
         $block.parents('.simplelayout').simplelayout('save', function(){
-          reload_block($block);
+          $block.trigger('sl-block-reload');
         });
       }
 
@@ -407,7 +414,24 @@ Private methods:
                   addblock($this);
                   imagecontrols($blocks);
                   dndupload($this, settings);
+
+                  // Events
+                  $blocks.bind(
+                    'sl-block-reload',
+                    {settings: settings, container: $this},
+                    reload_block);
+
+                  $blocks.bind('sl-block-reloaded', function(e, data){
+                      var $block = $(this);
+                      data.container.simplelayout('layout');
+                      imagecontrols($block);
+                      // Hide menu
+                      $('.sl-controls:visible', $block).hide();
+
+                  });
+
                 }
+
 
             });
         },
@@ -525,7 +549,7 @@ Private methods:
                       img.resizable('enable');
 
                       $this.simplelayout('save', function(){
-                        reload_block(ui.element);
+                        ui.element.trigger('sl-block-reload');
                       });
 
                     });
@@ -550,7 +574,7 @@ Private methods:
                 stop: function(event, ui){
                   var img = ui.originalElement;
                   $this.simplelayout('save', function(){
-                    reload_block(img.parents('.sl-block'));
+                    img.parents('.sl-block').trigger('sl-block-reload');
                   });
                 }
             });
@@ -634,7 +658,7 @@ Private methods:
                     type: 'POST',
                     success: function(data, textStatus, jqXHR){
                       console.info(data);
-                      if(typeof callback == 'function'){
+                      if(typeof callback === 'function'){
                         callback.call(this, data);
                       }
                     },
