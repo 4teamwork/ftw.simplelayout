@@ -104,16 +104,10 @@ Events:
         './@@sl-ajax-reload-block-view',
         {uuid: uuid},
         function(){
-          e.data.container.simplelayout('layout');
-          imagecontrols($block);
-
           $block.trigger('sl-block-reloaded',
                          {settings: e.data.settings,
                           container: e.data.container});
-
         });
-      // hide menu
-      $('.sl-controls:visible', $block).hide();
       return;
     }
 
@@ -427,7 +421,17 @@ Events:
                     {settings: settings, container: $this},
                     reload_block);
 
+                  $blocks.bind('sl-block-reloaded', function(e, data){
+                      var $block = $(this);
+                      data.container.simplelayout('layout');
+                      imagecontrols($block);
+                      // Hide menu
+                      $('.sl-controls:visible', $block).hide();
+
+                  });
+
                 }
+
 
             });
         },
@@ -570,7 +574,6 @@ Events:
                 stop: function(event, ui){
                   var img = ui.originalElement;
                   $this.simplelayout('save', function(){
-                    // reload_block(img.parents('.sl-block'));
                     img.parents('.sl-block').trigger('sl-block-reload');
                   });
                 }
