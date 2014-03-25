@@ -38,6 +38,12 @@ Private methods:
   - controls (Loads edit /
               delete action for each block)
 
+Events:
+  - "sl-block-reloaded" This event is triggered after a block has succesfully
+    reloaded. An additional data argument is passed if you bind this event.
+    The data argument contains the settings and the current simplelayout
+    container.
+
 **********************************************/
 
 (function($){
@@ -100,6 +106,11 @@ Private methods:
         function(){
           e.data.container.simplelayout('layout');
           imagecontrols($block);
+
+          $block.trigger('sl-block-reloaded',
+                         {settings: e.data.settings,
+                          container: e.data.container});
+
         });
       // hide menu
       $('.sl-controls:visible', $block).hide();
