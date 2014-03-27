@@ -1,0 +1,33 @@
+<html xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag=""
+      i18n:domain="ftw.simplelayout">
+
+    <div class="simplelayout"
+         tal:define="slot options/slot"
+         tal:attributes="data-simplelayout-config view/load_default_settings;
+                         id options/slot_id">
+        <tal:blocks repeat="block python: view.get_blocks(slot)">
+
+            <div class="sl-block"
+                 tal:attributes="data-uuid block/uuid;
+                                 style block/style">
+
+              <div class="block-wrapper">
+
+                <span tal:condition="block/editable"
+                      class="ui-icon ui-icon-document sl-controls-toggler"><!-- --></span>
+
+                <div class="block-view-wrapper">
+                  <div tal:replace="structure block/view" />
+                </div>
+
+              </div>
+
+            </div>
+        </tal:blocks>
+
+    </div>
+
+</html>

@@ -1,5 +1,6 @@
 from AccessControl import getSecurityManager
 from AccessControl.SpecialUsers import nobody
+from Acquisition import aq_base
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
@@ -7,6 +8,7 @@ from ftw.simplelayout.interfaces import ISimplelayoutView
 from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
@@ -25,6 +27,8 @@ CONFIG_TEMPLATE = ('{{"columns": {columns}, '
                    '"contentarea": "{contentarea}", '
                    '"editable": {editable}}}')
 
+SIMPLELAYOUT_SLOT_ATTR = 'sl_slot_information'
+
 
 def get_style(settings):
     position = settings.get_position()
@@ -38,15 +42,34 @@ def get_style(settings):
                'height': size['height']})
 
 
+def get_slot_id(slot):
+    return 'sl-slot-{0}'.format(str(slot))
+
+
+def get_slot_information(block):
+    return getattr(aq_base(block), SIMPLELAYOUT_SLOT_ATTR, None)
+
+
 class SimplelayoutView(BrowserView):
     implements(ISimplelayoutView)
 
     columns = None
 
-    def get_blocks(self):
+    sl_slot_template = ViewPageTemplateFile('templates/simplelayout-slot.pt')
+
+    def simplelayout_slot(self, **kwargs):
+        if 'slot' not in kwargs:
+            kwargs['slot'] = None
+        kwargs['slot_id'] = get_slot_id(kwargs['slot'])
+        return self.sl_slot_template(**kwargs)
+
+    def get_blocks(self, slot):
         user = getSecurityManager().getUser()
 
         for block in self.context.listFolderContents():
+            if get_slot_information(block) != slot:
+                continue
+
             properties = queryMultiAdapter((block, self.request),
                                            IBlockProperties)
             if properties is None:
