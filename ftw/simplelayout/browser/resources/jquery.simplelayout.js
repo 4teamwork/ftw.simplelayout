@@ -581,7 +581,7 @@ Events:
 
             // sortable
             $this.sortable({
-                distance: 1,
+                distance: 5,
                 forcePlaceholderSize: true,
                 items: settings.blocks,
                 connectWith: '[id^=sl-slot-]',
@@ -600,11 +600,11 @@ Events:
                     ui.item.addClass('dragging').removeClass('sl-block');
                     if ( ui.item.hasClass('bigun') ) {
                          ui.placeholder.addClass('bigun');
-                         }
-                           ui.item.parent().masonry('reload');
-                        },
+                    }
+                },
                 change: function(event, ui) {
-                           ui.item.parent().masonry('reload');
+                            // masonry reload on all possible simplelayout slots.
+                           $('[data-simplelayout-config]').masonry('reload');
                         },
                 stop:   function(event, ui) {
                            ui.item.removeClass('dragging').addClass('sl-block');

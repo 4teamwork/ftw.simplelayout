@@ -2,6 +2,7 @@
 div.simplelayout {
     position:relative;
     height: auto;
+    min-height: 100px;
 }
 div.simplelayout > div.sl-block {
     display:block;
