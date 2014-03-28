@@ -584,6 +584,7 @@ Events:
                 distance: 1,
                 forcePlaceholderSize: true,
                 items: settings.blocks,
+                connectWith: '[id^=sl-slot-]',
                 placeholder: {
                     element: function(current_item){
                         var placeholder = $('<div class="block-sortable-placeholder sl-block"></div>'); // use settings.blocks
