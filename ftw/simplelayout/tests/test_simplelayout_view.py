@@ -69,7 +69,7 @@ class TestSimplelayoutView(TestCase):
                            .within(self.contentpage)
                            .having(text=RichTextValue('The text'))
                            .having(show_title=False))
-        self.assertIsNone(get_slot_information(textblock),
+        self.assertEquals('None', get_slot_information(textblock),
                           'Thers is no slot information on this block')
 
 

@@ -1,6 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import IDisplaySettings
+from ftw.simplelayout.slot import get_slot_information
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
@@ -44,6 +45,7 @@ class TestSaveStateView(TestCase):
     def generate_block_data(self, block, top=10, left=10, width=10,
                             height=10):
         return {'uuid': IUUID(block),
+                'slot': 'sl-slot-SomeSlot',
                 'position': {'left': left,
                              'top': top},
                 'size': {'width': width,
@@ -83,7 +85,7 @@ class TestSaveStateView(TestCase):
             self.generate_block_data(self.baz),
             self.generate_block_data(self.foo),
             self.generate_block_data(self.bar),
-            ]
+        ]
 
         request = TestRequest(form={'payload': json.dumps(payload)})
         getMultiAdapter((self.page, request),
@@ -106,7 +108,7 @@ class TestSaveStateView(TestCase):
         payload = [
             self.generate_block_data(self.foo, top=2, left=3.141592654),
             self.generate_block_data(self.bar, top=1, left=2),
-            ]
+        ]
 
         request = TestRequest(form={'payload': json.dumps(payload)})
         getMultiAdapter((self.page, request),
@@ -125,7 +127,7 @@ class TestSaveStateView(TestCase):
         payload = [
             self.generate_block_data(self.foo, top=11, left=12),
             self.generate_block_data(self.bar, top=13, left=14),
-            ]
+        ]
 
         request = TestRequest(form={'payload': json.dumps(payload)})
         getMultiAdapter((self.page, request),
@@ -154,7 +156,7 @@ class TestSaveStateView(TestCase):
         payload = [
             self.generate_block_data(self.foo, height=2, width=3.141592654),
             self.generate_block_data(self.bar, height=1, width=2),
-            ]
+        ]
 
         request = TestRequest(form={'payload': json.dumps(payload)})
         getMultiAdapter((self.page, request),
@@ -173,7 +175,7 @@ class TestSaveStateView(TestCase):
         payload = [
             self.generate_block_data(self.foo, height=11, width=12),
             self.generate_block_data(self.bar, height=13, width=14),
-            ]
+        ]
 
         request = TestRequest(form={'payload': json.dumps(payload)})
         getMultiAdapter((self.page, request),
@@ -187,3 +189,12 @@ class TestSaveStateView(TestCase):
         self.assertEqual(bar_settings.get_size(),
                          {'width': 14,
                           'height': 13})
+
+    def test_block_slot(self):
+        payload = [self.generate_block_data(self.foo)]
+
+        request = TestRequest(form={'payload': json.dumps(payload)})
+        getMultiAdapter((self.page, request),
+                        name='sl-ajax-save-state')()
+
+        self.assertEquals('SomeSlot', get_slot_information(self.foo))

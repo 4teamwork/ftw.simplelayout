@@ -608,7 +608,7 @@ Events:
                 stop:   function(event, ui) {
                            ui.item.removeClass('dragging').addClass('sl-block');
                            ui.item.parent().masonry('reload', function(){
-                             $this.simplelayout('save');
+                             ui.item.parent().simplelayout('save');
                            });
 
                 }
@@ -645,6 +645,7 @@ Events:
 
               payload.push({
                 'uuid': $item.data('uuid'),
+                'slot': $this.attr('id'),
                 'position': $item.position(),
                 'size': {'width': $item.width(), 'height': $item.height()},
                 'imagestyles': imagestyles
