@@ -581,10 +581,12 @@ Events:
 
             // sortable
             $this.sortable({
-                distance: 5,
+                distance: 1,
                 forcePlaceholderSize: true,
                 items: settings.blocks,
                 connectWith: '[id^=sl-slot-]',
+                cursor: 'move',
+                delay:100,
                 placeholder: {
                     element: function(current_item){
                         var placeholder = $('<div class="block-sortable-placeholder sl-block"></div>'); // use settings.blocks
@@ -604,7 +606,7 @@ Events:
                 },
                 change: function(event, ui) {
                             // masonry reload on all possible simplelayout slots.
-                           $('[data-simplelayout-config]').masonry('reload');
+                            $('[data-simplelayout-config]').masonry('reload');
                         },
                 stop:   function(event, ui) {
                            ui.item.removeClass('dragging').addClass('sl-block');
