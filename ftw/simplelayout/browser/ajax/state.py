@@ -1,4 +1,5 @@
 from ftw.simplelayout.interfaces import IDisplaySettings
+from ftw.simplelayout.slot import set_slot_information
 from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -15,6 +16,7 @@ class SaveStateView(BrowserView):
 
     >>> payload = [
     ...     {'uuid': '1234345',
+    ...      'slot': 'sl-slot-None',
     ...      'position': {'left': 10,
     ...                   'top': 20},
     ...      'size': {'width': 100,
@@ -22,6 +24,7 @@ class SaveStateView(BrowserView):
     ...     'imagestyles': width:100px;float:none},
     ...
     ...     {'uuid': '09987655',
+    ...      'slot': 'sl-slot-A',
     ...      'position': {'left': 5,
     ...                   'top': 6},
     ...      'size': {'width': 7,
@@ -36,6 +39,7 @@ class SaveStateView(BrowserView):
         payload = self._load_objects(payload)
         self._update_order(payload)
         self._update_positions_and_sizes(payload)
+        self._update_slot_information(payload)
 
         return json.dumps(
             {'Status': 'OK',
@@ -75,3 +79,7 @@ class SaveStateView(BrowserView):
             display.set_position(item['position'])
             display.set_size(item['size'])
             display.set_image_styles(item['imagestyles'])
+
+    def _update_slot_information(self, payload):
+        for item in payload:
+            set_slot_information(item['obj'], item['slot'])

@@ -12,32 +12,12 @@
     <div metal:fill-slot="content-core">
 
         <div class="SimplelayoutPageControls" tal:condition="view/can_modify">
-            <a href="#" class="add-block-link">Add Block</a>
+            <a href="#" id="add-block-link">Add Block</a>
         </div>
 
-        <div class="simplelayout"
-             tal:attributes="data-simplelayout-config view/load_default_settings">
-            <tal:blocks repeat="block view/get_blocks">
 
-                <div class="sl-block"
-                     tal:attributes="data-uuid block/uuid;
-                                     style block/style">
 
-                  <div class="block-wrapper">
-
-                    <span tal:condition="block/editable"
-                          class="ui-icon ui-icon-document sl-controls-toggler"><!-- --></span>
-
-                    <div class="block-view-wrapper">
-                      <div tal:replace="structure block/view" />
-                    </div>
-
-                  </div>
-
-                </div>
-            </tal:blocks>
-
-        </div>
+        <div tal:replace="structure python:view.simplelayout_slot()" />
 
         <script type="text/javascript">
 
