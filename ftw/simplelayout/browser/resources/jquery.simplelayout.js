@@ -313,9 +313,9 @@ Events:
           var floatright = $('.imagefloat.right', $this);
           var floatnone = $('.imagefloat.none', $this);
 
-          floatright.hide();
-          floatleft.hide();
-          floatnone.hide();
+          floatright.unbind('click').hide();
+          floatleft.unbind('click').hide();
+          floatnone.unbind('click').hide();
         });
     }
 
