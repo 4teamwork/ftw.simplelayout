@@ -12,7 +12,7 @@
     <div metal:fill-slot="content-core">
 
         <div class="SimplelayoutPageControls" tal:condition="view/can_modify">
-            <a href="#" class="add-block-link">Add Block</a>
+            <a href="#" id="add-block-link">Add Block</a>
         </div>
 
 

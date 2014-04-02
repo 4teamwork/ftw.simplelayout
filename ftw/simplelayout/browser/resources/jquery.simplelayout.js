@@ -171,7 +171,12 @@ Events:
 
     function addblock($container){
       var settings = $container.data('simplelayout');
-      var $addlink = $container.prev();
+      var $addlink = $('#add-block-link');
+
+      // Only bind event on the first slot
+      if ($addlink.data('events') !== undefined){
+        return;
+      }
 
       $addlink.bind('click', function(e){
         e.stopPropagation();
@@ -194,11 +199,19 @@ Events:
             filter: "#content",
             formselector: 'form',
             noform: function(data, overlay){
-              var $newblock = $('.sl-block', data).eq(-1);
+              // The new block in response data has no style attribute, so grap that one.
+              var $newblock = $('.sl-block:not([style])', data);
               $newblock.attr('style', $block.attr('style'));
-              $('.sl-add-block', $container).replaceWith($newblock);
+              $('.sl-add-block').replaceWith($newblock);
 
-              $container.masonry('reload').simplelayout('save').simplelayout('layout');
+
+              if ($container !== $newblock.parent()){
+                $container = $newblock.parent();
+              }
+
+              $container.masonry('reload', function(){
+                $container.simplelayout('save').simplelayout('layout');
+              });
               blockcontrols($newblock);
               return 'close';
             },
@@ -411,9 +424,9 @@ Events:
                 if (settings.editable){
                   var $blocks = $(settings.blocks, $this);
                   blockcontrols($blocks);
-                  addblock($this);
                   imagecontrols($blocks);
                   dndupload($this, settings);
+                  addblock($this);
 
                   // Events
                   $blocks.bind(
@@ -469,8 +482,7 @@ Events:
               console.info('Initialize plugin first, using $("SELECTOR").simplelayout("init", options)');
               return;
             }
-
-            $this.prev().click();
+            $('#add-block-link').click();
 
           });
         },
