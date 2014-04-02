@@ -554,11 +554,9 @@ Events:
                         // Asynchronous resize
                         new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
                       }
-                      img.resizable('disable');
 
                       img.width(new_img_width).height('auto');
                       img.parent().width(new_img_width).height('auto');
-                      img.resizable('enable');
 
                       $this.simplelayout('save', function(){
                         ui.element.trigger('sl-block-reload');
@@ -623,7 +621,7 @@ Events:
                 stop:   function(event, ui) {
                            ui.item.removeClass('dragging').addClass('sl-block');
                            ui.item.parent().masonry('reload', function(){
-                             ui.item.parent().simplelayout('save');
+                             ui.item.parent().simplelayout('save').simplelayout('layout');
                            });
 
                 }
