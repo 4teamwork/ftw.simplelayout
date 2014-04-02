@@ -251,7 +251,10 @@ Events:
 
       function change_image_float($el, direction){
         $block = $el.parents('.sl-block');
+        $('.sl-img-wrapper', $block).css('float', direction);
         $('.sl-img-wrapper img', $block).css('float', direction);
+        auto_block_height($block);
+
         $block.parents('.simplelayout').simplelayout('save', function(){
           $block.trigger('sl-block-reload');
         });
@@ -389,6 +392,19 @@ Events:
 
     }
 
+    function auto_block_height($block){
+      if ($('#auto-block-height:checked').length === 1){
+
+        $block.css('height', 'auto');
+        $block.parent().masonry('reload', function(){
+            $block.css('height', $block.height());
+        });
+
+      } else {
+        return;
+      }
+    }
+
     // Public functions
 
     var methods = {
@@ -420,9 +436,10 @@ Events:
 
                 $this.data('simplelayout', settings);
 
-                // Load controls
                 if (settings.editable){
                   var $blocks = $(settings.blocks, $this);
+
+                  // Load controls
                   blockcontrols($blocks);
                   imagecontrols($blocks);
                   dndupload($this, settings);
@@ -558,6 +575,7 @@ Events:
                       img.width(new_img_width).height('auto');
                       img.parent().width(new_img_width).height('auto');
 
+                      auto_block_height(ui.element);
                       $this.simplelayout('save', function(){
                         ui.element.trigger('sl-block-reload');
                       });
@@ -588,8 +606,11 @@ Events:
                 },
                 stop: function(event, ui){
                   var img = ui.originalElement;
+                  var $block = img.parents('.sl-block');
+                  auto_block_height($block);
+
                   $this.simplelayout('save', function(){
-                    img.parents('.sl-block').trigger('sl-block-reload');
+                    $block.trigger('sl-block-reload');
                   });
                 }
             });

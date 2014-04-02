@@ -13,6 +13,8 @@
 
         <div class="SimplelayoutPageControls" tal:condition="view/can_modify">
             <a href="#" id="add-block-link">Add Block</a>
+            <input type="checkbox" id="auto-block-height" name="auto-block-height" />
+            <label i18n:translate="label_auto_height" for="auto-block-height">Enable auto block height</label>
         </div>
 
 
