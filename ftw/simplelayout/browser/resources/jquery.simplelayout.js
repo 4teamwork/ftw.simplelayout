@@ -251,7 +251,10 @@ Events:
 
       function change_image_float($el, direction){
         $block = $el.parents('.sl-block');
+        $('.sl-img-wrapper', $block).css('float', direction);
         $('.sl-img-wrapper img', $block).css('float', direction);
+        auto_block_height($block);
+
         $block.parents('.simplelayout').simplelayout('save', function(){
           $block.trigger('sl-block-reload');
         });
