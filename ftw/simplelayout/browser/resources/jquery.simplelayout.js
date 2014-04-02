@@ -575,6 +575,7 @@ Events:
                       img.width(new_img_width).height('auto');
                       img.parent().width(new_img_width).height('auto');
 
+                      auto_block_height(ui.element);
                       $this.simplelayout('save', function(){
                         ui.element.trigger('sl-block-reload');
                       });
