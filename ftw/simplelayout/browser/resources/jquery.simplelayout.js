@@ -605,8 +605,11 @@ Events:
                 },
                 stop: function(event, ui){
                   var img = ui.originalElement;
+                  var $block = img.parents('.sl-block');
+                  auto_block_height($block);
+
                   $this.simplelayout('save', function(){
-                    img.parents('.sl-block').trigger('sl-block-reload');
+                    $block.trigger('sl-block-reload');
                   });
                 }
             });
