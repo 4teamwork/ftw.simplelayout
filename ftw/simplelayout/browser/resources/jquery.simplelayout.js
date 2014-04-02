@@ -653,7 +653,9 @@ Events:
               var imagestyles = false;
 
               if ($img.length !== 0){
-                imagestyles = 'width:' + $img.css('width') + ';float: ' + $img.css('float') + ';';
+                imagestyles = 'width:' + $img.css('width') + ';' +
+                              'height: ' + $img.css('height') + ';' +
+                              'float: ' + $img.css('float') + ';';
               }
 
               payload.push({

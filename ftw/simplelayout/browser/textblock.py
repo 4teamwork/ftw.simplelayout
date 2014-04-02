@@ -31,6 +31,8 @@ class TextBlockView(BrowserView):
             return scale.scale('image', width=width, height=height)
         else:
             width = int(parse_css(styles, 'width'))
+            if parse_css(styles, 'height'):
+                height = int(parse_css(styles, 'height'))
             return scale.scale('image', width=width, height=height)
 
     def get_style(self):
