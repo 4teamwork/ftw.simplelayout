@@ -569,11 +569,16 @@ Events:
             // Image resize
             var image_grid = get_image_grid(settings);
             $('.sl-img-wrapper img', $blocks).resizable({
-                containment: ".block-wrapper",
                 handles: "e, w",
                 zIndex: 91,
                 grid: [image_grid, 1],
                 minWidth: image_grid - settings.margin_right,
+                start: function(event, ui){
+                    // Set max width, because containment does now work.
+                    ui.element.resizable("option",
+                                         "maxWidth",
+                                         ui.element.parents('.block-wrapper').width());
+                },
                 resize: function(event, ui){
                   // Set height to preserve img ratio.
                   // Manually, because aspectRatio does not work with grid option.
