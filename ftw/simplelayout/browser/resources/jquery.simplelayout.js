@@ -389,6 +389,19 @@ Events:
 
     }
 
+    function auto_block_height($block){
+      if ($('#auto-block-height:checked').length === 1){
+
+        $block.css('height', 'auto');
+        $block.parent().masonry('reload', function(){
+            $block.css('height', $block.height());
+        });
+
+      } else {
+        return;
+      }
+    }
+
     // Public functions
 
     var methods = {
@@ -420,9 +433,10 @@ Events:
 
                 $this.data('simplelayout', settings);
 
-                // Load controls
                 if (settings.editable){
                   var $blocks = $(settings.blocks, $this);
+
+                  // Load controls
                   blockcontrols($blocks);
                   imagecontrols($blocks);
                   dndupload($this, settings);
