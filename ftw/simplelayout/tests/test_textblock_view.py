@@ -47,6 +47,16 @@ class TestTextBlockView(TestCase):
         scale = self.view.get_scaled_image()
         self.assertEquals(('width', 123), scale.key[-1])
 
+    def test_scaled_image_based_on_image_styles_incl_height(self):
+        display = queryMultiAdapter((self.view.context, self.view.request),
+                                    IDisplaySettings)
+
+        display.set_image_styles('width:123px;height:200px;')
+
+        scale = self.view.get_scaled_image()
+        self.assertEquals(('width', 123), scale.key[-1])
+        self.assertEquals(('height', 200), scale.key[-2])
+
     def test_get_simplelayout_view(self):
         self.assertEquals('simplelayout',
                           self.view.get_simplelayout_view().__name__)
