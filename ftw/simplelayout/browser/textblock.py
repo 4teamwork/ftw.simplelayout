@@ -45,8 +45,8 @@ class TextBlockView(BrowserView):
         the style attribute to not break the columns in simplelayout.
         """
         scale = self.get_scaled_image()
-        return ('<img src="{url}" alt="{title}" title="{title}"'
-                'width="{width}" height="{height}"'
+        return ('<img src="{url}" alt="{title}" title="{title}" '
+                'width="{width}" height="{height}" '
                 'style="{style}" />'.format(**{'url': scale.url,
                                                'title': self.context.Title(),
                                                'width': scale.width,

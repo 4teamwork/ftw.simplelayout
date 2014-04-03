@@ -23,6 +23,7 @@ class TestTextBlockView(TestCase):
             '\x01\x00\x00\x02\x02D\x01\x00;')
         block = create(Builder('sl textblock')
                        .within(self.page)
+                       .titled('TextBlock title')
                        .having(text=RichTextValue('The text'))
                        .having(image=NamedBlobImage(data=image.read(),
                                                     filename=u'test.gif')))
@@ -73,6 +74,33 @@ class TestTextBlockView(TestCase):
 
         self.assertEquals('sl-img-wrapper float-image-left',
                           self.view.get_image_wrapper_css_class())
+
+    def test_imag_tag(self):
+        display = queryMultiAdapter((self.view.context, self.view.request),
+                                    IDisplaySettings)
+
+        display.set_image_styles('width:123px;height:200px;')
+        img_tag = self.view.img_tag()
+
+        self.assertIn('title="TextBlock title"',
+                      img_tag,
+                      'Title attribute is wrong or not set.')
+        self.assertIn('alt="TextBlock title"',
+                      img_tag,
+                      'Title attribute is wrong or not set.')
+        self.assertIn('width="1"',
+                      img_tag,
+                      'width attribute is wrong or not set.')
+        self.assertIn('height="1"',
+                      img_tag,
+                      'Height attribute is wrong or not set.')
+        self.assertIn('style="width:123px;height:200px;"',
+                      img_tag,
+                      'Style attribute is wrong or not set.')
+        self.assertIn(
+            'src="{0}/@@images'.format(self.view.context.absolute_url()),
+            img_tag,
+            'Src attribute is wrong or not set.')
 
 
 class TestCssStyleParser(TestCase):
