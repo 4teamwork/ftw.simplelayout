@@ -51,3 +51,18 @@ class TestSampleTypes(TestCase):
         self.assertEquals(0,
                           len(browser.css('.block-view-wrapper h2')),
                           'Expect no textblock title')
+
+    @browsing
+    def test_bested_contentpages(self, browser):
+        nested = create(Builder('sl content page')
+                        .titled(u'Nested')
+                        .within(self.page))
+
+        browser.login().visit(self.page)
+
+        self.assertFalse(browser.css('.sl-block'),
+                         'Expect no block, also the contentpage should no be '
+                         'visible as block')
+
+        browser.visit(nested)
+        self.assertEquals('Nested', plone.first_heading())
