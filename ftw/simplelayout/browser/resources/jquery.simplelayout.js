@@ -48,6 +48,17 @@ Events:
 
 (function($){
 
+    // Turn simplelayout page controls into jQuery UI buttons - needs to be loaded only once
+    $(function(){
+        $('#auto-block-height')
+            .button({icons: {primary:'ui-icon-closethick'}})
+            .change(function() {
+            $(this).button("option", {
+                icons: { primary: this.checked ? 'ui-icon-check' : 'ui-icon-closethick' }
+            });
+        });
+    });
+
     // Private functions
 
     function get_grid(settings){
@@ -177,8 +188,7 @@ Events:
       if ($addlink.data('events') !== undefined){
         return;
       }
-
-      $addlink.bind('click', function(e){
+      $addlink.button({icons: {primary: 'ui-icon-plus'}}).on('click', function(e){
         e.stopPropagation();
         e.preventDefault();
 
