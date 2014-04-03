@@ -66,3 +66,8 @@ span.imagefloat {
 .sl-img-wrapper.float-image-right {
     padding-left: 0.5em
 }
+
+#content fieldset.simplelayout-page-controls {
+    border-style:solid;
+    display:inline;
+}
