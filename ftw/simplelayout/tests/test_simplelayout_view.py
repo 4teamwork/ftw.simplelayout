@@ -2,12 +2,15 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.browser.simplelayout import get_slot_id
 from ftw.simplelayout.browser.simplelayout import get_slot_information
+from ftw.simplelayout.browser.simplelayout import get_style
+from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.app.textfield.value import RichTextValue
 from plone.testing.z2 import Browser
 from unittest2 import TestCase
+from zope.component import queryMultiAdapter
 import transaction
 
 
@@ -71,6 +74,34 @@ class TestSimplelayoutView(TestCase):
                            .having(show_title=False))
         self.assertEquals('None', get_slot_information(textblock),
                           'Thers is no slot information on this block')
+
+    def test_get_style_attribute_for_a_specific_block_default(self):
+        textblock = create(Builder('sl textblock')
+                           .titled('TextBlock title')
+                           .within(self.contentpage)
+                           .having(text=RichTextValue('The text'))
+                           .having(show_title=False))
+
+        display_settings = queryMultiAdapter((textblock, textblock.REQUEST),
+                                             IDisplaySettings)
+
+        self.assertEquals(None, get_style(display_settings))
+
+    def test_get_style_attribute_for_a_specific_block_with_data(self):
+        textblock = create(Builder('sl textblock')
+                           .titled('TextBlock title')
+                           .within(self.contentpage)
+                           .having(text=RichTextValue('The text'))
+                           .having(show_title=False))
+
+        display_settings = queryMultiAdapter((textblock, textblock.REQUEST),
+                                             IDisplaySettings)
+
+        display_settings.set_position({'left': 5, 'top': 6})
+        display_settings.set_size({'width': 7, 'height': 8})
+
+        self.assertEquals('top:6px;left:5px;width:7px;height:8px;',
+                          get_style(display_settings))
 
 
 class TestGetSlotId(TestCase):
