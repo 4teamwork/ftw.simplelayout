@@ -11,14 +11,7 @@
 
     <div metal:fill-slot="content-core">
 
-        <fieldset class="simplelayout-page-controls" tal:condition="view/can_modify">
-            <legend>Simpelayout page controls</legend>
-            <a href="#" id="add-block-link">Add Block</a>
-            <input type="checkbox" id="auto-block-height" name="auto-block-height" />
-            <label i18n:translate="label_auto_height" for="auto-block-height">Enable auto block height</label>
-        </fieldset>
-
-
+        <div tal:replace="structure view/sl_page_controls" />
 
         <div tal:replace="structure python:view.simplelayout_slot()" />
 
