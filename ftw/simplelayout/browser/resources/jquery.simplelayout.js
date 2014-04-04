@@ -57,6 +57,10 @@ Events:
                 icons: { primary: this.checked ? 'ui-icon-check' : 'ui-icon-closethick' }
             });
         });
+
+        $('#simplelayout-info-link')
+            .button({icons: {primary:'ui-icon-info'}})
+            .prepOverlay({subtype: 'ajax', filter: '#content'});
     });
 
     // Private functions
