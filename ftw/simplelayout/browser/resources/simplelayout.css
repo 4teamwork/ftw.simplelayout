@@ -59,6 +59,10 @@ span.imagefloat {
     opacity: 0.6;
 }
 
+.sl-img-wrapper {
+    position: relative;
+}
+
 .sl-img-wrapper.float-image-left {
     padding-right: 0.5em
 }

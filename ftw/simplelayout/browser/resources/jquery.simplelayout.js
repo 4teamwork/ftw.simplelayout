@@ -262,9 +262,11 @@ Events:
       var floatright = $('<span class="imagefloat right ui-icon ui-icon-arrowthickstop-1-e" />').hide();
       var floatnone = $('<span class="imagefloat none ui-icon ui-icon-arrowthick-2-e-w" />').hide();
 
-      floatright.appendTo($('.sl-img-wrapper', $blocks));
-      floatleft.appendTo($('.sl-img-wrapper', $blocks));
-      floatnone.appendTo($('.sl-img-wrapper', $blocks));
+      var $img_wrapper = $('.sl-img-wrapper', $blocks);
+
+      floatright.appendTo($img_wrapper);
+      floatleft.appendTo($img_wrapper);
+      floatnone.appendTo($img_wrapper);
 
       function change_image_float($el, direction){
         $block = $el.parents('.sl-block');
@@ -277,7 +279,7 @@ Events:
         });
       }
 
-      $('.sl-img-wrapper', $blocks).on('mouseenter',
+      $img_wrapper.on('mouseenter',
         function(e){
           // Handler in
           e.stopPropagation();
@@ -298,18 +300,18 @@ Events:
 
           if (floatcss === 'none'){
             floatright.css('position', 'absolute')
-                      .css('top', $img.height() / 2)
-                      .css('left', $img.width() - floatright.width())
+                      .css('top', '50%')
+                      .css('right', 0)
                       .show();
             floatleft.css('position', 'absolute')
-                      .css('top', $img.height() / 2)
+                      .css('top', '50%')
                       .css('left', 0)
                       .show();
 
           } else if (floatcss === 'left') {
             floatright.css('position', 'absolute')
-                      .css('top', $img.height() / 2)
-                      .css('left', $img.width() - floatleft.width())
+                      .css('top', '50%')
+                      .css('right', 0)
                       .show();
             floatnone.css('position', 'absolute')
                       .css('top', $img.height() / 2)
@@ -318,12 +320,12 @@ Events:
 
           } else if (floatcss === 'right') {
             floatleft.css('position', 'absolute')
-                      .css('top', $img.height() / 2)
-                      .css('right', $img.width() - 5) // Fix resizable space
+                      .css('top', '50%')
+                      .css('left', 0)
                       .show();
             floatnone.css('position', 'absolute')
-                      .css('top', $img.height() / 2)
-                      .css('right', $img.width() / 2)
+                      .css('top', '50%')
+                      .css('right', '50%')
                       .show();
           }
 
