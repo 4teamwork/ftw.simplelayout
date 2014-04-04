@@ -10,8 +10,8 @@ Because of the restricted dimensions of text, images and other content elements,
 the general result is content with a uniform look and feel throughout the site.
 
 
-Usage
-=====
+Installation
+============
 
 - Add the package to your buildout configuration:
 
@@ -22,7 +22,124 @@ Usage
         ...
         ftw.simplelayout
 
-- Install the generic setup profile.
+- Install the ``ftw.simplelayout`` default profile.
+- There is also a examples profile, which also installs some additional views.
+  (See ftw.contentpage.examples). In the future this will also create some
+  example content
+
+
+Usage
+=====
+
+First steps
+-----------
+
+First thing you should do is to configure the default simplelayout behavior.
+To achieve this, go to the Simplelayout control panel
+(`@@simplelayout-controlpanel`) and configure for example the amount of columns
+and images you want to display by default.
+
+.. figure:: ./docs/_static/control_panel.png
+   :align: center
+   :alt: Simplelayout control panel
+
+   Simplelayout control panel
+
+**Changing those settings after creating some content may break the simplelayout
+view and put it in a inconsistent state.** It's not yet clear how smplelayout
+should behave on changing those settings, please check or join the discussion
+on `github <https://github.com/4teamwork/ftw.simplelayout/issues/33>`_.
+
+
+Contenttypes
+------------
+
+Simplelayout ships by default with two content types.
+One folderish type, the `ContentPage` and one block type, the `TextBlock`.
+
+
+**ContentPage**
+
+The ContentPage is a simple folderish dexterity based contenttype, which
+does nearly nothing, but has the ``@@simplelayout`` view configured by default.
+It's possible to add a ContentPage within a ContentPage
+
+**TextBlock**
+
+The TextBlock provides the following fields:
+
+- ``Title`` (Well, this will be the title of the block, rendered as **h2**).
+- Show title? (Decide if the title will be displayed or not).
+- Text
+- Image
+
+Title, or Text, or the image is needed to successfully add a new block
+
+The ``TextBlock`` configuration allows you to use this block to show text
+only or images only, or of course both. There's no need of a single block for
+images and a single block for text.
+
+.. figure:: ./docs/_static/add_textblock.png
+   :align: center
+   :alt: Add TextBlock
+
+   Add TextBlock
+
+
+Add new TextBlock
+-----------------
+
+Create a simpelayout ContentPage first...
+
+You have two possibilities how to add a new TextBlock:
+
+First:
+
+Click on the ``Add Block`` link.
+A Placeholder block is added to your simplelayout page.
+By default the block is added on top as first block.
+You can move this placeholder around until it's on the right place.
+After that, chose a block type to add (Currently only one block is available).
+
+.. figure:: ./docs/_static/add_block.png
+   :align: center
+   :alt: Add block
+
+   Add block
+
+
+Second - the cool way:
+
+Drag one or more images (NOT other files) over the simplelayout page.
+While dragging you can see where the images will be uploaded after dropping.
+By default the with of the block is 1 column.
+After the image upload you can move the images around, add text, or a title.
+
+.. figure:: ./docs/_static/multi_upload.png
+   :align: center
+   :alt: DnD upload of images
+
+   Dnd upload of images
+
+
+Simplelayout your site
+----------------------
+
+**Yes it's simple:**
+
+- Resize blocks on the left, bottom, or left-bottom corner.
+- Drag and drop blocks.
+- Resize images in blocks.
+
+**What's special:**
+
+- Resizing a block will also resize the image in the block.
+- The blocks are not simply floated, they are bricks in a wall (masoned).
+- You can resize the block only within the configured boundaries.
+- It's somehow responsive :-)
+- By enabled the "auto block height" feature in the "Simplelayout page controls"
+  area, every modified block, will automatically consume as much space as needed
+  to display all data.
 
 
 Links
