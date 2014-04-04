@@ -34,4 +34,12 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="OFS.interfaces.IFolder"
+        name="simplelayout_info"
+        class=".simplelayout_info.SimplelayoutInfo"
+        permission="zope2.View"
+        template="templates/simplelayout_info.pt"
+        />
+
 </configure>

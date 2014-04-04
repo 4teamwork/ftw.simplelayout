@@ -3,4 +3,6 @@
     <a href="#" id="add-block-link">Add Block</a>
     <input type="checkbox" id="auto-block-height" name="auto-block-height" />
     <label i18n:translate="label_auto_height" for="auto-block-height">Enable auto block height</label>
+    <a href="./simplelayout_info" id="simplelayout-info-link">Info</a>
+    <a href="https://github.com/4teamwork/ftw.simplelayout/blob/master/README.rst#usage" id="simplelayout-help-link" target="_blank">Help</a>
 </fieldset>
