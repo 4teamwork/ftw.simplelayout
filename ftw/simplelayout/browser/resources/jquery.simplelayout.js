@@ -61,6 +61,9 @@ Events:
         $('#simplelayout-info-link')
             .button({icons: {primary:'ui-icon-info'}})
             .prepOverlay({subtype: 'ajax', filter: '#content'});
+
+        $('#simplelayout-help-link')
+            .button({icons: {primary:'ui-icon-info'}});
     });
 
     // Private functions
