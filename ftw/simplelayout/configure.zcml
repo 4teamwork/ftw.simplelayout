@@ -11,6 +11,7 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".contents" />
+    <include package=".examples" />
 
     <genericsetup:registerProfile
         name="default"
@@ -25,6 +26,14 @@
         title="ftw.simplelayout library"
         directory="profiles/library"
         description="Simlelayout library"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="examples"
+        title="ftw.simplelayout examples"
+        directory="profiles/examples"
+        description="Simlelayout examples"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 

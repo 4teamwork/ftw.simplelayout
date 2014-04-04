@@ -5,11 +5,15 @@
       i18n:domain="ftw.simplelayout">
 
 
-<div metal:fill-slot="head_slot">
-
-</div>
-
     <div metal:fill-slot="content-core">
+
+        <div style="height:100px;background-color:lightblue">
+            This view aims to be a replacement for the ftw.subsite startpage view.<br />
+            4 columns, imagewith at least 1 column, contentwidth 960px. <br />
+            DO NOT CHANGE THE VIEW TEMPLATE.
+        </div>
+
+
 
         <div tal:replace="structure view/sl_page_controls" />
 

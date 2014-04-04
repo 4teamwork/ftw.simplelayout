@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+
+    <browser:page
+        for="OFS.interfaces.IFolder"
+        name="simplelayout_two_slots"
+        class=".views.SimplelayoutTwoSlots"
+        permission="zope2.View"
+        template="templates/simplelayout_two_slots.pt"
+        />
+
+    <browser:page
+        for="OFS.interfaces.IFolder"
+        name="simplelayout_four_columns"
+        class=".views.SimplelayoutFourColumns"
+        permission="zope2.View"
+        template="templates/simplelayout_four_columns.pt"
+        />
+
+
+</configure>

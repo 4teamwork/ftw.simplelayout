@@ -47,6 +47,7 @@ class SimplelayoutView(BrowserView):
     columns = None
 
     sl_slot_template = ViewPageTemplateFile('templates/simplelayout-slot.pt')
+    sl_page_controls = ViewPageTemplateFile('templates/page-controls.pt')
 
     def simplelayout_slot(self, **kwargs):
         if 'slot' not in kwargs:
