@@ -29,6 +29,14 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="examples"
+        title="ftw.simplelayout examples"
+        directory="profiles/examples"
+        description="Simlelayout examples"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
     <adapter factory=".display.DisplaySeetings" />
 
 </configure>
