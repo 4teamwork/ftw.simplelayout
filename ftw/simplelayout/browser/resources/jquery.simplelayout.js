@@ -239,9 +239,6 @@ Events:
               return 'close';
             },
             closeselector: '[name="form.buttons.cancel"]',
-            appendTopost: function(data, overlay){
-              console.info('appendTopost');
-            },
             config: {
               onLoad: function () {
                 if (window.initTinyMCE) {
@@ -353,9 +350,6 @@ Events:
         e.stopPropagation();
         e.preventDefault();
 
-        if (counter === 0) {
-          console.info('entered the page');
-        }
         counter++;
 
 
@@ -369,7 +363,7 @@ Events:
                       '<!-- --></span>' +
 
                    '<div class="block-wrapper">' +
-                     '<div class="block-view-wrapper">' + file + '</div>' +
+                     '<div class="block-view-wrapper"> &nbsp; </div>' +
                    '</div>' +
               '</div>');
             $element.prepend($block);
@@ -411,7 +405,6 @@ Events:
       $element.on('dragleave', function (e) {
 
         if (--counter === 0) {
-          console.info('leave');
           $('.sl-add-block', $element).remove();
           $element.masonry('reload');
 
@@ -733,7 +726,6 @@ Events:
                     dataType:'json',
                     type: 'POST',
                     success: function(data, textStatus, jqXHR){
-                      console.info(data);
                       if(typeof callback === 'function'){
                         callback.call(this, data);
                       }

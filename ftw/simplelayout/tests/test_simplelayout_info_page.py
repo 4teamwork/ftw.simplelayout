@@ -15,7 +15,7 @@ class TestSimplelayoutInfoPage(TestCase):
 
         browser.login().visit(page, view='simplelayout_info')
 
-        self.assertEquals(['Arrange blocks in a 4 column/s layout',
+        self.assertEquals(['You can arrange blocks in 4 column/s.',
                            'The minimal size of an image is 0.5 column/s.',
                            'The content width is set to 960 pixel. This means'
                            ' one column is 240 pixel.',
