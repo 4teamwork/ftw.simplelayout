@@ -12,8 +12,8 @@
     <p>This simplelayout page has the following configuration:</p>
     <ul>
         <li i18n:translate="help_text_columns">
-            Arrange blocks in a
-            <b i18n:name="columns" tal:content="python:view.get_simplelayout_config()['columns']" /> column/s layout
+            You can arrange blocks in
+            <b i18n:name="columns" tal:content="python:view.get_simplelayout_config()['columns']" /> column/s.
         </li>
         <li i18n:translate="help_text_images">
             The minimal size of an image is <b i18n:name="images" tal:content="python: 1 /float(view.get_simplelayout_config()['images'])" /> column/s.
