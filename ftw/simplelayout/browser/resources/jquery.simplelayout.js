@@ -399,6 +399,9 @@ Events:
               send_file_to_server(data, $block);
           } else {
             $block.remove();
+            $element.masonry('reload');
+            alert("It's not possible to upload the file: " + file.name +
+                  " Because it's not an image.");
           }
 
         });
