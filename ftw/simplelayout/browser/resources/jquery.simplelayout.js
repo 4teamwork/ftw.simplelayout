@@ -63,7 +63,7 @@ Events:
             .prepOverlay({subtype: 'ajax', filter: '#content'});
 
         $('#simplelayout-help-link')
-            .button({icons: {primary:'ui-icon-info'}});
+            .button({icons: {primary:'ui-icon-help'}});
     });
 
     // Private functions
