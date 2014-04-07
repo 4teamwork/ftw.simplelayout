@@ -76,6 +76,12 @@ Events:
         return settings.contentwidth / settings.columns / settings.images;
     }
 
+    function is_image(file){
+        // minimal check if it is an image.
+        // TODO: This can be improved.
+        return file.type.indexOf('image') === 0;
+    }
+
     function send_file_to_server(form_data, $block){
       // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
       var upload_url = './sl-ajax-image-upload';
@@ -382,13 +388,19 @@ Events:
 
         $.each(files, function(index, file){
           var $block = $addblocks.eq(index);
-          $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
-          var data = new FormData();
-          data.append('image', file);
-          data.append('filename', file.name);
+          if (is_image(file)){
+              $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
-          send_file_to_server(data, $block);
+              var data = new FormData();
+              data.append('image', file);
+              data.append('filename', file.name);
+
+              send_file_to_server(data, $block);
+          } else {
+            $block.remove();
+          }
+
         });
 
       });
