@@ -12,8 +12,7 @@
         <div tal:replace="structure python:view.simplelayout_slot()" />
 
         <div style="height:100px;background-color:lightblue">
-            Below is a second indipendent slot, where you can put blocks. <br />
-            DO NOT CHANGE THE VIEW TEMPLATE.
+            Below is a second indipendent slot, where you can put blocks.
         </div>
 
 

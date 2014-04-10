@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+
+ <object name="navtree_properties" meta_type="Plone Property Sheet">
+  <property name="metaTypesNotToList" type="lines" purge="False">
+   <element value="ftw.simplelayout.TextBlock"/>
+  </property>
+ </object>
+
+ <object name="site_properties" meta_type="Plone Property Sheet">
+  <property name="invalid_ids" type="lines" purge="False">
+   <element value="simplelayout"/>
+  </property>
+  <property name="types_not_searched" type="lines" purge="False">
+   <element value="ftw.simplelayout.TextBlock"/>
+  </property>
+  <property name="default_page_types" type="lines" purge="False">
+   <element value="ftw.simplelayout.ContentPage"/>
+  </property>
+ </object>
+
+</object>
