@@ -106,7 +106,10 @@ Events:
             './@@sl-ajax-reload-block-view', {uuid: uuid}, function(data){
               $block.data('uuid', uuid);
               $block.removeClass('sl-add-block');
-              $block.closest('.simplelayout').masonry('reload').simplelayout('save').simplelayout('layout');
+              $block.closest('.simplelayout')
+                .masonry('reload')
+                .simplelayout('save')
+                .simplelayout('layout');
               blockcontrols($block);
               imagecontrols($block);
             });
@@ -471,22 +474,6 @@ Events:
                   imagecontrols($blocks);
                   dndupload($this, settings);
                   addblock($this);
-
-                  // Events
-                  $blocks.bind(
-                    'sl-block-reload',
-                    {settings: settings, container: $this},
-                    reload_block);
-
-                  $blocks.bind('sl-block-reloaded', function(e, data){
-                      var $block = $(this);
-                      data.container.simplelayout('layout');
-                      imagecontrols($block);
-                      // Hide menu
-                      $('.sl-controls:visible', $block).hide();
-
-                  });
-
                 }
 
 
@@ -561,6 +548,29 @@ Events:
             if (!settings.editable){
               return;
             }
+
+            // Events - Make sure those events are binded only once.
+            $blocks.each(function(){
+              var $block = $(this);
+              var events = $block.data('events');
+              if (events === undefined || events['sl-block-reload'] === undefined){
+                // block reload event
+                $block.on(
+                  'sl-block-reload',
+                  {settings: settings, container: $this},
+                  reload_block);
+              }
+              // block reloadED event
+              if (events === undefined || events['sl-block-reloaded'] === undefined){
+                $block.on('sl-block-reloaded', function(e, data){
+                    var $block = $(this);
+                    data.container.simplelayout('layout');
+                    imagecontrols($block);
+                    // Hide menu
+                    $('.sl-controls:visible', $block).hide();
+                });
+              }
+            });
 
             // resize
             $blocks.resizable({
