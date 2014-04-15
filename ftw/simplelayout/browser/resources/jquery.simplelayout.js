@@ -189,6 +189,13 @@ Events:
 
                         closeselector: '[name="form.button.cancel"]',
                         config: {
+                            onClose: function(e, overlay) {
+                                overlay = e.currentTarget.getOverlay();
+                                overlay.data('pbo').source.parents('.sl-block');
+
+                                auto_block_height($block);
+                                $block.parents('.simplelayout').simplelayout('save');
+                            },
                             onLoad: function() {
                                 if (window.initTinyMCE) {
                                     window.initTinyMCE(document);
@@ -648,6 +655,9 @@ Events:
 
                             img.width(new_img_width).height('auto');
                             img.parent().width(new_img_width).height('auto');
+                            img.parents('.sl-img-wrapper')
+                                .width(new_img_width)
+                                .height('auto');
 
                             auto_block_height(ui.element);
                             $this.simplelayout('save', function() {
