@@ -717,11 +717,17 @@ Events:
                         // Manually, because aspectRatio does not work with grid option.
                         var img = ui.originalElement;
                         var ratio = img.attr('width') / img.attr('height');
-                        ui.element.height(ui.element.width() / ratio);
+                        var new_height = ui.element.width() / ratio;
+
+                        ui.element.parent().height(new_height);
+                        ui.element.parents('.sl-img-wrapper').height(new_height);
+
+                        ui.element.height(new_height);
                     },
                     stop: function(event, ui) {
                         var img = ui.originalElement;
                         var $block = img.parents('.sl-block');
+
                         auto_block_height($block);
 
                         $this.simplelayout('save', function() {
