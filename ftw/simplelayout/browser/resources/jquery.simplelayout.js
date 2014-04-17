@@ -99,47 +99,70 @@ Events:
         return file.type.indexOf('image') === 0;
     }
 
-    function send_file_to_server(form_data, $block) {
-        // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
+    function send_file_to_server(files, $blocks) {
         var upload_url = './sl-ajax-image-upload';
+        var $block = $blocks.eq($blocks.length - files.length);
+        files.reverse();
+        var file = files.pop();
 
-        var $xhr = $.ajax({
-            xhr: function() {
-                var xhrobj = $.ajaxSettings.xhr();
-                // Implement Progressbar
-                return xhrobj;
-            },
-            url: upload_url,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            cache: false,
-            async: false,
-            data: form_data,
-            success: function(data) {
-                var uuid = JSON.parse(data).uuid;
+        if (!is_image(file)) {
+            $block.remove();
+            $block.closest('.simplelayout').masonry('reload');
+            alert("It's not possible to upload the file: " + file.name +
+                " Because it's not an image.");
 
-                $('.block-view-wrapper', $block).load(
-                    './@@sl-ajax-reload-block-view', {
-                        uuid: uuid
-                    }, function(data) {
-                        $block.data('uuid', uuid);
-                        $block.removeClass('sl-add-block');
-                        $block.closest('.simplelayout')
-                            .masonry('reload')
-                            .simplelayout('save')
-                            .simplelayout('layout');
-                        blockcontrols($block);
-                        imagecontrols($block);
-                    });
-            },
+        } else {
 
-            error: function(xhr, status, error) {
-                alert(status, error);
-            }
+            $('.block-view-wrapper', $block).html('uploading... ' + file.name);
+
+            var form_data = new FormData();
+            form_data.append('image', file);
+            form_data.append('filename', file.name);
+
+            // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
+            var $xhr = $.ajax({
+                xhr: function() {
+                    var xhrobj = $.ajaxSettings.xhr();
+                    // Implement Progressbar
+                    return xhrobj;
+                },
+                url: upload_url,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                cache: false,
+                async: true,
+                data: form_data,
+                success: function(data) {
+                    var uuid = JSON.parse(data).uuid;
+
+                    $('.block-view-wrapper', $block).load(
+                        './@@sl-ajax-reload-block-view', {
+                            uuid: uuid
+                        }, function(data) {
+                            $block.data('uuid', uuid);
+                            $block.removeClass('sl-add-block');
+                            $block.closest('.simplelayout')
+                                .masonry('reload')
+                                .simplelayout('save')
+                                .simplelayout('layout');
+                            blockcontrols($block);
+                            imagecontrols($block);
 
 
-        });
+                        });
+
+                    if (files.length !== 0){
+                        send_file_to_server(files, $blocks);
+                    }
+
+                },
+
+                error: function(xhr, status, error) {
+                    alert(status, error);
+                }
+            });
+        }
 
     }
 
@@ -424,26 +447,8 @@ Events:
 
             var files = e.originalEvent.dataTransfer.files;
             var $addblocks = $('.sl-add-block', $(this));
-
-            $.each(files, function(index, file) {
-                var $block = $addblocks.eq(index);
-
-                if (is_image(file)) {
-                    $('.block-view-wrapper', $block).html('uploading... ' + file.name);
-
-                    var data = new FormData();
-                    data.append('image', file);
-                    data.append('filename', file.name);
-
-                    send_file_to_server(data, $block);
-                } else {
-                    $block.remove();
-                    $element.masonry('reload');
-                    alert("It's not possible to upload the file: " + file.name +
-                        " Because it's not an image.");
-                }
-
-            });
+            var files_array = [].slice.call(files);
+            send_file_to_server(files_array, $addblocks);
 
         });
 
