@@ -118,12 +118,24 @@ Events:
             var form_data = new FormData();
             form_data.append('image', file);
             form_data.append('filename', file.name);
+            var status = new create_status_bar($block);
 
             // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
             var $xhr = $.ajax({
                 xhr: function() {
                     var xhrobj = $.ajaxSettings.xhr();
-                    // Implement Progressbar
+                    if (xhrobj.upload) {
+                        xhrobj.upload.addEventListener('progress', function(e) {
+                            var percent = 0;
+                            var position = e.loaded || e.position;
+                            var total = e.total;
+                            if (e.lengthComputable) {
+                                percent = Math.ceil(position / total * 100);
+                            }
+                            //Set progress
+                            status.set_progress(percent);
+                        }, false);
+                    }
                     return xhrobj;
                 },
                 url: upload_url,
@@ -149,10 +161,11 @@ Events:
                             blockcontrols($block);
                             imagecontrols($block);
 
+                            status.set_progress(100);
 
                         });
 
-                    if (files.length !== 0){
+                    if (files.length !== 0) {
                         send_file_to_server(files, $blocks);
                     }
 
@@ -164,6 +177,19 @@ Events:
             });
         }
 
+    }
+
+    function create_status_bar($block) {
+        this.statusbar = $('<div class="statusbar"></div>');
+        this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+        $('.block-view-wrapper', $block).append(this.statusbar);
+
+        this.set_progress = function(progress) {
+            var progress_bar_width = progress * this.progress_bar.width() / 100;
+            this.progress_bar.find('div').animate({
+                width: progress_bar_width
+            }, 10).html(progress + "% ");
+        };
     }
 
     function reload_block(e) {
