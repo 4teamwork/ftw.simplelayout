@@ -762,6 +762,7 @@ Events:
                         if (ui.item.hasClass('bigun')) {
                             ui.placeholder.addClass('bigun');
                         }
+                        $('[data-simplelayout-config]').masonry('reload');
                     },
                     change: function(event, ui) {
                         // masonry reload on all possible simplelayout slots.
