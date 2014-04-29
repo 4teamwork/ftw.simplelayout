@@ -55,6 +55,21 @@ class TestSimplelayoutView(TestCase):
         self.assertEquals('TextBlock title',
                           browser.css('.block-view-wrapper h2').first.text)
 
+    @browsing
+    def test_show_fallback_view_on_block_render_problems(self, browser):
+        textblock = create(Builder('sl textblock')
+                           .titled('TextBlock title')
+                           .within(self.contentpage)
+                           .having(image='Fake image') # Error while render
+                           .having(show_title=False))
+
+        textblock.reindexObject()
+
+        browser.login().visit(self.contentpage, view='@@simplelayout')
+        self.assertEquals(
+            'The block could be rendered. Please check the log for details.',
+            browser.css('.block-view-wrapper').first.text)
+
     def test_render_no_block_for_specific_slot(self):
         create(Builder('sl textblock')
                .titled('TextBlock title')

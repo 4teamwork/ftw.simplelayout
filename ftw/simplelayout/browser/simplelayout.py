@@ -10,10 +10,15 @@ from plone import api
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ZODB.POSException import ConflictError
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
+import logging
+
+
+LOG = logging.getLogger('ftw.simplelayout')
 
 
 STYLE_ATTRIBUTE = ('top:{top}px;'
@@ -48,6 +53,7 @@ class SimplelayoutView(BrowserView):
 
     sl_slot_template = ViewPageTemplateFile('templates/simplelayout-slot.pt')
     sl_page_controls = ViewPageTemplateFile('templates/page-controls.pt')
+    fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
 
     def simplelayout_slot(self, **kwargs):
         if 'slot' not in kwargs:
@@ -69,6 +75,15 @@ class SimplelayoutView(BrowserView):
 
             view_name = properties.get_current_view_name()
             view = block.restrictedTraverse(view_name)
+            try:
+                html = view()
+            except ConflictError:
+                raise
+            except Exception, exc:
+                html = self.fallbackview()
+                LOG.error('Could not render block: {}: {}'.format(
+                    exc.__class__.__name__,
+                    str(exc)))
 
             display_settings = queryMultiAdapter((block, self.request),
                                                  IDisplaySettings)
@@ -76,7 +91,7 @@ class SimplelayoutView(BrowserView):
             yield {
                 'block': block,
                 'uuid': IUUID(block),
-                'view': view,
+                'html': html,
                 'available_views': properties.get_available_views(),
                 'position': display_settings.get_position(),
                 'size': display_settings.get_size(),

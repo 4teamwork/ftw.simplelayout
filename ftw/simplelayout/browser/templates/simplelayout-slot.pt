@@ -20,7 +20,7 @@
                       class="ui-icon ui-icon-document sl-controls-toggler"><!-- --></span>
 
                 <div class="block-view-wrapper">
-                  <div tal:replace="structure block/view" />
+                  <div tal:replace="structure block/html" />
                 </div>
 
               </div>
