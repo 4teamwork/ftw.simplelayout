@@ -212,10 +212,11 @@ Events:
     function blockcontrols($blocks) {
 
         // Menu
-        var $toggler = $('.sl-controls-toggler', $blocks);
-        $toggler.bind('click', function() {
-            var $this = $(this);
-            var $block = $this.closest('.sl-block');
+        // var $toggler = $('.sl-controls-toggler', $blocks);
+
+        $blocks.bind('mouseenter', function() {
+            var $block = $(this);
+            var $innerwrapper = $('.block-wrapper', $block);
 
             if ($('.sl-controls', $block).length === 0) {
 
@@ -223,7 +224,7 @@ Events:
                 $.get('./sl-ajax-block-controls', {
                     uuid: uuid
                 }, function(data) {
-                    $this.after(data);
+                    $innerwrapper.after(data);
 
                     // Edit
                     $('.sl-edit a', $block).prepOverlay({
@@ -273,6 +274,10 @@ Events:
                 $('.sl-controls', $block).toggle();
             }
 
+        });
+
+        $blocks.bind('mouseleave', function() {
+            $('.sl-controls', $(this)).toggle();
         });
 
     }
@@ -373,7 +378,6 @@ Events:
         $img_wrapper.on('mouseenter',
             function(e) {
                 // Handler in
-                e.stopPropagation();
                 e.preventDefault();
 
                 var $this = $(this);

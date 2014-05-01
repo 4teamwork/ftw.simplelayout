@@ -36,22 +36,25 @@ div.simplelayout > div.sl-block {
     height:200px;
 }
 
-.sl-controls-toggler {
-    position: absolute;
-    z-index: 90;
-}
-
 #content ul.sl-controls {
     position: absolute;
-    left:10px;
     z-index: 90;
     list-style-type: none;
-    background-color: #ddd;
+    background-color: white;
     border-radius: 3px;
     margin:0;
-    padding:0.5em;
-    top:1em;
-    left:1em;
+    padding:0;
+    top:0;
+    right:1em;
+    overflow: hidden;
+}
+
+#content ul.sl-controls > li {
+    display:inline-block;
+}
+#content ul.sl-controls > li > a {
+    color:transparent;
+    border:0;
 }
 
 span.imagefloat {

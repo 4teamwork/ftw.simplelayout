@@ -1,12 +1,14 @@
 <ul class="sl-controls">
     <li class="sl-edit">
         <a tal:attributes="href string:${view/block/absolute_url}/edit"
-           i18n:translate="">Edit</a>
+           i18n:translate=""
+           class="ui-icon ui-icon-pencil">Edit</a>
     </li>
 
     <li class="sl-delete">
         <a tal:attributes="href string:${view/block/absolute_url}/delete_confirmation"
-           i18n:translate="">Delete</a>
+           i18n:translate=""
+           class="ui-icon ui-icon-closethick">Delete</a>
     </li>
 
     <li class="seperator"><!-- --></li>
