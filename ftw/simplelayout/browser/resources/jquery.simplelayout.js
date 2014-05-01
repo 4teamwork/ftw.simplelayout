@@ -623,6 +623,9 @@ Events:
                     return;
                 }
 
+                // Apply a fixed with in edit mode - this disables the responsive behavior.
+                $this.css('width', settings.contentwidth);
+
                 // Events - Make sure those events are binded only once.
                 $blocks.each(function() {
                     var $block = $(this);
