@@ -16,9 +16,6 @@
 
               <div class="block-wrapper">
 
-                <span tal:condition="block/editable"
-                      class="ui-icon ui-icon-document sl-controls-toggler"><!-- --></span>
-
                 <div class="block-view-wrapper">
                   <div tal:replace="structure block/html" />
                 </div>

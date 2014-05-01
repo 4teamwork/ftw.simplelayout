@@ -211,9 +211,6 @@ Events:
 
     function blockcontrols($blocks) {
 
-        // Menu
-        // var $toggler = $('.sl-controls-toggler', $blocks);
-
         $blocks.bind('mouseenter', function() {
             var $block = $(this);
             var $innerwrapper = $('.block-wrapper', $block);

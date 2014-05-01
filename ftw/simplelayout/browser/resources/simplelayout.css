@@ -44,9 +44,10 @@ div.simplelayout > div.sl-block {
     border-radius: 3px;
     margin:0;
     padding:0;
-    top:0;
-    right:1em;
+    top:2px;
+    right:7px;
     overflow: hidden;
+    z-index:91;
 }
 
 #content ul.sl-controls > li {
@@ -56,6 +57,46 @@ div.simplelayout > div.sl-block {
     color:transparent;
     border:0;
 }
+
+.simplelayout .ui-resizable-handle.ui-resizable-e {
+    background-color: #eee;
+    border-radius: 5px;
+    right:0;
+    opacity: 0.8;
+}
+
+.simplelayout .ui-resizable-handle.ui-resizable-e:after {
+    content:" ";
+    background-image: url(++resource++jquery-ui-themes/sunburst/images/ui-icons_205c90_256x240.png);
+    background-position: -32px -224px;
+    width:16px;
+    height:16px;
+    background-color: transparent;
+    position: absolute;
+    top: 50%;
+    right: -4px;
+}
+
+.simplelayout .ui-resizable-handle.ui-resizable-s {
+    background-color: #eee;
+    border-radius: 5px;
+    bottom:0;
+    opacity: 0.8;
+}
+
+.simplelayout .ui-resizable-handle.ui-resizable-s:after {
+    content:" ";
+    background-image: url(++resource++jquery-ui-themes/sunburst/images/ui-icons_205c90_256x240.png);
+    background-position: -48px -224px;
+    width:16px;
+    height:16px;
+    background-color: transparent;
+    position: absolute;
+    left: 50%;
+    bottom:-4px;
+}
+
+
 
 span.imagefloat {
     background-color: white;
