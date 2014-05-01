@@ -16,8 +16,6 @@ class BlockControls(BrowserView):
 
     def __call__(self):
         uuid = self.request.get('uuid', None)
-
-        uuid = self.request.get('uuid', None)
         if uuid is None:
             raise BadRequest('No uuid provided.')
 
