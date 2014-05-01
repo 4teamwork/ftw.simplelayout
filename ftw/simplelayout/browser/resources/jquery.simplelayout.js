@@ -397,34 +397,16 @@ Events:
                 var floatcss = $img.css('float');
 
                 if (floatcss === 'none') {
-                    floatright.css('position', 'absolute')
-                        .css('top', '50%')
-                        .css('right', 0)
-                        .show();
-                    floatleft.css('position', 'absolute')
-                        .css('top', '50%')
-                        .css('left', 0)
-                        .show();
+                    floatright.show();
+                    floatleft.show();
 
                 } else if (floatcss === 'left') {
-                    floatright.css('position', 'absolute')
-                        .css('top', '50%')
-                        .css('right', 0)
-                        .show();
-                    floatnone.css('position', 'absolute')
-                        .css('top', $img.height() / 2)
-                        .css('left', $img.width() / 2)
-                        .show();
+                    floatright.show();
+                    floatnone.show();
 
                 } else if (floatcss === 'right') {
-                    floatleft.css('position', 'absolute')
-                        .css('top', '50%')
-                        .css('left', 0)
-                        .show();
-                    floatnone.css('position', 'absolute')
-                        .css('top', '50%')
-                        .css('right', '50%')
-                        .show();
+                    floatleft.show();
+                    floatnone.show();
                 }
 
             }).on('mouseleave', function() {

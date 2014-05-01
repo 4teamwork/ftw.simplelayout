@@ -96,13 +96,6 @@ div.simplelayout > div.sl-block {
     bottom:-4px;
 }
 
-
-
-span.imagefloat {
-    background-color: white;
-    opacity: 0.6;
-}
-
 .sl-img-wrapper {
     position: relative;
 }
@@ -143,4 +136,28 @@ span.imagefloat {
     min-height:25px;
     width:100%;
     vertical-align:top;
+}
+
+
+span.imagefloat {
+    background-color: white;
+    opacity: 0.6;
+}
+
+.imagefloat.left {
+    position: absolute;
+    top: 50%;
+    left: 0;
+}
+
+.imagefloat.right {
+    position: absolute;
+    top: 50%;
+    right: 12px; /* Otherwise it's directly behind the resize handler. */
+}
+
+.imagefloat.none {
+    position: absolute;
+    top: 50%;
+    right: 50%;
 }
