@@ -436,9 +436,6 @@ Events:
                     var $block = $(
                         '<div style="width:' + get_grid(settings) + 'px" ' +
                         'class="sl-add-block ' + settings.blocks.slice(1) + '">' +
-                        '<span class="ui-icon ui-icon-document sl-controls-toggler">' +
-                        '<!-- --></span>' +
-
                         '<div class="block-wrapper">' +
                         '<div class="block-view-wrapper"> &nbsp; </div>' +
                         '</div>' +
