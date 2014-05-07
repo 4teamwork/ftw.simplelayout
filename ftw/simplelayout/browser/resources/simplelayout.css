@@ -2,7 +2,7 @@
 div.simplelayout {
     position:relative;
     height: auto;
-    min-height: 100px;
+    min-height: 10em;
 }
 div.simplelayout > div.sl-block {
     display:block;
@@ -33,7 +33,7 @@ div.simplelayout > div.sl-block {
 }
 
 .sl-add-block {
-    height:200px;
+    height:20em;
 }
 
 #content ul.sl-controls {

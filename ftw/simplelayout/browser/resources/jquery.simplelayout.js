@@ -30,8 +30,7 @@ Default configuration:
    columns: 2,
    contentarea: '#content',
    contentwidth: 960,
-   margin_right: 10,
-   resizeheightstep: 10}
+   margin_right: 10}
 
 Private methods:
   - get_grid (calculates the grid size)
@@ -99,6 +98,10 @@ Events:
         return file.type.indexOf('image') === 0;
     }
 
+    function get_grid_height(settings) {
+        return $(settings.contentarea).css('font-size').slice(0, 2);
+    }
+
     function send_file_to_server(files, $blocks) {
         var upload_url = './sl-ajax-image-upload';
         var $block = $blocks.eq($blocks.length - files.length);
@@ -154,6 +157,7 @@ Events:
                         }, function(data) {
                             $block.data('uuid', uuid);
                             $block.removeClass('sl-add-block');
+                            auto_block_height($block);
                             $block.closest('.simplelayout')
                                 .masonry('reload')
                                 .simplelayout('save')
@@ -436,9 +440,6 @@ Events:
                     var $block = $(
                         '<div style="width:' + get_grid(settings) + 'px" ' +
                         'class="sl-add-block ' + settings.blocks.slice(1) + '">' +
-                        '<span class="ui-icon ui-icon-document sl-controls-toggler">' +
-                        '<!-- --></span>' +
-
                         '<div class="block-wrapper">' +
                         '<div class="block-view-wrapper"> &nbsp; </div>' +
                         '</div>' +
@@ -478,6 +479,7 @@ Events:
     }
 
     function auto_block_height($block) {
+        // Use as much height as needed.
         if ($('#auto-block-height:checked').length === 1) {
 
             $block.css('height', 'auto');
@@ -486,7 +488,15 @@ Events:
             });
 
         } else {
-            return;
+            // Fit to the next possible height based on the grid.
+            var block_height = $block.height();
+            var settings = $block.parents('.simplelayout').data('simplelayout');
+            var grid_height = parseInt(get_grid_height(settings));
+            var modulo = block_height % grid_height;
+            if (modulo) {
+                new_height = block_height - modulo + grid_height;
+                $block.css('height', new_height);
+            }
         }
     }
 
@@ -511,7 +521,6 @@ Events:
                         contentarea: '#content',
                         margin_right: 10, // Margin right in px
                         contentwidth: 960, // REQUERES A STATIC WIDTH
-                        resizeheightstep: 10,
                         editable: false
                     };
 
@@ -635,7 +644,7 @@ Events:
 
                 // resize
                 $blocks.resizable({
-                    grid: [grid, settings.resizeheightstep],
+                    grid: [grid, get_grid_height(settings)],
                     minWidth: grid,
                     maxWidth: settings.contentwidth,
                     resize: function(event, ui) {
