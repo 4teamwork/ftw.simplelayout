@@ -1,16 +1,18 @@
 
 GRUNT = ./node_modules/grunt-cli/bin/grunt
-BOWER = ./node_modules/bower/bin/bower
 NODE_PATH = ./node_modules
 
-bootstrap-common:
-	mkdir -p build
+bootstrap: clean
+	mkdir build
+	npm  link --prefix=$(NODE_PATH)
+	GRUNT
 
-bootstrap: clean bootstrap-common
-	npm link --prefix=$(NODE_PATH)
+test:
+	GRUNT
+
+watch:
+	GRUNT watch
 
 clean:
-	mkdir -p build
 	rm -rf build
 	rm -rf node_modules
-	rm -rf bower_components
