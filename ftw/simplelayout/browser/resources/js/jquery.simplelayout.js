@@ -505,6 +505,7 @@ Events:
     var methods = {
         init: function(options) {
             return this.each(function() {
+
                 var $this = $(this);
                 var settings = $this.data('simplelayout');
 
