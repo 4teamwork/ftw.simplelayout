@@ -10,6 +10,7 @@
     "jquery": "^1.7.4",
     "jsdom": "^0.10.5",
     "mocha": "^1.19.0",
+    "jqueryui-browser": "1.10.2-1",
     "requirejs": "~2.1.11"
   },
   "directories": {
