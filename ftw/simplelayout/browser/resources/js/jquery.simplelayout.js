@@ -48,7 +48,7 @@ Events:
 (function($) {
 
     // Turn simplelayout page controls into jQuery UI buttons - needs to be loaded only once
-    $(function() {
+    function page_controls() {
         $('#auto-block-height')
             .button({
                 icons: {
@@ -80,7 +80,7 @@ Events:
                     primary: 'ui-icon-help'
                 }
             });
-    });
+    }
 
     // Private functions
 
@@ -536,6 +536,7 @@ Events:
                     var $blocks = $(settings.blocks, $this);
 
                     // Load controls
+                    page_controls();
                     blockcontrols($blocks);
                     imagecontrols($blocks);
                     dndupload($this, settings);

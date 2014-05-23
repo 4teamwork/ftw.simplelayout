@@ -4,12 +4,23 @@ var assert = chai.assert;
 suite('Test simplelayout configuration', function() {
 
     setup(function() {
+
+        $controls = $(
+            '<fieldset class="simplelayout-page-controls">' +
+            '<legend>Controls</legend>' +
+            '<a href="#" id="add-block-link">Add Block</a>' +
+            '<input type="checkbox" id="auto-block-height" name="auto-block-height" />' +
+            '<label for="auto-block-height">Enable auto block height</label>' +
+            '<a href="./simplelayout_info" id="simplelayout-info-link">Info</a>' +
+            '<a href="" id="simplelayout-help-link" target="_blank">Help</a>' +
+            '</fieldset>');
+
         $structure = $(
             '<div class="simplelayout">' +
             '<div class="sl-block"></div>' +
             '</div>');
 
-        $structure.appendTo('body');
+        $structure.appendTo('#content');
 
     });
 
@@ -28,7 +39,7 @@ suite('Test simplelayout configuration', function() {
         assert.strictEqual(false, data.editable);
     });
 
-    test('Override default with options', function() {
+    test('Override defaults with options', function() {
         $('.simplelayout').simplelayout('init', {
             columns: 4,
             contentwidth: 640
@@ -57,6 +68,68 @@ suite('Test simplelayout configuration', function() {
     teardown(function() {
 
         $('.simplelayout').remove();
+    });
+
+});
+
+
+suite('Test simplelayout page controls', function(){
+
+    setup(function() {
+        this.server = sinon.fakeServer.create();
+        this.server.autoRespond = true;
+        this.server.respondWith(/@@addable-blocks-view /, function (xhr, id) {
+          xhr.respond(200, { 'Content-Type': 'text/html' }, '' +
+            '<html><body>' +
+            '<div id="content">Fake content</div>' +
+            '</body></html>'
+          );
+        });
+
+        $controls = $(
+            '<fieldset class="simplelayout-page-controls">' +
+            '<legend>Controls</legend>' +
+            '<a href="#" id="add-block-link">Add Block</a>' +
+            '<input type="checkbox" id="auto-block-height" name="auto-block-height" />' +
+            '<label for="auto-block-height">Enable auto block height</label>' +
+            '<a href="./simplelayout_info" id="simplelayout-info-link">Info</a>' +
+            '<a href="" id="simplelayout-help-link" target="_blank">Help</a>' +
+            '</fieldset>');
+
+        $structure = $(
+            '<div class="simplelayout">' +
+            '<div class="sl-block"></div>' +
+            '</div>');
+
+        $controls.appendTo('#content');
+        $structure.appendTo('#content');
+
+    });
+
+    test('ContentPage controls are turned into jquery ui buttons', function(){
+        $('.simplelayout').simplelayout('init', {'editable': true});
+
+        assert.isTrue($('#add-block-link', $controls).hasClass('ui-button'));
+        assert.isTrue($('#simplelayout-info-link', $controls).hasClass('ui-button'));
+        assert.isTrue($('#simplelayout-help-link', $controls).hasClass('ui-button'));
+        assert.isTrue($('#auto-block-height', $controls).hasClass('ui-helper-hidden-accessible'));
+    });
+
+    test("Click on 'add new block' button", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        $('#add-block-link').click();
+        assert.isObject($('.sl-add-block.sl-block'));
+
+    });
+
+
+    teardown(function() {
+        this.server.restore();
+        $controls.remove();
+        $structure.remove();
     });
 
 
