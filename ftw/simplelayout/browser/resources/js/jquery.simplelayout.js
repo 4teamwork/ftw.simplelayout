@@ -115,7 +115,6 @@ Events:
                 " Because it's not an image.");
 
         } else {
-
             $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
             var form_data = new FormData();

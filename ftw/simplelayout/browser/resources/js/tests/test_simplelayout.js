@@ -1,24 +1,26 @@
 var assert = chai.assert;
+var $controls = $(
+    '<fieldset class="simplelayout-page-controls">' +
+    '<legend>Controls</legend>' +
+    '<a href="#" id="add-block-link">Add Block</a>' +
+    '<input type="checkbox" id="auto-block-height" name="auto-block-height" />' +
+    '<label for="auto-block-height">Enable auto block height</label>' +
+    '<a href="./simplelayout_info" id="simplelayout-info-link">Info</a>' +
+    '<a href="" id="simplelayout-help-link" target="_blank">Help</a>' +
+    '</fieldset>');
+
+var $structure = $(
+    '<div class="simplelayout">' +
+    '<div class="sl-block">' +
+    '<div class="block-view-wrapper"></div>' +
+    '</div>' +
+    '</div>');
+
 
 
 suite('Test simplelayout configuration', function() {
 
     setup(function() {
-
-        $controls = $(
-            '<fieldset class="simplelayout-page-controls">' +
-            '<legend>Controls</legend>' +
-            '<a href="#" id="add-block-link">Add Block</a>' +
-            '<input type="checkbox" id="auto-block-height" name="auto-block-height" />' +
-            '<label for="auto-block-height">Enable auto block height</label>' +
-            '<a href="./simplelayout_info" id="simplelayout-info-link">Info</a>' +
-            '<a href="" id="simplelayout-help-link" target="_blank">Help</a>' +
-            '</fieldset>');
-
-        $structure = $(
-            '<div class="simplelayout">' +
-            '<div class="sl-block"></div>' +
-            '</div>');
 
         $structure.appendTo('#content');
 
@@ -86,21 +88,6 @@ suite('Test simplelayout page controls', function(){
           );
         });
 
-        $controls = $(
-            '<fieldset class="simplelayout-page-controls">' +
-            '<legend>Controls</legend>' +
-            '<a href="#" id="add-block-link">Add Block</a>' +
-            '<input type="checkbox" id="auto-block-height" name="auto-block-height" />' +
-            '<label for="auto-block-height">Enable auto block height</label>' +
-            '<a href="./simplelayout_info" id="simplelayout-info-link">Info</a>' +
-            '<a href="" id="simplelayout-help-link" target="_blank">Help</a>' +
-            '</fieldset>');
-
-        $structure = $(
-            '<div class="simplelayout">' +
-            '<div class="sl-block"></div>' +
-            '</div>');
-
         $controls.appendTo('#content');
         $structure.appendTo('#content');
 
@@ -108,7 +95,6 @@ suite('Test simplelayout page controls', function(){
 
     test('ContentPage controls are turned into jquery ui buttons', function(){
         $('.simplelayout').simplelayout('init', {'editable': true});
-
         assert.isTrue($('#add-block-link', $controls).hasClass('ui-button'));
         assert.isTrue($('#simplelayout-info-link', $controls).hasClass('ui-button'));
         assert.isTrue($('#simplelayout-help-link', $controls).hasClass('ui-button'));
@@ -128,8 +114,63 @@ suite('Test simplelayout page controls', function(){
 
     teardown(function() {
         this.server.restore();
-        $controls.remove();
-        $structure.remove();
+        $('.simplelayout-page-controls').remove();
+        $('.simplelayout').remove();
+    });
+
+
+});
+
+suite('Test simplelayout public "layout" method', function(){
+
+    setup(function() {
+        $controls.appendTo('#content');
+        $structure.appendTo('#content');
+
+    });
+
+    test("Margin-right on every block", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        assert.strictEqual('10px', $('.block-view-wrapper').eq(0).css('margin-right'));
+
+    });
+
+    test("Max-width is set on simplelayout div", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        assert.strictEqual('960px', $('.simplelayout').css('max-width'));
+
+    });
+
+
+    test("Width is set on simplelayout div in edit mode (prevent responsive behavior)", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        assert.strictEqual('960px', $('.simplelayout').css('width'));
+
+    });
+
+    test("jQuery masonry is loaded on blocks", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        assert.isTrue($('.sl-block').hasClass('masonry-brick'));
+
+    });
+
+
+
+    teardown(function() {
+        $('.simplelayout-page-controls').remove();
+        $('.simplelayout').remove();
     });
 
 
