@@ -5,13 +5,13 @@ NODE_PATH = ./node_modules
 bootstrap: clean
 	mkdir build
 	npm  link --prefix=$(NODE_PATH)
-	GRUNT
+	${GRUNT}
 
 test:
-	GRUNT
+	${GRUNT}
 
 watch:
-	GRUNT watch
+	${GRUNT} watch
 
 clean:
 	rm -rf build
