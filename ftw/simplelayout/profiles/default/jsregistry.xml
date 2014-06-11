@@ -3,11 +3,15 @@
    autogroup="False">
 
  <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="True" expression="" id="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"
+    enabled="True" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.masonry.min.js"
     inline="False" insert-after="collective.js.jqueryui.custom.min.js"/>
 
  <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="True" expression="" id="++resource++ftw.simplelayout.resources/jquery.simplelayout.js"
+    enabled="False" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.js"
+    inline="False" insert-after="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"/>
+
+ <javascript cacheable="True" compression="safe" cookable="True"
+    enabled="True" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.min.js"
     inline="False" insert-after="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"/>
 
 </object>

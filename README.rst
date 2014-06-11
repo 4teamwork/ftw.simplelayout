@@ -142,6 +142,34 @@ Simplelayout your site
   to display all data.
 
 
+Develop
+-------
+
+**Python:**
+
+1. Fork this repo
+2. Clone your fork
+3. Shell: ``ln -s development.cfg buidlout.cfg``
+4. Shell: ``python boostrap.py``
+5. Shell: ``bin/buildout``
+
+After that you can run tests by excute the following command on a shell: ``bin/test``.
+
+Or start an instance by running ``bin/instance fg``.
+
+
+**JQuery Simplelayout plugin:**
+
+1. Fork this repo
+2. Clone your fork
+3. Install node.js on your system
+4. Shell: ``cd ftw/simplelayout/resources/js``
+5. Shell: ``make bootstrap``
+6. Shell: ``make test``
+
+``make watch`` will automatically run the tests if you make any changes.
+
+
 Links
 =====
 

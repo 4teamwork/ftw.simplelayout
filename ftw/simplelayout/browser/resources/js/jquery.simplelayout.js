@@ -48,7 +48,7 @@ Events:
 (function($) {
 
     // Turn simplelayout page controls into jQuery UI buttons - needs to be loaded only once
-    $(function() {
+    function page_controls() {
         $('#auto-block-height')
             .button({
                 icons: {
@@ -80,7 +80,7 @@ Events:
                     primary: 'ui-icon-help'
                 }
             });
-    });
+    }
 
     // Private functions
 
@@ -115,7 +115,6 @@ Events:
                 " Because it's not an image.");
 
         } else {
-
             $('.block-view-wrapper', $block).html('uploading... ' + file.name);
 
             var form_data = new FormData();
@@ -505,6 +504,7 @@ Events:
     var methods = {
         init: function(options) {
             return this.each(function() {
+
                 var $this = $(this);
                 var settings = $this.data('simplelayout');
 
@@ -535,6 +535,7 @@ Events:
                     var $blocks = $(settings.blocks, $this);
 
                     // Load controls
+                    page_controls();
                     blockcontrols($blocks);
                     imagecontrols($blocks);
                     dndupload($this, settings);
