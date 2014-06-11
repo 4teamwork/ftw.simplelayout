@@ -22,9 +22,6 @@ module.exports = function(grunt) {
                     reporter: 'Progress',
                 },
             },
-            // all: {
-            //     src: ['tests/testrunner.html']
-            // },
             options: {
                 run: true,
             }
@@ -35,7 +32,7 @@ module.exports = function(grunt) {
             },
             build: {
                 src: './<%= pkg.name %>.js',
-                dest: 'build/<%= pkg.name %>.min.js'
+                dest: './<%= pkg.name %>.min.js'
             }
         }
     });
@@ -44,5 +41,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['mocha']);
+    grunt.registerTask('default', ['mocha', 'uglify']);
 };
