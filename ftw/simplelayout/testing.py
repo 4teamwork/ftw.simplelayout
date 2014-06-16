@@ -49,7 +49,7 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.simplelayout:default')
 
-        setRoles(portal, TEST_USER_ID, ['Manager'])
+        setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
 
 
