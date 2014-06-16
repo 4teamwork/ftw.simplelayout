@@ -140,7 +140,7 @@ Simplelayout your site
 - By enabled the "auto block height" feature in the "Simplelayout page controls"
   area, every modified block, will automatically consume as much space as needed
   to display all data.
-- SearchableText of blocks are indexed in the searchableText of the ISimplelayout containter (ex. ContentPage)
+- SearchableText of blocks is indexed in the searchableText of the ISimplelayout container (ex. ContentPage)
 
 
 Develop
