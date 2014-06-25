@@ -9,5 +9,16 @@ class ITextBlock(Interface):
     """Marker interface for TextBlocks"""
 
 
+class IListingBlock(Interface):
+    """Marker interface for TextBlocks"""
+
+
+class IListingBlockColumns(Interface):
+    """Marker interface for TextBlocks"""
+
+    def columns():
+        """Returns an ftw.table compatible list of columns"""
+
+
 class IContentPage(Interface):
     """Marker interface for ConetPages"""

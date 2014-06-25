@@ -1,4 +1,3 @@
-# from plone.supermodel import model
 from collective import dexteritytextindexer
 from ftw.simplelayout import _
 from ftw.simplelayout.contents.interfaces import ITextBlock

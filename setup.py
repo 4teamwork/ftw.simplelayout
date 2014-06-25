@@ -81,6 +81,8 @@ setup(name='ftw.simplelayout',
           'plone.app.dexterity',
           'collective.dexteritytextindexer',
           'plone.directives.form',
+
+          'ftw.table',
           ],
 
       tests_require=tests_require,

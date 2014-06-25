@@ -53,7 +53,7 @@ class TestSampleTypes(TestCase):
                           'Expect no textblock title')
 
     @browsing
-    def test_bested_contentpages(self, browser):
+    def test_nested_contentpages(self, browser):
         nested = create(Builder('sl content page')
                         .titled(u'Nested')
                         .within(self.page))
