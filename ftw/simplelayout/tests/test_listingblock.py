@@ -82,7 +82,5 @@ class TestListingBlock(TestCase):
         self.assertEquals(u'My listingblock',
                           browser.css('.sl-block h2').first.text)
 
-        import pdb
-        pdb.set_trace()
         self.assertEquals(['Type', 'Title', 'Modified'],
                           browser.css('.sl-block table th').text)

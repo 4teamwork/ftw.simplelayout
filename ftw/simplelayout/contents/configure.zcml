@@ -13,6 +13,12 @@
         />
 
     <adapter
+        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
+        for="ftw.simplelayout.contents.interfaces.IListingBlock
+             *"
+        />
+
+    <adapter
         factory=".listingblock.ListingBlockDefaultColumns"
         />
 
