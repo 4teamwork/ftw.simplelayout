@@ -42,7 +42,7 @@ class MultiViewBlockProperties(object):
     available_views = (
         {'name': 'block_view',
          'label': _(u'view_label_block_view',
-                    default=u'Default block view')})
+                    default=u'Default block view')}, )
 
     def __init__(self, context, request):
         self.context = context
