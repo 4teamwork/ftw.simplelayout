@@ -8,7 +8,9 @@ from plone.directives import form
 from z3c.form.browser.orderedselect import OrderedSelectWidget
 from zope import schema
 from zope.component import adapts
+from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
+from zope.interface import directlyProvides
 from zope.interface import implements
 from zope.interface import Interface
 from zope.schema.interfaces import IContextSourceBinder
@@ -73,4 +75,21 @@ class ListingBlockDefaultColumns(object):
              },
         )
         return columns
+
+
+def listing_block_columns(context):
+    terms = []
+    adapter = queryMultiAdapter((context, context.REQUEST),
+                                IListingBlockColumns)
+
+    for column in adapter.columns():
+        terms.append(
+            SimpleVocabulary.createTerm(
+                column['column'],
+                column['column'],
+                column['column_title']))
+
+    return SimpleVocabulary(terms)
+
+directlyProvides(listing_block_columns, IContextSourceBinder)
 
