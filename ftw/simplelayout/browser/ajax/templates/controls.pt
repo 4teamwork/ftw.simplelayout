@@ -14,8 +14,8 @@
     <li class="seperator"><!-- --></li>
 
     <li tal:condition="view/views"
-        tal:repeat="view view/views"
-        tal:attributes="class string:sl-view-${view/name}"
-        tal:content="view/label" />
+        tal:repeat="blockview view/views"
+        tal:attributes="class string:sl-view-${blockview/name}"
+        tal:content="blockview/label" />
 
 </ul>
