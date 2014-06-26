@@ -5,7 +5,6 @@ from ftw.table import helper
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
 from plone.directives import form
-from z3c.form.browser.orderedselect import OrderedSelectWidget
 from zope import schema
 from zope.component import adapts
 from zope.component import queryMultiAdapter
@@ -93,3 +92,28 @@ def listing_block_columns(context):
 
 directlyProvides(listing_block_columns, IContextSourceBinder)
 
+
+class IListingBlockSchema(form.Schema):
+    """ListingBlock for simplelayout
+    """
+
+    title = schema.TextLine(
+        title=_(u'label_title', default=u'Title'),
+        required=False)
+
+    show_title = schema.Bool(
+        title=_(u'label_show_title', default=u'Show title'),
+        default=True,
+        required=False)
+
+    columns = schema.List(
+        title=_(u'label_columns', default=u'Columns'),
+        value_type=schema.Choice(source=listing_block_columns),
+        required=True,
+        default=['getContentType', 'Title', 'modified'])
+
+alsoProvides(IListingBlockSchema, IFormFieldProvider)
+
+
+class ListingBlock(Container):
+    implements(IListingBlock)

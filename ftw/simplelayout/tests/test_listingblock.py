@@ -5,6 +5,7 @@ from ftw.simplelayout.contents.listingblock import listing_block_columns
 from ftw.simplelayout.contents.listingblock import ListingBlockDefaultColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import factoriesmenu
 from unittest2 import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
@@ -25,6 +26,7 @@ class TestListingBlock(TestCase):
     def setUp(self):
         super(TestListingBlock, self).setUp()
         self.portal = self.layer['portal']
+        self.page = create(Builder('sl content page').titled(u'A page'))
 
     def test_listingblock_default_columns_adapter(self):
         verifyClass(IListingBlockColumns, ListingBlockDefaultColumns)
@@ -42,3 +44,16 @@ class TestListingBlock(TestCase):
         vocabulary = listing_block_columns(self.portal)
         self.assertTrue(isinstance(vocabulary, SimpleVocabulary),
                         'Expect a SimpleVocabulary instance.')
+
+    @browsing
+    def test_columns_vocabulary_on_listingblock_add_form(self, browser):
+        browser.login().visit(self.page)
+        factoriesmenu.add('ListingBlock')
+
+        self.assertEquals(
+            ['creater', 'size', 'Review State', 'ID'],
+            browser.css('#form-widgets-columns-from option').text)
+
+        self.assertEquals(
+            ['Type', 'Title', 'modified'],
+            browser.css('#form-widgets-columns-to option').text)
