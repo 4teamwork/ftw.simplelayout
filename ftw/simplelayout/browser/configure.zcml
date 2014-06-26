@@ -28,6 +28,14 @@
         />
 
     <browser:page
+        for="ftw.simplelayout.contents.interfaces.IListingBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".listingblock.ListingBlockView"
+        template="templates/listingblock.pt"
+        />
+
+    <browser:page
         for="*"
         name="redirect_to_parent"
         class=".redirect_to_parent.RedirectToParent"

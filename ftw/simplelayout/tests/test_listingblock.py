@@ -6,6 +6,7 @@ from ftw.simplelayout.contents.listingblock import ListingBlockDefaultColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from unittest2 import skip
 from unittest2 import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
@@ -57,3 +58,31 @@ class TestListingBlock(TestCase):
         self.assertEquals(
             ['Type', 'Title', 'modified'],
             browser.css('#form-widgets-columns-to option').text)
+
+    @skip('How do I use this ordered multi select widget without js?')
+    @browsing
+    def test_adding_listingblock(self, browser):
+        browser.login().visit(self.page)
+        factoriesmenu.add('ListingBlock')
+        browser.fill(
+            {'Title': 'My listingblock', 'Show title': True}).submit()
+        self.assertEquals(self.page.absolute_url(), browser.url)
+
+    @browsing
+    def test_listingblock_rendering(self, browser):
+        create(Builder('sl listingblock')
+               .titled('My listingblock')
+               .having(show_title=True)
+               .within(self.page))
+
+        browser.login().visit(self.page)
+
+        self.assertTrue(browser.css('.sl-block'))
+
+        self.assertEquals(u'My listingblock',
+                          browser.css('.sl-block h2').first.text)
+
+        import pdb
+        pdb.set_trace()
+        self.assertEquals(['Type', 'Title', 'Modified'],
+                          browser.css('.sl-block table th').text)
