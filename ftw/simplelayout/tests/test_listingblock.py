@@ -82,5 +82,22 @@ class TestListingBlock(TestCase):
         self.assertEquals(u'My listingblock',
                           browser.css('.sl-block h2').first.text)
 
-        self.assertEquals(['Type', 'Title', 'Modified'],
+        self.assertEquals(['Type', 'Title', 'modified'],
                           browser.css('.sl-block table th').text)
+
+    @browsing
+    def test_listingblock_table_contents(self, browser):
+        block = create(Builder('sl listingblock')
+                       .titled('My listingblock')
+                       .having(show_title=True)
+                       .within(self.page))
+
+        create(Builder('file')
+               .titled('Test file')
+               .with_dummy_content()
+               .within(block))
+
+        browser.login().visit(self.page)
+        self.assertEquals([['Type', 'Title', 'modified'],
+                           ['', 'Test file', '27.06.2014']],
+                          browser.css('.sl-block table').first.lists())
