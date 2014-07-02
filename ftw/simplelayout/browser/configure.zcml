@@ -50,4 +50,12 @@
         template="templates/simplelayout_info.pt"
         />
 
+    <browser:page
+        name="file_view"
+        for="ftw.simplelayout.contents.interfaces.IFile"
+        template="templates/file.pt"
+        class=".file.FileView"
+        permission="zope2.View"
+        />
+
 </configure>

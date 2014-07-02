@@ -66,3 +66,42 @@ class TestSampleTypes(TestCase):
 
         browser.visit(nested)
         self.assertEquals('Nested', plone.first_heading())
+
+    @browsing
+    def test_add_simplelayout_file(self, browser):
+        listingblock = create(Builder('sl listingblock')
+                              .titled('ListingBlock')
+                              .within(self.page))
+
+        browser.login().visit(listingblock, view='folder_contents')
+        factoriesmenu.add('File')
+        browser.fill(
+            {'File': ('Some Data', 'file.txt', 'text/plain')}).submit()
+
+        self.assertEquals(
+            '{0}/file.txt/view'.format(listingblock.absolute_url()),
+            browser.url)
+
+    @browsing
+    def test_simplelayout_file_view(self, browser):
+        listingblock = create(Builder('sl listingblock')
+                              .titled('ListingBlock')
+                              .within(self.page))
+
+        browser.login().visit(listingblock, view='folder_contents')
+        factoriesmenu.add('File')
+        browser.fill(
+            {'File': ('1' * 1024, 'file.txt', 'text/plain')}).submit()
+
+        self.assertEquals('file.txt', plone.first_heading())
+
+        self.assertEquals(
+            '{0}/file.txt/@@download/file/file.txt'.format(
+                listingblock.absolute_url()),
+            browser.css('#content-core a').first.attrib['href'])
+
+        self.assertEquals(u'\u2014 1 KB',
+                          browser.css('#content-core .discreet').first.text)
+
+        self.assertEquals('txt.png',
+                          browser.css('#content-core img').first.attrib['src'])

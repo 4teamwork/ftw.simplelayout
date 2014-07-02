@@ -31,3 +31,9 @@ class ListingBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.ListingBlock'
 
 builder_registry.register('sl listingblock', ListingBlockBuilder)
+
+
+class FileBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.File'
+
+builder_registry.register('sl file', FileBuilder)

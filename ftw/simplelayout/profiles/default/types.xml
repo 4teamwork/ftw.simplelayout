@@ -3,4 +3,5 @@
   <object name="ftw.simplelayout.ContentPage" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.TextBlock" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.ListingBlock" meta_type="Dexterity FTI" />
+  <object name="ftw.simplelayout.File" meta_type="Dexterity FTI" />
 </object>
