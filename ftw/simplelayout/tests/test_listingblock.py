@@ -6,6 +6,7 @@ from ftw.simplelayout.contents.listingblock import ListingBlockDefaultColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
+from plone.app.testing import TEST_USER_ID
 from unittest2 import skip
 from unittest2 import TestCase
 from zope.component import queryMultiAdapter
@@ -92,12 +93,14 @@ class TestListingBlock(TestCase):
                        .having(show_title=True)
                        .within(self.page))
 
-        create(Builder('file')
-               .titled('Test file')
-               .with_dummy_content()
-               .within(block))
+        file_ = create(Builder('sl file')
+                       .titled('Test file')
+                       .having(creators=(TEST_USER_ID.decode('utf-8'), ))
+                       .with_dummy_content()
+                       .within(block))
 
+        modified = file_.modified().strftime('%d.%m.%Y')
         browser.login().visit(self.page)
         self.assertEquals([['Type', 'Title', 'modified'],
-                           ['', 'Test file', '27.06.2014']],
+                           ['', 'Test file', modified]],
                           browser.css('.sl-block table').first.lists())

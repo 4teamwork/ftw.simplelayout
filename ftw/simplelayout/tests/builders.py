@@ -1,6 +1,7 @@
 from ftw.builder import builder_registry
 from ftw.builder.archetypes import ArchetypesBuilder
 from ftw.builder.dexterity import DexterityBuilder
+from StringIO import StringIO
 
 
 class PageBuilder(ArchetypesBuilder):
@@ -35,5 +36,19 @@ builder_registry.register('sl listingblock', ListingBlockBuilder)
 
 class FileBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.File'
+
+    def attach_file_containing(self, content, name="test.txt"):
+        data = StringIO(content)
+        data.filename = name
+        self.attach(data)
+        return self
+
+    def attach(self, file_):
+        self.arguments['file'] = file_
+        return self
+
+    def with_dummy_content(self):
+        self.attach_file_containing("Test data")
+        return self
 
 builder_registry.register('sl file', FileBuilder)
