@@ -26,8 +26,8 @@
 
     <browser:page
         for="*"
-        name="sl-ajax-image-upload"
-        class=".imageupload.ImageUpload"
+        name="sl-ajax-file-upload"
+        class=".fileupload.FileUpload"
         permission="cmf.ModifyPortalContent"
         />
 
