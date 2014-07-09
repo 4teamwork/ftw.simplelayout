@@ -52,6 +52,7 @@ Events:
 
         var files;
         var settings;
+        var $destination;
 
         function prepare_form_data(file, form_data_callback){
             var form_data = new FormData();
@@ -64,10 +65,10 @@ Events:
             return form_data;
         }
 
-        function create_status_bar($container) {
+        function create_status_bar(statuscontainer) {
             this.statusbar = $('<div class="statusbar"></div>');
             this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-            $container.html(this.statusbar);
+            $(statuscontainer, $destination).html(this.statusbar);
 
             this.set_progress = function(progress) {
                 var progress_bar_width = progress * this.progress_bar.width() / 100;
@@ -77,7 +78,14 @@ Events:
             };
         }
 
-        function upload(options) {
+        function upload($destinations){
+            $destination = $destinations;
+
+            // If upload is called on multiple objects get the right upload element.
+            if ($destinations.length !== 1) {
+                $destination = $destinations.eq($destinations.length - files.length);
+            }
+
             var file = files.pop();
             var status = new create_status_bar(settings.statuscontainer);
             form_data = prepare_form_data(file, settings.form_data_callback);
@@ -108,12 +116,18 @@ Events:
                 data: form_data,
                 success: function(data) {
                     status.set_progress(100);
-                    if (files.length !== 0) {
-                        upload();
-                    } else {
-                        if (typeof settings.upload_success === 'function'){
-                            settings.upload_success(data);
+
+                    if (typeof settings.upload_success_each === 'function'){
+                        settings.upload_success_each($destination, data);
+                    }
+
+                    if (files.length === 0) {
+                        if (typeof settings.upload_success_all === 'function'){
+                            settings.upload_success_all($destination, data);
                         }
+
+                    } else {
+                        upload($destinations);
                     }
 
                 },
@@ -127,11 +141,11 @@ Events:
 
         var methods = {
             init: function(options) {
-
                 var defaults = {
                     files: null,
                     uploadurl: './sl-ajax-file-upload',
-                    upload_success: null,
+                    upload_success_all: null,
+                    upload_success_each: null,
                     statuscontainer: null,
                     form_data_callback: null
                 };
@@ -140,8 +154,9 @@ Events:
                 if (settings.files === null){ return; }
 
                 files = settings.files;
+                files.reverse();
 
-                upload();
+                upload($(this));
             }
 
         };
@@ -218,157 +233,6 @@ Events:
 
     function get_grid_height(settings) {
         return $(settings.contentarea).css('font-size').slice(0, 2);
-    }
-
-    function send_file_to_server(files, $block) {
-        var upload_url = './sl-ajax-file-upload';
-        files.reverse();
-        var file = files.pop();
-
-        var form_data = new FormData();
-        form_data.append('file', file);
-        form_data.append('filename', file.name);
-        form_data.append('container_uuid', $block.data('uuid'));
-        form_data.append('contenttype', $('[data-contenttype]', $block).data('contenttype'));
-        var status = new create_status_bar(('.sl-upload-active', $block));
-
-        // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
-        var $xhr = $.ajax({
-            xhr: function() {
-                var xhrobj = $.ajaxSettings.xhr();
-                if (xhrobj.upload) {
-                    xhrobj.upload.addEventListener('progress', function(e) {
-                        var percent = 0;
-                        var position = e.loaded || e.position;
-                        var total = e.total;
-                        if (e.lengthComputable) {
-                            percent = Math.ceil(position / total * 100);
-                        }
-                        //Set progress
-                        status.set_progress(percent);
-                    }, false);
-                }
-                return xhrobj;
-            },
-            url: upload_url,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            cache: false,
-            async: true,
-            data: form_data,
-            success: function(data) {
-                var uuid = JSON.parse(data).uuid;
-
-                $('.block-view-wrapper', $block).load(
-                    './@@sl-ajax-reload-block-view', {
-                        uuid: uuid
-                    }, function(data) {
-                        $block.data('uuid', uuid);
-                        $block.removeClass('sl-add-block');
-                        auto_block_height($block);
-                        $block.closest('.simplelayout')
-                            .masonry('reload')
-                            .simplelayout('save')
-                            .simplelayout('layout');
-                        blockcontrols($block);
-                        imagecontrols($block);
-
-                        status.set_progress(100);
-
-                    });
-
-                if (files.length !== 0) {
-                    send_file_to_server(files, $block);
-                }
-
-            },
-
-            error: function(xhr, status, error) {
-                alert(status, error);
-            }
-        });
-    }
-
-
-
-    function send_block_to_server(files, $blocks) {
-        var upload_url = './sl-ajax-file-upload';
-        var $block = $blocks.eq($blocks.length - files.length);
-        files.reverse();
-        var file = files.pop();
-
-        if (!is_image(file)) {
-            alert("It's not possible to upload the file: " + file.name +
-                " Because it's not an image.");
-
-        } else {
-            $('.block-view-wrapper', $block).html('uploading... ' + file.name);
-
-            var form_data = new FormData();
-            form_data.append('file', file);
-            form_data.append('filename', file.name);
-            form_data.append('contenttype', 'ftw.simplelayout.TextBlock');
-            var status = new create_status_bar($block);
-
-            // Example from http://hayageek.com/drag-and-drop-file-upload-jquery
-            var $xhr = $.ajax({
-                xhr: function() {
-                    var xhrobj = $.ajaxSettings.xhr();
-                    if (xhrobj.upload) {
-                        xhrobj.upload.addEventListener('progress', function(e) {
-                            var percent = 0;
-                            var position = e.loaded || e.position;
-                            var total = e.total;
-                            if (e.lengthComputable) {
-                                percent = Math.ceil(position / total * 100);
-                            }
-                            //Set progress
-                            status.set_progress(percent);
-                        }, false);
-                    }
-                    return xhrobj;
-                },
-                url: upload_url,
-                type: 'POST',
-                contentType: false,
-                processData: false,
-                cache: false,
-                async: true,
-                data: form_data,
-                success: function(data) {
-                    var uuid = JSON.parse(data).uuid;
-
-                    $('.block-view-wrapper', $block).load(
-                        './@@sl-ajax-reload-block-view', {
-                            uuid: uuid
-                        }, function(data) {
-                            $block.data('uuid', uuid);
-                            $block.removeClass('sl-add-block');
-                            auto_block_height($block);
-                            $block.closest('.simplelayout')
-                                .masonry('reload')
-                                .simplelayout('save')
-                                .simplelayout('layout');
-                            blockcontrols($block);
-                            imagecontrols($block);
-
-                            status.set_progress(100);
-
-                        });
-
-                    if (files.length !== 0) {
-                        send_block_to_server(files, $blocks);
-                    }
-
-                },
-
-                error: function(xhr, status, error) {
-                    alert(status, error);
-                }
-            });
-        }
-
     }
 
     function create_status_bar($block) {
@@ -518,6 +382,7 @@ Events:
                             $container.simplelayout('save').simplelayout('layout');
                         });
                         blockcontrols($newblock);
+                        dndinnerupload($container, settings);
                         return 'close';
                     },
                     closeselector: '[name="form.buttons.cancel"]',
@@ -623,7 +488,6 @@ Events:
             var $uploadarea = $('.sl-inner-upload-area', $this);
             $uploadarea.addClass('sl-upload-active');
 
-            console.info(counter);
         });
         $blocks.on('dragleave', function(e) {
             var $this = $(this);
@@ -650,28 +514,27 @@ Events:
             $this.simplelayoutuploader(
                 {
                     files: files_array,
-                    statuscontainer: $('.sl-upload-active', $this),
+                    statuscontainer: '.sl-upload-active',
                     form_data_callback: function(file, form_data){
                         form_data.append('container_uuid', $this.data('uuid'));
                         form_data.append('contenttype', $('[data-contenttype]', $this).data('contenttype'));
 
                     },
-                    upload_success: function(data){
+                    upload_success_all: function($destination, data){
                         var uuid = JSON.parse(data).uuid;
 
-                        $('.block-view-wrapper', $this).load(
+                        $('.block-view-wrapper', $destination).load(
                             './@@sl-ajax-reload-block-view', {
                                 uuid: uuid
                             }, function(data) {
-                                $this.data('uuid', uuid);
-                                $this.removeClass('sl-add-block');
-                                auto_block_height($this);
-                                $this.closest('.simplelayout')
+                                $destination.data('uuid', uuid);
+                                auto_block_height($destination);
+                                $destination.closest('.simplelayout')
                                     .masonry('reload')
                                     .simplelayout('save')
                                     .simplelayout('layout');
-                                blockcontrols($this);
-                                imagecontrols($this);
+                                blockcontrols($destination);
+                                imagecontrols($destination);
                             });
                     }
                 });
@@ -717,7 +580,32 @@ Events:
             var files = e.originalEvent.dataTransfer.files;
             var $addblocks = $('.sl-add-block', $(this));
             var files_array = [].slice.call(files);
-            send_block_to_server(files_array, $addblocks);
+
+            $addblocks.simplelayoutuploader(
+                {
+                    files: files_array,
+                    statuscontainer: '.block-view-wrapper',
+                    form_data_callback: function(file, form_data){
+                        form_data.append('contenttype', 'ftw.simplelayout.TextBlock');
+                    },
+                    upload_success_each: function($destination, data){
+                        var uuid = JSON.parse(data).uuid;
+                        $('.block-view-wrapper', $destination).load(
+                            './@@sl-ajax-reload-block-view', {
+                                uuid: uuid
+                            }, function(data) {
+                                $destination.data('uuid', uuid);
+                                $destination.removeClass('sl-add-block');
+                                auto_block_height($destination);
+                                $destination.closest('.simplelayout')
+                                    .masonry('reload')
+                                    .simplelayout('save')
+                                    .simplelayout('layout');
+                                blockcontrols($destination);
+                                imagecontrols($destination);
+                        });
+                    }
+                });
 
         });
 
