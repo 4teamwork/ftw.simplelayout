@@ -7,7 +7,7 @@
     inline="False" insert-after="collective.js.jqueryui.custom.min.js"/>
 
 <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="False" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayoutuploader.js"
+    enabled="True" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayoutuploader.js"
     inline="False" insert-after="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"/>
 
  <javascript cacheable="True" compression="safe" cookable="True"
