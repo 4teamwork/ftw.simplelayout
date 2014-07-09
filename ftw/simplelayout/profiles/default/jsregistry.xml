@@ -6,13 +6,18 @@
     enabled="True" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.masonry.min.js"
     inline="False" insert-after="collective.js.jqueryui.custom.min.js"/>
 
- <javascript cacheable="True" compression="safe" cookable="True"
-    enabled="False" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.js"
+<javascript cacheable="True" compression="safe" cookable="True"
+    enabled="False" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayoutuploader.js"
     inline="False" insert-after="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"/>
 
  <javascript cacheable="True" compression="safe" cookable="True"
+    enabled="False" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.js"
+    inline="False" insert-after="++resource++ftw.simplelayout.resources/js/jquery.simplelayoutuploader.js"/>
+
+
+ <javascript cacheable="True" compression="safe" cookable="True"
     enabled="True" expression="" id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.min.js"
-    inline="False" insert-after="++resource++ftw.simplelayout.resources/jquery.masonry.min.js"/>
+    inline="False" insert-after="++resource++ftw.simplelayout.resources/js/jquery.simplelayoutuploader.js"/>
 
 </object>
 
