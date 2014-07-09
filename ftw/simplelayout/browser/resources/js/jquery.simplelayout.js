@@ -45,6 +45,124 @@ Events:
 
 **********************************************/
 
+
+(function($) {
+
+    $.fn.simplelayoutuploader = function(options) {
+
+        var files;
+        var settings;
+
+        function prepare_form_data(file, form_data_callback){
+            var form_data = new FormData();
+            form_data.append('file', file);
+            form_data.append('filename', file.name);
+
+            if (typeof form_data_callback === "function"){
+                form_data_callback(file, form_data);
+            }
+            return form_data;
+        }
+
+        function create_status_bar($container) {
+            this.statusbar = $('<div class="statusbar"></div>');
+            this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
+            $container.html(this.statusbar);
+
+            this.set_progress = function(progress) {
+                var progress_bar_width = progress * this.progress_bar.width() / 100;
+                this.progress_bar.find('div').animate({
+                    width: progress_bar_width
+                }, 10).html(progress + "% ");
+            };
+        }
+
+        function upload(options) {
+            var file = files.pop();
+            var status = new create_status_bar(settings.statuscontainer);
+            form_data = prepare_form_data(file, settings.form_data_callback);
+
+            var $xhr = $.ajax({
+                xhr: function() {
+                    var xhrobj = $.ajaxSettings.xhr();
+                    if (xhrobj.upload) {
+                        xhrobj.upload.addEventListener('progress', function(e) {
+                            var percent = 0;
+                            var position = e.loaded || e.position;
+                            var total = e.total;
+                            if (e.lengthComputable) {
+                                percent = Math.ceil(position / total * 100);
+                            }
+                            //Set progress
+                            status.set_progress(percent);
+                        }, false);
+                    }
+                    return xhrobj;
+                },
+                url: settings.uploadurl,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                cache: false,
+                async: true,
+                data: form_data,
+                success: function(data) {
+                    status.set_progress(100);
+                    if (files.length !== 0) {
+                        upload();
+                    } else {
+                        if (typeof settings.upload_success === 'function'){
+                            settings.upload_success(data);
+                        }
+                    }
+
+                },
+                error: function(xhr, status, error) {
+                    alert(status, error);
+                }
+            });
+
+        }
+
+
+        var methods = {
+            init: function(options) {
+
+                var defaults = {
+                    files: null,
+                    uploadurl: './sl-ajax-file-upload',
+                    upload_success: null,
+                    statuscontainer: null,
+                    form_data_callback: null
+                };
+
+                settings = $.extend({}, defaults, options);
+                if (settings.files === null){ return; }
+
+                files = settings.files;
+
+                upload();
+            }
+
+        };
+
+        var method = arguments[0];
+
+        if (methods[method]) {
+            method = methods[method];
+            arguments = Array.prototype.slice.call(arguments, 1);
+        } else if (typeof(method) == 'object' || !method) {
+            method = methods.init;
+        } else {
+            $.error('Method ' + method + ' does not exist on jQuery.pluginName');
+            return this;
+        }
+
+        return method.apply(this, arguments);
+
+    };
+})(jQuery);
+
 (function($) {
 
     // Turn simplelayout page controls into jQuery UI buttons - needs to be loaded only once
@@ -519,6 +637,8 @@ Events:
             e.stopPropagation();
             e.preventDefault();
 
+            var $this = $(this);
+
             // If it's allowed to upload the same type on the page and on the inner
             // upload area, remove the page dropareas
             $('.sl-add-block', $element).remove();
@@ -526,8 +646,35 @@ Events:
             counter = 0;
             var files = e.originalEvent.dataTransfer.files;
             var files_array = [].slice.call(files);
-            // Need a different upload handler.
-            send_file_to_server(files_array, $(this));
+
+            $this.simplelayoutuploader(
+                {
+                    files: files_array,
+                    statuscontainer: $('.sl-upload-active', $this),
+                    form_data_callback: function(file, form_data){
+                        form_data.append('container_uuid', $this.data('uuid'));
+                        form_data.append('contenttype', $('[data-contenttype]', $this).data('contenttype'));
+
+                    },
+                    upload_success: function(data){
+                        var uuid = JSON.parse(data).uuid;
+
+                        $('.block-view-wrapper', $this).load(
+                            './@@sl-ajax-reload-block-view', {
+                                uuid: uuid
+                            }, function(data) {
+                                $this.data('uuid', uuid);
+                                $this.removeClass('sl-add-block');
+                                auto_block_height($this);
+                                $this.closest('.simplelayout')
+                                    .masonry('reload')
+                                    .simplelayout('save')
+                                    .simplelayout('layout');
+                                blockcontrols($this);
+                                imagecontrols($this);
+                            });
+                    }
+                });
 
         });
 
