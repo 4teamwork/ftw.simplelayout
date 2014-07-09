@@ -161,3 +161,9 @@ span.imagefloat {
     top: 50%;
     right: 50%;
 }
+
+.sl-upload-active {
+    min-height: 5em;
+    border: 1px dotted green;
+    background-color: lightgoldenrodyellow;
+}
