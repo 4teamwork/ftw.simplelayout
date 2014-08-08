@@ -85,10 +85,6 @@ Events:
 
     // Private functions
 
-    function get_image_grid(settings) {
-        return settings.contentwidth / settings.columns / settings.images;
-    }
-
     function is_image(file) {
         // minimal check if it is an image.
         // TODO: This can be improved.
@@ -668,7 +664,7 @@ Events:
                         ui.element.parent().masonry('reload', function() {
 
                             var img = ui.element.find('img');
-                            var imagegrid = get_image_grid(settings);
+                            var imagegrid = $.fn.simplelayoututils.get_image_grid(settings);
                             var orig_with_in_columns = ui.originalSize.width / grid;
                             var new_with_in_columns = ui.element.width() / grid;
                             var diff_in_columns = new_with_in_columns - orig_with_in_columns;
@@ -709,7 +705,7 @@ Events:
                 });
 
                 // Image resize
-                var image_grid = get_image_grid(settings);
+                var image_grid = $.fn.simplelayoututils.get_image_grid(settings);
                 $('.sl-img-wrapper img', $blocks).resizable({
                     handles: "e, w",
                     zIndex: 91,
@@ -852,9 +848,15 @@ Events:
     };
 
     $.fn.simplelayoututils = {
+
         get_grid: function(settings){
             return settings.contentwidth / settings.columns;
+        },
+
+        get_image_grid: function(settings) {
+            return settings.contentwidth / settings.columns / settings.images;
         }
+
     };
 
 
