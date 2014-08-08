@@ -157,12 +157,49 @@ suite('Test simplelayout public "layout" method', function(){
 
     });
 
+
+    test("Expect one function binded on 'sl-block-reload' event", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        events = $('.sl-block').data('events')['sl-block-reload'];
+        assert.strictEqual(1, events.length);
+        assert.isObject(events[0]);
+
+    });
+
+    test("Expect one function binded on 'sl-block-reloaded' event", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        events = $('.sl-block').data('events')['sl-block-reload'];
+        assert.strictEqual(1, events.length);
+        assert.isObject(events[0]);
+
+    });
+
+
+
     test("jQuery masonry is loaded on blocks", function(){
         $('.simplelayout')
             .simplelayout('init', {'editable': true})
             .simplelayout('layout');
 
         assert.isTrue($('.sl-block').hasClass('masonry-brick'));
+
+    });
+
+    test("jQuery resizable is loaded on blocks with handler e, s and es", function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        assert.isTrue($('.sl-block').hasClass('ui-resizable'));
+        assert.isTrue($('.sl-block div').hasClass('ui-resizable-e'));
+        assert.isTrue($('.sl-block div').hasClass('ui-resizable-s'));
+        assert.isTrue($('.sl-block div').hasClass('ui-resizable-se'));
 
     });
 
