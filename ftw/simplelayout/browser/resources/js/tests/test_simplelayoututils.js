@@ -34,6 +34,25 @@ suite('Test simplelayout utils', function() {
         assert.strictEqual(10, $.fn.simplelayoututils.get_grid_height(settings));
     });
 
+    test('is_image (Return true if it is an image))', function(){
+        var file = {'type': 'image/png'};
+        assert.isTrue($.fn.simplelayoututils.is_image(file));
+
+        file.type = 'image/gif';
+        assert.isTrue($.fn.simplelayoututils.is_image(file));
+
+        file.type = 'image/jpg';
+        assert.isTrue($.fn.simplelayoututils.is_image(file));
+
+        file.type = 'image/jpeg';
+        assert.isTrue($.fn.simplelayoututils.is_image(file));
+    });
+
+    test('is_image (Return false if it is NOT an image))', function(){
+        var file = {'type': 'application/pdf'};
+        assert.isFalse($.fn.simplelayoututils.is_image(file));
+    });
+
 
     teardown(function() {
         // Restore origin font-size

@@ -85,12 +85,6 @@ Events:
 
     // Private functions
 
-    function is_image(file) {
-        // minimal check if it is an image.
-        // TODO: This can be improved.
-        return file.type.indexOf('image') === 0;
-    }
-
     function create_status_bar($block) {
         this.statusbar = $('<div class="statusbar"></div>');
         this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
@@ -412,7 +406,7 @@ Events:
                 $.each(files, function(index, file) {
 
                     // Upload images directly as block
-                    if (is_image(file)){
+                    if ($.fn.simplelayoututils.is_image(file)){
                         var $block = $(
                             '<div style="width:' + $.fn.simplelayoututils.get_grid(settings) + 'px" ' +
                             'class="sl-add-block ' + settings.blocks.slice(1) + '">' +
@@ -856,7 +850,14 @@ Events:
 
         get_grid_height: function(settings) {
             return parseInt($(settings.contentarea).css('font-size').slice(0, 2));
+        },
+
+        is_image: function(file) {
+            // minimal check if it is an image.
+            // TODO: This can be improved.
+            return file.type.indexOf('image') === 0;
         }
+
 
     };
 
