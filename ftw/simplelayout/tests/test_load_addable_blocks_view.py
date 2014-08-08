@@ -21,7 +21,8 @@ class TestAddableBlocksView(TestCase):
         result.sort()
 
         self.assertEquals(
-            ['ftw.simplelayout.TextBlock', ],
+            ['ftw.simplelayout.ListingBlock',
+             'ftw.simplelayout.TextBlock'],
             result)
 
     def test_addable_blocks_view_renders(self):

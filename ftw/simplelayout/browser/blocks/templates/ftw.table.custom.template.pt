@@ -1,0 +1,24 @@
+<table tal:attributes="class view/css_mapping/table;
+                       summary view/options/table_summary|nothing">
+    <colgroup>
+        <col tal:repeat="th view/columns"
+             tal:attributes="class python:len(th['sort_index']) and 'col-'+th['sort_index'] or 'col'" />
+    </colgroup>
+    <thead>
+        <tr>
+            <tal:th tal:repeat="th view/columns">
+                <th tal:attributes="class python:'%s %s' % (view.get_thid(th), view.sortable_class(th['sort_index']))">
+                    <span tal:content="structure python: th['title']" tal:condition="th/title"/>
+                </th>
+            </tal:th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr tal:repeat="content view/contents">
+            <td tal:repeat="col view/columns"
+                tal:attributes="class string:column-${col/sort_index}">
+                <tal:td replace="structure python: view.get_value(content, col)" />
+            </td>
+        </tr>
+    </tbody>
+</table>

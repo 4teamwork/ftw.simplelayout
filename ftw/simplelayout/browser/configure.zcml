@@ -9,6 +9,8 @@
         />
 
     <include package=".ajax" />
+    <include package=".blocks" />
+    <include package=".content" />
     <include package=".controlpanel" />
 
     <browser:page
@@ -17,14 +19,6 @@
         class=".simplelayout.SimplelayoutView"
         permission="zope2.View"
         template="templates/simplelayout.pt"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.ITextBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".textblock.TextBlockView"
-        template="templates/textblock.pt"
         />
 
     <browser:page

@@ -12,4 +12,14 @@
         title="ftw.simplelayout: Add TextBlock"
         />
 
+    <permission
+        id="ftw.simplelayout.AddListingBlock"
+        title="ftw.simplelayout: Add ListingBlock"
+        />
+
+    <permission
+        id="ftw.simplelayout.addFile"
+        title="ftw.simplelayout: Add File"
+        />
+
 </configure>

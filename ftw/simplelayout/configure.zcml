@@ -22,6 +22,14 @@
         />
 
     <genericsetup:registerProfile
+        name="development"
+        title="ftw.simplelayout development"
+        directory="profiles/development"
+        description="Simlelayout development"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
         name="library"
         title="ftw.simplelayout library"
         directory="profiles/library"

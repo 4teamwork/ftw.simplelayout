@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.browser.textblock import parse_css
+from ftw.simplelayout.browser.blocks.textblock import parse_css
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from plone.app.textfield.value import RichTextValue
