@@ -85,10 +85,6 @@ Events:
 
     // Private functions
 
-    function get_grid(settings) {
-        return settings.contentwidth / settings.columns;
-    }
-
     function get_image_grid(settings) {
         return settings.contentwidth / settings.columns / settings.images;
     }
@@ -426,7 +422,7 @@ Events:
                     // Upload images directly as block
                     if (is_image(file)){
                         var $block = $(
-                            '<div style="width:' + get_grid(settings) + 'px" ' +
+                            '<div style="width:' + $.fn.simplelayoututils.get_grid(settings) + 'px" ' +
                             'class="sl-add-block ' + settings.blocks.slice(1) + '">' +
                             '<div class="block-wrapper">' +
                             '<div class="block-view-wrapper"> &nbsp; </div>' +
@@ -613,7 +609,7 @@ Events:
                 }
 
                 var $blocks = $(settings.blocks, $this);
-                var grid = get_grid(settings);
+                var grid = $.fn.simplelayoututils.get_grid(settings);
 
                 // Apply padding to all block-view-wrapper
                 $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
@@ -855,6 +851,11 @@ Events:
 
     };
 
+    $.fn.simplelayoututils = {
+        get_grid: function(settings){
+            return settings.contentwidth / settings.columns;
+        }
+    };
 
 
     $.fn.simplelayout = function(options) {
