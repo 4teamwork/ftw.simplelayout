@@ -91,10 +91,6 @@ Events:
         return file.type.indexOf('image') === 0;
     }
 
-    function get_grid_height(settings) {
-        return $(settings.contentarea).css('font-size').slice(0, 2);
-    }
-
     function create_status_bar($block) {
         this.statusbar = $('<div class="statusbar"></div>');
         this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
@@ -498,7 +494,7 @@ Events:
             // Fit to the next possible height based on the grid.
             var block_height = $block.height();
             var settings = $block.parents('.simplelayout').data('simplelayout');
-            var grid_height = parseInt(get_grid_height(settings));
+            var grid_height = $.fn.simplelayoututils.get_grid_height(settings);
             var modulo = block_height % grid_height;
             if (modulo) {
                 new_height = block_height - modulo + grid_height;
@@ -605,7 +601,8 @@ Events:
                 }
 
                 var $blocks = $(settings.blocks, $this);
-                var grid = $.fn.simplelayoututils.get_grid(settings);
+                var grid_x = $.fn.simplelayoututils.get_grid(settings);
+                var grid_y = $.fn.simplelayoututils.get_grid_height(settings);
 
                 // Apply padding to all block-view-wrapper
                 $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
@@ -617,7 +614,7 @@ Events:
                 $this.masonry({
                     itemSelector: settings.blocks,
                     isResizable: true,
-                    columnWidth: grid
+                    columnWidth: grid_x
                 });
 
                 if (!settings.editable) {
@@ -654,8 +651,8 @@ Events:
 
                 // resize
                 $blocks.resizable({
-                    grid: [grid, get_grid_height(settings)],
-                    minWidth: grid,
+                    grid: [grid_x, grid_y],
+                    minWidth: grid_x,
                     maxWidth: settings.contentwidth,
                     resize: function(event, ui) {
                         ui.element.parent().masonry('reload');
@@ -665,8 +662,8 @@ Events:
 
                             var img = ui.element.find('img');
                             var imagegrid = $.fn.simplelayoututils.get_image_grid(settings);
-                            var orig_with_in_columns = ui.originalSize.width / grid;
-                            var new_with_in_columns = ui.element.width() / grid;
+                            var orig_with_in_columns = ui.originalSize.width / grid_x;
+                            var new_with_in_columns = ui.element.width() / grid_x;
                             var diff_in_columns = new_with_in_columns - orig_with_in_columns;
                             var img_width_in_columns = (img.width() + settings.margin_right) / imagegrid;
                             var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
@@ -855,6 +852,10 @@ Events:
 
         get_image_grid: function(settings) {
             return settings.contentwidth / settings.columns / settings.images;
+        },
+
+        get_grid_height: function(settings) {
+            return parseInt($(settings.contentarea).css('font-size').slice(0, 2));
         }
 
     };
