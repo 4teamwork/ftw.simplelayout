@@ -98,23 +98,6 @@ Events:
         };
     }
 
-    function reload_block(e) {
-        var $block = $(this);
-        var uuid = $block.data('uuid');
-
-        $('.block-view-wrapper', $block).load(
-            './@@sl-ajax-reload-block-view', {
-                uuid: uuid
-            },
-            function() {
-                $block.trigger('sl-block-reloaded', {
-                    settings: e.data.settings,
-                    container: e.data.container
-                });
-            });
-        return;
-    }
-
     function blockcontrols($blocks) {
 
         $blocks.bind('mouseenter', function() {
@@ -629,7 +612,7 @@ Events:
                                 settings: settings,
                                 container: $this
                             },
-                            reload_block);
+                            $.fn.simplelayoututils.reload_block);
                     }
                     // block reloadED event
                     if (events === undefined || events['sl-block-reloaded'] === undefined) {
@@ -856,8 +839,25 @@ Events:
             // minimal check if it is an image.
             // TODO: This can be improved.
             return file.type.indexOf('image') === 0;
-        }
+        },
 
+        reload_block: function(e) {
+            // reload_block needs a event as parameter with simplelayout settings + container.
+            var $block = $(this);
+            var uuid = $block.data('uuid');
+
+            $('.block-view-wrapper', $block).load(
+                './@@sl-ajax-reload-block-view', {
+                    uuid: uuid
+                },
+                function() {
+                    $block.trigger('sl-block-reloaded', {
+                        settings: e.data.settings,
+                        container: e.data.container
+                    });
+                });
+            return;
+        }
 
     };
 

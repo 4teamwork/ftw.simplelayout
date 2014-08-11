@@ -60,3 +60,42 @@ suite('Test simplelayout utils', function() {
     });
 
 });
+
+
+suite('Test reload a block', function(){
+
+    setup(function() {
+        this.clock = sinon.useFakeTimers();
+        this.server = sinon.fakeServer.create();
+        this.server.autoRespond = true;
+
+        this.server.respondWith("POST", "./@@sl-ajax-reload-block-view",
+            [200, {'Content-Type': 'text/html'}, '' +
+            '<h2>Block title</h2>' +
+            '<div>Dummy content</div>'
+          ]);
+
+        $controls.appendTo('#content');
+        $structure.appendTo('#content');
+    });
+
+    test('Test if sl-block-reload can be triggerd on block view wrapper.', function(){
+        $('.simplelayout')
+            .simplelayout('init', {'editable': true})
+            .simplelayout('layout');
+
+        $('.sl-block .block-view-wrapper').trigger('sl-block-reload');
+        this.clock.tick(100);
+        assert.strictEqual('Block title', $('.sl-block .block-view-wrapper h2').html());
+        assert.strictEqual('Dummy content', $('.sl-block .block-view-wrapper div').html());
+
+    });
+
+    teardown(function() {
+        this.clock.restore();
+        this.server.restore();
+        $('.simplelayout-page-controls').remove();
+        $('.simplelayout').remove();
+    });
+
+});
