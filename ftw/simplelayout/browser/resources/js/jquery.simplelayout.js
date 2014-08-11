@@ -85,19 +85,6 @@ Events:
 
     // Private functions
 
-    function create_status_bar($block) {
-        this.statusbar = $('<div class="statusbar"></div>');
-        this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-        $('.block-view-wrapper', $block).append(this.statusbar);
-
-        this.set_progress = function(progress) {
-            var progress_bar_width = progress * this.progress_bar.width() / 100;
-            this.progress_bar.find('div').animate({
-                width: progress_bar_width
-            }, 10).html(progress + "% ");
-        };
-    }
-
     function blockcontrols($blocks) {
 
         $blocks.bind('mouseenter', function() {
