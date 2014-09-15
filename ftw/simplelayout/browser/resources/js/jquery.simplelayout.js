@@ -625,30 +625,12 @@ Events:
                         ui.element.parent().masonry('reload', function() {
 
                             var img = ui.element.find('img');
-                            var imagegrid = $.fn.simplelayoututils.get_image_grid(settings);
-                            var orig_with_in_columns = ui.originalSize.width / grid_x;
-                            var new_with_in_columns = ui.element.width() / grid_x;
-                            var diff_in_columns = new_with_in_columns - orig_with_in_columns;
-                            var img_width_in_columns = (img.width() + settings.margin_right) / imagegrid;
-                            var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
-                            var new_img_width;
-
-                            if (new_img_width_in_columns < 1) {
-                                // The image can not be smaller than one image column.
-                                new_img_width = imagegrid - settings.margin_right;
-
-                            } else if (img_width_in_columns / settings.images === orig_with_in_columns) {
-                                // Special case if the image has the same size as the block.
-                                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
-
-                            } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
-                                // The image can not be bigger than the block.
-                                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
-
-                            } else {
-                                // Asynchronous resize
-                                new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
-                            }
+                            new_img_width = $.fn.simplelayoututils.get_image_width_based_on_block_width(
+                                img.width(),
+                                ui.originalSize.width,
+                                ui.element.width(),
+                                settings
+                            );
 
                             img.width(new_img_width).height('auto');
                             img.parent().width(new_img_width).height('auto');
@@ -844,6 +826,38 @@ Events:
                     });
                 });
             return;
+        },
+
+        get_image_width_based_on_block_width: function(image_width, origin_block_width, new_block_width, settings){
+            var grid_x = $.fn.simplelayoututils.get_grid(settings);
+
+            var imagegrid = $.fn.simplelayoututils.get_image_grid(settings);
+            var orig_with_in_columns = origin_block_width / grid_x;
+            var new_with_in_columns = new_block_width / grid_x;
+            var diff_in_columns = new_with_in_columns - orig_with_in_columns;
+            var img_width_in_columns = (image_width + settings.margin_right) / imagegrid;
+            var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
+            var new_img_width;
+
+            if (new_img_width_in_columns < 1) {
+                // The image can not be smaller than one image column.
+                new_img_width = imagegrid - settings.margin_right;
+
+            } else if (img_width_in_columns / settings.images === orig_with_in_columns) {
+                // Special case if the image has the same size as the block.
+                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+            } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
+                // The image can not be bigger than the block.
+                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+            } else {
+                // Asynchronous resize
+                new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
+            }
+
+            return new_img_width;
+
         }
 
     };
