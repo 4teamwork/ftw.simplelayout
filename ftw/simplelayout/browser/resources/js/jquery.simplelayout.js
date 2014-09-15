@@ -85,54 +85,6 @@ Events:
 
     // Private functions
 
-    function get_grid(settings) {
-        return settings.contentwidth / settings.columns;
-    }
-
-    function get_image_grid(settings) {
-        return settings.contentwidth / settings.columns / settings.images;
-    }
-
-    function is_image(file) {
-        // minimal check if it is an image.
-        // TODO: This can be improved.
-        return file.type.indexOf('image') === 0;
-    }
-
-    function get_grid_height(settings) {
-        return $(settings.contentarea).css('font-size').slice(0, 2);
-    }
-
-    function create_status_bar($block) {
-        this.statusbar = $('<div class="statusbar"></div>');
-        this.progress_bar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-        $('.block-view-wrapper', $block).append(this.statusbar);
-
-        this.set_progress = function(progress) {
-            var progress_bar_width = progress * this.progress_bar.width() / 100;
-            this.progress_bar.find('div').animate({
-                width: progress_bar_width
-            }, 10).html(progress + "% ");
-        };
-    }
-
-    function reload_block(e) {
-        var $block = $(this);
-        var uuid = $block.data('uuid');
-
-        $('.block-view-wrapper', $block).load(
-            './@@sl-ajax-reload-block-view', {
-                uuid: uuid
-            },
-            function() {
-                $block.trigger('sl-block-reloaded', {
-                    settings: e.data.settings,
-                    container: e.data.container
-                });
-            });
-        return;
-    }
-
     function blockcontrols($blocks) {
 
         $blocks.bind('mouseenter', function() {
@@ -424,9 +376,9 @@ Events:
                 $.each(files, function(index, file) {
 
                     // Upload images directly as block
-                    if (is_image(file)){
+                    if ($.fn.simplelayoututils.is_image(file)){
                         var $block = $(
-                            '<div style="width:' + get_grid(settings) + 'px" ' +
+                            '<div style="width:' + $.fn.simplelayoututils.get_grid(settings) + 'px" ' +
                             'class="sl-add-block ' + settings.blocks.slice(1) + '">' +
                             '<div class="block-wrapper">' +
                             '<div class="block-view-wrapper"> &nbsp; </div>' +
@@ -506,7 +458,7 @@ Events:
             // Fit to the next possible height based on the grid.
             var block_height = $block.height();
             var settings = $block.parents('.simplelayout').data('simplelayout');
-            var grid_height = parseInt(get_grid_height(settings));
+            var grid_height = $.fn.simplelayoututils.get_grid_height(settings);
             var modulo = block_height % grid_height;
             if (modulo) {
                 new_height = block_height - modulo + grid_height;
@@ -613,7 +565,8 @@ Events:
                 }
 
                 var $blocks = $(settings.blocks, $this);
-                var grid = get_grid(settings);
+                var grid_x = $.fn.simplelayoututils.get_grid(settings);
+                var grid_y = $.fn.simplelayoututils.get_grid_height(settings);
 
                 // Apply padding to all block-view-wrapper
                 $('.block-view-wrapper', $blocks).css('margin-right', settings.margin_right);
@@ -625,7 +578,7 @@ Events:
                 $this.masonry({
                     itemSelector: settings.blocks,
                     isResizable: true,
-                    columnWidth: grid
+                    columnWidth: grid_x
                 });
 
                 if (!settings.editable) {
@@ -646,7 +599,7 @@ Events:
                                 settings: settings,
                                 container: $this
                             },
-                            reload_block);
+                            $.fn.simplelayoututils.reload_block);
                     }
                     // block reloadED event
                     if (events === undefined || events['sl-block-reloaded'] === undefined) {
@@ -662,8 +615,8 @@ Events:
 
                 // resize
                 $blocks.resizable({
-                    grid: [grid, get_grid_height(settings)],
-                    minWidth: grid,
+                    grid: [grid_x, grid_y],
+                    minWidth: grid_x,
                     maxWidth: settings.contentwidth,
                     resize: function(event, ui) {
                         ui.element.parent().masonry('reload');
@@ -672,30 +625,12 @@ Events:
                         ui.element.parent().masonry('reload', function() {
 
                             var img = ui.element.find('img');
-                            var imagegrid = get_image_grid(settings);
-                            var orig_with_in_columns = ui.originalSize.width / grid;
-                            var new_with_in_columns = ui.element.width() / grid;
-                            var diff_in_columns = new_with_in_columns - orig_with_in_columns;
-                            var img_width_in_columns = (img.width() + settings.margin_right) / imagegrid;
-                            var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
-                            var new_img_width;
-
-                            if (new_img_width_in_columns < 1) {
-                                // The image can not be smaller than one image column.
-                                new_img_width = imagegrid - settings.margin_right;
-
-                            } else if (img_width_in_columns / settings.images === orig_with_in_columns) {
-                                // Special case if the image has the same size as the block.
-                                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
-
-                            } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
-                                // The image can not be bigger than the block.
-                                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
-
-                            } else {
-                                // Asynchronous resize
-                                new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
-                            }
+                            new_img_width = $.fn.simplelayoututils.get_image_width_based_on_block_width(
+                                img.width(),
+                                ui.originalSize.width,
+                                ui.element.width(),
+                                settings
+                            );
 
                             img.width(new_img_width).height('auto');
                             img.parent().width(new_img_width).height('auto');
@@ -713,7 +648,7 @@ Events:
                 });
 
                 // Image resize
-                var image_grid = get_image_grid(settings);
+                var image_grid = $.fn.simplelayoututils.get_image_grid(settings);
                 $('.sl-img-wrapper img', $blocks).resizable({
                     handles: "e, w",
                     zIndex: 91,
@@ -855,6 +790,77 @@ Events:
 
     };
 
+    $.fn.simplelayoututils = {
+
+        get_grid: function(settings){
+            return settings.contentwidth / settings.columns;
+        },
+
+        get_image_grid: function(settings) {
+            return settings.contentwidth / settings.columns / settings.images;
+        },
+
+        get_grid_height: function(settings) {
+            return parseInt($(settings.contentarea).css('font-size').slice(0, 2));
+        },
+
+        is_image: function(file) {
+            // minimal check if it is an image.
+            // TODO: This can be improved.
+            return file.type.indexOf('image') === 0;
+        },
+
+        reload_block: function(e) {
+            // reload_block needs a event as parameter with simplelayout settings + container.
+            var $block = $(this);
+            var uuid = $block.data('uuid');
+
+            $('.block-view-wrapper', $block).load(
+                './@@sl-ajax-reload-block-view', {
+                    uuid: uuid
+                },
+                function() {
+                    $block.trigger('sl-block-reloaded', {
+                        settings: e.data.settings,
+                        container: e.data.container
+                    });
+                });
+            return;
+        },
+
+        get_image_width_based_on_block_width: function(image_width, origin_block_width, new_block_width, settings){
+            var grid_x = $.fn.simplelayoututils.get_grid(settings);
+
+            var imagegrid = $.fn.simplelayoututils.get_image_grid(settings);
+            var orig_with_in_columns = origin_block_width / grid_x;
+            var new_with_in_columns = new_block_width / grid_x;
+            var diff_in_columns = new_with_in_columns - orig_with_in_columns;
+            var img_width_in_columns = (image_width + settings.margin_right) / imagegrid;
+            var new_img_width_in_columns = img_width_in_columns + diff_in_columns;
+            var new_img_width;
+
+            if (new_img_width_in_columns < 1) {
+                // The image can not be smaller than one image column.
+                new_img_width = imagegrid - settings.margin_right;
+
+            } else if (img_width_in_columns / settings.images === orig_with_in_columns) {
+                // Special case if the image has the same size as the block.
+                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+            } else if (new_img_width_in_columns / settings.images > new_with_in_columns) {
+                // The image can not be bigger than the block.
+                new_img_width = new_with_in_columns * settings.images * imagegrid - settings.margin_right;
+
+            } else {
+                // Asynchronous resize
+                new_img_width = new_img_width_in_columns * imagegrid - settings.margin_right;
+            }
+
+            return new_img_width;
+
+        }
+
+    };
 
 
     $.fn.simplelayout = function(options) {

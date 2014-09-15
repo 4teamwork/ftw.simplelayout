@@ -11,8 +11,12 @@ var $controls = $(
 
 var $structure = $(
     '<div class="simplelayout">' +
-    '<div class="sl-block">' +
-    '<div class="block-view-wrapper"></div>' +
+    '<div class="sl-block" data-uuid="FAKEUID">' +
+    '<div class="block-view-wrapper">' +
+    '<div class="sl-img-wrapper">' +
+    '<img src="../assets/example.jpg" />' +
+    '</div>' +
+    '</div>' +
     '</div>' +
     '</div>');
 
