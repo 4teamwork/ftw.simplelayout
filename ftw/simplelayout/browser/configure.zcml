@@ -15,7 +15,7 @@
 
     <browser:page
         for="OFS.interfaces.IFolder"
-        name="simplelayout"
+        name="simplelayout-view"
         class=".simplelayout.SimplelayoutView"
         permission="zope2.View"
         template="templates/simplelayout.pt"

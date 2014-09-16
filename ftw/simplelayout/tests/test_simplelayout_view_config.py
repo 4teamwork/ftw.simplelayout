@@ -13,7 +13,7 @@ class TestSimpleayoutViewConfig(TestCase):
 
     def setUp(self):
         self.cp = create(Builder('sl content page').titled(u'Content page'))
-        self.view = self.cp.restrictedTraverse('@@simplelayout')
+        self.view = self.cp.restrictedTraverse('@@simplelayout-view')
 
         self.expect = ('{"columns": 4, '
                        '"images": 2, '
@@ -33,7 +33,7 @@ class TestSimpleayoutViewConfig(TestCase):
 
     @browsing
     def test_config_is_rendered_in_simplelayout_view(self, browser):
-        browser.login().visit(self.cp, view='@@simplelayout')
+        browser.login().visit(self.cp, view='@@simplelayout-view')
         self.assertIn(
             self.expect,
             browser.css('.simplelayout').first.attrib[
@@ -53,5 +53,5 @@ class TestSimpleayoutViewConfig(TestCase):
     def test_user_cannot_modify(self):
         logout()
         self.assertFalse(
-            self.cp.restrictedTraverse('@@simplelayout').can_modify(),
+            self.cp.restrictedTraverse('@@simplelayout-view').can_modify(),
             'The user should NOT be able to modify the current page')

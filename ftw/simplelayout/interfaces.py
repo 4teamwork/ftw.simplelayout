@@ -16,7 +16,7 @@ class ISimplelayoutBlock(Interface):
 
 
 class ISimplelayoutView(Interface):
-    """@@simplelayout view interface.
+    """@@simplelayout-view view interface.
     """
 
 

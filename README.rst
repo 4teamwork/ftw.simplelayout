@@ -88,7 +88,7 @@ One folderish type, the `ContentPage` and one block type, the `TextBlock`.
 **ContentPage**
 
 The ContentPage is a simple folderish dexterity based contenttype, which
-does nearly nothing, but has the ``@@simplelayout`` view configured by default.
+does nearly nothing, but has the ``@@simplelayout-view`` view configured by default.
 It's possible to add a ContentPage within a ContentPage
 
 **TextBlock**

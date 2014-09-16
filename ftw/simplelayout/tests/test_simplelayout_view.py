@@ -28,7 +28,7 @@ class TestSimplelayoutView(TestCase):
         self.browser.addHeader('Authorization', 'Basic %s:%s' % (
             TEST_USER_NAME, TEST_USER_PASSWORD, ))
 
-        self.url = self.contentpage.absolute_url() + '/@@simplelayout'
+        self.url = self.contentpage.absolute_url() + '/@@simplelayout-view'
 
     @browsing
     def test_view_renders(self, browser):
@@ -40,7 +40,7 @@ class TestSimplelayoutView(TestCase):
 
         textblock.reindexObject()
 
-        browser.login().visit(self.contentpage, view='@@simplelayout')
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
 
         self.assertEqual(browser.url, self.url)
         self.assertEquals('The text', browser.css(
@@ -65,7 +65,7 @@ class TestSimplelayoutView(TestCase):
 
         textblock.reindexObject()
 
-        browser.login().visit(self.contentpage, view='@@simplelayout')
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
         self.assertEquals(
             'The block could be rendered. Please check the log for details.',
             browser.css('.block-view-wrapper').first.text)
@@ -77,7 +77,7 @@ class TestSimplelayoutView(TestCase):
                .having(text=RichTextValue('The text'))
                .having(show_title=False))
 
-        view = self.contentpage.restrictedTraverse('@@simplelayout')
+        view = self.contentpage.restrictedTraverse('@@simplelayout-view')
         self.assertFalse(len(tuple(view.get_blocks(slot='SlotB'))),
                          'Expect to find no block in SlotB')
 

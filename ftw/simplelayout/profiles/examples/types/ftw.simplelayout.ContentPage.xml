@@ -36,10 +36,10 @@
     </property>
 
     <!-- View information -->
-    <property name="default_view">@@simplelayout</property>
+    <property name="default_view">@@simplelayout-view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="simplelayout"/>
+        <element value="simplelayout-view"/>
         <element value="simplelayout_two_slots"/>
         <element value="simplelayout_four_columns"/>
     </property>

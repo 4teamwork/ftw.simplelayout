@@ -59,7 +59,7 @@ class TestTextBlockView(TestCase):
         self.assertEquals(('height', 200), scale.key[-2])
 
     def test_get_simplelayout_view(self):
-        self.assertEquals('simplelayout',
+        self.assertEquals('simplelayout-view',
                           self.view.get_simplelayout_view().__name__)
 
     def test_get_default_image_wrapper_css_class(self):

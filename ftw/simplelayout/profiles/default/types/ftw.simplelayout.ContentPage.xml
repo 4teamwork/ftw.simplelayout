@@ -38,10 +38,10 @@
     </property>
 
     <!-- View information -->
-    <property name="default_view">@@simplelayout</property>
+    <property name="default_view">@@simplelayout-view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="@@simplelayout"/>
+        <element value="@@simplelayout-view"/>
     </property>
 
     <!-- Method aliases -->
