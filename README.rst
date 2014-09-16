@@ -38,10 +38,21 @@ Installation
         ...
         ftw.simplelayout
 
-- Install the ``ftw.simplelayout`` default profile.
-- There is also a examples profile, which also installs some additional views.
-  (See ftw.contentpage.examples). In the future this will also create some
-  example content
+
+Then you got several profile from wich you can choose from:
+
+- ``ftw.simplelayout`` default profile - Installs everything you need include default
+  DX based content types to start with
+
+- ``ftw.simplelayout`` example profile - Like the default profile, but install more
+  simplelayout views for testing. Do not install this profile on a production side.
+
+- ``ftw.simplelayout`` js lib profile - Only installs the JS library and the control panel.
+  No example content, no further views.
+
+
+- ``ftw.simplelayout`` development profile - Installs the default profile, but registers
+  the not uglified js version of jquery.simplelayout.
 
 
 Usage

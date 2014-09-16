@@ -21,4 +21,20 @@
         />
 
 
+    <browser:menuItem
+        for="ftw.simplelayout.contents.interfaces.IContentPage"
+        menu="plone_displayviews"
+        title="Simplelayout two slots demo view"
+        action="simplelayout_two_slots"
+        description="Simplelayout demo page with two slots"
+        />
+
+    <browser:menuItem
+        for="ftw.simplelayout.contents.interfaces.IContentPage"
+        menu="plone_displayviews"
+        title="Simplelayout four columns demo view"
+        action="simplelayout_four_columns"
+        description="Simplelayout demo page with four columns"
+        />
+
 </configure>

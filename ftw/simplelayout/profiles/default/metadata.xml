@@ -4,6 +4,6 @@
   <dependencies>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-collective.js.jqueryui:default</dependency>
-    <dependency>profile-ftw.simplelayout:library</dependency>
+    <dependency>profile-ftw.simplelayout:lib</dependency>
   </dependencies>
 </metadata>

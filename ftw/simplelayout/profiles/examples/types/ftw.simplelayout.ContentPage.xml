@@ -39,9 +39,9 @@
     <property name="default_view">@@simplelayout</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="@@simplelayout"/>
-        <element value="@@simplelayout_two_slots"/>
-        <element value="@@simplelayout_four_columns"/>
+        <element value="simplelayout"/>
+        <element value="simplelayout_two_slots"/>
+        <element value="simplelayout_four_columns"/>
     </property>
 
     <!-- Method aliases -->
