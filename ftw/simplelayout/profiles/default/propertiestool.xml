@@ -4,15 +4,15 @@
  <object name="navtree_properties" meta_type="Plone Property Sheet">
   <property name="metaTypesNotToList" type="lines" purge="False">
    <element value="ftw.simplelayout.TextBlock"/>
+   <element value="ftw.simplelayout.ListingBlock"/>
+   <element value="ftw.simplelayout.ListingFile"/>
   </property>
  </object>
 
  <object name="site_properties" meta_type="Plone Property Sheet">
-  <property name="invalid_ids" type="lines" purge="False">
-   <element value="simplelayout"/>
-  </property>
   <property name="types_not_searched" type="lines" purge="False">
    <element value="ftw.simplelayout.TextBlock"/>
+   <element value="ftw.simplelayout.ListingBlock"/>
   </property>
   <property name="default_page_types" type="lines" purge="False">
    <element value="ftw.simplelayout.ContentPage"/>
