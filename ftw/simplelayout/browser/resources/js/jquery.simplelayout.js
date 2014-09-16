@@ -87,72 +87,52 @@ Events:
 
     function blockcontrols($blocks) {
 
-        $blocks.bind('mouseenter', function() {
-            var $block = $(this);
-            var $innerwrapper = $('.block-wrapper', $block);
+        $blocks.each(function(){
+            $block = $(this);
+            // Edit
+            $('.sl-edit a', $block).prepOverlay({
+                subtype: 'ajax',
+                filter: "#content",
+                formselector: 'form',
+                noform: function(data, overlay) {
+                    var $block = overlay.source.closest('.sl-block');
+                    $block.trigger('sl-block-reload');
+                    return 'close';
+                },
 
-            if ($('.sl-controls', $block).length === 0) {
+                closeselector: '[name="form.button.cancel"]',
+                config: {
+                    onClose: function(e, overlay) {
+                        overlay = e.currentTarget.getOverlay();
+                        overlay.data('pbo').source.parents('.sl-block');
 
-                var uuid = $block.data('uuid');
-                $.get('./sl-ajax-block-controls', {
-                    uuid: uuid
-                }, function(data) {
-                    $innerwrapper.after(data);
-
-                    // Edit
-                    $('.sl-edit a', $block).prepOverlay({
-                        subtype: 'ajax',
-                        filter: "#content",
-                        formselector: 'form',
-                        noform: function(data, overlay) {
-                            var $block = overlay.source.closest('.sl-block');
-                            $block.trigger('sl-block-reload');
-                            return 'close';
-                        },
-
-                        closeselector: '[name="form.button.cancel"]',
-                        config: {
-                            onClose: function(e, overlay) {
-                                overlay = e.currentTarget.getOverlay();
-                                overlay.data('pbo').source.parents('.sl-block');
-
-                                auto_block_height($block);
-                                $block.parents('.simplelayout').simplelayout('save');
-                            },
-                            onLoad: function() {
-                                if (window.initTinyMCE) {
-                                    window.initTinyMCE(document);
-                                }
-                            }
+                        auto_block_height($block);
+                        $block.parents('.simplelayout').simplelayout('save');
+                    },
+                    onLoad: function() {
+                        if (window.initTinyMCE) {
+                            window.initTinyMCE(document);
                         }
-                    });
+                    }
+                }
+            });
 
-                    // Delete
-                    $('.sl-delete a').prepOverlay({
-                        subtype: 'ajax',
-                        urlmatch: '$',
-                        urlreplace: ' #content > *',
-                        formselector: '[action*="delete_confirmation"]',
-                        noform: function(data, overlay) {
-                            var $container = overlay.source.closest('.simplelayout');
-                            overlay.source.closest('.sl-block').remove();
-                            $container.masonry('reload');
-                            return 'close';
-                        },
-                        'closeselector': '[name="form.button.Cancel"]'
-                    });
-                });
-
-            } else {
-                $('.sl-controls', $block).toggle();
-            }
+            // Delete
+            $('.sl-delete a').prepOverlay({
+                subtype: 'ajax',
+                urlmatch: '$',
+                urlreplace: ' #content > *',
+                formselector: '[action*="delete_confirmation"]',
+                noform: function(data, overlay) {
+                    var $container = overlay.source.closest('.simplelayout');
+                    overlay.source.closest('.sl-block').remove();
+                    $container.masonry('reload');
+                    return 'close';
+                },
+                'closeselector': '[name="form.button.Cancel"]'
+            });
 
         });
-
-        $blocks.bind('mouseleave', function() {
-            $('.sl-controls', $(this)).toggle();
-        });
-
     }
 
     function addblock($container) {
@@ -188,6 +168,7 @@ Events:
                     filter: "#content",
                     formselector: 'form',
                     noform: function(data, overlay) {
+                        // Important note: data holds the hole plone page (filtered by #content)
                         // The new block in response data has no style attribute, so grap that one.
                         var $newblock = $('.sl-block:not([style])', data);
                         $newblock.attr('style', $block.attr('style'));
@@ -421,7 +402,15 @@ Events:
                                     .masonry('reload')
                                     .simplelayout('save')
                                     .simplelayout('layout');
-                                blockcontrols($destination);
+
+                                // Manually get block controls for the new uploaded block
+                                $.get('./sl-ajax-block-controls', {
+                                    uuid: uuid
+                                }, function(data) {
+                                    $('.block-wrapper', $destination).after(data);
+                                    blockcontrols($destination);
+                                });
+
                                 imagecontrols($destination);
                         });
                     }
@@ -607,8 +596,6 @@ Events:
                             var $block = $(this);
                             data.container.simplelayout('layout');
                             imagecontrols($block);
-                            // Hide menu
-                            $('.sl-controls:visible', $block).hide();
                         });
                     }
                 });

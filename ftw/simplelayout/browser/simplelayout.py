@@ -99,6 +99,11 @@ class SimplelayoutView(BrowserView):
                 'editable': user is not nobody and user.has_permission(
                     'cmf.ModifyPortalContent', block)}
 
+    def block_controls(self, uuid):
+        self.request['uuid'] = uuid
+        return self.context.restrictedTraverse(
+            '@@sl-ajax-block-controls')()
+
     def can_modify(self):
         return not api.user.is_anonymous() and api.user.get_permissions(
             obj=self.context)['Modify portal content']

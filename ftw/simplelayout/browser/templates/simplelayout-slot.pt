@@ -22,6 +22,8 @@
 
               </div>
 
+              <tal:block-controls replace="structure python: view.block_controls(block['uuid'])" />
+
             </div>
         </tal:blocks>
 
