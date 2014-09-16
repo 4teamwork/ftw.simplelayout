@@ -48,6 +48,11 @@ div.simplelayout > div.sl-block {
     right:7px;
     overflow: hidden;
     z-index:91;
+    display:none;
+}
+
+#content .sl-block:hover ul.sl-controls {
+    display: block;
 }
 
 #content ul.sl-controls > li {
