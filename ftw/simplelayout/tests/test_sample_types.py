@@ -21,7 +21,8 @@ class TestSampleTypes(TestCase):
         # Page
         browser.login().visit()
         factoriesmenu.add('ContentPage')
-        browser.fill({'Title': u'A test page'}).submit()
+        browser.fill({'Title': u'A test page'})
+        browser.find_button_by_label('Save').click()
 
         self.assertEquals('A test page', plone.first_heading())
 
@@ -31,7 +32,8 @@ class TestSampleTypes(TestCase):
         factoriesmenu.add('TextBlock')
         browser.fill({'Title': u'A test textblock',
                       'Text': u'Some text',
-                      'Show title': True}).submit()
+                      'Show title': True})
+        browser.find_button_by_label('Save').click()
 
         self.assertIn('Some text',
                       browser.css('.block-view-wrapper').first.text)
@@ -44,7 +46,8 @@ class TestSampleTypes(TestCase):
         factoriesmenu.add('TextBlock')
         browser.fill({'Title': u'A test textblock',
                       'Text': u'Some text',
-                      'Show title': False}).submit()
+                      'Show title': False})
+        browser.find_button_by_label('Save').click()
 
         self.assertIn('Some text',
                       browser.css('.block-view-wrapper').first.text)
@@ -76,7 +79,8 @@ class TestSampleTypes(TestCase):
         browser.login().visit(listingblock, view='folder_contents')
         factoriesmenu.add('File')
         browser.fill(
-            {'File': ('Some Data', 'file.txt', 'text/plain')}).submit()
+            {'File': ('Some Data', 'file.txt', 'text/plain')})
+        browser.find_button_by_label('Save').click()
 
         self.assertEquals(
             '{0}/file.txt/view'.format(listingblock.absolute_url()),
@@ -91,7 +95,8 @@ class TestSampleTypes(TestCase):
         browser.login().visit(listingblock, view='folder_contents')
         factoriesmenu.add('File')
         browser.fill(
-            {'File': ('1' * 1024, 'file.txt', 'text/plain')}).submit()
+            {'File': ('1' * 1024, 'file.txt', 'text/plain')})
+        browser.find_button_by_label('Save').click()
 
         self.assertEquals('file.txt', plone.first_heading())
 

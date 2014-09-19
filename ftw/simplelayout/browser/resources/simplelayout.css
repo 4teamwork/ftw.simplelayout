@@ -172,3 +172,8 @@ span.imagefloat {
     border: 1px dotted green;
     background-color: lightgoldenrodyellow;
 }
+
+/* contenttree window needs a higher zindex than the overlay */
+body .contenttreeWindow {
+    z-index: 10000;
+}

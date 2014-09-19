@@ -81,6 +81,8 @@ setup(name='ftw.simplelayout',
           'plone.app.dexterity',
           'collective.dexteritytextindexer',
           'plone.directives.form',
+          'plone.app.relationfield',
+          'plone.formwidget.contenttree',
 
           'ftw.table',
           ],
