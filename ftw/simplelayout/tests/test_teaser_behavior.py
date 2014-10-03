@@ -1,14 +1,19 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.behaviors import ITeaser
+# from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+# from ftw.testbrowser import browsing
+# from ftw.testbrowser.pages import factoriesmenu
+# from ftw.testbrowser.pages import statusmessages
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
+# from ftw.testbrowser.widgets import autocomplete
 
 
-class TestSampleTypes(TestCase):
+class TestTeaserBehavior(TestCase):
 
     layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
@@ -27,3 +32,21 @@ class TestSampleTypes(TestCase):
                           ITeaser(textblock).external_link)
         self.assertEquals(self.page,
                           ITeaser(textblock).internal_link.to_object)
+
+# class TestSampleTypes(TestCase):
+
+#     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+
+#     def setUp(self):
+#         self.page = create(Builder('sl content page'))
+
+#     @browsing
+#     def test_form_invariant(self, browser):
+#         browser.login().visit(self.page)
+#         factoriesmenu.add('TextBlock')
+#         browser.fill({'External URL': 'http://www.4teamwork.ch',
+#                       'Internal link': self.page})
+
+#         browser.find_button_by_label('Save').click()
+#         self.assertEquals('', statusmessages.error_messages)
+

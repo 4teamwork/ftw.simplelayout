@@ -177,3 +177,7 @@ span.imagefloat {
 body .contenttreeWindow {
     z-index: 10000;
 }
+
+.sl-block [data-simplelayout-url] {
+    cursor: pointer;
+}

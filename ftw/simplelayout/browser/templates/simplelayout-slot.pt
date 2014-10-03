@@ -22,7 +22,7 @@
 
               </div>
 
-              <tal:block-controls replace="structure python: view.block_controls(block['uuid'])" />
+              <tal:block-controls tal:condition="view/can_modify" replace="structure python: view.block_controls(block['uuid'])" />
 
             </div>
         </tal:blocks>

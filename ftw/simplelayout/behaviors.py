@@ -1,14 +1,11 @@
 from ftw.simplelayout import _
-from plone.behavior import AnnotationStorage
 from plone.directives import form
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationChoice
 from zope import schema
 from zope.interface import alsoProvides
-from zope.interface import implements
 from zope.interface import Invalid
 from zope.interface import invariant
-from plone.behavior.interfaces import ISchemaAwareFactory
 
 
 class ITeaser(form.Schema):

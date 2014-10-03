@@ -1,3 +1,4 @@
+from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.interfaces import IDisplaySettings
 from zope.component import queryMultiAdapter
 from zope.publisher.browser import BrowserView
@@ -47,11 +48,32 @@ class TextBlockView(BrowserView):
         scale = self.get_scaled_image()
         return ('<img src="{url}" alt="{title}" title="{title}" '
                 'width="{width}" height="{height}" '
-                'style="{style}" />'.format(**{'url': scale.url,
-                                               'title': self.context.Title(),
-                                               'width': scale.width,
-                                               'height': scale.height,
-                                               'style': self.get_style()}))
+                'style="{style}" {additional}/>'.format(
+                    **{'url': scale.url,
+                       'title': self.context.Title(),
+                       'width': scale.width,
+                       'height': scale.height,
+                       'style': self.get_style(),
+                       'additional': self.additional()}))
+
+    def additional(self):
+        teaser_url = self.teaser_url()
+        if teaser_url:
+            return 'data-simplelayout-url="{0}"'.format(teaser_url)
+        else:
+            return ''
+
+    def teaser_url(self):
+        teaser = ITeaser(self.context)
+        if not teaser:
+            return None
+
+        if teaser.internal_link:
+            return teaser.internal_link.to_object.absolute_url()
+        elif teaser.external_link:
+            return teaser.external_link
+        else:
+            return None
 
     def get_simplelayout_view(self):
         contentpage = self.context.aq_parent
