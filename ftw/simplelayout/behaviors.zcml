@@ -24,4 +24,14 @@
         name="ISimplelayout"
         />
 
+    <include package="plone.directives.form" file="meta.zcml" />
+    <include package="plone.directives.form" />
+
+    <plone:behavior
+        title="Simplelayout teaser behavior"
+        description="Extends a content by two fields internal and external link"
+        provides="ftw.simplelayout.behaviors.ITeaser"
+        factory="plone.behavior.AnnotationStorage"
+        />
+
 </configure>

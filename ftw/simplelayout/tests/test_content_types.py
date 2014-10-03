@@ -20,8 +20,8 @@ class TestSampleTypes(TestCase):
     def test_add_page(self, browser):
         browser.login().visit()
         factoriesmenu.add('ContentPage')
-        browser.fill({'Title': u'This is a ContentPage'}).submit()
-
+        browser.fill({'Title': u'This is a ContentPage'})
+        browser.find_button_by_label('Save').click()
         self.assertEquals(u'This is a ContentPage', plone.first_heading())
 
     @browsing
@@ -31,7 +31,8 @@ class TestSampleTypes(TestCase):
         browser.login().visit(contentpage)
         factoriesmenu.add('TextBlock')
         browser.fill({'Title': u'This is a ContentPage',
-                      'Text': u'Some text'}).submit()
+                      'Text': u'Some text'})
+        browser.find_button_by_label('Save').click()
 
         self.assertEquals('{0}/#this-is-a-contentpage'.format(
                           contentpage.absolute_url()),

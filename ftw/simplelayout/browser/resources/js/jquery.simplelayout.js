@@ -711,6 +711,15 @@ Events:
 
                     }
                 });
+
+                // teaser link feature
+                $('[data-simplelayout-url]').on('click', function(){
+                    var url = $(this).data('simplelayout-url');
+                    if (url.length !== 0){
+                        window.location = url;
+                    }
+                });
+
             });
         },
 

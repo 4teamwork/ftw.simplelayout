@@ -4,6 +4,8 @@
   <dependencies>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-collective.js.jqueryui:default</dependency>
+    <dependency>profile-plone.app.relationfield:default</dependency>
+    <dependency>profile-plone.formwidget.contenttree:default</dependency>
     <dependency>profile-ftw.simplelayout:lib</dependency>
   </dependencies>
 </metadata>

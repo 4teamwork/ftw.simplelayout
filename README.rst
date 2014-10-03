@@ -113,6 +113,13 @@ images and a single block for text.
    Add TextBlock
 
 
+Behaviors
+---------
+
+- The Teaser behavior is enabled by default on `TextBlock`. It allows you to add an
+  internal or external link to the block.
+
+
 Add new TextBlock
 -----------------
 
