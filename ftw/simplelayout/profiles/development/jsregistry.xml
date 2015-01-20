@@ -2,10 +2,13 @@
 <object name="portal_javascripts" meta_type="JavaScripts Registry"
    autogroup="False">
 
- <javascript id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.js"
+ <javascript id="++resource++ftw.simplelayout.resources/simplelayout.min.js"
              enabled="True" />
- <javascript id="++resource++ftw.simplelayout.resources/js/jquery.simplelayout.min.js"
-             enabled="False" />
+
+<javascript id="++resource++ftw.simplelayout.resources/main.js"
+             enabled="True" />
+
+<javascript id="++resource++ftw.simplelayout.resources/jsrender.js"
+             enabled="True" />
 
 </object>
-
