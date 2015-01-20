@@ -33,7 +33,7 @@
 
     <browser:page
         for="*"
-        name="addable-blocks-view"
+        name="addable-blocks.json"
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"
         />
