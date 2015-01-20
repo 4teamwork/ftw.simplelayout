@@ -56,25 +56,59 @@ class IDisplaySettings(Interface):
         """Sets the position of the object.
 
         Arguments:
-        position -- dict with "top" and "left" keys.
+        position -- Integer, represents the position of the block.
         """
 
     def get_position():
-        """Returns the stored position information as dict with "top" and
-        "left".
+        """Returns the stored position information.
         Returns ``None`` when nothing is stored.
         """
 
-    def set_size(size):
+    def set_height(height):
         """Sets the size of the object.
 
         Arguments:
-        size -- dict with "width" and "height" keys.
+        height -- Integer, represents the height of the block.
         """
 
-    def get_size():
-        """Returns the stored size information as dict with "width" and
-        "height".
+    def get_height():
+        """Returns the stored height.
+        Returns ``None`` when nothing is stored.
+        """
+
+    def set_layout(layout):
+        """Sets the layout position of the object.
+
+        Arguments:
+        layout -- Integer, In which layout the block belongs.
+        """
+
+    def get_layout():
+        """Returns the stored layout.
+        Returns ``None`` when nothing is stored.
+        """
+
+    def set_column(layout):
+        """Sets the column position of the object.
+
+        Arguments:
+        layout -- Integer, In which column the block belongs.
+        """
+
+    def get_column():
+        """Returns the stored column.
+        Returns ``None`` when nothing is stored.
+        """
+
+    def set_total_columns(layout):
+        """Sets the amount of total columns.
+
+        Arguments:
+        layout -- Integer, Amount of columns on the current layout.
+        """
+
+    def get_total_columns():
+        """Returns the amount of total columns.
         Returns ``None`` when nothing is stored.
         """
 

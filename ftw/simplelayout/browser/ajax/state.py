@@ -10,28 +10,24 @@ import json
 class SaveStateView(BrowserView):
     """Updates the state of the blocks in the current context.
     Expects a "payload" parameter in the request with json list of
-    block states.
+    block states and the total amount of columns of each layout.
 
     Example:
 
-    >>> payload = [
-    ...     {'uuid': '1234345',
-    ...      'slot': 'sl-slot-None',
-    ...      'position': {'left': 10,
-    ...                   'top': 20},
-    ...      'size': {'width': 100,
-    ...               'height': 50},
-    ...     'imagestyles': width:100px;float:none},
-    ...
-    ...     {'uuid': '09987655',
-    ...      'slot': 'sl-slot-A',
-    ...      'position': {'left': 5,
-    ...                   'top': 6},
-    ...      'size': {'width': 7,
-    ...               'height': 8},
-    ...      'imagestyles': width:240px;float:left},},
-    ...     ]
-
+    >>> payload ={
+        ...    "blocks", [{
+        ...        "height": "100px",
+        ...        "layout": 0,
+        ...        "column": 3,
+        ...        "position": 0
+        ...    }, {
+        ...        "height": "100px",
+        ...        "layout": 1,
+        ...        "column": 1,
+        ...        "position": 0
+        ...    }],
+        ...    "layouts": [2, 4]
+        ...}
     """
 
     def __call__(self):

@@ -30,25 +30,43 @@ class DisplaySeetings(object):
         return self.annotations[DISPLAY_SETTINGS_KEY]
 
     def set_position(self, value):
-        if 'top' not in value and 'left' not in value:
-            raise ValueError('Expected a dict with top and left as key')
+        if not value or not isinstance(value, int):
+            raise ValueError('Expect a integer as value')
 
-        self.get_storage()['position'] = PersistentMapping(value)
+        self.get_storage()['position'] = value
 
     def get_position(self):
         return self.get_storage().get('position', None)
 
-    def set_size(self, value):
-        if 'width' not in value and 'height' not in value:
-            raise ValueError('Expected a dict with top and left as key')
+    def set_height(self, value):
+        self.get_storage()['height'] = value
 
-        self.get_storage()['size'] = PersistentMapping(value)
+    def get_height(self):
+        return self.get_storage().get('height', None)
 
-    def get_size(self):
-        return self.get_storage().get('size', None)
+    def set_layout(self, value):
+        if not value or not isinstance(value, int):
+            raise ValueError('Expected a integer as value')
 
-    def get_image_styles(self):
-        return self.get_storage().get('imagestyles', None)
+        self.get_storage()['layout'] = value
 
-    def set_image_styles(self, value):
-        self.get_storage()['imagestyles'] = value
+    def get_layout(self):
+        return self.get_storage().get('layout', None)
+
+    def set_column(self, value):
+        if not value or not isinstance(value, int):
+            raise ValueError('Expected a integer as value')
+
+        self.get_storage()['column'] = value
+
+    def get_column(self):
+        return self.get_storage().get('column', None)
+
+    def set_total_columns(self, value):
+        if not value or not isinstance(value, int):
+            raise ValueError('Expected a integer as value')
+
+        self.get_storage()['total_columns'] = value
+
+    def get_total_columns(self):
+        return self.get_storage().get('total_columns', None)

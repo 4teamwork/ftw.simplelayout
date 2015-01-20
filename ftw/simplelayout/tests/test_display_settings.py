@@ -36,40 +36,54 @@ class TestDisplaySettings(MockTestCase):
                                    IDisplaySettings)
 
         self.assertEqual(settings.get_position(), None)
-        settings.set_position({'top': 10, 'left': 30.7})
-        self.assertEqual(settings.get_position(), {'top': 10, 'left': 30.7})
-        self.assertTrue(isinstance(settings.get_position(), PersistentMapping))
+        settings.set_position(1)
+        self.assertEqual(settings.get_position(), 1)
 
-    def test_size(self):
+    def test_height(self):
         self.replay()
         settings = getMultiAdapter((self.context, self.request),
                                    IDisplaySettings)
 
-        self.assertEqual(settings.get_size(), None)
-        settings.set_size({'width': 100, 'height': 50.3})
-        self.assertEqual(settings.get_size(), {'width': 100, 'height': 50.3})
-        self.assertTrue(isinstance(settings.get_size(), PersistentMapping))
+        self.assertEqual(settings.get_height(), None)
+        settings.set_height('auto')
+        self.assertEqual(settings.get_height(), 'auto')
 
-    def test_setter_condition(self):
+    def test_layout(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+
+        self.assertEqual(settings.get_layout(), None)
+        settings.set_layout(2)
+        self.assertEqual(settings.get_layout(), 2)
+
+    def test_column(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+
+        self.assertEqual(settings.get_column(), None)
+        settings.set_column(4)
+        self.assertEqual(settings.get_column(), 4)
+
+    def test_total_columns(self):
+        self.replay()
+        settings = getMultiAdapter((self.context, self.request),
+                                   IDisplaySettings)
+
+        self.assertEqual(settings.get_total_columns(), None)
+        settings.set_total_columns(1)
+        self.assertEqual(settings.get_total_columns(), 1)
+
+    def test_setter_conditions(self):
         self.replay()
         settings = getMultiAdapter((self.context, self.request),
                                    IDisplaySettings)
         with self.assertRaises(ValueError):
-            settings.set_size({'foo': 100})
+            settings.set_position('Not a integer')
         with self.assertRaises(ValueError):
-            settings.set_position({'foo': 100})
-
-    def test_imagestyles_getter_default(self):
-        self.replay()
-        settings = getMultiAdapter((self.context, self.request),
-                                   IDisplaySettings)
-
-        self.assertIsNone(settings.get_image_styles())
-
-    def test_imagestyles_setter(self):
-        self.replay()
-        settings = getMultiAdapter((self.context, self.request),
-                                   IDisplaySettings)
-
-        settings.set_image_styles('width:100px;')
-        self.assertEquals('width:100px;', settings.get_image_styles())
+            settings.set_layout('Not a integer')
+        with self.assertRaises(ValueError):
+            settings.set_column('Not a integer')
+        with self.assertRaises(ValueError):
+            settings.set_total_columns('Not a integer')

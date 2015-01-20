@@ -3,6 +3,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
+    <include package="plone.app.contentmenu" />
 
     <browser:page
         for="OFS.interfaces.IFolder"
