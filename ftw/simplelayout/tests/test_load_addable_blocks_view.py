@@ -17,14 +17,14 @@ class TestAddableBlocksView(TestCase):
 
         view = page.restrictedTraverse('@@addable-blocks.json')
 
-        allowed_block_types = [item['content-type']
+        allowed_block_types = [item['content_type']
                                for item in view.addable_blocks()]
         result = list(allowed_block_types)
         result.sort()
 
         self.assertEquals(
-            ['ftw.simplelayout.ListingBlock',
-             'ftw.simplelayout.TextBlock'],
+            ['ftw-simplelayout-listingblock',
+             'ftw-simplelayout-textblock'],
             result)
 
     def test_addable_blocks_json(self):
@@ -37,8 +37,8 @@ class TestAddableBlocksView(TestCase):
         self.assertDictEqual(
             {u'title': u'ListingBlock',
              u'description': u'Use this block for File or listings or galleries',
-             u'content-type': u'ftw.simplelayout.ListingBlock',
-             u'form-url': u'{0}/++add++ftw.simplelayout.ListingBlock'.format(
+             u'content_type': u'ftw-simplelayout-listingblock',
+             u'form_url': u'{0}/++add++ftw.simplelayout.ListingBlock'.format(
                  page.absolute_url())
              },
             addable_types_json[0])
@@ -46,8 +46,8 @@ class TestAddableBlocksView(TestCase):
         self.assertDictEqual(
             {u'title': u'TextBlock',
              u'description': u'Use this block for text and/or one image.',
-             u'content-type': u'ftw.simplelayout.TextBlock',
-             u'form-url': u'{0}/++add++ftw.simplelayout.TextBlock'.format(
+             u'content_type': u'ftw-simplelayout-textblock',
+             u'form_url': u'{0}/++add++ftw.simplelayout.TextBlock'.format(
                  page.absolute_url())
              },
             addable_types_json[1])
