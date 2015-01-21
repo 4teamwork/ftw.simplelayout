@@ -1,7 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.browser.blocks.textblock import parse_css
-from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from ftw.testbrowser import browsing
@@ -11,7 +9,6 @@ from StringIO import StringIO
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
-from zope.component import queryMultiAdapter
 from zope.intid.interfaces import IIntIds
 
 
@@ -33,79 +30,6 @@ class TestTextBlockView(TestCase):
                        .having(image=NamedBlobImage(data=image.read(),
                                                     filename=u'test.gif')))
         self.view = block.restrictedTraverse('@@block_view')
-
-    def test_get_default_scaled_image(self):
-        # Width and height are currently hart coded  in the textblock view
-        scale = self.view.get_scaled_image()
-        width = self.view.calculate_min_image_width()
-
-        self.assertEquals(('width', width), scale.key[-1])
-
-        # The height is set to 10000, so it doesn't matters while scaling.
-        self.assertEquals(('height', 10000), scale.key[-2])
-
-    def test_scaled_image_based_on_image_styles(self):
-        display = queryMultiAdapter((self.view.context, self.view.request),
-                                    IDisplaySettings)
-
-        display.set_image_styles('width:123px')
-
-        scale = self.view.get_scaled_image()
-        self.assertEquals(('width', 123), scale.key[-1])
-
-    def test_scaled_image_based_on_image_styles_incl_height(self):
-        display = queryMultiAdapter((self.view.context, self.view.request),
-                                    IDisplaySettings)
-
-        display.set_image_styles('width:123px;height:200px;')
-
-        scale = self.view.get_scaled_image()
-        self.assertEquals(('width', 123), scale.key[-1])
-        self.assertEquals(('height', 200), scale.key[-2])
-
-    def test_get_simplelayout_view(self):
-        self.assertEquals('simplelayout-view',
-                          self.view.get_simplelayout_view().__name__)
-
-    def test_get_default_image_wrapper_css_class(self):
-        self.assertEquals('sl-img-wrapper float-image-none',
-                          self.view.get_image_wrapper_css_class())
-
-    def test_get_change_image_wrapper_css_class(self):
-        display = queryMultiAdapter((self.view.context, self.view.request),
-                                    IDisplaySettings)
-
-        display.set_image_styles('width:123px;float:left')
-
-        self.assertEquals('sl-img-wrapper float-image-left',
-                          self.view.get_image_wrapper_css_class())
-
-    def test_imag_tag(self):
-        display = queryMultiAdapter((self.view.context, self.view.request),
-                                    IDisplaySettings)
-
-        display.set_image_styles('width:123px;height:200px;')
-        img_tag = self.view.img_tag()
-
-        self.assertIn('title="TextBlock title"',
-                      img_tag,
-                      'Title attribute is wrong or not set.')
-        self.assertIn('alt="TextBlock title"',
-                      img_tag,
-                      'Title attribute is wrong or not set.')
-        self.assertIn('width="1"',
-                      img_tag,
-                      'width attribute is wrong or not set.')
-        self.assertIn('height="1"',
-                      img_tag,
-                      'Height attribute is wrong or not set.')
-        self.assertIn('style="width:123px;height:200px;"',
-                      img_tag,
-                      'Style attribute is wrong or not set.')
-        self.assertIn(
-            'src="{0}/@@images'.format(self.view.context.absolute_url()),
-            img_tag,
-            'Src attribute is wrong or not set.')
 
 
 class TestTextBlockRendering(TestCase):
@@ -134,8 +58,6 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(
             'http://www.4teamwork.ch',
             browser.css('[data-simplelayout-url]').first.attrib['data-simplelayout-url'])
-        self.assertTrue(browser.css('img[data-simplelayout-url]'),
-                        'No linked image found')
 
     @browsing
     def test_teaser_url_internal(self, browser):
@@ -153,20 +75,3 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(self.page.absolute_url(),
                           browser.css('[data-simplelayout-url]').first.attrib[
                               'data-simplelayout-url'])
-        self.assertTrue(browser.css('img[data-simplelayout-url]'),
-                        'No linked image found')
-
-
-class TestCssStyleParser(TestCase):
-
-    def test_strip_px(self):
-        styles = 'float:left;width:500px'
-        self.assertEquals('500', parse_css(styles, 'width'))
-
-    def test_get_attr(self):
-        styles = 'float:left;width:500px'
-        self.assertEquals('left', parse_css(styles, 'float'))
-
-    def test_no_attr(self):
-        styles = 'float:left;width:500px'
-        self.assertIsNone(parse_css(styles, 'height'))
