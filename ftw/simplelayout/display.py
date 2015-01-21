@@ -30,7 +30,7 @@ class DisplaySeetings(object):
         return self.annotations[DISPLAY_SETTINGS_KEY]
 
     def set_position(self, value):
-        if not value or not isinstance(value, int):
+        if not isinstance(value, int):
             raise ValueError('Expect a integer as value')
 
         self.get_storage()['position'] = value
@@ -45,7 +45,7 @@ class DisplaySeetings(object):
         return self.get_storage().get('height', None)
 
     def set_layout(self, value):
-        if not value or not isinstance(value, int):
+        if not isinstance(value, int):
             raise ValueError('Expected a integer as value')
 
         self.get_storage()['layout'] = value
@@ -54,7 +54,7 @@ class DisplaySeetings(object):
         return self.get_storage().get('layout', None)
 
     def set_column(self, value):
-        if not value or not isinstance(value, int):
+        if not isinstance(value, int):
             raise ValueError('Expected a integer as value')
 
         self.get_storage()['column'] = value
@@ -63,7 +63,7 @@ class DisplaySeetings(object):
         return self.get_storage().get('column', None)
 
     def set_total_columns(self, value):
-        if not value or not isinstance(value, int):
+        if not isinstance(value, int):
             raise ValueError('Expected a integer as value')
 
         self.get_storage()['total_columns'] = value

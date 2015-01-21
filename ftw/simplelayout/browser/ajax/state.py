@@ -8,6 +8,7 @@ import json
 
 
 class SaveStateView(BrowserView):
+
     """Updates the state of the blocks in the current context.
     Expects a "payload" parameter in the request with json list of
     block states and the total amount of columns of each layout.
@@ -19,12 +20,14 @@ class SaveStateView(BrowserView):
         ...        "height": "100px",
         ...        "layout": 0,
         ...        "column": 3,
-        ...        "position": 0
+        ...        "position": 0,
+        ...        "uid": 122345678
         ...    }, {
         ...        "height": "100px",
         ...        "layout": 1,
         ...        "column": 1,
-        ...        "position": 0
+        ...        "position": 0,
+        ...        "uid": 122345678
         ...    }],
         ...    "layouts": [2, 4]
         ...}
@@ -33,13 +36,12 @@ class SaveStateView(BrowserView):
     def __call__(self):
         payload = self._get_payload()
         payload = self._load_objects(payload)
-        self._update_order(payload)
-        self._update_positions_and_sizes(payload)
-        self._update_slot_information(payload)
+        self._update(payload)
 
         return json.dumps(
             {'Status': 'OK',
-             'msg': 'Saved state of {0} blocks'.format(len(payload))})
+             'msg': 'Saved state of {0} blocks'.format(
+                 len(payload['blocks']))})
 
     def _get_payload(self):
         payload = self.request.get('payload', None)
@@ -54,28 +56,19 @@ class SaveStateView(BrowserView):
         for obj in self.context.listFolderContents():
             uuid_to_object[IUUID(obj)] = obj
 
-        for item in payload:
-            item['obj'] = uuid_to_object[item['uuid']]
+        for item in payload['blocks']:
+            item['obj'] = uuid_to_object[item['uid']]
 
         return payload
 
-    def _update_order(self, payload):
-        ids = [item.get('obj').getId() for item in payload]
-        self.context.moveObjectsByDelta(ids, -len(ids))
-
-        # Position of not updated objects may have changed, so we reindex
-        # all children of the current context.
-        for child in self.context.objectValues():
-            child.reindexObject(idxs=['getObjPositionInParent'])
-
-    def _update_positions_and_sizes(self, payload):
-        for item in payload:
+    def _update(self, payload):
+        for idx, item in enumerate(payload['blocks']):
             display = getMultiAdapter((item['obj'], self.request),
                                       IDisplaySettings)
             display.set_position(item['position'])
-            display.set_size(item['size'])
-            display.set_image_styles(item['imagestyles'])
+            display.set_height(item['height'])
+            display.set_layout(item['layout'])
+            display.set_column(item['column'])
 
-    def _update_slot_information(self, payload):
-        for item in payload:
-            set_slot_information(item['obj'], item['slot'])
+            total_columns = payload['layouts'][item['layout']]
+            display.set_total_columns(total_columns)

@@ -1,10 +1,8 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import IDisplaySettings
-from ftw.simplelayout.slot import get_slot_information
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from plone.uuid.interfaces import IUUID
-from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
@@ -31,26 +29,23 @@ class TestSaveStateView(TestCase):
                           .within(self.page)
                           .titled(u'Baz'))
 
-    def get_content_ids(self):
-        # Returns content ids of direct children using catalog.
-        catalog = getToolByName(self.layer['portal'], 'portal_catalog')
-        query = {'path': {'query': '/'.join(self.page.getPhysicalPath()),
-                          'depth': 1},
-                 'sort_on': 'getObjPositionInParent'}
+        self.layout_cache = []
+        self.payload = {'blocks': [],
+                        'layouts': []}
 
-        brains = catalog(query)
+    def generate_block_data(self, block, height='auto', layout=0, column=0,
+                            position=0, total_columns=1):
 
-        return [brain.id for brain in brains]
+        self.payload['blocks'].append({'uid': IUUID(block),
+                                       'height': height,
+                                       'position': position,
+                                       'layout': layout,
+                                       'column': column,
+                                       'total_columns': total_columns})
 
-    def generate_block_data(self, block, top=10, left=10, width=10,
-                            height=10):
-        return {'uuid': IUUID(block),
-                'slot': 'sl-slot-SomeSlot',
-                'position': {'left': left,
-                             'top': top},
-                'size': {'width': width,
-                         'height': height},
-                'imagestyles': 'width:100px;float:none;'}
+        if layout not in self.layout_cache:
+            self.layout_cache.append(layout)
+            self.payload['layouts'].append(total_columns)
 
     def test_view_registered(self):
         view = queryMultiAdapter((self.page, TestRequest()),
@@ -69,132 +64,93 @@ class TestSaveStateView(TestCase):
             'Request parameter "payload" not found.')
 
     def test_view_returns_OK(self):
-        payload = [self.generate_block_data(self.foo)]
-        request = TestRequest(form={'payload': json.dumps(payload)})
+        self.generate_block_data(self.foo)
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
 
         view = getMultiAdapter((self.page, request),
                                name='sl-ajax-save-state')
         self.assertEqual('{"Status": "OK", "msg": "Saved state of 1 blocks"}',
                          view())
 
-    def test_content_order(self):
-        self.assertEqual(self.get_content_ids(),
-                         ['foo', 'bar', 'baz'])
-
-        payload = [
-            self.generate_block_data(self.baz),
-            self.generate_block_data(self.foo),
-            self.generate_block_data(self.bar),
-        ]
-
-        request = TestRequest(form={'payload': json.dumps(payload)})
-        getMultiAdapter((self.page, request),
-                        name='sl-ajax-save-state')()
-
-        self.assertEqual(self.get_content_ids(),
-                         ['baz', 'foo', 'bar'])
-
-    def test_block_positions(self):
+    def test_setting_block_position(self):
         foo_settings = getMultiAdapter((self.foo, TestRequest()),
                                        IDisplaySettings)
         bar_settings = getMultiAdapter((self.bar, TestRequest()),
                                        IDisplaySettings)
 
-        # Position is None when newer saved.
-        self.assertEqual(foo_settings.get_position(), None)
-        self.assertEqual(bar_settings.get_position(), None)
+        self.generate_block_data(self.foo, position=1),
+        self.generate_block_data(self.bar, position=0),
 
-        # Set positions #1
-        payload = [
-            self.generate_block_data(self.foo, top=2, left=3.141592654),
-            self.generate_block_data(self.bar, top=1, left=2),
-        ]
-
-        request = TestRequest(form={'payload': json.dumps(payload)})
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
         getMultiAdapter((self.page, request),
                         name='sl-ajax-save-state')()
 
-        # Check positions #1
-        self.assertEqual(foo_settings.get_position(),
-                         {'left': 3.141592654,
-                          'top': 2})
+        self.assertEqual(foo_settings.get_position(), 1)
+        self.assertEqual(bar_settings.get_position(), 0)
 
-        self.assertEqual(bar_settings.get_position(),
-                         {'left': 2,
-                          'top': 1})
-
-        # Set positions #2
-        payload = [
-            self.generate_block_data(self.foo, top=11, left=12),
-            self.generate_block_data(self.bar, top=13, left=14),
-        ]
-
-        request = TestRequest(form={'payload': json.dumps(payload)})
-        getMultiAdapter((self.page, request),
-                        name='sl-ajax-save-state')()
-
-        # Check positions #2
-        self.assertEqual(foo_settings.get_position(),
-                         {'left': 12,
-                          'top': 11})
-
-        self.assertEqual(bar_settings.get_position(),
-                         {'left': 14,
-                          'top': 13})
-
-    def test_block_size(self):
+    def test_setting_block_height(self):
         foo_settings = getMultiAdapter((self.foo, TestRequest()),
                                        IDisplaySettings)
         bar_settings = getMultiAdapter((self.bar, TestRequest()),
                                        IDisplaySettings)
 
-        # Size is None when newer saved.
-        self.assertEqual(foo_settings.get_size(), None)
-        self.assertEqual(bar_settings.get_size(), None)
+        self.generate_block_data(self.foo, height='auto',),
+        self.generate_block_data(self.bar, height=100,),
 
-        # Set sizes #1
-        payload = [
-            self.generate_block_data(self.foo, height=2, width=3.141592654),
-            self.generate_block_data(self.bar, height=1, width=2),
-        ]
-
-        request = TestRequest(form={'payload': json.dumps(payload)})
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
         getMultiAdapter((self.page, request),
                         name='sl-ajax-save-state')()
 
-        # Check sizes #1
-        self.assertEqual(foo_settings.get_size(),
-                         {'width': 3.141592654,
-                          'height': 2})
+        self.assertEqual(foo_settings.get_height(), 'auto')
+        self.assertEqual(bar_settings.get_height(), 100)
 
-        self.assertEqual(bar_settings.get_size(),
-                         {'width': 2,
-                          'height': 1})
+    def test_setting_block_layout(self):
+        foo_settings = getMultiAdapter((self.foo, TestRequest()),
+                                       IDisplaySettings)
+        bar_settings = getMultiAdapter((self.bar, TestRequest()),
+                                       IDisplaySettings)
 
-        # Set sizes #2
-        payload = [
-            self.generate_block_data(self.foo, height=11, width=12),
-            self.generate_block_data(self.bar, height=13, width=14),
-        ]
+        self.generate_block_data(self.foo, layout=0,),
+        self.generate_block_data(self.bar, layout=1,),
 
-        request = TestRequest(form={'payload': json.dumps(payload)})
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
         getMultiAdapter((self.page, request),
                         name='sl-ajax-save-state')()
 
-        # Check sizes #2
-        self.assertEqual(foo_settings.get_size(),
-                         {'width': 12,
-                          'height': 11})
+        self.assertEqual(foo_settings.get_layout(), 0)
+        self.assertEqual(bar_settings.get_layout(), 1)
 
-        self.assertEqual(bar_settings.get_size(),
-                         {'width': 14,
-                          'height': 13})
+    def test_setting_block_column(self):
+        foo_settings = getMultiAdapter((self.foo, TestRequest()),
+                                       IDisplaySettings)
+        bar_settings = getMultiAdapter((self.bar, TestRequest()),
+                                       IDisplaySettings)
 
-    def test_block_slot(self):
-        payload = [self.generate_block_data(self.foo)]
+        self.generate_block_data(self.foo, column=0,),
+        self.generate_block_data(self.bar, column=1,),
 
-        request = TestRequest(form={'payload': json.dumps(payload)})
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
         getMultiAdapter((self.page, request),
                         name='sl-ajax-save-state')()
 
-        self.assertEquals('SomeSlot', get_slot_information(self.foo))
+        self.assertEqual(foo_settings.get_column(), 0)
+        self.assertEqual(bar_settings.get_column(), 1)
+
+    def test_setting_total_columns(self):
+        foo_settings = getMultiAdapter((self.foo, TestRequest()),
+                                       IDisplaySettings)
+        bar_settings = getMultiAdapter((self.bar, TestRequest()),
+                                       IDisplaySettings)
+
+        self.generate_block_data(self.foo, layout=0, total_columns=2,),
+        self.generate_block_data(self.bar, layout=1, total_columns=4,),
+
+        request = TestRequest(form={'payload': json.dumps(self.payload)})
+        getMultiAdapter((self.page, request),
+                        name='sl-ajax-save-state')()
+
+        self.assertEqual(foo_settings.get_total_columns(), 2)
+        self.assertEqual(bar_settings.get_total_columns(), 4)
+
+        # Cross check the layout config of generate_block_data
+        self.assertEquals(self.payload['layouts'], [2, 4])
