@@ -1,16 +1,11 @@
 from ftw.simplelayout.behaviors import ITeaser
-from plone.uuid.interfaces import IUUID
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.publisher.browser import BrowserView
+from ftw.simplelayout.browser.blocks.base import BaseBlock
 
 
-class TextBlockView(BrowserView):
+class TextBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/textblock.pt')
-
-    def __call__(self):
-
-        return self.template()
 
     def additional(self):
         teaser_url = self.teaser_url()

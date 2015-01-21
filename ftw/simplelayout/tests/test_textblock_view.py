@@ -4,6 +4,7 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
+from plone.app.uuid.utils import uuidToObject
 from plone.namedfile.file import NamedBlobImage
 from StringIO import StringIO
 from unittest2 import TestCase
@@ -75,3 +76,20 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(self.page.absolute_url(),
                           browser.css('[data-simplelayout-url]').first.attrib[
                               'data-simplelayout-url'])
+
+    @browsing
+    def test_sl_block_wrapper_contains_uid_data_attribute(self, browser):
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(external_link='http://www.4teamwork.ch')
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif')))
+
+        browser.login().visit(block, view='@@block_view')
+
+        resolve_block = uuidToObject(
+            browser.css('.sl-block-content').first.attrib['data-uid'])
+
+        self.assertEquals(block, resolve_block)
