@@ -1,7 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
@@ -11,26 +10,6 @@ from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
-
-
-class TestTextBlockView(TestCase):
-
-    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
-
-    def setUp(self):
-        self.page = create(Builder('sl content page'))
-
-        image = StringIO(
-            'GIF89a\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00'
-            '\x00!\xf9\x04\x04\x00\x00\x00\x00,\x00\x00\x00\x00\x01\x00'
-            '\x01\x00\x00\x02\x02D\x01\x00;')
-        block = create(Builder('sl textblock')
-                       .within(self.page)
-                       .titled('TextBlock title')
-                       .having(text=RichTextValue('The text'))
-                       .having(image=NamedBlobImage(data=image.read(),
-                                                    filename=u'test.gif')))
-        self.view = block.restrictedTraverse('@@block_view')
 
 
 class TestTextBlockRendering(TestCase):
@@ -82,8 +61,7 @@ class TestTextBlockRendering(TestCase):
         block = create(Builder('sl textblock')
                        .within(self.page)
                        .titled('TextBlock title')
-                       .having(text=RichTextValue('The text'))
-                       .having(external_link='http://www.4teamwork.ch')
+                       .having(text=RichTextValue(u'The text with \xfc'))
                        .having(image=NamedBlobImage(data=self.image.read(),
                                                     filename=u'test.gif')))
 

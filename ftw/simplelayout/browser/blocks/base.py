@@ -2,7 +2,7 @@ from plone.uuid.interfaces import IUUID
 from Products.Five.browser import BrowserView
 
 
-SL_BLOCK_WRAPPER = """<div class="sl-block-content" data-uid="{uid}">
+SL_BLOCK_WRAPPER = u"""<div class="sl-block-content" data-uid="{uid}">
 {content}</div>"""
 
 
