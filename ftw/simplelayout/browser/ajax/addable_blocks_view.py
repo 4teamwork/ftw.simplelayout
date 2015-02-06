@@ -22,7 +22,7 @@ class AddableBlocks(BrowserView):
     def __call__(self):
         self.request.response.setHeader("Content-type", "application/json")
         self.request.response.setHeader('X-Theme-Disabled', 'True')
-        return json.dumps(tuple(self.addable_blocks()))
+        return json.dumps(dict(self.addable_blocks()))
 
     def addable_blocks(self):
         block_types = set(self._get_block_types())
@@ -33,10 +33,22 @@ class AddableBlocks(BrowserView):
             if fti.id in allowed_types:
                 add_url = Expression(fti.add_view_expr)(
                     getExprContext(self.context, self.context))
-                yield {'title': _(fti.Title()),
-                       'description': _(fti.Description()),
-                       'content_type': normalize_portal_type(fti.id),
-                       'form_url': add_url}
+
+                yield (
+                    normalize_portal_type(fti.id),
+                    {
+                        'title': _(fti.Title()),
+                        'description': _(fti.Description()),
+                        'content_type': normalize_portal_type(fti.id),
+                        'form_url': add_url,
+                        'actions': {
+                            'edit': {
+                                'name': 'Edit',
+                                'description': 'Edit block',
+                            },
+                        },
+                    }
+                )
 
     def _get_block_types(self):
         types_tool = getToolByName(self.context, 'portal_types')
