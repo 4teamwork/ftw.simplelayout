@@ -10,7 +10,7 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".contents" />
-    <include package=".examples" />
+    <!-- <include package=".examples" /> -->
     <include file="behaviors.zcml" />
 
     <genericsetup:registerProfile
@@ -46,5 +46,10 @@
         />
 
     <adapter factory=".display.DisplaySeetings" />
+
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        factory=".configuration.PageConfiguration"
+        />
 
 </configure>

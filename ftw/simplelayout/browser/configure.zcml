@@ -14,10 +14,18 @@
     <include package=".controlpanel" />
 
     <browser:page
-        for="OFS.interfaces.IFolder"
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
         name="simplelayout-view"
         permission="zope2.View"
-        template="templates/simplelayout.pt"
+        class=".simplelayout.SimplelayoutView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        name="save_state"
+        permission="cmf.ModifyPortalContent"
+        class=".simplelayout.SimplelayoutView"
+        attribute="save_state"
         />
 
     <browser:page

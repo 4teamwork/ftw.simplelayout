@@ -1,20 +1,14 @@
 from ftw.simplelayout import _
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from plone.dexterity.interfaces import IDexterityFTI
-from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
-from zope.component import getUtility
+from ftw.simplelayout.utils import normalize_portal_type
 from zope.component import queryUtility
 from zope.publisher.browser import BrowserView
 import json
-
-
-def normalize_portal_type(portal_type):
-    normalizer = getUtility(IIDNormalizer)
-    return normalizer.normalize(portal_type)
 
 
 class AddableBlocks(BrowserView):

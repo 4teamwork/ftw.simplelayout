@@ -11,6 +11,10 @@ class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
 
+class ISimplelayoutPage(Interface):
+    """Marker for Simplelayout content pages"""
+
+
 class ISimplelayoutBlock(Interface):
     """Marker for simplelayout blocks"""
 
@@ -18,6 +22,19 @@ class ISimplelayoutBlock(Interface):
 class ISimplelayoutView(Interface):
     """@@simplelayout-view view interface.
     """
+
+
+class IPageConfiguration(Interface):
+    """Adapter for storing simplelayout page configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
 
 
 class IBlockProperties(Interface):

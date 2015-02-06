@@ -1,121 +1,85 @@
-from AccessControl import getSecurityManager
-from AccessControl.SpecialUsers import nobody
-from ftw.simplelayout.interfaces import IBlockProperties
-from ftw.simplelayout.interfaces import IDisplaySettings
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
-from ftw.simplelayout.interfaces import ISimplelayoutView
-from ftw.simplelayout.slot import get_slot_id
-from ftw.simplelayout.slot import get_slot_information
-from plone import api
-from plone.registry.interfaces import IRegistry
-from plone.uuid.interfaces import IUUID
+from Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ZODB.POSException import ConflictError
-from zope.component import getUtility
-from zope.component import queryMultiAdapter
+from ftw.simplelayout.interfaces import ISimplelayoutView
+from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.utils import normalize_portal_type
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
 import logging
+import json
 
 
 LOG = logging.getLogger('ftw.simplelayout')
 
 
-STYLE_ATTRIBUTE = ('top:{top}px;'
-                   'left:{left}px;'
-                   'width:{width}px;'
-                   'height:{height}px;')
-
-CONFIG_TEMPLATE = ('{{"columns": {columns}, '
-                   '"images": {images}, '
-                   '"contentwidth": {contentwidth}, '
-                   '"margin_right": {margin_right}, '
-                   '"contentarea": "{contentarea}", '
-                   '"editable": {editable}}}')
-
-
-def get_style(settings):
-    position = settings.get_position()
-    size = settings.get_size()
-
-    if position and size:
-        return STYLE_ATTRIBUTE.format(
-            **{'top': position['top'],
-               'left': position['left'],
-               'width': size['width'],
-               'height': size['height']})
-
-
 class SimplelayoutView(BrowserView):
     implements(ISimplelayoutView)
 
-    columns = None
+    template = ViewPageTemplateFile('templates/simplelayout.pt')
 
-    sl_slot_template = ViewPageTemplateFile('templates/simplelayout-slot.pt')
-    sl_page_controls = ViewPageTemplateFile('templates/page-controls.pt')
-    fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
+    def __call__(self):
+        return self.template()
 
-    def simplelayout_slot(self, **kwargs):
-        if 'slot' not in kwargs:
-            kwargs['slot'] = 'None'
-        kwargs['slot_id'] = get_slot_id(kwargs['slot'])
-        return self.sl_slot_template(**kwargs)
+    def rows(self):
+        """ Return datastructure for rendering blocks.
+        """
+        page_conf = IPageConfiguration(self.context)
+        blocks = self._blocks()
 
-    def get_blocks(self, slot):
-        user = getSecurityManager().getUser()
+        rows = page_conf.load()
+        for row in rows:
+            row['class'] = 'sl-layout'
+            for col in row['cols']:
+                col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
+                for block in col['blocks']:
+                    if block['uid'] in blocks:
+                        obj = blocks[block['uid']]
+                        block['obj'] = obj
+                        block['type'] = normalize_portal_type(obj.portal_type)
+                        del blocks[block['uid']]
 
-        for block in self.context.listFolderContents():
-            if get_slot_information(block) != slot:
-                continue
+        # If we still have some blocks left make'em visible by adding them into
+        # the last column.
+        if blocks:
+            # We need at least a column
+            if not rows:
+                rows = [{
+                    'cols': [{
+                        'blocks': [],
+                        'class': 'sl-column sl-col-1',
+                    }],
+                    'class': 'sl-layout',
+                }]
 
-            properties = queryMultiAdapter((block, self.request),
-                                           IBlockProperties)
-            if properties is None:
-                continue
+            for uid, obj in blocks.items():
+                rows[-1]['cols'][-1]['blocks'].append(
+                    {
+                        'uid': uid,
+                        'obj': obj,
+                        'type': normalize_portal_type(obj.portal_type)
+                    }
+                )
 
-            view_name = properties.get_current_view_name()
-            view = block.restrictedTraverse(view_name)
-            try:
-                html = view()
-            except ConflictError:
-                raise
-            except Exception, exc:
-                html = self.fallbackview()
-                LOG.error('Could not render block: {}: {}'.format(
-                    exc.__class__.__name__,
-                    str(exc)))
+        return rows
 
-            display_settings = queryMultiAdapter((block, self.request),
-                                                 IDisplaySettings)
+    def _blocks(self):
+        """ Return block objects by UID.
+        """
+        context = aq_inner(self.context)
+        catalog = getToolByName(context, 'portal_catalog')
+        blocks = catalog(
+            object_provides="ftw.simplelayout.interfaces.ISimplelayoutBlock",
+            path={'query': '/'.join(context.getPhysicalPath()), 'depth': 1},
+        )
+        return {block.UID: block.getObject() for block in blocks}
 
-            yield {
-                'block': block,
-                'uuid': IUUID(block),
-                'html': html,
-                'available_views': properties.get_available_views(),
-                'position': display_settings.get_position(),
-                'size': display_settings.get_size(),
-                'style': get_style(display_settings),
-                'editable': user is not nobody and user.has_permission(
-                    'cmf.ModifyPortalContent', block)}
+    def save_state(self):
+        data = self.request.form.get('data')
+        if data:
+            json_conf = json.loads(data)
+            page_conf = IPageConfiguration(self.context)
+            page_conf.store(json_conf)
 
-    def block_controls(self, uuid):
-        self.request['uuid'] = uuid
-        return self.context.restrictedTraverse(
-            '@@sl-ajax-block-controls')()
-
-    def can_modify(self):
-        return not api.user.is_anonymous() and api.user.get_permissions(
-            obj=self.context)['Modify portal content']
-
-    def load_default_settings(self):
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(ISimplelayoutDefaultSettings)
-
-        return CONFIG_TEMPLATE.format(
-            **{'columns': self.columns or settings.columns,
-               'images': settings.images,
-               'contentwidth': settings.contentwidth,
-               'margin_right': settings.margin_right,
-               'contentarea': settings.contentarea,
-               'editable': str(self.can_modify()).lower()})
+        self.request.response.setHeader("Content-type", "application/json")
+        return ''
