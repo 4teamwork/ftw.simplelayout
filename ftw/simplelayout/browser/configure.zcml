@@ -43,4 +43,9 @@
         template="templates/simplelayout_info.pt"
         />
 
+  <adapter
+      name="add_block"
+      factory=".add.AddViewTraverser"
+      />
+
 </configure>
