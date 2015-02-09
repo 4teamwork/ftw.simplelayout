@@ -33,8 +33,8 @@ class AddableBlocks(BrowserView):
                     {
                         'title': _(fti.Title()),
                         'description': _(fti.Description()),
-                        'content_type': normalize_portal_type(fti.id),
-                        'form_url': add_url,
+                        'contentType': normalize_portal_type(fti.id),
+                        'formUrl': add_url,
                         'actions': {
                             'edit': {
                                 'name': 'Edit',
