@@ -3,56 +3,26 @@
 
   $(function() {
 
-      var componentRequest = $.get("./addable-blocks.json"),
+    var componentRequest = $.get("./addable-blocks.json"),
       simplelayout,
+      toolbox,
       block,
-      dummyAnchor,
       formUrl,
-      blockPosted = false,
-
-      saveState = function(config) {
-        var saveRequest = $.post("./save_state", config);
-        saveRequest.done(function(data) {
-          block.element.data("uid", data.uid);
-        });
-        saveRequest.fail(function(data, textStatus) {
-          console.log(textStatus);
-        });
+      dialogSettings = {
+        modal: true,
+        width: "auto",
+        resizable: false,
+        draggable: false
       },
 
-      createOverlay = function(target) {
-        dummyAnchor = $("<a>").attr("href", target);
-        dummyAnchor.prepOverlay({
-          subtype: "ajax",
-          formselector: "form",
-          noform: function(data) {
-            var uid = $(".sl-block-content", data).data("uid");
-            block.uid = uid;
-            block.content($(".sl-block-content", data).html());
-            return "close";
-          },
-          afterpost: function() {
-            blockPosted = true;
-            saveState(simplelayout.getLayoutmanager().serialize());
-          },
-          closeselector: "[name='form.buttons.cancel']",
-          config: {
-            onLoad: function() {
-              if (global.initTinyMCE) {
-                global.initTinyMCE(global.document);
-              }
-            },
-            onClose: function() {
-              if (!blockPosted) {
-                var layoutId = block.element.data("layoutId");
-                var columnId = block.element.data("columnId");
-                var blockId = block.element.data("blockId");
-                simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
-              }
-              blockPosted = false;
-            }
-
-          }
+      saveState = function() {
+        var config = simplelayout.getLayoutmanager().serialize();
+        var saveRequest = $.post("./save_state", {"data": config});
+        saveRequest.done(function(data) {
+          global.console.log(data);
+        });
+        saveRequest.fail(function(data, textStatus) {
+          global.console.error(textStatus);
         });
       };
 
@@ -61,7 +31,7 @@
         source: "#simplelayout"
       });
 
-      var toolbox = new global.Toolbox({
+      toolbox = new global.Toolbox({
         layouts: [1, 2, 4],
         components: data
       });
@@ -74,18 +44,34 @@
         formUrl = $(e.target).data("form_url");
       });
 
-      simplelayout.getLayoutmanager().element.on("blockInserted", function(event, layoutId, columnId, blockId) {
+      simplelayout.on("blockInserted", function(event, layoutId, columnId, blockId) {
         block = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId);
       });
 
-      simplelayout.getLayoutmanager().element.on("blocksCommitted", function() {
-        createOverlay(formUrl);
-        dummyAnchor.trigger("click");
+      simplelayout.on("blocksCommitted", function() {
+        $("#formDialog").load(formUrl, function() {
+          var formDialog = $(this).dialog(dialogSettings);
+          $("form", this).on("submit", function(event) {
+            event.preventDefault();
+            var formData = $(this).serializeArray();
+            var saveButton = $("#form-buttons-save", this);
+            formData.push({ name: saveButton.attr("name"), value: saveButton.val() });
+            var addBlockRequest = $.post(this.action, formData);
+            addBlockRequest.done(function(newBlock) {
+              block.element.data("uid", newBlock.uid);
+              block.content(global.atob(newBlock.content));
+              formDialog.dialog("close");
+              saveState();
+            });
+          });
+        });
       });
-    });
 
-    componentRequest.fail(function(textStatus) {
-      console.error(textStatus);
+      simplelayout.on("blockMoved", function() {
+        saveState();
+      });
+
+
     });
   });
 
