@@ -55,19 +55,3 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(self.page.absolute_url(),
                           browser.css('[data-simplelayout-url]').first.attrib[
                               'data-simplelayout-url'])
-
-    @browsing
-    def test_sl_block_wrapper_contains_uid_data_attribute(self, browser):
-        block = create(Builder('sl textblock')
-                       .within(self.page)
-                       .titled('TextBlock title')
-                       .having(text=RichTextValue(u'The text with \xfc'))
-                       .having(image=NamedBlobImage(data=self.image.read(),
-                                                    filename=u'test.gif')))
-
-        browser.login().visit(block, view='@@block_view')
-
-        resolve_block = uuidToObject(
-            browser.css('.sl-block-content').first.attrib['data-uid'])
-
-        self.assertEquals(block, resolve_block)

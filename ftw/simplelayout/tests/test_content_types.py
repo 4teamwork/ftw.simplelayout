@@ -33,9 +33,6 @@ class TestSampleTypes(TestCase):
         browser.fill({'Title': u'This is a ContentPage',
                       'Text': u'Some text'})
         browser.find_button_by_label('Save').click()
-
-        self.assertEquals('{0}/#this-is-a-contentpage'.format(
-                          contentpage.absolute_url()),
-                          browser.url)
+        browser.visit(contentpage)
 
         self.assertTrue(len(browser.css('.sl-block')), 'Expect one block')
