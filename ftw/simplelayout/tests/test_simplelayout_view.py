@@ -1,8 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.browser.simplelayout import get_slot_id
-from ftw.simplelayout.browser.simplelayout import get_slot_information
-from ftw.simplelayout.browser.simplelayout import get_style
 from ftw.simplelayout.interfaces import IDisplaySettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
@@ -44,8 +41,8 @@ class TestSimplelayoutView(TestCase):
 
         self.assertEqual(browser.url, self.url)
         self.assertEquals('The text', browser.css(
-            '.block-view-wrapper').first.text)
-        self.assertFalse(len(browser.css('.block-view-wrapper h2')))
+            '.sl-block').first.text)
+        self.assertFalse(len(browser.css('.sl-block-content h2')))
 
         textblock.show_title = True
         transaction.commit()
