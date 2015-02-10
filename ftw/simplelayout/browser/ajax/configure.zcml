@@ -3,12 +3,6 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
-    <browser:page
-        for="OFS.interfaces.IFolder"
-        name="sl-ajax-save-state"
-        class=".state.SaveStateView"
-        permission="cmf.ModifyPortalContent"
-        />
 
     <browser:page
         for="*"
@@ -37,13 +31,5 @@
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"
         />
-
-    <browser:page
-        for="*"
-        name="sl-ajax-block-controls"
-        class=".controls.BlockControls"
-        permission="cmf.ModifyPortalContent"
-        />
-
 
 </configure>
