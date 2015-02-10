@@ -53,13 +53,20 @@
           var formDialog = $(this).dialog(dialogSettings);
           $("form", this).on("submit", function(event) {
             event.preventDefault();
-            var formData = $(this).serializeArray();
             var saveButton = $("#form-buttons-save", this);
-            formData.push({ name: saveButton.attr("name"), value: saveButton.val() });
-            var addBlockRequest = $.post(this.action, formData);
+            //formData.push({ name: saveButton.attr("name"), value: saveButton.val() });
+            var formData = new global.FormData(this);
+            formData.append(saveButton.attr("name"), saveButton.val());
+            var addBlockRequest = $.ajax({
+              type: "POST",
+              url: this.action,
+              data: formData,
+              processData: false,
+              contentType: false
+            });
             addBlockRequest.done(function(newBlock) {
               block.element.data("uid", newBlock.uid);
-              block.content(global.atob(newBlock.content));
+              block.content(global.decodeURIComponent(global.escape(global.atob(newBlock.content))));
               formDialog.dialog("close");
               saveState();
             });
