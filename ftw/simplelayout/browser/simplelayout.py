@@ -1,13 +1,16 @@
 from Acquisition import aq_inner
+from ftw.simplelayout.interfaces import IBlockProperties
+from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutView
+from ftw.simplelayout.utils import normalize_portal_type
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ftw.simplelayout.interfaces import ISimplelayoutView
-from ftw.simplelayout.interfaces import IPageConfiguration
-from ftw.simplelayout.utils import normalize_portal_type
+from ZODB.POSException import ConflictError
+from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
-import logging
 import json
+import logging
 
 
 LOG = logging.getLogger('ftw.simplelayout')
@@ -17,6 +20,7 @@ class SimplelayoutView(BrowserView):
     implements(ISimplelayoutView)
 
     template = ViewPageTemplateFile('templates/simplelayout.pt')
+    fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
 
     def __call__(self):
         return self.template()
@@ -35,7 +39,7 @@ class SimplelayoutView(BrowserView):
                 for block in col['blocks']:
                     if block['uid'] in blocks:
                         obj = blocks[block['uid']]
-                        block['obj'] = obj
+                        block['obj_html'] = self._render_block_html(obj)
                         block['type'] = normalize_portal_type(obj.portal_type)
                         del blocks[block['uid']]
 
@@ -56,12 +60,31 @@ class SimplelayoutView(BrowserView):
                 rows[-1]['cols'][-1]['blocks'].append(
                     {
                         'uid': uid,
-                        'obj': obj,
+                        'obj_html': self._render_block_html(obj),
                         'type': normalize_portal_type(obj.portal_type)
                     }
                 )
 
         return rows
+
+    def _render_block_html(self, block):
+        properties = queryMultiAdapter((block, self.request),
+                                       IBlockProperties)
+
+        view_name = properties.get_current_view_name()
+        view = block.restrictedTraverse(view_name)
+
+        try:
+            html = view()
+        except ConflictError:
+            raise
+        except Exception, exc:
+            html = self.fallbackview()
+            LOG.error('Could not render block: {}: {}'.format(
+                exc.__class__.__name__,
+                str(exc)))
+
+        return html
 
     def _blocks(self):
         """ Return block objects by UID.

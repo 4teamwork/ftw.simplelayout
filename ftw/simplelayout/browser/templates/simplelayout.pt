@@ -19,7 +19,7 @@
                  tal:attributes="data-type block/type;
                                  data-uid block/uid">
               <div class="sl-block-content"
-                  tal:replace="structure block/obj">Block Content</div>
+                  tal:content="structure block/obj_html">Block Content</div>
               </div>
             </div>
           </div>
