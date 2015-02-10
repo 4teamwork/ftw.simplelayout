@@ -7,6 +7,7 @@
       tal:content="here/Title"
       tal:condition="here/show_title | python: True" />
 
+  <div tal:replace="structure view/get_image | nothing" />
   <div tal:replace="structure here/text/output | nothing" />
 
 </html>
