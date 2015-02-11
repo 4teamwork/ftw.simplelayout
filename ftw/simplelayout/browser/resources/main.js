@@ -36,9 +36,10 @@
       },
 
       updateDelete = function(config) {
-        var saveRequest = $.post("./delete_blocks", {"data": config});
+        var saveRequest = $.post("./delete_blocks", {"data": JSON.stringify(config)});
         saveRequest.done(function(data) {
           global.console.log(data);
+          saveState();
         });
         saveRequest.fail(function(data, textStatus) {
           global.console.error(textStatus);
