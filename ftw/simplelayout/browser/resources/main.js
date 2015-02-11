@@ -35,10 +35,10 @@
         });
       },
 
-      updateDelete = function(config) {
+      updateDelete = function(config, callback) {
         var saveRequest = $.post("./sl-ajax-delete-blocks-view", {"data": JSON.stringify(config)});
-        saveRequest.done(function() {
-          saveState();
+        saveRequest.done(function(data) {
+          callback.call(null, data);
         });
         saveRequest.fail(function(data, textStatus) {
           global.console.error(textStatus);
@@ -118,21 +118,29 @@
         var layoutId = currentBlockData.layoutId;
         var columnId = currentBlockData.columnId;
         var blockId = currentBlockData.blockId;
-        var confirmed = global.confirm("Are you sure?");
-        if(confirmed) {
-          simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
-        }
+        var currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid");
+        var blockUIDs = [];
+        blockUIDs.push(currentUID);
+        var config = {"blocks": blockUIDs};
+        var confirmed;
+        updateDelete(config, function(msg) {
+          confirmed = global.confirm(msg);
+          if(confirmed) {
+            config.confirmed = confirmed;
+            updateDelete(config);
+          }
+        });
       });
 
-      simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
-        var currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid");
-        if(currentUID) {
-          var blockUIDs = [];
-          blockUIDs.push(currentUID);
-          var config = {"blocks": blockUIDs, "confirmed": true};
-          updateDelete(config);
-        }
-      });
+      // simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
+
+      //   if(currentUID) {
+      //     var blockUIDs = [];
+      //     blockUIDs.push(currentUID);
+      //     var config = {"blocks": blockUIDs, "confirmed": true};
+
+      //   }
+      // });
 
     });
   });
