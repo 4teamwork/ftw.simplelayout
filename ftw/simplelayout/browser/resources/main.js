@@ -102,11 +102,11 @@
       $(global.document).on("click", ".server-action", function() {
         var payLoad = {};
         var action = $(this);
-        payLoad.uid = simplelayout.currentBlock.element.data("uid");
+        payLoad.uid = simplelayout.getCurrentBlock().element.data("uid");
         $.extend(payLoad, action.data());
         var configRequest = $.post(action.attr("href"), JSON.stringify(payLoad));
         configRequest.done(function(blockContent) {
-          simplelayout.currentBlock.content(blockContent);
+          simplelayout.getCurrentBlock().content(blockContent);
         });
         configRequest.fail(function(configFailData) {
           global.console.error(configFailData);
