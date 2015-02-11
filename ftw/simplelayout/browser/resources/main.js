@@ -99,6 +99,20 @@
         saveState();
       });
 
+      $(global.document).on("click", ".server-action", function() {
+        var payLoad = {};
+        var action = $(this);
+        payLoad.uid = simplelayout.currentBlock.element.data("uid");
+        $.extend(payLoad, action.data());
+        var configRequest = $.post(action.attr("href"), JSON.stringify(payLoad));
+        configRequest.done(function(blockContent) {
+          simplelayout.currentBlock.content(blockContent);
+        });
+        configRequest.fail(function(configFailData) {
+          global.console.error(configFailData);
+        });
+      });
+
       simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
         var blockUIDs = [];
         blockUIDs.push(simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid"));
