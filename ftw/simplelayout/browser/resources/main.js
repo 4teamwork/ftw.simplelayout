@@ -112,11 +112,25 @@
         });
       });
 
+      $(global.document).on("click", ".remove", function() {
+        var currentBlockData = simplelayout.getCurrentBlock().element.data();
+        var layoutId = currentBlockData.layoutId;
+        var columnId = currentBlockData.columnId;
+        var blockId = currentBlockData.blockId;
+        var confirmed = global.confirm("Are you sure?");
+        if(confirmed) {
+          simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+        }
+      });
+
       simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
-        var blockUIDs = [];
-        blockUIDs.push(simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid"));
-        var config = {"blocks": blockUIDs, "confirmed": true};
-        updateDelete(config);
+        var currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid");
+        if(currentUID) {
+          var blockUIDs = [];
+          blockUIDs.push(currentUID);
+          var config = {"blocks": blockUIDs, "confirmed": true};
+          updateDelete(config);
+        }
       });
 
     });
