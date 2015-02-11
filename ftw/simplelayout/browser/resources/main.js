@@ -38,7 +38,9 @@
       updateDelete = function(config, callback) {
         var saveRequest = $.post("./sl-ajax-delete-blocks-view", {"data": JSON.stringify(config)});
         saveRequest.done(function(data) {
-          callback.call(null, data);
+          if(callback){
+            callback.call(null, data);
+          }
         });
         saveRequest.fail(function(data, textStatus) {
           global.console.error(textStatus);
@@ -123,11 +125,14 @@
         blockUIDs.push(currentUID);
         var config = {"blocks": blockUIDs};
         var confirmed;
-        updateDelete(config, function(msg) {
-          confirmed = global.confirm(msg);
+        updateDelete(config, function(data) {
+          confirmed = global.confirm(JSON.parse(data).msg);
           if(confirmed) {
             config.confirmed = confirmed;
-            updateDelete(config);
+            updateDelete(config, function() {
+              simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+              saveState();
+            });
           }
         });
       });

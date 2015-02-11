@@ -21,6 +21,10 @@ class DisbaledLinkIntegrityCheck(object):
 
 class DeleteBlocks(BrowserView):
 
+    def __init__(self, context, request):
+        super(DeleteBlocks, self).__init__(context, request)
+        self.blocks = None
+
     def __call__(self):
         payload = self.request.get('data', None)
         if not payload:
@@ -28,25 +32,20 @@ class DeleteBlocks(BrowserView):
 
         # TODO validate payload contains blocks and confirmed flag.
         data = json.loads(payload)
-        blocks = [uuidToObject(uid) for uid in data['blocks']]
+        self.blocks = [uuidToObject(uid) for uid in data['blocks']]
 
-        if data['confirmed']:
+        msg = self._link_integrity_check()
+
+        if data.get('confirmed', False):
             ids = []
-            for block in blocks:
+            for block in self.blocks:
                 ids.append(block.id)
 
             with DisbaledLinkIntegrityCheck(self.request):
                 self.context.manage_delObjects(ids)
             msg = ''
-        else:
-            infos = []
-            for block in blocks:
-                info = LinkIntegrityInfo(block)
-                if info:
-                    infos.append(info)
-            if infos:
-                msg = {'msg': 'The following blocks has references: {0}'.format(
-                    ','.join(infos))}
-            else:
-                msg = {'msg': 'Delete the selected block(s)?'}
         return json.dumps(msg)
+
+    def _link_integrity_check(self):
+        # TODO - Implement link integrity check.
+        return {'msg': 'Delete the selected block(s)'}
