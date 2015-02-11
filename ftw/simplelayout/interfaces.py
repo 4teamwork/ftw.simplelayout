@@ -37,6 +37,19 @@ class IPageConfiguration(Interface):
         """
 
 
+class IBlockConfiguration(Interface):
+    """Adapter for storing block configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
+
+
 class IBlockProperties(Interface):
     """Adapter for getting and setting information such as the current
     selected view for the block or the available views.

@@ -38,8 +38,20 @@ class AddableBlocks(BrowserView):
                         'formUrl': add_url,
                         'actions': {
                             'edit': {
-                                'name': 'Edit',
-                                'description': 'Edit block',
+                                'class': 'Edit icon-edit',
+                                'title': 'Edit block',
+                            },
+                            'imageLeft': {
+                                'class': 'icon-image-left server-action',
+                                'title': 'Float image left',
+                                'href': './sl-ajax-reload-block-view',
+                                'data-scale': 'mini'
+                            },
+                            'imageFloatNone': {
+                                'class': 'icon-image server-action',
+                                'title': 'image',
+                                'href': './sl-ajax-reload-block-view',
+                                'data-scale': 'large'
                             },
                         },
                     }

@@ -1,6 +1,8 @@
 from ftw.simplelayout.behaviors import ITeaser
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from plone.memoize.instance import memoize
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 
 IMG_TAG_TEMPLATE = (
@@ -32,17 +34,27 @@ class TextBlockView(BaseBlock):
         else:
             return None
 
-    @property
-    def _cssClass(self):
-        return 'sl-full'
-
     def get_image(self):
+
         if self.context.image:
             return IMG_TAG_TEMPLATE.format(
                 **dict(
-                    src=self.context.absolute_url() + '/@@images/image',
-                    floatClass=self._cssClass,
+                    src=self._get_image_scale_url(),
+                    floatClass=self._get_image_scale(),
                     alt=self.context.Title()
                 ))
         else:
             return None
+
+    @memoize
+    def _get_image_scale(self):
+        return IBlockConfiguration(self.context).load().get('scale', '')
+
+    def _get_image_scale_url(self):
+        scale = self._get_image_scale()
+
+        if scale:
+            scaler = self.context.restrictedTraverse('@@images')
+            return scaler.scale('image', scale=scale).url
+        else:
+            return self.context.absolute_url() + '/@@images/image'

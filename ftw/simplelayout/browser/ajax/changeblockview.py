@@ -1,8 +1,10 @@
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockProperties
 from plone.app.uuid.utils import uuidToObject
 from zExceptions import BadRequest
 from zope.component import getMultiAdapter
 from zope.publisher.browser import BrowserView
+import json
 
 
 class ChangeBlockView(BrowserView):
@@ -45,12 +47,25 @@ class ReloadBlockView(BrowserView):
     """Reloads the block view"""
 
     def __call__(self):
-        uuid = self.request.get('uuid', None)
-        if uuid is None:
-            raise BadRequest('No uuid provided.')
+        data = json.loads(self.request.get('data', {}))
+        uuid = data.get('uid', None)
 
-        obj = uuidToObject(uuid)
-        properties = getMultiAdapter((obj, obj.REQUEST),
+        if uuid is None:
+            raise BadRequest('No uid provided.')
+
+        block = uuidToObject(uuid)
+
+        #TODO Image scale handling - should be placed in a TextBlock specific
+        # reload block view
+        image_scale = data.get('scale', None)
+        conf = IBlockConfiguration(self.context)
+        blockconf = conf.load()
+
+        if image_scale:
+            blockconf['scale'] = image_scale
+            conf.store(blockconf)  # necessary?
+
+        properties = getMultiAdapter((block, block.REQUEST),
                                      IBlockProperties)
-        return obj.restrictedTraverse(
+        return block.restrictedTraverse(
             properties.get_current_view_name())()

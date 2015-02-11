@@ -42,4 +42,9 @@
         factory=".configuration.PageConfiguration"
         />
 
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
+        factory=".configuration.BlockConfiguration"
+        />
+
 </configure>
