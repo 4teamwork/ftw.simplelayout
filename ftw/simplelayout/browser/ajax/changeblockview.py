@@ -58,7 +58,7 @@ class ReloadBlockView(BrowserView):
         #TODO Image scale handling - should be placed in a TextBlock specific
         # reload block view
         image_scale = data.get('scale', None)
-        conf = IBlockConfiguration(self.context)
+        conf = IBlockConfiguration(block)
         blockconf = conf.load()
 
         if image_scale:
