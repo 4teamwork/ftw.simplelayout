@@ -15,9 +15,28 @@
         draggable: false
       },
 
+      initializePloneComponents = function(form) {
+        if($.fn.ploneTabInit) {
+          $(form).parent().ploneTabInit();
+        }
+        if (global.window.initTinyMCE) {
+          global.window.initTinyMCE(form);
+        }
+      },
+
       saveState = function() {
         var config = simplelayout.getLayoutmanager().serialize();
         var saveRequest = $.post("./save_state", {"data": config});
+        saveRequest.done(function(data) {
+          global.console.log(data);
+        });
+        saveRequest.fail(function(data, textStatus) {
+          global.console.error(textStatus);
+        });
+      },
+
+      updateDelete = function(config) {
+        var saveRequest = $.post("./delete_blocks", {"data": config});
         saveRequest.done(function(data) {
           global.console.log(data);
         });
@@ -49,12 +68,13 @@
       });
 
       simplelayout.on("blocksCommitted", function() {
+        var formDialog;
         $("#formDialog").load(formUrl, function() {
-          var formDialog = $(this).dialog(dialogSettings);
+          formDialog = $(this).dialog(dialogSettings);
+          initializePloneComponents(this);
           $("form", this).on("submit", function(event) {
             event.preventDefault();
             var saveButton = $("#form-buttons-save", this);
-            //formData.push({ name: saveButton.attr("name"), value: saveButton.val() });
             var formData = new global.FormData(this);
             formData.append(saveButton.attr("name"), saveButton.val());
             var addBlockRequest = $.ajax({
@@ -78,6 +98,12 @@
         saveState();
       });
 
+      simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
+        var blockUIDs = [];
+        blockUIDs.push(simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid"));
+        var config = {"blocks": blockUIDs, "confirmed": true};
+        updateDelete(config);
+      });
 
     });
   });
