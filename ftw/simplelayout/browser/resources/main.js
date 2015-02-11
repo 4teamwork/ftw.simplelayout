@@ -98,12 +98,13 @@
         saveState();
       });
 
-      $(global.document).on("click", ".server-action", function() {
+      $(global.document).on("click", ".server-action", function(event) {
+        event.preventDefault();
         var payLoad = {};
         var action = $(this);
         payLoad.uid = simplelayout.getCurrentBlock().element.data("uid");
         $.extend(payLoad, action.data());
-        var configRequest = $.post(action.attr("href"), JSON.stringify(payLoad));
+        var configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
           simplelayout.getCurrentBlock().content(blockContent);
         });
