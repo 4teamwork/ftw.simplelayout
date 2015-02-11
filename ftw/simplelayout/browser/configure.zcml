@@ -22,7 +22,7 @@
 
     <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayoutPage"
-        name="save_state"
+        name="sl-ajax-save-state-view"
         permission="cmf.ModifyPortalContent"
         class=".simplelayout.SimplelayoutView"
         attribute="save_state"

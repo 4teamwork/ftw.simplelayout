@@ -27,14 +27,14 @@
 
     <browser:page
         for="*"
-        name="addable-blocks.json"
+        name="sl-ajax-addable-blocks-view"
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         for="*"
-        name="delete_blocks"
+        name="sl-ajax-delete-blocks-view"
         class=".delete_blocks.DeleteBlocks"
         permission="cmf.ModifyPortalContent"
         />

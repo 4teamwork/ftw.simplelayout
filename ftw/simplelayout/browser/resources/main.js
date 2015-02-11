@@ -3,7 +3,7 @@
 
   $(function() {
 
-    var componentRequest = $.get("./addable-blocks.json"),
+    var componentRequest = $.get("./sl-ajax-addable-blocks-view"),
       simplelayout,
       toolbox,
       block,
@@ -26,7 +26,7 @@
 
       saveState = function() {
         var config = simplelayout.getLayoutmanager().serialize();
-        var saveRequest = $.post("./save_state", {"data": config});
+        var saveRequest = $.post("./sl-ajax-save-state-view", {"data": config});
         saveRequest.done(function(data) {
           global.console.log(data);
         });
@@ -36,9 +36,8 @@
       },
 
       updateDelete = function(config) {
-        var saveRequest = $.post("./delete_blocks", {"data": JSON.stringify(config)});
-        saveRequest.done(function(data) {
-          global.console.log(data);
+        var saveRequest = $.post("./sl-ajax-delete-blocks-view", {"data": JSON.stringify(config)});
+        saveRequest.done(function() {
           saveState();
         });
         saveRequest.fail(function(data, textStatus) {
