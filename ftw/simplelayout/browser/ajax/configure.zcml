@@ -32,4 +32,11 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="*"
+        name="delete_blocks"
+        class=".delete_blocks.DeleteBlocks"
+        permission="cmf.ModifyPortalContent"
+        />
+
 </configure>
