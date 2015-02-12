@@ -109,3 +109,17 @@ class IBlockModifier(Interface):
 
     def modify(data):
         """Modifications based on data in the request"""
+
+
+class ISimplelayoutActions(Interface):
+    """Serves the simplelayout actions"""
+
+    def __init__(context, request):
+        """Adapts context and request.
+        """
+
+    def default_actions():
+        """Default actions"""
+
+    def specific_actions():
+        """Specific actions"""

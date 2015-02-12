@@ -40,4 +40,10 @@
       factory=".add.AddViewTraverser"
       />
 
+    <adapter
+        factory=".actions.DefaultActions"
+        for="*
+             *"
+        />
+
 </configure>
