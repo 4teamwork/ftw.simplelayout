@@ -1,18 +1,14 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.builder import registry
-from ftw.builder.dexterity import DexterityBuilder
 from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.interfaces import IBlockProperties
-from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.properties import SingleViewBlockProperties
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
-from plone.dexterity.fti import DexterityFTI
+from ftw.simplelayout.testing import ISampleDX
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from plone.uuid.interfaces import IUUID
 from Products.Five.browser import BrowserView
-from unittest2 import TestCase
 from zExceptions import BadRequest
-from zope import schema
 from zope.component import provideAdapter
 from zope.interface import implements
 from zope.interface import Interface
@@ -20,43 +16,13 @@ from zope.publisher.interfaces.browser import IBrowserView
 import json
 
 
-class ISampleDX(Interface):
-    title = schema.TextLine(
-        title=u'Title',
-        required=False)
-
-
-class SampleBuilder(DexterityBuilder):
-    portal_type = 'Sample'
-
-
-registry.builder_registry.register('sample block', SampleBuilder)
-
-
-class TestBlockReloadView(TestCase):
+class TestBlockReloadView(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
     def setUp(self):
         self.contentpage = create(Builder('sl content page'))
         self.portal = self.layer['portal']
-
-    def setup_ftis(self, property_factory=MultiViewBlockProperties):
-        types_tool = self.portal.portal_types
-
-        self.fti = DexterityFTI('Sample')
-        self.fti.schema = 'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX'
-        self.fti.behaviors = (
-            'ftw.simplelayout.interfaces.ISimplelayoutBlock', )
-
-        types_tool._setObject('Sample', self.fti)
-
-        contentpage_fti = types_tool.get('ftw.simplelayout.ContentPage')
-        contentpage_fti.allowed_content_types = (
-            'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX', )
-
-        provideAdapter(property_factory,
-                       adapts=(ISampleDX, Interface))
 
     def setup_block_views(self):
 
@@ -87,7 +53,7 @@ class TestBlockReloadView(TestCase):
             '@@sl-ajax-reload-block-view')
 
     def test_getting_block_with_reload_view(self):
-        self.setup_ftis()
+        self.setup_sample_block_fti(self.portal)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(block)
@@ -96,7 +62,7 @@ class TestBlockReloadView(TestCase):
         self.assertEquals(block, reload_view.block)
 
     def test_getting_block_properties_with_reload_view(self):
-        self.setup_ftis()
+        self.setup_sample_block_fti(self.portal)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(block)
@@ -111,7 +77,7 @@ class TestBlockReloadView(TestCase):
             reload_view()
 
     def test_return_value_is_the_block_content(self):
-        self.setup_ftis()
+        self.setup_sample_block_fti(self.portal)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(block)
@@ -119,7 +85,7 @@ class TestBlockReloadView(TestCase):
         self.assertEquals('OK', reload_view())
 
     def test_changing_block_view(self):
-        self.setup_ftis()
+        self.setup_sample_block_fti(self.portal)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(
@@ -129,7 +95,8 @@ class TestBlockReloadView(TestCase):
         self.assertEquals('OK - different view', reload_view())
 
     def test_chaning_block_on_singleviewblockproperties_is_NOT_possible(self):
-        self.setup_ftis(property_factory=SingleViewBlockProperties)
+        self.setup_sample_block_fti(self.portal,
+                                    property_factory=SingleViewBlockProperties)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(
@@ -157,7 +124,7 @@ class TestBlockReloadView(TestCase):
                        adapts=(ISampleDX, Interface),
                        provides=IBlockModifier)
 
-        self.setup_ftis()
+        self.setup_sample_block_fti(self.portal)
         self.setup_block_views()
         block = create(Builder('sample block').within(self.contentpage))
         reload_view = self.get_reload_view(

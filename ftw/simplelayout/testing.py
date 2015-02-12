@@ -1,6 +1,9 @@
+from ftw.builder import registry
+from ftw.builder.dexterity import DexterityBuilder
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
+from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.tests import builders
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import applyProfile
@@ -9,11 +12,17 @@ from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
+from plone.dexterity.fti import DexterityFTI
 from plone.testing import zca
+from unittest2 import TestCase
+from zope import schema
+from zope.component import provideAdapter
 from zope.configuration import xmlconfig
+from zope.interface import Interface
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
+
     """A layer which only sets up the zcml, but does not start a zope
     instance.
     """
@@ -51,6 +60,42 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
+
+
+class ISampleDX(Interface):
+    title = schema.TextLine(
+        title=u'Title',
+        required=False)
+
+
+class SampleBuilder(DexterityBuilder):
+    portal_type = 'Sample'
+
+
+registry.builder_registry.register('sample block', SampleBuilder)
+
+
+class SimplelayoutTestCase(TestCase):
+
+    def setup_sample_block_fti(self,
+                               portal,
+                               property_factory=MultiViewBlockProperties):
+
+        types_tool = portal.portal_types
+
+        self.fti = DexterityFTI('Sample')
+        self.fti.schema = 'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX'
+        self.fti.behaviors = (
+            'ftw.simplelayout.interfaces.ISimplelayoutBlock', )
+
+        types_tool._setObject('Sample', self.fti)
+
+        contentpage_fti = types_tool.get('ftw.simplelayout.ContentPage')
+        contentpage_fti.allowed_content_types = (
+            'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX', )
+
+        provideAdapter(property_factory,
+                       adapts=(ISampleDX, Interface))
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()
