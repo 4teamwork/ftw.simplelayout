@@ -1,6 +1,8 @@
 from collective import dexteritytextindexer
 from ftw.simplelayout import _
 from ftw.simplelayout.contents.interfaces import ITextBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IBlockModifier
 from plone.app.textfield import RichText
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
@@ -39,3 +41,22 @@ alsoProvides(ITextBlockSchema, IFormFieldProvider)
 
 class TextBlock(Item):
     implements(ITextBlock)
+
+
+class TextBlockModifier(object):
+
+    implements(IBlockModifier)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def modify(self, data):
+        image_scale = data.get('scale', None)
+        conf = IBlockConfiguration(self.context)
+        blockconf = conf.load()
+
+        if image_scale:
+            blockconf['scale'] = image_scale
+            conf.store(blockconf)  # necessary?
+        return

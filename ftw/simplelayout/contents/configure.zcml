@@ -22,4 +22,11 @@
         factory=".listingblock.ListingBlockDefaultColumns"
         />
 
+    <adapter
+        factory=".textblock.TextBlockModifier"
+        for="ftw.simplelayout.contents.interfaces.ITextBlock
+             *"
+        />
+
+
 </configure>
