@@ -8,25 +8,11 @@
       toolbox,
       block,
       formUrl,
-      dialogSettings = {
-        modal: true,
-        width: "auto",
-        resizable: false,
-        draggable: false
-      },
-
-      initializePloneComponents = function(form) {
-        if($.fn.ploneTabInit) {
-          $(form).parent().ploneTabInit();
-        }
-        if (global.window.initTinyMCE) {
-          global.window.initTinyMCE(form);
-        }
-      },
-
       saveState = function() {
         var config = simplelayout.getLayoutmanager().serialize();
-        var saveRequest = $.post("./sl-ajax-save-state-view", {"data": config});
+        var saveRequest = $.post("./sl-ajax-save-state-view", {
+          "data": config
+        });
         saveRequest.done(function(data) {
           global.console.log(data);
         });
@@ -34,11 +20,64 @@
           global.console.error(textStatus);
         });
       },
-
+      cleanBlock = function(event) {
+        if(event.type !== "onBeforeClose") {
+          var currentBlockData = block.element.data();
+          var layoutId = currentBlockData.layoutId;
+          var columnId = currentBlockData.columnId;
+          var blockId = currentBlockData.blockId;
+          simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+        }
+      },
+      initializePloneComponents = function(form) {
+        if ($.fn.ploneTabInit) {
+          $(form).ploneTabInit();
+        }
+        if (global.initTinyMCE) {
+          global.initTinyMCE(form);
+        }
+      },
+      loadForm = function() {
+        var overlay = this;
+        $("form", this.getOverlay()).on("submit", function(event) {
+          event.preventDefault();
+          global.tinyMCE.triggerSave(true, true);
+          var saveButton = $("#form-buttons-save", this);
+          var formData = new global.FormData(this);
+          formData.append(saveButton.attr("name"), saveButton.val());
+          var addBlockRequest = $.ajax({
+            type: "POST",
+            url: this.action,
+            data: formData,
+            processData: false,
+            contentType: false
+          });
+          addBlockRequest.done(function(newBlock) {
+            block.element.data("uid", newBlock.uid);
+            block.content(global.decodeURIComponent(global.escape(global.atob(newBlock.content))));
+            overlay.close();
+            saveState();
+          });
+        });
+      },
+      dialogSettings = {
+        mask: {
+          color: "#fff",
+          loadSpeed: 200,
+          opacity: 0.4
+        },
+        left: "center",
+        fixed: true,
+        closeOnClick: false,
+        load: true,
+        onBeforeClose: cleanBlock,
+        onBeforeLoad: loadForm
+        //onLoad: initializePloneComponents
+      },
       updateDelete = function(config, callback) {
         var saveRequest = $.post("./sl-ajax-delete-blocks-view", {"data": JSON.stringify(config)});
         saveRequest.done(function(data) {
-          if(callback){
+          if (callback) {
             callback.call(null, data);
           }
         });
@@ -70,29 +109,9 @@
       });
 
       simplelayout.on("blocksCommitted", function() {
-        var formDialog;
-        $("#formDialog").load(formUrl, function() {
-          formDialog = $(this).dialog(dialogSettings);
+        $("#formOverlay").load(formUrl, function() {
+          $(this).overlay(dialogSettings).load();
           initializePloneComponents(this);
-          $("form", this).on("submit", function(event) {
-            event.preventDefault();
-            var saveButton = $("#form-buttons-save", this);
-            var formData = new global.FormData(this);
-            formData.append(saveButton.attr("name"), saveButton.val());
-            var addBlockRequest = $.ajax({
-              type: "POST",
-              url: this.action,
-              data: formData,
-              processData: false,
-              contentType: false
-            });
-            addBlockRequest.done(function(newBlock) {
-              block.element.data("uid", newBlock.uid);
-              block.content(global.decodeURIComponent(global.escape(global.atob(newBlock.content))));
-              formDialog.dialog("close");
-              saveState();
-            });
-          });
         });
       });
 
@@ -125,9 +144,9 @@
         blockUIDs.push(currentUID);
         var config = {"blocks": blockUIDs};
         var confirmed;
-        updateDelete(config, function(data) {
-          confirmed = global.confirm(JSON.parse(data).msg);
-          if(confirmed) {
+        updateDelete(config, function(deleteData) {
+          confirmed = global.confirm(JSON.parse(deleteData).msg);
+          if (confirmed) {
             config.confirmed = confirmed;
             updateDelete(config, function() {
               simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
@@ -136,16 +155,6 @@
           }
         });
       });
-
-      // simplelayout.on("blockDeleted", function(event, layoutId, columnId, blockId) {
-
-      //   if(currentUID) {
-      //     var blockUIDs = [];
-      //     blockUIDs.push(currentUID);
-      //     var config = {"blocks": blockUIDs, "confirmed": true};
-
-      //   }
-      // });
 
     });
   });
