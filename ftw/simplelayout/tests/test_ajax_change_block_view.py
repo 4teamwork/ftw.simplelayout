@@ -1,128 +1,168 @@
+from ftw.builder import Builder
+from ftw.builder import create
+from ftw.builder import registry
+from ftw.builder.dexterity import DexterityBuilder
+from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.properties import SingleViewBlockProperties
-from ftw.simplelayout.testing import SIMPLELAYOUT_ZCML_LAYER
-from ftw.testing import MockTestCase
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+from plone.dexterity.fti import DexterityFTI
+from plone.uuid.interfaces import IUUID
+from Products.Five.browser import BrowserView
+from unittest2 import TestCase
 from zExceptions import BadRequest
-from zope.annotation import IAttributeAnnotatable
-from zope.component import getMultiAdapter
+from zope import schema
 from zope.component import provideAdapter
-from zope.component import queryMultiAdapter
+from zope.interface import implements
 from zope.interface import Interface
+from zope.publisher.interfaces.browser import IBrowserView
+import json
 
 
-class IFoo(IAttributeAnnotatable):
-    pass
+class ISampleDX(Interface):
+    title = schema.TextLine(
+        title=u'Title',
+        required=False)
 
 
-class IBar(IAttributeAnnotatable):
-    pass
+class SampleBuilder(DexterityBuilder):
+    portal_type = 'Sample'
 
 
-class FooBlockProperties(MultiViewBlockProperties):
-
-    available_views = (
-        {'name': 'block_view',
-         'label': u'Default block view'},
-
-        {'name': 'foo_view',
-         'label': u'Foo view'})
+registry.builder_registry.register('sample block', SampleBuilder)
 
 
-class TestChangeBlockView(MockTestCase):
+class TestBlockReloadView(TestCase):
 
-    layer = SIMPLELAYOUT_ZCML_LAYER
+    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
     def setUp(self):
-        super(TestChangeBlockView, self).setUp()
-        self.foo = self.providing_stub(IFoo)
-        provideAdapter(FooBlockProperties, adapts=(IFoo, Interface))
+        self.contentpage = create(Builder('sl content page'))
+        self.portal = self.layer['portal']
 
-        self.expect(
-            self.foo.restrictedTraverse('@@block_view')()).result(
-            'The block_view rendered.')
+    def setup_ftis(self, property_factory=MultiViewBlockProperties):
+        types_tool = self.portal.portal_types
 
-        self.expect(
-            self.foo.restrictedTraverse('@@foo_view')()).result(
-            'The foo_view rendered.')
+        self.fti = DexterityFTI('Sample')
+        self.fti.schema = 'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX'
+        self.fti.behaviors = (
+            'ftw.simplelayout.interfaces.ISimplelayoutBlock', )
 
-        self.expect(
-            self.foo.restrictedTraverse('@@bar_view')).throw(
-            AttributeError('bar_view'))
+        types_tool._setObject('Sample', self.fti)
 
-        self.bar = self.providing_stub(IBar)
-        provideAdapter(SingleViewBlockProperties, adapts=(IBar, Interface))
+        contentpage_fti = types_tool.get('ftw.simplelayout.ContentPage')
+        contentpage_fti.allowed_content_types = (
+            'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX', )
 
-        self.request = self.stub_request()
+        provideAdapter(property_factory,
+                       adapts=(ISampleDX, Interface))
 
-    def test_view_registered(self):
-        self.replay()
-        view = queryMultiAdapter((self.foo, self.request),
-                                 name='sl-ajax-change-block-view')
-        self.assertNotEqual(view, None)
+    def setup_block_views(self):
 
-    def test_changing_view_is_persistent(self):
-        self.expect(self.request.get('view_name', None)).result('foo_view')
-        self.replay()
+        class SampleBlockView(BrowserView):
 
-        properties = getMultiAdapter((self.foo, self.request),
-                                     IBlockProperties)
-        self.assertEqual(properties.get_current_view_name(), 'block_view')
+            def __call__(self):
+                return 'OK'
 
-        view = getMultiAdapter((self.foo, self.request),
-                               name='sl-ajax-change-block-view')
-        view()
+        provideAdapter(SampleBlockView,
+                       adapts=(ISampleDX, Interface),
+                       provides=IBrowserView,
+                       name='block_view')
 
-        properties = getMultiAdapter((self.foo, self.request),
-                                     IBlockProperties)
-        self.assertEqual(properties.get_current_view_name(), 'foo_view')
+        class SampleBlockViewDifferent(BrowserView):
 
-    def test_change_view_returns_new_view_rendered(self):
-        self.expect(self.request.get('view_name', None)).result('foo_view')
-        self.replay()
+            def __call__(self):
+                return 'OK - different view'
 
-        view = getMultiAdapter((self.foo, self.request),
-                               name='sl-ajax-change-block-view')
-        self.assertEqual(view(), 'The foo_view rendered.')
+        provideAdapter(SampleBlockViewDifferent,
+                       adapts=(ISampleDX, Interface),
+                       provides=IBrowserView,
+                       name='block_view_different')
 
-    def test_change_to_wrong_view_fails(self):
-        self.expect(self.request.get('view_name', None)).result('baz-view')
-        self.replay()
+    def get_reload_view(self, block, payload={}):
+        payload['uid'] = IUUID(block)
+        self.contentpage.REQUEST.set('data', json.dumps(payload))
+        return self.contentpage.restrictedTraverse(
+            '@@sl-ajax-reload-block-view')
 
-        view = getMultiAdapter((self.foo, self.request),
-                               name='sl-ajax-change-block-view')
+    def test_getting_block_with_reload_view(self):
+        self.setup_ftis()
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(block)
+        reload_view()
 
-        with self.assertRaises(BadRequest) as cm:
-            view()
+        self.assertEquals(block, reload_view.block)
 
-        self.assertEqual(
-            str(cm.exception),
-            'The view "baz-view" is not available on this block.')
+    def test_getting_block_properties_with_reload_view(self):
+        self.setup_ftis()
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(block)
+        reload_view()
 
-    def test_view_name_not_in_request(self):
-        self.expect(self.request.get('view_name', None)).result(None)
-        self.replay()
+        self.assertTrue(IBlockProperties.providedBy(reload_view.properties))
 
-        view = getMultiAdapter((self.foo, self.request),
-                               name='sl-ajax-change-block-view')
+    def test_raise_bad_request_if_no_uid_is_in_payload(self):
+        reload_view = self.contentpage.restrictedTraverse(
+            '@@sl-ajax-reload-block-view')
+        with self.assertRaises(BadRequest):
+            reload_view()
 
-        with self.assertRaises(BadRequest) as cm:
-            view()
+    def test_return_value_is_the_block_content(self):
+        self.setup_ftis()
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(block)
 
-        self.assertEqual(
-            str(cm.exception),
-            'Request parameter "view_name" not found.')
+        self.assertEquals('OK', reload_view())
 
-    def test_single_view_blocks_not_supported(self):
-        self.expect(self.request.get('view_name', None)).result('baz-view')
-        self.replay()
+    def test_changing_block_view(self):
+        self.setup_ftis()
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(
+            block,
+            dict(view_name='block_view_different'))
 
-        view = getMultiAdapter((self.bar, self.request),
-                               name='sl-ajax-change-block-view')
+        self.assertEquals('OK - different view', reload_view())
 
-        with self.assertRaises(BadRequest) as cm:
-            view()
+    def test_chaning_block_on_singleviewblockproperties_is_NOT_possible(self):
+        self.setup_ftis(property_factory=SingleViewBlockProperties)
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(
+            block,
+            dict(view_name='block_view_different'))
 
-        self.assertEqual(
-            str(cm.exception),
-            'This object does not support changing the view.')
+        with self.assertRaises(BadRequest):
+            reload_view()
+
+    def test_block_specific_modifier_gets_called(self):
+
+        class SampleBlockModifier(object):
+            """Sets the attribute foo to the given value"""
+
+            implements(IBlockModifier)
+
+            def __init__(self, context, request):
+                self.context = context
+                self.request = request
+
+            def modify(self, data):
+                setattr(self.context, 'foo', data.get('foovalue', None))
+
+        provideAdapter(SampleBlockModifier,
+                       adapts=(ISampleDX, Interface),
+                       provides=IBlockModifier)
+
+        self.setup_ftis()
+        self.setup_block_views()
+        block = create(Builder('sample block').within(self.contentpage))
+        reload_view = self.get_reload_view(
+            block,
+            dict(foovalue='bar'))
+        reload_view()
+
+        self.assertEquals('bar', block.foo)

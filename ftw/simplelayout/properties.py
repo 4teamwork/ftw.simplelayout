@@ -39,11 +39,6 @@ class MultiViewBlockProperties(object):
 
     implements(IBlockProperties)
 
-    available_views = (
-        {'name': 'block_view',
-         'label': _(u'view_label_block_view',
-                    default=u'Default block view')}, )
-
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -52,7 +47,8 @@ class MultiViewBlockProperties(object):
         return self.get_storage().get('view-name', 'block_view')
 
     def get_available_views(self):
-        return self.available_views
+        # TODO: implement getting all possible block views
+        return
 
     def set_view(self, name):
         if not self.is_view_available(name):
@@ -68,8 +64,7 @@ class MultiViewBlockProperties(object):
         return annotations[BLOCK_PROPERTIES_KEY]
 
     def is_view_available(self, name):
-        for view in self.get_available_views():
-            if view.get('name', None) == name:
-                return True
+        # TODO: Implement check if view is available
+        return True
 
         return False

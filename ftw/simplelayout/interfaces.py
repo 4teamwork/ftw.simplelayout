@@ -99,3 +99,13 @@ class ISimplelayoutDefaultSettings(Interface):
                                     'know what you are doing')),
                                   default=u'#content',
                                   required=True)
+
+
+class IBlockModifier(Interface):
+    """Block specific modifier"""
+
+    def __init__(context, request):
+        """Adapts context and request"""
+
+    def modify(data):
+        """Modifications based on data in the request"""

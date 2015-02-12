@@ -3,18 +3,10 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
-
-    <browser:page
-        for="*"
-        name="sl-ajax-change-block-view"
-        class=".changeblockview.ChangeBlockView"
-        permission="cmf.ModifyPortalContent"
-        />
-
     <browser:page
         for="*"
         name="sl-ajax-reload-block-view"
-        class=".changeblockview.ReloadBlockView"
+        class=".reloadblockview.ReloadBlockView"
         permission="cmf.ModifyPortalContent"
         />
 
