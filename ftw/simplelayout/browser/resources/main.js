@@ -3,30 +3,29 @@
 
   $(function() {
 
-    var componentRequest = $.get("./sl-ajax-addable-blocks-view"),
+    var addableBlocksEndpoint = "./sl-ajax-addable-blocks-view",
+      saveStateEndpoint = "./sl-ajax-save-state-view",
+      deleteBlockEndpoint = "./sl-ajax-delete-blocks-view",
+      componentRequest = $.get(addableBlocksEndpoint),
       simplelayout,
       toolbox,
-      block,
+      currentBlock,
       formUrl,
+      blockSaved = false,
       saveState = function() {
         var config = simplelayout.getLayoutmanager().serialize();
-        var saveRequest = $.post("./sl-ajax-save-state-view", {
-          "data": config
-        });
-        saveRequest.done(function(data) {
-          global.console.log(data);
-        });
-        saveRequest.fail(function(data, textStatus) {
-          global.console.error(textStatus);
-        });
+        var saveRequest = $.post(saveStateEndpoint, {"data": config});
+        saveRequest.done(function() {/*:Wip*/});
+        saveRequest.fail(function() {/*:Wip*/});
       },
-      cleanBlock = function(event) {
-        if(event.type !== "onBeforeClose") {
-          var currentBlockData = block.element.data();
+      cleanBlock = function() {
+        if(!blockSaved) {
+          var currentBlockData = currentBlock.element.data();
           var layoutId = currentBlockData.layoutId;
           var columnId = currentBlockData.columnId;
           var blockId = currentBlockData.blockId;
           simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+          blockSaved = false;
         }
       },
       initializePloneComponents = function(form) {
@@ -39,62 +38,55 @@
       },
       loadForm = function() {
         var overlay = this;
-        $("form", this.getOverlay()).on("submit", function(event) {
+        $("#form-buttons-cancel", overlay.getOverlay()).on("click", function(event) {
+          event.preventDefault();
+          overlay.close();
+        });
+        $("form", overlay.getOverlay()).on("submit", function(event) {
           event.preventDefault();
           global.tinyMCE.triggerSave(true, true);
-          var saveButton = $("#form-buttons-save", this);
-          var formData = new global.FormData(this);
-          formData.append(saveButton.attr("name"), saveButton.val());
-          var addBlockRequest = $.ajax({
+          var formData = new global.FormData(this),
+            addBlockRequest;
+          addBlockRequest = $.ajax({
             type: "POST",
             url: this.action,
             data: formData,
             processData: false,
             contentType: false
           });
-          addBlockRequest.done(function(newBlock) {
-            block.element.data("uid", newBlock.uid);
-            block.content(global.decodeURIComponent(global.escape(global.atob(newBlock.content))));
+          addBlockRequest.done(function(newBlockResponse) {
+            currentBlock.element.data("uid", newBlockResponse.uid);
+            currentBlock.content(global.decodeURIComponent(global.escape(global.atob(newBlockResponse.content))));
+            blockSaved = true;
             overlay.close();
             saveState();
           });
+          addBlockRequest.fail(function() {/*:Wip*/});
         });
       },
       dialogSettings = {
-        mask: {
-          color: "#fff",
-          loadSpeed: 200,
-          opacity: 0.4
-        },
+        mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
         left: "center",
         fixed: true,
         closeOnClick: false,
         load: true,
         onBeforeClose: cleanBlock,
         onBeforeLoad: loadForm
-        //onLoad: initializePloneComponents
       },
       updateDelete = function(config, callback) {
-        var saveRequest = $.post("./sl-ajax-delete-blocks-view", {"data": JSON.stringify(config)});
+        var saveRequest = $.post(deleteBlockEndpoint, {"data": JSON.stringify(config)});
         saveRequest.done(function(data) {
           if (callback) {
             callback.call(null, data);
           }
         });
-        saveRequest.fail(function(data, textStatus) {
-          global.console.error(textStatus);
-        });
+        saveRequest.fail(function() {/*:Wip*/});
       };
 
-    componentRequest.done(function(data) {
-      simplelayout = new global.Simplelayout({
-        source: "#simplelayout"
-      });
+    componentRequest.done(function(components) {
+      simplelayout = new global.Simplelayout({source: "#simplelayout"});
 
-      toolbox = new global.Toolbox({
-        layouts: [1, 2, 4],
-        components: data
-      });
+      toolbox = new global.Toolbox({layouts: [1, 2, 4], components: components});
 
       toolbox.attachTo($("body"));
       simplelayout.attachToolbox(toolbox);
@@ -105,7 +97,7 @@
       });
 
       simplelayout.on("blockInserted", function(event, layoutId, columnId, blockId) {
-        block = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId);
+        currentBlock = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId);
       });
 
       simplelayout.on("blocksCommitted", function() {
@@ -121,29 +113,29 @@
 
       $(global.document).on("click", ".server-action", function(event) {
         event.preventDefault();
-        var payLoad = {};
-        var action = $(this);
+        var payLoad = {},
+          action = $(this),
+          configRequest;
         payLoad.uid = simplelayout.getCurrentBlock().element.data("uid");
         $.extend(payLoad, action.data());
-        var configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
+        configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
           simplelayout.getCurrentBlock().content(blockContent);
         });
-        configRequest.fail(function(configFailData) {
-          global.console.error(configFailData);
-        });
+        configRequest.fail(function() {/*:Wip*/});
       });
 
       $(global.document).on("click", ".remove", function() {
-        var currentBlockData = simplelayout.getCurrentBlock().element.data();
-        var layoutId = currentBlockData.layoutId;
-        var columnId = currentBlockData.columnId;
-        var blockId = currentBlockData.blockId;
-        var currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid");
-        var blockUIDs = [];
+        var currentBlockData = simplelayout.getCurrentBlock().element.data(),
+          layoutId = currentBlockData.layoutId,
+          columnId = currentBlockData.columnId,
+          blockId = currentBlockData.blockId,
+          currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid"),
+          blockUIDs = [],
+          config,
+          confirmed;
         blockUIDs.push(currentUID);
-        var config = {"blocks": blockUIDs};
-        var confirmed;
+        config = {"blocks": blockUIDs};
         updateDelete(config, function(deleteData) {
           confirmed = global.confirm(JSON.parse(deleteData).msg);
           if (confirmed) {
