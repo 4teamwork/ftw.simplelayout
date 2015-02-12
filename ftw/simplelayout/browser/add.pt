@@ -5,9 +5,10 @@
       lang="en"
       i18n:domain="plone">
 <body>
-
+          <div class="pb-ajax">
             <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
             <div id="content-core" tal:content="structure view/contents" />
+          </div>
 
 </body>
 </html>

@@ -24,6 +24,6 @@
             </div>
           </div>
         </div>
-      <div id="formDialog"></div>
+      <div id="formOverlay" class="overlay"></div>
     </div>
 </html>
