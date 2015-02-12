@@ -15,7 +15,7 @@ class TestAddableBlocksView(TestCase):
     def test_addable_blocks_view(self):
         page = create(Builder('sl content page'))
 
-        view = page.restrictedTraverse('@@addable-blocks.json')
+        view = page.restrictedTraverse('@@sl-ajax-addable-blocks-view')
 
         allowed_block_types = [item[0]
                                for item in view.addable_blocks()]
@@ -29,7 +29,7 @@ class TestAddableBlocksView(TestCase):
 
     def test_addable_blocks_json(self):
         page = create(Builder('sl content page'))
-        view = page.restrictedTraverse('@@addable-blocks.json')
+        view = page.restrictedTraverse('@@sl-ajax-addable-blocks-view')
         addable_types_json = json.loads(view())
 
         self.maxDiff = None
@@ -38,7 +38,13 @@ class TestAddableBlocksView(TestCase):
             {u'title': u'ListingBlock',
              u'description': u'Use this block for File or listings or galleries',
              u'contentType': u'ftw-simplelayout-listingblock',
-             u'actions': {u'edit': {u'description': u'Edit block', u'name': u'Edit'}},
+             u'actions': {u'delete': {u'class': u'Delete icon-delete',
+                                      u'href': u'./sl-ajax-delete-blocks-view',
+                                      u'title': u'Delete block'},
+                          u'edit': {u'class': u'Edit icon-edit',
+                                    u'href': u'./block-edit',
+                                    u'title': u'Edit block'},
+                          u'move': {u'class': u'Move icon-move', u'title': u'Move block'}},
              u'formUrl': u'{0}/++add_block++ftw.simplelayout.ListingBlock'.format(
                  page.absolute_url())
              },
@@ -48,7 +54,21 @@ class TestAddableBlocksView(TestCase):
             {u'title': u'TextBlock',
              u'description': u'Use this block for text and/or one image.',
              u'contentType': u'ftw-simplelayout-textblock',
-             u'actions': {u'edit': {u'description': u'Edit block', u'name': u'Edit'}},
+             u'actions': {u'delete': {u'class': u'Delete icon-delete',
+                                      u'href': u'./sl-ajax-delete-blocks-view',
+                                      u'title': u'Delete block'},
+                          u'edit': {u'class': u'Edit icon-edit',
+                                    u'href': u'./block-edit',
+                                    u'title': u'Edit block'},
+                          u'image': {u'class': u'icon-image server-action',
+                                     u'data-scale': u'large',
+                                     u'href': u'./sl-ajax-reload-block-view',
+                                     u'title': u'Image without floating'},
+                          u'imageLeft': {u'class': u'icon-image-left server-action',
+                                         u'data-scale': u'mini',
+                                         u'href': u'./sl-ajax-reload-block-view',
+                                         u'title': u'Float image left'},
+                          u'move': {u'class': u'Move icon-move', u'title': u'Move block'}},
              u'formUrl': u'{0}/++add_block++ftw.simplelayout.TextBlock'.format(
                  page.absolute_url())
              },

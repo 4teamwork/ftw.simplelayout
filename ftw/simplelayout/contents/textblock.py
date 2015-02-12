@@ -1,5 +1,7 @@
+from collections import OrderedDict
 from collective import dexteritytextindexer
 from ftw.simplelayout import _
+from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contents.interfaces import ITextBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
@@ -60,3 +62,16 @@ class TextBlockModifier(object):
             blockconf['scale'] = image_scale
             conf.store(blockconf)  # necessary?
         return
+
+
+class TextBlockActions(DefaultActions):
+
+    def specific_actions(self):
+        return OrderedDict(imageLeft={'class': 'icon-image-left server-action',
+                                      'title': 'Float image left',
+                                      'href': './sl-ajax-reload-block-view',
+                                      'data-scale': 'mini'},
+                           image={'class': 'icon-image server-action',
+                                  'title': 'Image without floating',
+                                  'href': './sl-ajax-reload-block-view',
+                                  'data-scale': 'large'})

@@ -28,5 +28,13 @@
              *"
         />
 
+    <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
+    <adapter
+        factory=".textblock.TextBlockActions"
+        name="ftw-simplelayout-textblock-actions"
+        for="*
+             *"
+        />
+
 
 </configure>
