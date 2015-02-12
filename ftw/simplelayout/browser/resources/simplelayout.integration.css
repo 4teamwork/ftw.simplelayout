@@ -1,0 +1,17 @@
+div.overlay {
+  width: 80%;
+}
+
+div.overlay .pb-ajax{
+  padding: 1em;
+}
+
+div.overlay .close {
+  background-image: url("../pb_close.png");
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
