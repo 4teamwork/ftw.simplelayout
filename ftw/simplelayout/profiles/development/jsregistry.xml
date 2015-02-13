@@ -11,4 +11,7 @@
 <javascript id="++resource++ftw.simplelayout.resources/main.js"
              enabled="True" insert-after="++resource++ftw.simplelayout.resources/simplelayout.min.js"/>
 
+<javascript id="++resource++ftw.simplelayout.resources/main.js"
+             enabled="True" insert-after="++resource++ftw.simplelayout.resources/jquery.matchHeight-min.js"/>
+
 </object>

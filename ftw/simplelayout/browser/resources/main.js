@@ -91,6 +91,8 @@
       toolbox.attachTo($("body"));
       simplelayout.attachToolbox(toolbox);
       simplelayout.getLayoutmanager().deserialize();
+      $(".sl-column").matchHeight();
+      $.fn.matchHeight._maintainScroll = true;
 
       simplelayout.getToolbox().element.find(".sl-toolbox-component").on("dragstart", function(e) {
         formUrl = $(e.target).data("form_url");
@@ -98,6 +100,7 @@
 
       simplelayout.on("blockInserted", function(event, layoutId, columnId, blockId) {
         currentBlock = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId);
+        $.fn.matchHeight._update();
       });
 
       simplelayout.on("blocksCommitted", function() {
@@ -109,6 +112,7 @@
 
       simplelayout.on("blockMoved", function() {
         saveState();
+        $.fn.matchHeight._update();
       });
 
       $(global.document).on("click", ".server-action", function(event) {
@@ -121,6 +125,7 @@
         configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
           simplelayout.getCurrentBlock().content(blockContent);
+          $.fn.matchHeight._update();
         });
         configRequest.fail(function() {/*:Wip*/});
       });
@@ -144,6 +149,7 @@
             updateDelete(config, function() {
               simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
               saveState();
+              $.fn.matchHeight._update();
             });
           }
         });
