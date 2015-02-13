@@ -77,3 +77,41 @@ div.overlay .close {
 #content a:hover {
   color:#bbbed0 !important;
 }
+
+#simplelayout {
+  margin:0 auto;
+  max-width: 1050px;
+}
+
+#simplelayout img {
+  max-width: 100%;
+}
+
+#simplelayout .sl-block {
+  margin-bottom: 1em;
+}
+
+#simplelayout .sl-block:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 540px) {
+  #simplelayout {
+    padding:0 2%;
+  }
+  #simplelayout .sl-column {
+    margin-right: 2.85714286%;
+  }
+  #simplelayout .sl-column:last-child {
+    margin-right: 0;
+  }
+  #simplelayout .sl-column.sl-col-2 {
+    width: 48.57142857%
+  }
+}
+
+@media screen and (max-width: 720px) {
+    .sl-column.sl-col-2 {
+      width: 100%;
+    }
+}
