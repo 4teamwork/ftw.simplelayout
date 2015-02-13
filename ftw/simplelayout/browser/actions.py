@@ -17,14 +17,14 @@ class DefaultActions(object):
 
     def default_actions(self):
         """Contains default action - move, edit, delete"""
-        return OrderedDict(move={'class': 'Move icon-move',
+        return OrderedDict(move={'class': 'move icon-move',
                                  'title': 'Move block',
                                  },
-                           edit={'class': 'Edit icon-edit',
+                           edit={'class': 'edit icon-edit',
                                  'title': 'Edit block',
                                  'href': './block-edit'
                                  },
-                           delete={'class': 'Delete icon-delete',
+                           delete={'class': 'delete icon-delete',
                                    'title': 'Delete block',
                                    'href': './sl-ajax-delete-blocks-view'
                                    })
