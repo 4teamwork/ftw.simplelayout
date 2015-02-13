@@ -125,7 +125,7 @@
         configRequest.fail(function() {/*:Wip*/});
       });
 
-      $(global.document).on("click", ".remove", function() {
+      $(global.document).on("click", ".delete", function() {
         var currentBlockData = simplelayout.getCurrentBlock().element.data(),
           layoutId = currentBlockData.layoutId,
           columnId = currentBlockData.columnId,
