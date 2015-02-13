@@ -64,3 +64,16 @@ div.overlay .close {
   height: 30px;
   width: 30px;
 }
+
+#content .sl-toolbar {
+  list-style-type: none;
+}
+
+#content a:link, #content a:visited {
+  border:none;
+  color:#818491;
+}
+
+#content a:hover {
+  color:#bbbed0 !important;
+}
