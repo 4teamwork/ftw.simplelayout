@@ -1,0 +1,69 @@
+
+<div class="delete"
+     tal:define="folder_warning python:view.context_state.is_structural_folder();
+                 number_of_objects_to_delete python:folder_warning and len(view.block.portal_catalog.searchResults(dict(path='/'.join(view.block.getPhysicalPath()), portal_type=view.context.plone_utils.getUserFriendlyTypes())));
+                 item_locked view/is_locked_for_current_user | nothing">
+  <p class="deleteHeading"
+      i18n:translate="alert_deleting_locked_item"
+       tal:condition="item_locked">
+       This item can not be deleted because it is currently locked by another user.
+  </p>
+
+  <tal:block condition="not:item_locked">
+    <p class="deleteHeading"
+        tal:condition="folder_warning">
+      <span i18n:translate="alert_really_delete_folder">
+        Do you really want to delete this folder and all its contents?
+      </span>
+      <span i18n:translate="alert_deleting_x_number_of_items" tal:condition="python:number_of_objects_to_delete>1">
+        (This will delete a total of <span i18n:name="number_of_items_to_delete" tal:content="python:number_of_objects_to_delete">22</span> items.)
+      </span>
+    </p>
+
+    <p class="deleteHeading"
+        i18n:translate="alert_really_delete"
+        tal:condition="not:folder_warning">
+      Do you really want to delete this item?
+    </p>
+  </tal:block>
+
+  <div id="content-core">
+      <ul>
+        <li tal:content="view/context_state/object_title">The item title (ID)</li>
+      </ul>
+
+      <form method="POST"
+            action="#"
+            tal:attributes="action view/context_state/current_page_url"
+            id="delete_confirmation">
+        <div class="formControls">
+
+          <input type="hidden"
+                 name="form.submitted"
+                 value="1"
+                 />
+          <input type="hidden"
+                 name="data"
+                 tal:attributes="value view/block_payload"
+                 />
+
+          <input class="destructive"
+                 type="submit"
+                 value="Delete"
+                 tal:condition="not:item_locked"
+                 i18n:attributes="value;"
+                 />
+          <input class="standalone"
+                 type="submit"
+                 value="Cancel"
+                 name="form.button.Cancel"
+                 i18n:attributes="value label_cancel;"
+                 />
+        </div>
+
+        <input tal:replace="structure view/@@authenticator/authenticator" />
+
+      </form>
+  </div>
+
+</div>

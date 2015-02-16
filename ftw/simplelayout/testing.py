@@ -86,7 +86,8 @@ class SimplelayoutTestCase(TestCase):
         self.fti = DexterityFTI('Sample')
         self.fti.schema = 'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX'
         self.fti.behaviors = (
-            'ftw.simplelayout.interfaces.ISimplelayoutBlock', )
+            'ftw.simplelayout.interfaces.ISimplelayoutBlock',
+            'plone.app.lockingbehavior.behaviors.ILocking',)
 
         types_tool._setObject('Sample', self.fti)
 
