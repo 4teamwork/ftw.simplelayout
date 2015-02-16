@@ -69,6 +69,10 @@ div.overlay .close {
   list-style-type: none;
 }
 
+#content .sl-layout-handle {
+  list-style-type: none;
+}
+
 #content a:link, #content a:visited {
   border:none;
   color:#818491;
@@ -76,6 +80,10 @@ div.overlay .close {
 
 #content a:hover {
   color:#bbbed0 !important;
+}
+
+#content ul {
+  margin: 0;
 }
 
 #simplelayout {

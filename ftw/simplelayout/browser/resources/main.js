@@ -130,7 +130,21 @@
         configRequest.fail(function() {/*:Wip*/});
       });
 
-      $(global.document).on("click", ".delete", function(event) {
+      $(global.document).on("click", ".sl-layout .delete", function() {
+        var hasBlocks = false;
+        $.each(simplelayout.getCurrentLayout().columns, function(columnIdx, column) {
+          if(Object.keys(column.blocks).length > 0) {
+            hasBlocks = true;
+            return false;
+          }
+        });
+        if(!hasBlocks) {
+          simplelayout.getLayoutmanager().deleteLayout(simplelayout.getCurrentLayout().element.data("layoutId"));
+          saveState();
+        }
+      });
+
+      $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         var currentBlockData = simplelayout.getCurrentBlock().element.data(),
           layoutId = currentBlockData.layoutId,
