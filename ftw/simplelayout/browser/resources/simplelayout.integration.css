@@ -65,11 +65,7 @@ div.overlay .close {
   width: 30px;
 }
 
-#content .sl-toolbar {
-  list-style-type: none;
-}
-
-#content .sl-layout-handle {
+#content [class^="sl-toolbar"] {
   list-style-type: none;
 }
 
@@ -110,7 +106,7 @@ div.overlay .close {
   #simplelayout .sl-column {
     margin-right: 2.85714286%;
   }
-  #simplelayout .sl-column:last-child {
+  #simplelayout .sl-column:last-of-type {
     margin-right: 0;
   }
   #simplelayout .sl-column.sl-col-2 {
