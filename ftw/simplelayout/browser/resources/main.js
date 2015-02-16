@@ -10,7 +10,9 @@
       simplelayout,
       toolbox,
       currentBlock,
+      formOverlay = $("#formOverlay"),
       formUrl,
+      deleteOverlay,
       blockSaved = false,
       saveState = function() {
         var config = simplelayout.getLayoutmanager().serialize();
@@ -36,7 +38,7 @@
           global.initTinyMCE(form);
         }
       },
-      loadForm = function() {
+      loadAddForm = function() {
         var overlay = this;
         $("#form-buttons-cancel", overlay.getOverlay()).on("click", function(event) {
           event.preventDefault();
@@ -64,23 +66,42 @@
           addBlockRequest.fail(function() {/*:Wip*/});
         });
       },
-      dialogSettings = {
+      deleteOverlaySettings = {
+        mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
+        left: "center",
+        fixed: true,
+        closeOnClick: false,
+        load: true
+      },
+      loadDeleteForm = function(config, callback) {
+        formOverlay.load(deleteBlockEndpoint, {"data": JSON.stringify(config)}, function() {
+          deleteOverlay = formOverlay.overlay(deleteOverlaySettings).load();
+          var formElement = $("form", formOverlay),
+            formData = formElement.serialize();
+          $("#form-buttons-cancel", formOverlay).on("click", function(cancelEvent) {
+            cancelEvent.preventDefault();
+            formOverlay.overlay().close();
+          });
+          $(formElement).on("submit", function(submitEvent) {
+            submitEvent.preventDefault();
+            var deleteBlockRequest = $.post(this.action,  formData);
+            deleteBlockRequest.done(function(data) {
+              if(callback) {
+                callback.call(this, data);
+              }
+            });
+            deleteBlockRequest.fail(function() {/*:Wip*/});
+          });
+        });
+      },
+      addOverlaySettings = {
         mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
         left: "center",
         fixed: true,
         closeOnClick: false,
         load: true,
         onBeforeClose: cleanBlock,
-        onBeforeLoad: loadForm
-      },
-      updateDelete = function(config, callback) {
-        var saveRequest = $.post(deleteBlockEndpoint, {"data": JSON.stringify(config)});
-        saveRequest.done(function(data) {
-          if (callback) {
-            callback.call(null, data);
-          }
-        });
-        saveRequest.fail(function() {/*:Wip*/});
+        onBeforeLoad: loadAddForm
       };
 
     componentRequest.done(function(components) {
@@ -104,8 +125,8 @@
       });
 
       simplelayout.on("blocksCommitted", function() {
-        $("#formOverlay").load(formUrl, function() {
-          $(this).overlay(dialogSettings).load();
+        formOverlay.load(formUrl, function() {
+          $(this).overlay(addOverlaySettings).load();
           initializePloneComponents(this);
         });
       });
@@ -152,19 +173,17 @@
           blockId = currentBlockData.blockId,
           currentUID = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).element.data("uid"),
           blockUIDs = [],
-          config,
-          confirmed;
+          config;
         blockUIDs.push(currentUID);
         config = {"blocks": blockUIDs};
-        updateDelete(config, function(deleteData) {
-          confirmed = global.confirm(JSON.parse(deleteData).msg);
-          if (confirmed) {
-            config.confirmed = confirmed;
-            updateDelete(config, function() {
-              simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
-              saveState();
-              $.fn.matchHeight._update();
-            });
+        loadDeleteForm(config, function(data) {
+          if(data !== "") {
+            loadDeleteForm();
+          } else {
+            deleteOverlay.overlay().close();
+            simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+            saveState();
+            $.fn.matchHeight_update();
           }
         });
       });

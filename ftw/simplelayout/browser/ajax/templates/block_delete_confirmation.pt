@@ -1,5 +1,5 @@
 
-<div class="delete"
+<div class="delete pb-ajax"
      tal:define="folder_warning python:view.context_state.is_structural_folder();
                  number_of_objects_to_delete python:folder_warning and len(view.block.portal_catalog.searchResults(dict(path='/'.join(view.block.getPhysicalPath()), portal_type=view.context.plone_utils.getUserFriendlyTypes())));
                  item_locked view/is_locked_for_current_user | nothing">
@@ -47,13 +47,15 @@
                  tal:attributes="value view/block_payload"
                  />
 
-          <input class="destructive"
+          <input id="form-buttons-save"
+                 class="destructive"
                  type="submit"
                  value="Delete"
                  tal:condition="not:item_locked"
                  i18n:attributes="value;"
                  />
-          <input class="standalone"
+          <input id="form-buttons-cancel"
+                 class="standalone"
                  type="submit"
                  value="Cancel"
                  name="form.button.Cancel"
