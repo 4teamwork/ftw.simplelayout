@@ -22,7 +22,7 @@ class DefaultActions(object):
                                       }),
                             ('edit', {'class': 'edit icon-edit',
                                       'title': 'Edit block',
-                                      'href': './block-edit'
+                                      'href': './sl-ajax-edit-block-view'
                                       }),
                             ('delete', {'class': 'delete icon-delete',
                                         'title': 'Delete block',

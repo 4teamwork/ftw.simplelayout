@@ -1,14 +1,6 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      lang="en"
-      i18n:domain="plone">
-<body>
-          <div class="pb-ajax">
-            <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
-            <div id="content-core" tal:content="structure view/contents" />
-          </div>
 
-</body>
-</html>
+<div class="pb-ajax">
+  <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
+  <div id="content-core" tal:content="structure view/contents" />
+</div>
+
