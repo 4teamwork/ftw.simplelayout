@@ -38,7 +38,7 @@ class DeleteBlocks(BrowserView):
         isLinked(self.block)
 
     def is_locked_for_current_user(self):
-        locking_info = self.block.restrictedTraverse('@@plone_lock_info')
+        locking_info = self.block.restrictedTraverse('@@plone_lock_info', None)
         if locking_info:
             return locking_info.is_locked_for_current_user()
         else:
