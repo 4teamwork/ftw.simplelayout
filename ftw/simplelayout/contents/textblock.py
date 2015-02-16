@@ -16,6 +16,7 @@ from zope.interface import implements
 
 
 class ITextBlockSchema(form.Schema):
+
     """TextBlock for simplelayout
     """
 
@@ -67,11 +68,11 @@ class TextBlockModifier(object):
 class TextBlockActions(DefaultActions):
 
     def specific_actions(self):
-        return OrderedDict(imageLeft={'class': 'icon-image-left server-action',
-                                      'title': 'Float image left',
-                                      'href': './sl-ajax-reload-block-view',
-                                      'data-scale': 'mini'},
-                           image={'class': 'icon-image server-action',
-                                  'title': 'Image without floating',
-                                  'href': './sl-ajax-reload-block-view',
-                                  'data-scale': 'large'})
+        return OrderedDict([('imageLeft', {'class': 'icon-image-left server-action',
+                                           'title': 'Float image left',
+                                           'href': './sl-ajax-reload-block-view',
+                                           'data-scale': 'mini'}),
+                            ('image', {'class': 'icon-image server-action',
+                                       'title': 'Image without floating',
+                                       'href': './sl-ajax-reload-block-view',
+                                       'data-scale': 'large'})])
