@@ -8,8 +8,11 @@ from zope.interface import Interface
 from zope.interface import implements
 from zope.traversing.interfaces import ITraversable
 from zope.traversing.interfaces import TraversalError
-import base64
 import json
+
+import logging
+
+logger = logging.getLogger("Plone")
 
 
 class AddViewTraverser(object):
@@ -48,7 +51,7 @@ class AddForm(DefaultAddForm):
 
     def render(self):
         if self._finishedAdd:
-            return ""
+            return json.dumps(dict(proceed=True))
         return super(AddForm, self).render()
 
 
@@ -60,7 +63,11 @@ class AddView(DefaultAddView):
             self.request.response.setHeader('Content-Type', 'application/json')
             return json.dumps(dict(
                 uid=self.form_instance.obj_uid,
-                content=base64.b64encode(self.form_instance.obj_html),
+                content=self.form_instance.obj_html,
+                proceed=True,
             ))
 
-        return super(AddView, self).render()
+        return json.dumps(dict(
+            content=super(AddView, self).render(),
+            proceed=False,
+        ))

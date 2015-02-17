@@ -1,11 +1,14 @@
-from plone.app.uuid.utils import uuidToObject
-from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.utils import isLinked
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.uuid.utils import uuidToObject
+from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
 import json
 
+import logging
+
+logger = logging.getLogger("Plone")
 
 class DeleteBlocks(BrowserView):
 
@@ -19,6 +22,7 @@ class DeleteBlocks(BrowserView):
 
     def __call__(self):
         payload = self.request.get('data', None)
+        logger.info("Delete Block");
         if not payload:
             raise BadRequest('No data given')
 
@@ -31,11 +35,17 @@ class DeleteBlocks(BrowserView):
         if self.request.get('form.submitted', False):
             self.context.manage_delObjects([self.block.id])
         else:
-            return self.confirm_template()
-        return ''
+            return json.dumps(dict(
+                content=self.confirm_template(),
+                proceed=False,
+            ))
+        return json.dumps(dict(
+            proceed=True,
+        ))
 
     def _link_integrity_check(self):
-        isLinked(self.block)
+        pass
+        #isLinked(self.block)
 
     def is_locked_for_current_user(self):
         locking_info = self.block.restrictedTraverse('@@plone_lock_info', None)
