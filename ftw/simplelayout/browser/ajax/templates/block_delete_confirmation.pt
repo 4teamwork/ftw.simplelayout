@@ -42,11 +42,11 @@
                  name="form.submitted"
                  value="1"
                  />
-          <input type="hidden"
+<!--           <input type="hidden"
                  name="data"
                  tal:attributes="value view/block_payload"
                  />
-
+ -->
           <input id="form-buttons-save"
                  class="destructive"
                  type="submit"

@@ -99,6 +99,10 @@ div.overlay .close {
   margin-bottom: 0;
 }
 
+#form-widgets-ITeaser-internal_link-contenttree-window {
+  z-index: 70000;
+}
+
 @media (min-width: 540px) {
   #simplelayout {
     padding:0 2%;
