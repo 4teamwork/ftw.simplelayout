@@ -6,9 +6,6 @@ from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
 import json
 
-import logging
-
-logger = logging.getLogger("Plone")
 
 class DeleteBlocks(BrowserView):
 
@@ -17,18 +14,16 @@ class DeleteBlocks(BrowserView):
 
     def __init__(self, context, request):
         super(DeleteBlocks, self).__init__(context, request)
-        # TODO - Implement deleting of multiple blocks
         self.block = None
 
     def __call__(self):
         payload = self.request.get('data', None)
-        logger.info("Delete Block");
         if not payload:
             raise BadRequest('No data given')
 
         # TODO validate payload contains blocks and confirmed flag.
         data = json.loads(payload)
-        self.block = uuidToObject(data['blocks'][0])
+        self.block = uuidToObject(data['block'])
 
         self._link_integrity_check()
 
@@ -59,6 +54,5 @@ class DeleteBlocks(BrowserView):
         return self.block.restrictedTraverse('@@plone_context_state')
 
     def block_payload(self):
-        blocks = [IUUID(self.block)]
-        return json.dumps({'blocks': blocks})
-
+        block = IUUID(self.block)
+        return json.dumps({'block': block})

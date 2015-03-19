@@ -34,7 +34,7 @@
 
       <form method="POST"
             action="#"
-            tal:attributes="action view/context_state/current_page_url"
+            tal:attributes="action view/context_state/current_base_url"
             id="delete_confirmation">
         <div class="formControls">
 
@@ -42,12 +42,13 @@
                  name="form.submitted"
                  value="1"
                  />
-<!--           <input type="hidden"
+
+          <input type="hidden"
                  name="data"
                  tal:attributes="value view/block_payload"
                  />
- -->
-          <input id="form-buttons-save"
+
+          <input id="form-buttons-delete"
                  class="destructive"
                  type="submit"
                  value="Delete"

@@ -21,8 +21,8 @@ class TestBlockDelete(SimplelayoutTestCase):
         # TODO test locking and link integrity (messages).
 
     def get_payload(self, block):
-        blocks = [IUUID(block)]
-        return {'data': json.dumps({'blocks': blocks})}
+        block = IUUID(block)
+        return {'data': json.dumps({'block': block})}
 
     @browsing
     def test_delete_block(self, browser):
@@ -31,6 +31,8 @@ class TestBlockDelete(SimplelayoutTestCase):
                               view='@@sl-ajax-delete-blocks-view',
                               data=self.get_payload(block))
 
-        browser.find_button_by_label('Delete').click()
+        browser.open_html(browser.json['content'])
+
+        browser.find('Delete').click()
 
         self.assertEquals(0, len(self.contentpage.objectValues()))
