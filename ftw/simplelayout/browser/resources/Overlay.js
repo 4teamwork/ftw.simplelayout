@@ -12,9 +12,9 @@
       settings: {
         mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
         left: "center",
-        fixed: true,
+        fixed: false,
         closeOnClick: false,
-        onBeforeClose: this.onCancel
+        onBeforeClose: function() { overlay.onCancel.call(overlay); }
       },
       onCancelCallback: function(){},
       onSubmitCallback: function(){},
@@ -26,7 +26,7 @@
       },
       onCancel: function() {
         if(!this.formSubmitted) {
-          this.onCancelCallback().call(instance);
+          this.onCancelCallback();
         }
       },
       initializePloneComponents: function() {
@@ -85,8 +85,7 @@
         }
       },
       onFormCancel: function(event) {
-        event.preventDefault();
-        this.onCancel();
+        this.close();
       },
       onFormSubmit: function(formData) {
         this.formSubmitted = true;

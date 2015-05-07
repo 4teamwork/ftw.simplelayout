@@ -32,11 +32,12 @@
         var config = this.simplelayout.getLayoutmanager().serialize();
         $.post(this.settings.saveStateEndpoint, {"data": config});
       },
-      cleanup: function(block) {
-        var currentBlockData = block.element.data();
-        var layoutId = currentBlockData.layoutId;
-        var columnId = currentBlockData.columnId;
-        var blockId = currentBlockData.blockId;
+      cleanup: function() {
+        var committedBlocks = this.simplelayout.getLayoutmanager().getCommittedBlocks();
+        var activeBlockData = committedBlocks[committedBlocks.length - 1].element.data();
+        var layoutId = activeBlockData.layoutId;
+        var columnId = activeBlockData.columnId;
+        var blockId = activeBlockData.blockId;
         this.simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
       },
       matchHeight: function() {
@@ -66,7 +67,7 @@
       });
 
       deleteOverlay.onSubmit(function() {
-        var currentBlockData = simplelayout.getCurrentBlock().element.data();
+        var currentBlockData = simplelayout.getActiveBlock().element.data();
         var layoutId = currentBlockData.layoutId;
         var columnId = currentBlockData.columnId;
         var blockId = currentBlockData.blockId;
@@ -108,7 +109,7 @@
 
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
-        var currentBlockUUID = simplelayout.getCurrentBlock().element.data().uid;
+        var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
         var config = {"block": currentBlockUUID};
         deleteOverlay.load(instance.settings.deleteBlockEndpoint, {"data": JSON.stringify(config)});
       });
@@ -121,8 +122,8 @@
       });
 
       $(global.document).on("click", ".sl-layout .delete", function() {
-        if(!simplelayout.getCurrentLayout().hasBlocks()) {
-          simplelayout.getLayoutmanager().deleteLayout(simplelayout.getCurrentLayout().element.data("layoutId"));
+        if(!simplelayout.getActiveLayout().hasBlocks()) {
+          simplelayout.getLayoutmanager().deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
           instance.saveState();
         }
       });
@@ -132,7 +133,7 @@
         var payLoad = {};
         var action = $(this);
         var configRequest;
-        payLoad.uid = simplelayout.getCurrentBlock().element.data("uid");
+        payLoad.uid = simplelayout.getActiveBlock().element.data("uid");
         $.extend(payLoad, action.data());
         configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
