@@ -12,7 +12,7 @@
       settings: {
         mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
         left: "center",
-        fixed: true,
+        fixed: false,
         closeOnClick: false,
         onBeforeClose: this.onCancel
       },
