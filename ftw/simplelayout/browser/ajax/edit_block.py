@@ -1,21 +1,19 @@
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.edit import DefaultEditForm
-from plone.dexterity.browser.edit import DefaultEditForm
+from plone.dexterity.events import EditFinishedEvent
+from plone.dexterity.i18n import MessageFactory as _
 from plone.dexterity.interfaces import IDexterityEditForm
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
+from z3c.form import button
 from zExceptions import BadRequest
+from zope.event import notify
 from zope.interface import classImplements
 import json
-from plone.uuid.interfaces import IUUID
-from Products.statusmessages.interfaces import IStatusMessage
-from zope.event import notify
-from plone.dexterity.events import EditFinishedEvent
-from plone.dexterity.i18n import MessageFactory as _
-from z3c.form import form, button
 
 
-class BlockEditTravers(BrowserView):
+class BlockEditRedirector(BrowserView):
 
     def __call__(self):
         payload = self.request.get('data', None)
@@ -30,7 +28,7 @@ class BlockEditTravers(BrowserView):
 
 
 # XXX- Rename to EditForm
-class EditView(DefaultEditForm):
+class EditForm(DefaultEditForm):
     template = ViewPageTemplateFile('templates/edit_block_form.pt')
     # form = EditForm
 
@@ -60,4 +58,4 @@ class EditView(DefaultEditForm):
             response['content'] = self.context()
         return json.dumps(response)
 
-classImplements(EditView, IDexterityEditForm)
+classImplements(EditForm, IDexterityEditForm)

@@ -33,7 +33,7 @@ class AddViewTraverser(object):
 
             if add_view is not None:
                 add_view.__name__ = ti.factory
-                template = ViewPageTemplateFile('add.pt')
+                template = ViewPageTemplateFile('templates/add.pt')
                 add_view.index = BoundPageTemplate(template, add_view)
                 return add_view.__of__(self.context)
 

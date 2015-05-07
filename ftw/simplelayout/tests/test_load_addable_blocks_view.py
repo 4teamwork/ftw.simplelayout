@@ -42,7 +42,7 @@ class TestAddableBlocksView(TestCase):
                                       u'href': u'./sl-ajax-delete-blocks-view',
                                       u'title': u'Delete block'},
                           u'edit': {u'class': u'edit icon-edit',
-                                    u'href': u'./block-edit',
+                                    u'href': u'./sl-ajax-edit-block-view',
                                     u'title': u'Edit block'},
                           u'move': {u'class': u'move icon-move', u'title': u'Move block'}},
              u'formUrl': u'{0}/++add_block++ftw.simplelayout.ListingBlock'.format(
@@ -58,7 +58,7 @@ class TestAddableBlocksView(TestCase):
                                       u'href': u'./sl-ajax-delete-blocks-view',
                                       u'title': u'Delete block'},
                           u'edit': {u'class': u'edit icon-edit',
-                                    u'href': u'./block-edit',
+                                    u'href': u'./sl-ajax-edit-block-view',
                                     u'title': u'Edit block'},
                           u'image': {u'class': u'icon-image server-action',
                                      u'data-scale': u'large',

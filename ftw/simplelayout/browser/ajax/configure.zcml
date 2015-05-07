@@ -31,12 +31,25 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <adapter
+        name="add_block"
+        factory=".add.AddViewTraverser"
+        />
 
-<!--     <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
-        name="edit"
-        class=".edit_block.BlockEditForm"
+    <browser:page
+        for="*"
+        name="sl-ajax-edit-block-view"
+        class=".edit_block.BlockEditRedirector"
         permission="cmf.ModifyPortalContent"
         />
- -->
+
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
+        name="edit"
+        class=".edit_block.EditForm"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
 </configure>
