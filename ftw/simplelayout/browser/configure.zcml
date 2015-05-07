@@ -40,6 +40,21 @@
       factory=".add.AddViewTraverser"
       />
 
+    <browser:page
+        for="*"
+        name="sl-ajax-edit-block-view"
+        class=".edit_block.BlockEditTravers"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
+        name="edit"
+        class=".edit_block.EditView"
+        permission="cmf.ModifyPortalContent"
+        />
+
     <adapter
         factory=".actions.DefaultActions"
         for="*

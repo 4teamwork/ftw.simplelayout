@@ -8,6 +8,7 @@
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
         saveStateEndpoint: "./sl-ajax-save-state-view",
         deleteBlockEndpoint: "./sl-ajax-delete-blocks-view",
+        editBlockEndpoint: "./sl-ajax-edit-block-view",
         source: "#simplelayout",
         layouts: [1, 2, 4]
       },
@@ -51,6 +52,18 @@
       var currentBlock;
       var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay();
+      var editOverlay = new global.FormOverlay();
+
+      editOverlay.onSubmit(function(blockData) {
+        var currentBlockData = simplelayout.getCurrentBlock().element.data();
+        var layoutId = currentBlockData.layoutId;
+        var columnId = currentBlockData.columnId;
+        var blockId = currentBlockData.blockId;
+        simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).content(blockData.content);
+        instance.saveState();
+        instance.matchHeight();
+        this.close();
+      });
 
       deleteOverlay.onSubmit(function() {
         var currentBlockData = simplelayout.getCurrentBlock().element.data();
@@ -98,6 +111,13 @@
         var currentBlockUUID = simplelayout.getCurrentBlock().element.data().uid;
         var config = {"block": currentBlockUUID};
         deleteOverlay.load(instance.settings.deleteBlockEndpoint, {"data": JSON.stringify(config)});
+      });
+
+      $(global.document).on("click", ".sl-block .edit", function(event) {
+        event.preventDefault();
+        var currentBlockUUID = simplelayout.getCurrentBlock().element.data().uid;
+        var config = {"block": currentBlockUUID};
+        editOverlay.load(instance.settings.editBlockEndpoint, {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".sl-layout .delete", function() {
