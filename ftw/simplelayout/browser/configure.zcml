@@ -35,11 +35,6 @@
         permission="zope2.View"
         />
 
-  <adapter
-      name="add_block"
-      factory=".add.AddViewTraverser"
-      />
-
     <browser:page
         for="*"
         name="sl-ajax-edit-block-view"
