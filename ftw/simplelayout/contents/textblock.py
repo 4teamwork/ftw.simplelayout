@@ -56,11 +56,13 @@ class TextBlockModifier(object):
 
     def modify(self, data):
         image_scale = data.get('scale', None)
+        image_float = data.get('imagefloat', None)
         conf = IBlockConfiguration(self.context)
         blockconf = conf.load()
 
         if image_scale:
             blockconf['scale'] = image_scale
+            blockconf['imagefloat'] = image_float
             conf.store(blockconf)  # necessary?
         return
 
@@ -71,20 +73,26 @@ class TextBlockActions(DefaultActions):
         return OrderedDict([('imageLeft', {'class': 'icon-image-left server-action',
                                            'title': 'Float image left',
                                            'href': './sl-ajax-reload-block-view',
-                                           'data-scale': 'mini'}),
+                                           'data-scale': 'mini',
+                                           'data-imagefloat': 'left'}),
                             ('imageLeftLarge', {'class': 'icon-image-left-large server-action',
                                                 'title': 'Float large image left',
                                                 'href': './sl-ajax-reload-block-view',
-                                                'data-scale': 'preview'}),
+                                                'data-scale': 'preview',
+                                                'data-imagefloat': 'left'}),
                             ('image', {'class': 'icon-image server-action',
                                        'title': 'Image without floating',
                                        'href': './sl-ajax-reload-block-view',
-                                       'data-scale': 'large'}),
-                            ('imageRight', {'class': 'icon-image-right server-action',
-                                            'title': 'Float image left',
-                                            'href': './sl-ajax-reload-block-view',
-                                            'data-scale': 'mini'}),
+                                       'data-scale': 'large',
+                                       'data-imagefloat': 'no-float'}),
                             ('imageRightLarge', {'class': 'icon-image-right-large server-action',
                                                  'title': 'Float large image right',
                                                  'href': './sl-ajax-reload-block-view',
-                                                 'data-scale': 'preview'}), ])
+                                                 'data-scale': 'preview',
+                                                 'data-imagefloat': 'right'}),
+                            ('imageRight', {'class': 'icon-image-right server-action',
+                                            'title': 'Float image left',
+                                            'href': './sl-ajax-reload-block-view',
+                                            'data-scale': 'mini',
+                                            'data-imagefloat': 'right'}),
+                            ])
