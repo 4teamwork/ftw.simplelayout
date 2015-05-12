@@ -1,8 +1,11 @@
+from ftw.simplelayout.interfaces import ISimplelayoutBlockView
 from Products.Five.browser import BrowserView
 from ftw.simplelayout.interfaces import IBlockConfiguration
+from zope.interface import implements
 
 
 class BaseBlock(BrowserView):
+    implements(ISimplelayoutBlockView)
 
     blockconfig = None
 

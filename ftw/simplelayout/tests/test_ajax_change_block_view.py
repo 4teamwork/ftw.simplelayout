@@ -7,12 +7,10 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 from ftw.simplelayout.testing import ISampleDX
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from plone.uuid.interfaces import IUUID
-from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
 from zope.component import provideAdapter
 from zope.interface import implements
 from zope.interface import Interface
-from zope.publisher.interfaces.browser import IBrowserView
 import json
 
 
@@ -23,28 +21,6 @@ class TestBlockReloadView(SimplelayoutTestCase):
     def setUp(self):
         self.contentpage = create(Builder('sl content page'))
         self.portal = self.layer['portal']
-
-    def setup_block_views(self):
-
-        class SampleBlockView(BrowserView):
-
-            def __call__(self):
-                return 'OK'
-
-        provideAdapter(SampleBlockView,
-                       adapts=(ISampleDX, Interface),
-                       provides=IBrowserView,
-                       name='block_view')
-
-        class SampleBlockViewDifferent(BrowserView):
-
-            def __call__(self):
-                return 'OK - different view'
-
-        provideAdapter(SampleBlockViewDifferent,
-                       adapts=(ISampleDX, Interface),
-                       provides=IBrowserView,
-                       name='block_view_different')
 
     def get_reload_view(self, block, payload={}):
         payload['uid'] = IUUID(block)
