@@ -1,77 +1,54 @@
+from ftw.builder import Builder
+from ftw.builder import create
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.properties import MultiViewBlockProperties
-from ftw.simplelayout.testing import SIMPLELAYOUT_ZCML_LAYER
-from ftw.testing import MockTestCase
-from zope.annotation import IAttributeAnnotatable
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from zope.component import getMultiAdapter
-from zope.component import provideAdapter
-from zope.interface import Interface
 from zope.interface.verify import verifyClass
 
 
-class IFoo(IAttributeAnnotatable):
-    """
-    """
+class TestMultiViewBlockProperties(SimplelayoutTestCase):
 
-
-class FooBlockProperties(MultiViewBlockProperties):
-
-    available_views = (
-        {'name': 'block_view',
-         'label': u'Default block view'},
-
-        {'name': 'foo_view',
-         'label': u'Foo view'})
-
-
-class TestMultiViewBlockProperties(MockTestCase):
-
-    layer = SIMPLELAYOUT_ZCML_LAYER
+    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
     def setUp(self):
         super(TestMultiViewBlockProperties, self).setUp()
+        contentpage = create(Builder('sl content page'))
 
-        self.context = self.providing_stub(IFoo)
-        self.request = self.stub_request()
-
-        provideAdapter(FooBlockProperties, adapts=(IFoo, Interface))
+        self.setup_sample_block_fti(self.layer['portal'])
+        self.setup_block_views()
+        self.block = create(Builder('sample block').within(contentpage))
 
     def test_implements_interface(self):
-        self.replay()
         verifyClass(IBlockProperties, MultiViewBlockProperties)
 
-    def test_get_current_view_name_default_view(self):
-        self.replay()
-        # default view is "block_view"
-
-        properties = getMultiAdapter((self.context, self.request),
+    def test_get_current_default_block_view(self):
+        properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)
 
         self.assertEqual(properties.get_current_view_name(),
                          'block_view')
 
     def test_get_available_views(self):
-        self.replay()
-
-        properties = getMultiAdapter((self.context, self.request),
+        properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)
-
-        # TODO: Implement available views
-        self.assertIsNone(properties.get_available_views())
+        self.assertEquals(['block_view_different', 'block_view'],
+                          properties.get_available_views())
 
     def test_changing_view(self):
-        self.replay()
-
-        properties = getMultiAdapter((self.context, self.request),
+        properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)
 
-        self.assertEqual(properties.get_current_view_name(), 'block_view')
+        properties.set_view('block_view_different')
+        self.assertEqual(properties.get_current_view_name(),
+                         'block_view_different')
 
-        # TODO - Implement possible views on block.
-        # with self.assertRaises(ValueError) as cm:
-        #     properties.set_view('unkown-view')
-        # self.assertEqual(str(cm.exception),
-        #                  '"unkown-view" is not in available views.')
+    def test_setting_invalid_view_name_raises_error(self):
+        properties = getMultiAdapter((self.block, self.block.REQUEST),
+                                     IBlockProperties)
 
-        properties.set_view('foo_view')
-        self.assertEqual(properties.get_current_view_name(), 'foo_view')
+        with self.assertRaises(ValueError) as cm:
+            properties.set_view('unkown-view')
+        self.assertEqual(str(cm.exception),
+                         '"unkown-view" is not in available views.')

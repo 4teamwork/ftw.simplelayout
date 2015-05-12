@@ -3,6 +3,7 @@ from ftw.builder.dexterity import DexterityBuilder
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
+from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.tests import builders
 from ftw.testing.layer import ComponentRegistryLayer
@@ -19,6 +20,7 @@ from zope import schema
 from zope.component import provideAdapter
 from zope.configuration import xmlconfig
 from zope.interface import Interface
+from zope.publisher.interfaces.browser import IBrowserView
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -97,6 +99,29 @@ class SimplelayoutTestCase(TestCase):
 
         provideAdapter(property_factory,
                        adapts=(ISampleDX, Interface))
+
+    def setup_block_views(self):
+
+        class SampleBlockView(BaseBlock):
+
+            def __call__(self):
+                return 'OK'
+
+        provideAdapter(SampleBlockView,
+                       adapts=(ISampleDX, Interface),
+                       provides=IBrowserView,
+                       name='block_view')
+
+        class SampleBlockViewDifferent(BaseBlock):
+
+            def __call__(self):
+                return 'OK - different view'
+
+        provideAdapter(SampleBlockViewDifferent,
+                       adapts=(ISampleDX, Interface),
+                       provides=IBrowserView,
+                       name='block_view_different')
+
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()

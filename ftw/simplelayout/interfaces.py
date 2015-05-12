@@ -24,6 +24,11 @@ class ISimplelayoutView(Interface):
     """
 
 
+class ISimplelayoutBlockView(Interface):
+    """Marker interface for simplelayout block views.
+    """
+
+
 class IPageConfiguration(Interface):
     """Adapter for storing simplelayout page configuration.
     """
