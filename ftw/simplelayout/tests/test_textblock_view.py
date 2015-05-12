@@ -55,3 +55,16 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(self.page.absolute_url(),
                           browser.css('[data-simplelayout-url]').first.attrib[
                               'data-simplelayout-url'])
+
+    @browsing
+    def test_init_scale_is_first_from_block_actions(self, browser):
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif')))
+
+        browser.login().visit(block, view='@@block_view')
+        self.assertEquals('sl-image mini',
+                          browser.css('.sl-image').first.attrib['class'])
