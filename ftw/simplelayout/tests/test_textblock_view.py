@@ -3,13 +3,14 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
-from plone.app.uuid.utils import uuidToObject
 from plone.namedfile.file import NamedBlobImage
+from plone.uuid.interfaces import IUUID
 from StringIO import StringIO
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
+import json
 
 
 class TestTextBlockRendering(TestCase):
@@ -67,4 +68,22 @@ class TestTextBlockRendering(TestCase):
 
         browser.login().visit(block, view='@@block_view')
         self.assertEquals('sl-image mini',
+                          browser.css('.sl-image').first.attrib['class'])
+
+    @browsing
+    def test_change_image_scale(self, browser):
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif')))
+
+        payload = {'data': json.dumps({'uid': IUUID(block), 'scale': 'large'})}
+        browser.login().visit(self.page,
+                              view='sl-ajax-reload-block-view',
+                              data=payload)
+        browser.visit(block, view='@@block_view')
+
+        self.assertEquals('sl-image large',
                           browser.css('.sl-image').first.attrib['class'])

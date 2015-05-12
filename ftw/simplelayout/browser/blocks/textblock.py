@@ -53,11 +53,7 @@ class TextBlockView(BaseBlock):
     def _get_image_scale_url(self):
         scale = self._get_image_scale()
         scaler = self.context.restrictedTraverse('@@images')
-
-        if scale:
-            return scaler.scale('image', scale=scale).url
-        else:
-            return scaler.scale('image', scale=self._get_default_scale()).url
+        return scaler.scale('image', scale=scale).url
 
     @memoize
     def _get_default_scale(self):
