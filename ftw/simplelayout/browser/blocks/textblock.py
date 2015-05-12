@@ -18,13 +18,6 @@ class TextBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/textblock.pt')
 
-    def additional(self):
-        teaser_url = self.teaser_url()
-        if teaser_url:
-            return 'data-simplelayout-url="{0}"'.format(teaser_url)
-        else:
-            return ''
-
     def teaser_url(self):
         teaser = ITeaser(self.context)
         if not teaser:
