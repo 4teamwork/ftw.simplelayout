@@ -56,7 +56,7 @@
       var editOverlay = new global.FormOverlay();
 
       editOverlay.onSubmit(function(blockData) {
-        var currentBlockData = simplelayout.getCurrentBlock().element.data();
+        var currentBlockData = simplelayout.getActiveBlock().element.data();
         var layoutId = currentBlockData.layoutId;
         var columnId = currentBlockData.columnId;
         var blockId = currentBlockData.blockId;
@@ -107,6 +107,10 @@
         instance.matchHeight();
       });
 
+      simplelayout.on("layoutMoved", function() {
+        instance.saveState();
+      });
+
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
@@ -116,7 +120,7 @@
 
       $(global.document).on("click", ".sl-block .edit", function(event) {
         event.preventDefault();
-        var currentBlockUUID = simplelayout.getCurrentBlock().element.data().uid;
+        var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
         var config = {"block": currentBlockUUID};
         editOverlay.load(instance.settings.editBlockEndpoint, {"data": JSON.stringify(config)});
       });
@@ -137,7 +141,7 @@
         $.extend(payLoad, action.data());
         configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
-          simplelayout.getCurrentBlock().content(blockContent);
+          simplelayout.getActiveBlock().content(blockContent);
           instance.matchHeight();
         });
       });
