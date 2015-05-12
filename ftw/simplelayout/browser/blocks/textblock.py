@@ -1,12 +1,15 @@
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutActions
+from ftw.simplelayout.utils import normalize_portal_type
 from plone.memoize.instance import memoize
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.component import queryMultiAdapter
 
 
 IMG_TAG_TEMPLATE = (
-    '<div class="sl-image {floatClass}">'
+    '<div class="sl-image {cssClass}">'
     '<img src="{src}" alt="{alt}" />'
     '</div>')
 
@@ -14,13 +17,6 @@ IMG_TAG_TEMPLATE = (
 class TextBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/textblock.pt')
-
-    def additional(self):
-        teaser_url = self.teaser_url()
-        if teaser_url:
-            return 'data-simplelayout-url="{0}"'.format(teaser_url)
-        else:
-            return ''
 
     def teaser_url(self):
         teaser = ITeaser(self.context)
@@ -40,7 +36,7 @@ class TextBlockView(BaseBlock):
             return IMG_TAG_TEMPLATE.format(
                 **dict(
                     src=self._get_image_scale_url(),
-                    floatClass=self._get_image_scale(),
+                    cssClass=self._get_image_scale(),
                     alt=self.context.Title()
                 ))
         else:
@@ -48,13 +44,25 @@ class TextBlockView(BaseBlock):
 
     @memoize
     def _get_image_scale(self):
-        return IBlockConfiguration(self.context).load().get('scale', '')
+        scale = IBlockConfiguration(self.context).load().get('scale', '')
+        if scale:
+            return IBlockConfiguration(self.context).load().get('scale', '')
+        else:
+            return self._get_default_scale()
 
     def _get_image_scale_url(self):
         scale = self._get_image_scale()
+        scaler = self.context.restrictedTraverse('@@images')
+        return scaler.scale('image', scale=scale).url
 
-        if scale:
-            scaler = self.context.restrictedTraverse('@@images')
-            return scaler.scale('image', scale=scale).url
-        else:
-            return self.context.absolute_url() + '/@@images/image'
+    @memoize
+    def _get_default_scale(self):
+        """Returns the first scale defined in textblock special actions"""
+        normalized_portal_type = normalize_portal_type(
+            self.context.portal_type)
+
+        actions = queryMultiAdapter(
+            (self.context, self.request),
+            ISimplelayoutActions,
+            name='{0}-actions'.format(normalized_portal_type))
+        return actions.specific_actions().items()[0][1]['data-scale']
