@@ -67,7 +67,7 @@ class TestTextBlockRendering(TestCase):
                                                     filename=u'test.gif')))
 
         browser.login().visit(block, view='@@block_view')
-        self.assertEquals('sl-image mini',
+        self.assertEquals('sl-image mini left',
                           browser.css('.sl-image').first.attrib['class'])
 
     @browsing
@@ -85,5 +85,5 @@ class TestTextBlockRendering(TestCase):
                               data=payload)
         browser.visit(block, view='@@block_view')
 
-        self.assertEquals('sl-image large',
+        self.assertEquals('sl-image large left',
                           browser.css('.sl-image').first.attrib['class'])

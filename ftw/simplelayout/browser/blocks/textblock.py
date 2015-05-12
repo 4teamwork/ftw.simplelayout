@@ -36,7 +36,8 @@ class TextBlockView(BaseBlock):
             return IMG_TAG_TEMPLATE.format(
                 **dict(
                     src=self._get_image_scale_url(),
-                    cssClass=self._get_image_scale(),
+                    cssClass='{0} {1}'.format(self._get_image_scale(),
+                                              self._get_image_float()),
                     alt=self.context.Title()
                 ))
         else:
@@ -44,9 +45,9 @@ class TextBlockView(BaseBlock):
 
     @memoize
     def _get_image_scale(self):
-        scale = IBlockConfiguration(self.context).load().get('scale', '')
+        scale = self.blockconfig.get('scale', '')
         if scale:
-            return IBlockConfiguration(self.context).load().get('scale', '')
+            return scale
         else:
             return self._get_default_scale()
 
@@ -56,8 +57,7 @@ class TextBlockView(BaseBlock):
         return scaler.scale('image', scale=scale).url
 
     @memoize
-    def _get_default_scale(self):
-        """Returns the first scale defined in textblock special actions"""
+    def _get_default_actions(self):
         normalized_portal_type = normalize_portal_type(
             self.context.portal_type)
 
@@ -65,4 +65,21 @@ class TextBlockView(BaseBlock):
             (self.context, self.request),
             ISimplelayoutActions,
             name='{0}-actions'.format(normalized_portal_type))
-        return actions.specific_actions().items()[0][1]['data-scale']
+        return actions.specific_actions().items()[0][1]
+
+    @memoize
+    def _get_default_scale(self):
+        return self._get_default_actions()['data-scale']
+
+    @memoize
+    def _get_image_float(self):
+        image_float = self.blockconfig.get('imagefloat', '')
+
+        if image_float:
+            return image_float
+        else:
+            return self._get_default_image_float()
+
+    @memoize
+    def _get_default_image_float(self):
+        return self._get_default_actions()['data-imagefloat']
