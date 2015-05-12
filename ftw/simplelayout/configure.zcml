@@ -10,7 +10,7 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".contents" />
-    <include package=".examples" />
+    <!-- <include package=".examples" /> -->
     <include file="behaviors.zcml" />
 
     <genericsetup:registerProfile
@@ -37,14 +37,14 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <genericsetup:registerProfile
-        name="examples"
-        title="ftw.simplelayout examples"
-        directory="profiles/examples"
-        description="Simlelayout examples"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        factory=".configuration.PageConfiguration"
         />
 
-    <adapter factory=".display.DisplaySeetings" />
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
+        factory=".configuration.BlockConfiguration"
+        />
 
 </configure>

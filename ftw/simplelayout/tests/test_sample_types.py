@@ -36,9 +36,9 @@ class TestSampleTypes(TestCase):
         browser.find_button_by_label('Save').click()
 
         self.assertIn('Some text',
-                      browser.css('.block-view-wrapper').first.text)
+                      browser.css('body').first.text)
         self.assertEquals('A test textblock',
-                          browser.css('.block-view-wrapper h2').first.text)
+                          browser.css('h2').first.text)
 
     @browsing
     def test_add_textblock_without_title(self, browser):
@@ -50,9 +50,9 @@ class TestSampleTypes(TestCase):
         browser.find_button_by_label('Save').click()
 
         self.assertIn('Some text',
-                      browser.css('.block-view-wrapper').first.text)
+                      browser.css('body').first.text)
         self.assertEquals(0,
-                          len(browser.css('.block-view-wrapper h2')),
+                          len(browser.css('h2')),
                           'Expect no textblock title')
 
     @browsing
@@ -64,7 +64,7 @@ class TestSampleTypes(TestCase):
         browser.login().visit(self.page)
 
         self.assertFalse(browser.css('.sl-block'),
-                         'Expect no block, also the contentpage should no be '
+                         'Expect no block, also the contentpage should not be '
                          'visible as block')
 
         browser.visit(nested)

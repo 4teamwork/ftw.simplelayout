@@ -6,7 +6,7 @@
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">ListingBlock</property>
-    <property name="description" i18n:translate=""></property>
+    <property name="description" i18n:translate="">Use this block for File or listings or galleries</property>
     <property name="content_icon"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
@@ -31,10 +31,10 @@
     </property>
 
     <!-- View information -->
-    <property name="default_view">@@redirect_to_parent</property>
+    <property name="default_view">block_view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="@@redirect_to_parent"/>
+        <element value="block_view"/>
     </property>
 
     <!-- Method aliases -->

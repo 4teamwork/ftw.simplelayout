@@ -1,0 +1,41 @@
+#dropzone {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin: 20px;
+  padding: 200px;
+  position: relative;
+  border: 3px dotted rgba(0, 0, 0, 0.3);
+}
+#dropzone.hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+#dropzone.hover #ftw-file-upload {
+  transform: rotate(360deg);
+}
+#dropzone.done #ftw-file-upload {
+  display: none;
+}
+#dropzone.done.hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+#dropzone.uploading {
+  border: none;
+}
+#dropzone.uploading #ftw-file-upload {
+  display: none;
+}
+#dropzone.fail #ftw-file-upload {
+  display: none;
+}
+#dropzone #ftw-file-upload {
+  display: block;
+  box-shadow: none;
+  border: none;
+  transition: transform 0.2s ease-in-out;
+}
+#dropzone img {
+  border: 5px solid #fff;
+  box-shadow: 0 0 0 4px #000;
+  width: 100px;
+}

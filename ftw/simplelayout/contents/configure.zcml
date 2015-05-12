@@ -7,7 +7,7 @@
     i18n_domain="ftw.simplelayout">
 
     <adapter
-        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
+        factory="ftw.simplelayout.properties.MultiViewBlockProperties"
         for="ftw.simplelayout.contents.interfaces.ITextBlock
              *"
         />
@@ -21,5 +21,20 @@
     <adapter
         factory=".listingblock.ListingBlockDefaultColumns"
         />
+
+    <adapter
+        factory=".textblock.TextBlockModifier"
+        for="ftw.simplelayout.contents.interfaces.ITextBlock
+             *"
+        />
+
+    <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
+    <adapter
+        factory=".textblock.TextBlockActions"
+        name="ftw-simplelayout-textblock-actions"
+        for="*
+             *"
+        />
+
 
 </configure>
