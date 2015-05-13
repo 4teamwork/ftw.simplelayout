@@ -2,5 +2,9 @@
 <object name="portal_css" meta_type="Stylesheets Registry" autogroup="False">
     <stylesheet title="" cacheable="True" compression="safe" cookable="True"
         enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.min.css"
-        media="all" rel="stylesheet" rendering="import"/>
+        media="all" rel="stylesheet" rendering="link"/>
+
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.integration.css"
+        media="all" rel="stylesheet" rendering="link"/>
 </object>
