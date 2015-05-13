@@ -1,67 +1,22 @@
 from ftw.simplelayout.behaviors import ITeaser
-from ftw.simplelayout.interfaces import IDisplaySettings
+from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutActions
+from ftw.simplelayout.utils import normalize_portal_type
+from plone.memoize.instance import memoize
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
-from zope.publisher.browser import BrowserView
-import cssutils
-import json
 
 
-def parse_css(styles, attr, default=None):
-    parsed = cssutils.parseStyle(styles)
-    value = getattr(parsed, attr)
-    if not value:
-        return default
-
-    value = value.rstrip('px')
-    return value
+IMG_TAG_TEMPLATE = (
+    '<div class="sl-image {cssClass}">'
+    '<img src="{src}" alt="{alt}" />'
+    '</div>')
 
 
-class TextBlockView(BrowserView):
+class TextBlockView(BaseBlock):
 
-    def get_scaled_image(self):
-        scale = self.context.restrictedTraverse('@@images')
-        displaysettings = queryMultiAdapter((self.context, self.request),
-                                            IDisplaySettings)
-        styles = displaysettings.get_image_styles()
-
-        # ridiculous large height, so it doesn't matters while scaling
-        height = 10000
-
-        if not styles:
-            width = self.calculate_min_image_width()
-            return scale.scale('image', width=width, height=height)
-        else:
-            width = int(parse_css(styles, 'width'))
-            if parse_css(styles, 'height'):
-                height = int(parse_css(styles, 'height'))
-            return scale.scale('image', width=width, height=height)
-
-    def get_style(self):
-        displaysettings = queryMultiAdapter((self.context, self.request),
-                                            IDisplaySettings)
-        return displaysettings.get_image_styles()
-
-    def img_tag(self):
-        """Manually create image tag, because we set width and height width
-        the style attribute to not break the columns in simplelayout.
-        """
-        scale = self.get_scaled_image()
-        return ('<img src="{url}" alt="{title}" title="{title}" '
-                'width="{width}" height="{height}" '
-                'style="{style}" {additional}/>'.format(
-                    **{'url': scale.url,
-                       'title': self.context.Title(),
-                       'width': scale.width,
-                       'height': scale.height,
-                       'style': self.get_style(),
-                       'additional': self.additional()}))
-
-    def additional(self):
-        teaser_url = self.teaser_url()
-        if teaser_url:
-            return 'data-simplelayout-url="{0}"'.format(teaser_url)
-        else:
-            return ''
+    template = ViewPageTemplateFile('templates/textblock.pt')
 
     def teaser_url(self):
         teaser = ITeaser(self.context)
@@ -75,24 +30,56 @@ class TextBlockView(BrowserView):
         else:
             return None
 
-    def get_simplelayout_view(self):
-        contentpage = self.context.aq_parent
-        return contentpage.restrictedTraverse(contentpage.getLayout())
+    def get_image(self):
 
-    def calculate_min_image_width(self):
-        view = self.get_simplelayout_view()
-        settings = json.loads(view.load_default_settings())
+        if self.context.image:
+            return IMG_TAG_TEMPLATE.format(
+                **dict(
+                    src=self._get_image_scale_url(),
+                    cssClass='{0} {1}'.format(self._get_image_scale(),
+                                              self._get_image_float()),
+                    alt=self.context.Title()
+                ))
+        else:
+            return None
 
-        contentwidth = settings['contentwidth']
-        images = settings['images']
-        columns = settings['columns']
-        margin_right = settings['margin_right']
-        return contentwidth / columns / images - margin_right
+    @memoize
+    def _get_image_scale(self):
+        scale = self.blockconfig.get('scale', '')
+        if scale:
+            return scale
+        else:
+            return self._get_default_scale()
 
-    def get_image_wrapper_css_class(self):
-        displaysettings = queryMultiAdapter((self.context, self.request),
-                                            IDisplaySettings)
-        styles = displaysettings.get_image_styles()
+    def _get_image_scale_url(self):
+        scale = self._get_image_scale()
+        scaler = self.context.restrictedTraverse('@@images')
+        return scaler.scale('image', scale=scale).url
 
-        direction = parse_css(styles, 'float', 'none')
-        return 'sl-img-wrapper float-image-{0}'.format(direction)
+    @memoize
+    def _get_default_actions(self):
+        normalized_portal_type = normalize_portal_type(
+            self.context.portal_type)
+
+        actions = queryMultiAdapter(
+            (self.context, self.request),
+            ISimplelayoutActions,
+            name='{0}-actions'.format(normalized_portal_type))
+        return actions.specific_actions().items()[0][1]
+
+    @memoize
+    def _get_default_scale(self):
+        return self._get_default_actions()['data-scale']
+
+    @memoize
+    def _get_image_float(self):
+        image_float = self.blockconfig.get('imagefloat', '')
+
+        if image_float:
+            return image_float
+        else:
+            return self._get_default_image_float()
+
+    @memoize
+    def _get_default_image_float(self):
+        return self._get_default_actions()['data-imagefloat']

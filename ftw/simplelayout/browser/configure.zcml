@@ -14,11 +14,18 @@
     <include package=".controlpanel" />
 
     <browser:page
-        for="OFS.interfaces.IFolder"
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
         name="simplelayout-view"
-        class=".simplelayout.SimplelayoutView"
         permission="zope2.View"
-        template="templates/simplelayout.pt"
+        class=".simplelayout.SimplelayoutView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        name="sl-ajax-save-state-view"
+        permission="cmf.ModifyPortalContent"
+        class=".simplelayout.SimplelayoutView"
+        attribute="save_state"
         />
 
     <browser:page
@@ -28,12 +35,10 @@
         permission="zope2.View"
         />
 
-    <browser:page
-        for="OFS.interfaces.IFolder"
-        name="simplelayout_info"
-        class=".simplelayout_info.SimplelayoutInfo"
-        permission="zope2.View"
-        template="templates/simplelayout_info.pt"
+    <adapter
+        factory=".actions.DefaultActions"
+        for="*
+             *"
         />
 
 </configure>

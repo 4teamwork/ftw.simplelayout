@@ -11,6 +11,10 @@ class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
 
+class ISimplelayoutPage(Interface):
+    """Marker for Simplelayout content pages"""
+
+
 class ISimplelayoutBlock(Interface):
     """Marker for simplelayout blocks"""
 
@@ -18,6 +22,37 @@ class ISimplelayoutBlock(Interface):
 class ISimplelayoutView(Interface):
     """@@simplelayout-view view interface.
     """
+
+
+class ISimplelayoutBlockView(Interface):
+    """Marker interface for simplelayout block views.
+    """
+
+
+class IPageConfiguration(Interface):
+    """Adapter for storing simplelayout page configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
+
+
+class IBlockConfiguration(Interface):
+    """Adapter for storing block configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
 
 
 class IBlockProperties(Interface):
@@ -41,41 +76,6 @@ class IBlockProperties(Interface):
 
     def set_view(name):
         """Sets the current view of the context to ``name``.
-        """
-
-
-class IDisplaySettings(Interface):
-    """Adapter for storing display settings on a blockish object.
-    """
-
-    def __init__(context, request):
-        """Adapts context and request.
-        """
-
-    def set_position(position):
-        """Sets the position of the object.
-
-        Arguments:
-        position -- dict with "top" and "left" keys.
-        """
-
-    def get_position():
-        """Returns the stored position information as dict with "top" and
-        "left".
-        Returns ``None`` when nothing is stored.
-        """
-
-    def set_size(size):
-        """Sets the size of the object.
-
-        Arguments:
-        size -- dict with "width" and "height" keys.
-        """
-
-    def get_size():
-        """Returns the stored size information as dict with "width" and
-        "height".
-        Returns ``None`` when nothing is stored.
         """
 
 
@@ -104,3 +104,27 @@ class ISimplelayoutDefaultSettings(Interface):
                                     'know what you are doing')),
                                   default=u'#content',
                                   required=True)
+
+
+class IBlockModifier(Interface):
+    """Block specific modifier"""
+
+    def __init__(context, request):
+        """Adapts context and request"""
+
+    def modify(data):
+        """Modifications based on data in the request"""
+
+
+class ISimplelayoutActions(Interface):
+    """Serves the simplelayout actions"""
+
+    def __init__(context, request):
+        """Adapts context and request.
+        """
+
+    def default_actions():
+        """Default actions"""
+
+    def specific_actions():
+        """Specific actions"""

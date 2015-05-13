@@ -2,6 +2,7 @@
 # E0211: Method has no argument
 # E0213: Method should have "self" as first argument
 
+from ftw.simplelayout.interfaces import ISimplelayoutPage
 from zope.interface import Interface
 
 
@@ -11,6 +12,7 @@ class ITextBlock(Interface):
 
 class IListingBlock(Interface):
     """Marker interface for TextBlocks"""
+
 
 class IFile(Interface):
     """Marker interface for TextBlocks"""
@@ -23,5 +25,5 @@ class IListingBlockColumns(Interface):
         """Returns an ftw.table compatible list of columns"""
 
 
-class IContentPage(Interface):
+class IContentPage(ISimplelayoutPage):
     """Marker interface for ConetPages"""

@@ -1,6 +1,10 @@
+from collections import OrderedDict
 from collective import dexteritytextindexer
 from ftw.simplelayout import _
+from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contents.interfaces import ITextBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IBlockModifier
 from plone.app.textfield import RichText
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
@@ -12,6 +16,7 @@ from zope.interface import implements
 
 
 class ITextBlockSchema(form.Schema):
+
     """TextBlock for simplelayout
     """
 
@@ -39,3 +44,55 @@ alsoProvides(ITextBlockSchema, IFormFieldProvider)
 
 class TextBlock(Item):
     implements(ITextBlock)
+
+
+class TextBlockModifier(object):
+
+    implements(IBlockModifier)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def modify(self, data):
+        image_scale = data.get('scale', None)
+        image_float = data.get('imagefloat', None)
+        conf = IBlockConfiguration(self.context)
+        blockconf = conf.load()
+
+        if image_scale:
+            blockconf['scale'] = image_scale
+            blockconf['imagefloat'] = image_float
+            conf.store(blockconf)  # necessary?
+        return
+
+
+class TextBlockActions(DefaultActions):
+
+    def specific_actions(self):
+        return OrderedDict([('imageLeft', {'class': 'icon-image-left server-action',
+                                           'title': 'Float image left',
+                                           'href': './sl-ajax-reload-block-view',
+                                           'data-scale': 'mini',
+                                           'data-imagefloat': 'left'}),
+                            ('imageLeftLarge', {'class': 'icon-image-left-large server-action',
+                                                'title': 'Float large image left',
+                                                'href': './sl-ajax-reload-block-view',
+                                                'data-scale': 'preview',
+                                                'data-imagefloat': 'left'}),
+                            ('image', {'class': 'icon-image server-action',
+                                       'title': 'Image without floating',
+                                       'href': './sl-ajax-reload-block-view',
+                                       'data-scale': 'large',
+                                       'data-imagefloat': 'no-float'}),
+                            ('imageRightLarge', {'class': 'icon-image-right-large server-action',
+                                                 'title': 'Float large image right',
+                                                 'href': './sl-ajax-reload-block-view',
+                                                 'data-scale': 'preview',
+                                                 'data-imagefloat': 'right'}),
+                            ('imageRight', {'class': 'icon-image-right server-action',
+                                            'title': 'Float image left',
+                                            'href': './sl-ajax-reload-block-view',
+                                            'data-scale': 'mini',
+                                            'data-imagefloat': 'right'}),
+                            ])

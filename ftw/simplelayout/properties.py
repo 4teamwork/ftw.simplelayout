@@ -1,14 +1,17 @@
-from Persistence import PersistentMapping
-from ftw.simplelayout import _
 from ftw.simplelayout.interfaces import IBlockProperties
+from ftw.simplelayout.interfaces import ISimplelayoutBlockView
+from Persistence import PersistentMapping
 from zope.annotation import IAnnotations
+from zope.component import getAdapters
 from zope.interface import implements
+from zope.publisher.interfaces.browser import IBrowserView
 
 
 BLOCK_PROPERTIES_KEY = 'ftw.simplelayout.block_properites'
 
 
 class SingleViewBlockProperties(object):
+
     """Block properties adapter for blocks which only support one single
     view and do not support selecting other view.
 
@@ -39,11 +42,6 @@ class MultiViewBlockProperties(object):
 
     implements(IBlockProperties)
 
-    available_views = (
-        {'name': 'block_view',
-         'label': _(u'view_label_block_view',
-                    default=u'Default block view')}, )
-
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -52,11 +50,16 @@ class MultiViewBlockProperties(object):
         return self.get_storage().get('view-name', 'block_view')
 
     def get_available_views(self):
-        return self.available_views
+        viewnames = []
+        for viewname, adapter in getAdapters((self.context, self.request),
+                                             IBrowserView):
+            if ISimplelayoutBlockView.providedBy(adapter):
+                viewnames.append(viewname)
+        return viewnames
 
     def set_view(self, name):
         if not self.is_view_available(name):
-            raise ValueError('"unkown-view" is not in available views.')
+            raise ValueError('"{0}" is not in available views.'.format(name))
 
         self.get_storage()['view-name'] = name
 
@@ -68,8 +71,4 @@ class MultiViewBlockProperties(object):
         return annotations[BLOCK_PROPERTIES_KEY]
 
     def is_view_available(self, name):
-        for view in self.get_available_views():
-            if view.get('name', None) == name:
-                return True
-
-        return False
+        return name in self.get_available_views()

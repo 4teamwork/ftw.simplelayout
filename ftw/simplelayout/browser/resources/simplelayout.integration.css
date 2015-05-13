@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'simplelayout';
+  src:url('fonts/simplelayout.eot?-y9cg2y');
+  src:url('fonts/simplelayout.eot?#iefix-y9cg2y') format('embedded-opentype'),
+    url('fonts/simplelayout.woff?-y9cg2y') format('woff'),
+    url('fonts/simplelayout.ttf?-y9cg2y') format('truetype'),
+    url('fonts/simplelayout.svg?-y9cg2y#simplelayout') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'simplelayout';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-layout:before {
+  content: "\f000";
+}
+
+.icon-delete:before {
+  content: "\f001";
+}
+
+.icon-edit:before {
+  content: "\f002";
+}
+
+.icon-move:before {
+  content: "\f003";
+}
+
+.icon-image-left:before {
+  content: "\f004";
+}
+
+.icon-image:before {
+  content: "\f005";
+}
+
+div.overlay {
+  width: 80%;
+}
+
+div.overlay .pb-ajax{
+  padding: 1em;
+}
+
+div.overlay .close {
+  background-image: url("../pb_close.png");
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+#content [class^="sl-toolbar"] {
+  list-style-type: none;
+}
+
+#content a:link, #content a:visited {
+  border:none;
+  color:#818491;
+}
+
+#content a:hover {
+  color:#bbbed0 !important;
+}
+
+#content ul {
+  margin: 0;
+}
+
+#simplelayout {
+  margin:0 auto;
+  max-width: 1050px;
+}
+
+#simplelayout img {
+  max-width: 100%;
+}
+
+#simplelayout .sl-block {
+  margin-bottom: 1em;
+}
+
+#simplelayout .sl-block:last-child {
+  margin-bottom: 0;
+}
+
+#form-widgets-ITeaser-internal_link-contenttree-window {
+  z-index: 70000;
+}
+
+@media (min-width: 540px) {
+  #simplelayout {
+    padding:0 2%;
+  }
+  #simplelayout .sl-column {
+    margin-right: 2.85714286%;
+  }
+  #simplelayout .sl-column:last-of-type {
+    margin-right: 0;
+  }
+  #simplelayout .sl-column.sl-col-2 {
+    width: 48.57142857%
+  }
+}
+
+@media screen and (max-width: 720px) {
+    .sl-column.sl-col-2 {
+      width: 100%;
+    }
+}

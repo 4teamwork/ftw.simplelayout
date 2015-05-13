@@ -4,23 +4,9 @@
     i18n_domain="ftw.simplelayout">
 
     <browser:page
-        for="OFS.interfaces.IFolder"
-        name="sl-ajax-save-state"
-        class=".state.SaveStateView"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <browser:page
-        for="*"
-        name="sl-ajax-change-block-view"
-        class=".changeblockview.ChangeBlockView"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <browser:page
         for="*"
         name="sl-ajax-reload-block-view"
-        class=".changeblockview.ReloadBlockView"
+        class=".reloadblockview.ReloadBlockView"
         permission="cmf.ModifyPortalContent"
         />
 
@@ -33,15 +19,35 @@
 
     <browser:page
         for="*"
-        name="addable-blocks-view"
+        name="sl-ajax-addable-blocks-view"
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"
         />
 
     <browser:page
         for="*"
-        name="sl-ajax-block-controls"
-        class=".controls.BlockControls"
+        name="sl-ajax-delete-blocks-view"
+        class=".delete_blocks.DeleteBlocks"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <adapter
+        name="add_block"
+        factory=".add.AddViewTraverser"
+        />
+
+    <browser:page
+        for="*"
+        name="sl-ajax-edit-block-view"
+        class=".edit_block.BlockEditRedirector"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
+        name="edit"
+        class=".edit_block.EditForm"
         permission="cmf.ModifyPortalContent"
         />
 

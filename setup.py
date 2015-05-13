@@ -15,6 +15,7 @@ tests_require = [
     'transaction',
     'unittest2',
     'zope.configuration',
+    'plone.app.lockingbehavior',
     ]
 
 extras_require = {
