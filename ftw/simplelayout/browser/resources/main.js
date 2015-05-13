@@ -13,6 +13,8 @@
       simplelayout: null,
       init: function(callback) {
         var self = this;
+        var settings = $(this.settings.source).data("slSettings") || {};
+        this.settings = $.extend(this.settings, settings);
         this.loadComponents(function(components) {
           self.simplelayout = new global.Simplelayout({source: self.settings.source});
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
