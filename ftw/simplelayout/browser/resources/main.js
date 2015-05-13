@@ -7,8 +7,6 @@
       settings: {
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
         saveStateEndpoint: "./sl-ajax-save-state-view",
-        deleteBlockEndpoint: "./sl-ajax-delete-blocks-view",
-        editBlockEndpoint: "./sl-ajax-edit-block-view",
         source: "#simplelayout",
         layouts: [1, 2, 4]
       },
@@ -115,14 +113,14 @@
         event.preventDefault();
         var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
         var config = {"block": currentBlockUUID};
-        deleteOverlay.load(instance.settings.deleteBlockEndpoint, {"data": JSON.stringify(config)});
+        deleteOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".sl-block .edit", function(event) {
         event.preventDefault();
         var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
         var config = {"block": currentBlockUUID};
-        editOverlay.load(instance.settings.editBlockEndpoint, {"data": JSON.stringify(config)});
+        editOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".sl-layout .delete", function() {
