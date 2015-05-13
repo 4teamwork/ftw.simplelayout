@@ -1,9 +1,12 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
+from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zope.component import getUtility
 import transaction
 
 
@@ -41,12 +44,35 @@ class TestSimplelayoutView(TestCase):
         self.assertEquals('TextBlock title',
                           browser.css('.sl-block h2').first.text)
 
+    @browsing
+    def test_simplelayout_default_config_from_control_panel(self, browser):
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+
+        data_attr_value = browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings']
+        self.assertEquals('{}',
+                          data_attr_value,
+                          'Expect an empty dict')
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISimplelayoutDefaultSettings)
+        settings.slconfig = u'{"layouts": [1, 2]}'
+        transaction.commit()
+
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        data_attr_value = browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings']
+
+        self.assertEquals(u'{"layouts": [1, 2]}',
+                          data_attr_value,
+                          'Expect the layout setting in default config.')
+
     # @browsing
     # def test_show_fallback_view_on_block_render_problems(self, browser):
     #     textblock = create(Builder('sl textblock')
     #                        .titled('TextBlock title')
     #                        .within(self.contentpage)
-    #                        .having(image='Fake image') # Error while render
+    # .having(image='Fake image') # Error while render
     #                        .having(show_title=False))
 
     #     textblock.reindexObject()

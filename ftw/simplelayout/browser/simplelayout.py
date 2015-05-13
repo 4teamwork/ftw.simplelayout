@@ -1,11 +1,14 @@
 from Acquisition import aq_inner
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.interfaces import ISimplelayoutView
 from ftw.simplelayout.utils import normalize_portal_type
+from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZODB.POSException import ConflictError
+from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
@@ -106,3 +109,8 @@ class SimplelayoutView(BrowserView):
 
         self.request.response.setHeader("Content-type", "application/json")
         return ''
+
+    def get_sl_settings(self):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISimplelayoutDefaultSettings)
+        return settings.slconfig
