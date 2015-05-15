@@ -24,9 +24,13 @@ class SimplelayoutView(BrowserView):
 
     template = ViewPageTemplateFile('templates/simplelayout.pt')
     fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
+    structure = ViewPageTemplateFile('templates/structure.pt')
 
     def __call__(self):
         return self.template()
+
+    def render_rows(self):
+        return self.structure()
 
     def rows(self):
         """ Return datastructure for rendering blocks.
