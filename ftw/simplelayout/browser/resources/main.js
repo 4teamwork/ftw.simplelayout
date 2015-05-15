@@ -111,6 +111,16 @@
         instance.saveState();
       });
 
+      simplelayout.on("layoutsCommitted", function() {
+        simplelayout.getToolbox().enableComponents();
+      });
+
+      simplelayout.on("layoutDeleted", function() {
+        if(!simplelayout.getLayoutmanager().hasLayouts()) {
+          simplelayout.getToolbox().disableComponents();
+        }
+      });
+
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
