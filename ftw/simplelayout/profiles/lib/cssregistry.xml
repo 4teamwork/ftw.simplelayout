@@ -5,6 +5,10 @@
         media="all" rel="stylesheet" rendering="link"/>
 
     <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/icons.css"
+        media="all" rel="stylesheet" rendering="link"/>
+
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
         enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.integration.css"
         media="all" rel="stylesheet" rendering="link"/>
 </object>
