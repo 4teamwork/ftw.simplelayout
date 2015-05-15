@@ -28,13 +28,6 @@
         attribute="save_state"
         />
 
-    <browser:page
-        for="*"
-        name="redirect_to_parent"
-        class=".redirect_to_parent.RedirectToParent"
-        permission="zope2.View"
-        />
-
     <adapter
         factory=".actions.DefaultActions"
         for="*
