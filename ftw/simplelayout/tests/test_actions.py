@@ -34,11 +34,12 @@ class TestBlockReloadView(SimplelayoutTestCase):
         self.assertIn('edit', default_actions)
         self.assertIn('delete', default_actions)
 
-    def test_specific_actions_are_NONE_by_default(self):
+    def test_specific_actions_is_a_empty_ordered_dict_by_default(self):
         actions = getMultiAdapter((self.contentpage, self.contentpage.REQUEST),
                                   ISimplelayoutActions)
 
-        self.assertIsNone(actions.specific_actions())
+        self.assertTrue(isinstance(actions.specific_actions(), OrderedDict))
+        self.assertFalse(len(actions.specific_actions()))
 
     def test_specific_actions_for_dummy_block(self):
         self.setup_sample_block_fti(self.portal)
