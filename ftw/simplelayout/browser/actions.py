@@ -10,10 +10,8 @@ class DefaultActions(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
-        self.actions = self.default_actions()
-        if self.specific_actions():
-            self.actions.update(self.specific_actions())
+        self.actions = OrderedDict(self.specific_actions().items() +
+                                   self.default_actions().items())
 
     def default_actions(self):
         """Contains default action - move, edit, delete"""
@@ -30,4 +28,4 @@ class DefaultActions(object):
                                         })])
 
     def specific_actions(self):
-        return None
+        return OrderedDict()

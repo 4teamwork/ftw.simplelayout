@@ -44,3 +44,11 @@ div.overlay .close {
 #form-widgets-ITeaser-internal_link-contenttree-window {
   z-index: 70000;
 }
+
+.sl-image.left {
+    float: left;
+}
+
+.sl-image.right {
+    float: right;
+}

@@ -79,7 +79,7 @@ class TestAddableBlocksView(TestCase):
                                           u'data-scale': u'mini',
                                           u'data-imagefloat': u'right',
                                           u'href': u'./sl-ajax-reload-block-view',
-                                          u'title': u'Float image left'},
+                                          u'title': u'Float image right'},
                           u'imageRightLarge': {u'class': u'icon-image-right-large server-action',
                                                u'data-scale': u'preview',
                                                u'data-imagefloat': u'right',

@@ -91,7 +91,7 @@ class TextBlockActions(DefaultActions):
                                                  'data-scale': 'preview',
                                                  'data-imagefloat': 'right'}),
                             ('imageRight', {'class': 'icon-image-right server-action',
-                                            'title': 'Float image left',
+                                            'title': 'Float image right',
                                             'href': './sl-ajax-reload-block-view',
                                             'data-scale': 'mini',
                                             'data-imagefloat': 'right'}),
