@@ -7,6 +7,7 @@ from ftw.simplelayout.utils import normalize_portal_type
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zExceptions import BadRequest
 from ZODB.POSException import ConflictError
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
@@ -110,6 +111,8 @@ class SimplelayoutView(BrowserView):
             json_conf = json.loads(data)
             page_conf = IPageConfiguration(self.context)
             page_conf.store(json_conf)
+        else:
+            raise BadRequest('No data given.')
 
         self.request.response.setHeader("Content-type", "application/json")
         return ''
