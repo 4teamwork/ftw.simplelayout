@@ -40,6 +40,18 @@ class SimplelayoutView(BrowserView):
         blocks = self._blocks()
 
         rows = page_conf.load()
+
+        # We need at least one column
+        if not rows:
+            rows = [{
+                'cols': [{
+                    'blocks': [],
+                    'class': 'sl-column sl-col-{0}'.format(
+                        self._get_first_column_config()),
+                }],
+                'class': 'sl-layout',
+            }]
+
         for row in rows:
             row['class'] = 'sl-layout'
             for col in row['cols']:
@@ -53,17 +65,7 @@ class SimplelayoutView(BrowserView):
 
         # If we still have some blocks left make'em visible by adding them into
         # the last column.
-        if blocks:
-            # We need at least a column
-            if not rows:
-                rows = [{
-                    'cols': [{
-                        'blocks': [],
-                        'class': 'sl-column sl-col-1',
-                    }],
-                    'class': 'sl-layout',
-                }]
-
+        if blocks or not rows:
             for uid, obj in blocks.items():
                 rows[-1]['cols'][-1]['blocks'].append(
                     {
@@ -74,6 +76,14 @@ class SimplelayoutView(BrowserView):
                 )
 
         return rows
+
+    def _get_first_column_config(self):
+        settings = json.loads(self.get_sl_settings())
+        if settings and settings.get('layout'):
+            return self.get_sl_settings()['layout'][0]
+        else:
+            # One column by default.
+            return 1
 
     def _render_block_html(self, block):
         properties = queryMultiAdapter((block, self.request),
