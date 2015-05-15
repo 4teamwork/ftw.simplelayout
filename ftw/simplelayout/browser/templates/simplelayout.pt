@@ -7,7 +7,7 @@
 
     <div metal:fill-slot="content-core">
 
-      <div id="simplelayout" class="sl-simplelayout">
+      <div id="simplelayout" class="sl-simplelayout" tal:attributes="data-sl-settings view/get_sl_settings">
         <div class="sl-layout"
              tal:repeat="row view/rows"
              tal:attributes="class row/class">
