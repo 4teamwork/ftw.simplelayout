@@ -159,3 +159,12 @@ class TestSimplelayoutView(TestCase):
         self.assertEquals(
             'The block could be rendered. Please check the log for details.',
             browser.css('.sl-block').first.text)
+
+    @browsing
+    def test_empty_sl_page_renders_at_least_one_layout(self, browser):
+        browser.login().visit(self.contentpage)
+
+        # By default it's a one column layout.
+        self.assertEquals(1,
+                          len(browser.css('.sl-column.sl-col-1')),
+                          'There should be at least a empty one column layout')
