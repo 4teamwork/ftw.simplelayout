@@ -13,7 +13,13 @@
       simplelayout: null,
       init: function(callback) {
         var self = this;
-        var settings = $(this.settings.source).data("slSettings") || {};
+        var source = $(this.settings.source);
+
+        if (source.length === 0){
+          return;
+        }
+
+        var settings = source.data("slSettings") || {};
         this.settings = $.extend(this.settings, settings);
         this.loadComponents(function(components) {
           self.simplelayout = new global.Simplelayout({source: self.settings.source});
