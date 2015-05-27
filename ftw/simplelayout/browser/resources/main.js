@@ -7,7 +7,7 @@
       settings: {
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
         saveStateEndpoint: "./sl-ajax-save-state-view",
-        source: "#simplelayout",
+        source: ".sl-simplelayout",
         layouts: [1, 2, 4]
       },
       simplelayout: null,

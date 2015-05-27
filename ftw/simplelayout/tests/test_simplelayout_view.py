@@ -29,11 +29,12 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     def test_page_configuration_is_recusrive_persistent(self):
 
         self.page_config.store(
-            {"layouts": [1, 1],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": 'dummyuuid1'}]})
+            [{"containerid": "default",
+              "layouts": [1, 1],
+              "blocks": [{"layoutPos": 0,
+                          "columnPos": 0,
+                          "blockPos": 0,
+                          "uid": 'dummyuuid1'}]}])
 
         self.assert_recursive_persistence(self.page_config.load())
 
@@ -61,15 +62,16 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_store_save_simplelayout_state_thru_view(self, browser):
-        sldata = {"layouts": [1, 1],
-                  "blocks": [{"layoutPos": 0,
-                              "columnPos": 0,
-                              "blockPos": 0,
-                              "uid": "uid"},
-                             {"layoutPos": 1,
-                              "columnPos": 0,
-                              "blockPos": 0,
-                              "uid": "uid"}]}
+        sldata = [{"containerid": "default",
+                   "layouts": [1, 1],
+                   "blocks": [{"layoutPos": 0,
+                               "columnPos": 0,
+                               "blockPos": 0,
+                               "uid": "uid"},
+                              {"layoutPos": 1,
+                               "columnPos": 0,
+                               "blockPos": 0,
+                               "uid": "uid"}]}]
         payload = {"data": json.dumps(sldata)}
         browser.login().visit(self.contentpage,
                               view='sl-ajax-save-state-view',
@@ -87,15 +89,16 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .within(self.contentpage))
 
         self.page_config.store(
-            {"layouts": [1, 1],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block1)},
-                        {"layoutPos": 1,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block2)}]})
+            [{"containerid": "default",
+              "layouts": [1, 1],
+              "blocks": [{"layoutPos": 0,
+                          "columnPos": 0,
+                          "blockPos": 0,
+                          "uid": IUUID(block1)},
+                         {"layoutPos": 1,
+                          "columnPos": 0,
+                          "blockPos": 0,
+                          "uid": IUUID(block2)}]}])
         transaction.commit()
 
         browser.login().visit(self.contentpage)
@@ -117,15 +120,16 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .within(self.contentpage))
 
         self.page_config.store(
-            {"layouts": [2],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block1)},
-                        {"layoutPos": 0,
-                         "columnPos": 1,
-                         "blockPos": 0,
-                         "uid": IUUID(block2)}]})
+            [{"containerid": "default",
+              "layouts": [2],
+              "blocks": [{"layoutPos": 0,
+                          "columnPos": 0,
+                          "blockPos": 0,
+                          "uid": IUUID(block1)},
+                         {"layoutPos": 0,
+                          "columnPos": 1,
+                          "blockPos": 0,
+                          "uid": IUUID(block2)}]}])
         transaction.commit()
 
         browser.login().visit(self.contentpage)

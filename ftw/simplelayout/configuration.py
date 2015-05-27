@@ -16,19 +16,24 @@ def convert_to_rows(conf):
        mapping.
     """
     # TODO: validate data
-    rows = PersistentList()
-    for layout in conf['layouts']:
-        row = PersistentMapping({'cols': PersistentList()})
-        for i in range(layout):
-            col = PersistentMapping({'blocks': PersistentList()})
-            row['cols'].append(col)
-        rows.append(row)
 
-    for block in conf['blocks']:
-        rows[block['layoutPos']]['cols'][block['columnPos']][
-            'blocks'].append(PersistentMapping({'uid': block['uid']}))
+    containers = PersistentMapping()
+    for container in conf:
+        rows = PersistentList()
+        for layout in container['layouts']:
+            row = PersistentMapping({'cols': PersistentList()})
+            for i in range(layout):
+                col = PersistentMapping({'blocks': PersistentList()})
+                row['cols'].append(col)
+            rows.append(row)
 
-    return rows
+        for block in container['blocks']:
+            rows[block['layoutPos']]['cols'][block['columnPos']][
+                'blocks'].append(PersistentMapping({'uid': block['uid']}))
+
+        containers[container['containerid']] = rows
+
+    return containers
 
 
 class PageConfiguration(object):
@@ -46,7 +51,7 @@ class PageConfiguration(object):
     def load(self):
         annotations = IAnnotations(self.context)
         return deepcopy(annotations.setdefault(SL_ANNOTATION_KEY,
-                                               PersistentList()))
+                                               PersistentMapping()))
 
 
 class BlockConfiguration(object):

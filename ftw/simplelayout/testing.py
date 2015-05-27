@@ -16,6 +16,7 @@ from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.dexterity.fti import DexterityFTI
+from plone.testing import z2
 from plone.testing import zca
 from unittest2 import TestCase
 from zope import schema
@@ -58,6 +59,7 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
         import ftw.simplelayout
         xmlconfig.file('configure.zcml', ftw.simplelayout,
                        context=configurationContext)
+        z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.simplelayout:default')
