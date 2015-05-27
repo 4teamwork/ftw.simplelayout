@@ -42,17 +42,20 @@ Installation
 Then you got several profile from wich you can choose from:
 
 - ``ftw.simplelayout`` default profile - Installs everything you need include default
-  DX based content types to start with
-
-- ``ftw.simplelayout`` example profile - Like the default profile, but install more
-  simplelayout views for testing. Do not install this profile on a production side.
+  DX based content to start with.
 
 - ``ftw.simplelayout`` js lib profile - Only installs the JS library and the control panel.
-  No example content, no further views.
+  No example content, no further views. This profile is for Developers, who want to write their
+  own simplelayout content types and views.
 
+This package uses the `Simplelayout Javascript Lib <https://github.com/4teamwork/simplelayout>`_, which provides the basic functionality.
+Further this package provides a Plone integration of the Simplelayout Lib:
 
-- ``ftw.simplelayout`` development profile - Installs the default profile, but registers
-  the not uglified js version of jquery.simplelayout.
+- Overlays for manipulate blocks, such as adding, deleting and modifying.
+- Saving the current Simplelayout state.
+- Loading the configuration of a simplelayout page.
+- Reloading blocks with additional parameters, view, or data attributes.
+
 
 
 Usage
@@ -61,21 +64,20 @@ Usage
 First steps
 -----------
 
-First thing you should do is to configure the default simplelayout behavior.
-To achieve this, go to the Simplelayout control panel
-(`@@simplelayout-controlpanel`) and configure for example the amount of columns
-and images you want to display by default.
+It's a good idea to install the default profile, which ships some basic contenttypes, such as ContentPage and TextBlock.
 
-.. figure:: ./docs/_static/control_panel.png
-   :align: center
-   :alt: Simplelayout control panel
+Simply add a new ContentPage instead of a Plone Document. A Toolbox appears on right bottom, which allows you to create content on/in your ContentPage with Simplelayout.
 
-   Simplelayout control panel
+By default you can choose between a 1 column, 2 Column or 4 Column layout.
+Simplelayout adds an empty 1 column layout for you by default, so you can directly start adding a Block.
 
-**Changing those settings after creating some content may break the simplelayout
-view and put it in a inconsistent state.** It's not yet clear how smplelayout
-should behave on changing those settings, please check or join the discussion
-on `github <https://github.com/4teamwork/ftw.simplelayout/issues/33>`_.
+Just drag the Block of your choice, for example a TextBlock, into the layout. Enter title, body text and/or an image. Then click save.
+
+As you see, you never going to leave the ContentPage, all actions with Simplelayout are asynchronous.
+This means adding, deleting and editing always opens an overlay, where you can make the modifications.
+
+
+
 
 
 Contenttypes
@@ -120,65 +122,21 @@ Behaviors
   internal or external link to the block.
 
 
-Add new TextBlock
------------------
-
-Create a simpelayout ContentPage first...
-
-You have two possibilities how to add a new TextBlock:
-
-First:
-
-Click on the ``Add Block`` link.
-A Placeholder block is added to your simplelayout page.
-By default the block is added on top as first block.
-You can move this placeholder around until it's on the right place.
-After that, chose a block type to add (Currently only one block is available).
-
-.. figure:: ./docs/_static/add_block.png
-   :align: center
-   :alt: Add block
-
-   Add block
-
-
-Second - the cool way:
-
-Drag one or more images (NOT other files) over the simplelayout page.
-While dragging you can see where the images will be uploaded after dropping.
-By default the with of the block is 1 column.
-After the image upload you can move the images around, add text, or a title.
-
-.. figure:: ./docs/_static/multi_upload.png
-   :align: center
-   :alt: DnD upload of images
-
-   Dnd upload of images
-
-
 Simplelayout your site
 ----------------------
 
 **Yes it's simple:**
 
-- Resize blocks on the left, bottom, or left-bottom corner.
-- Drag and drop blocks.
-- Resize images in blocks.
-
-**What's special:**
-
-- Resizing a block will also resize the image in the block.
-- The blocks are not simply floated, they are bricks in a wall (masoned).
-- You can resize the block only within the configured boundaries.
-- It's somehow responsive :-)
-- By enabled the "auto block height" feature in the "Simplelayout page controls"
-  area, every modified block, will automatically consume as much space as needed
-  to display all data.
-- SearchableText of blocks is indexed in the searchableText of the ISimplelayout container (ex. ContentPage)
+- Add layouts by Drag'n'Drop
+- Add Blocks by Drag'n'Drop
+- Upload images directly by Drag'n'Drop [Comming soon]
+- Change representation of blocks directly on the Block itself
+- Responsive by default
+- Create multiple column pages with ease.
 
 
-Develop
--------
+Development
+===========
 
 **Python:**
 
@@ -188,21 +146,63 @@ Develop
 4. Shell: ``python boostrap.py``
 5. Shell: ``bin/buildout``
 
-After that you can run tests by excute the following command on a shell: ``bin/test``.
+Run ``bin/test`` to test your changes.
 
 Or start an instance by running ``bin/instance fg``.
 
 
-**JQuery Simplelayout plugin:**
+Create new Block
+----------------
 
-1. Fork this repo
-2. Clone your fork
-3. Install node.js on your system
-4. Shell: ``cd ftw/simplelayout/resources/js``
-5. Shell: ``make bootstrap``
-6. Shell: ``make test``
+Make your content blockish, needs only two steps.
 
-``make watch`` will automatically run the tests if you make any changes.
+
+1. The only difference between a block and other DX content types is the ``SimplelayoutBlockBehavior``. You can simply add the Block behavior to your content by adding the following line to FTI:
+
+.. code-block:: xml
+
+    <property name="behaviors">
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
+    </property>
+
+2. In order you block knows how to represent himself on a simplelayout page you need to register a ``block_view`` for your Block.
+
+Register view with zcml:
+
+.. code-block:: xml
+
+    <browser:page
+        for="my.package.content.IMyBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".myblock.MyBlockView"
+        template="templates/myblockview.pt"
+        />
+
+Corresponding template:
+
+.. code-block:: html
+
+      <h2 tal:content="context/Title">Title of block</h2>
+
+      <!-- Assume you got a text field on your content -->
+      <div tal:replace="structure here/text/output | nothing" />
+
+
+Well basically that's it :-) You just created a new block!!
+
+
+Create custom actions for Blocks
+--------------------------------
+
+
+Global Simplelayout configuration
+---------------------------------
+
+
+Create new Block representations
+--------------------------------
+
 
 
 Links
