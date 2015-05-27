@@ -4,18 +4,18 @@ from ftw.simplelayout.configuration import convert_to_rows
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
-from unittest2 import TestCase
 from zExceptions import BadRequest
 from zope.component import getUtility
 import json
 import transaction
 
 
-class TestSimplelayoutView(TestCase):
+class TestSimplelayoutView(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
@@ -25,6 +25,17 @@ class TestSimplelayoutView(TestCase):
         self.contentpage = create(Builder('sl content page'))
         self.page_config = IPageConfiguration(self.contentpage)
         self.url = self.contentpage.absolute_url() + '/@@simplelayout-view'
+
+    def test_page_configuration_is_recusrive_persistent(self):
+
+        self.page_config.store(
+            {"layouts": [1, 1],
+             "blocks": [{"layoutPos": 0,
+                         "columnPos": 0,
+                         "blockPos": 0,
+                         "uid": 'dummyuuid1'}]})
+
+        self.assert_recursive_persistence(self.page_config.load())
 
     @browsing
     def test_render_blocks_not_in_page_configuration(self, browser):
