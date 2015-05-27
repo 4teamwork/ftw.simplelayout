@@ -8,13 +8,7 @@
 
     <adapter
         factory="ftw.simplelayout.properties.MultiViewBlockProperties"
-        for="ftw.simplelayout.contents.interfaces.ITextBlock
-             *"
-        />
-
-    <adapter
-        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
-        for="ftw.simplelayout.contents.interfaces.IListingBlock
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              *"
         />
 
