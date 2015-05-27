@@ -11,6 +11,7 @@
     <include package=".browser" />
     <include package=".contents" />
     <include file="behaviors.zcml" />
+    <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
 
     <genericsetup:registerProfile
         name="default"
