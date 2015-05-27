@@ -7,6 +7,8 @@ from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.tests import builders
 from ftw.testing.layer import ComponentRegistryLayer
+from persistent.list import PersistentList
+from persistent.mapping import PersistentMapping
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -79,6 +81,23 @@ registry.builder_registry.register('sample block', SampleBuilder)
 
 class SimplelayoutTestCase(TestCase):
 
+    def assert_recursive_persistence(self, structure):
+
+        def is_persistent(item):
+            if not isinstance(item, basestring) and not isinstance(item, int):
+                assert isinstance(item, PersistentMapping) or \
+                    isinstance(item, PersistentList), \
+                    '{0} needs to be persistent'.format(str(item))
+
+                if hasattr(item, 'values'):
+                    item = item.values()
+                for subitem in item:
+                    is_persistent(subitem)
+            else:
+                return
+
+        is_persistent(structure)
+
     def setup_sample_block_fti(self,
                                portal,
                                property_factory=MultiViewBlockProperties):
@@ -121,7 +140,6 @@ class SimplelayoutTestCase(TestCase):
                        adapts=(ISampleDX, Interface),
                        provides=IBrowserView,
                        name='block_view_different')
-
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()

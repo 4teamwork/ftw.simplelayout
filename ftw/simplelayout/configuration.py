@@ -1,7 +1,8 @@
 from copy import deepcopy
-from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import IBlockConfiguration
-from Persistence import PersistentMapping
+from ftw.simplelayout.interfaces import IPageConfiguration
+from persistent.list import PersistentList
+from persistent.mapping import PersistentMapping
 from zope.annotation import IAnnotations
 from zope.interface import implements
 
@@ -15,17 +16,17 @@ def convert_to_rows(conf):
        mapping.
     """
     # TODO: validate data
-    rows = []
+    rows = PersistentList()
     for layout in conf['layouts']:
-        row = {'cols': []}
+        row = PersistentMapping({'cols': PersistentList()})
         for i in range(layout):
-            col = {'blocks': []}
+            col = PersistentMapping({'blocks': PersistentList()})
             row['cols'].append(col)
         rows.append(row)
 
     for block in conf['blocks']:
         rows[block['layoutPos']]['cols'][block['columnPos']][
-            'blocks'].append({'uid': block['uid']})
+            'blocks'].append(PersistentMapping({'uid': block['uid']}))
 
     return rows
 
@@ -44,7 +45,8 @@ class PageConfiguration(object):
 
     def load(self):
         annotations = IAnnotations(self.context)
-        return deepcopy(annotations.setdefault(SL_ANNOTATION_KEY, []))
+        return deepcopy(annotations.setdefault(SL_ANNOTATION_KEY,
+                                               PersistentList()))
 
 
 class BlockConfiguration(object):
