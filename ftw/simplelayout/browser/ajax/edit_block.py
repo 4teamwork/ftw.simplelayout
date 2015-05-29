@@ -1,5 +1,6 @@
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.edit import DefaultEditForm
+from plone.dexterity.events import EditCancelledEvent
 from plone.dexterity.events import EditFinishedEvent
 from plone.dexterity.i18n import MessageFactory as _
 from plone.dexterity.interfaces import IDexterityEditForm
@@ -27,10 +28,8 @@ class BlockEditRedirector(BrowserView):
             block.absolute_url()))
 
 
-# XXX- Rename to EditForm
 class EditForm(DefaultEditForm):
     template = ViewPageTemplateFile('templates/edit_block_form.pt')
-    # form = EditForm
 
     _finished_edit = False
 
@@ -47,6 +46,13 @@ class EditForm(DefaultEditForm):
         notify(EditFinishedEvent(self.context))
 
         self._finished_edit = True
+
+    @button.buttonAndHandler(_(u'Cancel'), name='cancel')
+    def handleCancel(self, action):
+        IStatusMessage(self.request).addStatusMessage(
+            _(u"Edit cancelled"), "info"
+        )
+        notify(EditCancelledEvent(self.context))
 
     def render(self):
 
