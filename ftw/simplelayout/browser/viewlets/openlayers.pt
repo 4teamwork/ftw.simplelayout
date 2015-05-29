@@ -1,0 +1,7 @@
+<html
+    xml:lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:metal="http://xml.zope.org/namespaces/metal"
+    tal:omit-tag="">
+  <metal:use use-macro="context/@@collectivegeo-macros/openlayers"/>
+</html>
