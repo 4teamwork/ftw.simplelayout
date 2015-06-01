@@ -1,0 +1,3 @@
+<div class="sl-youtube-video"
+     tal:attributes="id view/get_uuid;
+                     data-youtube view/youtube_config"></div>

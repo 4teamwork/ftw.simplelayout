@@ -25,7 +25,8 @@ class TestAddableBlocksView(TestCase):
         self.assertEquals(
             ['ftw-simplelayout-listingblock',
              'ftw-simplelayout-mapblock',
-             'ftw-simplelayout-textblock'],
+             'ftw-simplelayout-textblock',
+             'ftw-simplelayout-videoblock'],
             result)
 
     def test_addable_blocks_json(self):

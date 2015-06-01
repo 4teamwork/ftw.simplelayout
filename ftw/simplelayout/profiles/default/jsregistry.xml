@@ -5,4 +5,7 @@
   <javascript id="++resource++ftw.simplelayout.resources/mapblock.js"
               enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" />
 
+  <javascript id="++resource++ftw.simplelayout.resources/videoblock.js"
+              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" />
+
 </object>

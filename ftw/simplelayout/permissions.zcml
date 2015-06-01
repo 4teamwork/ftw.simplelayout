@@ -27,4 +27,9 @@
         title="ftw.simplelayout: Add MapBlock"
         />
 
+    <permission
+        id="ftw.simplelayout.AddVideoBlock"
+        title="ftw.simplelayout: Add VideoBlock"
+        />
+
 </configure>

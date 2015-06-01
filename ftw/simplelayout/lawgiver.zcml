@@ -15,7 +15,8 @@
         permissions="ftw.simplelayout: Add File,
                      ftw.simplelayout: Add ListingBlock,
                      ftw.simplelayout: Add TextBlock,
-                     ftw.simplelayout: Add MapBlock"
+                     ftw.simplelayout: Add MapBlock,
+                     ftw.simplelayout: Add VideoBlock"
         />
 
 </configure>
