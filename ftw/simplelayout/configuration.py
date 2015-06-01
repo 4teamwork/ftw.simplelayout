@@ -11,29 +11,29 @@ SL_ANNOTATION_KEY = 'ftw.simplelayout.pageconfiguration'
 BLOCK_ANNOTATION_KEY = 'ftw.simplelayout.blockconfiguration'
 
 
-def convert_to_rows(conf):
+def make_resursive_persistent(conf):
     """Convert the given layout configuration to a rows/columns/blocks
        mapping.
     """
     # TODO: validate data
 
-    containers = PersistentMapping()
-    for container in conf:
-        rows = PersistentList()
-        for layout in container['layouts']:
-            row = PersistentMapping({'cols': PersistentList()})
-            for i in range(layout):
-                col = PersistentMapping({'blocks': PersistentList()})
-                row['cols'].append(col)
-            rows.append(row)
+    def persist(data):
+        if isinstance(data, dict):
+            data = PersistentMapping(data)
 
-        for block in container['blocks']:
-            rows[block['layoutPos']]['cols'][block['columnPos']][
-                'blocks'].append(PersistentMapping({'uid': block['uid']}))
+            for key, value in data.items():
+                data[key] = persist(value)
 
-        containers[container['containerid']] = rows
+        elif isinstance(data, list):
+            return PersistentList(map(persist, data))
 
-    return containers
+        else:
+            # Usually we got basestrings, or integer here, so do nothing.
+            pass
+
+        return data
+
+    return persist(conf)
 
 
 class PageConfiguration(object):
@@ -46,7 +46,7 @@ class PageConfiguration(object):
 
     def store(self, conf):
         annotations = IAnnotations(self.context)
-        annotations[SL_ANNOTATION_KEY] = convert_to_rows(conf)
+        annotations[SL_ANNOTATION_KEY] = make_resursive_persistent(conf)
 
     def load(self):
         annotations = IAnnotations(self.context)
