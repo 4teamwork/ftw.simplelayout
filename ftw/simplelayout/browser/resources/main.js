@@ -33,13 +33,14 @@
       saveState: function() {
         var state = {};
         $(".sl-simplelayout").each(function(manIdx, manager) {
-          state[manager.id] = {};
+          state[manager.id] = [];
           $(".sl-layout", manager).each(function(layIdx, layout) {
-            state[manager.id].cols = [];
+            state[manager.id][layIdx] = {};
+            state[manager.id][layIdx].cols = [];
             $(".sl-column", layout).each(function(colIdx, column) {
-              state[manager.id].cols[colIdx] = { blocks: [] };
+              state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
               $(".sl-block", column).each(function(bloIdx, block) {
-                state[manager.id].cols[colIdx].blocks[bloIdx] = { uid: $(block).data("uid")};
+                state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data("uid") };
               });
             });
           });
@@ -53,7 +54,7 @@
         var layoutId = activeBlockData.layoutId;
         var columnId = activeBlockData.columnId;
         var blockId = activeBlockData.blockId;
-        this.simplelayout.managers[managerId].deleteBlock(layoutId, columnId, blockId);
+        this.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
       },
       matchHeight: function() {
         $.fn.matchHeight._update();
@@ -83,7 +84,7 @@
         var layoutId = currentBlockData.layoutId;
         var columnId = currentBlockData.columnId;
         var blockId = currentBlockData.blockId;
-        simplelayout.managers[managerId].deleteBlock(layoutId, columnId, blockId);
+        simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
         instance.saveState();
         instance.matchHeight();
         this.close();
@@ -148,7 +149,7 @@
         var activeLayout = simplelayout.getActiveLayout();
         if(!activeLayout.hasBlocks()) {
           var managerId = activeLayout.element.data().container;
-          simplelayout.managers[managerId].deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
+          simplelayout.getManagers()[managerId].deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
           instance.saveState();
         }
       });
