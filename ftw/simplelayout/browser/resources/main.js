@@ -44,7 +44,7 @@
             });
           });
         });
-        $.post(this.settings.saveStateEndpoint, JSON.stringify({ data: state }));
+        $.post(this.settings.saveStateEndpoint, { data: JSON.stringify(state) });
       },
       cleanup: function() {
         var blocks = this.simplelayout.getBlocks();
