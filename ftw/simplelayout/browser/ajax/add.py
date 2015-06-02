@@ -1,3 +1,4 @@
+from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutPage
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
@@ -8,7 +9,6 @@ from zope.interface import implements
 from zope.interface import Interface
 from zope.traversing.interfaces import ITraversable
 from zope.traversing.interfaces import TraversalError
-import json
 
 
 class AddViewTraverser(object):
@@ -47,7 +47,7 @@ class AddForm(DefaultAddForm):
 
     def render(self):
         if self._finishedAdd:
-            return json.dumps(dict(proceed=True))
+            return json_response(self.request, proceed=True)
         return super(AddForm, self).render()
 
 
@@ -57,13 +57,11 @@ class AddView(DefaultAddView):
     def render(self):
         if hasattr(self.form_instance, 'obj_uid'):
             self.request.response.setHeader('Content-Type', 'application/json')
-            return json.dumps(dict(
-                uid=self.form_instance.obj_uid,
-                content=self.form_instance.obj_html,
-                proceed=True,
-            ))
+            return json_response(self.request,
+                                 uid=self.form_instance.obj_uid,
+                                 content=self.form_instance.obj_html,
+                                 proceed=True)
 
-        return json.dumps(dict(
-            content=super(AddView, self).render(),
-            proceed=False,
-        ))
+        return json_response(self.request,
+                             content=super(AddView, self).render(),
+                             proceed=False)

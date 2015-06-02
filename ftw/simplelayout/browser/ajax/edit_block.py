@@ -1,3 +1,4 @@
+from ftw.simplelayout.browser.ajax.utils import json_response
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.events import EditCancelledEvent
@@ -62,6 +63,6 @@ class EditForm(DefaultEditForm):
         if self._finished_edit:
             response['proceed'] = True
             response['content'] = self.context()
-        return json.dumps(response)
+        return json_response(self.request, response)
 
 classImplements(EditForm, IDexterityEditForm)
