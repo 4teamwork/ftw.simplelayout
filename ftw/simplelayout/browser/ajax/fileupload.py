@@ -1,3 +1,4 @@
+from ftw.simplelayout.browser.ajax.utils import json_response
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import addContentToContainer
 from plone.dexterity.utils import createContent
@@ -5,7 +6,6 @@ from plone.rfc822.interfaces import IPrimaryFieldInfo
 from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
 from zope.publisher.browser import BrowserView
-import json
 
 
 class FileUpload(BrowserView):
@@ -25,7 +25,7 @@ class FileUpload(BrowserView):
             raise BadRequest('No content provided.')
 
         item = self.create()
-        return json.dumps({'uuid': IUUID(item)})
+        return json_response(self.request, uuid=IUUID(item))
 
     def create(self):
         kwargs = {'title': self.filename}

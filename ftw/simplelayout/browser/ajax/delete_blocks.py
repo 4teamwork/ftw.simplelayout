@@ -1,8 +1,8 @@
-from Products.CMFPlone.utils import isLinked
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ftw.simplelayout.browser.ajax.utils import json_response
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
 import json
 
@@ -29,17 +29,15 @@ class DeleteBlocks(BrowserView):
 
         if self.request.get('form.submitted', False):
             self.context.manage_delObjects([self.block.id])
+            return json_response(self.request, proceed=True)
         else:
-            return json.dumps(dict(
-                content=self.confirm_template(),
-                proceed=False,
-            ))
-        return json.dumps(dict(
-            proceed=True,
-        ))
+            return json_response(self.request,
+                                 content=self.confirm_template(),
+                                 proceed=False)
 
     def _link_integrity_check(self):
         pass
+        # from Products.CMFPlone.utils import isLinked
         #isLinked(self.block)
 
     def is_locked_for_current_user(self):

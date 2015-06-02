@@ -1,4 +1,5 @@
 from ftw.simplelayout import _
+from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.utils import normalize_portal_type
@@ -11,16 +12,12 @@ from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.publisher.browser import BrowserView
-import json
 
 
 class AddableBlocks(BrowserView):
 
     def __call__(self):
-        self.request.response.setHeader("Content-type", "application/json")
-        self.request.response.setHeader('X-Theme-Disabled', 'True')
-
-        return json.dumps(dict(self.addable_blocks()))
+        return json_response(self.request, dict(self.addable_blocks()))
 
     def addable_blocks(self):
         block_types = set(self._get_block_types())
