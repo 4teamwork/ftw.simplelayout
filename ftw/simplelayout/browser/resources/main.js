@@ -7,18 +7,16 @@
       settings: {
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
         saveStateEndpoint: "./sl-ajax-save-state-view",
-        source: "#simplelayout",
+        source: ".sl-simplelayout",
         layouts: [1, 2, 4]
       },
       simplelayout: null,
       init: function(callback) {
         var self = this;
         var source = $(this.settings.source);
-
         if (source.length === 0){
           return;
         }
-
         var settings = source.data("slSettings") || {};
         this.settings = $.extend(this.settings, settings);
         this.loadComponents(function(components) {
@@ -26,25 +24,37 @@
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
           toolbox.attachTo($("body"));
           self.simplelayout.attachToolbox(toolbox);
-          self.simplelayout.getLayoutmanager().deserialize();
+          self.simplelayout.deserialize($("#content-core"));
           callback(self.simplelayout);
         });
 
       },
-      loadComponents: function(callback) {
-        $.get(this.settings.addableBlocksEndpoint).done(callback);
-      },
+      loadComponents: function(callback) { $.get(this.settings.addableBlocksEndpoint).done(callback); },
       saveState: function() {
-        var config = this.simplelayout.getLayoutmanager().serialize();
-        $.post(this.settings.saveStateEndpoint, {"data": config});
+        var state = {};
+        $(".sl-simplelayout").each(function(manIdx, manager) {
+          state[manager.id] = [];
+          $(".sl-layout", manager).each(function(layIdx, layout) {
+            state[manager.id][layIdx] = {};
+            state[manager.id][layIdx].cols = [];
+            $(".sl-column", layout).each(function(colIdx, column) {
+              state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
+              $(".sl-block", column).each(function(bloIdx, block) {
+                state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data("uid") };
+              });
+            });
+          });
+        });
+        $.post(this.settings.saveStateEndpoint, { data: JSON.stringify(state) });
       },
       cleanup: function() {
-        var committedBlocks = this.simplelayout.getLayoutmanager().getCommittedBlocks();
-        var activeBlockData = committedBlocks[committedBlocks.length - 1].element.data();
+        var blocks = this.simplelayout.getBlocks();
+        var activeBlockData = blocks[blocks.length - 1].element.data();
+        var managerId = activeBlockData.container;
         var layoutId = activeBlockData.layoutId;
         var columnId = activeBlockData.columnId;
         var blockId = activeBlockData.blockId;
-        this.simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+        this.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
       },
       matchHeight: function() {
         $.fn.matchHeight._update();
@@ -62,11 +72,7 @@
       var editOverlay = new global.FormOverlay();
 
       editOverlay.onSubmit(function(blockData) {
-        var currentBlockData = simplelayout.getActiveBlock().element.data();
-        var layoutId = currentBlockData.layoutId;
-        var columnId = currentBlockData.columnId;
-        var blockId = currentBlockData.blockId;
-        simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId).content(blockData.content);
+        simplelayout.getActiveBlock().content(blockData.content);
         instance.saveState();
         instance.matchHeight();
         this.close();
@@ -74,10 +80,11 @@
 
       deleteOverlay.onSubmit(function() {
         var currentBlockData = simplelayout.getActiveBlock().element.data();
+        var managerId = currentBlockData.container;
         var layoutId = currentBlockData.layoutId;
         var columnId = currentBlockData.columnId;
         var blockId = currentBlockData.blockId;
-        simplelayout.getLayoutmanager().deleteBlock(layoutId, columnId, blockId);
+        simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
         instance.saveState();
         instance.matchHeight();
         this.close();
@@ -99,13 +106,10 @@
         addFormUrl = $(e.target).data("form_url");
       });
 
-      simplelayout.on("blockInserted", function(event, layoutId, columnId, blockId) {
-        currentBlock = simplelayout.getLayoutmanager().getBlock(layoutId, columnId, blockId);
-        instance.matchHeight();
-      });
-
-      simplelayout.on("blocksCommitted", function() {
+      simplelayout.on("blockInserted", function(event, manager, block) {
+        currentBlock = block;
         addOverlay.load(addFormUrl);
+        instance.matchHeight();
       });
 
       simplelayout.on("blockMoved", function() {
@@ -117,12 +121,12 @@
         instance.saveState();
       });
 
-      simplelayout.on("layoutsCommitted", function() {
+      simplelayout.on("layoutInserted", function() {
         simplelayout.getToolbox().enableComponents();
       });
 
-      simplelayout.on("layoutDeleted", function() {
-        if(!simplelayout.getLayoutmanager().hasLayouts()) {
+      simplelayout.on("layoutDeleted", function(event, manager) {
+        if(!manager.hasLayouts()) {
           simplelayout.getToolbox().disableComponents();
         }
       });
@@ -142,8 +146,10 @@
       });
 
       $(global.document).on("click", ".sl-layout .delete", function() {
-        if(!simplelayout.getActiveLayout().hasBlocks()) {
-          simplelayout.getLayoutmanager().deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
+        var activeLayout = simplelayout.getActiveLayout();
+        if(!activeLayout.hasBlocks()) {
+          var managerId = activeLayout.element.data().container;
+          simplelayout.getManagers()[managerId].deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
           instance.saveState();
         }
       });

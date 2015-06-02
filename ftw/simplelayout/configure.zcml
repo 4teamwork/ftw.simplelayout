@@ -6,6 +6,7 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
+    <five:registerPackage package="." initialize=".initialize" />
 
     <include file="permissions.zcml" />
     <include package=".browser" />

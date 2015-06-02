@@ -1,15 +1,20 @@
-<div class="sl-layout"
-     tal:repeat="row view/rows"
-     tal:attributes="class row/class">
-  <div class="sl-column"
-       tal:repeat="col row/cols"
-       tal:attributes="class col/class">
-    <div class="sl-block"
-         tal:repeat="block col/blocks"
-         tal:attributes="data-type block/type;
-                         data-uid block/uid">
-      <div class="sl-block-content"
-          tal:content="structure block/obj_html">Block Content</div>
+
+<div class="sl-simplelayout"
+     tal:attributes="id view/name;
+                     data-sl-settings view/get_sl_settings">
+  <div class="sl-layout"
+       tal:repeat="row view/rows"
+       tal:attributes="class row/class">
+    <div class="sl-column"
+         tal:repeat="col row/cols"
+         tal:attributes="class col/class">
+      <div class="sl-block"
+           tal:repeat="block col/blocks"
+           tal:attributes="data-type block/type;
+                           data-uid block/uid">
+        <div class="sl-block-content"
+            tal:content="structure block/obj_html">Block Content</div>
+      </div>
     </div>
   </div>
 </div>

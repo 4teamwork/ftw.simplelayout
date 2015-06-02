@@ -1,6 +1,5 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.configuration import convert_to_rows
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
@@ -26,14 +25,35 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         self.page_config = IPageConfiguration(self.contentpage)
         self.url = self.contentpage.absolute_url() + '/@@simplelayout-view'
 
-    def test_page_configuration_is_recusrive_persistent(self):
+        self.payload = {
+            "default": [
+                {
+                    "cols": [
+                        {
+                            "blocks": [
+                                {
+                                    "uid": "c774b0ca2a5544bf9bb46d865b11bff9"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "blocks": [
+                                {
+                                    "uid": "413fb945952d4403a58ab1958c38f1d2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
 
-        self.page_config.store(
-            {"layouts": [1, 1],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": 'dummyuuid1'}]})
+    def test_page_configuration_is_recusrive_persistent(self):
+        self.page_config.store(self.payload)
 
         self.assert_recursive_persistence(self.page_config.load())
 
@@ -61,21 +81,12 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_store_save_simplelayout_state_thru_view(self, browser):
-        sldata = {"layouts": [1, 1],
-                  "blocks": [{"layoutPos": 0,
-                              "columnPos": 0,
-                              "blockPos": 0,
-                              "uid": "uid"},
-                             {"layoutPos": 1,
-                              "columnPos": 0,
-                              "blockPos": 0,
-                              "uid": "uid"}]}
-        payload = {"data": json.dumps(sldata)}
+        payload = {"data": json.dumps(self.payload)}
         browser.login().visit(self.contentpage,
                               view='sl-ajax-save-state-view',
                               data=payload)
 
-        self.assertEquals(convert_to_rows(sldata), self.page_config.load())
+        self.assertEquals(self.payload, self.page_config.load())
 
     @browsing
     def test_render_blocks_in_different_layouts(self, browser):
@@ -86,16 +97,9 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .titled('Block 1')
                         .within(self.contentpage))
 
-        self.page_config.store(
-            {"layouts": [1, 1],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block1)},
-                        {"layoutPos": 1,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block2)}]})
+        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+        self.page_config.store(self.payload)
         transaction.commit()
 
         browser.login().visit(self.contentpage)
@@ -116,16 +120,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .titled('Block 1')
                         .within(self.contentpage))
 
-        self.page_config.store(
-            {"layouts": [2],
-             "blocks": [{"layoutPos": 0,
-                         "columnPos": 0,
-                         "blockPos": 0,
-                         "uid": IUUID(block1)},
-                        {"layoutPos": 0,
-                         "columnPos": 1,
-                         "blockPos": 0,
-                         "uid": IUUID(block2)}]})
+        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+
+        # Move Block into layout 1, column 2
+        data_colmn = self.payload['default'][1]['cols'][0]
+        self.payload['default'].pop()
+
+        self.payload['default'][0]['cols'].append(data_colmn)
+        self.page_config.store(self.payload)
         transaction.commit()
 
         browser.login().visit(self.contentpage)
