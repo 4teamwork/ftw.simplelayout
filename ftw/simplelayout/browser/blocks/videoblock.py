@@ -1,13 +1,32 @@
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.contents.videoblock import is_vimeo_url
+from ftw.simplelayout.contents.videoblock import is_youtube_url
 from plone.uuid.interfaces import IUUID
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-import json
 from urlparse import urlparse
+import json
+
+
+VIMEO_PLAYER = "//player.vimeo.com/video/{0}"
 
 
 class VideoBlockView(BaseBlock):
 
-    template = ViewPageTemplateFile('templates/videoblock.pt')
+    youtube_template = ViewPageTemplateFile('templates/videoblock_youtube.pt')
+    vimeo_template = ViewPageTemplateFile('templates/videoblock_vimeo.pt')
+
+    template = None
+
+    def __call__(self):
+        if is_youtube_url(self.context.video_url):
+            self.template = self.youtube_template
+        elif is_vimeo_url(self.context.video_url):
+            self.template = self.vimeo_template
+        else:
+            pass
+            # Your fucked
+
+        return super(VideoBlockView, self).__call__()
 
     def get_uuid(self):
         return IUUID(self.context)
@@ -18,6 +37,18 @@ class VideoBlockView(BaseBlock):
 
         return json.dumps(config)
 
+    def vimeo_player(self):
+        return VIMEO_PLAYER.format(self.get_video_id())
+
+    # def vimeo_config(self):
+
     def get_video_id(self):
-        parsed_url = urlparse(self.context.video_url)
-        return parsed_url.path[1:]
+        if is_youtube_url(self.context.video_url):
+            parsed_url = urlparse(self.context.video_url)
+            return parsed_url.path[1:]
+        elif is_vimeo_url(self.context.video_url):
+            parsed_url = urlparse(self.context.video_url)
+            path = parsed_url.path.split('/')
+            return path[-1]
+
+

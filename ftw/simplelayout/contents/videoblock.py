@@ -11,6 +11,13 @@ from zope.interface import invariant
 from urlparse import urlparse
 
 
+def is_vimeo_url(url):
+    # https://vimeo.com/channels/staffpicks/128510631
+    parsed_url = urlparse(url)
+    path = parsed_url.path.split('/')
+    return parsed_url.netloc == 'vimeo.com' and path[-1].isdigit()
+
+
 def is_youtube_url(url):
     # https://youtu.be/W42x6-Wf3Cs
     parsed_url = urlparse(url)
@@ -24,11 +31,18 @@ class IVideoBlockSchema(form.Schema):
 
     video_url = schema.URI(
         title=_(u'Video URL', default=u'Youtube, or Vimeo URL'),
+        description=_(u'Youtube format: http(s)://youtu.be/VIDEO_ID<br/>'
+                      u'Vimeo format: http(s)://vimeo.com/(channels/groups)/'
+                      u'VIDEO_ID'),
         required=True)
 
     @invariant
     def validate_video_url(data):
-        if not is_youtube_url(data.video_url):
+        if is_youtube_url(data.video_url):
+            return
+        elif is_vimeo_url(data.video_url):
+            return
+        else:
             raise Invalid(_(u'This is no a valid youtube, or vimeo url.'))
 
 alsoProvides(IVideoBlockSchema, IFormFieldProvider)
