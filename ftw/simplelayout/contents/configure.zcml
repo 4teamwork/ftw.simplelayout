@@ -30,5 +30,13 @@
              *"
         />
 
+    <!-- XXX Implement a specific KMLLayer for Simplelayout and do not recycle the one from geo.kml -->
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlockView
+            zope.interface.Interface
+            zope.interface.Interface
+            zope.interface.Interface"
+        factory="collective.geo.kml.browser.viewlets.KMLMapViewletLayers"
+    />
 
 </configure>

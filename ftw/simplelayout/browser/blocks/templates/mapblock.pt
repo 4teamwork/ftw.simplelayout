@@ -1,0 +1,3 @@
+<tal:omit tal:define="cgmap view/get_address_map" tal:omit-tag="">
+  <metal:use use-macro="context/@@collectivegeo-macros/map-widget" />
+</tal:omit>

@@ -204,6 +204,58 @@ Create new Block representations
 --------------------------------
 
 
+Run custom JS code
+==================
+
+Some Blocks need to run some JS code after rendering or for the widget itself while adding/editing. For this use case you can simply listen to the jquerytools overlay events.
+
+Run JS after adding and editing a Block
+---------------------------------------
+
+This example has been taken from the MapBlock.
+It uses the ``onBeforeClose`` event of jquerytools Overlay to load the collectivegeo map.
+
+.. code-block:: Javascript
+
+    $(function(){
+      $(document).on('onBeforeClose', '.overlay', function(){
+        if ($.fn.collectivegeo) {
+          $('.widget-cgmap').filter(':visible').collectivegeo();
+        }
+      });
+    });
+
+
+Run JS after the overlay has been displayed
+-------------------------------------------
+
+This example has been taken from the MapBlock.
+It uses the ``onLoad`` event of jquerytools Overlay to load the collectivegeo map in edit mode.
+
+.. code-block:: Javascript
+
+    $(function(){
+      $(document).on('onLoad', '.overlay', function(){
+        if ($.fn.collectivegeo) {
+          var maps = $('.widget-cgmap').filter(':visible');
+          var map_widgets = $('.map-widget .widget-cgmap').filter(':visible');
+          maps.collectivegeo();
+          map_widgets.collectivegeo('add_edit_layer');
+          map_widgets.collectivegeo('add_geocoder');
+        }
+      });
+    });
+
+
+More JS events
+--------------
+
+jQueryTools Overlay provides two more events:
+
+- onBeforeLoad
+- onClose
+
+Check `jQueryTools Overlay Documentation <http://jquerytools.github.io/documentation/overlay>`_
 
 Links
 =====

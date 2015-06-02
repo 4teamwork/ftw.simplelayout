@@ -24,6 +24,7 @@ class TestAddableBlocksView(TestCase):
 
         self.assertEquals(
             ['ftw-simplelayout-listingblock',
+             'ftw-simplelayout-mapblock',
              'ftw-simplelayout-textblock'],
             result)
 

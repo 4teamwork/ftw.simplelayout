@@ -6,6 +6,7 @@
    <element value="ftw.simplelayout.TextBlock"/>
    <element value="ftw.simplelayout.ListingBlock"/>
    <element value="ftw.simplelayout.ListingFile"/>
+   <element value="ftw.simplelayout.MapBlock"/>
   </property>
  </object>
 
@@ -13,6 +14,7 @@
   <property name="types_not_searched" type="lines" purge="False">
    <element value="ftw.simplelayout.TextBlock"/>
    <element value="ftw.simplelayout.ListingBlock"/>
+   <element value="ftw.simplelayout.MapBlock"/>
   </property>
   <property name="default_page_types" type="lines" purge="False">
    <element value="ftw.simplelayout.ContentPage"/>
