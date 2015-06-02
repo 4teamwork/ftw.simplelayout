@@ -1,18 +1,14 @@
+from ftw.simplelayout.interfaces import ISimplelayoutPage
+from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ftw.simplelayout.interfaces import ISimplelayoutPage
-from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from zope.component import adapts
-from zope.interface import Interface
 from zope.interface import implements
+from zope.interface import Interface
 from zope.traversing.interfaces import ITraversable
 from zope.traversing.interfaces import TraversalError
 import json
-
-import logging
-
-logger = logging.getLogger("Plone")
 
 
 class AddViewTraverser(object):

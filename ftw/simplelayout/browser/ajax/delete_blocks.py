@@ -1,8 +1,7 @@
-from Products.CMFPlone.utils import isLinked
-from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
 import json
 
@@ -40,6 +39,7 @@ class DeleteBlocks(BrowserView):
 
     def _link_integrity_check(self):
         pass
+        # from Products.CMFPlone.utils import isLinked
         #isLinked(self.block)
 
     def is_locked_for_current_user(self):
