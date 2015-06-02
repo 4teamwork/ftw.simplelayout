@@ -48,7 +48,7 @@
         $.post(this.settings.saveStateEndpoint, { data: JSON.stringify(state) });
       },
       cleanup: function() {
-        var blocks = this.simplelayout.getBlocks();
+        var blocks = this.simplelayout.getCommittedBlocks();
         var activeBlockData = blocks[blocks.length - 1].element.data();
         var managerId = activeBlockData.container;
         var layoutId = activeBlockData.layoutId;
