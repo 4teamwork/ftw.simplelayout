@@ -7,19 +7,36 @@
     i18n_domain="ftw.simplelayout">
 
     <adapter
-        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
-        for="ftw.simplelayout.contents.interfaces.ITextBlock
-             *"
-        />
-
-    <adapter
-        factory="ftw.simplelayout.properties.SingleViewBlockProperties"
-        for="ftw.simplelayout.contents.interfaces.IListingBlock
+        factory="ftw.simplelayout.properties.MultiViewBlockProperties"
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              *"
         />
 
     <adapter
         factory=".listingblock.ListingBlockDefaultColumns"
         />
+
+    <adapter
+        factory=".textblock.TextBlockModifier"
+        for="ftw.simplelayout.contents.interfaces.ITextBlock
+             *"
+        />
+
+    <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
+    <adapter
+        factory=".textblock.TextBlockActions"
+        name="ftw-simplelayout-textblock-actions"
+        for="*
+             *"
+        />
+
+    <!-- XXX Implement a specific KMLLayer for Simplelayout and do not recycle the one from geo.kml -->
+    <adapter
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlockView
+            zope.interface.Interface
+            zope.interface.Interface
+            zope.interface.Interface"
+        factory="collective.geo.kml.browser.viewlets.KMLMapViewletLayers"
+    />
 
 </configure>

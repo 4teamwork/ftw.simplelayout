@@ -7,16 +7,7 @@
 
     <div metal:fill-slot="content-core">
 
-        <div tal:replace="structure view/sl_page_controls" />
-
-        <div tal:replace="structure python:view.simplelayout_slot()" />
-
-        <script type="text/javascript">
-
-          $(function(){
-            $('.simplelayout').simplelayout('init').simplelayout('layout');
-          });
-        </script>
+        <div tal:replace="structure simplelayout:default" />
 
     </div>
 </html>

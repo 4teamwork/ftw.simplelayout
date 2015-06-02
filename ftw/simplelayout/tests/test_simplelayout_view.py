@@ -1,20 +1,20 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.browser.simplelayout import get_slot_id
-from ftw.simplelayout.browser.simplelayout import get_slot_information
-from ftw.simplelayout.browser.simplelayout import get_style
-from ftw.simplelayout.interfaces import IDisplaySettings
+from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
-from plone.app.testing import TEST_USER_NAME, TEST_USER_PASSWORD
 from plone.app.textfield.value import RichTextValue
-from plone.testing.z2 import Browser
-from unittest2 import TestCase
-from zope.component import queryMultiAdapter
+from plone.registry.interfaces import IRegistry
+from plone.uuid.interfaces import IUUID
+from zExceptions import BadRequest
+from zope.component import getUtility
+import json
 import transaction
 
 
-class TestSimplelayoutView(TestCase):
+class TestSimplelayoutView(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
@@ -22,110 +22,163 @@ class TestSimplelayoutView(TestCase):
         super(TestSimplelayoutView, self).setUp()
 
         self.contentpage = create(Builder('sl content page'))
-
-        self.browser = Browser(self.layer['app'])
-        self.browser.handleErrors = False
-        self.browser.addHeader('Authorization', 'Basic %s:%s' % (
-            TEST_USER_NAME, TEST_USER_PASSWORD, ))
-
+        self.page_config = IPageConfiguration(self.contentpage)
         self.url = self.contentpage.absolute_url() + '/@@simplelayout-view'
 
-    @browsing
-    def test_view_renders(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled('TextBlock title')
-                           .within(self.contentpage)
-                           .having(text=RichTextValue('The text'))
-                           .having(show_title=False))
+        self.payload = {
+            "default": [
+                {
+                    "cols": [
+                        {
+                            "blocks": [
+                                {
+                                    "uid": "c774b0ca2a5544bf9bb46d865b11bff9"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "cols": [
+                        {
+                            "blocks": [
+                                {
+                                    "uid": "413fb945952d4403a58ab1958c38f1d2"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
 
-        textblock.reindexObject()
+    def test_page_configuration_is_recusrive_persistent(self):
+        self.page_config.store(self.payload)
+
+        self.assert_recursive_persistence(self.page_config.load())
+
+    @browsing
+    def test_render_blocks_not_in_page_configuration(self, browser):
+        # Fallback for not saved blocks thru the simplelayout JS lib.
+        create(Builder('sl textblock')
+               .titled('TextBlock title')
+               .within(self.contentpage)
+               .having(text=RichTextValue('The text'))
+               .having(show_title=True))
 
         browser.login().visit(self.contentpage, view='@@simplelayout-view')
 
         self.assertEqual(browser.url, self.url)
-        self.assertEquals('The text', browser.css(
-            '.block-view-wrapper').first.text)
-        self.assertFalse(len(browser.css('.block-view-wrapper h2')))
+        self.assertEquals('TextBlock title',
+                          browser.css('.sl-block h2').first.text)
 
-        textblock.show_title = True
+    @browsing
+    def test_invalid_simplelayout_save_state_request(self, browser):
+        with self.assertRaises(BadRequest):
+            browser.login().visit(self.contentpage,
+                                  view='sl-ajax-save-state-view',
+                                  data={})
+
+    @browsing
+    def test_store_save_simplelayout_state_thru_view(self, browser):
+        payload = {"data": json.dumps(self.payload)}
+        browser.login().visit(self.contentpage,
+                              view='sl-ajax-save-state-view',
+                              data=payload)
+
+        self.assertEquals(self.payload, self.page_config.load())
+
+    @browsing
+    def test_render_blocks_in_different_layouts(self, browser):
+        block1 = create(Builder('sl textblock')
+                        .titled('Block 1')
+                        .within(self.contentpage))
+        block2 = create(Builder('sl textblock')
+                        .titled('Block 1')
+                        .within(self.contentpage))
+
+        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+        self.page_config.store(self.payload)
         transaction.commit()
 
-        self.browser.open(self.url)
-        browser.visit(self.contentpage)
-        self.assertEquals('TextBlock title',
-                          browser.css('.block-view-wrapper h2').first.text)
+        browser.login().visit(self.contentpage)
+        self.assertEquals(2,
+                          len(browser.css('.sl-layout')),
+                          'Expect 2 layouts')
+
+        self.assertEquals(2,
+                          len(browser.css('.sl-column.sl-col-1')),
+                          'Expect two, one column layouts')
+
+    @browsing
+    def test_render_blocks_in_different_columns(self, browser):
+        block1 = create(Builder('sl textblock')
+                        .titled('Block 1')
+                        .within(self.contentpage))
+        block2 = create(Builder('sl textblock')
+                        .titled('Block 1')
+                        .within(self.contentpage))
+
+        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+
+        # Move Block into layout 1, column 2
+        data_colmn = self.payload['default'][1]['cols'][0]
+        self.payload['default'].pop()
+
+        self.payload['default'][0]['cols'].append(data_colmn)
+        self.page_config.store(self.payload)
+        transaction.commit()
+
+        browser.login().visit(self.contentpage)
+        self.assertEquals(2,
+                          len(browser.css('.sl-column.sl-col-2')),
+                          'Expect 2 columns')
+
+    @browsing
+    def test_simplelayout_default_config_from_control_panel(self, browser):
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+
+        data_attr_value = browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings']
+        self.assertEquals('{}',
+                          data_attr_value,
+                          'Expect an empty dict')
+
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISimplelayoutDefaultSettings)
+        settings.slconfig = u'{"layouts": [1, 2]}'
+        transaction.commit()
+
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        data_attr_value = browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings']
+
+        self.assertEquals(u'{"layouts": [1, 2]}',
+                          data_attr_value,
+                          'Expect the layout setting in default config.')
 
     @browsing
     def test_show_fallback_view_on_block_render_problems(self, browser):
         textblock = create(Builder('sl textblock')
                            .titled('TextBlock title')
                            .within(self.contentpage)
-                           .having(image='Fake image') # Error while render
+                           .having(image='Fake image')  # Error while render
                            .having(show_title=False))
 
         textblock.reindexObject()
 
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        browser.login().visit(self.contentpage)
         self.assertEquals(
             'The block could be rendered. Please check the log for details.',
-            browser.css('.block-view-wrapper').first.text)
+            browser.css('.sl-block').first.text)
 
-    def test_render_no_block_for_specific_slot(self):
-        create(Builder('sl textblock')
-               .titled('TextBlock title')
-               .within(self.contentpage)
-               .having(text=RichTextValue('The text'))
-               .having(show_title=False))
+    @browsing
+    def test_empty_sl_page_renders_at_least_one_layout(self, browser):
+        browser.login().visit(self.contentpage)
 
-        view = self.contentpage.restrictedTraverse('@@simplelayout-view')
-        self.assertFalse(len(tuple(view.get_blocks(slot='SlotB'))),
-                         'Expect to find no block in SlotB')
-
-    def test_get_slot_information_per_block(self):
-        textblock = create(Builder('sl textblock')
-                           .titled('TextBlock title')
-                           .within(self.contentpage)
-                           .having(text=RichTextValue('The text'))
-                           .having(show_title=False))
-        self.assertEquals('None', get_slot_information(textblock),
-                          'Thers is no slot information on this block')
-
-    def test_get_style_attribute_for_a_specific_block_default(self):
-        textblock = create(Builder('sl textblock')
-                           .titled('TextBlock title')
-                           .within(self.contentpage)
-                           .having(text=RichTextValue('The text'))
-                           .having(show_title=False))
-
-        display_settings = queryMultiAdapter((textblock, textblock.REQUEST),
-                                             IDisplaySettings)
-
-        self.assertEquals(None, get_style(display_settings))
-
-    def test_get_style_attribute_for_a_specific_block_with_data(self):
-        textblock = create(Builder('sl textblock')
-                           .titled('TextBlock title')
-                           .within(self.contentpage)
-                           .having(text=RichTextValue('The text'))
-                           .having(show_title=False))
-
-        display_settings = queryMultiAdapter((textblock, textblock.REQUEST),
-                                             IDisplaySettings)
-
-        display_settings.set_position({'left': 5, 'top': 6})
-        display_settings.set_size({'width': 7, 'height': 8})
-
-        self.assertEquals('top:6px;left:5px;width:7px;height:8px;',
-                          get_style(display_settings))
-
-
-class TestGetSlotId(TestCase):
-
-    def test_with_None(self):
-        self.assertEquals('sl-slot-None', get_slot_id(None))
-
-    def test_with_Int(self):
-        self.assertEquals('sl-slot-1', get_slot_id(1))
-
-    def test_with_String(self):
-        self.assertEquals('sl-slot-ABC', get_slot_id('ABC'))
+        # By default it's a one column layout.
+        self.assertEquals(1,
+                          len(browser.css('.sl-column.sl-col-1')),
+                          'There should be at least a empty one column layout')

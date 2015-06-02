@@ -8,7 +8,6 @@
         name="block_view"
         permission="zope2.View"
         class=".textblock.TextBlockView"
-        template="templates/textblock.pt"
         />
 
     <browser:page
@@ -17,6 +16,13 @@
         permission="zope2.View"
         class=".listingblock.ListingBlockView"
         template="templates/listingblock.pt"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IMapBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".mapblock.MapBlockView"
         />
 
 </configure>

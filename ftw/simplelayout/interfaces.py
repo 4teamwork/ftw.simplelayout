@@ -11,6 +11,10 @@ class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
 
+class ISimplelayoutPage(Interface):
+    """Marker for Simplelayout content pages"""
+
+
 class ISimplelayoutBlock(Interface):
     """Marker for simplelayout blocks"""
 
@@ -18,6 +22,37 @@ class ISimplelayoutBlock(Interface):
 class ISimplelayoutView(Interface):
     """@@simplelayout-view view interface.
     """
+
+
+class ISimplelayoutBlockView(Interface):
+    """Marker interface for simplelayout block views.
+    """
+
+
+class IPageConfiguration(Interface):
+    """Adapter for storing simplelayout page configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
+
+
+class IBlockConfiguration(Interface):
+    """Adapter for storing block configuration.
+    """
+
+    def store(json_conf):
+        """Store the given configuration.
+        """
+
+    def load():
+        """Load current configuration.
+        """
 
 
 class IBlockProperties(Interface):
@@ -44,63 +79,37 @@ class IBlockProperties(Interface):
         """
 
 
-class IDisplaySettings(Interface):
-    """Adapter for storing display settings on a blockish object.
-    """
+class ISimplelayoutDefaultSettings(Interface):
+    """Stores simplelayout default settings for the hole site"""
+
+    slconfig = schema.Text(title=_(u'Simplelayout default configuration'),
+                           description=(_(u'desc_sl_config_control_panel',
+                                          default=u'Add Simplelayout default'
+                                          u'configuration, Check simplelayout'
+                                          u'docu: https://github.com/4teamwork/ftw.simplelayout#usage')),
+                           default=u'{}',
+                           required=False)
+
+
+class IBlockModifier(Interface):
+    """Block specific modifier"""
+
+    def __init__(context, request):
+        """Adapts context and request"""
+
+    def modify(data):
+        """Modifications based on data in the request"""
+
+
+class ISimplelayoutActions(Interface):
+    """Serves the simplelayout actions"""
 
     def __init__(context, request):
         """Adapts context and request.
         """
 
-    def set_position(position):
-        """Sets the position of the object.
+    def default_actions():
+        """Default actions"""
 
-        Arguments:
-        position -- dict with "top" and "left" keys.
-        """
-
-    def get_position():
-        """Returns the stored position information as dict with "top" and
-        "left".
-        Returns ``None`` when nothing is stored.
-        """
-
-    def set_size(size):
-        """Sets the size of the object.
-
-        Arguments:
-        size -- dict with "width" and "height" keys.
-        """
-
-    def get_size():
-        """Returns the stored size information as dict with "width" and
-        "height".
-        Returns ``None`` when nothing is stored.
-        """
-
-
-class ISimplelayoutDefaultSettings(Interface):
-    """Stores simplelayout default settings for the hole site"""
-
-    columns = schema.Int(title=_(u'Amount of columns'),
-                         default=4,
-                         required=True)
-
-    images = schema.Int(title=_(u'Amount of image columns'),
-                        default=2,
-                        required=True)
-
-    contentwidth = schema.Int(title=_(u'Content width in pixel'),
-                              default=960,
-                              required=True)
-
-    margin_right = schema.Int(title=_(u'margin between blocks in pixel'),
-                              default=10,
-                              required=True)
-
-    contentarea = schema.TextLine(title=_(u'Content area selector'),
-                                  description=(
-                                  _(u'Danger: Change this only if you really '
-                                    'know what you are doing')),
-                                  default=u'#content',
-                                  required=True)
+    def specific_actions():
+        """Specific actions"""

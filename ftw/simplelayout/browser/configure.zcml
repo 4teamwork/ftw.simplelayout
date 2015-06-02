@@ -10,30 +10,29 @@
 
     <include package=".ajax" />
     <include package=".blocks" />
+    <include package=".viewlets" />
     <include package=".content" />
     <include package=".controlpanel" />
 
     <browser:page
-        for="OFS.interfaces.IFolder"
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
         name="simplelayout-view"
+        permission="zope2.View"
         class=".simplelayout.SimplelayoutView"
-        permission="zope2.View"
-        template="templates/simplelayout.pt"
         />
 
     <browser:page
-        for="*"
-        name="redirect_to_parent"
-        class=".redirect_to_parent.RedirectToParent"
-        permission="zope2.View"
+        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        name="sl-ajax-save-state-view"
+        permission="cmf.ModifyPortalContent"
+        class=".simplelayout.SimplelayoutView"
+        attribute="save_state"
         />
 
-    <browser:page
-        for="OFS.interfaces.IFolder"
-        name="simplelayout_info"
-        class=".simplelayout_info.SimplelayoutInfo"
-        permission="zope2.View"
-        template="templates/simplelayout_info.pt"
+    <adapter
+        factory=".actions.DefaultActions"
+        for="*
+             *"
         />
 
 </configure>

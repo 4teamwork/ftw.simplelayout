@@ -15,6 +15,7 @@
         <element value="ftw.simplelayout.TextBlock" />
         <element value="ftw.simplelayout.ListingBlock" />
         <element value="ftw.simplelayout.ContentPage" />
+        <element value="ftw.simplelayout.MapBlock" />
     </property>
 
     <!-- schema interface -->

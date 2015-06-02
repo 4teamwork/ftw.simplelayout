@@ -13,4 +13,4 @@ class SimplelayoutDefaultSettingsForm(RegistryEditForm):
 SimplelayoutDefaultSettingsView = layout.wrap_form(
     SimplelayoutDefaultSettingsForm,
     ControlPanelFormWrapper)
-SimplelayoutDefaultSettingsView.label = _(u'Simplelayout default settings')
+SimplelayoutDefaultSettingsView.label = _(u'Simplelayout settings')

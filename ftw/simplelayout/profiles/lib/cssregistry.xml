@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
 <object name="portal_css" meta_type="Stylesheets Registry" autogroup="False">
     <stylesheet title="" cacheable="True" compression="safe" cookable="True"
-        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.css"
-        media="all" rel="stylesheet" rendering="import"/>
+        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.min.css"
+        media="all" rel="stylesheet" rendering="link"/>
+
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/icons.css"
+        media="all" rel="stylesheet" rendering="link"/>
+
+    <stylesheet title="" cacheable="True" compression="safe" cookable="True"
+        enabled="1" expression="" id="++resource++ftw.simplelayout.resources/simplelayout.integration.css"
+        media="all" rel="stylesheet" rendering="link"/>
 </object>
