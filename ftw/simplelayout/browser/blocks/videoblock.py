@@ -19,6 +19,5 @@ class VideoBlockView(BaseBlock):
         return json.dumps(config)
 
     def get_video_id(self):
-        # https://youtu.be/W42x6-Wf3Cs
         parsed_url = urlparse(self.context.video_url)
         return parsed_url.path[1:]
