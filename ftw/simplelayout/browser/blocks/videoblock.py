@@ -23,7 +23,7 @@ class VideoBlockView(BaseBlock):
         elif is_vimeo_url(self.context.video_url):
             self.template = self.vimeo_template
         else:
-            raise
+            raise ValueError("No template found.")
 
         return super(VideoBlockView, self).__call__()
 
@@ -47,3 +47,5 @@ class VideoBlockView(BaseBlock):
             parsed_url = urlparse(self.context.video_url)
             path = parsed_url.path.split('/')
             return path[-1]
+        else:
+            return None

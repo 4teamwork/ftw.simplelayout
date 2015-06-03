@@ -124,3 +124,15 @@ class TestTextBlockRendering(TestCase):
         statusmessages.assert_message('There were some errors.')
         self.assertEquals('This is no a valid youtube, or vimeo url.',
                           browser.css('.field.error').first.text)
+
+    @browsing
+    def test_raise_valueerror_if_template_is_undeterminable(self, browser):
+        videoblock = create(Builder('sl videoblock')
+                            .having(video_url='https://example.com')
+                            .within(self.page))
+
+        with self.assertRaises(ValueError):
+            browser.login().visit(videoblock, view='@@block_view')
+
+        videoblock_view = videoblock.restrictedTraverse('@@block_view')
+        self.assertIsNone(videoblock_view.get_video_id())
