@@ -27,6 +27,12 @@ class MapBlockBuilder(DexterityBuilder):
 builder_registry.register('sl mapblock', MapBlockBuilder)
 
 
+class VideoBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.VideoBlock'
+
+builder_registry.register('sl videoblock', VideoBlockBuilder)
+
+
 class FileBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.File'
 

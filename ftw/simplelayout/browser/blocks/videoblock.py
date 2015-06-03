@@ -23,13 +23,12 @@ class VideoBlockView(BaseBlock):
         elif is_vimeo_url(self.context.video_url):
             self.template = self.vimeo_template
         else:
-            pass
-            # Your fucked
+            raise
 
         return super(VideoBlockView, self).__call__()
 
     def get_uuid(self):
-        return IUUID(self.context)
+        return 'uuid_{0}'.format(IUUID(self.context))
 
     def youtube_config(self):
         config = {'videoId': self.get_video_id(),
@@ -40,8 +39,6 @@ class VideoBlockView(BaseBlock):
     def vimeo_player(self):
         return VIMEO_PLAYER.format(self.get_video_id())
 
-    # def vimeo_config(self):
-
     def get_video_id(self):
         if is_youtube_url(self.context.video_url):
             parsed_url = urlparse(self.context.video_url)
@@ -50,5 +47,3 @@ class VideoBlockView(BaseBlock):
             parsed_url = urlparse(self.context.video_url)
             path = parsed_url.path.split('/')
             return path[-1]
-
-

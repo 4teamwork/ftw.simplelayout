@@ -22,7 +22,7 @@ def is_youtube_url(url):
     # https://youtu.be/W42x6-Wf3Cs
     parsed_url = urlparse(url)
     path = parsed_url.path.split('/')
-    return parsed_url.netloc == 'youtu.be' and len(path) == 2
+    return parsed_url.netloc == 'youtu.be' and len(path) == 2 and path[-1]
 
 
 class IVideoBlockSchema(form.Schema):
@@ -30,7 +30,7 @@ class IVideoBlockSchema(form.Schema):
     """
 
     video_url = schema.URI(
-        title=_(u'Video URL', default=u'Youtube, or Vimeo URL'),
+        title=_(u'label_video_url', default=u'Youtube, or Vimeo URL'),
         description=_(u'Youtube format: http(s)://youtu.be/VIDEO_ID<br/>'
                       u'Vimeo format: http(s)://vimeo.com/(channels/groups)/'
                       u'VIDEO_ID'),
