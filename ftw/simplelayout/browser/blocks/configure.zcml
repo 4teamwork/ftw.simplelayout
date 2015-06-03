@@ -25,4 +25,11 @@
         class=".mapblock.MapBlockView"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IVideoBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".videoblock.VideoBlockView"
+        />
+
 </configure>

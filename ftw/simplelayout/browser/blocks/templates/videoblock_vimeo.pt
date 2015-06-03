@@ -1,0 +1,1 @@
+<iframe tal:attributes="src view/vimeo_player" width="100%" height="500px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

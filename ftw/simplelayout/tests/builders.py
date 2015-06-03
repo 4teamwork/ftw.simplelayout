@@ -21,6 +21,18 @@ class ListingBlockBuilder(DexterityBuilder):
 builder_registry.register('sl listingblock', ListingBlockBuilder)
 
 
+class MapBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.MapBlock'
+
+builder_registry.register('sl mapblock', MapBlockBuilder)
+
+
+class VideoBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.VideoBlock'
+
+builder_registry.register('sl videoblock', VideoBlockBuilder)
+
+
 class FileBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.File'
 

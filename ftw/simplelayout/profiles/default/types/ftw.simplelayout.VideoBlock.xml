@@ -1,49 +1,38 @@
 <?xml version="1.0"?>
-<object name="ftw.simplelayout.ContentPage"
+<object name="ftw.simplelayout.VideoBlock"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.simplelayout" >
 
     <!-- Basic metadata -->
-    <property name="title" i18n:translate="">ContentPage</property>
-    <property name="description" i18n:translate=""></property>
+    <property name="title" i18n:translate="">VideoBlock</property>
+    <property name="description" i18n:translate="">Use this block to display videos from youtube, or vimeo</property>
     <property name="content_icon"></property>
     <property name="allow_discussion">False</property>
-    <property name="global_allow">True</property>
+    <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
-    <property name="allowed_content_types">
-        <element value="ftw.simplelayout.TextBlock" />
-        <element value="ftw.simplelayout.ListingBlock" />
-        <element value="ftw.simplelayout.ContentPage" />
-        <element value="ftw.simplelayout.MapBlock" />
-        <element value="ftw.simplelayout.VideoBlock" />
-    </property>
+    <property name="allowed_content_types" />
 
     <!-- schema interface -->
-    <property name="schema">ftw.simplelayout.contents.contentpage.IContentPageSchema</property>
+    <property name="schema">ftw.simplelayout.contents.videoblock.IVideoBlockSchema</property>
 
     <!-- class used for content items -->
-    <property name="klass">ftw.simplelayout.contents.contentpage.ContentPage</property>
+    <property name="klass">ftw.simplelayout.contents.videoblock.VideoBlock</property>
 
     <!-- add permission -->
-    <property name="add_permission">ftw.simplelayout.AddContentPage</property>
+    <property name="add_permission">ftw.simplelayout.AddVideoBlock</property>
 
     <!-- enabled behaviors -->
     <property name="behaviors">
-        <element value="ftw.simplelayout.interfaces.ISimplelayout" />
-        <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
-        <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
-        <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
-        <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
-        <element value="plone.app.relationfield.behavior.IRelatedItems"/>
+        <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
     </property>
 
     <!-- View information -->
-    <property name="default_view">@@simplelayout-view</property>
+    <property name="default_view">block_view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="@@simplelayout-view"/>
+        <element value="block_view"/>
     </property>
 
     <!-- Method aliases -->
