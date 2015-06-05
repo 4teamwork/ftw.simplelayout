@@ -30,9 +30,9 @@
 
     <!-- enabled behaviors -->
     <property name="behaviors">
+        <element value="plone.app.dexterity.behaviors.metadata.IDublinCore"/>
         <element value="ftw.simplelayout.interfaces.ISimplelayout" />
         <element value="collective.dexteritytextindexer.behavior.IDexterityTextIndexer" />
-        <element value="plone.app.dexterity.behaviors.metadata.IBasic" />
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="plone.app.dexterity.behaviors.exclfromnav.IExcludeFromNavigation"/>
         <element value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
