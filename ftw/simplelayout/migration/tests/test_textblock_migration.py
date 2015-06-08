@@ -3,13 +3,23 @@ from ftw.builder import create
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.contents.interfaces import ITextBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.migration.testing import FTW_SIMPLELAYOUT_MIGRATON_TESTING
 from path import Path
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
+from simplelayout.base.interfaces import IAdditionalListingEnabled
+from simplelayout.base.interfaces import ISimplelayoutTwoColumnOneOnTopView
+from simplelayout.base.interfaces import ISimplelayoutTwoColumnView
+from simplelayout.base.interfaces import ISimplelayoutView
+from simplelayout.base.interfaces import ISlotA
+from simplelayout.base.interfaces import ISlotB
+from simplelayout.base.interfaces import ISlotC
 from StringIO import StringIO
 from unittest2 import TestCase
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
 
 
 def asset(filename):
@@ -50,7 +60,8 @@ class TestTextBlockMigration(TestCase):
                                         ))
         self.textblock_uuid = IUUID(self.textblock)
 
-    def modfiy_textblock(self, block=None, imagelayout=None, viewname=None):
+    def modfiy_textblock(self, block=None, imagelayout=None, viewname=None,
+                         column=None):
         if block is None:
             block = self.textblock
 
@@ -59,6 +70,13 @@ class TestTextBlockMigration(TestCase):
 
         if viewname is not None:
             block.__annotations__['viewname'] = viewname
+
+        if column in ['right', 'left_below']:
+            noLongerProvides(block, ISlotA)
+            alsoProvides(block, ISlotB)
+        elif column == 'right_below':
+            noLongerProvides(block, ISlotA)
+            alsoProvides(block, ISlotC)
 
     def test_textblock_migration_basic(self):
         self.migration()
@@ -150,3 +168,53 @@ class TestTextBlockMigration(TestCase):
 
         self.assertEquals('mini', blockconfig['scale'])
         self.assertEquals('right', blockconfig['imagefloat'])
+
+    def test_blocks_are_in_two_columns(self):
+        noLongerProvides(self.contentpage, ISimplelayoutView)
+        alsoProvides(self.contentpage, ISimplelayoutTwoColumnView)
+
+        block_right = create(Builder('text block').within(self.contentpage))
+        block_right_uuid = IUUID(block_right)
+
+        self.modfiy_textblock(block_right, column='right')
+
+        self.migration()
+
+        new_page = uuidToObject(self.contentpage_uuid)
+        expected = {
+            "default": [
+                {"cols": [
+                    {"blocks": [{"uid": self.textblock_uuid}]},
+                    {"blocks": [{"uid": block_right_uuid}]}]}],
+            "additional": [
+                {'cols': [
+                    {'blocks': []}]}]}
+        self.assertEquals(expected, IPageConfiguration(new_page).load())
+
+    def test_blocks_are_in_two_columns_and_also_one_column_on_top(self):
+        noLongerProvides(self.contentpage, ISimplelayoutView)
+        alsoProvides(self.contentpage, ISimplelayoutTwoColumnOneOnTopView)
+
+        block_left = create(Builder('text block').within(self.contentpage))
+        block_left_uuid = IUUID(block_left)
+
+        block_right = create(Builder('text block').within(self.contentpage))
+        block_right_uuid = IUUID(block_right)
+
+        self.modfiy_textblock(block_right, column='right_below')
+        self.modfiy_textblock(block_left, column='left_below')
+
+        self.migration()
+
+        new_page = uuidToObject(self.contentpage_uuid)
+        expected = {
+            "default": [
+                {"cols": [
+                    {"blocks": [{"uid": self.textblock_uuid}]}]},
+                {"cols": [
+                    {"blocks": [{"uid": block_left_uuid}]},
+                    {"blocks": [{"uid": block_right_uuid}]}]}],
+            "additional": [
+                {'cols': [
+                    {'blocks': []}]}]}
+        self.assertEquals(expected, IPageConfiguration(new_page).load())

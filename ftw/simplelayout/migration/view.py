@@ -1,3 +1,4 @@
+from ftw.simplelayout.behaviors import ITeaser
 from plone.app.contenttypes.migration import migration
 from plone.app.contenttypes.migration.browser import pass_fn
 from plone.app.contenttypes.migration.browser import PATCH_NOTIFY
@@ -8,10 +9,14 @@ from Products.contentmigration.utils import patch
 from Products.contentmigration.utils import undoPatch
 from Products.Five.browser import BrowserView
 from Products.PluginIndexes.UUIDIndex.UUIDIndex import UUIDIndex
+from simplelayout.base.interfaces import ISimpleLayoutBlock
+from simplelayout.base.interfaces import ISlotA
+from simplelayout.base.interfaces import ISlotB
+from simplelayout.base.interfaces import ISlotC
+from simplelayout.base.interfaces import ISlotD
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
-from ftw.simplelayout.behaviors import ITeaser
 
 
 def restore_teaser_reference(portal):
@@ -44,13 +49,18 @@ class Migration(BrowserView):
         self.catalog = self.portal.portal_catalog
 
         self.link_integrity_check(enable=False)
-        # switch of setModificationDate on changes
+        # Switch of setModificationDate on changes
         self.patch_notify_modified()
         # patch UUIDIndex - Prevent UUID Error-Messages when migrating folders.
         patch(
             UUIDIndex,
             'insertForwardIndexEntry',
             patched_insertForwardIndexEntry)
+
+        # This prevents firing several unwanted events, like blockMoved, which
+        # removes the slot interface (SlotA, SlotB, etc.) while migrating all
+        # children of a ContentPage.
+        self.store_block_marker_interface()
 
         # Migration
         self.migrate_contentpage()
@@ -85,8 +95,9 @@ class Migration(BrowserView):
         from ftw.contentpage.interfaces import ITextBlock
         from ftw.simplelayout.migration.migration import textblock_migrator
         query = dict(object_provides=ITextBlock.__identifier__)
+        brains = self.catalog(query)
         self.stats[ITextBlock.__identifier__] = {
-            'old': len(self.catalog(query))}
+            'old': len(brains)}
         textblock_migrator(self.portal)
 
     def link_integrity_check(self, enable=False):
@@ -118,3 +129,15 @@ class Migration(BrowserView):
         """reset notifyModified to old state"""
         for klass in PATCH_NOTIFY:
             undoPatch(klass, 'notifyModified')
+
+    def store_block_marker_interface(self):
+        for brain in self.catalog(object_provides=ISimpleLayoutBlock.__identifier__):
+            block = brain.getObject()
+            if ISlotA.providedBy(block):
+                setattr(block, '_simplelayout_slot', 'A')
+            elif ISlotB.providedBy(block):
+                setattr(block, '_simplelayout_slot', 'B')
+            elif ISlotC.providedBy(block):
+                setattr(block, '_simplelayout_slot', 'C')
+            elif ISlotD.providedBy(block):
+                setattr(block, '_simplelayout_slot', 'D')
