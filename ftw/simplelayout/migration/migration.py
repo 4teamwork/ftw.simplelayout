@@ -139,7 +139,7 @@ class FtwTextBlockMigrator(DocumentMigrator):
         self.new.show_title = self.old.getShowTitle()
 
         old_image = self.old.getField('image').get(self.old)
-        if old_image == '':
+        if old_image.data == '':
             return
         filename = safe_unicode(old_image.filename)
         namedblobimage = NamedBlobImage(data=old_image.data,
