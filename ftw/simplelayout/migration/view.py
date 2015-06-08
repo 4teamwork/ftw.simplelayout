@@ -65,6 +65,7 @@ class Migration(BrowserView):
         # Migration
         self.migrate_contentpage()
         self.migrate_textblock()
+        self.migrate_imageblock()
 
         self.catalog.clearFindAndRebuild()
 
@@ -99,6 +100,15 @@ class Migration(BrowserView):
         self.stats[ITextBlock.__identifier__] = {
             'old': len(brains)}
         textblock_migrator(self.portal)
+
+    def migrate_imageblock(self):
+        from plone.app.blob.interfaces import IATBlobImage
+        from ftw.simplelayout.migration.imageblock_migration import imageblock_migrator
+        query = dict(object_provides=IATBlobImage.__identifier__)
+        brains = self.catalog(query)
+        self.stats[IATBlobImage.__identifier__] = {
+            'old': len(brains)}
+        imageblock_migrator(self.portal)
 
     def link_integrity_check(self, enable=False):
         ptool = self.portal.portal_properties

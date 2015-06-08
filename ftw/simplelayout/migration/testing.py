@@ -19,6 +19,10 @@ class FtwSimplelayoutMigrationLayer(FtwContentPageLayer):
             '  <include package="z3c.autoinclude" file="meta.zcml" />'
             '  <includePlugins package="plone" />'
             '  <includePluginsOverrides package="plone" />'
+            '<class class="plone.app.blob.content.ATBlob">'
+            '  <implements'
+            '    interface="simplelayout.base.interfaces.ISimpleLayoutBlock"/>'
+            '</class>'
             '</configure>',
             context=configurationContext)
 

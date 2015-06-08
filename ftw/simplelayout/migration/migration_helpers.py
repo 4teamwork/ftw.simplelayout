@@ -16,6 +16,52 @@ def migrate(portal, migrator):
     return walker
 
 
+class ImageBlockWalker(Walker):
+    """Custom catalog walker for image blocks, but it does not touch other
+    images."""
+
+    def walk(self):
+
+        catalog = self.catalog
+        query = {
+            'portal_type': self.src_portal_type,
+            'meta_type': self.src_meta_type,
+            'path': "/".join(self.portal.getPhysicalPath()),
+        }
+        if HAS_LINGUA_PLONE and 'Language' in catalog.indexes():
+            query['Language'] = 'all'
+
+        brains = catalog(query)
+        limit = getattr(self, 'limit', False)
+        if limit:
+            brains = brains[:limit]
+
+        for brain in brains:
+            try:
+                obj = brain.getObject()
+            except AttributeError:
+                LOG.error("Couldn't access %s" % brain.getPath())
+                continue
+            try:
+                state = obj._p_changed
+            except:
+                state = 0
+            if obj is not None:
+                # Only yield if parent is a simplelayout page.
+                if ISimplelayout.providedBy(obj.aq_parent):
+                    yield obj
+                    # safe my butt
+                    if state is None:
+                        obj._p_deactivate()
+
+registerWalker(ImageBlockWalker)
+
+
+def migrate_image_blocks(portal, migrator):
+    walker = ImageBlockWalker(portal, migrator)()
+    return walker
+
+
 class BlockMixin():
 
     def migrate_simplelayout_block_state(self):
@@ -49,16 +95,19 @@ class BlockMixin():
         page = self.new.aq_parent
         config = IPageConfiguration(page)
         page_config = config.load()
+
+        slot = getattr(self.old, '_simplelayout_slot', None)
+
         if len(page_config['default']) == 1 and len(page_config['default'][0]['cols']) == 1:
             # Do nothing, the block order is already OK (positionInParent)
             pass
         elif len(page_config['default']) == 1 and len(page_config['default'][0]['cols']) == 2:
             # Two columns one container and on layout
-            if getattr(self.old, '_simplelayout_slot') == 'A':
+            if slot == 'A':
                 page_config['default'][0]['cols'][0]['blocks'].append(
                     {'uid': IUUID(self.new)})
 
-            elif getattr(self.old, '_simplelayout_slot') == 'B':
+            elif slot == 'B':
                 page_config['default'][0]['cols'][1]['blocks'].append(
                     {'uid': IUUID(self.new)})
             else:
@@ -68,17 +117,17 @@ class BlockMixin():
             # Two layouts, one containter. Firs layout has one column and the
             # second layout has two columns
 
-            if getattr(self.old, '_simplelayout_slot') == 'A':
+            if slot == 'A':
                 # First layout, column one (the only column)
                 page_config['default'][0]['cols'][0]['blocks'].append(
                     {'uid': IUUID(self.new)})
 
-            elif getattr(self.old, '_simplelayout_slot') == 'B':
+            elif slot == 'B':
                 # Second layout, first column
                 page_config['default'][1]['cols'][0]['blocks'].append(
                     {'uid': IUUID(self.new)})
 
-            elif getattr(self.old, '_simplelayout_slot') == 'C':
+            elif slot == 'C':
                 # Second layout, second column
                 page_config['default'][1]['cols'][1]['blocks'].append(
                     {'uid': IUUID(self.new)})
@@ -88,7 +137,7 @@ class BlockMixin():
 
         if len(page_config.keys()) == 2:
             # Assume there is one more container called additional
-            if getattr(self.old, '_simplelayout_slot') == 'D':
+            if slot == 'D':
                 page_config['additional'][0]['cols'][0]['blocks'].append(
                     {'uid': IUUID(self.new)})
 
