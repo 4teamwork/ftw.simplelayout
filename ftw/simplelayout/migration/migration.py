@@ -1,4 +1,5 @@
 from ftw.simplelayout.behaviors import ITeaser
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from plone.app.contenttypes.migration.migration import ATCTFolderMigrator
 from plone.app.contenttypes.migration.migration import DocumentMigrator
 from plone.namedfile.file import NamedBlobImage
@@ -62,6 +63,37 @@ class FtwTextBlockMigrator(DocumentMigrator):
             setattr(self.new,
                     '_teaser_reference_uid',
                     self.old._teaser_reference_uid)
+
+    def migrate_simplelayout_block_state(self):
+        old_image_layout = self.old.__annotations__.get('imageLayout', 'small')
+        config = IBlockConfiguration(self.new)
+        configdata = config.load()
+
+        if old_image_layout == 'small':
+            configdata['scale'] = 'mini'
+            configdata['imagefloat'] = 'left'
+
+        if old_image_layout == 'middle':
+            configdata['scale'] = 'preview'
+            configdata['imagefloat'] = 'left'
+
+        if old_image_layout in ['full', 'no-image']:
+            configdata['scale'] = 'large'
+            configdata['imagefloat'] = 'no-float'
+
+        if old_image_layout == 'middle-right':
+            configdata['scale'] = 'preview'
+            configdata['imagefloat'] = 'right'
+
+        if old_image_layout == 'small-right':
+            configdata['scale'] = 'mini'
+            configdata['imagefloat'] = 'right'
+
+        config.store(configdata)
+
+
+
+
 
 def textblock_migrator(portal):
     return migrate(portal, FtwTextBlockMigrator)

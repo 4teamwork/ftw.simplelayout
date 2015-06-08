@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.contents.interfaces import ITextBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.migration.testing import FTW_SIMPLELAYOUT_MIGRATON_TESTING
 from path import Path
 from plone.app.textfield.value import RichTextValue
@@ -49,6 +50,16 @@ class TestTextBlockMigration(TestCase):
                                         ))
         self.textblock_uuid = IUUID(self.textblock)
 
+    def modfiy_textblock(self, block=None, imagelayout=None, viewname=None):
+        if block is None:
+            block = self.textblock
+
+        if imagelayout is not None:
+            block.__annotations__['imageLayout'] = imagelayout
+
+        if viewname is not None:
+            block.__annotations__['viewname'] = viewname
+
     def test_textblock_migration_basic(self):
         self.migration()
         new = uuidToObject(self.textblock_uuid)
@@ -77,3 +88,65 @@ class TestTextBlockMigration(TestCase):
         self.assertEquals(0,
                           len(self.portal.portal_catalog(
                               portal_type='TextBlock')))
+
+    def test_imagelayout_small_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='small')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('mini', blockconfig['scale'])
+        self.assertEquals('left', blockconfig['imagefloat'])
+
+    def test_imagelayout_middle_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='middle')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('preview', blockconfig['scale'])
+        self.assertEquals('left', blockconfig['imagefloat'])
+
+    def test_imagelayout_full_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='full')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('large', blockconfig['scale'])
+        self.assertEquals('no-float', blockconfig['imagefloat'])
+
+    # XXX Currently we don't have this option (no-image) in the new
+    # simplelayout.
+    def test_imagelayout_no_image_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='no-image')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('large', blockconfig['scale'])
+        self.assertEquals('no-float', blockconfig['imagefloat'])
+
+    def test_imagelayout_middle_right_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='middle-right')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('preview', blockconfig['scale'])
+        self.assertEquals('right', blockconfig['imagefloat'])
+
+    def test_imagelayout_small_right_is_migrated_properly(self):
+        self.modfiy_textblock(imagelayout='small-right')
+        self.migration()
+
+        new_block = uuidToObject(self.textblock_uuid)
+        blockconfig = IBlockConfiguration(new_block).load()
+
+        self.assertEquals('mini', blockconfig['scale'])
+        self.assertEquals('right', blockconfig['imagefloat'])
