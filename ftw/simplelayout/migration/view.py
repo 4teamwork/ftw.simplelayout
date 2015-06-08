@@ -85,7 +85,7 @@ class Migration(BrowserView):
 
     def migrate_contentpage(self):
         from ftw.contentpage.interfaces import IContentPage
-        from ftw.simplelayout.migration.migration import contentpage_migrator
+        from ftw.simplelayout.migration.contentpage_migration import contentpage_migrator
         query = dict(object_provides=IContentPage.__identifier__)
         self.stats[IContentPage.__identifier__] = {
             'old': len(self.catalog(query))}
@@ -93,7 +93,7 @@ class Migration(BrowserView):
 
     def migrate_textblock(self):
         from ftw.contentpage.interfaces import ITextBlock
-        from ftw.simplelayout.migration.migration import textblock_migrator
+        from ftw.simplelayout.migration.textblock_migration import textblock_migrator
         query = dict(object_provides=ITextBlock.__identifier__)
         brains = self.catalog(query)
         self.stats[ITextBlock.__identifier__] = {
