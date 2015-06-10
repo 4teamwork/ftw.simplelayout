@@ -8,7 +8,8 @@
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
         saveStateEndpoint: "./sl-ajax-save-state-view",
         source: ".sl-simplelayout",
-        layouts: [1, 2, 4]
+        layouts: [1, 2, 4],
+        canChangeLayouts: false
       },
       simplelayout: null,
       init: function(callback) {
@@ -70,6 +71,10 @@
       var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay();
       var editOverlay = new global.FormOverlay();
+
+      if (!instance.settings.canMoveLayouts){
+        $(simplelayout.options.source).sortable("disable");
+      }
 
       editOverlay.onSubmit(function(blockData) {
         simplelayout.getActiveBlock().content(blockData.content);

@@ -52,3 +52,7 @@ div.overlay .close {
 .sl-image.right {
     float: right;
 }
+
+.ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout{
+  opacity: 0;
+}
