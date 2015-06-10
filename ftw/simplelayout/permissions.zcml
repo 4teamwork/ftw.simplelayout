@@ -32,4 +32,9 @@
         title="ftw.simplelayout: Add VideoBlock"
         />
 
+    <permission
+        id="ftw.simplelayout.ChangeLayouts"
+        title="ftw.simplelayout: Change Layouts"
+        />
+
 </configure>
