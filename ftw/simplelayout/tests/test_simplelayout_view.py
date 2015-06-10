@@ -1,6 +1,9 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.browser.simplelayout import SimplelayoutView
+from ftw.simplelayout.contents.interfaces import IContentPage
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
@@ -9,7 +12,12 @@ from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
+from zope.component import getGlobalSiteManager
 from zope.component import getUtility
+from zope.component import provideAdapter
+from zope.interface import implements
+from zope.interface import Interface
+from zope.publisher.interfaces.browser import IBrowserView
 import json
 import transaction
 
@@ -97,8 +105,10 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .titled('Block 1')
                         .within(self.contentpage))
 
-        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
-        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+        self.payload['default'][0]['cols'][0][
+            'blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0][
+            'blocks'][0]['uid'] = IUUID(block2)
         self.page_config.store(self.payload)
         transaction.commit()
 
@@ -120,8 +130,10 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                         .titled('Block 1')
                         .within(self.contentpage))
 
-        self.payload['default'][0]['cols'][0]['blocks'][0]['uid'] = IUUID(block1)
-        self.payload['default'][1]['cols'][0]['blocks'][0]['uid'] = IUUID(block2)
+        self.payload['default'][0]['cols'][0][
+            'blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0][
+            'blocks'][0]['uid'] = IUUID(block2)
 
         # Move Block into layout 1, column 2
         data_colmn = self.payload['default'][1]['cols'][0]
@@ -140,24 +152,84 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     def test_simplelayout_default_config_from_control_panel(self, browser):
         browser.login().visit(self.contentpage, view='@@simplelayout-view')
 
-        data_attr_value = browser.css(
-            '[data-sl-settings]').first.attrib['data-sl-settings']
-        self.assertEquals('{}',
-                          data_attr_value,
-                          'Expect an empty dict')
-
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISimplelayoutDefaultSettings)
         settings.slconfig = u'{"layouts": [1, 2]}'
         transaction.commit()
 
         browser.login().visit(self.contentpage, view='@@simplelayout-view')
-        data_attr_value = browser.css(
-            '[data-sl-settings]').first.attrib['data-sl-settings']
+        data_attr_value = json.loads(browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings'])
 
-        self.assertEquals(u'{"layouts": [1, 2]}',
-                          data_attr_value,
+        self.assertEquals([1, 2],
+                          data_attr_value['layouts'],
                           'Expect the layout setting in default config.')
+
+    @browsing
+    def test_simplelayout_config_updated_by_permissions(self, browser):
+
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        data_attr_value = json.loads(browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings'])
+
+        self.assertTrue(data_attr_value['canChangeLayouts'],
+                        'Should have the Change layouts permission.')
+
+        self.contentpage.manage_permission('ftw.simplelayout: Change Layouts',
+                                           roles=[],
+                                           acquire=0)
+        transaction.commit()
+
+        browser.visit(self.contentpage, view='@@simplelayout-view')
+        data_attr_value = json.loads(browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings'])
+
+        self.assertFalse(data_attr_value['canChangeLayouts'],
+                         'Should NOT have the Change layouts permission.')
+
+    @browsing
+    def test_simplelayout_config_updated_by_adapter(self, browser):
+
+        class ContainerConfigAdapter(object):
+            implements(ISimplelayoutContainerConfig)
+
+            def __init__(self, context, request):
+                pass
+
+            def __call__(self, settings):
+                settings['layouts'] = [1]
+
+        provideAdapter(ContainerConfigAdapter,
+                       adapts=(IContentPage, Interface))
+
+        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        data_attr_value = json.loads(browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings'])
+        self.assertEquals([1], data_attr_value['layouts'])
+
+        # Unregister adapter - since the component registry is not isolatet per
+        # test
+        sm = getGlobalSiteManager()
+        sm.unregisterAdapter(ContainerConfigAdapter,
+                             required=(IContentPage, Interface),
+                             provided=ISimplelayoutContainerConfig)
+
+    @browsing
+    def test_simplelayout_config_updated_view(self, browser):
+
+        class CustomSimplelayoutView(SimplelayoutView):
+            def update_simplelayout_settings(self, settings):
+                settings['layouts'] = [1, 4]
+
+        provideAdapter(CustomSimplelayoutView,
+                       adapts=(Interface, Interface),
+                       provides=IBrowserView,
+                       name='customview')
+
+        browser.login().visit(self.contentpage, view='@@customview')
+        data_attr_value = json.loads(browser.css(
+            '[data-sl-settings]').first.attrib['data-sl-settings'])
+        self.assertEquals([1, 4], data_attr_value['layouts'])
 
     @browsing
     def test_show_fallback_view_on_block_render_problems(self, browser):

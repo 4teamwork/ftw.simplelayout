@@ -113,3 +113,14 @@ class ISimplelayoutActions(Interface):
 
     def specific_actions():
         """Specific actions"""
+
+
+class ISimplelayoutContainerConfig(Interface):
+    """Modify simplelayout settings adapter"""
+
+    def __init__(context, request):
+        """Adapts context and request.
+        """
+
+    def __call__(settings):
+        """Receives a settings dict for modification - no return value."""
