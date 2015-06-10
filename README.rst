@@ -261,7 +261,7 @@ Check `jQueryTools Overlay Documentation <http://jquerytools.github.io/documenta
 Modify the Simplelayout configuration
 -------------------------------------
 
-The simplelayout JS lib can modified by `data-sl-settings` on the simplelayout container. Currently supported settings:
+The simplelayout JS lib can be modified by  the `data-sl-settings` on the simplelayout container. Currently supported settings:
 
 - layouts
 - canChangeLayouts
@@ -294,9 +294,17 @@ Example:
         def __call__(self, settings):
             settings['layouts'] = [1]
 
+        def default_page_layout():
+            return None
+
     provideAdapter(ContenPageConfigAdapter,
                    adapts=(IContentPage, Interface))
-Note: The adapter gets called with the settings Dictionary, so you don't have to return it.
+
+Note 1: The adapter gets called with the settings Dictionary, so you don't have to return it.
+
+Note 2: With the ``default_page_layout`` method you can also define default layouts, which are pre renderd on a empty page.
+
+
 
 3. Using the View itself, by overwrite the ``update_simplelayout_settings`` method.
 

@@ -199,20 +199,64 @@ class TestSimplelayoutView(SimplelayoutTestCase):
             def __call__(self, settings):
                 settings['layouts'] = [1]
 
+            def default_page_layout(self):
+                return None
+
         provideAdapter(ContainerConfigAdapter,
                        adapts=(IContentPage, Interface))
+        transaction.commit()
 
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
-        data_attr_value = json.loads(browser.css(
-            '[data-sl-settings]').first.attrib['data-sl-settings'])
-        self.assertEquals([1], data_attr_value['layouts'])
+        try:
+            browser.login().visit(self.contentpage, view='@@simplelayout-view')
+            data_attr_value = json.loads(browser.css(
+                '[data-sl-settings]').first.attrib['data-sl-settings'])
+            self.assertEquals([1], data_attr_value['layouts'])
 
-        # Unregister adapter - since the component registry is not isolatet per
-        # test
-        sm = getGlobalSiteManager()
-        sm.unregisterAdapter(ContainerConfigAdapter,
-                             required=(IContentPage, Interface),
-                             provided=ISimplelayoutContainerConfig)
+        finally:
+            # Unregister adapter - since the component registry is not isolatet
+            # per test
+            sm = getGlobalSiteManager()
+            sm.unregisterAdapter(ContainerConfigAdapter,
+                                 required=(IContentPage, Interface),
+                                 provided=ISimplelayoutContainerConfig)
+
+    @browsing
+    def test_simplelayout_default_page_layouts_by_adapter(self, browser):
+
+        class ContainerConfigAdapter(object):
+            implements(ISimplelayoutContainerConfig)
+
+            def __init__(self, context, request):
+                pass
+
+            def __call__(self, settings):
+                pass
+
+            def default_page_layout(self):
+                return {
+                    "default": [
+                        {"cols": [{"blocks": []},
+                                  {"blocks": []}]}
+                    ]
+                }
+
+        provideAdapter(ContainerConfigAdapter,
+                       adapts=(IContentPage, Interface))
+        transaction.commit()
+
+        try:
+            browser.login().visit(self.contentpage, view='@@simplelayout-view')
+            # This should result in one layout with two columns
+            self.assertEquals(1, len(browser.css('.sl-layout')))
+            self.assertEquals(2, len(browser.css('.sl-column.sl-col-2')))
+
+        finally:
+            # Unregister adapter - since the component registry is not isolatet
+            # per test
+            sm = getGlobalSiteManager()
+            sm.unregisterAdapter(ContainerConfigAdapter,
+                                 required=(IContentPage, Interface),
+                                 provided=ISimplelayoutContainerConfig)
 
     @browsing
     def test_simplelayout_config_updated_view(self, browser):

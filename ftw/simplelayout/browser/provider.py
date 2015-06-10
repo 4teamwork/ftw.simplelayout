@@ -46,17 +46,6 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
 
         rows = page_conf.load().get(self.name, [])
 
-        # We need at least one column
-        if not rows:
-            rows = [{
-                'cols': [{
-                    'blocks': [],
-                    'class': 'sl-column sl-col-{0}'.format(
-                        self._get_first_column_config()),
-                }],
-                'class': 'sl-layout',
-            }]
-
         for row in rows:
             row['class'] = 'sl-layout'
             for col in row['cols']:

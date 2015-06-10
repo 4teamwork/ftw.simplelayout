@@ -1,9 +1,11 @@
 from copy import deepcopy
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from zope.annotation import IAnnotations
+from zope.component import queryMultiAdapter
 from zope.interface import implements
 
 
@@ -51,7 +53,23 @@ class PageConfiguration(object):
     def load(self):
         annotations = IAnnotations(self.context)
         return deepcopy(annotations.setdefault(SL_ANNOTATION_KEY,
-                                               PersistentMapping()))
+                                               self._default_page_config()))
+
+    def _default_page_config(self):
+        """Returns a default page config"""
+        adapter = queryMultiAdapter((self.context, self.context.REQUEST),
+                                    ISimplelayoutContainerConfig)
+
+        if adapter is not None:
+            layout = adapter.default_page_layout()
+            if layout is not None:
+                return layout
+
+        return {
+            "default": [
+                {"cols": [{"blocks": []}]}
+            ]
+        }
 
 
 class BlockConfiguration(object):
