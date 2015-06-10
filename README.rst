@@ -257,6 +257,63 @@ jQueryTools Overlay provides two more events:
 
 Check `jQueryTools Overlay Documentation <http://jquerytools.github.io/documentation/overlay>`_
 
+
+Modify the Simplelayout configuration
+-------------------------------------
+
+The simplelayout JS lib can modified by `data-sl-settings` on the simplelayout container. Currently supported settings:
+
+- layouts
+- canChangeLayouts
+
+1. You're able to modify those settings globally through the Simplelayout control panel. For example:
+
+
+.. code-block:: JSON
+
+    {"layouts": [1]}
+
+All Simplelayout sites are configured to have only 1 column Layouts
+
+2. Using a ISimplelayoutContainerConfig Adapter, which adapts a `context` and `request`, which means you can have different settings for different Simplelayout enabled types.
+
+Example:
+
+.. code-block:: Python
+
+    from ftw.simplelayout.contents.interfaces import IContentPage
+    from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
+
+
+    class ContenPageConfigAdapter(object):
+        implements(ISimplelayoutContainerConfig)
+
+        def __init__(self, context, request):
+            pass
+
+        def __call__(self, settings):
+            settings['layouts'] = [1]
+
+    provideAdapter(ContenPageConfigAdapter,
+                   adapts=(IContentPage, Interface))
+Note: The adapter gets called with the settings Dictionary, so you don't have to return it.
+
+3. Using the View itself, by overwrite the ``update_simplelayout_settings`` method.
+
+.. code-block:: Python
+
+    from ftw.simplelayout.browser.simplelayout import SimplelayoutView
+
+
+    class CustomSimplelayoutView(SimplelayoutView):
+
+        def update_simplelayout_settings(self, settings):
+            settings['layouts'] = [1, 4]
+
+
+4. By default the ``canChangeLayouts`` option is injected by the Simplelayout provider. It checks if the current logged in user has the ``ftw.simplelayout: Change Layouts`` permission.
+
+
 Links
 =====
 
