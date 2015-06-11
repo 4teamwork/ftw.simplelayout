@@ -12,6 +12,7 @@ from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
+from zExceptions import Unauthorized
 from zope.component import getGlobalSiteManager
 from zope.component import getUtility
 from zope.component import provideAdapter
@@ -186,6 +187,21 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         self.assertFalse(data_attr_value['canChangeLayouts'],
                          'Should NOT have the Change layouts permission.')
+
+    @browsing
+    def test_prevent_layout_changes_if_not_allowed(self, browser):
+
+        self.contentpage.manage_permission('ftw.simplelayout: Change Layouts',
+                                           roles=[],
+                                           acquire=0)
+        transaction.commit()
+
+        with self.assertRaises(Unauthorized):
+            self.payload['default'].append({'cols': [{}]})
+            payload = {"data": json.dumps(self.payload)}
+            browser.login().visit(self.contentpage,
+                                  view='sl-ajax-save-state-view',
+                                  data=payload)
 
     @browsing
     def test_simplelayout_config_updated_by_adapter(self, browser):
