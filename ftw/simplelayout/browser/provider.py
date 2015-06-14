@@ -21,22 +21,10 @@ import logging
 LOG = logging.getLogger('ftw.simplelayout')
 
 
-class TalesSimplelayoutExpression(expressions.StringExpr):
-    """Simplelayout tales expression
-    Usage: <div tal:content='structure simplelayout: default' /> """
-
-    implements(ITALESProviderExpression)
+class BaseSimplelayoutExpression(object):
 
     fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
     structure = ViewPageTemplateFile('templates/structure.pt')
-
-    def __call__(self, econtext):
-        self.name = super(TalesSimplelayoutExpression, self).__call__(econtext)
-        self.context = econtext.vars['context']
-        self.request = econtext.vars['request']
-        self.view = econtext.vars['view']
-
-        return self.structure()
 
     def rows(self):
         """ Return datastructure for rendering blocks.
@@ -122,7 +110,8 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
                     for block in col['blocks']:
                         saved_blocks.append(block['uid'])
 
-        return filter(lambda x: x[0] not in saved_blocks, self._blocks().items())
+        return filter(lambda x: x[0] not in saved_blocks,
+                      self._blocks().items())
 
     def _get_sl_settings(self):
         # 1. global settings
@@ -150,7 +139,41 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
         settings['canChangeLayouts'] = api.user.has_permission(
             'ftw.simplelayout: Change Layouts',
             obj=self.context)
-
         settings['canEdit'] = api.user.has_permission(
             'Modify portal content',
             obj=self.context)
+
+
+class SimplelayoutExpression(BaseSimplelayoutExpression,
+                             expressions.StringExpr):
+    """Simplelayout tales expression
+    Usage: <div tal:content='structure simplelayout: default' /> """
+
+    implements(ITALESProviderExpression)
+
+    def __call__(self, econtext):
+        self.name = super(SimplelayoutExpression, self).__call__(econtext)
+        self.context = econtext.vars['context']
+        self.request = econtext.vars['request']
+        self.view = econtext.vars['view']
+
+        return self.structure()
+
+
+try:
+    from chameleon.astutil import Symbol
+    from chameleon.tales import StringExpr
+    from z3c.pt.expressions import ContextExpressionMixin
+except ImportError:
+    pass
+else:
+    def render_simplelayout_expression(econtext, name):
+        renderer = BaseSimplelayoutExpression()
+        renderer.name = name.strip()
+        renderer.context = econtext.get('context')
+        renderer.request = econtext.get('request')
+        renderer.view = econtext.get('view')
+        return renderer.structure()
+
+    class ChameleonSimplelayoutExpression(ContextExpressionMixin, StringExpr):
+        transform = Symbol(render_simplelayout_expression)
