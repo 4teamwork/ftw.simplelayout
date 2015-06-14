@@ -3,12 +3,12 @@ from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.utils import normalize_portal_type
+from plone.app.content.browser.folderfactories import _allowedTypes
 from plone.dexterity.interfaces import IDexterityFTI
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
+from Products.CMFPlone.interfaces.constrains import IConstrainTypes
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
@@ -23,21 +23,13 @@ class AddableBlocks(BrowserView):
 
     def addable_blocks(self):
         block_types = set(self._get_block_types())
-
-        if not IPloneSiteRoot.providedBy(self.context):
-            allowed_types = set(ISelectableConstrainTypes(
-                self.context).getImmediatelyAddableTypes())
-
-        else:
-            # SpecialCase for PloneRoot, since it does not provide the
-            # ISelectableConstrainTypes behavior
-            allowed_types = [fti.id for fti in self.context.allowedContentTypes()]
+        allowed_types = self._addable_types()
 
         default_actions = getMultiAdapter((self.context, self.request),
                                           ISimplelayoutActions)
 
         for fti in block_types:
-            if fti.id in allowed_types:
+            if fti in allowed_types:
                 add_url = Expression(fti.add_view_expr)(
                     getExprContext(self.context, self.context))
                 add_url = add_url.replace('++add++', '++add_block++')
@@ -65,6 +57,16 @@ class AddableBlocks(BrowserView):
                         'actions': actions.actions,
                     }
                 )
+
+    def _addable_types(self):
+        allowed_types = _allowedTypes(self.request, self.context)
+        constrain = IConstrainTypes(self.context, None)
+        if constrain is None:
+            return allowed_types
+        else:
+            locally_allowed = constrain.getLocallyAllowedTypes()
+            return [fti for fti in allowed_types
+                    if fti.getId() in locally_allowed]
 
     def _get_block_types(self):
         types_tool = getToolByName(self.context, 'portal_types')
