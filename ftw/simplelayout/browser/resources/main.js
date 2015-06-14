@@ -60,7 +60,10 @@
             });
           });
         });
-        $.post(this.settings.saveStateEndpoint, { data: JSON.stringify(state) });
+        $.post(this.settings.saveStateEndpoint, { 
+          data: JSON.stringify(state),
+          _authenticator: $('input[name="_authenticator"]').val()
+        });
       },
       cleanup: function() {
         var blocks = this.simplelayout.getInsertedBlocks();

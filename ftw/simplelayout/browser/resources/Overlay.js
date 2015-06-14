@@ -74,6 +74,7 @@
       },
       requestForm: function(action, payload) {
         var self = this;
+        payload.append("_authenticator", $('input[name="_authenticator"]').val());
         return $.ajax({
           type: "POST",
           url: action,
