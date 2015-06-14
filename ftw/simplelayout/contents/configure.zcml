@@ -7,13 +7,7 @@
     i18n_domain="ftw.simplelayout">
 
     <adapter
-        factory="ftw.simplelayout.properties.MultiViewBlockProperties"
-        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
-             *"
-        />
-
-    <adapter
-        factory=".filelistingblock.ListingBlockDefaultColumns"
+        factory=".listingblock.ListingBlockDefaultColumns"
         />
 
     <adapter

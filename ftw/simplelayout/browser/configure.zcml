@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
     <browser:resourceDirectory
@@ -9,7 +10,7 @@
         />
 
     <include package=".ajax" />
-    <include package=".blocks" />
+    <include package=".blocks" zcml:condition="not-have plone-5" />
     <include package=".viewlets" />
     <include package=".controlpanel" />
 

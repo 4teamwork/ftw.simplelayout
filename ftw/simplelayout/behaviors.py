@@ -1,5 +1,5 @@
 from ftw.simplelayout import _
-from plone.directives import form
+from plone.autoform import directives as form
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationChoice
 from zope import schema

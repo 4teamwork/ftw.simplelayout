@@ -10,12 +10,19 @@
 
     <include file="permissions.zcml" />
     <include package=".browser" />
-    <include package=".contents" />
+    <!-- Content types are not compatible with Plone 5 yet -->
+    <include package=".contents" zcml:condition="not-have plone-5" />
     <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
     <i18n:registerTranslations directory="locales" />
+
+    <adapter
+        factory="ftw.simplelayout.properties.MultiViewBlockProperties"
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
+             *"
+        />
 
     <genericsetup:registerProfile
         name="default"
