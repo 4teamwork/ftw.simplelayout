@@ -78,6 +78,7 @@
       },
       onFormRequestDone: function(data) {
         if(data.proceed) {
+          this.formSubmitted = true;
           this.onSubmitCallback.call(instance, data);
         } else {
           this.element.html(data.content);
@@ -88,7 +89,6 @@
         this.close();
       },
       onFormSubmit: function(formData) {
-        this.formSubmitted = true;
         if(global.tinyMCE) {
           global.tinyMCE.triggerSave(true, true);
         }
