@@ -1,10 +1,7 @@
 from ftw.simplelayout.interfaces import IPageConfiguration
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.interfaces import ISimplelayoutView
-from plone.registry.interfaces import IRegistry
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
-from zope.component import getUtility
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
 import json
@@ -33,7 +30,5 @@ class SimplelayoutView(BrowserView):
         self.request.response.setHeader("Content-type", "application/json")
         return ''
 
-    def get_sl_settings(self):
-        registry = getUtility(IRegistry)
-        settings = registry.forInterface(ISimplelayoutDefaultSettings)
-        return settings.slconfig
+    def update_simplelayout_settings(self, settings):
+        pass

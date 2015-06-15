@@ -113,3 +113,29 @@ class ISimplelayoutActions(Interface):
 
     def specific_actions():
         """Specific actions"""
+
+
+class ISimplelayoutContainerConfig(Interface):
+    """Modify simplelayout settings adapter"""
+
+    def __init__(context, request):
+        """Adapts context and request.
+        """
+
+    def __call__(settings):
+        """Receives a settings dict for modification - no return value."""
+
+    def default_page_layout():
+        """Define a set of default layouts. A new simplelayout page
+        automatically renders the defined layouts.
+
+        Example:
+            return {
+                "default": [
+                    {"cols": [{"blocks": []}]}
+                ]
+            }
+
+        Results in one layout with one.
+        Return None, will trigger a fallback to on layout with one column.
+        """

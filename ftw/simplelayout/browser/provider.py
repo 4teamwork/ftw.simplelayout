@@ -1,8 +1,10 @@
 from Acquisition import aq_inner
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import normalize_portal_type
+from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -32,6 +34,7 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
         self.name = super(TalesSimplelayoutExpression, self).__call__(econtext)
         self.context = econtext.vars['context']
         self.request = econtext.vars['request']
+        self.view = econtext.vars['view']
 
         return self.structure()
 
@@ -42,17 +45,6 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
         blocks = self._blocks()
 
         rows = page_conf.load().get(self.name, [])
-
-        # We need at least one column
-        if not rows:
-            rows = [{
-                'cols': [{
-                    'blocks': [],
-                    'class': 'sl-column sl-col-{0}'.format(
-                        self._get_first_column_config()),
-                }],
-                'class': 'sl-layout',
-            }]
 
         for row in rows:
             row['class'] = 'sl-layout'
@@ -80,9 +72,9 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
         return rows
 
     def _get_first_column_config(self):
-        settings = json.loads(self.get_sl_settings())
+        settings = self._get_sl_settings()
         if settings and settings.get('layout'):
-            return self.get_sl_settings()['layout'][0]
+            return self._get_sl_settings()['layout'][0]
         else:
             # One column by default.
             return 1
@@ -130,7 +122,29 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
 
         return filter(lambda x: x[0] not in saved_blocks, self._blocks().items())
 
-    def get_sl_settings(self):
+    def _get_sl_settings(self):
+        # 1. global settings
         registry = getUtility(IRegistry)
-        settings = registry.forInterface(ISimplelayoutDefaultSettings)
-        return settings.slconfig
+        settings = json.loads(
+            registry.forInterface(ISimplelayoutDefaultSettings).slconfig)
+
+        # 2. Update with Permission check
+        self.update_permission_related_settings(settings)
+
+        # 3. Update with ISimplelayoutContainerConfig adapter
+        adapter = queryMultiAdapter((self.context, self.request),
+                                    ISimplelayoutContainerConfig)
+        if adapter is not None:
+            adapter(settings)
+
+        # 4. View level customizations
+        self.view.update_simplelayout_settings(settings)
+        return settings
+
+    def get_simplelayout_settings(self):
+        return json.dumps(self._get_sl_settings())
+
+    def update_permission_related_settings(self, settings):
+        settings['canChangeLayouts'] = api.user.has_permission(
+            'ftw.simplelayout: Change Layouts',
+            obj=self.context)
