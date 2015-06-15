@@ -56,14 +56,8 @@
         var columnId = activeBlockData.columnId;
         var blockId = activeBlockData.blockId;
         this.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
-      },
-      matchHeight: function() {
-        $.fn.matchHeight._update();
       }
     };
-
-    $.fn.matchHeight._maintainScroll = true;
-    $(".sl-column").matchHeight();
 
     instance.init(function(simplelayout) {
       var addFormUrl;
@@ -79,7 +73,6 @@
       editOverlay.onSubmit(function(blockData) {
         simplelayout.getActiveBlock().content(blockData.content);
         instance.saveState();
-        instance.matchHeight();
         this.close();
       });
 
@@ -91,7 +84,6 @@
         var blockId = currentBlockData.blockId;
         simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
         instance.saveState();
-        instance.matchHeight();
         this.close();
       });
 
@@ -99,7 +91,6 @@
         currentBlock.element.data("uid", newBlockData.uid);
         currentBlock.content(newBlockData.content);
         instance.saveState();
-        instance.matchHeight();
         this.close();
       });
 
@@ -114,13 +105,9 @@
       simplelayout.on("blockInserted", function(event, manager, block) {
         currentBlock = block;
         addOverlay.load(addFormUrl);
-        instance.matchHeight();
       });
 
-      simplelayout.on("blockMoved", function() {
-        instance.saveState();
-        instance.matchHeight();
-      });
+      simplelayout.on("blockMoved", function() { instance.saveState(); });
 
       simplelayout.on("layoutMoved", function() {
         instance.saveState();
@@ -169,7 +156,6 @@
         configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
           simplelayout.getActiveBlock().content(blockContent);
-          instance.matchHeight();
         });
       });
 
