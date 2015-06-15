@@ -21,10 +21,9 @@
         var settings = source.data("slSettings") || {};
         this.settings = $.extend(this.settings, settings);
         this.loadComponents(function(components) {
-          self.simplelayout = new global.Simplelayout({source: self.settings.source});
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
+          self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
           toolbox.attachTo($("body"));
-          self.simplelayout.attachToolbox(toolbox);
           self.simplelayout.deserialize($("#content-core"));
           callback(self.simplelayout);
         });
@@ -98,28 +97,24 @@
         instance.cleanup();
       });
 
-      simplelayout.getToolbox().element.find(".sl-toolbox-component").on("dragstart", function(e) {
+      simplelayout.options.toolbox.element.find(".sl-toolbox-component").on("dragstart", function(e) {
         addFormUrl = $(e.target).data("form_url");
       });
 
-      simplelayout.on("blockInserted", function(event, manager, block) {
+      simplelayout.on("blockInserted", function(block) {
         currentBlock = block;
         addOverlay.load(addFormUrl);
       });
 
       simplelayout.on("blockMoved", function() { instance.saveState(); });
 
-      simplelayout.on("layoutMoved", function() {
-        instance.saveState();
-      });
+      simplelayout.on("layoutMoved", function() { instance.saveState(); });
 
-      simplelayout.on("layoutInserted", function() {
-        simplelayout.getToolbox().enableComponents();
-      });
+      simplelayout.on("layoutInserted", function() { simplelayout.options.toolbox.enableComponents(); });
 
-      simplelayout.on("layoutDeleted", function(event, manager) {
-        if(!manager.hasLayouts()) {
-          simplelayout.getToolbox().disableComponents();
+      simplelayout.on("layoutDeleted", function(layout) {
+        if(!simplelayout.getManagers()[layout.element.data("container")].hasLayouts()) {
+          simplelayout.options.toolbox.disableComponents();
         }
       });
 
