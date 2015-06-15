@@ -72,7 +72,7 @@
       var deleteOverlay = new global.FormOverlay();
       var editOverlay = new global.FormOverlay();
 
-      if (!instance.settings.canMoveLayouts){
+      if (!instance.settings.canChangeLayouts){
         $(simplelayout.options.source).sortable("disable");
       }
 
