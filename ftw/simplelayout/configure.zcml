@@ -48,6 +48,11 @@
     <subscriber
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              zope.lifecycleevent.IObjectCopiedEvent"
-        handler=".handlers.update_page_state" />
+        handler=".handlers.update_page_state_on_copy_paste_block" />
+
+    <subscriber
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
+             zope.app.container.interfaces.IObjectRemovedEvent"
+        handler=".handlers.update_page_state_on_block_remove" />
 
 </configure>

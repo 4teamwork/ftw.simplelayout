@@ -23,7 +23,7 @@ def unwrap_persistence(conf):
     return unwrap(conf)
 
 
-def update_page_state(block, event):
+def update_page_state_on_copy_paste_block(block, event):
     """Update the uid of the new created block in the page state.
     block: new block
     event.original: origin of the copy event - usually the simplelayout page"""
@@ -42,3 +42,23 @@ def update_page_state(block, event):
                                        new_block_uid))
 
     page_config.store(new_page_state)
+
+
+def update_page_state_on_block_remove(block, event):
+
+    if event.newParent is None:
+        # Be sure it's not cut/paste
+        block_uid = IUUID(block)
+        config = IPageConfiguration(event.oldParent)
+        page_state = config.load()
+
+        for container in page_state.values():
+            for layout in container:
+                for column in layout['cols']:
+                    cache_amound_blocks = len(column['blocks'])
+                    column['blocks'] = [item for item in column['blocks']
+                                        if item['uid'] != block_uid]
+                    if cache_amound_blocks != len(column['blocks']):
+                        # Block has been removed
+                        break
+        config.store(page_state)
