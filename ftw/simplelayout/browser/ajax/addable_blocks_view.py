@@ -7,6 +7,7 @@ from plone.dexterity.interfaces import IDexterityFTI
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
@@ -21,8 +22,15 @@ class AddableBlocks(BrowserView):
 
     def addable_blocks(self):
         block_types = set(self._get_block_types())
-        allowed_types = set(ISelectableConstrainTypes(
-            self.context).getImmediatelyAddableTypes())
+
+        if not IPloneSiteRoot.providedBy(self.context):
+            allowed_types = set(ISelectableConstrainTypes(
+                self.context).getImmediatelyAddableTypes())
+
+        else:
+            # SpecialCase for PloneRoot, since it does not provide the
+            # ISelectableConstrainTypes behavior
+            allowed_types = [fti.id for fti in self.context.allowedContentTypes()]
 
         default_actions = getMultiAdapter((self.context, self.request),
                                           ISimplelayoutActions)
