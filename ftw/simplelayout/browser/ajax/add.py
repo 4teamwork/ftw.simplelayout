@@ -1,5 +1,5 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
-from ftw.simplelayout.interfaces import ISimplelayoutPage
+from ftw.simplelayout.interfaces import ISimplelayout
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
@@ -14,7 +14,7 @@ from zope.traversing.interfaces import TraversalError
 class AddViewTraverser(object):
     """Add view traverser.
     """
-    adapts(ISimplelayoutPage, Interface)
+    adapts(ISimplelayout, Interface)
     implements(ITraversable)
 
     def __init__(self, context, request):

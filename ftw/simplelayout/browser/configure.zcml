@@ -15,14 +15,14 @@
     <include package=".controlpanel" />
 
     <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        for="ftw.simplelayout.interfaces.ISimplelayout"
         name="simplelayout-view"
         permission="zope2.View"
         class=".simplelayout.SimplelayoutView"
         />
 
     <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        for="ftw.simplelayout.interfaces.ISimplelayout"
         name="sl-ajax-save-state-view"
         permission="cmf.ModifyPortalContent"
         class=".simplelayout.SimplelayoutView"

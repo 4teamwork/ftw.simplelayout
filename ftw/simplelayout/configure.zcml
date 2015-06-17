@@ -22,6 +22,11 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <!-- Plone root may be a simplelayout page -->
+    <class class="Products.CMFPlone.Portal.PloneSite">
+      <implements interface="ftw.simplelayout.interfaces.ISimplelayout" />
+    </class>
+
     <genericsetup:registerProfile
         name="lib"
         title="ftw.simplelayout js library"
@@ -31,7 +36,7 @@
         />
 
     <adapter
-        for="ftw.simplelayout.interfaces.ISimplelayoutPage"
+        for="ftw.simplelayout.interfaces.ISimplelayout"
         factory=".configuration.PageConfiguration"
         />
 
