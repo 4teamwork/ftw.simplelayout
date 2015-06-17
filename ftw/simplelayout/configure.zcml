@@ -37,13 +37,25 @@
       <implements interface="ftw.simplelayout.interfaces.ISimplelayout" />
     </class>
 
-    <genericsetup:registerProfile
-        name="lib"
-        title="ftw.simplelayout js library"
-        directory="profiles/lib"
-        description="Simlelayout js library"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
+    <configure zcml:condition="not-have plone-5">
+        <genericsetup:registerProfile
+            name="lib"
+            title="ftw.simplelayout js library"
+            directory="profiles/lib"
+            description="Simlelayout js library"
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+            />
+    </configure>
+
+    <configure zcml:condition="have plone-5">
+        <genericsetup:registerProfile
+            name="lib"
+            title="ftw.simplelayout js library"
+            directory="profiles/lib-plone5"
+            description="Simlelayout js library"
+            provides="Products.GenericSetup.interfaces.EXTENSION"
+            />
+    </configure>
 
     <adapter
         for="ftw.simplelayout.interfaces.ISimplelayout"
