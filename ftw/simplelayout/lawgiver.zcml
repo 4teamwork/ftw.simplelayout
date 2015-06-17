@@ -17,7 +17,7 @@
                      ftw.simplelayout: Add TextBlock,
                      ftw.simplelayout: Add MapBlock,
                      ftw.simplelayout: Add VideoBlock,
-                     ftw.simplelayout.ChangeLayouts"
+                     ftw.simplelayout: Change Layouts"
         />
 
 </configure>
