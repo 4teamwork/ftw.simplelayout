@@ -11,10 +11,6 @@ class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
 
-class ISimplelayoutPage(Interface):
-    """Marker for Simplelayout content pages"""
-
-
 class ISimplelayoutBlock(Interface):
     """Marker for simplelayout blocks"""
 
