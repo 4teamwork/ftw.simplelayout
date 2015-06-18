@@ -7,7 +7,7 @@
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">VideoBlock</property>
     <property name="description" i18n:translate="">Use this block to display videos from youtube, or vimeo</property>
-    <property name="content_icon"></property>
+    <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
