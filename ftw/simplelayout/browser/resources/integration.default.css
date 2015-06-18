@@ -9,6 +9,16 @@
   list-style-type: none;
 }
 
+#content [class^="sl-toolbar"] > li {
+  margin: 0;
+  line-height: initial;
+  display: inline-block;
+}
+
+#content ul[class^="sl-toolbar"] li.delimiter:last-child {
+  display: none;
+}
+
 .sl-image.left {
   float: left;
 }
