@@ -1,0 +1,29 @@
+/* This file is only used when ftw.theming is installed. */
+
+@include portal-type-font-awesome-icon(ftw-simplelayout-contentpage, file-text-o);
+@include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
+@include portal-type-font-awesome-icon(ftw-simplelayout-listingblock, list-ul);
+@include portal-type-font-awesome-icon(ftw-simplelayout-file, file);
+@include portal-type-font-awesome-icon(ftw-simplelayout-mapblock, map-marker);
+@include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
+
+
+.sl-toolbar-layout,
+.sl-toolbar-block {
+  @include ul(plain);
+}
+
+
+.sl-image {
+  &.left {
+    float: left;
+  }
+  &.right {
+    float: right;
+  }
+}
+
+
+.ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout {
+  opacity: 0;
+}

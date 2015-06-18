@@ -1,0 +1,22 @@
+/* This file is only used with standard Plone when ftw.theming is not installed.
+ */
+
+#form-widgets-ITeaser-internal_link-contenttree-window {
+  z-index: 70000;
+}
+
+#content [class^="sl-toolbar"] {
+  list-style-type: none;
+}
+
+.sl-image.left {
+  float: left;
+}
+
+.sl-image.right {
+  float: right;
+}
+
+.ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout{
+  opacity: 0;
+}

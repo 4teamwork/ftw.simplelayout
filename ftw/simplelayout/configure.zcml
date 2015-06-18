@@ -13,6 +13,7 @@
     <include package=".contents" />
     <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
+    <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
     <genericsetup:registerProfile
         name="default"

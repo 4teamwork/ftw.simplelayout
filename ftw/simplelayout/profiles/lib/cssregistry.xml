@@ -28,13 +28,13 @@
         />
 
     <stylesheet
-        id="++resource++ftw.simplelayout.resources/simplelayout.integration.css"
+        id="++resource++ftw.simplelayout.resources/integration.default.css"
         title=""
         cacheable="True"
         compression="safe"
         cookable="True"
         enabled="1"
-        expression=""
+        expression="not:request/HTTP_X_FTW_THEMING|nothing"
         media="all"
         rel="stylesheet"
         rendering="link"
