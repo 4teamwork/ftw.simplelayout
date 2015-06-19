@@ -36,6 +36,9 @@
         if (global.initTinyMCE) {
           global.initTinyMCE(this.form);
         }
+        if(global.tinyMCE && global.tinyMCE.triggerSave) {
+          global.tinyMCE.triggerSave(true, true);
+        }
       },
       getActionUrl: function() {
         return this.form.attr("action");
@@ -89,9 +92,6 @@
         this.close();
       },
       onFormSubmit: function(formData) {
-        if(global.tinyMCE) {
-          global.tinyMCE.triggerSave(true, true);
-        }
         this.requestForm(formData.action ,new global.FormData(formData));
       }
     };
