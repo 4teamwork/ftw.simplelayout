@@ -32,7 +32,8 @@ class ITextBlockSchema(form.Schema):
     dexteritytextindexer.searchable('text')
     text = RichText(
         title=_(u'label_text', default=u'Text'),
-        required=False)
+        required=False,
+        allowed_mime_types=('text/html',))
 
     form.primary('image')
     image = NamedBlobImage(
