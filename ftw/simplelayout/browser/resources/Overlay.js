@@ -96,7 +96,9 @@
         this.close();
       },
       onFormSubmit: function(formData) {
-        this.requestForm(formData.action ,new global.FormData(formData));
+        var fd = new global.FormData(formData);
+        fd.append("form.buttons.save", $("#form-buttons-save").val());
+        this.requestForm(formData.action, fd);
       }
     };
 
