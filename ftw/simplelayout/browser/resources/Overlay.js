@@ -6,7 +6,7 @@
 
     var overlay = {
       formSubmitted: false,
-      element: $("<div class='overlay'></div>"),
+      element: null,
       form: null,
       overlay: null,
       settings: {
@@ -23,6 +23,9 @@
       },
       close: function() {
         this.overlay.close();
+        this.element.remove();
+        this.element = null;
+        this.overlay = null;
       },
       onCancel: function() {
         if(!this.formSubmitted) {
@@ -50,6 +53,7 @@
         var self = this;
         $.getJSON(formUrl, payload, function(data) {
           if(!self.overlay) {
+            self.element = $("<div class='overlay'></div>");
             self.overlay = self.element.overlay(self.settings).overlay();
             self.element.on("submit", "form", function(event) {
               event.preventDefault();
