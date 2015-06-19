@@ -48,13 +48,16 @@
         $.post(this.settings.saveStateEndpoint, { data: JSON.stringify(state) });
       },
       cleanup: function() {
-        var blocks = this.simplelayout.getCommittedBlocks();
-        var activeBlockData = blocks[blocks.length - 1].element.data();
-        var managerId = activeBlockData.container;
-        var layoutId = activeBlockData.layoutId;
-        var columnId = activeBlockData.columnId;
-        var blockId = activeBlockData.blockId;
-        this.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
+        var blocks = this.simplelayout.getInsertedBlocks();
+        var self = this;
+        $.each(blocks, function(idx, block) {
+          var data = block.element.data();
+          var managerId = data.container;
+          var layoutId = data.layoutId;
+          var columnId = data.columnId;
+          var blockId = data.blockId;
+          self.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
+        });
       }
     };
 
@@ -89,6 +92,7 @@
       addOverlay.onSubmit(function(newBlockData) {
         currentBlock.element.data("uid", newBlockData.uid);
         currentBlock.content(newBlockData.content);
+        currentBlock.commit();
         instance.saveState();
         this.close();
       });
@@ -110,7 +114,10 @@
 
       simplelayout.on("layoutMoved", function() { instance.saveState(); });
 
-      simplelayout.on("layoutInserted", function() { simplelayout.options.toolbox.enableComponents(); });
+      simplelayout.on("layoutInserted", function(layout) {
+        layout.commit();
+        simplelayout.options.toolbox.enableComponents();
+      });
 
       simplelayout.on("layoutDeleted", function(layout) {
         if(!simplelayout.getManagers()[layout.element.data("container")].hasLayouts()) {
