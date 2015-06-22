@@ -16,11 +16,21 @@ tests_require = [
     'unittest2',
     'zope.configuration',
     'plone.app.lockingbehavior',
+    'path.py',
     ]
+
+migration_require = ['ftw.contentpage',
+                     'Products.contentmigration',
+                     'plone.app.contenttypes==1.1b5',
+                     'plone.app.event==1.1']
+
+migration_test_require = migration_require + ['ftw.contentpage [tests]']
 
 extras_require = {
     'tests': tests_require,
     'test': tests_require,
+    'migration': migration_require,
+    'migration_test': migration_test_require,
     }
 
 setup(name='ftw.simplelayout',

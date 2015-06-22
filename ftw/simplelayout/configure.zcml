@@ -15,6 +15,13 @@
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
+
+    <configure zcml:condition="installed Products.contentmigration">
+      <configure zcml:condition="installed ftw.contentpage">
+        <include package=".migration" />
+      </configure>
+    </configure>
+
     <genericsetup:registerProfile
         name="default"
         title="ftw.simplelayout default"

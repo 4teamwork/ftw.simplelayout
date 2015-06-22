@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+
+    <browser:page
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        name="migrate_ftw_contentpage_to_ftw_simplelayout"
+        permission="zope2.View"
+        class=".view.Migration"
+        />
+
+
+</configure>
