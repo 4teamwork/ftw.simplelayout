@@ -1,0 +1,233 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-06-22 11:57+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:51
+msgid "Cancel"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:45
+msgid "Changes saved"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ContentPage.xml
+msgid "ContentPage"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:54
+msgid "Edit cancelled"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
+msgid "FileListingBlock"
+msgstr ""
+
+#. Default: "ID"
+#: ./ftw/simplelayout/contents/listingblock.py:73
+msgid "ID"
+msgstr ""
+
+#: ./ftw/simplelayout/behaviors.py:33
+msgid "It's not possible to have an internal_link and an external_link together"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ListingBlock.xml
+msgid "ListingBlock"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.MapBlock.xml
+msgid "MapBlock"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:37
+msgid "Save"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
+msgid "Simplelayout block to list files."
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:81
+msgid "Simplelayout default configuration"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/lib/controlpanel.xml
+msgid "Simplelayout default settings"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/controlpanel/simplelayout_controlpanel.py:16
+msgid "Simplelayout settings"
+msgstr ""
+
+#: ./ftw/simplelayout/behaviors.py:16
+msgid "Teaser"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
+msgid "TextBlock"
+msgstr ""
+
+#: ./ftw/simplelayout/contents/videoblock.py:46
+msgid "This is no a valid youtube, or vimeo url."
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ListingBlock.xml
+msgid "Use this block for File or listings or galleries"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
+msgid "Use this block for text and/or one image."
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.MapBlock.xml
+msgid "Use this block to display a map"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
+msgid "Use this block to display videos from youtube, or vimeo"
+msgstr ""
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
+msgid "VideoBlock"
+msgstr ""
+
+#: ./ftw/simplelayout/contents/videoblock.py:34
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+msgstr ""
+
+#. Default: "creater"
+#: ./ftw/simplelayout/contents/listingblock.py:59
+msgid "column_creater"
+msgstr ""
+
+#. Default: "modified"
+#: ./ftw/simplelayout/contents/listingblock.py:53
+msgid "column_modified"
+msgstr ""
+
+#. Default: "size"
+#: ./ftw/simplelayout/contents/listingblock.py:64
+msgid "column_size"
+msgstr ""
+
+#. Default: "Title"
+#: ./ftw/simplelayout/contents/listingblock.py:48
+msgid "column_title"
+msgstr ""
+
+#. Default: "Type"
+#: ./ftw/simplelayout/contents/listingblock.py:43
+msgid "column_type"
+msgstr ""
+
+#. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
+#: ./ftw/simplelayout/interfaces.py:82
+msgid "desc_sl_config_control_panel"
+msgstr ""
+
+#. Default: "sort_index"
+#: ./ftw/simplelayout/contents/listingblock.py:106
+msgid "label_%ssort_index"
+msgstr ""
+
+#. Default: "Ascending"
+#: ./ftw/simplelayout/contents/listingblock.py:121
+msgid "label_ascending"
+msgstr ""
+
+#. Default: "Columns"
+#: ./ftw/simplelayout/contents/listingblock.py:141
+msgid "label_columns"
+msgstr ""
+
+#. Default: "Descending"
+#: ./ftw/simplelayout/contents/listingblock.py:123
+msgid "label_descending"
+msgstr ""
+
+#. Default: "Description"
+#: ./ftw/simplelayout/contents/file.py:21
+msgid "label_description"
+msgstr ""
+
+msgid "label_documentDate"
+msgstr ""
+
+#. Default: "External URL"
+#: ./ftw/simplelayout/behaviors.py:21
+msgid "label_external_link"
+msgstr ""
+
+#. Default: "File"
+#: ./ftw/simplelayout/contents/file.py:26
+msgid "label_file"
+msgstr ""
+
+msgid "label_getContentType"
+msgstr ""
+
+msgid "label_id"
+msgstr ""
+
+#. Default: "Image"
+#: ./ftw/simplelayout/contents/textblock.py:39
+msgid "label_image"
+msgstr ""
+
+#. Default: "Internal link"
+#: ./ftw/simplelayout/behaviors.py:25
+msgid "label_internal_link"
+msgstr ""
+
+msgid "label_modified"
+msgstr ""
+
+#. Default: "Position in Folder"
+#: ./ftw/simplelayout/contents/listingblock.py:111
+msgid "label_position_in_folder"
+msgstr ""
+
+#. Default: "Show title"
+#: ./ftw/simplelayout/contents/listingblock.py:136
+#: ./ftw/simplelayout/contents/textblock.py:28
+msgid "label_show_title"
+msgstr ""
+
+msgid "label_sortable_title"
+msgstr ""
+
+#. Default: "Text"
+#: ./ftw/simplelayout/contents/textblock.py:34
+msgid "label_text"
+msgstr ""
+
+#. Default: "Title"
+#: ./ftw/simplelayout/contents/file.py:17
+#: ./ftw/simplelayout/contents/listingblock.py:132
+#: ./ftw/simplelayout/contents/textblock.py:24
+msgid "label_title"
+msgstr ""
+
+#. Default: "Youtube, or Vimeo URL"
+#: ./ftw/simplelayout/contents/videoblock.py:33
+msgid "label_video_url"
+msgstr ""
+
+#. Default: "Review State"
+#: ./ftw/simplelayout/contents/listingblock.py:68
+msgid "review_state"
+msgstr ""
+
+
