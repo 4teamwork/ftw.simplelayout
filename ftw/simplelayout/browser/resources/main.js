@@ -64,6 +64,7 @@
     instance.init(function(simplelayout) {
       var addFormUrl;
       var currentBlock;
+      var activeBlockElement;
       var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay();
       var editOverlay = new global.FormOverlay();
@@ -73,17 +74,19 @@
       }
 
       editOverlay.onSubmit(function(blockData) {
-        simplelayout.getActiveBlock().content(blockData.content);
+        var activeBlockData = activeBlockElement.data();
+        var activeBlock = simplelayout.getManagers()[activeBlockData.container].getBlock(activeBlockData.layoutId, activeBlockData.columnId, activeBlockData.blockId);
+        activeBlock.content(blockData.content);
         instance.saveState();
         this.close();
       });
 
       deleteOverlay.onSubmit(function() {
-        var currentBlockData = simplelayout.getActiveBlock().element.data();
-        var managerId = currentBlockData.container;
-        var layoutId = currentBlockData.layoutId;
-        var columnId = currentBlockData.columnId;
-        var blockId = currentBlockData.blockId;
+        var activeBlockData = activeBlockElement.data();
+        var managerId = activeBlockData.container;
+        var layoutId = activeBlockData.layoutId;
+        var columnId = activeBlockData.columnId;
+        var blockId = activeBlockData.blockId;
         simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
         instance.saveState();
         this.close();
@@ -127,23 +130,24 @@
 
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
-        var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
-        var config = {"block": currentBlockUUID};
+        activeBlockElement = $(this).parents(".sl-block");
+        var config = {"block": activeBlockElement.data("uid")};
         deleteOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".sl-block .edit", function(event) {
         event.preventDefault();
-        var currentBlockUUID = simplelayout.getActiveBlock().element.data().uid;
-        var config = {"block": currentBlockUUID};
+        activeBlockElement = $(this).parents(".sl-block");
+        var config = {"block": activeBlockElement.data("uid")};
         editOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".sl-layout .delete", function() {
-        var activeLayout = simplelayout.getActiveLayout();
-        if(!activeLayout.hasBlocks()) {
-          var managerId = activeLayout.element.data().container;
-          simplelayout.getManagers()[managerId].deleteLayout(simplelayout.getActiveLayout().element.data("layoutId"));
+        var data = $(this).parents(".sl-layout").data();
+        var layout = simplelayout.getManagers()[data.container].layouts[data.layoutId];
+        if(!layout.hasBlocks()) {
+          var managerId = layout.element.data().container;
+          simplelayout.getManagers()[managerId].deleteLayout(layout.element.data("layoutId"));
           instance.saveState();
         }
       });
