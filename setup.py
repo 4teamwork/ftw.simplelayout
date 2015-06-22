@@ -85,6 +85,7 @@ setup(name='ftw.simplelayout',
           'plone.app.relationfield',
           'plone.formwidget.contenttree',
 
+          'ftw.file',
           'ftw.table',
           'collective.geo.bundle [dexterity]',
           ],
