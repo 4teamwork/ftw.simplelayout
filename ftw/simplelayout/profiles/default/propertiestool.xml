@@ -6,6 +6,7 @@
    <element value="ftw.simplelayout.TextBlock"/>
    <element value="ftw.simplelayout.ListingBlock"/>
    <element value="ftw.simplelayout.ListingFile"/>
+   <element value="ftw.simplelayout.FileListingFile"/>
    <element value="ftw.simplelayout.MapBlock"/>
    <element value="ftw.simplelayout.VideoBlock"/>
   </property>
@@ -15,6 +16,7 @@
   <property name="types_not_searched" type="lines" purge="False">
    <element value="ftw.simplelayout.TextBlock"/>
    <element value="ftw.simplelayout.ListingBlock"/>
+   <element value="ftw.simplelayout.FileListingFile"/>
    <element value="ftw.simplelayout.MapBlock"/>
    <element value="ftw.simplelayout.VideoBlock"/>
   </property>
