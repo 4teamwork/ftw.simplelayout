@@ -8,6 +8,7 @@
     <dependency>profile-plone.formwidget.contenttree:default</dependency>
     <dependency>profile-ftw.simplelayout:lib</dependency>
     <dependency>profile-collective.geo.bundle:default</dependency>
+    <dependency>profile-collective.quickupload:default</dependency>
     <dependency>profile-ftw.table:default</dependency>
     <dependency>profile-ftw.file:default</dependency>
   </dependencies>

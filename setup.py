@@ -88,6 +88,7 @@ setup(name='ftw.simplelayout',
           'ftw.file',
           'ftw.table',
           'collective.geo.bundle [dexterity]',
+          'collective.quickupload',
           ],
 
       tests_require=tests_require,

@@ -22,6 +22,14 @@
              *"
         />
 
+    <adapter
+        factory=".listingblock.ListingBlockActions"
+        name="ftw-simplelayout-filelistingblock-actions"
+        for="*
+             *"
+        />
+
+
     <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
     <adapter
         factory=".textblock.TextBlockActions"

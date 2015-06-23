@@ -43,6 +43,13 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="*"
+        name="sl-ajax-upload-block-view"
+        class=".upload_block.UploadForm"
+        permission="cmf.ModifyPortalContent"
+        />
+
 
     <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock"

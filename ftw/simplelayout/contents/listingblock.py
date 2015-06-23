@@ -1,4 +1,6 @@
+from collections import OrderedDict
 from ftw.simplelayout import _
+from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contents.interfaces import IListingBlock
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
 from ftw.table import helper
@@ -159,3 +161,14 @@ alsoProvides(IListingBlockSchema, IFormFieldProvider)
 
 class ListingBlock(Container):
     implements(IListingBlock)
+
+
+class ListingBlockActions(DefaultActions):
+
+    def specific_actions(self):
+        return OrderedDict([
+            ('upload', {'class': 'upload icon-image-upload',
+                        'title': 'Upload',
+                        'href': './sl-ajax-upload-block-view'})
+        ])
+

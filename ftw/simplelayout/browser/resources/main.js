@@ -68,6 +68,7 @@
       var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay();
       var editOverlay = new global.FormOverlay();
+      var uploadOverlay = new global.FormOverlay();
 
       if (!instance.settings.canChangeLayouts){
         $(simplelayout.options.source).sortable("disable");
@@ -157,6 +158,13 @@
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
         window.location.href = activeBlockElement.data("url") + $(this).attr("href");
+      });
+
+      $(global.document).on("click", ".sl-block .upload", function(event) {
+        event.preventDefault();
+        activeBlockElement = $(this).parents(".sl-block");
+        var config = {"block": activeBlockElement.data("uid")};
+        uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
       });
 
       $(global.document).on("click", ".server-action", function(event) {
