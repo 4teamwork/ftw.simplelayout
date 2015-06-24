@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<object name="ftw.simplelayout.ListingBlock"
+<object name="ftw.simplelayout.FileListingBlock"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
         i18n:domain="ftw.simplelayout" >
@@ -12,7 +12,7 @@
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
-        <element value="ftw.simplelayout.File" />
+        <element value="File" />
     </property>
 
     <!-- schema interface -->

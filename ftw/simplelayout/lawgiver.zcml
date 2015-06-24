@@ -12,8 +12,7 @@
 
     <lawgiver:map_permissions
         action_group="edit"
-        permissions="ftw.simplelayout: Add File,
-                     ftw.simplelayout: Add FileListingBlock,
+        permissions="ftw.simplelayout: Add FileListingBlock,
                      ftw.simplelayout: Add TextBlock,
                      ftw.simplelayout: Add MapBlock,
                      ftw.simplelayout: Add VideoBlock,

@@ -18,11 +18,6 @@
         />
 
     <permission
-        id="ftw.simplelayout.addFile"
-        title="ftw.simplelayout: Add File"
-        />
-
-    <permission
         id="ftw.simplelayout.AddMapBLock"
         title="ftw.simplelayout: Add MapBlock"
         />

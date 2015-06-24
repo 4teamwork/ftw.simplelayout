@@ -22,10 +22,6 @@ class IFileListingBlock(Interface):
     """Marker interface for TextBlocks"""
 
 
-class IFile(Interface):
-    """Marker interface for TextBlocks"""
-
-
 class IListingBlockColumns(Interface):
     """Marker interface for TextBlocks"""
 

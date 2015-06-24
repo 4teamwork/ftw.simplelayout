@@ -93,7 +93,7 @@ class TestListingBlock(TestCase):
                        .having(show_title=True)
                        .within(self.page))
 
-        file_ = create(Builder('sl file')
+        file_ = create(Builder('file')
                        .titled('Test file')
                        .having(creators=(TEST_USER_ID.decode('utf-8'), ))
                        .with_dummy_content()

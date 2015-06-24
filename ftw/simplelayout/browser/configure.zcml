@@ -11,7 +11,6 @@
     <include package=".ajax" />
     <include package=".blocks" />
     <include package=".viewlets" />
-    <include package=".content" />
     <include package=".controlpanel" />
 
     <browser:page

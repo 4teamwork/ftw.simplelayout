@@ -71,7 +71,7 @@ class TestSampleTypes(TestCase):
         self.assertEquals('Nested', plone.first_heading())
 
     @browsing
-    def test_add_simplelayout_file(self, browser):
+    def test_add_file_to_listingblock(self, browser):
         listingblock = create(Builder('sl listingblock')
                               .titled('ListingBlock')
                               .within(self.page))
@@ -86,30 +86,6 @@ class TestSampleTypes(TestCase):
             '{0}/file.txt/view'.format(listingblock.absolute_url()),
             browser.url)
 
-    @browsing
-    def test_simplelayout_file_view(self, browser):
-        listingblock = create(Builder('sl listingblock')
-                              .titled('ListingBlock')
-                              .within(self.page))
-
-        browser.login().visit(listingblock, view='folder_contents')
-        factoriesmenu.add('File')
-        browser.fill(
-            {'File': ('1' * 1024, 'file.txt', 'text/plain')})
-        browser.find_button_by_label('Save').click()
-
-        self.assertEquals('file.txt', plone.first_heading())
-
-        self.assertEquals(
-            '{0}/file.txt/@@download/file/file.txt'.format(
-                listingblock.absolute_url()),
-            browser.css('#content-core a').first.attrib['href'])
-
-        self.assertEquals(u'\u2014 1 KB',
-                          browser.css('#content-core .discreet').first.text)
-
-        self.assertEquals('txt.png',
-                          browser.css('#content-core img').first.attrib['src'])
 
     @browsing
     def test_adding_mapblock(self, browser):
