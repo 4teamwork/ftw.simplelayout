@@ -1,14 +1,12 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
-from plone.dexterity.browser.edit import DefaultEditForm
-from plone.dexterity.interfaces import IDexterityEditForm
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from zope.interface import classImplements
-from zExceptions import BadRequest
 from plone.app.uuid.utils import uuidToObject
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zExceptions import BadRequest
 import json
 
 
-class UploadForm(DefaultEditForm):
+class UploadForm(BrowserView):
 
     template = ViewPageTemplateFile('templates/upload.pt')
 
@@ -26,12 +24,11 @@ class UploadForm(DefaultEditForm):
 
     def get_upload_url(self):
         """
-        return upload url
-        in current folder
+        return upload url in current folder
         """
         ploneview = self.block.restrictedTraverse('@@plone')
         folder_url = ploneview.getCurrentFolderUrl()
-        return '%s/@@quick_upload' %folder_url
+        return '%s/@@quick_upload' % folder_url
 
     def javascript(self):
         return """
@@ -58,25 +55,11 @@ class UploadForm(DefaultEditForm):
             jQuery(document).ready(loadUploader);
             """
 
-    def isTemporary(obj):
-        """Check to see if an object is temporary"""
-        if not shasattr(obj, 'isTemporary'):
-            return False
-        if obj.isTemporary():
-            return False
-
-        parent = aq_base(aq_parent(aq_inner(obj)))
-        return hasattr(parent, 'meta_type') \
-            and parent.meta_type == TempFolder.meta_type
-
     def render(self):
         response = {'content': self.template(),
-                        'proceed': False}
+                    'proceed': False}
 
         if self._finished_edit:
             response['proceed'] = True
             response['content'] = self.context()
         return json_response(self.request, response)
-
-
-classImplements(UploadForm, IDexterityEditForm)
