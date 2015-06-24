@@ -164,7 +164,32 @@
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
         var config = {"block": activeBlockElement.data("uid")};
-        uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
+        uploadOverlay.load($(this).attr("href"),{"data": JSON.stringify(config)}, function(){
+          var self = this;
+
+          Browser.onUploadComplete = function(){ return; };
+
+          self.element.on("click", "#button-upload-done", function(event) {
+            event.preventDefault();
+            self.onFormCancel.call(self);
+          });
+
+        });
+
+        uploadOverlay.onCancel(function(){
+          var payLoad = {};
+          var action = $(this);
+          var configRequest;
+          payLoad.uid = activeBlockElement.data("uid");
+          $.extend(payLoad, action.data());
+          configRequest = $.post('./sl-ajax-reload-block-view', {"data": JSON.stringify(payLoad)});
+          configRequest.done(function(blockContent) {
+            var data = activeBlockElement.data();
+            var manager = simplelayout.getManagers()[data.container];
+            var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
+            block.content(blockContent);
+          });
+        });
       });
 
       $(global.document).on("click", ".server-action", function(event) {

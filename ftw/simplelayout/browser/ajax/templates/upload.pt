@@ -5,5 +5,11 @@
                name="uploadUrl"
                class="uploadUrl"
                tal:attributes="value view/get_upload_url" />
+
     </div>
+
+    <p>
+      <button id="button-upload-done" class="context">Fertig</button>
+    </p>
+
 </div>
