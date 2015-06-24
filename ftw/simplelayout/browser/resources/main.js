@@ -94,6 +94,7 @@
 
       addOverlay.onSubmit(function(newBlockData) {
         currentBlock.element.data("uid", newBlockData.uid);
+        currentBlock.element.data("url", newBlockData.url);
         currentBlock.content(newBlockData.content);
         currentBlock.commit();
         instance.saveState();
@@ -150,6 +151,12 @@
           simplelayout.getManagers()[managerId].deleteLayout(layout.element.data("layoutId"));
           instance.saveState();
         }
+      });
+
+      $(global.document).on("click", ".sl-block .redirect", function(event) {
+        event.preventDefault();
+        activeBlockElement = $(this).parents(".sl-block");
+        window.location.href = activeBlockElement.data("url") + $(this).attr("href");
       });
 
       $(global.document).on("click", ".server-action", function(event) {

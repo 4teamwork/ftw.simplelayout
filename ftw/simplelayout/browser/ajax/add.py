@@ -1,5 +1,6 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayout
+from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
@@ -56,9 +57,11 @@ class AddView(DefaultAddView):
 
     def render(self):
         if hasattr(self.form_instance, 'obj_uid'):
+            obj = uuidToObject(self.form_instance.obj_uid)
             self.request.response.setHeader('Content-Type', 'application/json')
             return json_response(self.request,
                                  uid=self.form_instance.obj_uid,
+                                 url=obj.absolute_url(),
                                  content=self.form_instance.obj_html,
                                  proceed=True)
 

@@ -55,6 +55,7 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
                         obj = blocks[block['uid']]
                         block['obj_html'] = self._render_block_html(obj)
                         block['type'] = normalize_portal_type(obj.portal_type)
+                        block['url'] = obj.absolute_url()
 
         # Append blocks, which are not in the simplelayout configuration into
         # the last column.
@@ -65,7 +66,8 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
                     {
                         'uid': uid,
                         'obj_html': self._render_block_html(obj),
-                        'type': normalize_portal_type(obj.portal_type)
+                        'type': normalize_portal_type(obj.portal_type),
+                        'url': obj.absolute_url(),
                     }
                 )
 
