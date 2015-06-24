@@ -60,6 +60,13 @@ class TestAddBlock(TestCase):
         browser.find_button_by_label('Save').click()
 
         response = browser.json
+
+        self.assertEqual(
+            'http://nohost/plone/ftw-simplelayout-contentpage/'
+            'this-is-a-textblock',
+            response['url']
+        )
+
         browser.open_html(response['content'])
         self.assertFalse(browser.css('form'), 'No form expected.')
         self.assertEquals('This is a TextBlock',

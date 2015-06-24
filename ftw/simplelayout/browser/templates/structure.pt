@@ -11,7 +11,8 @@
       <div class="sl-block"
            tal:repeat="block col/blocks"
            tal:attributes="data-type block/type;
-                           data-uid block/uid">
+                           data-uid block/uid;
+                           data-url block/url;">
         <div class="sl-block-content"
             tal:content="structure block/obj_html">Block Content</div>
       </div>
