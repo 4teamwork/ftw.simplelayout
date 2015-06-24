@@ -1,8 +1,8 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
-from ftw.simplelayout.contents.listingblock import listing_block_columns
-from ftw.simplelayout.contents.listingblock import ListingBlockDefaultColumns
+from ftw.simplelayout.contents.filelistingblock import listing_block_columns
+from ftw.simplelayout.contents.filelistingblock import ListingBlockDefaultColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
@@ -50,7 +50,7 @@ class TestListingBlock(TestCase):
     @browsing
     def test_columns_vocabulary_on_listingblock_add_form(self, browser):
         browser.login().visit(self.page)
-        factoriesmenu.add('ListingBlock')
+        factoriesmenu.add('FileListingBlock')
 
         self.assertEquals(
             ['creater', 'size', 'Review State', 'ID'],
@@ -64,7 +64,7 @@ class TestListingBlock(TestCase):
     @browsing
     def test_adding_listingblock(self, browser):
         browser.login().visit(self.page)
-        factoriesmenu.add('ListingBlock')
+        factoriesmenu.add('FileListingBlock')
         browser.fill(
             {'Title': 'My listingblock', 'Show title': True}).submit()
         self.assertEquals(self.page.absolute_url(), browser.url)

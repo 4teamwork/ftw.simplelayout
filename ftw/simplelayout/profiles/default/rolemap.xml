@@ -9,10 +9,6 @@
       <role name="Manager" />
       <role name="Contributor" />
     </permission>
-    <permission name="ftw.simplelayout: Add ListingBlock" acquire="False">
-      <role name="Manager" />
-      <role name="Contributor" />
-    </permission>
     <permission name="ftw.simplelayout: Add FileListingBlock" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

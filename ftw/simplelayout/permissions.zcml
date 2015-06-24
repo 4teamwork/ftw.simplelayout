@@ -13,11 +13,6 @@
         />
 
     <permission
-        id="ftw.simplelayout.AddListingBlock"
-        title="ftw.simplelayout: Add ListingBlock"
-        />
-
-    <permission
         id="ftw.simplelayout.AddFileListingBlock"
         title="ftw.simplelayout: Add FileListingBlock"
         />

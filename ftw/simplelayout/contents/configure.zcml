@@ -13,7 +13,7 @@
         />
 
     <adapter
-        factory=".listingblock.ListingBlockDefaultColumns"
+        factory=".filelistingblock.ListingBlockDefaultColumns"
         />
 
     <adapter
@@ -23,7 +23,7 @@
         />
 
     <adapter
-        factory=".listingblock.ListingBlockActions"
+        factory=".filelistingblock.ListingBlockActions"
         name="ftw-simplelayout-filelistingblock-actions"
         for="*
              *"

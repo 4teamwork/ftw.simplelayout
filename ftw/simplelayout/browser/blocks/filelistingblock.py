@@ -7,7 +7,7 @@ from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 
 
-class ListingBlockView(BrowserView):
+class FileListingBlockView(BrowserView):
     """ListingBlock default view"""
 
     def get_table_contents(self):

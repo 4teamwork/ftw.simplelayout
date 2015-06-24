@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
-from ftw.simplelayout.contents.interfaces import IListingBlock
+from ftw.simplelayout.contents.interfaces import IFileListingBlock
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
 from ftw.table import helper
 from plone.autoform.interfaces import IFormFieldProvider
@@ -126,7 +126,7 @@ sort_order_vocabulary = SimpleVocabulary([
 ])
 
 
-class IListingBlockSchema(form.Schema):
+class IFileListingBlockSchema(form.Schema):
     """ListingBlock for simplelayout
     """
 
@@ -156,11 +156,11 @@ class IListingBlockSchema(form.Schema):
         vocabulary=sort_order_vocabulary)
 
 
-alsoProvides(IListingBlockSchema, IFormFieldProvider)
+alsoProvides(IFileListingBlockSchema, IFormFieldProvider)
 
 
-class ListingBlock(Container):
-    implements(IListingBlock)
+class FileListingBlock(Container):
+    implements(IFileListingBlock)
 
 
 class ListingBlockActions(DefaultActions):

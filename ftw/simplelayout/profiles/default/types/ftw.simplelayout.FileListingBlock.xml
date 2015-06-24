@@ -12,14 +12,14 @@
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
     <property name="allowed_content_types">
-        <element value="File" />
+        <element value="ftw.simplelayout.File" />
     </property>
 
     <!-- schema interface -->
-    <property name="schema">ftw.simplelayout.contents.listingblock.IListingBlockSchema</property>
+    <property name="schema">ftw.simplelayout.contents.filelistingblock.IFileListingBlockSchema</property>
 
     <!-- class used for content items -->
-    <property name="klass">ftw.simplelayout.contents.listingblock.ListingBlock</property>
+    <property name="klass">ftw.simplelayout.contents.filelistingblock.FileListingBlock</property>
 
     <!-- add permission -->
     <property name="add_permission">ftw.simplelayout.AddFileListingBlock</property>

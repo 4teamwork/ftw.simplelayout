@@ -16,7 +16,7 @@ builder_registry.register('sl textblock', TextBlockBuilder)
 
 
 class ListingBlockBuilder(DexterityBuilder):
-    portal_type = 'ftw.simplelayout.ListingBlock'
+    portal_type = 'ftw.simplelayout.FileListingBlock'
 
 builder_registry.register('sl listingblock', ListingBlockBuilder)
 
