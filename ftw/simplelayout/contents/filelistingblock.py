@@ -10,6 +10,7 @@ from plone.directives import form
 from zope import schema
 from zope.component import adapts
 from zope.component import queryMultiAdapter
+from zope.i18n import translate
 from zope.interface import alsoProvides
 from zope.interface import directlyProvides
 from zope.interface import implements
@@ -169,6 +170,12 @@ class ListingBlockActions(DefaultActions):
         return OrderedDict([
             ('upload', {'class': 'upload icon-image-upload',
                         'title': 'Upload',
-                        'href': './sl-ajax-upload-block-view'})
+                        'href': './sl-ajax-upload-block-view'}),
+            ('folderContents', {
+                'class': 'icon-folder-contents redirect',
+                'title': translate(
+                    _(u'label_folder_contents',
+                      default=u'Show folder contents to manage files'),
+                    context=self.request),
+                'href': '/folder_contents'}),
         ])
-
