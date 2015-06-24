@@ -39,7 +39,7 @@
     <browser:page
         for="*"
         name="sl-ajax-upload-block-view"
-        class=".upload_block.UploadForm"
+        class=".upload.UploadForm"
         permission="cmf.ModifyPortalContent"
         />
 
