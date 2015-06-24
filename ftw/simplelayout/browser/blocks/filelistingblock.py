@@ -7,7 +7,7 @@ from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 
 
-class ListingBlockView(BrowserView):
+class FileListingBlockView(BrowserView):
     """ListingBlock default view"""
 
     def get_table_contents(self):
@@ -19,8 +19,8 @@ class ListingBlockView(BrowserView):
         query = {}
         path = '/'.join(self.context.getPhysicalPath())
         query['path'] = {'query': path, 'depth': 1}
-        query['sort_on'] = 'sortable_title'
-        query['sort_order'] = 'ascending'
+        query['sort_on'] = self.context.sort_on
+        query['sort_order'] = self.context.sort_order
         return query
 
     def _get_columns(self, column_id):

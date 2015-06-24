@@ -1,3 +1,4 @@
+
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
@@ -23,7 +24,7 @@ class TestAddableBlocksView(TestCase):
         result.sort()
 
         self.assertEquals(
-            ['ftw-simplelayout-listingblock',
+            ['ftw-simplelayout-filelistingblock',
              'ftw-simplelayout-mapblock',
              'ftw-simplelayout-textblock',
              'ftw-simplelayout-videoblock'],
@@ -37,20 +38,27 @@ class TestAddableBlocksView(TestCase):
         self.maxDiff = None
 
         self.assertDictEqual(
-            {u'title': u'ListingBlock',
-             u'description': u'Use this block for File or listings or galleries',
-             u'contentType': u'ftw-simplelayout-listingblock',
+            {u'title': u'FileListingBlock',
+             u'description': u'Simplelayout block to list files.',
+             u'contentType': u'ftw-simplelayout-filelistingblock',
              u'actions': {u'delete': {u'class': u'delete icon-delete',
                                       u'href': u'./sl-ajax-delete-blocks-view',
                                       u'title': u'Delete block'},
                           u'edit': {u'class': u'edit icon-edit',
                                     u'href': u'./sl-ajax-edit-block-view',
                                     u'title': u'Edit block'},
-                          u'move': {u'class': u'move icon-move', u'title': u'Move block'}},
-             u'formUrl': u'{0}/++add_block++ftw.simplelayout.ListingBlock'.format(
+                          u'upload': {u'class': u'upload icon-image-upload',
+                                      u'href': u'./sl-ajax-upload-block-view',
+                                      u'title': u'Upload'},
+                          u'folderContents': {u'class': u'icon-folder-contents redirect',
+                                              u'href': u'/folder_contents',
+                                              u'title': u'Show folder contents to manage files'},
+                          u'move': {u'class': u'move icon-move',
+                                    u'title': u'Move block'}},
+             u'formUrl': u'{0}/++add_block++ftw.simplelayout.FileListingBlock'.format(
                  page.absolute_url())
              },
-            addable_types_json[u'ftw-simplelayout-listingblock'])
+            addable_types_json[u'ftw-simplelayout-filelistingblock'])
 
         self.assertDictEqual(
             {u'title': u'TextBlock',

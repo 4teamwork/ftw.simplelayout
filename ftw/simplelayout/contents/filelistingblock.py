@@ -1,5 +1,7 @@
+from collections import OrderedDict
 from ftw.simplelayout import _
-from ftw.simplelayout.contents.interfaces import IListingBlock
+from ftw.simplelayout.browser.actions import DefaultActions
+from ftw.simplelayout.contents.interfaces import IFileListingBlock
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
 from ftw.table import helper
 from plone.autoform.interfaces import IFormFieldProvider
@@ -8,11 +10,13 @@ from plone.directives import form
 from zope import schema
 from zope.component import adapts
 from zope.component import queryMultiAdapter
+from zope.i18n import translate
 from zope.interface import alsoProvides
 from zope.interface import directlyProvides
 from zope.interface import implements
 from zope.interface import Interface
 from zope.schema.interfaces import IContextSourceBinder
+from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
 
@@ -93,7 +97,37 @@ def listing_block_columns(context):
 directlyProvides(listing_block_columns, IContextSourceBinder)
 
 
-class IListingBlockSchema(form.Schema):
+def sort_index_vocabulary(context):
+    adapter = queryMultiAdapter((context, context.REQUEST),
+                                IListingBlockColumns)
+    terms = []
+    for col in adapter.columns():
+        if 'sort_index' in col:
+            terms.append(SimpleVocabulary.createTerm(
+                col['sort_index'],
+                col['sort_index'],
+                _(u'label_%s' % col['sort_index'],
+                    default=col['sort_index'])))
+    terms.append(SimpleVocabulary.createTerm(
+        'getObjPositionInParent',
+        'getObjPositionInParent',
+        _(u'label_position_in_folder',
+            default=u'Position in Folder')))
+
+    return SimpleVocabulary(terms)
+
+directlyProvides(sort_index_vocabulary, IContextSourceBinder)
+
+
+sort_order_vocabulary = SimpleVocabulary([
+    SimpleTerm(value='ascending',
+               title=_(u'label_ascending', default=u'Ascending')),
+    SimpleTerm(value='descending',
+               title=_(u'label_descending', default=u'Descending'))
+])
+
+
+class IFileListingBlockSchema(form.Schema):
     """ListingBlock for simplelayout
     """
 
@@ -112,8 +146,36 @@ class IListingBlockSchema(form.Schema):
         required=True,
         default=['getContentType', 'Title', 'modified'])
 
-alsoProvides(IListingBlockSchema, IFormFieldProvider)
+    sort_on = schema.Choice(
+        required=True,
+        default="sortable_title",
+        source=sort_index_vocabulary)
+
+    sort_order = schema.Choice(
+        required=True,
+        default="ascending",
+        vocabulary=sort_order_vocabulary)
 
 
-class ListingBlock(Container):
-    implements(IListingBlock)
+alsoProvides(IFileListingBlockSchema, IFormFieldProvider)
+
+
+class FileListingBlock(Container):
+    implements(IFileListingBlock)
+
+
+class ListingBlockActions(DefaultActions):
+
+    def specific_actions(self):
+        return OrderedDict([
+            ('upload', {'class': 'upload icon-image-upload',
+                        'title': 'Upload',
+                        'href': './sl-ajax-upload-block-view'}),
+            ('folderContents', {
+                'class': 'icon-folder-contents redirect',
+                'title': translate(
+                    _(u'label_folder_contents',
+                      default=u'Show folder contents to manage files'),
+                    context=self.request),
+                'href': '/folder_contents'}),
+        ])

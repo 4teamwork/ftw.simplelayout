@@ -18,11 +18,7 @@ class IVideoBlock(Interface):
     """Marker interface for VideoBlocks"""
 
 
-class IListingBlock(Interface):
-    """Marker interface for TextBlocks"""
-
-
-class IFile(Interface):
+class IFileListingBlock(Interface):
     """Marker interface for TextBlocks"""
 
 

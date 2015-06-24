@@ -2,8 +2,7 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="ftw.simplelayout.ContentPage" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.TextBlock" meta_type="Dexterity FTI" />
-  <object name="ftw.simplelayout.ListingBlock" meta_type="Dexterity FTI" />
-  <object name="ftw.simplelayout.File" meta_type="Dexterity FTI" />
+  <object name="ftw.simplelayout.FileListingBlock" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.MapBlock" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.VideoBlock" meta_type="Dexterity FTI" />
 </object>

@@ -1,0 +1,40 @@
+<div class="pb-ajax">
+    <script  type="text/javascript">
+
+        if (jQuery.browser.msie) jQuery("#settings").remove();
+        loadUploader = function() {
+          var ulContainer = jQuery('.quickupload.uploaderContainer');
+          ulContainer.each(function(){
+              var uploadUrl =  jQuery('.uploadUrl', this).val();
+              var uploadData =  'auto';
+              var UlDiv = jQuery(this);
+              jQuery.ajax({
+                         type: 'GET',
+                         url: uploadUrl,
+                         data: uploadData,
+                         dataType: 'html',
+                         contentType: 'text/html; charset=utf-8',
+                         success: function(html) {
+                            if (html.indexOf('quick-uploader') != -1) {
+                                UlDiv.html(html);
+                            }
+                         } });
+          });
+        }
+        jQuery(document).ready(loadUploader);
+    </script>
+
+
+    <div class="quickupload uploaderContainer">
+        <input type="hidden"
+               name="uploadUrl"
+               class="uploadUrl"
+               tal:attributes="value view/get_upload_url" />
+
+    </div>
+
+    <p>
+      <button id="button-upload-done" class="context">Fertig</button>
+    </p>
+
+</div>

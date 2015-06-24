@@ -13,7 +13,7 @@
         />
 
     <adapter
-        factory=".listingblock.ListingBlockDefaultColumns"
+        factory=".filelistingblock.ListingBlockDefaultColumns"
         />
 
     <adapter
@@ -21,6 +21,14 @@
         for="ftw.simplelayout.contents.interfaces.ITextBlock
              *"
         />
+
+    <adapter
+        factory=".filelistingblock.ListingBlockActions"
+        name="ftw-simplelayout-filelistingblock-actions"
+        for="*
+             *"
+        />
+
 
     <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
     <adapter

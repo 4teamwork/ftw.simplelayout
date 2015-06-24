@@ -11,10 +11,10 @@
         />
 
     <browser:page
-        for="ftw.simplelayout.contents.interfaces.IListingBlock"
+        for="ftw.simplelayout.contents.interfaces.IFileListingBlock"
         name="block_view"
         permission="zope2.View"
-        class=".listingblock.ListingBlockView"
+        class=".filelistingblock.FileListingBlockView"
         template="templates/listingblock.pt"
         />
 
