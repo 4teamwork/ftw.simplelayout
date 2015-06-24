@@ -12,13 +12,6 @@
 
     <browser:page
         for="*"
-        name="sl-ajax-file-upload"
-        class=".fileupload.FileUpload"
-        permission="cmf.ModifyPortalContent"
-        />
-
-    <browser:page
-        for="*"
         name="sl-ajax-addable-blocks-view"
         class=".addable_blocks_view.AddableBlocks"
         permission="cmf.ModifyPortalContent"
