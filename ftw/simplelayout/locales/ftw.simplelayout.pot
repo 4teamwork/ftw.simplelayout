@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-24 13:00+0000\n"
+"POT-Creation-Date: 2015-06-24 14:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,7 +35,7 @@ msgid "FileListingBlock"
 msgstr ""
 
 #. Default: "ID"
-#: ./ftw/simplelayout/contents/filelistingblock.py:75
+#: ./ftw/simplelayout/contents/filelistingblock.py:76
 msgid "ID"
 msgstr ""
 
@@ -100,27 +100,27 @@ msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://v
 msgstr ""
 
 #. Default: "creater"
-#: ./ftw/simplelayout/contents/filelistingblock.py:61
+#: ./ftw/simplelayout/contents/filelistingblock.py:62
 msgid "column_creater"
 msgstr ""
 
 #. Default: "modified"
-#: ./ftw/simplelayout/contents/filelistingblock.py:55
+#: ./ftw/simplelayout/contents/filelistingblock.py:56
 msgid "column_modified"
 msgstr ""
 
 #. Default: "size"
-#: ./ftw/simplelayout/contents/filelistingblock.py:66
+#: ./ftw/simplelayout/contents/filelistingblock.py:67
 msgid "column_size"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contents/filelistingblock.py:50
+#: ./ftw/simplelayout/contents/filelistingblock.py:51
 msgid "column_title"
 msgstr ""
 
 #. Default: "Type"
-#: ./ftw/simplelayout/contents/filelistingblock.py:45
+#: ./ftw/simplelayout/contents/filelistingblock.py:46
 msgid "column_type"
 msgstr ""
 
@@ -130,22 +130,22 @@ msgid "desc_sl_config_control_panel"
 msgstr ""
 
 #. Default: "sort_index"
-#: ./ftw/simplelayout/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contents/filelistingblock.py:109
 msgid "label_%ssort_index"
 msgstr ""
 
 #. Default: "Ascending"
-#: ./ftw/simplelayout/contents/filelistingblock.py:123
+#: ./ftw/simplelayout/contents/filelistingblock.py:124
 msgid "label_ascending"
 msgstr ""
 
 #. Default: "Columns"
-#: ./ftw/simplelayout/contents/filelistingblock.py:143
+#: ./ftw/simplelayout/contents/filelistingblock.py:144
 msgid "label_columns"
 msgstr ""
 
 #. Default: "Descending"
-#: ./ftw/simplelayout/contents/filelistingblock.py:125
+#: ./ftw/simplelayout/contents/filelistingblock.py:126
 msgid "label_descending"
 msgstr ""
 
@@ -155,6 +155,11 @@ msgstr ""
 #. Default: "External URL"
 #: ./ftw/simplelayout/behaviors.py:21
 msgid "label_external_link"
+msgstr ""
+
+#. Default: "Show folder contents to manage files"
+#: ./ftw/simplelayout/contents/filelistingblock.py:177
+msgid "label_folder_contents"
 msgstr ""
 
 msgid "label_getContentType"
@@ -177,12 +182,12 @@ msgid "label_modified"
 msgstr ""
 
 #. Default: "Position in Folder"
-#: ./ftw/simplelayout/contents/filelistingblock.py:113
+#: ./ftw/simplelayout/contents/filelistingblock.py:114
 msgid "label_position_in_folder"
 msgstr ""
 
 #. Default: "Show title"
-#: ./ftw/simplelayout/contents/filelistingblock.py:138
+#: ./ftw/simplelayout/contents/filelistingblock.py:139
 #: ./ftw/simplelayout/contents/textblock.py:28
 msgid "label_show_title"
 msgstr ""
@@ -196,7 +201,7 @@ msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contents/filelistingblock.py:134
+#: ./ftw/simplelayout/contents/filelistingblock.py:135
 #: ./ftw/simplelayout/contents/textblock.py:24
 msgid "label_title"
 msgstr ""
@@ -207,7 +212,7 @@ msgid "label_video_url"
 msgstr ""
 
 #. Default: "Review State"
-#: ./ftw/simplelayout/contents/filelistingblock.py:70
+#: ./ftw/simplelayout/contents/filelistingblock.py:71
 msgid "review_state"
 msgstr ""
 

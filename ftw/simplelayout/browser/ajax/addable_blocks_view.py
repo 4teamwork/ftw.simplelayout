@@ -12,6 +12,7 @@ from Products.CMFPlone.interfaces.constrains import ISelectableConstrainTypes
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
+from zope.i18n import translate
 from zope.publisher.browser import BrowserView
 
 
@@ -52,12 +53,13 @@ class AddableBlocks(BrowserView):
                     actions = specific_actions
                 else:
                     actions = default_actions
-
                 yield (
                     normalized_portal_type,
                     {
-                        'title': _(fti.Title()),
-                        'description': _(fti.Description()),
+                        'title': translate(_(fti.Title()),
+                                           context=self.request),
+                        'description': translate(_(fti.Description()),
+                                                 context=self.request),
                         'contentType': normalized_portal_type,
                         'formUrl': add_url,
                         'actions': actions.actions,
