@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-22 11:57+0000\n"
+"POT-Creation-Date: 2015-06-24 13:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,16 +35,12 @@ msgid "FileListingBlock"
 msgstr ""
 
 #. Default: "ID"
-#: ./ftw/simplelayout/contents/listingblock.py:73
+#: ./ftw/simplelayout/contents/filelistingblock.py:75
 msgid "ID"
 msgstr ""
 
 #: ./ftw/simplelayout/behaviors.py:33
 msgid "It's not possible to have an internal_link and an external_link together"
-msgstr ""
-
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ListingBlock.xml
-msgid "ListingBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.MapBlock.xml
@@ -83,10 +79,6 @@ msgstr ""
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ListingBlock.xml
-msgid "Use this block for File or listings or galleries"
-msgstr ""
-
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "Use this block for text and/or one image."
 msgstr ""
@@ -108,27 +100,27 @@ msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://v
 msgstr ""
 
 #. Default: "creater"
-#: ./ftw/simplelayout/contents/listingblock.py:59
+#: ./ftw/simplelayout/contents/filelistingblock.py:61
 msgid "column_creater"
 msgstr ""
 
 #. Default: "modified"
-#: ./ftw/simplelayout/contents/listingblock.py:53
+#: ./ftw/simplelayout/contents/filelistingblock.py:55
 msgid "column_modified"
 msgstr ""
 
 #. Default: "size"
-#: ./ftw/simplelayout/contents/listingblock.py:64
+#: ./ftw/simplelayout/contents/filelistingblock.py:66
 msgid "column_size"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contents/listingblock.py:48
+#: ./ftw/simplelayout/contents/filelistingblock.py:50
 msgid "column_title"
 msgstr ""
 
 #. Default: "Type"
-#: ./ftw/simplelayout/contents/listingblock.py:43
+#: ./ftw/simplelayout/contents/filelistingblock.py:45
 msgid "column_type"
 msgstr ""
 
@@ -138,28 +130,23 @@ msgid "desc_sl_config_control_panel"
 msgstr ""
 
 #. Default: "sort_index"
-#: ./ftw/simplelayout/contents/listingblock.py:106
+#: ./ftw/simplelayout/contents/filelistingblock.py:108
 msgid "label_%ssort_index"
 msgstr ""
 
 #. Default: "Ascending"
-#: ./ftw/simplelayout/contents/listingblock.py:121
+#: ./ftw/simplelayout/contents/filelistingblock.py:123
 msgid "label_ascending"
 msgstr ""
 
 #. Default: "Columns"
-#: ./ftw/simplelayout/contents/listingblock.py:141
+#: ./ftw/simplelayout/contents/filelistingblock.py:143
 msgid "label_columns"
 msgstr ""
 
 #. Default: "Descending"
-#: ./ftw/simplelayout/contents/listingblock.py:123
+#: ./ftw/simplelayout/contents/filelistingblock.py:125
 msgid "label_descending"
-msgstr ""
-
-#. Default: "Description"
-#: ./ftw/simplelayout/contents/file.py:21
-msgid "label_description"
 msgstr ""
 
 msgid "label_documentDate"
@@ -170,11 +157,6 @@ msgstr ""
 msgid "label_external_link"
 msgstr ""
 
-#. Default: "File"
-#: ./ftw/simplelayout/contents/file.py:26
-msgid "label_file"
-msgstr ""
-
 msgid "label_getContentType"
 msgstr ""
 
@@ -182,7 +164,7 @@ msgid "label_id"
 msgstr ""
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contents/textblock.py:39
+#: ./ftw/simplelayout/contents/textblock.py:40
 msgid "label_image"
 msgstr ""
 
@@ -195,12 +177,12 @@ msgid "label_modified"
 msgstr ""
 
 #. Default: "Position in Folder"
-#: ./ftw/simplelayout/contents/listingblock.py:111
+#: ./ftw/simplelayout/contents/filelistingblock.py:113
 msgid "label_position_in_folder"
 msgstr ""
 
 #. Default: "Show title"
-#: ./ftw/simplelayout/contents/listingblock.py:136
+#: ./ftw/simplelayout/contents/filelistingblock.py:138
 #: ./ftw/simplelayout/contents/textblock.py:28
 msgid "label_show_title"
 msgstr ""
@@ -214,8 +196,7 @@ msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contents/file.py:17
-#: ./ftw/simplelayout/contents/listingblock.py:132
+#: ./ftw/simplelayout/contents/filelistingblock.py:134
 #: ./ftw/simplelayout/contents/textblock.py:24
 msgid "label_title"
 msgstr ""
@@ -226,7 +207,7 @@ msgid "label_video_url"
 msgstr ""
 
 #. Default: "Review State"
-#: ./ftw/simplelayout/contents/listingblock.py:68
+#: ./ftw/simplelayout/contents/filelistingblock.py:70
 msgid "review_state"
 msgstr ""
 
