@@ -9,7 +9,8 @@
         saveStateEndpoint: "./sl-ajax-save-state-view",
         source: ".sl-simplelayout",
         layouts: [1, 2, 4],
-        canChangeLayouts: false
+        canChangeLayouts: false,
+        canEdit: false
       },
       simplelayout: null,
       init: function(callback) {
@@ -18,8 +19,14 @@
         if (source.length === 0){
           return;
         }
+
         var settings = source.data("slSettings") || {};
         this.settings = $.extend(this.settings, settings);
+
+        if (!this.settings.canEdit) {
+          return;
+        }
+
         this.loadComponents(function(components) {
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});

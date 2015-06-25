@@ -150,3 +150,7 @@ class TalesSimplelayoutExpression(expressions.StringExpr):
         settings['canChangeLayouts'] = api.user.has_permission(
             'ftw.simplelayout: Change Layouts',
             obj=self.context)
+
+        settings['canEdit'] = api.user.has_permission(
+            'Modify portal content',
+            obj=self.context)
