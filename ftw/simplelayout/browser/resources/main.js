@@ -29,7 +29,15 @@
         });
 
       },
-      loadComponents: function(callback) { $.get(this.settings.addableBlocksEndpoint).done(callback); },
+      loadComponents: function(callback) {
+        $.get(this.settings.addableBlocksEndpoint).done(function(data, textStatus, request) {
+          var contentType = request.getResponseHeader("Content-Type");
+          if(contentType.indexOf("application/json") < 0) {
+            throw new Error("Bad response [content-type: " + contentType + "]");
+          }
+          callback(data);
+        });
+      },
       saveState: function() {
         var state = {};
         $(".sl-simplelayout").each(function(manIdx, manager) {
