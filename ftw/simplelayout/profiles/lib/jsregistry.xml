@@ -12,4 +12,7 @@
               enabled="True" insert-after="++resource++ftw.simplelayout.resources/Overlay.js" authenticated="True" />
 
 
+  <!-- Do not compress already compressed jqueryui.min.js -->
+  <javascript id="collective.js.jqueryui.custom.min.js" compression="none" />
+
 </object>
