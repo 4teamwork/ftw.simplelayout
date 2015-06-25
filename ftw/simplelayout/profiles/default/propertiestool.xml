@@ -27,4 +27,10 @@
   </property>
  </object>
 
+ <object name="imaging_properties" meta_type="Plone Property Sheet">
+  <property name="allowed_sizes" type="lines" purge="False">
+   <element value="simplelayout_galleryblock 130:130"/>
+  </property>
+ </object>
+
 </object>
