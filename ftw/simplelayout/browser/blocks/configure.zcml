@@ -32,4 +32,11 @@
         class=".videoblock.VideoBlockView"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contents.interfaces.IGalleryBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".galleryblock.GalleryBlockView"
+        template="templates/galleryblock.pt"
+        />
 </configure>

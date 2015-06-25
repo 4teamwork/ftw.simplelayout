@@ -5,4 +5,5 @@
   <object name="ftw.simplelayout.FileListingBlock" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.MapBlock" meta_type="Dexterity FTI" />
   <object name="ftw.simplelayout.VideoBlock" meta_type="Dexterity FTI" />
+  <object name="ftw.simplelayout.GalleryBlock" meta_type="Dexterity FTI" />
 </object>

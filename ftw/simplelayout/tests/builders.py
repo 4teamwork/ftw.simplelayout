@@ -30,3 +30,9 @@ class VideoBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.VideoBlock'
 
 builder_registry.register('sl videoblock', VideoBlockBuilder)
+
+
+class GalleryBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.GalleryBlock'
+
+builder_registry.register('sl galleryblock', GalleryBlockBuilder)
