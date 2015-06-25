@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.testbrowser import browsing
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 
 
@@ -13,9 +14,26 @@ class TestGalleryBlock(TestCase):
         super(TestGalleryBlock, self).setUp()
         self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
+        self.ptool = getToolByName(self.page, 'portal_properties')
+
+    def test_scale_is_available(self):
+        name = 'simplelayout_galleryblock'
+
+        # the format of allowed_sizes is <name> <width>:<height>
+        allowed_sizes = self.ptool.get('imaging_properties').allowed_sizes
+        scale_found = False
+        for size in allowed_sizes:
+            size_name, sizes = size.split(' ')
+            if size_name == name:
+                scale_found = True
+
+        self.assertTrue(
+            scale_found,
+            "The simplelayout_galleryblock scale is not available." +
+            "Available scales: {0}".format(allowed_sizes))
 
     @browsing
-    def test_galleryblock_rendering(self, browser):
+    def test_rendering(self, browser):
         create(Builder('sl galleryblock')
                .titled('My galleryblock')
                .having(show_title=True)
@@ -27,3 +45,23 @@ class TestGalleryBlock(TestCase):
 
         self.assertEquals(u'My galleryblock',
                           browser.css('.sl-block h2').first.text)
+
+    @browsing
+    def test_all_the_images_will_be_displayed(self, browser):
+        block = create(Builder('sl galleryblock')
+                       .titled('My galleryblock')
+                       .having(show_title=True)
+                       .within(self.page))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(block))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(block))
+
+        browser.login().visit(self.page)
+        self.assertEquals(2, len(browser.css('.sl-block-content img')))
