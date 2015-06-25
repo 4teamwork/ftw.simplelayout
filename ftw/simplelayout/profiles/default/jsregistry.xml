@@ -3,9 +3,9 @@
    autogroup="False">
 
   <javascript id="++resource++ftw.simplelayout.resources/mapblock.js"
-              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" />
+              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" authenticated="True" />
 
   <javascript id="++resource++ftw.simplelayout.resources/videoblock.js"
-              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" />
+              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" authenticated="True" />
 
 </object>
