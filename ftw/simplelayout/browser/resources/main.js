@@ -197,11 +197,15 @@
         var payLoad = {};
         var action = $(this);
         var configRequest;
-        payLoad.uid = simplelayout.getActiveBlock().element.data("uid");
+        activeBlockElement = $(this).parents(".sl-block");
+        payLoad.uid = activeBlockElement.data("uid");
+        var data = activeBlockElement.data();
+        var manager = simplelayout.getManagers()[data.container];
+        var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
         $.extend(payLoad, action.data());
         configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
-          simplelayout.getActiveBlock().content(blockContent);
+          block.content(blockContent);
         });
       });
 
