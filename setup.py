@@ -31,6 +31,7 @@ extras_require = {
         'plone.app.relationfield',
         'plone.formwidget.contenttree',
         'ftw.table',
+        'ftw.colorbox',
         'collective.geo.bundle [dexterity]',
         }
     }

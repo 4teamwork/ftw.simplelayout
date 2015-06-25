@@ -10,7 +10,7 @@
 		define="width python:str(view.get_box_boundaries()[0])+'px';
 				height python:str(view.get_box_boundaries()[1])+'px'">
 
-		<a href="#" tal:attributes="title string: <b>${img/title_or_id}</b> ${img/Description};
+		<a class="colorboxLink" rel="colorbox" href="#" tal:attributes="title string: <b>${img/title_or_id}</b> ${img/Description};
 			href img/absolute_url">
 			<img tal:replace="structure img/@@images/image/simplelayout_galleryblock" />
 		</a>
