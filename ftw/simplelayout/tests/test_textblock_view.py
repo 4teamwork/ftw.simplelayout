@@ -26,7 +26,7 @@ class TestTextBlockRendering(TestCase):
             '\x01\x00\x00\x02\x02D\x01\x00;')
 
     @browsing
-    def test_teaser_url_external(self, browser):
+    def test_teaser_url_external_on_image_and_title(self, browser):
         block = create(Builder('sl textblock')
                        .within(self.page)
                        .titled('TextBlock title')
@@ -38,7 +38,11 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block, view='@@block_view')
         self.assertEquals(
             'http://www.4teamwork.ch',
-            browser.css('[data-simplelayout-url]').first.attrib['data-simplelayout-url'])
+            browser.css('h2 a').first.attrib['href'])
+
+        self.assertEquals(
+            'http://www.4teamwork.ch',
+            browser.css('.sl-image a').first.attrib['href'])
 
     @browsing
     def test_teaser_url_internal(self, browser):
@@ -53,9 +57,14 @@ class TestTextBlockRendering(TestCase):
                                                     filename=u'test.gif')))
 
         browser.login().visit(block, view='@@block_view')
-        self.assertEquals(self.page.absolute_url(),
-                          browser.css('[data-simplelayout-url]').first.attrib[
-                              'data-simplelayout-url'])
+
+        self.assertEquals(
+            self.page.absolute_url(),
+            browser.css('h2 a').first.attrib['href'])
+
+        self.assertEquals(
+            self.page.absolute_url(),
+            browser.css('.sl-image a').first.attrib['href'])
 
     @browsing
     def test_init_scale_is_first_from_block_actions(self, browser):

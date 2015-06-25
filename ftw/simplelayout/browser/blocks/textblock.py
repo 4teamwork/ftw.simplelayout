@@ -1,6 +1,5 @@
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.browser.blocks.base import BaseBlock
-from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.utils import normalize_portal_type
 from plone.memoize.instance import memoize
@@ -11,6 +10,11 @@ from zope.component import queryMultiAdapter
 IMG_TAG_TEMPLATE = (
     '<div class="sl-image {cssClass}">'
     '<img src="{src}" alt="{alt}" />'
+    '</div>')
+
+IMG_TAG_TEMPLATE_WITH_LINK = (
+    '<div class="sl-image {cssClass}">'
+    '<a href="{teaser_url}" title={title}><img src="{src}" alt="{alt}" /></a>'
     '</div>')
 
 
@@ -31,8 +35,9 @@ class TextBlockView(BaseBlock):
             return None
 
     def get_image(self):
+        teaser_url = self.teaser_url()
 
-        if self.context.image:
+        if self.context.image and not teaser_url:
             return IMG_TAG_TEMPLATE.format(
                 **dict(
                     src=self._get_image_scale_url(),
@@ -40,6 +45,17 @@ class TextBlockView(BaseBlock):
                                               self._get_image_float()),
                     alt=self.context.Title()
                 ))
+        elif self.context.image and teaser_url:
+            return IMG_TAG_TEMPLATE_WITH_LINK.format(
+                **dict(
+                    teaser_url = teaser_url,
+                    title=self.context.Title(),
+                    src=self._get_image_scale_url(),
+                    cssClass='{0} {1}'.format(self._get_image_scale(),
+                                              self._get_image_float()),
+                    alt=self.context.Title()
+                ))
+
         else:
             return None
 

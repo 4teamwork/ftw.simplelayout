@@ -1,11 +1,15 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   tal:omit-tag="python: 1"
+  tal:define="teaser_url view/teaser_url"
   i18n:domain="ftw.simplelayout">
 
-  <h2 tal:attributes="data-simplelayout-url view/teaser_url"
-      tal:content="here/Title"
-      tal:condition="here/show_title | python: True" />
+  <h2 tal:condition="here/show_title | python: True">
+      <a tal:attributes="href teaser_url;
+                         title here/Title"
+         tal:content="here/Title"
+         tal:omit-tag="not:teaser_url" >Title</a>
+  </h2>
 
   <div tal:replace="structure view/get_image | nothing" />
   <div tal:replace="structure here/text/output | nothing" />
