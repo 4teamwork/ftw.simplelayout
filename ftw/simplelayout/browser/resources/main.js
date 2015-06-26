@@ -148,6 +148,12 @@
         }
       });
 
+      var initializeColorbox = function() {
+        if($(".colorboxLink").length > 0) {
+          ftwColorboxInitialize();
+        }
+      };
+
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
@@ -206,6 +212,7 @@
             var manager = simplelayout.getManagers()[data.container];
             var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
             block.content(blockContent);
+            initializeColorbox();
           });
         });
       });
