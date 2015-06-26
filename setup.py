@@ -27,6 +27,7 @@ extras_require = {
         'plone.dexterity',
         'plone.app.dexterity',
         'collective.dexteritytextindexer',
+        'collective.quickupload',
         'plone.directives.form',
         'plone.app.relationfield',
         'plone.formwidget.contenttree',

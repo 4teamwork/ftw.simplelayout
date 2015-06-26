@@ -7,7 +7,7 @@
     i18n_domain="ftw.simplelayout">
 
     <adapter
-        factory=".listingblock.ListingBlockDefaultColumns"
+        factory=".filelistingblock.ListingBlockDefaultColumns"
         />
 
     <adapter
