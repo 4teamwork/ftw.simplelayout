@@ -65,3 +65,51 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
         self.assertEquals(2, len(browser.css('.sl-block-content img')))
+
+    @browsing
+    def test_each_gallery_has_a_unique_rel_name(self, browser):
+        gallerie_1 = create(Builder('sl galleryblock')
+                            .titled('My galleryblock')
+                            .having(show_title=True)
+                            .within(self.page))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(gallerie_1))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(gallerie_1))
+
+        gallerie_2 = create(Builder('sl galleryblock')
+                            .titled('My galleryblock')
+                            .having(show_title=True)
+                            .within(self.page))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(gallerie_2))
+
+        create(Builder('image')
+               .titled('Test image')
+               .with_dummy_content()
+               .within(gallerie_2))
+
+        browser.login().visit(self.page)
+
+        # Should be two images in each gallery.
+        # The rel is 'colorbox-{block-id}'
+
+        self.assertEquals(
+            2,
+            len(browser.css('.sl-block-content a[rel="colorbox-{0}"]'.format(
+                gallerie_1.getId()))))
+
+        self.assertEquals(
+            2,
+            len(browser.css('.sl-block-content a[rel="colorbox-{0}"]'.format(
+                gallerie_2.getId()))))
+
