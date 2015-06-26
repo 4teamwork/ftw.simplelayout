@@ -31,3 +31,18 @@
 .ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout{
   opacity: 0;
 }
+
+.galleryblockImageWrapper{
+  display: table;
+  float: left;
+  background-color: #eee;
+  overflow: hidden;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+.galleryblockImageWrapper a{
+  display: table-cell;
+  vertical-align: middle;
+}
