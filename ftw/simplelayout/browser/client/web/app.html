@@ -1,0 +1,219 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Simplelayout</title>
+  <meta name="description" content="Layoutmanager for plone contenttypes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../dist/simplelayout.css" />
+  <script data-main="js/development.js" src="js/lib/requirejs/require.js"></script>
+
+  <style type="text/css">
+    body {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-weight: 300;
+      margin: 50px 0 50px 0;
+    }
+    img {
+      max-width: 100%;
+    }
+    .content {
+      max-width: 1600px;
+      margin: 10px auto;
+    }
+    h1, h2 {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-weight: 300;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    td, th {
+      border: 1px solid #999;
+      padding: 0.5rem;
+      text-align: left;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <div class="sl-simplelayout" id="heading">
+      <div class="sl-layout">
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <h1>Simplelayout example</h1>
+              <img src="images/1.jpg" /></div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <h1>Slot 1</h1>
+    <div class="sl-simplelayout" id="slot1">
+      <div class="sl-layout">
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <h2>Praesent ac massa at ligula</h2>
+              <p>Quisque malesuada placerat nisl. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam at tortor in tellus interdum sagittis. Vestibulum ullamcorper mauris at ligula. Vivamus elementum semper nisi.
+
+              Sed fringilla mauris sit amet nibh. Praesent adipiscing. Vestibulum dapibus nunc ac augue. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia.
+
+              Sed lectus. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Vestibulum dapibus nunc ac augue. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla.
+
+              Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Etiam imperdiet imperdiet orci. Praesent venenatis metus at tortor pulvinar varius.. Praesent adipiscing.
+
+              In consectetuer turpis ut velit. Suspendisse pulvinar, augue ac venenatis condimentum, sem libero volutpat nibh, nec pellentesque velit pede quis nunc. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Etiam feugiat lorem non metus. Donec posuere vulputate arcu.</p>
+            </div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <h2>Nunc egestas augue at pellentesque</h2>
+              <p>Etiam iaculis nunc ac metus. Pellentesque egestas, neque sit amet convallis pulvinar, justo nulla eleifend augue, ac auctor orci leo non est. Curabitur at lacus ac velit ornare lobortis. Nulla sit amet est. Sed magna purus, fermentum eu, tincidunt eu, varius ut, felis.
+
+              Nullam dictum felis eu pede mollis pretium. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Vestibulum suscipit nulla quis orci. Vestibulum dapibus nunc ac augue. Donec sodales sagittis magna.
+
+              Nullam vel sem. Curabitur at lacus ac velit ornare lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed aliquam, nisi quis porttitor congue, elit erat euismod orci, ac placerat dolor lectus quis orci. In auctor lobortis lacus. Morbi mattis ullamcorper velit.
+
+              Nunc egestas, augue at pellentesque laoreet, felis eros vehicula leo, at malesuada velit leo quis pede. Nam ipsum risus, rutrum vitae, vestibulum eu, molestie vel, lacus. Praesent blandit laoreet nibh. Vestibulum eu odio. Cras id dui.
+
+              Etiam imperdiet imperdiet orci. Aenean ut eros et nisl sagittis vestibulum. Nunc sed turpis. Phasellus gravida semper nisi. Nunc nonummy metus.</p>
+            </div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <h2>In consectetuer turpis ut velit</h2>
+              <p>Phasellus magna. Donec orci lectus, aliquam ut, faucibus non, euismod id, nulla. Suspendisse potenti. Fusce fermentum odio nec arcu. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+              Duis vel nibh at velit scelerisque suscipit. Proin sapien ipsum, porta a, auctor quis, euismod ut, mi. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Donec vitae sapien ut libero venenatis faucibus. Curabitur ullamcorper ultricies nisi.
+
+              Maecenas nec odio et ante tincidunt tempus. Duis leo. Quisque ut nisi. Nunc nec neque. Maecenas malesuada.
+
+              Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Maecenas egestas arcu quis ligula mattis placerat. In consectetuer turpis ut velit. Etiam sit amet orci eget eros faucibus tincidunt. Aenean commodo ligula eget dolor.
+
+              Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Praesent adipiscing. Fusce pharetra convallis urna. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. Nam commodo suscipit quam.</p>
+            </div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <h2>Nulla consequat massa quis enim</h2>
+              <p>Vestibulum volutpat pretium libero. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. In hac habitasse platea dictumst. Vivamus in erat ut urna cursus vestibulum. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
+
+              Aliquam lobortis. Duis vel nibh at velit scelerisque suscipit. Vivamus aliquet elit ac nisl. Phasellus nec sem in justo pellentesque facilisis. Sed libero.
+
+              Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Maecenas malesuada. Nunc nulla. Praesent blandit laoreet nibh. Nullam cursus lacinia erat.
+
+              Ut id nisl quis enim dignissim sagittis. Nullam nulla eros, ultricies sit amet, nonummy id, imperdiet feugiat, pede. Suspendisse non nisl sit amet velit hendrerit rutrum. Vivamus elementum semper nisi. Nullam tincidunt adipiscing enim.
+
+              Ut id nisl quis enim dignissim sagittis. Nulla consequat massa quis enim. Ut tincidunt tincidunt erat. Phasellus viverra nulla ut metus varius laoreet. In hac habitasse platea dictumst.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sl-layout">
+        <div class="sl-column">
+          <div class="sl-block" data-type="listingblock">
+            <div class="sl-block-content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>ID</th>
+                    <th>Favorite Color</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Jim</td>
+                    <td>00001</td>
+                    <td>Blue</td>
+                  </tr>
+                  <tr>
+                    <td>Sue</td>
+                    <td>00002</td>
+                    <td>Red</td>
+                  </tr>
+                  <tr>
+                    <td>Barb</td>
+                    <td>00003</td>
+                    <td>Green</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="listingblock">
+            <div class="sl-block-content">
+              <table>
+                <tbody>
+                  <tr>
+                    <th>Number</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Points</th>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>Eve</td>
+                    <td>Jackson</td>
+                    <td>94</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>80</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Adam</td>
+                    <td>Johnson</td>
+                    <td>67</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Jill</td>
+                    <td>Smith</td>
+                    <td>50</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h1>Slot 2</h1>
+    <div class="sl-simplelayout" id="slot2">
+      <div class="sl-layout">
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock"><div class="sl-block-content"><img src="images/1.jpg" /></div></div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock"><div class="sl-block-content"><img src="images/2.jpg" /></div></div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock"><div class="sl-block-content"><img src="images/3.jpg" /></div></div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock"><div class="sl-block-content"><img src="images/4.jpg" /></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

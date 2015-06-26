@@ -2,8 +2,8 @@
 <object name="portal_javascripts" meta_type="JavaScripts Registry"
    autogroup="False">
 
-  <javascript id="++resource++ftw.simplelayout.resources/simplelayout.min.js"
-              enabled="True" insert-after="*" authenticated="True" />
+  <javascript id="++resource++ftw.simplelayout.client/dist/simplelayout.min.js" authenticated="True"
+              enabled="True" insert-after="*" />
 
 <javascript id="++resource++ftw.simplelayout.resources/keycode.js"
               enabled="True" insert-after="++resource++ftw.simplelayout.resources/simplelayout.min.js" authenticated="True" />

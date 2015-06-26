@@ -2,6 +2,6 @@
 <metadata>
   <version>1000</version>
   <dependencies>
-    <dependency>profile-collective.js.jqueryui:default</dependency>
+    <dependency>profile-ftw.simplelayout:lib</dependency>
   </dependencies>
 </metadata>

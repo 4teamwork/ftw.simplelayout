@@ -13,3 +13,18 @@ eggs/
 parts/
 src/
 var/
+
+### Bower ###
+lib/
+
+### Node ###
+node_modules
+
+### Grunt ###
+.grunt
+dist
+
+### SCSS ###
+*.map
+*.css
+**/.sass-cache

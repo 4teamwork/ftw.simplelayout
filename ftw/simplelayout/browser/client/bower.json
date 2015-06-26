@@ -1,0 +1,26 @@
+{
+  "name": "simplelayout",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": ">1.6",
+    "jquery-ui": "1.10.2",
+    "jsrender": "git://github.com/BorisMoore/jsrender#master",
+    "requirejs": "2.1.9",
+    "eventEmitter": "4.2.11",
+    "chai": "2.1.0",
+    "mocha": "2.2.5",
+    "fixtures": "1.5.3",
+    "almond": "0.3.1"
+  },
+  "homepage": "https://github.com/4teamwork/simplelayout-mockup",
+  "authors": [
+    "Kevin Bieri <k.bieri@4teamwork.ch>"
+  ],
+  "description": "Layoutmanagemnet for plone contenttypes",
+  "main": "index.html",
+  "moduleType": [
+    "amd",
+    "node"
+  ],
+  "license": "GPL2"
+}

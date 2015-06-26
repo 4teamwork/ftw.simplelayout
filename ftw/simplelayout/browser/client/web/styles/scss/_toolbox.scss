@@ -1,0 +1,95 @@
+.sl-toolbox {
+  width: 200px;
+  position: fixed;
+  right: 20px;
+  bottom: 0;
+  z-index: 2;
+  background: #fff;
+  padding: 10px;
+  box-shadow: 0 0 40px 0 rgba(0, 0, 0, .75);
+  @include noselect();
+  .components {
+
+    overflow: hidden;
+
+    .addables {
+      -webkit-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
+      -moz-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
+      -ms-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
+      -o-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
+      transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
+      max-height: 1000px;
+      opacity: 1;
+      &.close {
+        max-height: 0;
+        opacity: 0;
+      }
+    }
+
+    .sl-toolbox-components {
+      &.disabled {
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0,0,0,0.5);
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+      }
+    }
+
+    a {
+      position: relative;
+      display: block;
+      padding: 10px 15px;
+      margin-bottom: -1px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      color: #555;
+      width: 100%;
+      box-sizing: border-box;
+
+      &.ui-draggable-dragging {
+        box-shadow: 0 0 70px 0 rgba(0, 0, 0, .75);
+        display: table;
+        width: auto !important;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: #555;
+        text-decoration: none;
+        background-color: #f5f5f5;
+      }
+
+      i {
+          height: 17px;
+          width: 30px;
+          display: inline-block;
+          vertical-align: middle;
+      }
+
+      &.sl-toolbox-header {
+        background-color: #f5f5f5;
+        &:hover {
+          cursor: default;
+        }
+      }
+      &.sl-toolbox-handle {
+        font-weight: bold;
+        text-align: center;
+        background-color: #e8e8e8;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &.ui-draggable-dragging {
+    box-shadow: 0 0 70px 0 rgba(0, 0, 0, .75);
+  }
+}

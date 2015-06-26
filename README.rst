@@ -48,7 +48,11 @@ Then you got several profile from wich you can choose from:
   No example content, no further views. This profile is for Developers, who want to write their
   own simplelayout content types and views.
 
-This package uses the `Simplelayout Javascript Lib <https://github.com/4teamwork/simplelayout>`_, which provides the basic functionality.
+- ``ftw.simplelayout`` develpment profile - Only installs the JS library with non minified resources and the control panel.
+  No example content, no further views. This profile is for Developers, who want to write their
+  own simplelayout content types and views.
+
+This package uses the `Simplelayout Javascript Lib <https://github.com/4teamwork/ftw.simplelayout/ftw/simplelayout/browser/client>`_, which provides the basic functionality.
 Further this package provides a Plone integration of the Simplelayout Lib:
 
 - Overlays for manipulate blocks, such as adding, deleting and modifying.
@@ -329,7 +333,7 @@ Links
 - Issues: https://github.com/4teamwork/ftw.simplelayout/issues
 - Pypi: http://pypi.python.org/pypi/ftw.simplelayout
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.simplelayout
-
+- `Client library documentation <https://github.com/4teamwork/ftw.simplelayout/ftw/simplelayout/browser/client/README.md>`_
 
 Copyright
 =========

@@ -1,0 +1,19 @@
+{
+  "env" : {
+    "node" : true,
+    "amd" : true,
+    "jquery" : true,
+    "mocha" : true,
+    "phantomjs" : true,
+    "browser" : true
+  },
+  "rules" : {
+    "quotes": [1, "double", "avoid-escape"]
+  },
+  "globals": {
+    "mochaPhantomJS": true,
+    "assert": true,
+    "mocha": true,
+    "fixtures": true
+  }
+}
