@@ -42,7 +42,7 @@ class GalleryBlockActions(DefaultActions):
             ('folderContents', {
                 'class': 'icon-folder-contents redirect',
                 'title': translate(
-                    _(u'label_folder_contents',
+                    _(u'label_folder_contents_images',
                       default=u'Show folder contents to manage images'),
                     context=self.request),
                 'href': '/folder_contents'}),
