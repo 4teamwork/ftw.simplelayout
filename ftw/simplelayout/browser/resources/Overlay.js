@@ -4,6 +4,10 @@
 
   function FormOverlay(options) {
 
+    options = $.extend({
+      disableClose: false
+    }, options);
+
     var overlay = {
       formSubmitted: false,
       element: null,
@@ -14,22 +18,36 @@
         left: "center",
         fixed: false,
         closeOnClick: false,
-        onBeforeClose: function() { overlay.onCancel.call(overlay); }
+        closeOnEsc: false,
+        onClose: function() { overlay.unload(); }
+      },
+      bindCloseEvents: function() {
+        var self = this;
+        $(document).on("keydown", function(event) {
+          if(keyCode.isEscape(event)) {
+            self.close.call(self);
+          }
+        });
+      },
+      unload: function() {
+        this.element.remove();
+        this.element = null;
+        this.overlay = null;
+        $(document).off("keydown");
+      },
+      canClose: function() {
+        return !($.isFunction(options.disableClose) ? options.disableClose() : options.disableClose);
       },
       onCancelCallback: function(){},
       onSubmitCallback: function(){},
       open: function() {
         this.overlay.load();
+        this.bindCloseEvents();
       },
       close: function() {
-        this.overlay.close();
-        this.element.remove();
-        this.element = null;
-        this.overlay = null;
-      },
-      onCancel: function() {
-        if(!this.formSubmitted) {
+        if(this.canClose()) {
           this.onCancelCallback();
+          this.overlay.close();
         }
       },
       initializePloneComponents: function() {
@@ -93,7 +111,7 @@
         }
       },
       onFormCancel: function(event) {
-        this.close();
+        overlay.close();
       },
       onFormSubmit: function(formData) {
         var fd = new global.FormData(formData);
@@ -113,6 +131,10 @@
 
       onSubmit: function(submitCallback) {
         overlay.onSubmitCallback = submitCallback;
+      },
+
+      disableClose: function(disable) {
+        options.disableClose = disable;
       },
 
       open: function() {
