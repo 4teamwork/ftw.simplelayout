@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
@@ -8,7 +8,7 @@ from unittest2 import TestCase
 
 class TestGalleryBlock(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         super(TestGalleryBlock, self).setUp()
