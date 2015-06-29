@@ -60,7 +60,7 @@
             });
           });
         });
-        $.post(this.settings.saveStateEndpoint, { 
+        $.post(this.settings.saveStateEndpoint, {
           data: JSON.stringify(state),
           _authenticator: $('input[name="_authenticator"]').val()
         });
@@ -150,7 +150,9 @@
 
       var initializeColorbox = function() {
         if($(".colorboxLink").length > 0) {
-          ftwColorboxInitialize();
+          if (typeof ftwColorboxInitialize !== 'undefined' && $.isFunction(ftwColorboxInitialize)) {
+            ftwColorboxInitialize();
+          }
         }
       };
 
