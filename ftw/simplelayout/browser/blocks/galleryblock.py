@@ -7,13 +7,7 @@ class GalleryBlockView(BrowserView):
 
     def get_images(self):
         return self.context.listFolderContents(
-            contentFilter=self._build_query)
+            contentFilter=dict(portal_type=['Image']))
 
     def get_box_boundaries(self):
         return getAllowedSizes().get('simplelayout_galleryblock')
-
-    @property
-    def _build_query(self):
-        query = {}
-        query['portal_type'] = ['Image']
-        return query
