@@ -3,6 +3,10 @@
 
   $(function() {
 
+    var isUploading = function() {
+      return window["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
+    }
+
     var instance = {
       settings: {
         addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
@@ -83,7 +87,7 @@
       var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay();
       var editOverlay = new global.FormOverlay();
-      var uploadOverlay = new global.FormOverlay();
+      var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
 
       if (!instance.settings.canChangeLayouts){
         $(simplelayout.options.source).sortable("disable");
