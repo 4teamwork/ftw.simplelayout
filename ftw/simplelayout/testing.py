@@ -6,6 +6,7 @@ from ftw.simplelayout.tests import sample_types
 from ftw.testing.layer import ComponentRegistryLayer
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
+from pkg_resources import get_distribution
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -16,6 +17,9 @@ from plone.testing import z2
 from plone.testing import zca
 from unittest2 import TestCase
 from zope.configuration import xmlconfig
+
+
+IS_PLONE_5 = get_distribution('Plone').version >= '5'
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -62,7 +66,9 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
 
 class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'ftw.simplelayout:default')
+
+        if not IS_PLONE_5:
+            applyProfile(portal, 'ftw.simplelayout:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)

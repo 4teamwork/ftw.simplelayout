@@ -12,7 +12,7 @@
     <include package=".browser" />
     <!-- Content types are not compatible with Plone 5 yet -->
     <include package=".contents" zcml:condition="not-have plone-5" />
-    <include file="behaviors.zcml" />
+    <include file="behaviors.zcml" zcml:condition="not-have plone-5"/>
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 

@@ -1,13 +1,19 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.testing import IS_PLONE_5
+from unittest2 import skipUnless
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 
 
+if not IS_PLONE_5:
+    from ftw.simplelayout.behaviors import ITeaser
+
+
+@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestTeaserBehavior(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING

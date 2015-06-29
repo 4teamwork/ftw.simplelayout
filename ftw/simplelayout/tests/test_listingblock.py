@@ -1,17 +1,22 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
-from ftw.simplelayout.contents.filelistingblock import listing_block_columns
-from ftw.simplelayout.contents.filelistingblock import ListingBlockDefaultColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from plone.app.testing import TEST_USER_ID
 from unittest2 import skip
+from unittest2 import skipUnless
 from unittest2 import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
 from zope.schema.vocabulary import SimpleVocabulary
+
+
+if not IS_PLONE_5:
+    from ftw.simplelayout.contents.filelistingblock import listing_block_columns
+    from ftw.simplelayout.contents.filelistingblock import ListingBlockDefaultColumns
 
 
 def assert_ftw_table_column(column):
@@ -21,6 +26,7 @@ def assert_ftw_table_column(column):
         str(column))
 
 
+@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestListingBlock(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
