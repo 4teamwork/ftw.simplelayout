@@ -26,7 +26,6 @@ extras_require = {
         'plone.behavior',
         'plone.dexterity',
         'plone.app.dexterity',
-        'collective.dexteritytextindexer',
         'collective.quickupload',
         'plone.directives.form',
         'plone.app.relationfield',
@@ -70,6 +69,7 @@ setup(name='ftw.simplelayout',
 
           'AccessControl',
           'Acquisition',
+          'collective.dexteritytextindexer',
           'collective.js.jqueryui',
           # 'cssutils', # TODO: is this used anywhere?
           'Persistence',

@@ -3,7 +3,7 @@ from ftw.builder import create
 from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
-from ftw.simplelayout.testing import ISampleDXBlock
+from ftw.simplelayout.tests.sample_types import ISampleDXBlock
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
