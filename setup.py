@@ -21,6 +21,18 @@ tests_require = [
 extras_require = {
     'tests': tests_require,
     'test': tests_require,
+    'contenttypes': {
+        'plone.autoform',
+        'plone.behavior',
+        'plone.dexterity',
+        'plone.app.dexterity',
+        'collective.quickupload',
+        'plone.directives.form',
+        'plone.app.relationfield',
+        'plone.formwidget.contenttree',
+        'ftw.table',
+        'collective.geo.bundle [dexterity]',
+        }
     }
 
 setup(name='ftw.simplelayout',
@@ -57,8 +69,9 @@ setup(name='ftw.simplelayout',
 
           'AccessControl',
           'Acquisition',
+          'collective.dexteritytextindexer',
           'collective.js.jqueryui',
-          'cssutils',
+          # 'cssutils', # TODO: is this used anywhere?
           'Persistence',
           'plone.api',
           'plone.app.blob',
@@ -75,19 +88,6 @@ setup(name='ftw.simplelayout',
           'zope.lifecycleevent',
           'zope.publisher',
           'Zope2',
-
-          'plone.autoform',
-          'plone.behavior',
-          'plone.dexterity',
-          'plone.app.dexterity',
-          'collective.dexteritytextindexer',
-          'plone.directives.form',
-          'plone.app.relationfield',
-          'plone.formwidget.contenttree',
-
-          'ftw.table',
-          'collective.geo.bundle [dexterity]',
-          'collective.quickupload',
           ],
 
       tests_require=tests_require,

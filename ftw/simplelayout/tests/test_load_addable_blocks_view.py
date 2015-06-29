@@ -1,14 +1,16 @@
-
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.testing import IS_PLONE_5
+from unittest2 import skipUnless
 from unittest2 import TestCase
 import json
 
 
+@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestAddableBlocksView(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         super(TestAddableBlocksView, self).setUp()

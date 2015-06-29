@@ -1,29 +1,25 @@
-from ftw.builder import registry
-from ftw.builder.dexterity import DexterityBuilder
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
-from ftw.simplelayout.browser.blocks.base import BaseBlock
-from ftw.simplelayout.properties import MultiViewBlockProperties
 from ftw.simplelayout.tests import builders
+from ftw.simplelayout.tests import sample_types
 from ftw.testing.layer import ComponentRegistryLayer
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
+from pkg_resources import get_distribution
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
-from plone.dexterity.fti import DexterityFTI
 from plone.testing import z2
 from plone.testing import zca
 from unittest2 import TestCase
-from zope import schema
-from zope.component import provideAdapter
 from zope.configuration import xmlconfig
-from zope.interface import Interface
-from zope.publisher.interfaces.browser import IBrowserView
+
+
+IS_PLONE_5 = get_distribution('Plone').version >= '5'
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -62,23 +58,20 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
         z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'ftw.simplelayout:default')
+        applyProfile(portal, 'ftw.simplelayout:lib')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
 
 
-class ISampleDX(Interface):
-    title = schema.TextLine(
-        title=u'Title',
-        required=False)
+class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
+    def setUpPloneSite(self, portal):
 
+        if not IS_PLONE_5:
+            applyProfile(portal, 'ftw.simplelayout:default')
 
-class SampleBuilder(DexterityBuilder):
-    portal_type = 'Sample'
-
-
-registry.builder_registry.register('sample block', SampleBuilder)
+        setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
+        login(portal, TEST_USER_NAME)
 
 
 class SimplelayoutTestCase(TestCase):
@@ -100,48 +93,11 @@ class SimplelayoutTestCase(TestCase):
 
         is_persistent(structure)
 
-    def setup_sample_block_fti(self,
-                               portal,
-                               property_factory=MultiViewBlockProperties):
-
-        types_tool = portal.portal_types
-
-        self.fti = DexterityFTI('Sample')
-        self.fti.schema = 'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX'
-        self.fti.behaviors = (
-            'ftw.simplelayout.interfaces.ISimplelayoutBlock',
-            'plone.app.lockingbehavior.behaviors.ILocking',)
-
-        types_tool._setObject('Sample', self.fti)
-
-        contentpage_fti = types_tool.get('ftw.simplelayout.ContentPage')
-        contentpage_fti.allowed_content_types = (
-            'ftw.simplelayout.tests.test_ajax_change_block_view.ISampleDX', )
-
-        provideAdapter(property_factory,
-                       adapts=(ISampleDX, Interface))
+    def setup_sample_ftis(self, portal):
+        sample_types.setup_ftis(portal)
 
     def setup_block_views(self):
-
-        class SampleBlockView(BaseBlock):
-
-            def __call__(self):
-                return 'OK'
-
-        provideAdapter(SampleBlockView,
-                       adapts=(ISampleDX, Interface),
-                       provides=IBrowserView,
-                       name='block_view')
-
-        class SampleBlockViewDifferent(BaseBlock):
-
-            def __call__(self):
-                return 'OK - different view'
-
-        provideAdapter(SampleBlockViewDifferent,
-                       adapts=(ISampleDX, Interface),
-                       provides=IBrowserView,
-                       name='block_view_different')
+        sample_types.setup_views()
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()
@@ -151,3 +107,9 @@ FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(FTW_SIMPLELAYOUT_FIXTURE,
            set_builder_session_factory(functional_session_factory)),
     name='FtwSimplelayout:Functional')
+
+FTW_SIMPLELAYOUT_CONTENT_FIXTURE = FtwSimplelayoutContentLayer()
+FTW_SIMPLELAYOUT_CONTENT_TESTING = FunctionalTesting(
+    bases=(FTW_SIMPLELAYOUT_CONTENT_FIXTURE,
+           set_builder_session_factory(functional_session_factory)),
+    name='FtwSimplelayoutContent:Functional')

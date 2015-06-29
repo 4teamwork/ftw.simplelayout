@@ -16,10 +16,10 @@ class TestRemoveBlockPloneUI(SimplelayoutTestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.setup_sample_block_fti(self.portal)
+        self.setup_sample_ftis(self.portal)
         self.setup_block_views()
 
-        self.page = create(Builder('sl content page'))
+        self.page = create(Builder('sample container'))
         self.block = create(Builder('sample block').within(self.page))
 
         self.page_state = {
@@ -38,7 +38,10 @@ class TestRemoveBlockPloneUI(SimplelayoutTestCase):
     @browsing
     def test_page_state_is_updated_after_block_removal(self, browser):
         browser.login().visit(self.page, view='folder_contents')
-        folder_contents.select(self.block)
+
+        # XXX: This no linger works with our sample block
+        # folder_contents.select(self.block)
+        browser.fill({'paths:list': True})
         folder_contents.form().find_button_by_label('Delete').click()
         browser.visit(self.page)
         self.assertFalse(browser.css('.sl-block'))

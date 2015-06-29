@@ -1,17 +1,18 @@
 from ftw.simplelayout import _
-from plone.directives import form
+from plone.autoform.interfaces import IFormFieldProvider
 from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.supermodel import model
 from z3c.relationfield.schema import RelationChoice
 from zope import schema
-from zope.interface import alsoProvides
 from zope.interface import Invalid
+from zope.interface import alsoProvides
 from zope.interface import invariant
 
 
-class ITeaser(form.Schema):
+class ITeaser(model.Schema):
     """Add internal and external link field."""
 
-    form.fieldset(
+    model.fieldset(
         'teaser',
         label=_(u'Teaser'),
         fields=('external_link', 'internal_link')
@@ -34,4 +35,4 @@ class ITeaser(form.Schema):
                 u"It's not possible to have an internal_link and an "
                 u"external_link together"))
 
-alsoProvides(ITeaser, form.IFormFieldProvider)
+alsoProvides(ITeaser, IFormFieldProvider)

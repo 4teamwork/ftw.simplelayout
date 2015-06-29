@@ -14,10 +14,10 @@ class TestCopySimplelayoutPage(SimplelayoutTestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.setup_sample_block_fti(self.portal)
+        self.setup_sample_ftis(self.portal)
         self.setup_block_views()
 
-        self.page = create(Builder('sl content page'))
+        self.page = create(Builder('sample container'))
         self.block_left = create(Builder('sample block').within(self.page))
         self.block_right = create(Builder('sample block').within(self.page))
         self.block_below = create(Builder('sample block').within(self.page))

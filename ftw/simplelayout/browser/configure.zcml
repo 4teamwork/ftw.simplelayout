@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
     <browser:resourceDirectory
@@ -8,8 +10,11 @@
         directory="resources"
         />
 
+    <include package="plone.resource" file="meta.zcml"/>
+    <plone:static directory="resources" name="ftw.simplelayout" type="plone"/>
+
     <include package=".ajax" />
-    <include package=".blocks" />
+    <include package=".blocks" zcml:condition="not-have plone-5" />
     <include package=".viewlets" />
     <include package=".controlpanel" />
 
