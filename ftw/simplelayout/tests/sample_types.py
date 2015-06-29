@@ -2,6 +2,8 @@ from collective import dexteritytextindexer
 from ftw.builder import registry
 from ftw.builder.dexterity import DexterityBuilder
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.interfaces import ISimplelayout
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from plone.app.textfield import RichText
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
@@ -42,7 +44,8 @@ class ISampleDXBlock(Interface):
 
 
 class SampleBlock(Item):
-    implements(ISampleDXBlock)
+    # In Plone 5 the ISimplelayoutBlock marker behavior does not work in tests.
+    implements(ISampleDXBlock, ISimplelayoutBlock)
 
 
 class ISampleSimplelayoutContainer(Interface):
@@ -50,7 +53,8 @@ class ISampleSimplelayoutContainer(Interface):
 
 
 class SampleContainer(Container):
-    implements(ISampleSimplelayoutContainer)
+    # In Plone 5 the ISimplelayout marker behavior does not work in tests.
+    implements(ISampleSimplelayoutContainer, ISimplelayout)
 
 
 # Builders
