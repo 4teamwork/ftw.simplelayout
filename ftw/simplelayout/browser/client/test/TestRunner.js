@@ -42,7 +42,8 @@
       "layoutmanager.test",
       "simplelayout.test",
       "toolbar.test",
-      "toolbox.test"
+      "toolbox.test",
+      "idHelper.test"
     ], function() {
       if(window.mochaPhantomJS){
         mochaPhantomJS.run();

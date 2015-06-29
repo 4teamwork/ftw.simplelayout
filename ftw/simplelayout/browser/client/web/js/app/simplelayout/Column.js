@@ -1,4 +1,4 @@
-define(["app/simplelayout/Block", "app/simplelayout/EventEmitter"], function(Block, eventEmitter) {
+define(["app/simplelayout/Block", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Block, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -27,7 +27,7 @@ define(["app/simplelayout/Block", "app/simplelayout/EventEmitter"], function(Blo
           type: "",
           content: ""
         }, blockOptions || {});
-        var nextBlockId = Object.keys(this.blocks).length;
+        var nextBlockId = idHelper.generateFromHash(this.blocks);
         var block = new Block(blockOptions.content, blockOptions.type);
         var blockElement = block.create();
         blockElement.data("blockId", nextBlockId);
