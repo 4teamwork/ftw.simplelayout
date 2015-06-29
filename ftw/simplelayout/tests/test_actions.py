@@ -15,17 +15,18 @@ class TestBlockReloadView(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
     def setUp(self):
-        self.contentpage = create(Builder('sl content page'))
         self.portal = self.layer['portal']
+        self.setup_sample_ftis(self.portal)
+        self.container = create(Builder('sample container'))
 
     def test_amount_of_default_actions(self):
-        actions = getMultiAdapter((self.contentpage, self.contentpage.REQUEST),
+        actions = getMultiAdapter((self.container, self.container.REQUEST),
                                   ISimplelayoutActions)
 
         self.assertEquals(3, len(actions.default_actions()))
 
     def test_default_actions_are_move_edit_and_delete(self):
-        actions = getMultiAdapter((self.contentpage, self.contentpage.REQUEST),
+        actions = getMultiAdapter((self.container, self.container.REQUEST),
                                   ISimplelayoutActions)
 
         default_actions = actions.default_actions()
@@ -35,14 +36,13 @@ class TestBlockReloadView(SimplelayoutTestCase):
         self.assertIn('delete', default_actions)
 
     def test_specific_actions_is_a_empty_ordered_dict_by_default(self):
-        actions = getMultiAdapter((self.contentpage, self.contentpage.REQUEST),
+        actions = getMultiAdapter((self.container, self.container.REQUEST),
                                   ISimplelayoutActions)
 
         self.assertTrue(isinstance(actions.specific_actions(), OrderedDict))
         self.assertFalse(len(actions.specific_actions()))
 
     def test_specific_actions_for_dummy_block(self):
-        self.setup_sample_block_fti(self.portal)
 
         class DummyBlockActions(DefaultActions):
 
@@ -56,7 +56,7 @@ class TestBlockReloadView(SimplelayoutTestCase):
                        adapts=(Interface, Interface),
                        name='sample-actions')
 
-        actions = getMultiAdapter((self.contentpage, self.contentpage.REQUEST),
+        actions = getMultiAdapter((self.container, self.container.REQUEST),
                                   ISimplelayoutActions,
                                   name='sample-actions')
 

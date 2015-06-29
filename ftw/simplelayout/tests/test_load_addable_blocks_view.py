@@ -1,14 +1,14 @@
 
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from unittest2 import TestCase
 import json
 
 
 class TestAddableBlocksView(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         super(TestAddableBlocksView, self).setUp()

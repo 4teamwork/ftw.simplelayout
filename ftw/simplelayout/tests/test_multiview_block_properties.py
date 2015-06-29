@@ -13,10 +13,8 @@ class TestMultiViewBlockProperties(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
 
     def setUp(self):
-        super(TestMultiViewBlockProperties, self).setUp()
-        contentpage = create(Builder('sl content page'))
-
-        self.setup_sample_block_fti(self.layer['portal'])
+        self.setup_sample_ftis(self.layer['portal'])
+        contentpage = create(Builder('sample container'))
         self.setup_block_views()
         self.block = create(Builder('sample block').within(contentpage))
 
@@ -33,7 +31,9 @@ class TestMultiViewBlockProperties(SimplelayoutTestCase):
     def test_get_available_views(self):
         properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)
-        self.assertEquals(['block_view_different', 'block_view'],
+        self.assertEquals(['block_view_broken',
+                           'block_view_different',
+                           'block_view'],
                           properties.get_available_views())
 
     def test_changing_view(self):

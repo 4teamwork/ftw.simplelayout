@@ -3,7 +3,7 @@ from ftw.builder import create
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
 from ftw.simplelayout.contents.filelistingblock import listing_block_columns
 from ftw.simplelayout.contents.filelistingblock import ListingBlockDefaultColumns
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from plone.app.testing import TEST_USER_ID
@@ -23,7 +23,7 @@ def assert_ftw_table_column(column):
 
 class TestListingBlock(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         super(TestListingBlock, self).setUp()

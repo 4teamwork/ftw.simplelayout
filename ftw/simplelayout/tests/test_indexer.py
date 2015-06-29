@@ -1,29 +1,31 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from plone.app.textfield.value import RichTextValue
-from unittest2 import TestCase
+import transaction
 
 
-class TestSearchableTextIndexer(TestCase):
+class TestSearchableTextIndexer(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
     def setUp(self):
-        super(TestSearchableTextIndexer, self).setUp()
         self.portal = self.layer['portal']
+        self.setup_sample_ftis(self.portal)
+        self.setup_block_views()
+        transaction.commit()
 
-        self.contentpage = create(Builder('sl content page')
+        self.contentpage = create(Builder('sample container')
                                   .titled(u'ContentPage'))
-        self.textblock = create(Builder('sl textblock')
+        self.textblock = create(Builder('sample block')
                                 .titled(u'TextBlock')
                                 .within(self.contentpage)
-                                .having(text=RichTextValue(u'asdf'))
-                                .having(show_title=False))
+                                .having(text=RichTextValue(u'asdf')))
 
     def search_for(self, term, path=None):
         query = {'SearchableText': term,
-                 'portal_type': 'ftw.simplelayout.ContentPage'}
+                 'portal_type': 'SampleContainer'}
         if path:
             query['path'] = path
         return self.layer['portal'].portal_catalog(query)
@@ -42,7 +44,7 @@ class TestSearchableTextIndexer(TestCase):
         self.assertEquals(0, len(result), 'Expect no entry')
 
     def test_searchable_text_is_up_to_date_on_move(self):
-        second_page = create(Builder('sl content page')
+        second_page = create(Builder('sample container')
                              .titled(u'ContentPage2'))
 
         cut = self.contentpage.manage_cutObjects([self.textblock.getId()])
@@ -52,7 +54,7 @@ class TestSearchableTextIndexer(TestCase):
         self.assertEquals(result[0].getURL(), second_page.absolute_url())
 
     def test_searchable_text_is_up_to_date_on_copy(self):
-        second_page = create(Builder('sl content page')
+        second_page = create(Builder('sample container')
                              .titled(u'ContentPage2'))
 
         copy = self.contentpage.manage_copyObjects([self.textblock.getId()])

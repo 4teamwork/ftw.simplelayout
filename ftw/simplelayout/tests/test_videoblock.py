@@ -2,7 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.contents.videoblock import is_vimeo_url
 from ftw.simplelayout.contents.videoblock import is_youtube_url
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import statusmessages
@@ -62,7 +62,7 @@ class TestVideoValidators(TestCase):
 
 class TestTextBlockRendering(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         self.page = create(Builder('sl content page').titled(u'A page'))

@@ -1,7 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.behaviors import ITeaser
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
@@ -10,7 +10,7 @@ from zope.intid.interfaces import IIntIds
 
 class TestTeaserBehavior(TestCase):
 
-    layer = FTW_SIMPLELAYOUT_INTEGRATION_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         self.page = create(Builder('sl content page'))

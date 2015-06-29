@@ -14,10 +14,10 @@ class TestBlockDelete(SimplelayoutTestCase):
 
     def setUp(self):
         self.portal = self.layer['portal']
-        self.setup_sample_block_fti(self.portal)
+        self.setup_sample_ftis(self.portal)
         transaction.commit()
 
-        self.contentpage = create(Builder('sl content page'))
+        self.contentpage = create(Builder('sample container'))
         # TODO test locking and link integrity (messages).
 
     def get_payload(self, block):

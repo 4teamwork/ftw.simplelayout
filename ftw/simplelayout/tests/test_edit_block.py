@@ -1,20 +1,23 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
-from unittest2 import TestCase
 from zExceptions import BadRequest
 import json
 
 
-class TestEditBlock(TestCase):
+class TestEditBlock(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.page = create(Builder('sl content page'))
-        self.block = create(Builder('sl textblock'))
+        self.setup_sample_ftis(self.layer['portal'])
+        self.setup_block_views()
+
+        self.page = create(Builder('sample container'))
+        self.block = create(Builder('sample block'))
 
     def get_payload(self, block):
         block = IUUID(block)
@@ -88,8 +91,8 @@ class TestEditBlock(TestCase):
         response = browser.json
         browser.open_html(response['content'])
         self.assertFalse(browser.css('form'), 'No form expected.')
-        self.assertEquals('This is a TextBlock',
-                          browser.css('h2').first.text)
+        self.assertEquals('OK',
+                          browser.contents)
 
     @browsing
     def test_submit_add_block_traverser_proceed_returns_true(self, browser):

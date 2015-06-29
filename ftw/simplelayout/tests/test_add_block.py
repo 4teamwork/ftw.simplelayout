@@ -1,18 +1,21 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
-from unittest2 import TestCase
 import json
 
 
-class TestAddBlock(TestCase):
+class TestAddBlock(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
     def setUp(self):
-        self.page = create(Builder('sl content page'))
-        self.textblockaddtraverser = '++add_block++ftw.simplelayout.TextBlock'
+        self.setup_sample_ftis(self.layer['portal'])
+        self.setup_block_views()
+
+        self.page = create(Builder('sample container'))
+        self.textblockaddtraverser = '++add_block++SampleBlock'
 
     @browsing
     def test_add_block_traverser_returns_json(self, browser):
@@ -62,15 +65,15 @@ class TestAddBlock(TestCase):
         response = browser.json
 
         self.assertEqual(
-            'http://nohost/plone/ftw-simplelayout-contentpage/'
+            'http://nohost/plone/samplecontainer/'
             'this-is-a-textblock',
             response['url']
         )
 
         browser.open_html(response['content'])
         self.assertFalse(browser.css('form'), 'No form expected.')
-        self.assertEquals('This is a TextBlock',
-                          browser.css('h2').first.text)
+        self.assertEquals('OK',
+                          browser.contents)
 
     @browsing
     def test_submit_add_block_traverser_proceed_returns_true(self, browser):

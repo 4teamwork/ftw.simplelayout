@@ -1,11 +1,13 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.browser.simplelayout import SimplelayoutView
-from ftw.simplelayout.contents.interfaces import IContentPage
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import ISampleSimplelayoutContainer
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
@@ -14,6 +16,7 @@ from plone.uuid.interfaces import IUUID
 from zExceptions import BadRequest
 from zExceptions import Unauthorized
 from zope.component import getGlobalSiteManager
+from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import provideAdapter
 from zope.interface import implements
@@ -29,10 +32,11 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     def setUp(self):
         super(TestSimplelayoutView, self).setUp()
-
-        self.contentpage = create(Builder('sl content page'))
-        self.page_config = IPageConfiguration(self.contentpage)
-        self.url = self.contentpage.absolute_url() + '/@@simplelayout-view'
+        self.setup_sample_ftis(self.layer['portal'])
+        self.setup_block_views()
+        self.container = create(Builder('sample container'))
+        self.page_config = IPageConfiguration(self.container)
+        self.url = self.container.absolute_url() + '/@@simplelayout-view'
 
         self.payload = {
             "default": [
@@ -69,29 +73,29 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     @browsing
     def test_render_blocks_not_in_page_configuration(self, browser):
         # Fallback for not saved blocks thru the simplelayout JS lib.
-        create(Builder('sl textblock')
+        create(Builder('sample block')
                .titled('TextBlock title')
-               .within(self.contentpage)
+               .within(self.container)
                .having(text=RichTextValue('The text'))
-               .having(show_title=True))
+               )
 
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        browser.login().visit(self.container, view='@@simplelayout-view')
 
         self.assertEqual(browser.url, self.url)
-        self.assertEquals('TextBlock title',
-                          browser.css('.sl-block h2').first.text)
+        self.assertEquals('OK',
+                          browser.css('.sl-block').first.text)
 
     @browsing
     def test_invalid_simplelayout_save_state_request(self, browser):
         with self.assertRaises(BadRequest):
-            browser.login().visit(self.contentpage,
+            browser.login().visit(self.container,
                                   view='sl-ajax-save-state-view',
                                   data={})
 
     @browsing
     def test_store_save_simplelayout_state_thru_view(self, browser):
         payload = {"data": json.dumps(self.payload)}
-        browser.login().visit(self.contentpage,
+        browser.login().visit(self.container,
                               view='sl-ajax-save-state-view',
                               data=payload)
 
@@ -99,12 +103,12 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_render_blocks_in_different_layouts(self, browser):
-        block1 = create(Builder('sl textblock')
+        block1 = create(Builder('sample block')
                         .titled('Block 1')
-                        .within(self.contentpage))
-        block2 = create(Builder('sl textblock')
+                        .within(self.container))
+        block2 = create(Builder('sample block')
                         .titled('Block 1')
-                        .within(self.contentpage))
+                        .within(self.container))
 
         self.payload['default'][0]['cols'][0][
             'blocks'][0]['uid'] = IUUID(block1)
@@ -113,7 +117,7 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         self.page_config.store(self.payload)
         transaction.commit()
 
-        browser.login().visit(self.contentpage)
+        browser.login().visit(self.container)
         self.assertEquals(2,
                           len(browser.css('.sl-layout')),
                           'Expect 2 layouts')
@@ -124,12 +128,12 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_render_blocks_in_different_columns(self, browser):
-        block1 = create(Builder('sl textblock')
+        block1 = create(Builder('sample block')
                         .titled('Block 1')
-                        .within(self.contentpage))
-        block2 = create(Builder('sl textblock')
+                        .within(self.container))
+        block2 = create(Builder('sample block')
                         .titled('Block 1')
-                        .within(self.contentpage))
+                        .within(self.container))
 
         self.payload['default'][0]['cols'][0][
             'blocks'][0]['uid'] = IUUID(block1)
@@ -144,21 +148,21 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         self.page_config.store(self.payload)
         transaction.commit()
 
-        browser.login().visit(self.contentpage)
+        browser.login().visit(self.container)
         self.assertEquals(2,
                           len(browser.css('.sl-column.sl-col-2')),
                           'Expect 2 columns')
 
     @browsing
     def test_simplelayout_default_config_from_control_panel(self, browser):
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        browser.login().visit(self.container, view='@@simplelayout-view')
 
         registry = getUtility(IRegistry)
         settings = registry.forInterface(ISimplelayoutDefaultSettings)
         settings.slconfig = u'{"layouts": [1, 2]}'
         transaction.commit()
 
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        browser.login().visit(self.container, view='@@simplelayout-view')
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
 
@@ -169,19 +173,19 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     @browsing
     def test_simplelayout_config_updated_by_permissions(self, browser):
 
-        browser.login().visit(self.contentpage, view='@@simplelayout-view')
+        browser.login().visit(self.container, view='@@simplelayout-view')
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
 
         self.assertTrue(data_attr_value['canChangeLayouts'],
                         'Should have the Change layouts permission.')
 
-        self.contentpage.manage_permission('ftw.simplelayout: Change Layouts',
-                                           roles=[],
-                                           acquire=0)
+        self.container.manage_permission('ftw.simplelayout: Change Layouts',
+                                         roles=[],
+                                         acquire=0)
         transaction.commit()
 
-        browser.visit(self.contentpage, view='@@simplelayout-view')
+        browser.visit(self.container, view='@@simplelayout-view')
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
 
@@ -191,15 +195,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     @browsing
     def test_prevent_layout_changes_if_not_allowed(self, browser):
 
-        self.contentpage.manage_permission('ftw.simplelayout: Change Layouts',
-                                           roles=[],
-                                           acquire=0)
+        self.container.manage_permission('ftw.simplelayout: Change Layouts',
+                                         roles=[],
+                                         acquire=0)
         transaction.commit()
 
         with self.assertRaises(Unauthorized):
             self.payload['default'].append({'cols': [{}]})
             payload = {"data": json.dumps(self.payload)}
-            browser.login().visit(self.contentpage,
+            browser.login().visit(self.container,
                                   view='sl-ajax-save-state-view',
                                   data=payload)
 
@@ -219,11 +223,11 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                 return None
 
         provideAdapter(ContainerConfigAdapter,
-                       adapts=(IContentPage, Interface))
+                       adapts=(ISampleSimplelayoutContainer, Interface))
         transaction.commit()
 
         try:
-            browser.login().visit(self.contentpage, view='@@simplelayout-view')
+            browser.login().visit(self.container, view='@@simplelayout-view')
             data_attr_value = json.loads(browser.css(
                 '[data-sl-settings]').first.attrib['data-sl-settings'])
             self.assertEquals([1], data_attr_value['layouts'])
@@ -233,7 +237,8 @@ class TestSimplelayoutView(SimplelayoutTestCase):
             # per test
             sm = getGlobalSiteManager()
             sm.unregisterAdapter(ContainerConfigAdapter,
-                                 required=(IContentPage, Interface),
+                                 required=(
+                                     ISampleSimplelayoutContainer, Interface),
                                  provided=ISimplelayoutContainerConfig)
 
     @browsing
@@ -257,11 +262,11 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                 }
 
         provideAdapter(ContainerConfigAdapter,
-                       adapts=(IContentPage, Interface))
+                       adapts=(ISampleSimplelayoutContainer, Interface))
         transaction.commit()
 
         try:
-            browser.login().visit(self.contentpage, view='@@simplelayout-view')
+            browser.login().visit(self.container, view='@@simplelayout-view')
             # This should result in one layout with two columns
             self.assertEquals(1, len(browser.css('.sl-layout')))
             self.assertEquals(2, len(browser.css('.sl-column.sl-col-2')))
@@ -271,7 +276,8 @@ class TestSimplelayoutView(SimplelayoutTestCase):
             # per test
             sm = getGlobalSiteManager()
             sm.unregisterAdapter(ContainerConfigAdapter,
-                                 required=(IContentPage, Interface),
+                                 required=(
+                                     ISampleSimplelayoutContainer, Interface),
                                  provided=ISimplelayoutContainerConfig)
 
     @browsing
@@ -286,29 +292,31 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                        provides=IBrowserView,
                        name='customview')
 
-        browser.login().visit(self.contentpage, view='@@customview')
+        browser.login().visit(self.container, view='@@customview')
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
         self.assertEquals([1, 4], data_attr_value['layouts'])
 
     @browsing
     def test_show_fallback_view_on_block_render_problems(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled('TextBlock title')
-                           .within(self.contentpage)
-                           .having(image='Fake image')  # Error while render
-                           .having(show_title=False))
+        block = create(Builder('sample block')
+                       .titled('TextBlock title')
+                       .within(self.container))
 
-        textblock.reindexObject()
+        properties = getMultiAdapter((block, block.REQUEST),
+                                     IBlockProperties)
+        properties.set_view('block_view_broken')
 
-        browser.login().visit(self.contentpage)
+        transaction.commit()
+
+        browser.login().visit(self.container)
         self.assertEquals(
             'The block could be rendered. Please check the log for details.',
             browser.css('.sl-block').first.text)
 
     @browsing
     def test_empty_sl_page_renders_at_least_one_layout(self, browser):
-        browser.login().visit(self.contentpage)
+        browser.login().visit(self.container)
 
         # By default it's a one column layout.
         self.assertEquals(1,

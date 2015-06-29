@@ -13,7 +13,7 @@ class TestSimplelayoutAsFrontPage(SimplelayoutTestCase):
     def setUp(self):
         self.portal = self.layer['portal']
 
-        self.setup_sample_block_fti(self.portal)
+        self.setup_sample_ftis(self.portal)
         self.setup_block_views()
 
         # Make sample block addable on plone root
@@ -41,5 +41,5 @@ class TestSimplelayoutAsFrontPage(SimplelayoutTestCase):
         result.sort()
 
         self.assertEquals(
-            ['sample'],
+            ['sampleblock'],
             result)
