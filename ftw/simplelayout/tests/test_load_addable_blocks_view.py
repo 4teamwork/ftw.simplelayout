@@ -27,6 +27,7 @@ class TestAddableBlocksView(TestCase):
 
         self.assertEquals(
             ['ftw-simplelayout-filelistingblock',
+             'ftw-simplelayout-galleryblock',
              'ftw-simplelayout-mapblock',
              'ftw-simplelayout-textblock',
              'ftw-simplelayout-videoblock'],

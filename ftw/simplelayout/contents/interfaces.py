@@ -29,5 +29,9 @@ class IListingBlockColumns(Interface):
         """Returns an ftw.table compatible list of columns"""
 
 
+class IGalleryBlock(Interface):
+    """Marker interface for GalleryBlock"""
+
+
 class IContentPage(ISimplelayout):
     """Marker interface for ConetPages"""

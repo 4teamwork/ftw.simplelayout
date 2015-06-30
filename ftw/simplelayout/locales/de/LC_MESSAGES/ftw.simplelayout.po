@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-24 14:28+0000\n"
+"POT-Creation-Date: 2015-06-26 06:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,10 @@ msgstr "Bearbeiten abgebrochen"
 msgid "FileListingBlock"
 msgstr "Dateiauflistung"
 
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
+msgid "GalleryBlock"
+msgstr "Bildergallerie"
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contents/filelistingblock.py:76
 msgid "ID"
@@ -47,6 +51,10 @@ msgstr "Karte"
 #: ./ftw/simplelayout/browser/ajax/edit_block.py:37
 msgid "Save"
 msgstr "Speichern"
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
+msgid "Simplelayout block to create a gallery."
+msgstr "Block zum erstellen einer Bildergallerie"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "Simplelayout block to list files."
@@ -156,8 +164,13 @@ msgstr "Externe URL"
 
 #. Default: "Show folder contents to manage files"
 #: ./ftw/simplelayout/contents/filelistingblock.py:177
-msgid "label_folder_contents"
+msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
+
+#. Default: "Show folder contents to manage images"
+#: ./ftw/simplelayout/contents/galleryblock.py:45
+msgid "label_folder_contents_images"
+msgstr "Bilder über Inhalte verwalten."
 
 msgid "label_getContentType"
 msgstr "Typ"
@@ -185,6 +198,7 @@ msgstr "Ordnerreihenfolge"
 
 #. Default: "Show title"
 #: ./ftw/simplelayout/contents/filelistingblock.py:139
+#: ./ftw/simplelayout/contents/galleryblock.py:23
 #: ./ftw/simplelayout/contents/textblock.py:28
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
@@ -199,6 +213,7 @@ msgstr "Text"
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contents/filelistingblock.py:135
+#: ./ftw/simplelayout/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contents/textblock.py:24
 msgid "label_title"
 msgstr "Titel"

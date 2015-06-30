@@ -60,7 +60,7 @@
             });
           });
         });
-        $.post(this.settings.saveStateEndpoint, { 
+        $.post(this.settings.saveStateEndpoint, {
           data: JSON.stringify(state),
           _authenticator: $('input[name="_authenticator"]').val()
         });
@@ -148,6 +148,14 @@
         }
       });
 
+      var initializeColorbox = function() {
+        if($(".colorboxLink").length > 0) {
+          if (typeof ftwColorboxInitialize !== 'undefined' && $.isFunction(ftwColorboxInitialize)) {
+            ftwColorboxInitialize();
+          }
+        }
+      };
+
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
@@ -206,6 +214,7 @@
             var manager = simplelayout.getManagers()[data.container];
             var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
             block.content(blockContent);
+            initializeColorbox();
           });
         });
       });

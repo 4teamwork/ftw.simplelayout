@@ -23,6 +23,12 @@
              *"
         />
 
+    <adapter
+        factory=".galleryblock.GalleryBlockActions"
+        name="ftw-simplelayout-galleryblock-actions"
+        for="*
+             *"
+        />
 
     <!-- Name of the adapter needs to be the normalized portal type. With actions suffix-->
     <adapter

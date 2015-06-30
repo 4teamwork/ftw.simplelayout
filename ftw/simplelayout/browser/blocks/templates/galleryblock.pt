@@ -1,0 +1,24 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	  tal:omit-tag="python: 1"
+	  i18n:domain="ftw.simplelayout">
+
+	<h2 tal:content="here/Title" tal:condition="here/show_title | python:True">Title</h2>
+
+	<tal:boxes
+		repeat="img view/get_images"
+		define="width python:str(view.get_box_boundaries()[0])+'px';
+				height python:str(view.get_box_boundaries()[1])+'px'">
+
+		<div class="galleryblockImageWrapper"
+	               tal:attributes="style string:width:${width};;height:${height}">
+			<a class="colorboxLink" href="#"
+				tal:attributes="
+					title string: <b>${img/title_or_id}</b> ${img/Description};
+					rel string:colorbox-${here/getId};
+					href img/absolute_url">
+				<img tal:replace="structure img/@@images/image/simplelayout_galleryblock" />
+			</a>
+		</div>
+	</tal:boxes>
+</html>
