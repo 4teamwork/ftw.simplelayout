@@ -310,7 +310,8 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         browser.login().visit(self.container)
         self.assertEquals(
-            'The block could be rendered. Please check the log for details.',
+            'The block could not be rendered. Please check the log for '
+            'details.',
             browser.css('.sl-block').first.text)
 
     @browsing
