@@ -108,6 +108,7 @@
           this.onSubmitCallback.call(instance, data);
         } else {
           this.element.html(data.content);
+          this.element.trigger("OverlayContentReloaded", [this]);
           this.initializePloneComponents();
         }
       },
