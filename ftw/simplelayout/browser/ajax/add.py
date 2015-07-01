@@ -1,5 +1,6 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayout
+from ftw.simplelayout.utils import get_block_html
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
@@ -43,7 +44,7 @@ class AddForm(DefaultAddForm):
         obj = super(AddForm, self).createAndAdd(data)
         self.obj_uid = obj.UID()
         aq_obj = obj.__of__(self.context)
-        self.obj_html = aq_obj()
+        self.obj_html = get_block_html(aq_obj)
         return obj
 
     def render(self):
