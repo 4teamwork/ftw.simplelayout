@@ -1,4 +1,3 @@
-from ftw.simplelayout import _
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
@@ -48,9 +47,11 @@ class AddableBlocks(BrowserView):
                 yield (
                     normalized_portal_type,
                     {
-                        'title': translate(_(fti.Title()),
+                        'title': translate(msgid=fti.Title(),
+                                           domain=fti.i18n_domain,
                                            context=self.request),
-                        'description': translate(_(fti.Description()),
+                        'description': translate(msgid=fti.Description(),
+                                                 domain=fti.i18n_domain,
                                                  context=self.request),
                         'contentType': normalized_portal_type,
                         'formUrl': add_url,
