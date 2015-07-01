@@ -101,6 +101,7 @@
         var activeBlock = simplelayout.getManagers()[activeBlockData.container].getBlock(activeBlockData.layoutId, activeBlockData.columnId, activeBlockData.blockId);
         activeBlock.content(blockData.content);
         instance.saveState();
+        initializeColorbox();
         this.close();
       });
 
