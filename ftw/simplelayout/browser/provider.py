@@ -1,8 +1,8 @@
 from Acquisition import aq_inner
-from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
+from ftw.simplelayout.utils import get_block_html
 from ftw.simplelayout.utils import normalize_portal_type
 from plone import api
 from plone.registry.interfaces import IRegistry
@@ -70,14 +70,9 @@ class BaseSimplelayoutExpression(object):
             return 1
 
     def _render_block_html(self, block):
-        properties = queryMultiAdapter((block, self.request),
-                                       IBlockProperties)
-
-        view_name = properties.get_current_view_name()
-        view = block.restrictedTraverse(view_name)
 
         try:
-            html = view()
+            html = get_block_html(block)
         except ConflictError:
             raise
         except Exception, exc:
