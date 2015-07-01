@@ -26,6 +26,13 @@
         />
 
     <browser:page
+        for="*"
+        name="redirect_to_parent"
+        class=".redirect_to_parent.RedirectToParent"
+        permission="zope2.View"
+        />
+
+    <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayout"
         name="sl-ajax-save-state-view"
         permission="cmf.ModifyPortalContent"
