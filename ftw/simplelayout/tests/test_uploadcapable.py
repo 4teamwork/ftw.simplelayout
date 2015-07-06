@@ -3,7 +3,6 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.browser import uploadcapable
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from Products.ATContentTypes.interfaces.file import IATFile
 from unittest2 import TestCase
 from zope.component import queryAdapter
 
@@ -26,13 +25,13 @@ class TestUploadCapableAdapter(TestCase):
             adapter, uploadcapable.FileListingQuickUploadCapableFileFactory)
 
     def test_portal_type_is_alway_a_file(self):
-        adapter = queryAdapter(self.filelistingblock, IQuickUploadFileFactory)
-        # creates
-        adapter('test.jpg', None, None, None, None, None)
+        upload = queryAdapter(self.filelistingblock, IQuickUploadFileFactory)
+        upload('test.jpg',
+               'File title',
+               'File description',
+               'image/jpeg',
+               'DATA',
+               None)  # portal_type should be forced as 'File'.
         contents = self.filelistingblock.listFolderContents()
 
-        self.assertNotEqual(
-            [], contents,
-            "It was not possible to create the file. Please check the adapter")
-
-        self.assertTrue(IATFile.providedBy(contents[0]))
+        self.assertEquals(1, len(contents), 'Expect exactly one item')
