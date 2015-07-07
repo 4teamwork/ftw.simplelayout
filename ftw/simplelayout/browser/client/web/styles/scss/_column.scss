@@ -1,0 +1,54 @@
+.sl-column {
+  width: 100%;
+  vertical-align: top;
+  min-height: 100px;
+  max-width: 100%;
+  padding: 2px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  float: left;
+  background: $column-background-color;
+  margin-right: 1%;
+  &:last-of-type {
+    border-right: none;
+  }
+
+  @while $column-count-total > 0 {
+    &.sl-col-#{$column-count-total} {
+      width: 100%;
+    }
+    $column-count-total: $column-count-total - 1;
+  }
+
+  @media (min-width: $screen-tablet) {
+    @while $column-count-total > 0 {
+      &.sl-col-#{$column-count-total} {
+        $additionalWidth: 1 / ($column-count-total);
+        width: (100 / ($column-count-total / 2)) * 1% - 1% + $additionalWidth;
+        margin-right: 1%;
+        &:nth-of-type(#{($column-count-total / 2)}n+#{($column-count-total / 2)}) {
+          margin-right: 0;
+        }
+      }
+      $column-count-total: $column-count-total - 1;
+    }
+  }
+
+  @media (min-width: $screen-desktop) {
+    @while $column-count-total > 0 {
+      &.sl-col-#{$column-count-total} {
+        $additionalWidth: 1 / $column-count-total;
+        width: (100 / $column-count-total) * 1% - 1% + $additionalWidth;
+        &:last-of-type {
+          margin-right: 0 !important;
+        }
+        &:nth-of-type(#{($column-count-total / 2)}n+#{($column-count-total / 2)}) {
+          margin-right: 1%;
+        }
+      }
+      $column-count-total: $column-count-total - 1;
+    }
+  }
+
+}
+

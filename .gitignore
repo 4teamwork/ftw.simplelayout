@@ -8,8 +8,19 @@ build/
 buildout.cfg
 coverage/
 develop-eggs/
-dist/
 eggs/
 parts/
 src/
 var/
+
+### Bower ###
+lib/
+
+### Node ###
+node_modules
+
+### Grunt ###
+.grunt
+
+### SCSS ###
+**/.sass-cache
