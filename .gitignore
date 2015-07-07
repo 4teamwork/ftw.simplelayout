@@ -8,7 +8,6 @@ build/
 buildout.cfg
 coverage/
 develop-eggs/
-dist/
 eggs/
 parts/
 src/
@@ -22,9 +21,6 @@ node_modules
 
 ### Grunt ###
 .grunt
-dist
 
 ### SCSS ###
-*.map
-*.css
 **/.sass-cache
