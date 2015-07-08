@@ -1,0 +1,9 @@
+<div class="portlet SimplelayoutPortlet">
+
+    <div tal:condition="python: view.manager.__name__ == 'plone.rightcolumn'"
+         tal:replace="structure simplelayout:portletright" />
+
+    <div tal:condition="python: view.manager.__name__ == 'plone.leftcolumn'"
+         tal:replace="structure simplelayout:portletleft" />
+
+</div>

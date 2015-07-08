@@ -10,6 +10,7 @@
 
     <include file="permissions.zcml" />
     <include package=".browser" />
+    <include package=".portlets" />
     <!-- Content types are not compatible with Plone 5 yet -->
     <include package=".contents" zcml:condition="not-have plone-5" />
     <include file="behaviors.zcml" zcml:condition="not-have plone-5"/>

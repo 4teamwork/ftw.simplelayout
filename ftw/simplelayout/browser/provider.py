@@ -28,11 +28,7 @@ class BaseSimplelayoutExpression(object):
 
     @property
     def one_layout_one_column(self):
-        return [
-            {"cols": [{"blocks": []}
-                      ]
-             }
-        ]
+        return [{"cols": [{"blocks": []}]}]
 
     def rows(self):
         """ Return datastructure for rendering blocks.
@@ -132,7 +128,9 @@ class BaseSimplelayoutExpression(object):
             adapter(settings)
 
         # 4. View level customizations
-        self.view.update_simplelayout_settings(settings)
+        method = 'update_simplelayout_settings'
+        if method in dir(self.view) and callable(getattr(self.view, method)):
+            getattr(self.view, method)(settings)
         return settings
 
     def get_simplelayout_settings(self):
