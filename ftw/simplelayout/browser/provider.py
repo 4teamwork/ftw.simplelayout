@@ -26,13 +26,21 @@ class BaseSimplelayoutExpression(object):
     fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
     structure = ViewPageTemplateFile('templates/structure.pt')
 
+    @property
+    def one_layout_one_column(self):
+        return [
+            {"cols": [{"blocks": []}
+                      ]
+             }
+        ]
+
     def rows(self):
         """ Return datastructure for rendering blocks.
         """
         page_conf = IPageConfiguration(self.context)
         blocks = self._blocks()
 
-        rows = page_conf.load().get(self.name, [])
+        rows = page_conf.load().get(self.name, self.one_layout_one_column)
 
         for row in rows:
             row['class'] = 'sl-layout'
