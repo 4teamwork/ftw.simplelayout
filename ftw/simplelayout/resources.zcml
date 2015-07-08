@@ -7,6 +7,9 @@
 
     <theme:resources profile="ftw.simplelayout:lib" slot="addon">
         <theme:scss file="browser/resources/integration.theme.scss" />
+
+        <theme:scss file="browser/resources/theming.toolbar-icons.scss" slot="bottom"
+                    after="ftw.theming:resources/scss/iconset_font-awesome.scss" />
     </theme:resources>
 
 </configure>
