@@ -1,3 +1,4 @@
+from Acquisition import aq_parent
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
 from persistent.list import PersistentList
@@ -49,7 +50,14 @@ def update_page_state_on_block_remove(block, event):
     if event.newParent is None:
         # Be sure it's not cut/paste
         block_uid = IUUID(block)
-        config = IPageConfiguration(event.oldParent)
+        parent = aq_parent(block)
+
+        # Do nothing if the event wasn't fired by the block's parent.
+        # This happens when an ancestor is deleted, e.g. the Plone site itself.
+        if parent is not event.oldParent:
+            return
+
+        config = IPageConfiguration(parent)
         page_state = config.load()
 
         for container in page_state.values():
