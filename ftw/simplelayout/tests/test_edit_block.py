@@ -40,19 +40,19 @@ class TestEditBlock(SimplelayoutTestCase):
                       view='sl-ajax-edit-block-view',
                       data=self.get_payload(self.block))
 
-        self.assertEquals('{0}/edit'.format(self.block.absolute_url()),
+        self.assertEquals('{0}/edit.json'.format(self.block.absolute_url()),
                           browser.url)
 
     @browsing
     def test_edit_a_block_returns_json(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
 
         self.assertEquals(json.loads(json.dumps(browser.contents)),
                           browser.contents)
 
     @browsing
     def test_edit_a_block_returns_content_and_proceed(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
         response = json.loads(browser.contents)
 
         self.assertIn('content',
@@ -65,7 +65,7 @@ class TestEditBlock(SimplelayoutTestCase):
 
     @browsing
     def test_edit_a_block_content_contains_a_form(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
         response = browser.json
         browser.open_html(response['content'])
 
@@ -73,14 +73,14 @@ class TestEditBlock(SimplelayoutTestCase):
 
     @browsing
     def test_edit_a_block_proceed_is_false(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
         response = browser.json
 
         self.assertFalse(response['proceed'], 'Proceed should be false.')
 
     @browsing
     def test_edit_a_block_form_returns_block(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
         response = browser.json
 
         browser.open_html(response['content'])
@@ -96,7 +96,7 @@ class TestEditBlock(SimplelayoutTestCase):
 
     @browsing
     def test_submit_add_block_traverser_proceed_returns_true(self, browser):
-        browser.login().visit(self.block, view='edit')
+        browser.login().visit(self.block, view='edit.json')
         response = browser.json
 
         browser.open_html(response['content'])

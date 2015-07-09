@@ -31,7 +31,7 @@ class TestBlockStatusmessage(SimplelayoutTestCase):
     @browsing
     def test_NO_statusmessage_on_block_modification(self, browser):
         block = create(Builder('sample block'))
-        browser.login().visit(block, view='edit')
+        browser.login().visit(block, view='edit.json')
         response = browser.json
 
         browser.open_html(response['content'])

@@ -46,7 +46,7 @@
 
     <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
-        name="edit"
+        name="edit.json"
         class=".edit_block.EditForm"
         permission="cmf.ModifyPortalContent"
         />
