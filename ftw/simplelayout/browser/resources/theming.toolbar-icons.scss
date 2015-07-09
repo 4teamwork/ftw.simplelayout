@@ -8,7 +8,7 @@
     position: relative;
     top: -0.15em;
     @extend .fa-icon;
-    @extend body.icons-on .contenttype-#{$type};
+    @extend .icons-on .contenttype-#{$type};
   }
   }
 
