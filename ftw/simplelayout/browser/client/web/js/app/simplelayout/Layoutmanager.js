@@ -1,4 +1,4 @@
-define(["app/simplelayout/Layout", "app/simplelayout/EventEmitter"], function(Layout, eventEmitter) {
+define(["app/simplelayout/Layout", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Layout, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -119,7 +119,8 @@ define(["app/simplelayout/Layout", "app/simplelayout/EventEmitter"], function(La
 
       moveBlock: function(oldLayoutId, oldColumnId, oldBlockId, newLayoutId, newColumnId) {
         var block = this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
-        var nextBlockId = Object.keys(this.layouts[newLayoutId].columns[newColumnId].blocks).length;
+
+        var nextBlockId = idHelper.generateFromHash(this.layouts[newLayoutId].columns[newColumnId].blocks);
         $.extend(block.element.data(), { layoutId: newLayoutId, columnId: newColumnId, blockId: nextBlockId });
         delete this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
         this.layouts[newLayoutId].columns[newColumnId].blocks[nextBlockId] = block;

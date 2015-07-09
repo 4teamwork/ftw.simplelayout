@@ -520,7 +520,26 @@ define('app/simplelayout/Block',["app/simplelayout/EventEmitter"], function(even
 
 });
 
-define('app/simplelayout/Column',["app/simplelayout/Block", "app/simplelayout/EventEmitter"], function(Block, eventEmitter) {
+define('app/simplelayout/idHelper',[], function() {
+
+  "use strict";
+
+  return {
+    generateFromHash: function(hash) {
+      if($.isEmptyObject(hash)) {
+        return 0;
+      }
+      var keys = Object.keys(hash).sort(function(a, b) {
+        return parseInt(a) - parseInt(b);
+      });
+      var lastKey = keys[parseInt(keys.length - 1)];
+      return parseInt(lastKey) + 1;
+    }
+  };
+
+});
+
+define('app/simplelayout/Column',["app/simplelayout/Block", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Block, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -549,7 +568,7 @@ define('app/simplelayout/Column',["app/simplelayout/Block", "app/simplelayout/Ev
           type: "",
           content: ""
         }, blockOptions || {});
-        var nextBlockId = Object.keys(this.blocks).length;
+        var nextBlockId = idHelper.generateFromHash(this.blocks);
         var block = new Block(blockOptions.content, blockOptions.type);
         var blockElement = block.create();
         blockElement.data("blockId", nextBlockId);
@@ -733,7 +752,7 @@ define('app/simplelayout/Layout',["app/simplelayout/Column", "app/simplelayout/E
 
 });
 
-define('app/simplelayout/Layoutmanager',["app/simplelayout/Layout", "app/simplelayout/EventEmitter"], function(Layout, eventEmitter) {
+define('app/simplelayout/Layoutmanager',["app/simplelayout/Layout", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Layout, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -854,7 +873,8 @@ define('app/simplelayout/Layoutmanager',["app/simplelayout/Layout", "app/simplel
 
       moveBlock: function(oldLayoutId, oldColumnId, oldBlockId, newLayoutId, newColumnId) {
         var block = this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
-        var nextBlockId = Object.keys(this.layouts[newLayoutId].columns[newColumnId].blocks).length;
+
+        var nextBlockId = idHelper.generateFromHash(this.layouts[newLayoutId].columns[newColumnId].blocks);
         $.extend(block.element.data(), { layoutId: newLayoutId, columnId: newColumnId, blockId: nextBlockId });
         delete this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
         this.layouts[newLayoutId].columns[newColumnId].blocks[nextBlockId] = block;
@@ -1011,7 +1031,7 @@ define('app/toolbox/Toolbox',[], function() {
 
 });
 
-define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter"], function(Layoutmanager, Toolbar, Toolbox, eventEmitter) {
+define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Layoutmanager, Toolbar, Toolbox, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -1032,7 +1052,7 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
     var moveLayout = function(layout, newManagerId) {
       var layoutData = layout.element.data();
       var manager = managers[layoutData.container];
-      var nextLayoutId = Object.keys(managers[newManagerId].layouts).length;
+      var nextLayoutId = idHelper.generateFromHash(managers[newManagerId].layouts);
       $.extend(layout.element.data(), { layoutId: nextLayoutId, container: newManagerId });
       delete manager.layouts[layoutData.layoutId];
       managers[newManagerId].layouts[nextLayoutId] = layout;
@@ -1045,7 +1065,8 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       var newData = { container: newManagerId, layoutId: newLayoutId, columnId: newColumnId };
       var newManager = managers[newManagerId];
       delete managers[blockData.container].layouts[blockData.layoutId].columns[blockData.columnId].blocks[blockData.blockId];
-      var nextBlockId = Object.keys(managers[newManagerId].layouts[newLayoutId].columns[newColumnId].blocks).length;
+      var nextBlockId = idHelper.generateFromHash(managers[newManagerId].layouts[newLayoutId].columns[newColumnId].blocks);
+      newData.blockId = nextBlockId;
       $.extend(block.element.data(), newData);
       newManager.setBlock(newLayoutId, newColumnId, nextBlockId, block);
       eventEmitter.trigger("blockMoved", [block]);

@@ -1,4 +1,4 @@
-define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter"], function(Layoutmanager, Toolbar, Toolbox, eventEmitter) {
+define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Layoutmanager, Toolbar, Toolbox, eventEmitter, idHelper) {
 
   "use strict";
 
@@ -19,7 +19,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     var moveLayout = function(layout, newManagerId) {
       var layoutData = layout.element.data();
       var manager = managers[layoutData.container];
-      var nextLayoutId = Object.keys(managers[newManagerId].layouts).length;
+      var nextLayoutId = idHelper.generateFromHash(managers[newManagerId].layouts);
       $.extend(layout.element.data(), { layoutId: nextLayoutId, container: newManagerId });
       delete manager.layouts[layoutData.layoutId];
       managers[newManagerId].layouts[nextLayoutId] = layout;
@@ -32,7 +32,8 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       var newData = { container: newManagerId, layoutId: newLayoutId, columnId: newColumnId };
       var newManager = managers[newManagerId];
       delete managers[blockData.container].layouts[blockData.layoutId].columns[blockData.columnId].blocks[blockData.blockId];
-      var nextBlockId = Object.keys(managers[newManagerId].layouts[newLayoutId].columns[newColumnId].blocks).length;
+      var nextBlockId = idHelper.generateFromHash(managers[newManagerId].layouts[newLayoutId].columns[newColumnId].blocks);
+      newData.blockId = nextBlockId;
       $.extend(block.element.data(), newData);
       newManager.setBlock(newLayoutId, newColumnId, nextBlockId, block);
       eventEmitter.trigger("blockMoved", [block]);
