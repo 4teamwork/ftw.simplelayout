@@ -2,7 +2,7 @@
 <object name="portal_css" meta_type="Stylesheets Registry" autogroup="False">
 
     <stylesheet
-        id="++resource++ftw.simplelayout.resources/simplelayout.min.css"
+        id="++resource++ftw.simplelayout.client/dist/simplelayout.min.css"
         title=""
         cacheable="True"
         compression="safe"
