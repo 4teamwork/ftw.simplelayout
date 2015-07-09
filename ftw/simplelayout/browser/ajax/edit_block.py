@@ -8,7 +8,6 @@ from plone.dexterity.i18n import MessageFactory as _
 from plone.dexterity.interfaces import IDexterityEditForm
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.statusmessages.interfaces import IStatusMessage
 from z3c.form import button
 from zExceptions import BadRequest
 from zope.event import notify
@@ -42,18 +41,12 @@ class EditForm(DefaultEditForm):
             self.status = self.formErrorsMessage
             return
         self.applyChanges(data)
-        IStatusMessage(self.request).addStatusMessage(
-            _(u"Changes saved"), "info success"
-        )
         notify(EditFinishedEvent(self.context))
 
         self._finished_edit = True
 
     @button.buttonAndHandler(_(u'Cancel'), name='cancel')
     def handleCancel(self, action):
-        IStatusMessage(self.request).addStatusMessage(
-            _(u"Edit cancelled"), "info"
-        )
         notify(EditCancelledEvent(self.context))
 
     def render(self):
