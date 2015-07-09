@@ -6,6 +6,7 @@ from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import adapts
 from zope.interface import implements
 from zope.interface import Interface
@@ -60,6 +61,10 @@ class AddView(DefaultAddView):
         if hasattr(self.form_instance, 'obj_uid'):
             obj = uuidToObject(self.form_instance.obj_uid)
             self.request.response.setHeader('Content-Type', 'application/json')
+
+            # Consume all statusmessages
+            IStatusMessage(self.request).show()
+
             return json_response(self.request,
                                  uid=self.form_instance.obj_uid,
                                  url=obj.absolute_url(),
