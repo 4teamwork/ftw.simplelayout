@@ -966,6 +966,10 @@ define('app/toolbox/Toolbox',[], function() {
       components: {}
     }, _options || {});
 
+    var normalizeCompare = function(a, b) {
+      return a.localeCompare(b, "de", {caseFirst: "lower"});
+    };
+
     options.layoutActions = {
       move: {
         class: "icon-move move",
@@ -1001,8 +1005,12 @@ define('app/toolbox/Toolbox',[], function() {
           </div> \
         </div>");
 
+    var components = $.map(options.components, function(component) { return component; }).sort(function(a, b) {
+      return normalizeCompare(a.title, b.title);
+    });
+
     var data = {
-      "components": $.map(options.components, function(component) { return component; }),
+      "components": components,
       "layouts": options.layouts
     };
 

@@ -72,6 +72,37 @@ suite("Toolbox", function() {
       });
       assert.deepEqual(addedNodes, [1, 2, 4]);
     });
+
+    test("toolbox components are sorted asc", function() {
+      /*
+      PhantomJS ignores the caseFirst option for localeComparison
+      So skip the test if running in phantonJS environment.
+       */
+      if(!window.mochaPhantomJS) {
+        var toolbox = new Toolbox({
+          layouts: [0],
+          components: {
+            cue: {title: "Ü"},
+            r: {title: "r"},
+            ue: {title: "ü"},
+            d: {title: "d"},
+            coe: {title: "Ö"},
+            o: {title: "o"},
+            oe: {title: "ö"},
+            u: {title: "u"},
+            cae: {title: "Ä"},
+            a: {title: "a"}
+          }
+        });
+        var target = $("<div></div>");
+        toolbox.attachTo(target);
+        var components = $.map(target.find(".sl-toolbox-components a"), function(e) {
+          return e.text.trim();
+        });
+        assert.deepEqual(components, ["a", "Ä", "d", "o", "ö", "Ö", "r", "u", "ü", "Ü"]);
+      }
+    });
+
   });
 
 });
