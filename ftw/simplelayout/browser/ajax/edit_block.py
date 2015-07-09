@@ -25,7 +25,7 @@ class BlockEditRedirector(BrowserView):
         data = json.loads(payload)
         block = uuidToObject(data['block'])
 
-        return self.request.RESPONSE.redirect('{0}/edit'.format(
+        return self.request.RESPONSE.redirect('{0}/edit.json'.format(
             block.absolute_url()))
 
 
