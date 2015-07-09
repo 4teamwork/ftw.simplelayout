@@ -24,7 +24,7 @@
       bindCloseEvents: function() {
         var self = this;
         $(document).on("keydown", function(event) {
-          if(keyCode.isEscape(event)) {
+          if(global.keyCode.isEscape(event)) {
             self.close.call(self);
           }
         });
@@ -105,14 +105,14 @@
       onFormRequestDone: function(data) {
         if(data.proceed) {
           this.formSubmitted = true;
-          this.onSubmitCallback.call(instance, data);
+          this.onSubmitCallback.call(overlay, data);
         } else {
           this.element.html(data.content);
           this.element.trigger("OverlayContentReloaded", [this]);
           this.initializePloneComponents();
         }
       },
-      onFormCancel: function(event) {
+      onFormCancel: function() {
         overlay.close();
       },
       onFormSubmit: function(formData) {

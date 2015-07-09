@@ -4,8 +4,16 @@
   $(function() {
 
     var isUploading = function() {
-      return window["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
-    }
+      return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
+    };
+
+    var initializeColorbox = function() {
+      if($(".colorboxLink").length > 0) {
+        if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
+          global.ftwColorboxInitialize();
+        }
+      }
+    };
 
     var instance = {
       settings: {
@@ -153,14 +161,6 @@
         }
       });
 
-      var initializeColorbox = function() {
-        if($(".colorboxLink").length > 0) {
-          if (typeof ftwColorboxInitialize !== 'undefined' && $.isFunction(ftwColorboxInitialize)) {
-            ftwColorboxInitialize();
-          }
-        }
-      };
-
       $(global.document).on("click", ".sl-block .delete", function(event) {
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
@@ -195,13 +195,13 @@
         event.preventDefault();
         activeBlockElement = $(this).parents(".sl-block");
         var config = {"block": activeBlockElement.data("uid")};
-        uploadOverlay.load($(this).attr("href"),{"data": JSON.stringify(config)}, function(){
+        uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)}, function(){
           var self = this;
 
-          Browser.onUploadComplete = function(){ return; };
+          global.Browser.onUploadComplete = function(){ return; };
 
-          self.element.on("click", "#button-upload-done", function(event) {
-            event.preventDefault();
+          self.element.on("click", "#button-upload-done", function(uploadEvent) {
+            uploadEvent.preventDefault();
             self.onFormCancel.call(self);
           });
 
@@ -213,7 +213,7 @@
           var configRequest;
           payLoad.uid = activeBlockElement.data("uid");
           $.extend(payLoad, action.data());
-          configRequest = $.post('./sl-ajax-reload-block-view', {"data": JSON.stringify(payLoad)});
+          configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
           configRequest.done(function(blockContent) {
             var data = activeBlockElement.data();
             var manager = simplelayout.getManagers()[data.container];
