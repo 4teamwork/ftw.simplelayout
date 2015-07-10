@@ -126,6 +126,32 @@ Behaviors
   internal or external link to the block.
 
 
+Portlets
+--------
+
+``ftw.simplelayout`` provides a ``Simplelayout Portlet`` which alows you to move Blocks into the right, or left column.
+You simply have to assign the portlet on a specific context, or type.
+
+Example (How to assign the portlet by default to all Simplelayout ContentPages).
+
+portlets.xml:
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <portlets>
+        <assignment
+          manager="plone.rightcolumn"
+          category="content_type"
+          key="ftw.simplelayout.ContentPage"
+          type="ftw.simplelayout.portlet"
+          insert-before="*">
+        </assignment>
+    </portlets>
+
+
+
+
 Simplelayout your site
 ----------------------
 

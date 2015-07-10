@@ -43,7 +43,7 @@
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
           toolbox.attachTo($("body"));
-          self.simplelayout.deserialize($("#content-core"));
+          self.simplelayout.deserialize($("body"));
           callback(self.simplelayout);
         });
 

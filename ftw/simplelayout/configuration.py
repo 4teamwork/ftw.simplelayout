@@ -87,11 +87,7 @@ class PageConfiguration(object):
             if layout is not None:
                 return layout
 
-        return {
-            "default": [
-                {"cols": [{"blocks": []}]}
-            ]
-        }
+        return {}
 
 
 class BlockConfiguration(object):
