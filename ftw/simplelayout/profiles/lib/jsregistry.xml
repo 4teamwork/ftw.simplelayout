@@ -3,6 +3,7 @@
 
     <javascript
         id="++resource++ftw.simplelayout.client/dist/simplelayout.min.js"
+        compression="none"
         authenticated="True"
         enabled="True"
         insert-after="*"

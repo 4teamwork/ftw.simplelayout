@@ -5,7 +5,7 @@
         id="++resource++ftw.simplelayout.client/dist/simplelayout.min.css"
         title=""
         cacheable="True"
-        compression="safe"
+        compression="none"
         cookable="True"
         enabled="1"
         expression=""
