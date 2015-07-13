@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts" meta_type="JavaScripts Registry"
-   autogroup="False">
+        autogroup="False">
 
-  <javascript id="++resource++ftw.simplelayout.resources/mapblock.js"
-              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" authenticated="True" />
+    <javascript
+        id="++resource++ftw.simplelayout.resources/mapblock.js"
+        enabled="True"
+        authenticated="True"
+        insert-after="++resource++ftw.simplelayout.resources/main.js"
+        />
 
-  <javascript id="++resource++ftw.simplelayout.resources/videoblock.js"
-              enabled="True" insert-after="++resource++ftw.simplelayout.resources/main.js" authenticated="True" />
+    <javascript
+        id="++resource++ftw.simplelayout.resources/videoblock.js"
+        enabled="True"
+        authenticated="True"
+        insert-after="++resource++ftw.simplelayout.resources/main.js"
+        />
 
 </object>
