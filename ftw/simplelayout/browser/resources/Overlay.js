@@ -48,6 +48,7 @@
         if(this.canClose()) {
           this.onCancelCallback();
           this.overlay.close();
+          $(this.element).trigger("overlayCancel", this);
         }
       },
       initializePloneComponents: function() {
@@ -111,6 +112,7 @@
           this.element.trigger("OverlayContentReloaded", [this]);
           this.initializePloneComponents();
         }
+        $(this.element).trigger("overlaySubmit", this);
       },
       onFormCancel: function() {
         overlay.close();
