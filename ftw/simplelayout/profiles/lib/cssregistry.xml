@@ -15,19 +15,6 @@
         />
 
     <stylesheet
-        id="++resource++ftw.simplelayout.resources/icons.css"
-        title=""
-        cacheable="True"
-        compression="safe"
-        cookable="True"
-        enabled="1"
-        expression=""
-        media="all"
-        rel="stylesheet"
-        rendering="link"
-        />
-
-    <stylesheet
         id="++resource++ftw.simplelayout.resources/integration.default.css"
         title=""
         cacheable="True"
