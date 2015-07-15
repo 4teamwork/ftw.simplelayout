@@ -1,4 +1,8 @@
-(function () {/**
+(function(window, factory) {
+  window.Simplelayout = factory().simplelayout;
+  window.Toolbox = factory().toolbox;
+}(this, function() {
+/**
  * @license almond 0.3.1 Copyright (c) 2011-2014, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/jrburke/almond for details
@@ -1324,14 +1328,18 @@ require.config({
   }
 });
 
-require(["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter", "jsrender"], function(Simplelayout, Toolbox) {
+define('app',["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simplelayout/EventEmitter", "jsrender"], function(Simplelayout, Toolbox) {
 
   "use strict";
 
-  window.Simplelayout = Simplelayout;
-  window.Toolbox = Toolbox;
+  return {
+    simplelayout: Simplelayout,
+    toolbox: Toolbox
+  };
 });
 
-define("app", function(){});
-
-}());
+  // Ask almond to synchronously require the
+  // module value for 'app' here and return it as the
+  // value to use for the public API for the built file.
+  return require("app");
+}));
