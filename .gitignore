@@ -4,7 +4,7 @@
 .installed.cfg
 .mr.developer.cfg
 bin/
-build/
+/build/
 buildout.cfg
 coverage/
 develop-eggs/

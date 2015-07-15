@@ -39,15 +39,17 @@ module.exports = function(grunt) {
       compile: {
         options: {
           almond: true,
-          name: "almond/almond",
           baseUrl: "web/js/lib",
           // Is being provided
           exclude: ["jquery", "jqueryui"],
           optimize: "<%= grunt.config.get('optimize') %>",
           mainConfigFile: "web/js/app.js",
-          include: ["app", "jsrender"],
+          include: ["app", "almond/almond"],
           out: "<%= grunt.config.get('jsoutput') %>",
-          wrap: true
+          wrap: {
+            startFile: "web/build/start.frag.js",
+            endFile: "web/build/end.frag.js"
+          }
         }
       }
     },
