@@ -4,10 +4,10 @@
 
   <records prefix="plone.resources/ftw-simplelayout"
            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++plone++ftw.simplelayout/simplelayout.min.js</value>
+    <value key="js">++resource++ftw.simplelayout.client/dist/simplelayout.js</value>
     <value key="deps">jquery</value>
     <value key="css">
-      <element>++plone++ftw.simplelayout/simplelayout.min.css</element>
+      <element>++resource++ftw.simplelayout.client/dist/simplelayout.css</element>
     </value>
   </records>
 
