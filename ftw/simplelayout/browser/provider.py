@@ -42,12 +42,14 @@ class BaseSimplelayoutExpression(object):
             row['class'] = 'sl-layout'
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
+                col['blocks'] = filter(lambda block: block['uid'] in blocks,
+                                       col['blocks'])
+
                 for block in col['blocks']:
-                    if block['uid'] in blocks:
-                        obj = blocks[block['uid']]
-                        block['obj_html'] = self._render_block_html(obj)
-                        block['type'] = normalize_portal_type(obj.portal_type)
-                        block['url'] = obj.absolute_url()
+                    obj = blocks[block['uid']]
+                    block['obj_html'] = self._render_block_html(obj)
+                    block['type'] = normalize_portal_type(obj.portal_type)
+                    block['url'] = obj.absolute_url()
 
         # Append blocks, which are not in the simplelayout configuration into
         # the last column.

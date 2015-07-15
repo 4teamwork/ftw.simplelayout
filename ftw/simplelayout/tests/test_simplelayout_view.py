@@ -153,6 +153,28 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                           'Expect 2 columns')
 
     @browsing
+    def test_skips_unavailable_blocks(self, browser):
+        # The block may no longer exist or may not be visible for
+        # the current user.
+
+        block1 = create(Builder('sample block')
+                        .titled('Block 1')
+                        .within(self.container))
+
+        self.payload['default'][0]['cols'][0][
+            'blocks'][0]['uid'] = IUUID(block1)
+        self.payload['default'][1]['cols'][0][
+            'blocks'][0]['uid'] = '123xNONxEXISTINGxUIDx123'
+        self.page_config.store(self.payload)
+        transaction.commit()
+
+        browser.login().visit(self.container)
+        self.assertEquals(
+            ['http://nohost/plone/samplecontainer/block-1'],
+            map(lambda node: node.attrib.get('data-url'),
+                browser.css('.sl-block')))
+
+    @browsing
     def test_simplelayout_default_config_from_control_panel(self, browser):
         browser.login().visit(self.container, view='@@simplelayout-view')
 
