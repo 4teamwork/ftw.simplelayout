@@ -28,6 +28,7 @@
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="collective.geo.behaviour.interfaces.ICoordinates" />
         <element value="collective.geo.geographer.interfaces.IGeoreferenceable" />
+        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
     <!-- View information -->
