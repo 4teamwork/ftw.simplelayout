@@ -1,15 +1,72 @@
-@if $standard-iconset == font-awesome {
+[class^="sl-toolbar-"] {
+  > li > a {
+    background-repeat: no-repeat;
 
-  @each $type, $value in get-portal-type-icons-for-iconset(font-awesome) {
-    .sl-toolbox .components a.sl-toolbox-component .icon-#{$type} {
-    background: none;
-    font-style: normal;
-    display: inline;
-    position: relative;
-    top: -0.15em;
-    @extend .fa-icon;
-    @extend .icons-on .contenttype-#{$type};
+    &.icon-delete {
+      background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-edit {
+      background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image-left-large {
+      background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image-left {
+      background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image-right-large {
+      background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image-right {
+      background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image {
+      background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-no-image {
+      background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-move {
+      background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-folder-contents {
+      background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
+    &.icon-image-upload {
+      background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $gray]);
+      &:hover {
+        background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $gray-lighter]);
+      }
+    }
   }
-  }
-
 }

@@ -1,0 +1,21 @@
+@if $standard-iconset == font-awesome {
+
+  .sl-toolbox .components a.sl-toolbox-layout .icon-layout {
+    font-style: normal;
+    @extend .fa-icon;
+    @extend .fa-th;
+  }
+
+  @each $type, $value in get-portal-type-icons-for-iconset(font-awesome) {
+    .sl-toolbox .components a.sl-toolbox-component .icon-#{$type} {
+      background: none;
+      font-style: normal;
+      display: inline;
+      position: relative;
+      top: -0.15em;
+      @extend .fa-icon;
+      @extend .icons-on .contenttype-#{$type};
+    }
+  }
+
+}

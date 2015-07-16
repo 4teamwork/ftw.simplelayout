@@ -5,17 +5,19 @@ version = '1.0a1'
 maintainer = 'Mathias Leimgruber'
 
 tests_require = [
-    'ftw.builder',
-    'ftw.testing',
-    'ftw.testbrowser',
-    'plone.app.testing',
-    'plone.testing',
     'Products.CMFPlone',
     'Products.GenericSetup',
+    'ftw.builder',
+    'ftw.testbrowser',
+    'ftw.testing',
+    'ftw.theming',
+    'path.py',
+    'plone.app.lockingbehavior',
+    'plone.app.testing',
+    'plone.testing',
     'transaction',
     'unittest2',
     'zope.configuration',
-    'plone.app.lockingbehavior',
     ]
 
 extras_require = {
