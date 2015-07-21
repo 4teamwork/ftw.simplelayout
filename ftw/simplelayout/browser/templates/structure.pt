@@ -8,9 +8,9 @@
     <div class="sl-column"
          tal:repeat="col row/cols"
          tal:attributes="class col/class">
-      <div class="sl-block"
-           tal:repeat="block col/blocks"
-           tal:attributes="data-type block/type;
+      <div tal:repeat="block col/blocks"
+           tal:attributes="class string:sl-block ${block/type};
+                           data-type block/type;
                            data-uid block/uid;
                            data-url block/url;">
         <div class="sl-block-content"

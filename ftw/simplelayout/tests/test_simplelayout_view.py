@@ -344,3 +344,13 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         self.assertEquals(1,
                           len(browser.css('.sl-column.sl-col-1')),
                           'There should be at least a empty one column layout')
+
+    @browsing
+    def test_normalized_portal_type_as_css_klass_on_block(self, browser):
+        create(Builder('sample block')
+               .titled('TextBlock title')
+               .within(self.container))
+        browser.login().visit(self.container)
+        self.assertEquals('sl-block sampleblock',
+                          browser.css('.sl-block').first.attrib['class'],
+                          'Expect "sample" as css klass on block structure.')
