@@ -1,3 +1,10 @@
+.sl-block-dragging {
+  .sl-column {
+    margin-bottom: 10px;
+    outline: 2px dashed rgba(0, 0, 0, .6);
+  }
+}
+
 .sl-column {
   width: 100%;
   vertical-align: top;

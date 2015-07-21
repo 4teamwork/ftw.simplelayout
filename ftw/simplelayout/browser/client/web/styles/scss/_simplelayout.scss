@@ -1,3 +1,10 @@
+.sl-layout-dragging {
+  .sl-simplelayout {
+    //margin-bottom: 10px;
+    outline: 2px dashed rgba(0, 0, 0, .6);
+  }
+}
+
 .sl-simplelayout {
   min-height: 100px;
   z-index: 0;
@@ -5,7 +12,6 @@
   width: 100%;
   .layout-placeholder {
     background-color: $layout-placeholder-background-color;
-    border: 1px dotted $layout-placeholder-border-color;
     width: 100%;
     margin:-1px;
     min-height: 100px;
@@ -17,7 +23,6 @@
     // Check http://bugs.jqueryui.com/ticket/4345
     height: 100px !important;
     background-color: rgba(0,0,0,0.2);
-    border: 1px solid rgba(0,0,0,0.2);
     box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3), inset 0 0 5px 0 rgba(255, 255, 255, 0.3);
   }
 }

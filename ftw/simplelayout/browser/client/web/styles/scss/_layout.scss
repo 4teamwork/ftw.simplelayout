@@ -7,7 +7,6 @@
     transition: opacity .2s, background .2s, max-height .2s;
     .block-placeholder {
         background-color: $block-placeholder-background-color;
-        border: 1px dotted $block-placeholder-border-color;
         width: 100%;
         margin: -1px;
         min-height: 100px;
@@ -16,7 +15,6 @@
     &.ui-sortable-helper {
         opacity: .9;
         background-color: #fff;
-        border: 1px solid rgba(0, 0, 0, 0.4);
         box-shadow: 0 0 30px 0 rgba(0, 0, 0, 1);
         padding: 5px;
     }
