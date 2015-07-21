@@ -67,7 +67,18 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       });
     };
 
-    var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = { helper: "clone", cursor: "pointer", start: enableFrames, stop: disableFrames };
+    var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = {
+      helper: "clone",
+      cursor: "pointer",
+      start: function() {
+        enableFrames();
+        $(document.documentElement).addClass("sl-block-dragging");
+      },
+      stop: function() {
+        disableFrames();
+        $(document.documentElement).removeClass("sl-block-dragging");
+      }
+    };
 
     var sortableHelper = function(){ return $('<div class="draggableHelper"><div>'); };
 
@@ -119,11 +130,13 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
         originalLayout = managers[$(this).data("container")].layouts[ui.item.data("layoutId")];
       },
       start: function(event, ui) {
+        $(document.documentElement).addClass("sl-layout-dragging");
         enableFrames();
         canMove = true;
         toggleActiveLayouts(event, ui);
       },
       stop: function(event, ui) {
+        $(document.documentElement).removeClass("sl-layout-dragging");
         disableFrames();
         animatedrop(ui);
         toggleActiveLayouts(event, ui);
@@ -166,10 +179,12 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
         originalBlock = managers[itemData.container].getBlock(itemData.layoutId, itemData.columnId, itemData.blockId);
       },
       start: function() {
+        $(document.documentElement).addClass("sl-block-dragging");
         canMove = true;
         enableFrames();
       },
       stop: function(event, ui) {
+        $(document.documentElement).removeClass("sl-block-dragging");
         disableFrames();
         animatedrop(ui);
         if(canMove) {

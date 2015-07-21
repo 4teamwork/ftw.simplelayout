@@ -533,11 +533,7 @@ define('app/simplelayout/idHelper',[], function() {
       if($.isEmptyObject(hash)) {
         return 0;
       }
-      var keys = Object.keys(hash).sort(function(a, b) {
-        return parseInt(a) - parseInt(b);
-      });
-      var lastKey = keys[parseInt(keys.length - 1)];
-      return parseInt(lastKey) + 1;
+      return Math.max.apply(null, Object.keys(hash)) + 1;
     }
   };
 
@@ -1112,7 +1108,18 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       });
     };
 
-    var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = { helper: "clone", cursor: "pointer", start: enableFrames, stop: disableFrames };
+    var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = {
+      helper: "clone",
+      cursor: "pointer",
+      start: function() {
+        enableFrames();
+        $(document.documentElement).addClass("sl-block-dragging");
+      },
+      stop: function() {
+        disableFrames();
+        $(document.documentElement).removeClass("sl-block-dragging");
+      }
+    };
 
     var sortableHelper = function(){ return $('<div class="draggableHelper"><div>'); };
 
@@ -1164,11 +1171,13 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
         originalLayout = managers[$(this).data("container")].layouts[ui.item.data("layoutId")];
       },
       start: function(event, ui) {
+        $(document.documentElement).addClass("sl-layout-dragging");
         enableFrames();
         canMove = true;
         toggleActiveLayouts(event, ui);
       },
       stop: function(event, ui) {
+        $(document.documentElement).removeClass("sl-layout-dragging");
         disableFrames();
         animatedrop(ui);
         toggleActiveLayouts(event, ui);
@@ -1211,10 +1220,12 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
         originalBlock = managers[itemData.container].getBlock(itemData.layoutId, itemData.columnId, itemData.blockId);
       },
       start: function() {
+        $(document.documentElement).addClass("sl-block-dragging");
         canMove = true;
         enableFrames();
       },
       stop: function(event, ui) {
+        $(document.documentElement).removeClass("sl-block-dragging");
         disableFrames();
         animatedrop(ui);
         if(canMove) {
@@ -1343,3 +1354,4 @@ define('app',["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simpl
   // value to use for the public API for the built file.
   return require("app");
 }));
+
