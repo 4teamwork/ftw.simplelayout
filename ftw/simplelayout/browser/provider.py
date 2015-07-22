@@ -16,15 +16,26 @@ from zope.interface import implements
 from zope.tales import expressions
 import json
 import logging
+import re
 
 
 LOG = logging.getLogger('ftw.simplelayout')
 
 
+class CleanedViewPageTemplateFile(ViewPageTemplateFile):
+    """Remove spaces and newlines between tags - This allows us to use
+    'empty' selector in css.
+    """
+
+    def _prepare_html(self, text):
+        text, type_ = super(ViewPageTemplateFile, self)._prepare_html(text)
+        return re.sub(">\s*<", "><", text), type_
+
+
 class BaseSimplelayoutExpression(object):
 
     fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
-    structure = ViewPageTemplateFile('templates/structure.pt')
+    structure = CleanedViewPageTemplateFile('templates/structure.pt')
 
     @property
     def one_layout_one_column(self):
