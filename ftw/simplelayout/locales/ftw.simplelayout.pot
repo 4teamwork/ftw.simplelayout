@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-26 06:16+0000\n"
+"POT-Creation-Date: 2015-07-23 09:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,20 +14,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:51
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:48
 msgid "Cancel"
-msgstr ""
-
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:45
-msgid "Changes saved"
 msgstr ""
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ContentPage.xml
 msgid "ContentPage"
-msgstr ""
-
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:54
-msgid "Edit cancelled"
 msgstr ""
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
@@ -43,7 +35,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ./ftw/simplelayout/behaviors.py:33
+#: ./ftw/simplelayout/behaviors.py:34
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
@@ -67,6 +59,7 @@ msgstr ""
 msgid "Simplelayout default configuration"
 msgstr ""
 
+#: ./ftw/simplelayout/profiles/lib-plone5/controlpanel.xml
 #: ./ftw/simplelayout/profiles/lib/controlpanel.xml
 msgid "Simplelayout default settings"
 msgstr ""
@@ -75,7 +68,7 @@ msgstr ""
 msgid "Simplelayout settings"
 msgstr ""
 
-#: ./ftw/simplelayout/behaviors.py:16
+#: ./ftw/simplelayout/behaviors.py:17
 msgid "Teaser"
 msgstr ""
 
@@ -161,7 +154,7 @@ msgid "label_documentDate"
 msgstr ""
 
 #. Default: "External URL"
-#: ./ftw/simplelayout/behaviors.py:21
+#: ./ftw/simplelayout/behaviors.py:22
 msgid "label_external_link"
 msgstr ""
 
@@ -187,7 +180,7 @@ msgid "label_image"
 msgstr ""
 
 #. Default: "Internal link"
-#: ./ftw/simplelayout/behaviors.py:25
+#: ./ftw/simplelayout/behaviors.py:26
 msgid "label_internal_link"
 msgstr ""
 

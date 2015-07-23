@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-06-26 06:16+0000\n"
+"POT-Creation-Date: 2015-07-23 09:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,21 +11,13 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:51
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:48
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:45
-msgid "Changes saved"
-msgstr "Änderungen gespeichert"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ContentPage.xml
 msgid "ContentPage"
 msgstr "Inhaltsseite"
-
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:54
-msgid "Edit cancelled"
-msgstr "Bearbeiten abgebrochen"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
@@ -33,14 +25,14 @@ msgstr "Dateiauflistung"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
 msgid "GalleryBlock"
-msgstr "Bildergallerie"
+msgstr "Bildergalerie"
 
 #. Default: "ID"
 #: ./ftw/simplelayout/contents/filelistingblock.py:76
 msgid "ID"
 msgstr "ID"
 
-#: ./ftw/simplelayout/behaviors.py:33
+#: ./ftw/simplelayout/behaviors.py:34
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich einen internen und externen Link gleichzeitig zu definiere."
 
@@ -54,7 +46,7 @@ msgstr "Speichern"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
 msgid "Simplelayout block to create a gallery."
-msgstr "Block zum erstellen einer Bildergallerie"
+msgstr "Block zum Erstellen einer Bildergalerie"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "Simplelayout block to list files."
@@ -64,6 +56,7 @@ msgstr "Block zum Auflisten von Dateien"
 msgid "Simplelayout default configuration"
 msgstr "Simplelayout standard Konfiguration"
 
+#: ./ftw/simplelayout/profiles/lib-plone5/controlpanel.xml
 #: ./ftw/simplelayout/profiles/lib/controlpanel.xml
 msgid "Simplelayout default settings"
 msgstr "Simplelayout standard Einstellungen"
@@ -72,7 +65,7 @@ msgstr "Simplelayout standard Einstellungen"
 msgid "Simplelayout settings"
 msgstr "Simplelayout Einstellungen"
 
-#: ./ftw/simplelayout/behaviors.py:16
+#: ./ftw/simplelayout/behaviors.py:17
 msgid "Teaser"
 msgstr "Teaser"
 
@@ -82,7 +75,7 @@ msgstr "Text/Bild"
 
 #: ./ftw/simplelayout/contents/videoblock.py:46
 msgid "This is no a valid youtube, or vimeo url."
-msgstr "Dies ist keine gültige Youtube, oder Vimeo URL."
+msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "Use this block for text and/or one image."
@@ -94,7 +87,7 @@ msgstr "Block zum Darstellen einer Karte."
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
 msgid "Use this block to display videos from youtube, or vimeo"
-msgstr "Block zum Darstellen von Videos (Youtube, oder Vimeo)."
+msgstr "Block zum Darstellen von Videos (Youtube oder Vimeo)."
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
 msgid "VideoBlock"
@@ -158,7 +151,7 @@ msgid "label_documentDate"
 msgstr "Dokumentdatum"
 
 #. Default: "External URL"
-#: ./ftw/simplelayout/behaviors.py:21
+#: ./ftw/simplelayout/behaviors.py:22
 msgid "label_external_link"
 msgstr "Externe URL"
 
@@ -184,7 +177,7 @@ msgid "label_image"
 msgstr "Bild"
 
 #. Default: "Internal link"
-#: ./ftw/simplelayout/behaviors.py:25
+#: ./ftw/simplelayout/behaviors.py:26
 msgid "label_internal_link"
 msgstr "Interne Referenz"
 
@@ -221,7 +214,7 @@ msgstr "Titel"
 #. Default: "Youtube, or Vimeo URL"
 #: ./ftw/simplelayout/contents/videoblock.py:33
 msgid "label_video_url"
-msgstr "Video URL"
+msgstr "Video-URL"
 
 #. Default: "Review State"
 #: ./ftw/simplelayout/contents/filelistingblock.py:71
