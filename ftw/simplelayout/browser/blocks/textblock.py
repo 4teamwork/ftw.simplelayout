@@ -1,8 +1,10 @@
+from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.utils import normalize_portal_type
 from plone.memoize.instance import memoize
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 
@@ -99,3 +101,11 @@ class TextBlockView(BaseBlock):
     @memoize
     def _get_default_image_float(self):
         return self._get_default_actions()['data-imagefloat']
+
+    @property
+    def can_add(self):
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership')
+        permission = mtool.checkPermission(
+            'ftw.simplelayout: Add TextBlock', context)
+        return bool(permission)

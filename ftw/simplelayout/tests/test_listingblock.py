@@ -12,6 +12,7 @@ from unittest2 import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
 from zope.schema.vocabulary import SimpleVocabulary
+import transaction
 
 
 if not IS_PLONE_5:
@@ -110,3 +111,30 @@ class TestListingBlock(TestCase):
         self.assertEquals([['Type', 'Title', 'modified'],
                            ['', 'Test file', modified]],
                           browser.css('.sl-block table').first.lists())
+
+    @browsing
+    def test_listingblock_title_not_rendered_when_empty(self, browser):
+        """
+        This test makes sure that the title of the block is only rendered
+        if there is a title. Otherwise we'll end up with an empty HTML
+        tag in the template.
+        """
+        listingblock = create(Builder('sl listingblock')
+                              .titled('My listingblock')
+                              .having(show_title=True)
+                              .within(self.page))
+
+        browser.login().visit(self.page)
+
+        title_css_selector = '.ftw-simplelayout-filelistingblock h2'
+
+        # Make sure the title is here (in its tag).
+        self.assertEqual('My listingblock',
+                         browser.css(title_css_selector).first.text)
+
+        # Remove the title of the block and make sure the tag is no longer
+        # there.
+        listingblock.title = ''
+        transaction.commit()
+        browser.login().visit(self.page)
+        self.assertEqual([], browser.css(title_css_selector))

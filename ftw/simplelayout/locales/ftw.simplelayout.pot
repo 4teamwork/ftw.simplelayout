@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-23 09:28+0000\n"
+"POT-Creation-Date: 2015-07-23 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,6 +74,11 @@ msgstr ""
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "TextBlock"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/blocks/templates/galleryblock.pt:8
+#: ./ftw/simplelayout/browser/blocks/templates/textblock.pt:16
+msgid "This block is empty."
 msgstr ""
 
 #: ./ftw/simplelayout/contents/videoblock.py:46

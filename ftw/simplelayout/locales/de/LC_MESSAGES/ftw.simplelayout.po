@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-23 09:28+0000\n"
+"POT-Creation-Date: 2015-07-23 13:28+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,6 +72,11 @@ msgstr "Teaser"
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "TextBlock"
 msgstr "Text/Bild"
+
+#: ./ftw/simplelayout/browser/blocks/templates/galleryblock.pt:8
+#: ./ftw/simplelayout/browser/blocks/templates/textblock.pt:16
+msgid "This block is empty."
+msgstr "Dieser Block hat keinen Inhalt."
 
 #: ./ftw/simplelayout/contents/videoblock.py:46
 msgid "This is no a valid youtube, or vimeo url."
