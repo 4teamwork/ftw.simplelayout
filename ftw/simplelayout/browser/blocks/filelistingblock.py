@@ -1,14 +1,16 @@
+from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contents.interfaces import IListingBlockColumns
 from ftw.table.interfaces import ITableGenerator
 from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 
 
-class FileListingBlockView(BrowserView):
+class FileListingBlockView(BaseBlock):
     """ListingBlock default view"""
+
+    template = ViewPageTemplateFile('templates/listingblock.pt')
 
     def get_table_contents(self):
         catalog = getToolByName(self.context, 'portal_catalog')

@@ -15,7 +15,6 @@
         name="block_view"
         permission="zope2.View"
         class=".filelistingblock.FileListingBlockView"
-        template="templates/listingblock.pt"
         />
 
     <browser:page
@@ -37,6 +36,5 @@
         name="block_view"
         permission="zope2.View"
         class=".galleryblock.GalleryBlockView"
-        template="templates/galleryblock.pt"
         />
 </configure>

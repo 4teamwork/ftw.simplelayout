@@ -4,6 +4,7 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
+import transaction
 
 
 class TestGalleryBlock(TestCase):
@@ -113,3 +114,29 @@ class TestGalleryBlock(TestCase):
             len(browser.css('.sl-block-content a[rel="colorbox-{0}"]'.format(
                 gallerie_2.getId()))))
 
+    @browsing
+    def test_galleryblock_title_not_rendered_when_empty(self, browser):
+        """
+        This test makes sure that the title of the block is only rendered
+        if there is a title. Otherwise we'll end up with an empty HTML
+        tag in the template.
+        """
+        galleryblock = create(Builder('sl galleryblock')
+                              .titled('My galleryblock')
+                              .having(show_title=True)
+                              .within(self.page))
+
+        browser.login().visit(self.page)
+
+        title_css_selector = '.ftw-simplelayout-galleryblock h2'
+
+        # Make sure the title is here (in its tag).
+        self.assertEqual('My galleryblock',
+                         browser.css(title_css_selector).first.text)
+
+        # Remove the title of the block and make sure the tag is no longer
+        # there.
+        galleryblock.title = ''
+        transaction.commit()
+        browser.login().visit(self.page)
+        self.assertEqual([], browser.css(title_css_selector))

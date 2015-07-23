@@ -3,7 +3,10 @@
 	  tal:omit-tag="python: 1"
 	  i18n:domain="ftw.simplelayout">
 
-	<h2 tal:content="here/Title" tal:condition="here/show_title | python:True">Title</h2>
+	<h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
+
+  <p tal:condition="python: view.can_add and not view.get_images()"
+     i18n:translate="">This block is empty.</p>
 
 	<tal:boxes
 		repeat="img view/get_images"

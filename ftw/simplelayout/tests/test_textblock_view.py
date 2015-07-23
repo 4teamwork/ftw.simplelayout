@@ -13,6 +13,7 @@ from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 import json
+import transaction
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')
@@ -99,3 +100,30 @@ class TestTextBlockRendering(TestCase):
 
         self.assertEquals('sl-image large left',
                           browser.css('.sl-image').first.attrib['class'])
+
+    @browsing
+    def test_textblock_title_not_rendered_when_empty(self, browser):
+        """
+        This test makes sure that the title of the block is only rendered
+        if there is a title. Otherwise we'll end up with an empty HTML
+        tag in the template.
+        """
+        textblock = create(Builder('sl textblock')
+                           .titled('My textblock')
+                           .having(show_title=True)
+                           .within(self.page))
+
+        browser.login().visit(self.page)
+
+        title_css_selector = '.ftw-simplelayout-textblock h2'
+
+        # Make sure the title is here (in its tag).
+        self.assertEqual('My textblock',
+                         browser.css(title_css_selector).first.text)
+
+        # Remove the title of the block and make sure the tag is no longer
+        # there.
+        textblock.title = ''
+        transaction.commit()
+        browser.login().visit(self.page)
+        self.assertEqual([], browser.css(title_css_selector))

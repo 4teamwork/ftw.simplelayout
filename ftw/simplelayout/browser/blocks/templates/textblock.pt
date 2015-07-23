@@ -4,14 +4,16 @@
   tal:define="teaser_url view/teaser_url"
   i18n:domain="ftw.simplelayout">
 
-  <h2 tal:condition="here/show_title | python: True">
+  <h2 tal:condition="view/block_title">
       <a tal:attributes="href teaser_url;
-                         title here/Title"
-         tal:content="here/Title"
-         tal:omit-tag="not:teaser_url" >Title</a>
+                         title view/block_title"
+         tal:content="view/block_title"
+         tal:omit-tag="not:teaser_url">Title</a>
   </h2>
 
   <div tal:replace="structure view/get_image | nothing" />
   <div tal:replace="structure here/text/output | nothing" />
+  <p tal:condition="python: view.can_add and not (view.get_image() or here.text)"
+     i18n:translate="">This block is empty.</p>
 
 </html>
