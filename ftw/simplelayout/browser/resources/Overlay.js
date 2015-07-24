@@ -61,6 +61,17 @@
         if(global.tinyMCE && global.tinyMCE.triggerSave) {
           global.tinyMCE.triggerSave(true, true);
         }
+        // Initialize pat-registry scan for Plone 5.x
+        if(global.require) {
+          try {
+            var registry = require("pat-registry");
+            if(registry) {
+              registry.scan(this.form);
+            }
+          } catch(e) {
+            console.error("Pattern Registry could not get initialized", e);
+          }
+        }
       },
       getActionUrl: function() {
         return this.form.attr("action");
