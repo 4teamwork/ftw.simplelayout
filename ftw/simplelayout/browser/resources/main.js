@@ -15,10 +15,12 @@
       }
     };
 
+    var baseUrl = $("body").data("base-url") ? $("body").data("base-url") + "/" : $("base").attr("href");
+
     var instance = {
       settings: {
-        addableBlocksEndpoint: "./sl-ajax-addable-blocks-view",
-        saveStateEndpoint: "./sl-ajax-save-state-view",
+        addableBlocksEndpoint: baseUrl + "sl-ajax-addable-blocks-view",
+        saveStateEndpoint: baseUrl + "sl-ajax-save-state-view",
         source: ".sl-simplelayout",
         layouts: [1, 2, 4],
         canChangeLayouts: false,
