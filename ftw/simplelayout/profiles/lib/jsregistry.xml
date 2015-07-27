@@ -10,17 +10,10 @@
         />
 
     <javascript
-        id="++resource++ftw.simplelayout.resources/keycode.js"
-        enabled="True"
-        authenticated="True"
-        insert-after="++resource++ftw.simplelayout.resources/simplelayout.min.js"
-        />
-
-    <javascript
         id="++resource++ftw.simplelayout.resources/Overlay.js"
         enabled="True"
         authenticated="True"
-        insert-after="++resource++ftw.simplelayout.resources/keycode.js"
+        insert-after="++resource++ftw.simplelayout.client/dist/simplelayout.min.js"
         />
 
     <javascript

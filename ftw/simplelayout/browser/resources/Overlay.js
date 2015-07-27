@@ -24,7 +24,7 @@
       bindCloseEvents: function() {
         var self = this;
         $(document).on("keydown", function(event) {
-          if(global.keyCode.isEscape(event)) {
+          if(event.which === $.ui.keyCode.ESCAPE) {
             self.close.call(self);
           }
         });
