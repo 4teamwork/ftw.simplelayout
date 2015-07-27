@@ -5,6 +5,8 @@
 
     <include package="ftw.theming" file="meta.zcml" />
 
+    <theme:scss_factory factory=".browser.dynamic_scss_resources.hide_blocks_in_factory_menu" />
+
     <theme:resources profile="ftw.simplelayout:lib" slot="addon">
         <theme:scss file="browser/resources/integration.theme.scss" />
 
