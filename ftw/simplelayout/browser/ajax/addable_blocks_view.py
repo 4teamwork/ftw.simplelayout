@@ -1,16 +1,13 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
-from ftw.simplelayout.interfaces import ISimplelayoutBlock
+from ftw.simplelayout.utils import get_block_types
 from ftw.simplelayout.utils import normalize_portal_type
 from plone.app.content.browser.folderfactories import _allowedTypes
-from plone.dexterity.interfaces import IDexterityFTI
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.constrains import IConstrainTypes
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
-from zope.component import queryUtility
 from zope.i18n import translate
 from zope.publisher.browser import BrowserView
 
@@ -21,7 +18,7 @@ class AddableBlocks(BrowserView):
         return json_response(self.request, dict(self.addable_blocks()))
 
     def addable_blocks(self):
-        block_types = set(self._get_block_types())
+        block_types = get_block_types()
         allowed_types = self._addable_types()
 
         default_actions = getMultiAdapter((self.context, self.request),
@@ -69,14 +66,4 @@ class AddableBlocks(BrowserView):
             return [fti for fti in allowed_types
                     if fti.getId() in locally_allowed]
 
-    def _get_block_types(self):
-        types_tool = getToolByName(self.context, 'portal_types')
-        typeids = types_tool.objectIds()
-        typeids.sort()
-        for type_id in typeids:
-            dx_fti = queryUtility(IDexterityFTI, name=type_id)
-            if not dx_fti:
-                continue
-            else:
-                if ISimplelayoutBlock.__identifier__ in dx_fti.behaviors:
-                    yield dx_fti
+

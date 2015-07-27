@@ -46,3 +46,12 @@
   display: table-cell;
   vertical-align: middle;
 }
+
+/* Hide block types form add menu */
+#plone-contentmenu-factories .contenttype-ftw-simplelayout-filelistingblock,
+#plone-contentmenu-factories .contenttype-ftw-simplelayout-galleryblock,
+#plone-contentmenu-factories .contenttype-ftw-simplelayout-mapblock,
+#plone-contentmenu-factories .contenttype-ftw-simplelayout-textblock,
+#plone-contentmenu-factories .contenttype-ftw-simplelayout-videoblock {
+  display: none !important;
+}
