@@ -18,7 +18,7 @@ class AddableBlocks(BrowserView):
         return json_response(self.request, dict(self.addable_blocks()))
 
     def addable_blocks(self):
-        block_types = set(get_block_types())
+        block_types = get_block_types()
         allowed_types = self._addable_types()
 
         default_actions = getMultiAdapter((self.context, self.request),

@@ -17,7 +17,7 @@ TEMPLATE = """
 @provider(ISCSSResourceFactory)
 def hide_blocks_in_factory_menu(context, request):
 
-    selectors = ['']
+    selectors = []
 
     for block_fti in get_block_types():
         selectors.append(
