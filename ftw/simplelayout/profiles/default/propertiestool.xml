@@ -27,6 +27,9 @@
  <object name="imaging_properties" meta_type="Plone Property Sheet">
   <property name="allowed_sizes" type="lines" purge="False">
    <element value="simplelayout_galleryblock 130:130"/>
+   <element value="sl_textblock_small 250:250"/>
+   <element value="sl_textblock_middle 500:500"/>
+   <element value="sl_textblock_large 1000:1000"/>
   </property>
  </object>
 
