@@ -1130,19 +1130,6 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       }, 1);
     };
 
-    var toggleActiveLayouts = function(event, ui) {
-      var elements = $.map($(event.target).data("ui-sortable").items, function(layout){
-        return layout.item[0];
-      });
-      $(elements).not(ui.item).toggleClass("inactive");
-      $(elements).filter(".inactive").animate({"height": "140px"}, 200);
-
-      $(elements).css("height", "auto");
-      $(window).scrollTop(ui.item.offset().top);
-
-      $(".sl-simplelayout").sortable("refreshPositions");
-    };
-
     var canMove = true;
     var originalLayout;
 
@@ -1152,6 +1139,7 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       handle: ".sl-toolbar-layout .move",
       placeholder: "layout-placeholder",
       axis: "y",
+      tolerance: "intersects",
       forcePlaceholderSize: true,
       helper: sortableHelper,
       receive: function(event, ui) {
@@ -1170,17 +1158,15 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       remove: function(event, ui) {
         originalLayout = managers[$(this).data("container")].layouts[ui.item.data("layoutId")];
       },
-      start: function(event, ui) {
+      start: function() {
         $(document.documentElement).addClass("sl-layout-dragging");
         enableFrames();
         canMove = true;
-        toggleActiveLayouts(event, ui);
       },
       stop: function(event, ui) {
         $(document.documentElement).removeClass("sl-layout-dragging");
         disableFrames();
         animatedrop(ui);
-        toggleActiveLayouts(event, ui);
         if(canMove) {
           var itemData = ui.item.data();
           var manager = managers[itemData.container];
