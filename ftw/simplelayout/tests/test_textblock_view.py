@@ -80,7 +80,7 @@ class TestTextBlockRendering(TestCase):
                                                     filename=u'test.gif')))
 
         browser.login().visit(block, view='@@block_view')
-        self.assertEquals('sl-image mini left',
+        self.assertEquals('sl-image sl_textblock_small left',
                           browser.css('.sl-image').first.attrib['class'])
 
     @browsing
