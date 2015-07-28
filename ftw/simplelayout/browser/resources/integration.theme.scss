@@ -22,6 +22,18 @@
   &.right {
     float: right;
   }
+  &.sl_textblock_small{
+    width: 25%;
+  }
+  &.sl_textblock_middle {
+    width: 50%;
+  }
+  &.sl_textblock_large {
+    width: 100%;
+  }
+  img {
+    width: 100%;
+  }
 }
 
 

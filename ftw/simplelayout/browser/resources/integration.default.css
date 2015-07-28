@@ -28,6 +28,23 @@
   float: right;
 }
 
+.sl-image.sl_textblock_small {
+  width: 25%;
+}
+
+.sl-image.sl_textblock_middle {
+  width: 50%;
+}
+
+.sl-image.sl_textblock_large {
+  width: 100%;
+}
+
+.sl-image img {
+  width: 100%;
+}
+
+
 .ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout{
   opacity: 0;
 }
