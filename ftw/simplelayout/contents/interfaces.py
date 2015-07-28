@@ -10,10 +10,6 @@ class ITextBlock(Interface):
     """Marker interface for TextBlocks"""
 
 
-class IMapBlock(Interface):
-    """Marker interface for MapBlocks"""
-
-
 class IVideoBlock(Interface):
     """Marker interface for VideoBlocks"""
 

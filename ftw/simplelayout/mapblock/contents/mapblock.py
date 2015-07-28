@@ -1,5 +1,5 @@
 from ftw.simplelayout import _
-from ftw.simplelayout.contents.interfaces import IMapBlock
+from ftw.simplelayout.mapblock.contents.interfaces import IMapBlock
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form

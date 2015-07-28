@@ -26,7 +26,7 @@ def is_youtube_url(url):
 
 
 class IVideoBlockSchema(form.Schema):
-    """MapBlock for simplelayout
+    """VideoBlock for simplelayout
     """
 
     video_url = schema.URI(

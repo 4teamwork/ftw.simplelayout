@@ -6,7 +6,7 @@
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">MapBlock</property>
-    <property name="description" i18n:translate="">Use this block to display a map</property>
+    <property name="description" i18n:translate=""></property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
@@ -14,10 +14,10 @@
     <property name="allowed_content_types" />
 
     <!-- schema interface -->
-    <property name="schema">ftw.simplelayout.contents.mapblock.IMapBlockSchema</property>
+    <property name="schema">ftw.simplelayout.mapblock.contents.mapblock.IMapBlockSchema</property>
 
     <!-- class used for content items -->
-    <property name="klass">ftw.simplelayout.contents.mapblock.MapBlock</property>
+    <property name="klass">ftw.simplelayout.mapblock.contents.mapblock.MapBlock</property>
 
     <!-- add permission -->
     <property name="add_permission">ftw.simplelayout.AddMapBLock</property>

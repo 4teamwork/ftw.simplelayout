@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+    i18n_domain="ftw.simplelayout">
+
+    <include package="ftw.lawgiver" file="meta.zcml" />
+
+    <lawgiver:map_permissions
+        action_group="edit"
+        permissions="ftw.simplelayout: Add MapBlock"
+        />
+
+</configure>

@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:resourceDirectory
+        name="ftw.simplelayout.mapblock.resources"
+        directory="resources"
+        />
+
+    <include package=".viewlets" />
+
+    <browser:page
+        for="ftw.simplelayout.mapblock.contents.interfaces.IMapBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".mapblock.MapBlockView"
+        />
+
+</configure>

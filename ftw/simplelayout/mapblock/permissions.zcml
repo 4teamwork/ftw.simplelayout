@@ -1,0 +1,10 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="ftw.simplelayout">
+
+    <permission
+        id="ftw.simplelayout.AddMapBLock"
+        title="ftw.simplelayout: Add MapBlock"
+        />
+
+</configure>

@@ -3,7 +3,6 @@
  <bindings>
   <type type_id="ftw.simplelayout.TextBlock"/>
   <type type_id="ftw.simplelayout.FileListingBlock"/>
-  <type type_id="ftw.simplelayout.MapBlock"/>
   <type type_id="ftw.simplelayout.VideoBlock"/>
   <type type_id="ftw.simplelayout.GalleryBlock"/>
  </bindings>

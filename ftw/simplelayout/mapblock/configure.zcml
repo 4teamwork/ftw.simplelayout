@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.simplelayout">
+
+    <include file="permissions.zcml" />
+    <include package=".browser" />
+    <include package=".contents" />
+    <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
+    <include file="resources.zcml" zcml:condition="installed ftw.theming" />
+
+    <genericsetup:registerProfile
+        name="default"
+        title="ftw.simplelayout mapblock default"
+        directory="profiles/default"
+        description="Simlelayout map block type"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+</configure>

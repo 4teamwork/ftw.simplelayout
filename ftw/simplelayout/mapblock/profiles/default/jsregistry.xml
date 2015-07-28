@@ -2,7 +2,7 @@
 <object name="portal_javascripts">
 
     <javascript
-        id="++resource++ftw.simplelayout.resources/videoblock.js"
+        id="++resource++ftw.simplelayout.mapblock.resources/mapblock.js"
         enabled="True"
         authenticated="True"
         insert-after="++resource++ftw.simplelayout.resources/main.js"

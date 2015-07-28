@@ -23,20 +23,23 @@ tests_require = [
 extras_require = {
     'tests': tests_require,
     'test': tests_require,
-    'contenttypes': {
+    'contenttypes': [
+        'collective.quickupload',
+        'ftw.colorbox',
+        'ftw.table',
+        'plone.app.dexterity',
+        'plone.app.relationfield',
         'plone.autoform',
         'plone.behavior',
         'plone.dexterity',
-        'plone.app.dexterity',
-        'collective.quickupload',
         'plone.directives.form',
-        'plone.app.relationfield',
         'plone.formwidget.contenttree',
-        'ftw.table',
-        'ftw.colorbox',
+    ],
+    'mapblock': [
         'collective.geo.bundle [dexterity]',
-        }
-    }
+    ]
+}
+
 
 setup(name='ftw.simplelayout',
       version=version,
