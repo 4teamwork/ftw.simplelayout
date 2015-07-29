@@ -6,7 +6,7 @@
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">GalleryBlock</property>
-    <property name="description" i18n:translate="">Simplelayout block to create a gallery.</property>
+    <property name="description" i18n:translate="galleryblock_type_description"></property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
