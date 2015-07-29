@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="ftw.simplelayout.ContentPage"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.simplelayout" >
+
+    <property name="allowed_content_types" purge="False">
+        <element value="ftw.simplelayout.MapBlock" />
+    </property>
+
+</object>

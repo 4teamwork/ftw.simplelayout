@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-23 13:28+0000\n"
+"POT-Creation-Date: 2015-07-29 09:50+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.MapBlock.xml
+#: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr ""
 
@@ -89,7 +89,7 @@ msgstr ""
 msgid "Use this block for text and/or one image."
 msgstr ""
 
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.MapBlock.xml
+#: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "Use this block to display a map"
 msgstr ""
 

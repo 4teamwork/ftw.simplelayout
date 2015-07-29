@@ -16,7 +16,6 @@
         <element value="ftw.simplelayout.ListingBlock" />
         <element value="ftw.simplelayout.FileListingBlock" />
         <element value="ftw.simplelayout.ContentPage" />
-        <element value="ftw.simplelayout.MapBlock" />
         <element value="ftw.simplelayout.VideoBlock" />
         <element value="ftw.simplelayout.GalleryBlock" />
     </property>

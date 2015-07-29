@@ -11,11 +11,17 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".portlets" />
-    <!-- Content types are not compatible with Plone 5 yet -->
-    <include package=".contents" zcml:condition="not-have plone-5" />
     <include file="behaviors.zcml" zcml:condition="not-have plone-5"/>
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
+
+    <!-- Content types are not compatible with Plone 5 yet -->
+    <configure zcml:condition="not-have plone-5">
+        <include package=".contents" />
+        <configure zcml:condition="installed collective.geo.bundle">
+            <include package=".mapblock" />
+        </configure>
+    </configure>
 
     <i18n:registerTranslations directory="locales" />
 
@@ -35,7 +41,7 @@
 
     <!-- Plone root may be a simplelayout page -->
     <class class="Products.CMFPlone.Portal.PloneSite">
-      <implements interface="ftw.simplelayout.interfaces.ISimplelayout" />
+        <implements interface="ftw.simplelayout.interfaces.ISimplelayout" />
     </class>
 
     <configure zcml:condition="not-have plone-5">
@@ -59,12 +65,12 @@
     </configure>
 
     <genericsetup:registerProfile
-      name="development"
-      title="ftw.simplelayout development"
-      directory="profiles/development"
-      description='Javascirpt resources from client are not compressed'
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+        name="development"
+        title="ftw.simplelayout development"
+        directory="profiles/development"
+        description="Javascript resources from client are not compressed"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
     <adapter
         for="ftw.simplelayout.interfaces.ISimplelayout"
@@ -79,11 +85,13 @@
     <subscriber
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              zope.lifecycleevent.IObjectCopiedEvent"
-        handler=".handlers.update_page_state_on_copy_paste_block" />
+        handler=".handlers.update_page_state_on_copy_paste_block"
+        />
 
     <subscriber
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
-        handler=".handlers.update_page_state_on_block_remove" />
+        handler=".handlers.update_page_state_on_block_remove"
+        />
 
 </configure>

@@ -18,13 +18,6 @@
         />
 
     <browser:page
-        for="ftw.simplelayout.contents.interfaces.IMapBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".mapblock.MapBlockView"
-        />
-
-    <browser:page
         for="ftw.simplelayout.contents.interfaces.IVideoBlock"
         name="block_view"
         permission="zope2.View"

@@ -14,7 +14,6 @@
         action_group="edit"
         permissions="ftw.simplelayout: Add FileListingBlock,
                      ftw.simplelayout: Add TextBlock,
-                     ftw.simplelayout: Add MapBlock,
                      ftw.simplelayout: Add VideoBlock,
                      ftw.simplelayout: Change Layouts,
                      ftw.simplelayout: Add GalleryBlock"

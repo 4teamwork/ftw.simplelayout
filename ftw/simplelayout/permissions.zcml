@@ -1,6 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="ftw.topics">
+    i18n_domain="ftw.simplelayout">
 
     <permission
         id="ftw.simplelayout.AddContentPage"
@@ -15,11 +15,6 @@
     <permission
         id="ftw.simplelayout.AddFileListingBlock"
         title="ftw.simplelayout: Add FileListingBlock"
-        />
-
-    <permission
-        id="ftw.simplelayout.AddMapBLock"
-        title="ftw.simplelayout: Add MapBlock"
         />
 
     <permission

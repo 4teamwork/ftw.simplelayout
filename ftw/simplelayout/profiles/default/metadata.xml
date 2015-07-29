@@ -7,7 +7,6 @@
     <dependency>profile-plone.app.relationfield:default</dependency>
     <dependency>profile-plone.formwidget.contenttree:default</dependency>
     <dependency>profile-ftw.simplelayout:lib</dependency>
-    <dependency>profile-collective.geo.bundle:default</dependency>
     <dependency>profile-collective.quickupload:default</dependency>
     <dependency>profile-ftw.colorbox:default</dependency>
     <dependency>profile-ftw.table:default</dependency>

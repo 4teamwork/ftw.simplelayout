@@ -20,7 +20,6 @@
 
     <include package=".ajax" />
     <include package=".blocks" zcml:condition="not-have plone-5" />
-    <include package=".viewlets" />
     <include package=".controlpanel" />
 
     <browser:page
