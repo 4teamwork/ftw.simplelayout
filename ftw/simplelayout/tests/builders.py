@@ -1,5 +1,7 @@
 from ftw.builder import builder_registry
 from ftw.builder.dexterity import DexterityBuilder
+from path import Path
+from plone.namedfile.file import NamedBlobImage
 
 
 class ContenPageBuilder(DexterityBuilder):
@@ -10,6 +12,12 @@ builder_registry.register('sl content page', ContenPageBuilder)
 
 class TextBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.TextBlock'
+
+    def with_dummy_image(self):
+        image = Path(__file__).joinpath('..', 'assets', 'fullhd.jpg').abspath()
+        self.arguments['image'] = NamedBlobImage(data=image.bytes(),
+                                                 filename=u'test.gif')
+        return self
 
 builder_registry.register('sl textblock', TextBlockBuilder)
 
