@@ -86,4 +86,10 @@
              zope.lifecycleevent.interfaces.IObjectRemovedEvent"
         handler=".handlers.update_page_state_on_block_remove" />
 
+    <subscriber
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
+             zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler=".handlers.modify_parent_on_block_edit"
+        />
+
 </configure>
