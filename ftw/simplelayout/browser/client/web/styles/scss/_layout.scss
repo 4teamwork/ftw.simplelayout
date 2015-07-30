@@ -3,7 +3,6 @@
     opacity: 1;
     position: relative;
     min-height: 100px;
-    float: left;
     transition: opacity .2s, background .2s, max-height .2s;
     .block-placeholder {
         background-color: $block-placeholder-background-color;
