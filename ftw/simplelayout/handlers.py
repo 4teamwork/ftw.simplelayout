@@ -78,6 +78,12 @@ def update_page_state_on_block_remove(block, event):
 def modify_parent_on_block_edit(block, event):
     parent = aq_parent(aq_inner(block))
 
+    # Parent may be None.
+    # Example: ObjectGeoreferencedEvent triggers Modified event, but the obj is
+    # not yet added to a container
+    if parent is None:
+        return
+
     if IPloneSiteRoot.providedBy(parent):
         parent.setModificationDate(DateTime())
     else:
