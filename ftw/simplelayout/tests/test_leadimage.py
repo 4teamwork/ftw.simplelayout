@@ -6,11 +6,11 @@ from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
-from unittest2 import skipUnless
+from unittest2 import skipIf
 import transaction
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
+@skipIf(not IS_PLONE_5, 'requires plone < 5')
 class TestLeadImage(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
