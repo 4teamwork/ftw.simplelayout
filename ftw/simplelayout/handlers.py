@@ -1,9 +1,12 @@
+from Acquisition import aq_inner
 from Acquisition import aq_parent
+from DateTime import DateTime
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone.uuid.interfaces import IUUID
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 import json
 
 
@@ -50,7 +53,7 @@ def update_page_state_on_block_remove(block, event):
     if event.newParent is None:
         # Be sure it's not cut/paste
         block_uid = IUUID(block)
-        parent = aq_parent(block)
+        parent = aq_parent(aq_inner(block))
 
         # Do nothing if the event wasn't fired by the block's parent.
         # This happens when an ancestor is deleted, e.g. the Plone site itself.
@@ -70,3 +73,18 @@ def update_page_state_on_block_remove(block, event):
                         # Block has been removed
                         break
         config.store(page_state)
+
+
+def modify_parent_on_block_edit(block, event):
+    parent = aq_parent(aq_inner(block))
+
+    # Parent may be None.
+    # Example: ObjectGeoreferencedEvent triggers Modified event, but the obj is
+    # not yet added to a container
+    if parent is None:
+        return
+
+    if IPloneSiteRoot.providedBy(parent):
+        parent.setModificationDate(DateTime())
+    else:
+        parent.reindexObject()

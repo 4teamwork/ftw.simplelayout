@@ -44,6 +44,14 @@
         attribute="save_state"
         />
 
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayout"
+        name="leadimage"
+        class=".leadimage.LeadImageView"
+        permission="zope2.View"
+        />
+
+
     <adapter
         factory=".actions.DefaultActions"
         for="*
