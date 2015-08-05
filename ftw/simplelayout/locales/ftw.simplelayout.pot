@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-07-29 09:50+0000\n"
+"POT-Creation-Date: 2015-08-05 09:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,14 +47,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
-msgid "Simplelayout block to create a gallery."
-msgstr ""
-
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
-msgid "Simplelayout block to list files."
-msgstr ""
-
 #: ./ftw/simplelayout/interfaces.py:81
 msgid "Simplelayout default configuration"
 msgstr ""
@@ -83,18 +75,6 @@ msgstr ""
 
 #: ./ftw/simplelayout/contents/videoblock.py:46
 msgid "This is no a valid youtube, or vimeo url."
-msgstr ""
-
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
-msgid "Use this block for text and/or one image."
-msgstr ""
-
-#: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
-msgid "Use this block to display a map"
-msgstr ""
-
-#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
-msgid "Use this block to display videos from youtube, or vimeo"
 msgstr ""
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
@@ -182,6 +162,11 @@ msgstr ""
 #. Default: "Image"
 #: ./ftw/simplelayout/contents/textblock.py:40
 msgid "label_image"
+msgstr ""
+
+#. Default: "Image alternative text"
+#: ./ftw/simplelayout/contents/textblock.py:44
+msgid "label_image_alt_text"
 msgstr ""
 
 #. Default: "Internal link"

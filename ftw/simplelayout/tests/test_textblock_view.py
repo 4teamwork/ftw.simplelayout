@@ -127,3 +127,47 @@ class TestTextBlockRendering(TestCase):
         transaction.commit()
         browser.login().visit(self.page)
         self.assertEqual([], browser.css(title_css_selector))
+
+    @browsing
+    def test_image_alt_text_is_rendered(self, browser):
+        """
+        This test makes sure that the image's alt text is rendered in the
+        template.
+        """
+        alt_text = u'A very nice image'
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif'))
+                       .having(image_alt_text=alt_text))
+
+        payload = {'data': json.dumps({'uid': IUUID(block), 'scale': 'large'})}
+        browser.login().visit(self.page,
+                              view='sl-ajax-reload-block-view',
+                              data=payload)
+        browser.visit(block, view='@@block_view')
+
+        self.assertEquals(alt_text, browser.css('img').first.attrib['alt'])
+
+    @browsing
+    def test_image_alt_text_empty(self, browser):
+        """
+        This test makes sure that there is an alt property on the img tag
+        even if no alternative text has been entered.
+        """
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif')))
+
+        payload = {'data': json.dumps({'uid': IUUID(block), 'scale': 'large'})}
+        browser.login().visit(self.page,
+                              view='sl-ajax-reload-block-view',
+                              data=payload)
+        browser.visit(block, view='@@block_view')
+
+        self.assertEquals('', browser.css('img').first.attrib['alt'])
