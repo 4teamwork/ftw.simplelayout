@@ -40,6 +40,11 @@ class ITextBlockSchema(form.Schema):
         title=_(u'label_image', default=u'Image'),
         required=False)
 
+    image_alt_text = schema.TextLine(
+        title=_(u'label_image_alt_text', default=u'Image alternative text'),
+        required=False)
+
+
 alsoProvides(ITextBlockSchema, IFormFieldProvider)
 
 

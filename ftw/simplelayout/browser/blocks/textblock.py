@@ -1,6 +1,7 @@
 from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.behaviors import ITeaser
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.contents.textblock import ITextBlockSchema
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.utils import normalize_portal_type
 from plone.memoize.instance import memoize
@@ -45,17 +46,17 @@ class TextBlockView(BaseBlock):
                     src=self._get_image_scale_url(),
                     cssClass='{0} {1}'.format(self._get_image_scale(),
                                               self._get_image_float()),
-                    alt=self.context.Title()
+                    alt=ITextBlockSchema(self.context).image_alt_text or ''
                 ))
         elif self.context.image and teaser_url:
             return IMG_TAG_TEMPLATE_WITH_LINK.format(
                 **dict(
-                    teaser_url = teaser_url,
+                    teaser_url=teaser_url,
                     title=self.context.Title(),
                     src=self._get_image_scale_url(),
                     cssClass='{0} {1}'.format(self._get_image_scale(),
                                               self._get_image_float()),
-                    alt=self.context.Title()
+                    alt=ITextBlockSchema(self.context).image_alt_text or ''
                 ))
 
         else:
