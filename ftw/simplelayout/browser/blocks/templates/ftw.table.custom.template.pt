@@ -1,5 +1,7 @@
-<table tal:attributes="class view/css_mapping/table;
-                       summary view/options/table_summary|nothing">
+<table tal:attributes="class view/css_mapping/table">
+    <caption tal:define="summary view/options/table_summary|nothing"
+             tal:condition="summary"
+             tal:content="summary" class="hiddenStructure"></caption>
     <colgroup>
         <col tal:repeat="th view/columns"
              tal:attributes="class python:len(th['sort_index']) and 'col-'+th['sort_index'] or 'col'" />
