@@ -17,7 +17,7 @@
 	               tal:attributes="style string:width:${width};;height:${height}">
 			<a class="colorboxLink" href="#"
 				tal:attributes="
-					title string: <b>${img/title_or_id}</b> ${img/Description};
+					title string:${img/title_or_id} ${img/Description};
 					rel string:colorbox-${here/getId};
 					href img/absolute_url">
 				<img tal:replace="structure img/@@images/image/simplelayout_galleryblock" />
