@@ -27,6 +27,7 @@ extras_require = {
         'collective.quickupload',
         'ftw.colorbox',
         'ftw.table',
+
         'plone.app.dexterity',
         'plone.app.relationfield',
         'plone.autoform',
@@ -71,13 +72,12 @@ setup(name='ftw.simplelayout',
       zip_safe=False,
 
       install_requires=[
-          'setuptools',
-
           'AccessControl',
           'Acquisition',
           'collective.dexteritytextindexer',
           'collective.js.jqueryui',
           # 'cssutils', # TODO: is this used anywhere?
+          'ftw.profilehook',
           'Persistence',
           'plone.api',
           'plone.app.blob',
@@ -85,6 +85,7 @@ setup(name='ftw.simplelayout',
           'Products.Archetypes',
           'Products.ATContentTypes',
           'Products.CMFCore',
+          'setuptools',
           'zExceptions',
           'zope.annotation',
           'zope.component',
