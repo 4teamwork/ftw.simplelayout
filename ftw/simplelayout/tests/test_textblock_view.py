@@ -136,7 +136,7 @@ class TestTextBlockRendering(TestCase):
         This test makes sure that the image's alt text is rendered in the
         template.
         """
-        alt_text = u'A very nice image'
+        alt_text = u'A very nice im\xe4ge'
         block = create(Builder('sl textblock')
                        .within(self.page)
                        .titled('TextBlock title')
