@@ -98,7 +98,7 @@
       var currentBlock;
       var activeBlockElement;
       var addOverlay = new global.FormOverlay();
-      var deleteOverlay = new global.FormOverlay();
+      var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
       var editOverlay = new global.FormOverlay();
       var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
 

@@ -5,7 +5,8 @@
   function FormOverlay(options) {
 
     options = $.extend({
-      disableClose: false
+      disableClose: false,
+      cssclass: ""
     }, options);
 
     var overlay = {
@@ -83,7 +84,7 @@
         var self = this;
         $.getJSON(formUrl, payload, function(data) {
           if(!self.overlay) {
-            self.element = $("<div class='overlay'></div>");
+            self.element = $("<div class='overlay'></div>").addClass(options.cssclass);
             self.overlay = self.element.overlay(self.settings).overlay();
             self.element.on("submit", "form", function(event) {
               event.preventDefault();

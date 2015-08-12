@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-05 09:08+0000\n"
+"POT-Creation-Date: 2015-08-12 10:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr "Abbrechen"
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.ContentPage.xml
 msgid "ContentPage"
 msgstr "Inhaltsseite"
+
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:51
+msgid "Delete"
+msgstr "Löschen"
 
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
@@ -82,6 +86,26 @@ msgstr "Video"
 msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 
+#. Default: "This item can not be deleted because it is currently locked by another user."
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:6
+msgid "alert_deleting_locked_item"
+msgstr "Dieser Eintrag kann nicht gelöscht werden da er gerade von einem anderen Benutzer gesperrt ist."
+
+#. Default: "(This will delete a total of ${number_of_items_to_delete} items.)"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:19
+msgid "alert_deleting_x_number_of_items"
+msgstr "(Diese Aktion wird ${number_of_items_to_delete} Einträge löschen.)"
+
+#. Default: "Do you really want to delete this item?"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:23
+msgid "alert_really_delete"
+msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
+
+#. Default: "Do you really want to delete this folder and all its contents?"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:15
+msgid "alert_really_delete_folder"
+msgstr "Möchten Sie diesen Ordner und sein Inhalt wirklich löschen?"
+
 #. Default: "creater"
 #: ./ftw/simplelayout/contents/filelistingblock.py:62
 msgid "column_creater"
@@ -110,17 +134,22 @@ msgstr "Typ"
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
 #: ./ftw/simplelayout/interfaces.py:82
 msgid "desc_sl_config_control_panel"
-msgstr ""
+msgstr "Simplelayout Standardkonfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
 #. Default: "sort_index"
 #: ./ftw/simplelayout/contents/filelistingblock.py:109
 msgid "label_%ssort_index"
-msgstr ""
+msgstr "Sortierung"
 
 #. Default: "Ascending"
 #: ./ftw/simplelayout/contents/filelistingblock.py:124
 msgid "label_ascending"
 msgstr "Aufsteigend"
+
+#. Default: "Cancel"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:58
+msgid "label_cancel"
+msgstr "Abbrechen"
 
 #. Default: "Columns"
 #: ./ftw/simplelayout/contents/filelistingblock.py:144
