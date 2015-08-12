@@ -10,21 +10,11 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
 
 
-IMG_TAG_TEMPLATE = (
-    '<div class="sl-image {cssClass}">'
-    '<img src="{src}" alt="{alt}" />'
-    '</div>')
-
-IMG_TAG_TEMPLATE_WITH_LINK = (
-    '<div class="sl-image {cssClass}">'
-    '<a href="{teaser_url}" title={title}><img src="{src}" alt="{alt}" /></a>'
-    '</div>')
-
-
 class TextBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/textblock.pt')
 
+    @property
     def teaser_url(self):
         teaser = ITeaser(self.context)
         if not teaser:
@@ -37,43 +27,58 @@ class TextBlockView(BaseBlock):
         else:
             return None
 
-    def get_image(self):
-        teaser_url = self.teaser_url()
+    def get_image_data(self):
+        """
+        This method returns a dictionary containing all the data needed
+        to render the image in the template.
+        """
+        if not self.context.image:
+            return
 
-        if self.context.image and not teaser_url:
-            return IMG_TAG_TEMPLATE.format(
-                **dict(
-                    src=self._get_image_scale_url(),
-                    cssClass='{0} {1}'.format(self._get_image_scale(),
-                                              self._get_image_float()),
-                    alt=ITextBlockSchema(self.context).image_alt_text or ''
-                ))
-        elif self.context.image and teaser_url:
-            return IMG_TAG_TEMPLATE_WITH_LINK.format(
-                **dict(
-                    teaser_url=teaser_url,
-                    title=self.context.Title(),
-                    src=self._get_image_scale_url(),
-                    cssClass='{0} {1}'.format(self._get_image_scale(),
-                                              self._get_image_float()),
-                    alt=ITextBlockSchema(self.context).image_alt_text or ''
-                ))
+        data = {
+            'wrapper_css_classes': ' '.join(
+                ['sl-image', self._get_image_scale_name(),
+                 self._get_image_float()]
+            ),
+            'link_url': '',
+            'link_title': self.context.Title(),
+            'link_css_classes': '',
+            'image_tag': self._get_image_scale().tag(
+                alt=ITextBlockSchema(self.context).image_alt_text or '',
+                title=None,
+                height=None,
+                width=None
+            ),
+        }
 
-        else:
-            return None
+        if self.teaser_url:
+            data.update({
+                'link_url': self.teaser_url,
+            })
+            return data
+
+        if self.context.open_image_in_overlay:
+            data.update({
+                'link_url': self._get_image_scale('colorbox').url,
+                'link_css_classes': 'colorboxLink',
+            })
+            return data
+
+        return data
 
     @memoize
-    def _get_image_scale(self):
+    def _get_image_scale_name(self):
         scale = self.blockconfig.get('scale', '')
         if scale:
             return scale
         else:
             return self._get_default_scale()
 
-    def _get_image_scale_url(self):
-        scale = self._get_image_scale()
+    def _get_image_scale(self, scale=None):
+        if not scale:
+            scale = self._get_image_scale_name()
         scaler = self.context.restrictedTraverse('@@images')
-        return scaler.scale('image', scale=scale).url
+        return scaler.scale('image', scale=scale)
 
     @memoize
     def _get_default_actions(self):

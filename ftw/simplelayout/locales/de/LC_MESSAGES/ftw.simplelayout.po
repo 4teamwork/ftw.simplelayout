@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-12 10:00+0000\n"
+"POT-Creation-Date: 2015-08-12 13:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgid "TextBlock"
 msgstr "Text/Bild"
 
 #: ./ftw/simplelayout/browser/blocks/templates/galleryblock.pt:8
-#: ./ftw/simplelayout/browser/blocks/templates/textblock.pt:16
+#: ./ftw/simplelayout/browser/blocks/templates/textblock.pt:26
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
@@ -202,6 +202,11 @@ msgstr "Interne Referenz"
 
 msgid "label_modified"
 msgstr "Bearbeitungsdatum"
+
+#. Default: "Open image in overlay (only if there is no teaser url)"
+#: ./ftw/simplelayout/contents/textblock.py:48
+msgid "label_open_image_in_overlay"
+msgstr "Bild in Overlay öffnen (nur wenn keine Teaser-URL hinterlegt ist)"
 
 #. Default: "Position in Folder"
 #: ./ftw/simplelayout/contents/filelistingblock.py:114
