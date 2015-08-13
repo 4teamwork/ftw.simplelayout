@@ -1,7 +1,8 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   tal:omit-tag="python: 1"
-  tal:define="teaser_url view/teaser_url"
+  tal:define="teaser_url view/teaser_url;
+              image view/get_image_data"
   i18n:domain="ftw.simplelayout">
 
   <h2 tal:condition="view/block_title">
@@ -11,9 +12,18 @@
          tal:omit-tag="not:teaser_url">Title</a>
   </h2>
 
-  <div tal:replace="structure view/get_image | nothing" />
+  <tal:image tal:condition="image">
+    <div tal:attributes="class image/wrapper_css_classes">
+        <a tal:omit-tag="not: image/link_url"
+           tal:attributes="href image/link_url;
+                           title image/link_title;
+                           class image/link_css_classes">
+            <img tal:replace="structure image/image_tag" />
+        </a>
+    </div>
+  </tal:image>
   <div tal:replace="structure here/text/output | nothing" />
-  <p tal:condition="python: view.can_add and not (view.get_image() or here.text)"
+  <p tal:condition="python: view.can_add and not (here.image or here.text)"
      i18n:translate="">This block is empty.</p>
 
 </html>

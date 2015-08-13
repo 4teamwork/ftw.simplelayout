@@ -37,7 +37,8 @@ class TestTextBlockRendering(TestCase):
                        .having(text=RichTextValue('The text'))
                        .having(external_link='http://www.4teamwork.ch')
                        .having(image=NamedBlobImage(data=self.image.read(),
-                                                    filename=u'test.gif')))
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True))
 
         browser.login().visit(block, view='@@block_view')
         self.assertEquals(
@@ -58,7 +59,8 @@ class TestTextBlockRendering(TestCase):
                        .having(internal_link=RelationValue(
                                intids.getId(self.page)))
                        .having(image=NamedBlobImage(data=self.image.read(),
-                                                    filename=u'test.gif')))
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True))
 
         browser.login().visit(block, view='@@block_view')
 
@@ -134,7 +136,7 @@ class TestTextBlockRendering(TestCase):
         This test makes sure that the image's alt text is rendered in the
         template.
         """
-        alt_text = u'A very nice image'
+        alt_text = u'A very nice im\xe4ge'
         block = create(Builder('sl textblock')
                        .within(self.page)
                        .titled('TextBlock title')
@@ -171,3 +173,26 @@ class TestTextBlockRendering(TestCase):
         browser.visit(block, view='@@block_view')
 
         self.assertEquals('', browser.css('img').first.attrib['alt'])
+
+    @browsing
+    def test_image_overlay(self, browser):
+        """
+        This test makes sure that the link to the overlay contains
+        the url to the image to be displayed in the overlay.
+        """
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True))
+
+        browser.login().visit(block, view='@@block_view')
+        link_url = browser.css('a.colorboxLink').first.attrib['href']
+
+        browser.open(link_url)
+        self.assertEquals(
+            'image/jpeg',
+            browser.headers['content-type']
+        )

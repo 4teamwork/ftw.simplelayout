@@ -44,6 +44,12 @@ class ITextBlockSchema(form.Schema):
         title=_(u'label_image_alt_text', default=u'Image alternative text'),
         required=False)
 
+    open_image_in_overlay = schema.Bool(
+        title=_(u'label_open_image_in_overlay',
+                default=u'Open image in overlay (only if there is no teaser url)'),
+        default=False,
+        required=False)
+
 
 alsoProvides(ITextBlockSchema, IFormFieldProvider)
 
