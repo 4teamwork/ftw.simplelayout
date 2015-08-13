@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-12 13:44+0000\n"
+"POT-Creation-Date: 2015-08-13 07:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,7 +170,7 @@ msgid "label_external_link"
 msgstr "Externe URL"
 
 #. Default: "Show folder contents to manage files"
-#: ./ftw/simplelayout/contents/filelistingblock.py:177
+#: ./ftw/simplelayout/contents/filelistingblock.py:179
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
@@ -219,6 +219,16 @@ msgstr "Ordnerreihenfolge"
 #: ./ftw/simplelayout/contents/textblock.py:28
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
+
+#. Default: "Sort by"
+#: ./ftw/simplelayout/contents/filelistingblock.py:150
+msgid "label_sort_on"
+msgstr "Sortieren nach"
+
+#. Default: "Sort order"
+#: ./ftw/simplelayout/contents/filelistingblock.py:156
+msgid "label_sort_order"
+msgstr "Sortierreihenfolge"
 
 msgid "label_sortable_title"
 msgstr "Titel"

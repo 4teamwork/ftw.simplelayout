@@ -147,11 +147,13 @@ class IFileListingBlockSchema(form.Schema):
         default=['getContentType', 'Title', 'modified'])
 
     sort_on = schema.Choice(
+        title=_(u'label_sort_on', default=u'Sort by'),
         required=True,
         default="sortable_title",
         source=sort_index_vocabulary)
 
     sort_order = schema.Choice(
+        title=_(u'label_sort_order', default=u'Sort order'),
         required=True,
         default="ascending",
         vocabulary=sort_order_vocabulary)
