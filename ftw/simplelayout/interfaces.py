@@ -137,3 +137,11 @@ class ISimplelayoutContainerConfig(Interface):
         Results in one layout with one.
         Return None, will trigger a fallback to on layout with one column.
         """
+
+
+class IATSimplelayoutBlockFTIs(Interface):
+    """Utility for retrieveing archetypes based simplelayout block FTIs."""
+
+    def ftis():
+        """Returns a list of FTI ids of Archetypes content types that can be
+           used as simplelayout blocks."""

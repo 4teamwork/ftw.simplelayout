@@ -1,8 +1,10 @@
+from ftw.simplelayout.interfaces import IATSimplelayoutBlockFTIs
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
+from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.component.hooks import getSite
@@ -24,9 +26,17 @@ def get_block_types():
     platform = getSite()
     types_tool = getToolByName(platform, 'portal_types')
 
-    dexterity_ftis = filter(
-        IDexterityFTI.providedBy, types_tool.objectValues())
+    at_ftis = []
+    for name, util in getUtilitiesFor(IATSimplelayoutBlockFTIs):
+        at_ftis.extend(util.ftis())
 
-    return filter(
-        lambda fti: ISimplelayoutBlock.__identifier__ in fti.behaviors,
-        dexterity_ftis)
+    ftis = []
+    for fti in types_tool.objectValues():
+        if (IDexterityFTI.providedBy(fti)
+                and ISimplelayoutBlock.__identifier__ in fti.behaviors):
+            ftis.append(fti)
+
+        elif fti.id in at_ftis:
+            ftis.append(fti)
+
+    return ftis

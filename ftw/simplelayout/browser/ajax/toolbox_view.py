@@ -7,6 +7,7 @@ from plone.app.content.browser.folderfactories import _allowedTypes
 from Products.CMFCore.Expression import Expression
 from Products.CMFCore.Expression import getExprContext
 from Products.CMFPlone.interfaces.constrains import IConstrainTypes
+from plone.dexterity.interfaces import IDexterityFTI
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.i18n import translate
@@ -32,9 +33,13 @@ class SimplelayoutToolbox(BrowserView):
 
         for fti in block_types:
             if fti in allowed_types:
-                add_url = Expression(fti.add_view_expr)(
-                    getExprContext(self.context, self.context))
-                add_url = add_url.replace('++add++', '++add_block++')
+                if IDexterityFTI.providedBy(fti):
+                    add_url = Expression(fti.add_view_expr)(
+                        getExprContext(self.context, self.context))
+                    add_url = add_url.replace('++add++', '++add_block++')
+                else:
+                    add_url = "{}/++add_block++{}".format(
+                        self.context.absolute_url(), fti.id)
 
                 normalized_portal_type = normalize_portal_type(fti.id)
 
