@@ -38,7 +38,7 @@ msgstr "ID"
 
 #: ./ftw/simplelayout/behaviors.py:34
 msgid "It's not possible to have an internal_link and an external_link together"
-msgstr "Es ist nicht möglich einen internen und externen Link gleichzeitig zu definiere."
+msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
@@ -50,12 +50,12 @@ msgstr "Speichern"
 
 #: ./ftw/simplelayout/interfaces.py:81
 msgid "Simplelayout default configuration"
-msgstr "Simplelayout standard Konfiguration"
+msgstr "Simplelayout Standard-Konfiguration"
 
 #: ./ftw/simplelayout/profiles/lib-plone5/controlpanel.xml
 #: ./ftw/simplelayout/profiles/lib/controlpanel.xml
 msgid "Simplelayout default settings"
-msgstr "Simplelayout standard Einstellungen"
+msgstr "Simplelayout Standard-Einstellungen"
 
 #: ./ftw/simplelayout/browser/controlpanel/simplelayout_controlpanel.py:16
 msgid "Simplelayout settings"
@@ -89,7 +89,7 @@ msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo Format: http(s)://
 #. Default: "This item can not be deleted because it is currently locked by another user."
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:6
 msgid "alert_deleting_locked_item"
-msgstr "Dieser Eintrag kann nicht gelöscht werden da er gerade von einem anderen Benutzer gesperrt ist."
+msgstr "Dieser Eintrag kann nicht gelöscht werden, da er gerade von einem anderen Benutzer gesperrt ist."
 
 #. Default: "(This will delete a total of ${number_of_items_to_delete} items.)"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:19
@@ -134,7 +134,7 @@ msgstr "Typ"
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
 #: ./ftw/simplelayout/interfaces.py:82
 msgid "desc_sl_config_control_panel"
-msgstr "Simplelayout Standardkonfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
+msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
 #. Default: "sort_index"
 #: ./ftw/simplelayout/contents/filelistingblock.py:109
