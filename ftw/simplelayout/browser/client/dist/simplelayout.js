@@ -1113,7 +1113,9 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       cursor: "pointer",
       start: function() {
         enableFrames();
-        $(document.documentElement).addClass("sl-block-dragging");
+        if($(this).hasClass("sl-toolbox-component")) {
+          $(document.documentElement).addClass("sl-block-dragging");
+        }
       },
       stop: function() {
         disableFrames();
