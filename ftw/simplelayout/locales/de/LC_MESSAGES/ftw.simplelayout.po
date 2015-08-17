@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-13 07:51+0000\n"
+"POT-Creation-Date: 2015-08-17 15:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,22 @@ msgstr "Teaser"
 #: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "TextBlock"
 msgstr "Text/Bild"
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
+msgid "The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing."
+msgstr "Der Dateiauflistungs-Block zeigt eine Liste von hochgeladenen Dateien an. Die Spaltenüberschriften der Auflistung sind konfigurierbar und können verwendet werden, um die Auflistung zu sortieren."
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
+msgid "The gallery block renders a variable amount of images as thumbnails and opens a larger image in an overlay."
+msgstr "Die Bildergalerie zeigt hochgeladene Bilder als Vorschau an. Die Bilder können in einer grösseren Variante in einem Overlay geöffnet werden."
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.TextBlock.xml
+msgid "The text block renders text and images."
+msgstr "Der Block \"Text/Bild\" zeigt Text und Bilder an."
+
+#: ./ftw/simplelayout/profiles/default/types/ftw.simplelayout.VideoBlock.xml
+msgid "The video block renders videos loaded from YouTube or Vimeo."
+msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 
 #: ./ftw/simplelayout/browser/blocks/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/browser/blocks/templates/textblock.pt:26

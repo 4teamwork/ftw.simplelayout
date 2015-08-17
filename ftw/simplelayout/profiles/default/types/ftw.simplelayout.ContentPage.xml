@@ -2,11 +2,11 @@
 <object name="ftw.simplelayout.ContentPage"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-        i18n:domain="ftw.simplelayout" >
+        i18n:domain="ftw.simplelayout">
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">ContentPage</property>
-    <property name="description" i18n:translate="contentpage_type_description"></property>
+    <property name="description"></property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">True</property>
