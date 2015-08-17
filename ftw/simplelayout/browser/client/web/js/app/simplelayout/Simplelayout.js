@@ -78,7 +78,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       },
       stop: function() {
         disableFrames();
-        $(document.documentElement).removeClass("sl-block-dragging");
+        $(document.documentElement).removeClass("sl-block-dragging sl-layout-dragging");
       }
     };
 

@@ -1119,7 +1119,7 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
       },
       stop: function() {
         disableFrames();
-        $(document.documentElement).removeClass("sl-block-dragging");
+        $(document.documentElement).removeClass("sl-block-dragging sl-layout-dragging");
       }
     };
 
