@@ -1115,6 +1115,8 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
         enableFrames();
         if($(this).hasClass("sl-toolbox-component")) {
           $(document.documentElement).addClass("sl-block-dragging");
+        } else {
+          $(document.documentElement).addClass("sl-layout-dragging");
         }
       },
       stop: function() {
