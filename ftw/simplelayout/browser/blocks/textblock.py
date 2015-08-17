@@ -58,8 +58,13 @@ class TextBlockView(BaseBlock):
             return data
 
         if self.context.open_image_in_overlay:
+            # Get the scale defined in `ftw.colorbox`.
+            image_scale = self._get_image_scale('colorbox')
+            # Don't fail if the scale has been removed in the policy.
+            link_url = image_scale.url if image_scale else ''
+
             data.update({
-                'link_url': self._get_image_scale('colorbox').url,
+                'link_url': link_url,
                 'link_css_classes': 'colorboxLink',
             })
             return data
