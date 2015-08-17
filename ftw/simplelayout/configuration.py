@@ -9,6 +9,7 @@ from plone import api
 from zExceptions import Unauthorized
 from zope.annotation import IAnnotations
 from zope.component import queryMultiAdapter
+from zope.component.hooks import getSite
 from zope.interface import implements
 
 
@@ -79,7 +80,8 @@ class PageConfiguration(object):
 
     def _default_page_config(self):
         """Returns a default page config"""
-        adapter = queryMultiAdapter((self.context, self.context.REQUEST),
+        request = getattr(self.context, 'REQUEST', getSite().REQUEST)
+        adapter = queryMultiAdapter((self.context, request),
                                     ISimplelayoutContainerConfig)
 
         if adapter is not None:
