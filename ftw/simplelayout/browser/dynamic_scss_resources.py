@@ -1,8 +1,9 @@
 from ftw.simplelayout.utils import get_block_types
 from ftw.simplelayout.utils import normalize_portal_type
 from ftw.theming.interfaces import ISCSSResourceFactory
-from ftw.theming.resource import SCSSResource
+from ftw.theming.resource import DynamicSCSSResource
 from zope.interface import provider
+import hashlib
 
 
 TEMPLATE = """
@@ -24,6 +25,9 @@ def hide_blocks_in_factory_menu(context, request):
             u'.contenttype-{0}'.format(
                 normalize_portal_type(block_fti.getId())))
 
-    return SCSSResource('simplelayout_hide_blocks.scss',
-                        slot='addon',
-                        source=TEMPLATE.format(', '.join(selectors)))
+    cachekey = hashlib.md5(''.join(selectors)).hexdigest()
+
+    return DynamicSCSSResource('simplelayout_hide_blocks.scss',
+                               slot='addon',
+                               source=TEMPLATE.format(', '.join(selectors)),
+                               cachekey=cachekey)
