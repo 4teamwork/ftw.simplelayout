@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from collective import dexteritytextindexer
+from zope.i18n import translate
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contents.interfaces import ITextBlock
@@ -82,29 +83,50 @@ class TextBlockModifier(object):
 class TextBlockActions(DefaultActions):
 
     def specific_actions(self):
-        return OrderedDict([('imageLeft', {'class': 'icon-image-left server-action',
-                                           'title': 'Float image left',
-                                           'href': './sl-ajax-reload-block-view',
-                                           'data-scale': 'sl_textblock_small',
-                                           'data-imagefloat': 'left'}),
-                            ('imageLeftLarge', {'class': 'icon-image-left-large server-action',
-                                                'title': 'Float large image left',
-                                                'href': './sl-ajax-reload-block-view',
-                                                'data-scale': 'sl_textblock_middle',
-                                                'data-imagefloat': 'left'}),
-                            ('image', {'class': 'icon-image server-action',
-                                       'title': 'Image without floating',
-                                       'href': './sl-ajax-reload-block-view',
-                                       'data-scale': 'sl_textblock_large',
-                                       'data-imagefloat': 'no-float'}),
-                            ('imageRightLarge', {'class': 'icon-image-right-large server-action',
-                                                 'title': 'Float large image right',
-                                                 'href': './sl-ajax-reload-block-view',
-                                                 'data-scale': 'sl_textblock_middle',
-                                                 'data-imagefloat': 'right'}),
-                            ('imageRight', {'class': 'icon-image-right server-action',
-                                            'title': 'Float image right',
-                                            'href': './sl-ajax-reload-block-view',
-                                            'data-scale': 'sl_textblock_small',
-                                            'data-imagefloat': 'right'}),
-                            ])
+        return OrderedDict([
+            ('imageLeft', {
+                'class': 'icon-image-left server-action',
+                'title': translate(
+                    _(u'label_float_image_left', default=u'Float image left'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-scale': 'sl_textblock_small',
+                'data-imagefloat': 'left'
+            }),
+            ('imageLeftLarge', {
+                'class': 'icon-image-left-large server-action',
+                'title': translate(
+                    _(u'label_float_large_image_left', default=u'Float large image left'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-scale': 'sl_textblock_middle',
+                'data-imagefloat': 'left'
+            }),
+            ('image', {
+                'class': 'icon-image server-action',
+                'title': translate(
+                    _(u'label_image_without_floating', default=u'Image without floating'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-scale': 'sl_textblock_large',
+                'data-imagefloat': 'no-float'
+            }),
+            ('imageRightLarge', {
+                'class': 'icon-image-right-large server-action',
+                'title': translate(
+                    _(u'label_float_large_image_right', default=u'Float large image right'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-scale': 'sl_textblock_middle',
+                'data-imagefloat': 'right'
+            }),
+            ('imageRight', {
+                'class': 'icon-image-right server-action',
+                'title': translate(
+                    _(u'label_float_image_right', default=u'Float image right'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-scale': 'sl_textblock_small',
+                'data-imagefloat': 'right'
+            }),
+        ])

@@ -36,14 +36,18 @@ class GalleryBlockActions(DefaultActions):
 
     def specific_actions(self):
         return OrderedDict([
-            ('upload', {'class': 'upload icon-image-upload',
-                        'title': 'Upload',
-                        'href': './sl-ajax-upload-block-view'}),
+            ('upload', {
+                'class': 'upload icon-image-upload',
+                'title': translate(
+                    _(u'label_upload', default=u'Upload'),
+                    context=self.request),
+                'href': './sl-ajax-upload-block-view'
+            }),
             ('folderContents', {
                 'class': 'icon-folder-contents redirect',
                 'title': translate(
-                    _(u'label_folder_contents_images',
-                      default=u'Show folder contents to manage images'),
+                    _(u'label_folder_contents_images', default=u'Go to folder contents for managing images'),
                     context=self.request),
-                'href': '/folder_contents'}),
+                'href': '/folder_contents'
+            }),
         ])
