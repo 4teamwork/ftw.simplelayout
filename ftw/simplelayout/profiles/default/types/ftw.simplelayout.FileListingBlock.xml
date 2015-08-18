@@ -2,11 +2,11 @@
 <object name="ftw.simplelayout.FileListingBlock"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-        i18n:domain="ftw.simplelayout" >
+        i18n:domain="ftw.simplelayout">
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">FileListingBlock</property>
-    <property name="description" i18n:translate="filelistingblock_type_description"></property>
+    <property name="description" i18n:translate="">The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing.</property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>

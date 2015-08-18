@@ -6,7 +6,7 @@
 
     <!-- Basic metadata -->
     <property name="title" i18n:translate="">GalleryBlock</property>
-    <property name="description" i18n:translate="galleryblock_type_description"></property>
+    <property name="description" i18n:translate="">The gallery block renders a variable amount of images as thumbnails and opens a larger image in an overlay.</property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>

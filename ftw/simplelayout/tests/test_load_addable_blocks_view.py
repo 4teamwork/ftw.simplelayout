@@ -42,7 +42,7 @@ class TestAddableBlocksView(TestCase):
 
         self.assertDictEqual(
             {u'title': u'FileListingBlock',
-             u'description': u'',
+             u'description': u'The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing.',
              u'contentType': u'ftw-simplelayout-filelistingblock',
              u'actions': {u'delete': {u'class': u'delete icon-delete',
                                       u'href': u'./sl-ajax-delete-blocks-view',
@@ -65,7 +65,7 @@ class TestAddableBlocksView(TestCase):
 
         self.assertDictEqual(
             {u'title': u'TextBlock',
-             u'description': u'',
+             u'description': u'The text block renders text and images.',
              u'contentType': u'ftw-simplelayout-textblock',
              u'actions': {u'delete': {u'class': u'delete icon-delete',
                                       u'href': u'./sl-ajax-delete-blocks-view',
