@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
@@ -195,4 +196,33 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals(
             'image/jpeg',
             browser.headers['content-type']
+        )
+
+    @browsing
+    def test_image_overlay_when_scale_is_missing(self, browser):
+        # Get the imaging properties.
+        properties_tool = getToolByName(self.page, 'portal_properties')
+        imaging_properties = properties_tool.get('imaging_properties')
+        allowed_sizes = imaging_properties.allowed_sizes
+
+        # Remove the colorbox scale.
+        allowed_sizes = filter(lambda x: not x.startswith('colorbox'),
+                               allowed_sizes)
+        imaging_properties.allowed_sizes = tuple(allowed_sizes)
+        transaction.commit()
+
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True))
+        browser.login().visit(block, view='@@block_view')
+
+        # There must be no link to the overlay since we were unable to
+        # determine the url to the overlay image.
+        self.assertEquals(
+            [],
+            browser.css('a.colorboxLink')
         )
