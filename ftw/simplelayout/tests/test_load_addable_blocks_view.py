@@ -55,7 +55,7 @@ class TestAddableBlocksView(TestCase):
                                       u'title': u'Upload'},
                           u'folderContents': {u'class': u'icon-folder-contents redirect',
                                               u'href': u'/folder_contents',
-                                              u'title': u'Show folder contents to manage files'},
+                                              u'title': u'Go to folder contents for managing files'},
                           u'move': {u'class': u'move icon-move',
                                     u'title': u'Move block'}},
              u'formUrl': u'{0}/++add_block++ftw.simplelayout.FileListingBlock'.format(

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-17 15:26+0000\n"
+"POT-Creation-Date: 2015-08-19 07:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,11 @@ msgstr "Typ"
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
+#. Default: "Delete block"
+#: ./ftw/simplelayout/browser/actions.py:37
+msgid "label:delete_block"
+msgstr "Block entfernen"
+
 #. Default: "sort_index"
 #: ./ftw/simplelayout/contents/filelistingblock.py:109
 msgid "label_%ssort_index"
@@ -180,18 +185,43 @@ msgstr "Absteigend"
 msgid "label_documentDate"
 msgstr "Dokumentdatum"
 
+#. Default: "Edit block"
+#: ./ftw/simplelayout/browser/actions.py:30
+msgid "label_edit_block"
+msgstr "Block bearbeiten"
+
 #. Default: "External URL"
 #: ./ftw/simplelayout/behaviors.py:22
 msgid "label_external_link"
 msgstr "Externe URL"
 
-#. Default: "Show folder contents to manage files"
-#: ./ftw/simplelayout/contents/filelistingblock.py:179
+#. Default: "Float image left"
+#: ./ftw/simplelayout/contents/textblock.py:90
+msgid "label_float_image_left"
+msgstr "Bild links ausrichten"
+
+#. Default: "Float image right"
+#: ./ftw/simplelayout/contents/textblock.py:126
+msgid "label_float_image_right"
+msgstr "Bild rechts ausrichten"
+
+#. Default: "Float large image left"
+#: ./ftw/simplelayout/contents/textblock.py:99
+msgid "label_float_large_image_left"
+msgstr "Grosses Bild links ausrichten"
+
+#. Default: "Float large image right"
+#: ./ftw/simplelayout/contents/textblock.py:117
+msgid "label_float_large_image_right"
+msgstr "Grosses Bild rechts ausrichten"
+
+#. Default: "Go to folder contents for managing files"
+#: ./ftw/simplelayout/contents/filelistingblock.py:183
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
-#. Default: "Show folder contents to manage images"
-#: ./ftw/simplelayout/contents/galleryblock.py:45
+#. Default: "Go to folder contents for managing images"
+#: ./ftw/simplelayout/contents/galleryblock.py:49
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
@@ -202,14 +232,19 @@ msgid "label_id"
 msgstr "ID"
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contents/textblock.py:40
+#: ./ftw/simplelayout/contents/textblock.py:41
 msgid "label_image"
 msgstr "Bild"
 
 #. Default: "Image alternative text"
-#: ./ftw/simplelayout/contents/textblock.py:44
+#: ./ftw/simplelayout/contents/textblock.py:45
 msgid "label_image_alt_text"
 msgstr "Alternativer Text des Bildes"
+
+#. Default: "Image without floating"
+#: ./ftw/simplelayout/contents/textblock.py:108
+msgid "label_image_without_floating"
+msgstr "Bild ohne Ausrichtung"
 
 #. Default: "Internal link"
 #: ./ftw/simplelayout/behaviors.py:26
@@ -219,8 +254,13 @@ msgstr "Interne Referenz"
 msgid "label_modified"
 msgstr "Bearbeitungsdatum"
 
+#. Default: "Move block"
+#: ./ftw/simplelayout/browser/actions.py:24
+msgid "label_move_block"
+msgstr "Block verschieben"
+
 #. Default: "Open image in overlay (only if there is no teaser url)"
-#: ./ftw/simplelayout/contents/textblock.py:48
+#: ./ftw/simplelayout/contents/textblock.py:49
 msgid "label_open_image_in_overlay"
 msgstr "Bild in Overlay öffnen (nur wenn keine Teaser-URL hinterlegt ist)"
 
@@ -232,7 +272,7 @@ msgstr "Ordnerreihenfolge"
 #. Default: "Show title"
 #: ./ftw/simplelayout/contents/filelistingblock.py:139
 #: ./ftw/simplelayout/contents/galleryblock.py:23
-#: ./ftw/simplelayout/contents/textblock.py:28
+#: ./ftw/simplelayout/contents/textblock.py:29
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
 
@@ -250,16 +290,22 @@ msgid "label_sortable_title"
 msgstr "Titel"
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contents/textblock.py:34
+#: ./ftw/simplelayout/contents/textblock.py:35
 msgid "label_text"
 msgstr "Text"
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contents/filelistingblock.py:135
 #: ./ftw/simplelayout/contents/galleryblock.py:19
-#: ./ftw/simplelayout/contents/textblock.py:24
+#: ./ftw/simplelayout/contents/textblock.py:25
 msgid "label_title"
 msgstr "Titel"
+
+#. Default: "Upload"
+#: ./ftw/simplelayout/contents/filelistingblock.py:176
+#: ./ftw/simplelayout/contents/galleryblock.py:42
+msgid "label_upload"
+msgstr "Datei hochladen"
 
 #. Default: "Youtube, or Vimeo URL"
 #: ./ftw/simplelayout/contents/videoblock.py:33
