@@ -9,6 +9,8 @@
       cssclass: ""
     }, options);
 
+    var root = $(":root");
+
     var overlay = {
       formSubmitted: false,
       element: null,
@@ -44,11 +46,13 @@
       open: function() {
         this.overlay.load();
         this.bindCloseEvents();
+        root.addClass("overlay-open");
       },
       close: function() {
         if(this.canClose()) {
           this.onCancelCallback();
           this.overlay.close();
+          root.removeClass("overlay-open");
           $(this.element).trigger("overlayCancel", this);
         }
       },
