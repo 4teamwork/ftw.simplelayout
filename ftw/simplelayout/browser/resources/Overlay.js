@@ -15,8 +15,10 @@
       form: null,
       overlay: null,
       settings: {
-        mask: {color: "#fff", loadSpeed: 200, opacity: 0.4},
+        mask: {color: "#fff", loadSpeed: 0, opacity: 0.4},
         left: "center",
+        speed: 0,
+        closeSpeed: 0,
         fixed: false,
         closeOnClick: false,
         closeOnEsc: false,
