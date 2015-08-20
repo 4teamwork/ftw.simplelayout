@@ -977,23 +977,25 @@ define('app/toolbox/Toolbox',[], function() {
       /*eslint no-multi-str: 0 */
       "<div id='sl-toolbox' class='sl-toolbox'> \
           <div class='components'> \
-            <div class='addables'> \
-              <a class='sl-toolbox-header'>Komponenten</a> \
-                <div class='sl-toolbox-components'> \
-                  {{for components}} \
-                    <a class='sl-toolbox-component' title='{{:description}}' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
-                      <i class='icon-{{:contentType}}'></i>{{:title}} \
-                    </a> \
-                  {{/for}} \
-                </div> \
-              <a class='sl-toolbox-header'>Layout</a> \
-                {{props layouts}} \
-                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'> \
-                    <i class='icon-layout'></i>{{>prop}} - Spalten Layout \
+            <a class='sl-toolbox-header components'> \
+              <i></i> \
+            </a> \
+              <div class='sl-toolbox-components'> \
+                {{for components}} \
+                  <a class='sl-toolbox-component' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
+                    <i class='icon-{{:contentType}}'></i> \
+                    <span class='description'>{{:title}}</span> \
                   </a> \
-                 {{/props}} \
-            </div> \
-            <a class='sl-toolbox-header sl-toolbox-handle'>Toolbox</a> \
+                {{/for}} \
+              </div> \
+              <a class='sl-toolbox-header layouts'> \
+                <i></i> \
+              </a> \
+              <div class='sl-toolbox-layouts'> \
+                {{props layouts}} \
+                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}}</a> \
+                {{/props}} \
+              </div> \
           </div> \
         </div>");
 

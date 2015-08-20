@@ -399,15 +399,21 @@
   background-color: #fff;
 }
 
+body.simplelayout-initialized {
+  padding-right: 52px;
+}
+
 .sl-toolbox {
-  width: 200px;
+  width: 50px;
   position: fixed;
-  right: 20px;
-  bottom: 0;
+  right: 0;
+  top: 0;
+  height: 100%;
   z-index: 2;
-  background: #fff;
-  padding: 10px;
-  box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.75);
+  display: table;
+  background: #2c2c34;
+  border-right: 2px solid #1c1f24;
+  box-shadow: 0 0 5px 0 #1c1f24;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -416,20 +422,8 @@
   user-select: none;
 }
 .sl-toolbox .components {
-  overflow: hidden;
-}
-.sl-toolbox .components .addables {
-  -webkit-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
-  -moz-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
-  -ms-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
-  -o-transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
-  transition: max-height 200ms ease-in-out,  opacity 200ms ease-in-out;
-  max-height: 1000px;
-  opacity: 1;
-}
-.sl-toolbox .components .addables.close {
-  max-height: 0;
-  opacity: 0;
+  display: table-cell;
+  vertical-align: middle;
 }
 .sl-toolbox .components .sl-toolbox-components.disabled {
   position: relative;
@@ -444,50 +438,81 @@
   left: 0;
   z-index: 1;
 }
+.sl-toolbox .components .sl-toolbox-layouts a {
+  font-weight: bold;
+}
 .sl-toolbox .components a {
   position: relative;
   display: block;
-  padding: 10px 15px;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  color: #555;
+  color: #7e7f84;
+  background: #2c2c34;
   width: 100%;
   box-sizing: border-box;
+  direction: rtl;
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #30333a;
 }
 .sl-toolbox .components a.ui-draggable-dragging {
-  box-shadow: 0 0 70px 0 rgba(0, 0, 0, 0.75);
-  display: table;
-  width: auto !important;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
+}
+.sl-toolbox .components a:before {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 2px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -2px;
 }
 .sl-toolbox .components a:hover {
   cursor: pointer;
-  color: #555;
+  color: #fff;
   text-decoration: none;
-  background-color: #f5f5f5;
+}
+.sl-toolbox .components a:hover:before {
+  background-color: #75ad0a;
+}
+.sl-toolbox .components a:hover > .description {
+  visibility: visible;
+  margin-right: 25px;
+  opacity: 1;
 }
 .sl-toolbox .components a i {
-  height: 17px;
-  width: 30px;
   display: inline-block;
   vertical-align: middle;
 }
+.sl-toolbox .components a .description {
+  white-space: nowrap;
+  text-align: right;
+  margin-right: 15px;
+  background-color: #2c2c34;
+  padding: 4px 7px;
+  color: #fff;
+  border-radius: 2px;
+  float: right;
+  margin-top: -2px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .1s ease-in, margin-right .1s ease-out;
+  position: absolute;
+}
 .sl-toolbox .components a.sl-toolbox-header {
-  background-color: #f5f5f5;
+  background-color: #75ad0a;
+  color: #fff;
+  padding: 10px;
+  border: 0;
+}
+.sl-toolbox .components a.sl-toolbox-header:before {
+  background-color: #75ad0a;
 }
 .sl-toolbox .components a.sl-toolbox-header:hover {
   cursor: default;
 }
-.sl-toolbox .components a.sl-toolbox-handle {
-  font-weight: bold;
-  text-align: center;
-  background-color: #e8e8e8;
-}
-.sl-toolbox .components a.sl-toolbox-handle:hover {
-  cursor: pointer;
-}
-.sl-toolbox.ui-draggable-dragging {
-  box-shadow: 0 0 70px 0 rgba(0, 0, 0, 0.75);
+.sl-toolbox .components .ui-sortable-helper {
+  width: 50px !important;
+  height: auto !important;
 }
 
 ul[class^="sl-toolbar"] {
