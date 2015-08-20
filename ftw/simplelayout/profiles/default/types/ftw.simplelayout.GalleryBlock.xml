@@ -32,10 +32,10 @@
     </property>
 
     <!-- View information -->
-    <property name="default_view">folder_contents</property>
+    <property name="default_view">redirect_to_parent</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="folder_contents"/>
+        <element value="redirect_to_parent"/>
     </property>
 
     <!-- Method aliases -->

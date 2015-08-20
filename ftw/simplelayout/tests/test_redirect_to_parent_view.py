@@ -19,3 +19,16 @@ class RedirectToParentView(SimplelayoutTestCase):
         browser.login().visit(self.block, view='@@redirect_to_parent')
         self.assertEquals(self.container.absolute_url() + '#' + self.block.id,
                           browser.url)
+
+    @browsing
+    def test_redirect_to_parent_if_anonymous(self, browser):
+        browser.visit(self.container, view='@@redirect_to_parent')
+        self.assertEquals(
+            self.layer['portal'].absolute_url() + '#' + self.container.id,
+            browser.url)
+
+    @browsing
+    def test_do_NOT_redirect_to_parent_if_NOT_anonymous(self, browser):
+        browser.login().visit(self.container, view='@@redirect_to_parent')
+        self.assertEquals(self.container.absolute_url() + '/folder_contents',
+                          browser.url)
