@@ -106,6 +106,10 @@
         $(simplelayout.options.source).sortable("disable");
       }
 
+      simplelayout.on("blockReplaced", function() {
+        $(document).trigger("blockContentReplaced", arguments);
+      });
+
       editOverlay.onSubmit(function(blockData) {
         var activeBlockData = activeBlockElement.data();
         var activeBlock = simplelayout.getManagers()[activeBlockData.container].getBlock(activeBlockData.layoutId, activeBlockData.columnId, activeBlockData.blockId);
