@@ -68,7 +68,7 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
     def setUpPloneSite(self, portal):
 
         if not IS_PLONE_5:
-            applyProfile(portal, 'ftw.simplelayout:default')
+            applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
             applyProfile(portal, 'ftw.simplelayout.mapblock:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])

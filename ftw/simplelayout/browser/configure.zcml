@@ -19,7 +19,7 @@
     <plone:static directory="resources" name="ftw.simplelayout" type="plone"/>
 
     <include package=".ajax" />
-    <include package=".blocks" zcml:condition="not-have plone-5" />
+    <include package=".blocks" />
     <include package=".controlpanel" />
 
     <browser:page
@@ -51,24 +51,10 @@
         attribute="save_state"
         />
 
-    <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayout"
-        name="leadimage"
-        class=".leadimage.LeadImageView"
-        permission="zope2.View"
-        />
-
-
     <adapter
         factory=".actions.DefaultActions"
         for="*
              *"
         />
 
-    <adapter
-        zcml:condition="installed collective.quickupload"
-        factory=".uploadcapable.FileListingQuickUploadCapableFileFactory"
-        for="ftw.simplelayout.contents.interfaces.IFileListingBlock"
-        provides="collective.quickupload.interfaces.IQuickUploadFileFactory"
-        />
 </configure>

@@ -311,7 +311,7 @@ Example:
 
 .. code-block:: Python
 
-    from ftw.simplelayout.contents.interfaces import IContentPage
+    from ftw.simplelayout.contenttypes.contents.interfaces import IContentPage
     from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 
 

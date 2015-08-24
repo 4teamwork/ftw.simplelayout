@@ -1,41 +1,40 @@
 <?xml version="1.0"?>
-<object name="ftw.simplelayout.GalleryBlock"
+<object name="ftw.simplelayout.TextBlock"
         meta_type="Dexterity FTI"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-        i18n:domain="ftw.simplelayout" >
+        i18n:domain="ftw.simplelayout">
 
     <!-- Basic metadata -->
-    <property name="title" i18n:translate="">GalleryBlock</property>
-    <property name="description" i18n:translate="">The gallery block renders a variable amount of images as thumbnails and opens a larger image in an overlay.</property>
+    <property name="title" i18n:translate="">TextBlock</property>
+    <property name="description" i18n:translate="">The text block renders text and images.</property>
     <property name="icon_expr"></property>
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
-    <property name="allowed_content_types">
-        <element value="Image" />
-    </property>
+    <property name="allowed_content_types" />
 
     <!-- schema interface -->
-    <property name="schema">ftw.simplelayout.contents.galleryblock.IGalleryBlockSchema</property>
+    <property name="schema">ftw.simplelayout.contenttypes.contents.textblock.ITextBlockSchema</property>
 
     <!-- class used for content items -->
-    <property name="klass">ftw.simplelayout.contents.galleryblock.GalleryBlock</property>
+    <property name="klass">ftw.simplelayout.contenttypes.contents.textblock.TextBlock</property>
 
     <!-- add permission -->
-    <property name="add_permission">ftw.simplelayout.AddGalleryBlock</property>
+    <property name="add_permission">ftw.simplelayout.AddTextBLock</property>
 
     <!-- enabled behaviors -->
     <property name="behaviors">
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
+        <element value="ftw.simplelayout.contenttypes.behaviors.ITeaser" />
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
     <!-- View information -->
-    <property name="default_view">redirect_to_parent</property>
+    <property name="default_view">@@redirect_to_parent</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="redirect_to_parent"/>
+        <element value="@@redirect_to_parent"/>
     </property>
 
     <!-- Method aliases -->

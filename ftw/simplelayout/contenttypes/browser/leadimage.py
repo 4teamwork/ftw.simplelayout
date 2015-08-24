@@ -1,12 +1,12 @@
-from ftw.simplelayout.contents.interfaces import ITextBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from ftw.simplelayout.handlers import unwrap_persistence
 from ftw.simplelayout.interfaces import IPageConfiguration
 from plone.app.uuid.utils import uuidToObject
 from plone.memoize import ram
 from Products.Five.browser import BrowserView
+import hashlib
 import json
 import re
-import hashlib
 
 
 def _render_cachkey(method, self):

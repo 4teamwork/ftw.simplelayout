@@ -2,7 +2,6 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import IS_PLONE_5
-from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import statusmessages
@@ -13,8 +12,8 @@ import json
 
 
 if not IS_PLONE_5:
-    from ftw.simplelayout.contents.videoblock import is_vimeo_url
-    from ftw.simplelayout.contents.videoblock import is_youtube_url
+    from ftw.simplelayout.contenttypes.contents.videoblock import is_vimeo_url
+    from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_url
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')

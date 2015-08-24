@@ -1,7 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
     <include package="plone.behavior" file="meta.zcml" />
@@ -23,14 +22,5 @@
         provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
         name="ISimplelayout"
         />
-
-    <configure zcml:condition="installed plone.formwidget.contenttree">
-        <plone:behavior
-            title="Simplelayout teaser behavior"
-            description="Extends a content by two fields internal and external link"
-            provides="ftw.simplelayout.behaviors.ITeaser"
-            factory="plone.behavior.AnnotationStorage"
-            />
-    </configure>
 
 </configure>

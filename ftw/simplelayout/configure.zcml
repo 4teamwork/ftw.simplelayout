@@ -11,6 +11,7 @@
     <autofeature:extras />
 
     <five:registerPackage package="." initialize=".initialize" />
+    <i18n:registerTranslations directory="locales" />
 
     <include file="permissions.zcml" />
     <include package=".browser" />
@@ -19,28 +20,13 @@
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
-    <!-- Content types are not compatible with Plone 5 yet -->
-    <configure zcml:condition="not-have plone-5">
-        <include package=".contents" />
-        <configure zcml:condition="installed collective.geo.bundle">
-            <include package=".mapblock" />
-        </configure>
-    </configure>
-
-    <i18n:registerTranslations directory="locales" />
+    <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
+    <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
 
     <adapter
         factory="ftw.simplelayout.properties.MultiViewBlockProperties"
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              *"
-        />
-
-    <genericsetup:registerProfile
-        name="default"
-        title="ftw.simplelayout default"
-        directory="profiles/default"
-        description="Simlelayout with sample types"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
     <!-- Plone root may be a simplelayout page -->

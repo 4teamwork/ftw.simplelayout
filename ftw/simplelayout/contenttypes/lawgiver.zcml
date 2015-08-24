@@ -1,0 +1,21 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+    i18n_domain="ftw.simplelayout">
+
+    <include package="ftw.lawgiver" file="meta.zcml" />
+
+    <lawgiver:map_permissions
+        action_group="add"
+        permissions="ftw.simplelayout: Add ContentPage"
+        />
+
+    <lawgiver:map_permissions
+        action_group="edit"
+        permissions="ftw.simplelayout: Add FileListingBlock,
+                     ftw.simplelayout: Add TextBlock,
+                     ftw.simplelayout: Add VideoBlock,
+                     ftw.simplelayout: Add GalleryBlock"
+        />
+
+</configure>

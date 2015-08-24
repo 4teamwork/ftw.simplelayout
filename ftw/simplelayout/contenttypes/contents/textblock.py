@@ -1,9 +1,8 @@
 from collections import OrderedDict
 from collective import dexteritytextindexer
-from zope.i18n import translate
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
-from ftw.simplelayout.contents.interfaces import ITextBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from plone.app.textfield import RichText
@@ -12,6 +11,7 @@ from plone.dexterity.content import Item
 from plone.directives import form
 from plone.namedfile.field import NamedBlobImage
 from zope import schema
+from zope.i18n import translate
 from zope.interface import alsoProvides
 from zope.interface import implements
 

@@ -12,7 +12,7 @@
 
     <adapter
         factory=".textblock.TextBlockModifier"
-        for="ftw.simplelayout.contents.interfaces.ITextBlock
+        for="ftw.simplelayout.contenttypes.contents.interfaces.ITextBlock
              *"
         />
 
