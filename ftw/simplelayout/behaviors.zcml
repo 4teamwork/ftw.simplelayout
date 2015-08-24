@@ -18,13 +18,11 @@
         provides="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         />
 
-    <configure zcml:condition="installed collective.dexteritytextindexer">
-        <adapter
-            factory=".indexer.BlockSearchableTextIndexer"
-            provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
-            name="ISimplelayout"
-            />
-    </configure>
+    <adapter
+        factory=".indexer.BlockSearchableTextIndexer"
+        provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
+        name="ISimplelayout"
+        />
 
     <configure zcml:condition="installed plone.formwidget.contenttree">
         <plone:behavior
