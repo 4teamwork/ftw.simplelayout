@@ -15,7 +15,7 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".portlets" />
-    <include file="behaviors.zcml" zcml:condition="not-have plone-5"/>
+    <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
