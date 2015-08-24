@@ -124,13 +124,13 @@
       onFormRequestDone: function(data) {
         if(data.proceed) {
           this.formSubmitted = true;
+          $(this.element).trigger("overlaySubmit", this);
           this.onSubmitCallback.call(overlay, data);
         } else {
           this.element.html(data.content);
           this.element.trigger("OverlayContentReloaded", [this]);
           this.initializePloneComponents();
         }
-        $(this.element).trigger("overlaySubmit", this);
       },
       onFormCancel: function() {
         overlay.close();
