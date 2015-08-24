@@ -3,14 +3,14 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="ftw.simplelayout">
 
-  <include package="plone.app.portlets" />
+    <include package="plone.app.portlets" />
 
-  <plone:portlet
-    name="ftw.simplelayout.portlet"
-    interface=".portlet.ISimplelayoutPortlet"
-    assignment=".portlet.Assignment"
-    renderer=".portlet.Renderer"
-    addview=".portlet.AddForm"
-  />
+    <plone:portlet
+        name="ftw.simplelayout.portlet"
+        interface=".portlet.ISimplelayoutPortlet"
+        assignment=".portlet.Assignment"
+        renderer=".portlet.Renderer"
+        addview=".portlet.AddForm"
+        />
 
 </configure>

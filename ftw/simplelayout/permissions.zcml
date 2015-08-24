@@ -26,8 +26,10 @@
         id="ftw.simplelayout.ChangeLayouts"
         title="ftw.simplelayout: Change Layouts"
         />
+
     <permission
         id="ftw.simplelayout.AddGalleryBlock"
         title="ftw.simplelayout: Add GalleryBlock"
         />
+
 </configure>
