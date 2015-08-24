@@ -7,8 +7,8 @@
     <include package="plone.behavior" file="meta.zcml" />
 
     <plone:behavior
-        title="Simplelayout indexing behavior"
-        description="Enabled block indexing on a container"
+        title="Simplelayout page"
+        description="Simplelayout page marker behavior"
         provides="ftw.simplelayout.interfaces.ISimplelayout"
         />
 
