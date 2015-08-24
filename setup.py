@@ -79,6 +79,7 @@ setup(name='ftw.simplelayout',
           'collective.js.jqueryui',
           # 'cssutils', # TODO: is this used anywhere?
           'Persistence',
+          'ftw.autofeature',
           'plone.api',
           'plone.app.blob',
           'plone.uuid',
