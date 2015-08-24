@@ -504,7 +504,10 @@ define('app/simplelayout/Block',["app/simplelayout/EventEmitter"], function(even
 
       disableFrame: function() { this.frame.hide(); },
 
-      content: function(toReplace) { $(".sl-block-content", this.element).html(toReplace); },
+      content: function(toReplace) {
+        $(".sl-block-content", this.element).html(toReplace);
+        eventEmitter.trigger("blockReplaced", [this]);
+      },
 
       commit: function() {
         this.committed = true;
