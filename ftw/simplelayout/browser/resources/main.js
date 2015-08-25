@@ -7,7 +7,7 @@
       return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
     };
     var markBrokenLinks = function(blocks) {
-      $('a.internal-link[href*="resolveuid"]', $(blocks)).addClass("broken-link");
+      $("a.internal-link[href*='resolveuid']", $(blocks)).addClass("broken-link");
     };
     var initializeColorbox = function() {
       if($(".colorboxLink").length > 0) {
@@ -109,7 +109,7 @@
       }
 
       if (instance.settings.canEdit) {
-        markBrokenLinks($('.sl-block'));
+        markBrokenLinks($(".sl-block"));
       }
 
       simplelayout.on("blockReplaced", function() {
