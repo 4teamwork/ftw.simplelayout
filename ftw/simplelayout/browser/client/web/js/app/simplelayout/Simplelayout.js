@@ -210,8 +210,13 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     });
 
     on("blockInserted", function(block) {
-      var blockToolbar = new Toolbar(options.toolbox.options.components[block.type].actions, "horizontal", "block");
-      block.attachToolbar(blockToolbar);
+      if(options.toolbox.options.components[block.type]) {
+        var blockToolbar = new Toolbar(options.toolbox.options.components[block.type].actions, "horizontal", "block");
+        block.attachToolbar(blockToolbar);
+      }
+      else {
+        console.warn("Component for: " + block.type + " not registered");
+      }
     });
 
     return {
