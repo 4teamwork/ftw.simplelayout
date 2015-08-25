@@ -1,8 +1,12 @@
 /* This file is only used with standard Plone when ftw.theming is not installed.
  */
 
-#form-widgets-ITeaser-internal_link-contenttree-window {
-  z-index: 70000;
+/* Fix broken z-indeces */
+.contenttreeWindowBlocker {
+    z-index: 70000 !important;
+}
+.contenttreeWindow {
+    z-index: 70001 !important;
 }
 
 #content [class^="sl-toolbar"] {
