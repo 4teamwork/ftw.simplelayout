@@ -78,13 +78,15 @@ class IBlockProperties(Interface):
 class ISimplelayoutDefaultSettings(Interface):
     """Stores simplelayout default settings for the hole site"""
 
-    slconfig = schema.Text(title=_(u'Simplelayout default configuration'),
-                           description=(_(u'desc_sl_config_control_panel',
-                                          default=u'Add Simplelayout default'
-                                          u'configuration, Check simplelayout'
-                                          u'docu: https://github.com/4teamwork/ftw.simplelayout#usage')),
-                           default=u'{}',
-                           required=False)
+    slconfig = schema.Text(
+        title=_(u'Simplelayout default configuration'),
+        description=(_(
+            u'desc_sl_config_control_panel',
+            default=u'Add Simplelayout default'
+            u'configuration, Check simplelayout'
+            u'docu: https://github.com/4teamwork/ftw.simplelayout#usage')),
+        default=u'{}',
+        required=False)
 
 
 class IBlockModifier(Interface):

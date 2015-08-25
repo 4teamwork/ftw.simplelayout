@@ -65,5 +65,3 @@ class AddableBlocks(BrowserView):
             locally_allowed = constrain.getLocallyAllowedTypes()
             return [fti for fti in allowed_types
                     if fti.getId() in locally_allowed]
-
-

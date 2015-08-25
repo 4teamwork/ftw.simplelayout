@@ -37,8 +37,6 @@ class DeleteBlocks(BrowserView):
 
     def _link_integrity_check(self):
         pass
-        # from Products.CMFPlone.utils import isLinked
-        #isLinked(self.block)
 
     def is_locked_for_current_user(self):
         locking_info = self.block.restrictedTraverse('@@plone_lock_info', None)

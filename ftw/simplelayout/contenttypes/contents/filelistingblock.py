@@ -1,8 +1,7 @@
 from collections import OrderedDict
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
-from ftw.simplelayout.contenttypes.contents.interfaces import IFileListingBlock
-from ftw.simplelayout.contenttypes.contents.interfaces import IListingBlockColumns
+from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.table import helper
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
@@ -34,7 +33,7 @@ def download_link(icon=True, classes=None, attrs=None, icon_only=False):
 
 class ListingBlockDefaultColumns(object):
     adapts(Interface, Interface)
-    implements(IListingBlockColumns)
+    implements(interfaces.IListingBlockColumns)
 
     def __init__(self, context, request):
         self.context = context
@@ -83,7 +82,7 @@ class ListingBlockDefaultColumns(object):
 def listing_block_columns(context):
     terms = []
     adapter = queryMultiAdapter((context, context.REQUEST),
-                                IListingBlockColumns)
+                                interfaces.IListingBlockColumns)
 
     for column in adapter.columns():
         terms.append(
@@ -99,7 +98,7 @@ directlyProvides(listing_block_columns, IContextSourceBinder)
 
 def sort_index_vocabulary(context):
     adapter = queryMultiAdapter((context, context.REQUEST),
-                                IListingBlockColumns)
+                                interfaces.IListingBlockColumns)
     terms = []
     for col in adapter.columns():
         if 'sort_index' in col:
@@ -163,7 +162,7 @@ alsoProvides(IFileListingBlockSchema, IFormFieldProvider)
 
 
 class FileListingBlock(Container):
-    implements(IFileListingBlock)
+    implements(interfaces.IFileListingBlock)
 
 
 class ListingBlockActions(DefaultActions):
@@ -180,7 +179,8 @@ class ListingBlockActions(DefaultActions):
             ('folderContents', {
                 'class': 'icon-folder-contents redirect',
                 'title': translate(
-                    _(u'label_folder_contents_files', default=u'Go to folder contents for managing files'),
+                    _(u'label_folder_contents_files',
+                      default=u'Go to folder contents for managing files'),
                     context=self.request),
                 'href': '/folder_contents'
             }),

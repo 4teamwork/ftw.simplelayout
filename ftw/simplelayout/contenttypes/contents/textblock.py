@@ -47,7 +47,8 @@ class ITextBlockSchema(form.Schema):
 
     open_image_in_overlay = schema.Bool(
         title=_(u'label_open_image_in_overlay',
-                default=u'Open image in overlay (only if there is no teaser url)'),
+                default=u'Open image in overlay'
+                u' (only if there is no teaser url)'),
         default=False,
         required=False)
 
@@ -96,7 +97,8 @@ class TextBlockActions(DefaultActions):
             ('imageLeftLarge', {
                 'class': 'icon-image-left-large server-action',
                 'title': translate(
-                    _(u'label_float_large_image_left', default=u'Float large image left'),
+                    _(u'label_float_large_image_left',
+                      default=u'Float large image left'),
                     context=self.request),
                 'href': './sl-ajax-reload-block-view',
                 'data-scale': 'sl_textblock_middle',
@@ -105,7 +107,8 @@ class TextBlockActions(DefaultActions):
             ('image', {
                 'class': 'icon-image server-action',
                 'title': translate(
-                    _(u'label_image_without_floating', default=u'Image without floating'),
+                    _(u'label_image_without_floating',
+                      default=u'Image without floating'),
                     context=self.request),
                 'href': './sl-ajax-reload-block-view',
                 'data-scale': 'sl_textblock_large',
@@ -114,7 +117,8 @@ class TextBlockActions(DefaultActions):
             ('imageRightLarge', {
                 'class': 'icon-image-right-large server-action',
                 'title': translate(
-                    _(u'label_float_large_image_right', default=u'Float large image right'),
+                    _(u'label_float_large_image_right',
+                      default=u'Float large image right'),
                     context=self.request),
                 'href': './sl-ajax-reload-block-view',
                 'data-scale': 'sl_textblock_middle',
@@ -123,7 +127,8 @@ class TextBlockActions(DefaultActions):
             ('imageRight', {
                 'class': 'icon-image-right server-action',
                 'title': translate(
-                    _(u'label_float_image_right', default=u'Float image right'),
+                    _(u'label_float_image_right',
+                      default=u'Float image right'),
                     context=self.request),
                 'href': './sl-ajax-reload-block-view',
                 'data-scale': 'sl_textblock_small',

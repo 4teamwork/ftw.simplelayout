@@ -1,6 +1,5 @@
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
-from operator import methodcaller
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
@@ -29,4 +28,5 @@ def get_block_types():
         IDexterityFTI.providedBy, types_tool.objectValues())
 
     return filter(
-        lambda fti: ISimplelayoutBlock.__identifier__ in fti.behaviors, dexterity_ftis)
+        lambda fti: ISimplelayoutBlock.__identifier__ in fti.behaviors,
+        dexterity_ftis)

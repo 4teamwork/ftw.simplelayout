@@ -45,7 +45,8 @@ class LeadImageView(BrowserView):
     def _get_image(self):
         for uid in self._get_uids():
             block = uuidToObject(uid)
-            if ITextBlock.providedBy(block) and block.image and block.image.data:
+            if ITextBlock.providedBy(block) and block.image \
+               and block.image.data:
                 self.has_image = True
                 self.block = block
                 break

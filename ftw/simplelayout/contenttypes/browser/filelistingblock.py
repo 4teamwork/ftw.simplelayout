@@ -1,5 +1,5 @@
 from ftw.simplelayout.browser.blocks.base import BaseBlock
-from ftw.simplelayout.contenttypes.contents.interfaces import IListingBlockColumns
+from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.table.interfaces import ITableGenerator
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -27,7 +27,7 @@ class FileListingBlockView(BaseBlock):
 
     def _get_columns(self, column_id):
         adapter = queryMultiAdapter((self.context, self.request),
-                                    IListingBlockColumns)
+                                    interfaces.IListingBlockColumns)
         for column in adapter.columns():
             if column_id == column['column']:
                 return column
