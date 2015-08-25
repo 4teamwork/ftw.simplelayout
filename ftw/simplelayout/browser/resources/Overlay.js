@@ -46,6 +46,9 @@
       onCancelCallback: function(){},
       onSubmitCallback: function(){},
       open: function() {
+        if(this.settings.speed === 0) {
+          this.element.show();
+        }
         this.overlay.load();
         this.bindCloseEvents();
         root.addClass("overlay-open");
@@ -53,6 +56,9 @@
       close: function() {
         if(this.canClose()) {
           this.onCancelCallback();
+          if(this.settings.speed === 0) {
+            this.element.hide();
+          }
           this.overlay.close();
           root.removeClass("overlay-open");
           $(this.element).trigger("overlayCancel", this);
