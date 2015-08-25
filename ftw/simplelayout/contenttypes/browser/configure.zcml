@@ -1,0 +1,49 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.ITextBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".textblock.TextBlockView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".filelistingblock.FileListingBlockView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IVideoBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".videoblock.VideoBlockView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".galleryblock.GalleryBlockView"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayout"
+        name="leadimage"
+        class=".leadimage.LeadImageView"
+        permission="zope2.View"
+        />
+
+    <adapter
+        factory=".uploadcapable.FileListingQuickUploadCapableFileFactory"
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        provides="collective.quickupload.interfaces.IQuickUploadFileFactory"
+        />
+
+</configure>

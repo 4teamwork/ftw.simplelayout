@@ -43,7 +43,7 @@ class TestSampleTypes(TestCase):
 
         self.assertTrue(len(browser.css('.sl-block')), 'Expect one block')
 
-    def test_textblock_modifiert(self):
+    def test_textblock_modified(self):
         contentpage = create(Builder('sl content page').titled(u'A page'))
         block = create(Builder('sl textblock').within(contentpage))
 

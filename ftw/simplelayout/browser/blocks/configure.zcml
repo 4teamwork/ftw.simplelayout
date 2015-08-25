@@ -3,31 +3,4 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.ITextBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".textblock.TextBlockView"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.IFileListingBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".filelistingblock.FileListingBlockView"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.IVideoBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".videoblock.VideoBlockView"
-        />
-
-    <browser:page
-        for="ftw.simplelayout.contents.interfaces.IGalleryBlock"
-        name="block_view"
-        permission="zope2.View"
-        class=".galleryblock.GalleryBlockView"
-        />
 </configure>

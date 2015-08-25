@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.simplelayout">
+
+    <permission
+        id="ftw.simplelayout.AddContentPage"
+        title="ftw.simplelayout: Add ContentPage"
+        />
+
+    <permission
+        id="ftw.simplelayout.AddTextBLock"
+        title="ftw.simplelayout: Add TextBlock"
+        />
+
+    <permission
+        id="ftw.simplelayout.AddFileListingBlock"
+        title="ftw.simplelayout: Add FileListingBlock"
+        />
+
+    <permission
+        id="ftw.simplelayout.AddVideoBlock"
+        title="ftw.simplelayout: Add VideoBlock"
+        />
+
+    <permission
+        id="ftw.simplelayout.AddGalleryBlock"
+        title="ftw.simplelayout: Add GalleryBlock"
+        />
+
+</configure>

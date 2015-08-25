@@ -1,42 +1,32 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:autofeature="http://namespaces.zope.org/autofeature"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
+    <include package="ftw.autofeature" file="meta.zcml" />
+    <autofeature:extras />
+
     <five:registerPackage package="." initialize=".initialize" />
+    <i18n:registerTranslations directory="locales" />
 
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".portlets" />
-    <include file="behaviors.zcml" zcml:condition="not-have plone-5"/>
+    <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
-    <!-- Content types are not compatible with Plone 5 yet -->
-    <configure zcml:condition="not-have plone-5">
-        <include package=".contents" />
-        <configure zcml:condition="installed collective.geo.bundle">
-            <include package=".mapblock" />
-        </configure>
-    </configure>
-
-    <i18n:registerTranslations directory="locales" />
+    <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
+    <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
 
     <adapter
         factory="ftw.simplelayout.properties.MultiViewBlockProperties"
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              *"
-        />
-
-    <genericsetup:registerProfile
-        name="default"
-        title="ftw.simplelayout default"
-        directory="profiles/default"
-        description="Simlelayout with sample types"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
     <!-- Plone root may be a simplelayout page -->

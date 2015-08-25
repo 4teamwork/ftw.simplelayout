@@ -1,14 +1,13 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:plone="http://namespaces.plone.org/plone"
-    xmlns:zcml="http://namespaces.zope.org/zcml"
-    i18n_domain="simplelayout">
+    i18n_domain="ftw.simplelayout">
 
     <include package="plone.behavior" file="meta.zcml" />
 
     <plone:behavior
-        title="Simplelayout indexing behavior"
-        description="Enabled block indexing on a container"
+        title="Simplelayout page"
+        description="Simplelayout page marker behavior"
         provides="ftw.simplelayout.interfaces.ISimplelayout"
         />
 
@@ -18,21 +17,10 @@
         provides="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         />
 
-    <configure zcml:condition="installed collective.dexteritytextindexer">
-        <adapter
-            factory=".indexer.BlockSearchableTextIndexer"
-            provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
-            name="ISimplelayout"
-            />
-    </configure>
-
-    <configure zcml:condition="installed plone.formwidget.contenttree">
-        <plone:behavior
-            title="Simplelayout teaser behavior"
-            description="Extends a content by two fields internal and external link"
-            provides="ftw.simplelayout.behaviors.ITeaser"
-            factory="plone.behavior.AnnotationStorage"
-            />
-    </configure>
+    <adapter
+        factory=".indexer.BlockSearchableTextIndexer"
+        provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
+        name="ISimplelayout"
+        />
 
 </configure>

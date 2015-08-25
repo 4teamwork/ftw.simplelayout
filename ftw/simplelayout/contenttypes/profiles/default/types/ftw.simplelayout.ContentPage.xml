@@ -21,10 +21,10 @@
     </property>
 
     <!-- schema interface -->
-    <property name="schema">ftw.simplelayout.contents.contentpage.IContentPageSchema</property>
+    <property name="schema">ftw.simplelayout.contenttypes.contents.contentpage.IContentPageSchema</property>
 
     <!-- class used for content items -->
-    <property name="klass">ftw.simplelayout.contents.contentpage.ContentPage</property>
+    <property name="klass">ftw.simplelayout.contenttypes.contents.contentpage.ContentPage</property>
 
     <!-- add permission -->
     <property name="add_permission">ftw.simplelayout.AddContentPage</property>

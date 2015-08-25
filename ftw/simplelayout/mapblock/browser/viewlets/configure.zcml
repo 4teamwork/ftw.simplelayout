@@ -12,6 +12,7 @@
         manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
         class=".openlayers.OpenlayersViewlet"
         permission="zope2.View"
+        layer="collective.geo.mapwidget.browser.interfaces.IGeoMapWidgetLayer"
         />
 
   </configure>

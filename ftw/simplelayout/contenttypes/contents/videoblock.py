@@ -1,14 +1,14 @@
 from ftw.simplelayout import _
-from ftw.simplelayout.contents.interfaces import IVideoBlock
+from ftw.simplelayout.contenttypes.contents.interfaces import IVideoBlock
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
+from urlparse import urlparse
 from zope import schema
 from zope.interface import alsoProvides
 from zope.interface import implements
 from zope.interface import Invalid
 from zope.interface import invariant
-from urlparse import urlparse
 
 
 def is_vimeo_url(url):

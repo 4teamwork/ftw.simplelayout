@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.contents.interfaces import IListingBlockColumns
+from ftw.simplelayout.contenttypes.contents.interfaces import IListingBlockColumns
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
@@ -16,8 +16,8 @@ import transaction
 
 
 if not IS_PLONE_5:
-    from ftw.simplelayout.contents.filelistingblock import listing_block_columns
-    from ftw.simplelayout.contents.filelistingblock import ListingBlockDefaultColumns
+    from ftw.simplelayout.contenttypes.contents.filelistingblock import listing_block_columns
+    from ftw.simplelayout.contenttypes.contents.filelistingblock import ListingBlockDefaultColumns
 
 
 def assert_ftw_table_column(column):

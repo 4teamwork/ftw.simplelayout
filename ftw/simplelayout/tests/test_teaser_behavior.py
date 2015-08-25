@@ -10,7 +10,7 @@ from zope.intid.interfaces import IIntIds
 
 
 if not IS_PLONE_5:
-    from ftw.simplelayout.behaviors import ITeaser
+    from ftw.simplelayout.contenttypes.behaviors import ITeaser
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')

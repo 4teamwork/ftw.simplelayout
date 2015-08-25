@@ -1,5 +1,5 @@
 from ftw.simplelayout.browser.blocks.base import BaseBlock
-from ftw.simplelayout.contents.interfaces import IListingBlockColumns
+from ftw.simplelayout.contenttypes.contents.interfaces import IListingBlockColumns
 from ftw.table.interfaces import ITableGenerator
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
