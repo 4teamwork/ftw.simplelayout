@@ -6,7 +6,9 @@
     var isUploading = function() {
       return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
     };
-
+    var markBrokenLinks = function(blocks) {
+      $('a.internal-link[href*="resolveuid"]', $(blocks)).addClass("broken-link");
+    };
     var initializeColorbox = function() {
       if($(".colorboxLink").length > 0) {
         if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
@@ -106,6 +108,10 @@
         $(simplelayout.options.source).sortable("disable");
       }
 
+      if (instance.settings.canEdit) {
+        markBrokenLinks($('.sl-block'));
+      }
+
       simplelayout.on("blockReplaced", function() {
         $(document).trigger("blockContentReplaced", arguments);
       });
@@ -116,6 +122,7 @@
         activeBlock.content(blockData.content);
         instance.saveState();
         initializeColorbox();
+        markBrokenLinks(activeBlock.element);
         this.close();
       });
 
