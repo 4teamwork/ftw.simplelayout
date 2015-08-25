@@ -23,4 +23,22 @@ suite("Toolbar", function() {
     assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block"}]);
   });
 
+  test("can disable or enable an action", function() {
+    var toolbar = new Toolbar({edit: {"class": "edit icon-edit", "title": "Can edit this block"}});
+    toolbar.disable("edit");
+    var actionNodes = $.map(toolbar.element.find("a"), function(action) {
+      return {tagName: action.tagName, classes: action.className, title: action.title, display: action.style.display};
+    });
+
+    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block", display: "none"}]);
+
+    toolbar.enable("edit");
+
+    actionNodes = $.map(toolbar.element.find("a"), function(action) {
+      return {tagName: action.tagName, classes: action.className, title: action.title, display: action.style.display};
+    });
+
+    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block", display: "inline"}]);
+  });
+
 });
