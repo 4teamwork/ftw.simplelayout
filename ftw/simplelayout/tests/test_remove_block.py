@@ -3,7 +3,6 @@ from ftw.builder import create
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
-from ftw.testbrowser import Browser
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import folder_contents
 from plone.uuid.interfaces import IUUID

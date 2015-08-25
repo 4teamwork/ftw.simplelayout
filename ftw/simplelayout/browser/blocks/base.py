@@ -29,5 +29,3 @@ class BaseBlock(BrowserView):
         if show_title and title:
             return title
         return ''
-
-

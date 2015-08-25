@@ -1,7 +1,6 @@
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
-from ftw.simplelayout.tests import builders
 from ftw.simplelayout.tests import sample_types
 from ftw.testing.layer import ComponentRegistryLayer
 from persistent.list import PersistentList
@@ -17,6 +16,7 @@ from plone.testing import z2
 from plone.testing import zca
 from unittest2 import TestCase
 from zope.configuration import xmlconfig
+import ftw.simplelayout.tests.builders
 
 
 IS_PLONE_5 = get_distribution('Plone').version >= '5'
