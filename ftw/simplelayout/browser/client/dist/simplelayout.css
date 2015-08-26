@@ -28,11 +28,11 @@
   position: relative;
   min-height: 100px;
   transition: opacity .2s, background .2s, max-height .2s;
+  margin-bottom: 10px;
 }
 .sl-layout .block-placeholder {
   background-color: #b9cbe5;
   width: 100%;
-  margin: -1px;
   min-height: 100px;
   float: left;
 }
@@ -70,7 +70,6 @@
 
 .sl-block-dragging .sl-column {
   outline: 2px dashed rgba(0, 0, 0, 0.6);
-  margin-bottom: 10px;
 }
 
 .sl-column {
