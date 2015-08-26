@@ -4,10 +4,10 @@
     position: relative;
     min-height: 100px;
     transition: opacity .2s, background .2s, max-height .2s;
+    margin-bottom: 10px;
     .block-placeholder {
         background-color: $block-placeholder-background-color;
         width: 100%;
-        margin: -1px;
         min-height: 100px;
         float: left;
     }
