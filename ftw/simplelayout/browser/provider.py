@@ -61,6 +61,7 @@ class BaseSimplelayoutExpression(object):
                     block['obj_html'] = self._render_block_html(obj)
                     block['type'] = normalize_portal_type(obj.portal_type)
                     block['url'] = obj.absolute_url()
+                    block['id'] = obj.getId()
 
         # Append blocks, which are not in the simplelayout configuration into
         # the last column.
@@ -73,6 +74,7 @@ class BaseSimplelayoutExpression(object):
                         'obj_html': self._render_block_html(obj),
                         'type': normalize_portal_type(obj.portal_type),
                         'url': obj.absolute_url(),
+                        'id': obj.getId(),
                     }
                 )
 

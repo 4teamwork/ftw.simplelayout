@@ -354,3 +354,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         self.assertEquals('sl-block sampleblock',
                           browser.css('.sl-block').first.attrib['class'],
                           'Expect "sample" as css klass on block structure.')
+
+    @browsing
+    def test_block_has_anchor(self, browser):
+        block1 = create(Builder('sample block')
+                        .titled('Block 1')
+                        .within(self.container))
+
+        browser.login().open(self.container)
+        self.assertEqual(
+            'block-1',
+            browser.css('.sl-layout a').first.attrib['name']
+        )
