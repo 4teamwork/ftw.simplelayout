@@ -18,7 +18,8 @@ class SimplelayoutToolbox(BrowserView):
     def __call__(self):
         toolbox = {
             'addableBlocks': dict(self.addable_blocks()),
-            'layoutActions': self.layouts_actions()}
+            'layoutActions': self.layouts_actions(),
+            'labels': self.client_labels()}
 
         return json_response(self.request, toolbox)
 
@@ -87,4 +88,17 @@ class SimplelayoutToolbox(BrowserView):
                     'class': 'icon-delete delete'
                 }
             }
+        }
+
+    def client_labels(self):
+        return {
+            'labelColumnPostfix': translate(_(u'label_column_postfix',
+                                              default=u'Column(s)'),
+                                            context=self.request
+                                            ),
+            'helpDragHint': translate(
+                _(u'help_drag_hint',
+                  default=u'Please drag, no click required'),
+                context=self.request
+            )
         }
