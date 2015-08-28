@@ -8,14 +8,16 @@
     <div class="sl-column"
          tal:repeat="col row/cols"
          tal:attributes="class col/class">
-      <div tal:repeat="block col/blocks"
-           tal:attributes="class string:sl-block ${block/type};
-                           data-type block/type;
-                           data-uid block/uid;
-                           data-url block/url;">
-        <div class="sl-block-content"
-            tal:content="structure block/obj_html">Block Content</div>
-      </div>
+      <tal:blocks tal:repeat="block col/blocks">
+        <a tal:attributes="name block/id"></a>
+        <div tal:attributes="class string:sl-block ${block/type};
+                             data-type block/type;
+                             data-uid block/uid;
+                             data-url block/url;">
+          <div class="sl-block-content"
+               tal:content="structure block/obj_html">Block Content</div>
+        </div>
+      </tal:blocks>
     </div>
   </div>
 </div>
