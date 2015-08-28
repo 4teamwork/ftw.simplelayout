@@ -40,7 +40,9 @@ define([], function() {
               </a> \
               <div class='sl-toolbox-layouts'> \
                 {{props layouts}} \
-                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}}</a> \
+                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
+                    <span class='description'>{{>prop}} {{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
+                  </a> \
                 {{/props}} \
               </div> \
           </div> \
@@ -59,11 +61,16 @@ define([], function() {
       }
     }
 
+    if ($.isEmptyObject(options.components.labels)) {
+      options.components.labels = {};
+    }
+
     options.layoutActions = layoutActions;
 
     var data = {
       "components": blocks,
-      "layouts": options.layouts
+      "layouts": options.layouts,
+      "labels": options.components.labels
     };
 
     var element = $(template.render(data));

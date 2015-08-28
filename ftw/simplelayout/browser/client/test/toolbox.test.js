@@ -46,7 +46,6 @@ suite("Toolbox", function() {
           addableBlocks: {
             listingblock: {
               title: "Listingblock",
-              description: "can list things",
               contentType: "listingblock",
               formUrl: "http://www.google.com",
               actions: {
@@ -58,7 +57,6 @@ suite("Toolbox", function() {
             },
             textblock: {
               title: "Textblock",
-              description: "can show text",
               contentType: "textblock",
               formUrl: "http://www.bing.com",
               actions: {
@@ -88,10 +86,10 @@ suite("Toolbox", function() {
       toolbox.attachTo(target);
 
       var addedNodes = $.map(target.find(".sl-toolbox-component"), function(e) {
-        return {title: $(e).text().trim(), description: $(e).attr("title"), iconClass: $("i", e).attr("class"), formUrl: $(e).data("form_url")};
+        return {title: $(e).text().trim(), iconClass: $("i", e).attr("class"), formUrl: $(e).data("form_url")};
       });
 
-      assert.deepEqual(addedNodes, [{title: "Listingblock", description: "can list things", iconClass: "icon-listingblock", formUrl: "http://www.google.com"}, {title: "Textblock", description: "can show text", iconClass: "icon-textblock", formUrl: "http://www.bing.com"}]);
+      assert.deepEqual(addedNodes, [{title: "Listingblock", iconClass: "icon-listingblock", formUrl: "http://www.google.com"}, {title: "Textblock", iconClass: "icon-textblock", formUrl: "http://www.bing.com"}]);
     });
 
     test("raises exception when no layout is defined", function() {
@@ -145,6 +143,62 @@ suite("Toolbox", function() {
         });
         assert.deepEqual(components, ["a", "Ä", "d", "o", "ö", "Ö", "r", "u", "ü", "Ü"]);
       }
+    });
+
+    test("can render layout label", function() {
+      var toolbox = new Toolbox({
+        layouts: [1, 2, 4],
+        components: {
+
+          addableBlocks: {
+            listingblock: {
+              title: "Listingblock",
+              contentType: "listingblock",
+              formUrl: "http://www.google.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            },
+            textblock: {
+              title: "Textblock",
+              contentType: "textblock",
+              formUrl: "http://www.bing.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            }
+          },
+          layoutActions: {
+            actions: {
+              move: {
+                class: "iconmove move",
+                title: "Move this layout arround."
+              },
+              delete: {
+                class: "icondelete delete",
+                title: "Delete this layout."
+              }
+            }
+          },
+          labels: {
+            labelColumnPostfix: "Column(s)"
+          }
+        }
+      });
+      var target = $("<div></div>");
+
+      toolbox.attachTo(target);
+
+      var labels = $.map(target.find(".sl-toolbox-layout .description"), function(e) {
+        return $(e).text();
+      });
+      assert.deepEqual(labels, ["1 Column(s)", "2 Column(s)", "4 Column(s)"]);
     });
 
   });

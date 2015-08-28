@@ -484,6 +484,7 @@ body.simplelayout-initialized {
   vertical-align: middle;
 }
 .sl-toolbox .components a .description {
+  direction: ltr;
   white-space: nowrap;
   text-align: right;
   margin-right: 15px;
@@ -495,7 +496,6 @@ body.simplelayout-initialized {
   margin-top: -2px;
   visibility: hidden;
   opacity: 0;
-  transition: opacity .1s ease-in, margin-right .1s ease-out;
   position: absolute;
 }
 .sl-toolbox .components a.sl-toolbox-header {
