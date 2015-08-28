@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-28 09:58+0000\n"
+"POT-Creation-Date: 2015-08-28 13:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -155,6 +155,11 @@ msgstr ""
 msgid "desc_sl_config_control_panel"
 msgstr ""
 
+#. Default: "Please drag, no click required"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:100
+msgid "help_drag_hint"
+msgstr ""
+
 #. Default: "Delete block"
 #: ./ftw/simplelayout/browser/actions.py:37
 msgid "label:delete_block"
@@ -175,13 +180,18 @@ msgstr ""
 msgid "label_cancel"
 msgstr ""
 
+#. Default: "Column(s)"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:95
+msgid "label_column_postfix"
+msgstr ""
+
 #. Default: "Columns"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:143
 msgid "label_columns"
 msgstr ""
 
 #. Default: "Delete layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:83
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:85
 msgid "label_delete_layout"
 msgstr ""
 
@@ -268,7 +278,7 @@ msgid "label_move_block"
 msgstr ""
 
 #. Default: "Move layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:78
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:79
 msgid "label_move_layout"
 msgstr ""
 

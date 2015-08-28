@@ -41,6 +41,8 @@
           return;
         }
 
+        $("body").addClass("simplelayout-initialized");
+
         this.loadComponents(function(components) {
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});

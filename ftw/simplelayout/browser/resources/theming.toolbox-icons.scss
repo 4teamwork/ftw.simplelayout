@@ -12,11 +12,30 @@
     font-style: normal;
     display: inline;
     position: relative;
-    top: -0.15em;
     @extend .fa-icon;
     @extend .fa-times-circle;
     &:before {
       color: fuchsia;
+    }
+  }
+
+  .sl-toolbox i {
+    -webkit-font-smoothing: antialiased;
+    &:before {
+      margin-right: 0 !important;
+    }
+  }
+
+  .sl-toolbox .components .sl-toolbox-header {
+    i {
+      font-style: normal;
+      @extend .fa-icon;
+    }
+    &.components i {
+      @extend .fa-cube;
+    }
+    &.layouts i {
+      @extend .fa-th;
     }
   }
 

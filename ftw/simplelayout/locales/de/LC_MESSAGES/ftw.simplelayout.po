@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-28 09:58+0000\n"
+"POT-Creation-Date: 2015-08-28 13:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -152,6 +152,11 @@ msgstr "Typ"
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
+#. Default: "Please drag, no click required"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:100
+msgid "help_drag_hint"
+msgstr "Bitte den Inhalt per Drag & Drop hinzufügen."
+
 #. Default: "Delete block"
 #: ./ftw/simplelayout/browser/actions.py:37
 msgid "label:delete_block"
@@ -172,13 +177,18 @@ msgstr "Aufsteigend"
 msgid "label_cancel"
 msgstr "Abbrechen"
 
+#. Default: "Column(s)"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:95
+msgid "label_column_postfix"
+msgstr "Spalte(n)"
+
 #. Default: "Columns"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:143
 msgid "label_columns"
 msgstr "Spalten"
 
 #. Default: "Delete layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:83
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:85
 msgid "label_delete_layout"
 msgstr "Zeile löschen"
 
@@ -265,7 +275,7 @@ msgid "label_move_block"
 msgstr "Block verschieben"
 
 #. Default: "Move layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:78
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:79
 msgid "label_move_layout"
 msgstr "Zeile verschieben"
 

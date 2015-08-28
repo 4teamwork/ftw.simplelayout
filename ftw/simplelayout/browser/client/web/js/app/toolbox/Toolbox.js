@@ -20,27 +20,36 @@ define([], function() {
       return a.localeCompare(b, "de", {caseFirst: "lower"});
     };
 
+    var showHind = function() {
+      /*eslint no-alert: 0 */
+      alert(options.components.labels.helpDragHint);
+    };
+
     var template = $.templates(
       /*eslint no-multi-str: 0 */
       "<div id='sl-toolbox' class='sl-toolbox'> \
           <div class='components'> \
-            <div class='addables'> \
-              <a class='sl-toolbox-header'>Komponenten</a> \
-                <div class='sl-toolbox-components'> \
-                  {{for components}} \
-                    <a class='sl-toolbox-component' title='{{:description}}' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
-                      <i class='icon-{{:contentType}}'></i>{{:title}} \
-                    </a> \
-                  {{/for}} \
-                </div> \
-              <a class='sl-toolbox-header'>Layout</a> \
-                {{props layouts}} \
-                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'> \
-                    <i class='icon-layout'></i>{{>prop}} - Spalten Layout \
+            <a class='sl-toolbox-header components'> \
+              <i></i> \
+            </a> \
+              <div class='sl-toolbox-components'> \
+                {{for components}} \
+                  <a class='sl-toolbox-component' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
+                    <i class='icon-{{:contentType}}'></i> \
+                    <span class='description'>{{:title}}</span> \
                   </a> \
-                 {{/props}} \
-            </div> \
-            <a class='sl-toolbox-header sl-toolbox-handle'>Toolbox</a> \
+                {{/for}} \
+              </div> \
+              <a class='sl-toolbox-header layouts'> \
+                <i></i> \
+              </a> \
+              <div class='sl-toolbox-layouts'> \
+                {{props layouts}} \
+                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
+                    <span class='description'>{{>prop}} {{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
+                  </a> \
+                {{/props}} \
+              </div> \
           </div> \
         </div>");
 
@@ -57,14 +66,21 @@ define([], function() {
       }
     }
 
+    if ($.isEmptyObject(options.components.labels)) {
+      options.components.labels = {};
+    }
+
     options.layoutActions = layoutActions;
 
     var data = {
       "components": blocks,
-      "layouts": options.layouts
+      "layouts": options.layouts,
+      "labels": options.components.labels
     };
 
     var element = $(template.render(data));
+
+    $(element).on("click", ".ui-draggable", showHind);
 
     $(".sl-toolbox-handle", element).on("click", function() { $(".addables").toggleClass("close"); });
 
