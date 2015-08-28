@@ -973,17 +973,6 @@ define('app/toolbox/Toolbox',[], function() {
       return a.localeCompare(b, "de", {caseFirst: "lower"});
     };
 
-    options.layoutActions = {
-      move: {
-        class: "icon-move move",
-        title: "Move this layout arround."
-      },
-      delete: {
-        class: "icon-delete delete",
-        title: "Delete this layout."
-      }
-    };
-
     var template = $.templates(
       /*eslint no-multi-str: 0 */
       "<div id='sl-toolbox' class='sl-toolbox'> \
@@ -1008,12 +997,23 @@ define('app/toolbox/Toolbox',[], function() {
           </div> \
         </div>");
 
-    var components = $.map(options.components, function(component) { return component; }).sort(function(a, b) {
-      return normalizeCompare(a.title, b.title);
-    });
+    var blocks = [];
+    var layoutActions = [];
+    if (!$.isEmptyObject(options.components)) {
+      blocks = $.map(options.components.addableBlocks, function(component) { return component; }).sort(function(a, b) {
+        return normalizeCompare(a.title, b.title);
+      });
+      if(options.components.layoutActions) {
+        layoutActions = $.map(options.components.layoutActions.actions, function(action) { return action; }).sort(function(a, b) {
+          return normalizeCompare(a.title, b.title);
+        });
+      }
+    }
+
+    options.layoutActions = layoutActions;
 
     var data = {
-      "components": components,
+      "components": blocks,
       "layouts": options.layouts
     };
 
@@ -1254,7 +1254,7 @@ define('app/simplelayout/Simplelayout',["app/simplelayout/Layoutmanager", "app/s
     });
 
     on("blockInserted", function(block) {
-      var blockToolbar = new Toolbar(options.toolbox.options.components[block.type].actions, "horizontal", "block");
+      var blockToolbar = new Toolbar(options.toolbox.options.components.addableBlocks[block.type].actions, "horizontal", "block");
       block.attachToolbar(blockToolbar);
     });
 

@@ -210,7 +210,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     });
 
     on("blockInserted", function(block) {
-      var blockToolbar = new Toolbar(options.toolbox.options.components[block.type].actions, "horizontal", "block");
+      var blockToolbar = new Toolbar(options.toolbox.options.components.addableBlocks[block.type].actions, "horizontal", "block");
       block.attachToolbar(blockToolbar);
     });
 

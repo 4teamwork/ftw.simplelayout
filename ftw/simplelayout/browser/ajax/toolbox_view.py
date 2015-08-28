@@ -1,3 +1,4 @@
+from ftw.simplelayout import _
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.utils import get_block_types
@@ -12,10 +13,14 @@ from zope.i18n import translate
 from zope.publisher.browser import BrowserView
 
 
-class AddableBlocks(BrowserView):
+class SimplelayoutToolbox(BrowserView):
 
     def __call__(self):
-        return json_response(self.request, dict(self.addable_blocks()))
+        toolbox = {
+            'addableBlocks': dict(self.addable_blocks()),
+            'layoutActions': self.layouts_actions()}
+
+        return json_response(self.request, toolbox)
 
     def addable_blocks(self):
         block_types = get_block_types()
@@ -65,3 +70,21 @@ class AddableBlocks(BrowserView):
             locally_allowed = constrain.getLocallyAllowedTypes()
             return [fti for fti in allowed_types
                     if fti.getId() in locally_allowed]
+
+    def layouts_actions(self):
+        return {
+            'actions': {
+                'move': {
+                    'title': translate(_(u'label_move_layout',
+                                         default=u'Move layout'),
+                                       context=self.request),
+                    'class': 'icon-move move'
+                },
+                'delete': {
+                    'title': translate(_(u'label_delete_layout',
+                                         default=u'Delete layout'),
+                                       context=self.request),
+                    'class': 'icon-delete delete'
+                }
+            }
+        }

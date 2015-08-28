@@ -8,17 +8,17 @@ import json
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')
-class TestAddableBlocksView(TestCase):
+class TestAddableBlocksDefaultContent(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
-        super(TestAddableBlocksView, self).setUp()
+        super(TestAddableBlocksDefaultContent, self).setUp()
 
     def test_addable_blocks_view(self):
         page = create(Builder('sl content page'))
 
-        view = page.restrictedTraverse('@@sl-ajax-addable-blocks-view')
+        view = page.restrictedTraverse('@@sl-toolbox-view')
 
         allowed_block_types = [item[0]
                                for item in view.addable_blocks()]
@@ -35,8 +35,8 @@ class TestAddableBlocksView(TestCase):
 
     def test_addable_blocks_json(self):
         page = create(Builder('sl content page'))
-        view = page.restrictedTraverse('@@sl-ajax-addable-blocks-view')
-        addable_types_json = json.loads(view())
+        view = page.restrictedTraverse('@@sl-toolbox-view')
+        addable_types_json = json.loads(view())['addableBlocks']
 
         self.maxDiff = None
 

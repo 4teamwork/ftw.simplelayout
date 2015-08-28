@@ -12,8 +12,8 @@
 
     <browser:page
         for="*"
-        name="sl-ajax-addable-blocks-view"
-        class=".addable_blocks_view.AddableBlocks"
+        name="sl-toolbox-view"
+        class=".toolbox_view.SimplelayoutToolbox"
         permission="cmf.ModifyPortalContent"
         />
 
