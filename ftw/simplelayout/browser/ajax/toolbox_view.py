@@ -76,12 +76,14 @@ class SimplelayoutToolbox(BrowserView):
             'actions': {
                 'move': {
                     'title': translate(_(u'label_move_layout',
-                                         default=u'Move layout')),
+                                         default=u'Move layout'),
+                                       context=self.request),
                     'class': 'icon-move move'
                 },
                 'delete': {
                     'title': translate(_(u'label_delete_layout',
-                                         default=u'Delete layout')),
+                                         default=u'Delete layout'),
+                                       context=self.request),
                     'class': 'icon-delete delete'
                 }
             }

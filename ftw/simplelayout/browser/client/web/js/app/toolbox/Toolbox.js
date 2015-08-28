@@ -20,17 +20,6 @@ define([], function() {
       return a.localeCompare(b, "de", {caseFirst: "lower"});
     };
 
-    options.layoutActions = {
-      move: {
-        class: "icon-move move",
-        title: "Move this layout arround."
-      },
-      delete: {
-        class: "icon-delete delete",
-        title: "Delete this layout."
-      }
-    };
-
     var template = $.templates(
       /*eslint no-multi-str: 0 */
       "<div id='sl-toolbox' class='sl-toolbox'> \
@@ -55,10 +44,12 @@ define([], function() {
           </div> \
         </div>");
 
-    var components = $.map(options.components, function(component) { return component; }).sort(function(a, b) {
-      return normalizeCompare(a.title, b.title);
-    });
-
+    var components = {};
+    if (!$.isEmptyObject(options.components)) {
+      components = $.map(options.components.addable_blocks, function(component) { return component; }).sort(function(a, b) {
+        return normalizeCompare(a.title, b.title);
+      });
+    }
     var data = {
       "components": components,
       "layouts": options.layouts
