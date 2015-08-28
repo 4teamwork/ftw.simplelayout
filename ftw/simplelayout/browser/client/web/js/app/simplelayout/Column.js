@@ -47,9 +47,10 @@ define(["app/simplelayout/Block", "app/simplelayout/EventEmitter", "app/simplela
         if (!this.blocks[blockId]) {
           throw new Error("No block with id " + blockId + " inserted.");
         }
+        var blockData = this.blocks[blockId].element.data();
         this.blocks[blockId].element.remove();
         delete this.blocks[blockId];
-        eventEmitter.trigger("blockDeleted");
+        eventEmitter.trigger("blockDeleted", [blockData]);
       },
 
       commitBlocks: function() {

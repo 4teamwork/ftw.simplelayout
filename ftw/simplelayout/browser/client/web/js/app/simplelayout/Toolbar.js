@@ -35,9 +35,15 @@ define([], function() {
       type: type
     }));
 
+    var disable = function(action) { $("." + action, element).hide(); };
+
+    var enable = function(action) { $("." + action, element).show(); };
+
     return {
 
-      element: element
+      element: element,
+      disable: disable,
+      enable: enable
 
     };
 

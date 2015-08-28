@@ -17,6 +17,12 @@
 
     var baseUrl = $("body").data("base-url") ? $("body").data("base-url") + "/" : $("base").attr("href");
 
+    var currentBlock;
+
+    var addFormUrl;
+
+    var addOverlay = new global.FormOverlay();
+
     var instance = {
       settings: {
         toolboxDataEndpoint: baseUrl + "sl-toolbox-view",
@@ -46,6 +52,15 @@
         this.loadComponents(function(components) {
           var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
+          self.simplelayout.on("blockInserted", function(block) {
+            currentBlock = block;
+            var blockData = block.element.data();
+            addOverlay.load(addFormUrl);
+            var layout = self.simplelayout.getManagers()[blockData.container].layouts[blockData.layoutId];
+            if(layout.hasBlocks()) {
+              layout.toolbar.disable("delete");
+            }
+          });
           toolbox.attachTo($("body"));
           self.simplelayout.deserialize($("body"));
           callback(self.simplelayout);
@@ -96,10 +111,7 @@
     };
 
     instance.init(function(simplelayout) {
-      var addFormUrl;
-      var currentBlock;
       var activeBlockElement;
-      var addOverlay = new global.FormOverlay();
       var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
       var editOverlay = new global.FormOverlay();
       var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
@@ -149,9 +161,11 @@
         addFormUrl = $(e.target).data("form_url");
       });
 
-      simplelayout.on("blockInserted", function(block) {
-        currentBlock = block;
-        addOverlay.load(addFormUrl);
+      simplelayout.on("blockDeleted", function(blockData) {
+        var layout = simplelayout.getManagers()[blockData.container].layouts[blockData.layoutId];
+        if(!layout.hasBlocks()) {
+          layout.toolbar.enable("delete");
+        }
       });
 
       simplelayout.on("blockMoved", function() { instance.saveState(); });

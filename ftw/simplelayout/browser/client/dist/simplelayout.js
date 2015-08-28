@@ -591,9 +591,10 @@ define('app/simplelayout/Column',["app/simplelayout/Block", "app/simplelayout/Ev
         if (!this.blocks[blockId]) {
           throw new Error("No block with id " + blockId + " inserted.");
         }
+        var blockData = this.blocks[blockId].element.data();
         this.blocks[blockId].element.remove();
         delete this.blocks[blockId];
-        eventEmitter.trigger("blockDeleted");
+        eventEmitter.trigger("blockDeleted", [blockData]);
       },
 
       commitBlocks: function() {
@@ -940,9 +941,15 @@ define('app/simplelayout/Toolbar',[], function() {
       type: type
     }));
 
+    var disable = function(action) { $("." + action, element).hide(); };
+
+    var enable = function(action) { $("." + action, element).show(); };
+
     return {
 
-      element: element
+      element: element,
+      disable: disable,
+      enable: enable
 
     };
 
