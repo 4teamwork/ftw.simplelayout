@@ -16,8 +16,9 @@ from zope.publisher.browser import BrowserView
 class SimplelayoutToolbox(BrowserView):
 
     def __call__(self):
-        toolbox = {}
-        toolbox.update(dict(self.addable_blocks()))
+        toolbox = {
+            'addable_blocks': dict(self.addable_blocks()),
+            'layout_actions': self.layouts_actions()}
 
         return json_response(self.request, toolbox)
 
@@ -69,3 +70,19 @@ class SimplelayoutToolbox(BrowserView):
             locally_allowed = constrain.getLocallyAllowedTypes()
             return [fti for fti in allowed_types
                     if fti.getId() in locally_allowed]
+
+    def layouts_actions(self):
+        return {
+            'actions': {
+                'move': {
+                    'title': translate(_(u'label_move_layout',
+                                         default=u'Move layout')),
+                    'class': 'icon-move move'
+                },
+                'delete': {
+                    'title': translate(_(u'label_delete_layout',
+                                         default=u'Delete layout')),
+                    'class': 'icon-delete delete'
+                }
+            }
+        }

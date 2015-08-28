@@ -36,7 +36,7 @@ class TestAddableBlocksDefaultContent(TestCase):
     def test_addable_blocks_json(self):
         page = create(Builder('sl content page'))
         view = page.restrictedTraverse('@@sl-toolbox-view')
-        addable_types_json = json.loads(view())
+        addable_types_json = json.loads(view())['addable_blocks']
 
         self.maxDiff = None
 
