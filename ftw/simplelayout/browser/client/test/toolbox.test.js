@@ -38,10 +38,52 @@ suite("Toolbox", function() {
   });
 
   suite("components", function() {
-
     test("can set components", function() {
-      var toolbox = new Toolbox({layouts: [0], components: {listingblock: {title: "Listingblock", description: "can list things", contentType: "listingblock", formUrl: "http://www.google.com", actions: {edit: {name: "edit", description: "Edit this block"}}},
-        textblock: {title: "Textblock", description: "can show text", contentType: "textblock", formUrl: "http://www.bing.com", actions: {edit: {name: "edit", description: "Edit this block"}}}}});
+      var toolbox = new Toolbox({
+        layouts: [0],
+        components: {
+
+          addableBlocks: {
+            listingblock: {
+              title: "Listingblock",
+              description: "can list things",
+              contentType: "listingblock",
+              formUrl: "http://www.google.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            },
+            textblock: {
+              title: "Textblock",
+              description: "can show text",
+              contentType: "textblock",
+              formUrl: "http://www.bing.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            }
+          },
+          layoutActions: {
+            actions: {
+              move: {
+                class: "iconmove move",
+                title: "Move this layout arround."
+              },
+              delete: {
+                class: "icondelete delete",
+                title: "Delete this layout."
+              }
+            }
+          }
+        }
+      });
+
       var target = $("<div></div>");
       toolbox.attachTo(target);
 
@@ -82,16 +124,18 @@ suite("Toolbox", function() {
         var toolbox = new Toolbox({
           layouts: [0],
           components: {
-            cue: {title: "Ü"},
-            r: {title: "r"},
-            ue: {title: "ü"},
-            d: {title: "d"},
-            coe: {title: "Ö"},
-            o: {title: "o"},
-            oe: {title: "ö"},
-            u: {title: "u"},
-            cae: {title: "Ä"},
-            a: {title: "a"}
+            addableBlocks: {
+              cue: {title: "Ü"},
+              r: {title: "r"},
+              ue: {title: "ü"},
+              d: {title: "d"},
+              coe: {title: "Ö"},
+              o: {title: "o"},
+              oe: {title: "ö"},
+              u: {title: "u"},
+              cae: {title: "Ä"},
+              a: {title: "a"}
+            }
           }
         });
         var target = $("<div></div>");

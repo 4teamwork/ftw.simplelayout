@@ -34,7 +34,7 @@ class TestToolBoxView(SimplelayoutTestCase):
                                                        u'class': u'delete icon-delete',
                                                        u'title': u'Delete block'}},
                               u'title': u'SampleBlock'}},
-            response['addable_blocks'])
+            response['addableBlocks'])
 
     @browsing
     def test_layout_actions(self, browser):
@@ -46,4 +46,4 @@ class TestToolBoxView(SimplelayoutTestCase):
                                     u'title': u'Move layout'},
                           u'delete': {u'class': u'icon-delete delete',
                                       u'title': u'Delete layout'}}},
-            response['layout_actions'])
+            response['layoutActions'])

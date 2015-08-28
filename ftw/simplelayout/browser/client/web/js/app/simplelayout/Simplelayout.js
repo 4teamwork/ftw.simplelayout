@@ -205,12 +205,12 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     bindToolboxEvents();
 
     on("layoutInserted", function(layout) {
-      var layoutToolbar = new Toolbar(options.toolbox.options.components.layout_actions.actions, "vertical", "layout");
+      var layoutToolbar = new Toolbar(options.toolbox.options.layoutActions, "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
     });
 
     on("blockInserted", function(block) {
-      var blockToolbar = new Toolbar(options.toolbox.options.components.addable_blocks[block.type].actions, "horizontal", "block");
+      var blockToolbar = new Toolbar(options.toolbox.options.components.addableBlocks[block.type].actions, "horizontal", "block");
       block.attachToolbar(blockToolbar);
     });
 

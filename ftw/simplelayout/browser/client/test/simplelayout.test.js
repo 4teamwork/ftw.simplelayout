@@ -13,19 +13,42 @@ suite("Simplelayout", function() {
       toolbox = new Toolbox({
         layouts: [1, 2, 4],
         components: {
-          textblock: {
-            title: "Textblock",
-            description: "can show text",
-            contentType: "textblock",
-            formUrl: "http://www.bing.com",
+
+          addableBlocks: {
+            listingblock: {
+              title: "Listingblock",
+              description: "can list things",
+              contentType: "listingblock",
+              formUrl: "http://www.google.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            },
+            textblock: {
+              title: "Textblock",
+              description: "can show text",
+              contentType: "textblock",
+              formUrl: "http://www.bing.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            }
+          },
+          layoutActions: {
             actions: {
-              edit: {
-                class: "edit",
-                description: "Edit this block"
-              },
               move: {
-                class: "move",
-                description: "Move this block"
+                class: "iconmove move",
+                title: "Move this layout arround."
+              },
+              delete: {
+                class: "icondelete delete",
+                title: "Delete this layout."
               }
             }
           }

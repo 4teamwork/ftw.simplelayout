@@ -44,14 +44,23 @@ define([], function() {
           </div> \
         </div>");
 
-    var components = {};
+    var blocks = [];
+    var layoutActions = [];
     if (!$.isEmptyObject(options.components)) {
-      components = $.map(options.components.addable_blocks, function(component) { return component; }).sort(function(a, b) {
+      blocks = $.map(options.components.addableBlocks, function(component) { return component; }).sort(function(a, b) {
         return normalizeCompare(a.title, b.title);
       });
+      if(options.components.layoutActions) {
+        layoutActions = $.map(options.components.layoutActions.actions, function(action) { return action; }).sort(function(a, b) {
+          return normalizeCompare(a.title, b.title);
+        });
+      }
     }
+
+    options.layoutActions = layoutActions;
+
     var data = {
-      "components": components,
+      "components": blocks,
       "layouts": options.layouts
     };
 

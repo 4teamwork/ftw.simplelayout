@@ -17,8 +17,8 @@ class SimplelayoutToolbox(BrowserView):
 
     def __call__(self):
         toolbox = {
-            'addable_blocks': dict(self.addable_blocks()),
-            'layout_actions': self.layouts_actions()}
+            'addableBlocks': dict(self.addable_blocks()),
+            'layoutActions': self.layouts_actions()}
 
         return json_response(self.request, toolbox)
 
