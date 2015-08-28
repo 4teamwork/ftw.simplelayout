@@ -13,12 +13,13 @@ from zope.i18n import translate
 from zope.publisher.browser import BrowserView
 
 
-class AddableBlocks(BrowserView):
+class SimplelayoutToolbox(BrowserView):
 
     def __call__(self):
-        return json_response(
-            self.request,
-            dict(self.addable_blocks()).update(dict(self.layouts_actions())))
+        toolbox = {}
+        toolbox.update(dict(self.addable_blocks()))
+
+        return json_response(self.request, toolbox)
 
     def addable_blocks(self):
         block_types = get_block_types()
@@ -68,20 +69,3 @@ class AddableBlocks(BrowserView):
             locally_allowed = constrain.getLocallyAllowedTypes()
             return [fti for fti in allowed_types
                     if fti.getId() in locally_allowed]
-
-    def layouts_actions(self):
-        yield ('layout',
-               {
-                   'actions': {
-                       'move': {
-                           'title': translate(_(u'label_move_layout',
-                                                default=u'Move layout')),
-                           'class': 'icon-move move'
-                       },
-                       'delete': {
-                           'title': translate(_(u'label_delete_layout',
-                                                default=u'Delete layout')),
-                           'class': 'icon-delete delete'
-                       }
-                   }
-               })

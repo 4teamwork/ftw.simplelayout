@@ -33,7 +33,7 @@ class TestSimplelayoutAsFrontPage(SimplelayoutTestCase):
 
     def test_addable_types_on_plone_root(self):
 
-        view = self.portal.restrictedTraverse('@@sl-ajax-addable-blocks-view')
+        view = self.portal.restrictedTraverse('@@sl-toolbox-view')
 
         allowed_block_types = [item[0]
                                for item in view.addable_blocks()]

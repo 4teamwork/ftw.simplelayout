@@ -19,7 +19,7 @@
 
     var instance = {
       settings: {
-        addableBlocksEndpoint: baseUrl + "sl-ajax-addable-blocks-view",
+        addableBlocksEndpoint: baseUrl + "sl-toolbox-view",
         saveStateEndpoint: baseUrl + "sl-ajax-save-state-view",
         source: ".sl-simplelayout",
         layouts: [1, 2, 4],
