@@ -20,6 +20,11 @@ define([], function() {
       return a.localeCompare(b, "de", {caseFirst: "lower"});
     };
 
+    var showHind = function() {
+      /*eslint no-alert: 0 */
+      alert(options.components.labels.helpDragHint);
+    };
+
     var template = $.templates(
       /*eslint no-multi-str: 0 */
       "<div id='sl-toolbox' class='sl-toolbox'> \
@@ -74,6 +79,8 @@ define([], function() {
     };
 
     var element = $(template.render(data));
+
+    $(element).on("click", ".ui-draggable", showHind);
 
     $(".sl-toolbox-handle", element).on("click", function() { $(".addables").toggleClass("close"); });
 
