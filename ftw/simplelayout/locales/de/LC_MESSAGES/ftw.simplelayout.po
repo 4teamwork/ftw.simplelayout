@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-24 16:27+0000\n"
+"POT-Creation-Date: 2015-08-28 09:58+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,7 +32,7 @@ msgid "GalleryBlock"
 msgstr "Bildergalerie"
 
 #. Default: "ID"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:76
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:75
 msgid "ID"
 msgstr "ID"
 
@@ -48,7 +48,7 @@ msgstr "Karte"
 msgid "Save"
 msgstr "Speichern"
 
-#: ./ftw/simplelayout/interfaces.py:81
+#: ./ftw/simplelayout/interfaces.py:82
 msgid "Simplelayout default configuration"
 msgstr "Simplelayout Standard-Konfiguration"
 
@@ -123,32 +123,32 @@ msgid "alert_really_delete_folder"
 msgstr "Möchten Sie diesen Ordner und sein Inhalt wirklich löschen?"
 
 #. Default: "creater"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:62
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
 msgid "column_creater"
 msgstr "Ersteller"
 
 #. Default: "modified"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:56
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:55
 msgid "column_modified"
 msgstr "Bearbeitet"
 
 #. Default: "size"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:67
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:66
 msgid "column_size"
 msgstr "Grösse"
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:51
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:50
 msgid "column_title"
 msgstr "Titel"
 
 #. Default: "Type"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:46
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:45
 msgid "column_type"
 msgstr "Typ"
 
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
-#: ./ftw/simplelayout/interfaces.py:82
+#: ./ftw/simplelayout/interfaces.py:83
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
@@ -158,12 +158,12 @@ msgid "label:delete_block"
 msgstr "Block entfernen"
 
 #. Default: "sort_index"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:109
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
 msgid "label_%ssort_index"
 msgstr "Sortierung"
 
 #. Default: "Ascending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:124
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:123
 msgid "label_ascending"
 msgstr "Aufsteigend"
 
@@ -173,12 +173,17 @@ msgid "label_cancel"
 msgstr "Abbrechen"
 
 #. Default: "Columns"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:144
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:143
 msgid "label_columns"
 msgstr "Spalten"
 
+#. Default: "Delete layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:83
+msgid "label_delete_layout"
+msgstr "Zeile löschen"
+
 #. Default: "Descending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:126
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:125
 msgid "label_descending"
 msgstr "Absteigend"
 
@@ -196,27 +201,27 @@ msgid "label_external_link"
 msgstr "Externe URL"
 
 #. Default: "Float image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:90
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:91
 msgid "label_float_image_left"
 msgstr "Bild links ausrichten"
 
 #. Default: "Float image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:126
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:130
 msgid "label_float_image_right"
 msgstr "Bild rechts ausrichten"
 
 #. Default: "Float large image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:99
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:100
 msgid "label_float_large_image_left"
 msgstr "Grosses Bild links ausrichten"
 
 #. Default: "Float large image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:117
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:120
 msgid "label_float_large_image_right"
 msgstr "Grosses Bild rechts ausrichten"
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:183
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:182
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
@@ -242,7 +247,7 @@ msgid "label_image_alt_text"
 msgstr "Alternativer Text des Bildes"
 
 #. Default: "Image without floating"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:110
 msgid "label_image_without_floating"
 msgstr "Bild ohne Ausrichtung"
 
@@ -259,30 +264,35 @@ msgstr "Bearbeitungsdatum"
 msgid "label_move_block"
 msgstr "Block verschieben"
 
+#. Default: "Move layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:78
+msgid "label_move_layout"
+msgstr "Zeile verschieben"
+
 #. Default: "Open image in overlay (only if there is no teaser url)"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
 msgid "label_open_image_in_overlay"
 msgstr "Bild in Overlay öffnen (nur wenn keine Teaser-URL hinterlegt ist)"
 
 #. Default: "Position in Folder"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:114
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:113
 msgid "label_position_in_folder"
 msgstr "Ordnerreihenfolge"
 
 #. Default: "Show title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:139
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:138
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
 
 #. Default: "Sort by"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:150
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:149
 msgid "label_sort_on"
 msgstr "Sortieren nach"
 
 #. Default: "Sort order"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:156
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:155
 msgid "label_sort_order"
 msgstr "Sortierreihenfolge"
 
@@ -295,14 +305,14 @@ msgid "label_text"
 msgstr "Text"
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:135
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:134
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:25
 msgid "label_title"
 msgstr "Titel"
 
 #. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:176
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:175
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:42
 msgid "label_upload"
 msgstr "Datei hochladen"
@@ -313,7 +323,7 @@ msgid "label_video_url"
 msgstr "Video-URL"
 
 #. Default: "Review State"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:71
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "review_state"
 msgstr "Status"
 
