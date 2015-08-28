@@ -205,7 +205,6 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     bindToolboxEvents();
 
     on("layoutInserted", function(layout) {
-      debugger;
       var layoutToolbar = new Toolbar(options.toolbox.options.components.layout_actions.actions, "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
     });

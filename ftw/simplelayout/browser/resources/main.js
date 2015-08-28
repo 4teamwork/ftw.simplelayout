@@ -19,7 +19,7 @@
 
     var instance = {
       settings: {
-        addableBlocksEndpoint: baseUrl + "sl-toolbox-view",
+        toolboxDataEndpoint: baseUrl + "sl-toolbox-view",
         saveStateEndpoint: baseUrl + "sl-ajax-save-state-view",
         source: ".sl-simplelayout",
         layouts: [1, 2, 4],
@@ -51,7 +51,7 @@
 
       },
       loadComponents: function(callback) {
-        $.get(this.settings.addableBlocksEndpoint).done(function(data, textStatus, request) {
+        $.get(this.settings.toolboxDataEndpoint).done(function(data, textStatus, request) {
           var contentType = request.getResponseHeader("Content-Type");
           if(contentType.indexOf("application/json") < 0) {
             throw new Error("Bad response [content-type: " + contentType + "]");
