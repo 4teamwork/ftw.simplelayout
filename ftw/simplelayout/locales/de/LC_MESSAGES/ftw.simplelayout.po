@@ -120,7 +120,7 @@ msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
 #. Default: "Do you really want to delete this folder and all its contents?"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:15
 msgid "alert_really_delete_folder"
-msgstr "Möchten Sie diesen Ordner und sein Inhalt wirklich löschen?"
+msgstr "Möchten Sie diesen Ordner und seinen Inhalt wirklich löschen?"
 
 #. Default: "creater"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
