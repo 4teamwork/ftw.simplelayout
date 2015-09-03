@@ -27,6 +27,7 @@
         name="simplelayout-view"
         permission="zope2.View"
         class=".simplelayout.SimplelayoutView"
+        allowed_attributes="addable_block_types"
         />
 
     <browser:page
