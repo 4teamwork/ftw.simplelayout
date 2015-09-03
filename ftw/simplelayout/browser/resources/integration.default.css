@@ -54,7 +54,7 @@
 }
 
 .galleryblockImageWrapper{
-  display: table;
+  display: table-cell;
   float: left;
   background-color: #eee;
   overflow: hidden;
@@ -64,10 +64,23 @@
   margin-bottom: 0.5em;
 }
 .galleryblockImageWrapper a{
-  display: table-cell;
-  vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
 }
 
+.galleryblockImageWrapper img{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    display: block;
+    margin: 0 auto;
+    clear: right;
+}
 /* Hide block types form add menu */
 #plone-contentmenu-factories .contenttype-ftw-simplelayout-filelistingblock,
 #plone-contentmenu-factories .contenttype-ftw-simplelayout-galleryblock,

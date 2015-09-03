@@ -7,6 +7,19 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
 
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@mixin horizontal-align() {
+  display: block;
+  margin: 0 auto;
+  clear: right;
+}
 
 .sl-toolbar-layout,
 .sl-toolbar-block {
@@ -42,7 +55,7 @@
 
 
 .galleryblockImageWrapper{
-  display: table;
+  display: table-cell;
   float: left;
   background-color: #eee;
   overflow: hidden;
@@ -52,10 +65,16 @@
   margin-bottom: 0.5em;
 }
 .galleryblockImageWrapper a{
-  display: table-cell;
-  vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
 }
-
+.galleryblockImageWrapper img{
+  @include vertical-align();
+  @include horizontal-align();
+}
 .contenttreeWindowBlocker {
     z-index: 70000 !important;
 }
