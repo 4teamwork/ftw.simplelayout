@@ -366,3 +366,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
             'block-1',
             browser.css('.sl-layout a').first.attrib['name']
         )
+
+    @browsing
+    def test_addable_block_types_view_property(self, browser):
+        create(Builder('sample block')
+               .titled('Block 1')
+               .within(self.container))
+
+        view = self.container.restrictedTraverse('@@simplelayout-view')
+        self.assertEqual(
+            ['SampleBlock'],
+            view.addable_block_types()
+        )

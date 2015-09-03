@@ -1,3 +1,4 @@
+from ftw.simplelayout import utils
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -32,3 +33,11 @@ class SimplelayoutView(BrowserView):
 
     def update_simplelayout_settings(self, settings):
         pass
+
+    def addable_block_types(self):
+        """
+        Returns a list of dotted fti ids.
+
+        Example: ['ftw.simplelayout.TextBlock']
+        """
+        return [block_type.id for block_type in utils.get_block_types()]
