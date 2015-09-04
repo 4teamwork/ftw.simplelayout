@@ -11,7 +11,7 @@ define(["app/simplelayout/EventEmitter"], function(eventEmitter) {
     var frameFixTemplate = $.templates('<div class="iFrameFix"></div>');
 
     var template = $.templates(
-      '<div data-type="{{:type}}" class="sl-block"><div class="sl-block-content">{{:content}}</div></div>'
+      '<div data-type="{{:type}}" class="sl-block {{:type}}"><div class="sl-block-content">{{:content}}</div></div>'
     );
 
     return {
