@@ -13,8 +13,7 @@
 		define="width python:str(view.get_box_boundaries()[0])+'px';
 				height python:str(view.get_box_boundaries()[1])+'px'">
 
-		<div class="galleryblockImageWrapper"
-	               tal:attributes="style string:width:${width};;height:${height}">
+		<div class="galleryblockImageWrapper">
 			<a class="colorboxLink" href="#"
 				tal:attributes="
 					title string:${img/title_or_id} ${img/Description};
