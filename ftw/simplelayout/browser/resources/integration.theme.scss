@@ -7,13 +7,6 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
 
-@mixin vertical-align($position: relative) {
-  position: $position;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-}
 
 @mixin horizontal-align() {
   display: block;
@@ -74,7 +67,6 @@
     position: relative;
 }
 .galleryblockImageWrapper img{
-  @include vertical-align();
   @include horizontal-align();
 }
 .contenttreeWindowBlocker {
