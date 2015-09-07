@@ -50,7 +50,7 @@
         $("body").addClass("simplelayout-initialized");
 
         this.loadComponents(function(components) {
-          var toolbox = new global.Toolbox({layouts: self.settings.layouts, components: components});
+          var toolbox = new global.Toolbox({ layouts: self.settings.layouts, components: components, canChangeLayouts: self.settings.canChangeLayouts });
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
           self.simplelayout.on("blockInserted", function(block) {
             currentBlock = block;
@@ -168,7 +168,26 @@
         }
       });
 
-      simplelayout.on("blockMoved", function() { instance.saveState(); });
+      var layoutBeforeMoved;
+
+      simplelayout.on("blockMoved", function(block) {
+        if(layoutBeforeMoved.hasBlocks()) {
+          layoutBeforeMoved.toolbar.disable("delete");
+        } else {
+          layoutBeforeMoved.toolbar.enable("delete");
+        }
+        var currentLayout = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
+        if(currentLayout.hasBlocks()) {
+          currentLayout.toolbar.disable("delete");
+        } else {
+          currentLayout.toolbar.enable("delete");
+        }
+        instance.saveState();
+      });
+
+      simplelayout.on("beforeBlockMoved", function(block) {
+        layoutBeforeMoved = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
+      });
 
       simplelayout.on("layoutMoved", function() { instance.saveState(); });
 

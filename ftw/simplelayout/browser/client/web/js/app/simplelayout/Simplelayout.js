@@ -8,9 +8,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       throw new TypeError("Simplelayout constructor cannot be called as a function.");
     }
 
-    var options = $.extend({
-      toolbox: new Toolbox({layouts: [1, 2, 4]})
-    }, _options || {});
+    var options = $.extend({}, _options || {});
 
     var managers = {};
 
@@ -28,6 +26,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
     };
 
     var moveBlock = function(block, newManagerId, newLayoutId, newColumnId) {
+      eventEmitter.trigger("beforeBlockMoved", [block]);
       var blockData = block.element.data();
       var newData = { container: newManagerId, layoutId: newLayoutId, columnId: newColumnId };
       var newManager = managers[newManagerId];

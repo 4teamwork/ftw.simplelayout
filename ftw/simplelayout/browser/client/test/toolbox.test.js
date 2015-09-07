@@ -101,6 +101,7 @@ suite("Toolbox", function() {
 
     test("can allow layouts by column count", function() {
       var toolbox = new Toolbox({
+        canChangeLayout: true,
         layouts: [1, 2, 4]
       });
       var target = $("<div></div>");
@@ -148,6 +149,7 @@ suite("Toolbox", function() {
     test("can render layout label", function() {
       var toolbox = new Toolbox({
         layouts: [1, 2, 4],
+        canChangeLayout: true,
         components: {
 
           addableBlocks: {
@@ -199,6 +201,61 @@ suite("Toolbox", function() {
         return $(e).text();
       });
       assert.deepEqual(labels, ["1 Column(s)", "2 Column(s)", "4 Column(s)"]);
+    });
+
+    test("does not reder layout when canChangeLayout is disabled", function() {
+      var toolbox = new Toolbox({
+        layouts: [1, 2, 4],
+        canChangeLayout: false,
+        components: {
+
+          addableBlocks: {
+            listingblock: {
+              title: "Listingblock",
+              contentType: "listingblock",
+              formUrl: "http://www.google.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            },
+            textblock: {
+              title: "Textblock",
+              contentType: "textblock",
+              formUrl: "http://www.bing.com",
+              actions: {
+                edit: {
+                  name: "edit",
+                  description: "Edit this block"
+                }
+              }
+            }
+          },
+          layoutActions: {
+            actions: {
+              move: {
+                class: "iconmove move",
+                title: "Move this layout arround."
+              },
+              delete: {
+                class: "icondelete delete",
+                title: "Delete this layout."
+              }
+            }
+          },
+          labels: {
+            labelColumnPostfix: "Column(s)"
+          }
+        }
+      });
+      var target = $("<div></div>");
+
+      toolbox.attachTo(target);
+
+      assert.equal(toolbox.element.find(".sl-toolbox-layouts").length, 0, "Layouts should not get rendered");
+
     });
 
   });

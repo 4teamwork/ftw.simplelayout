@@ -40,16 +40,18 @@ define([], function() {
                   </a> \
                 {{/for}} \
               </div> \
-              <a class='sl-toolbox-header layouts'> \
-                <i></i> \
-              </a> \
-              <div class='sl-toolbox-layouts'> \
-                {{props layouts}} \
-                  <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
-                    <span class='description'>{{>prop}} {{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
-                  </a> \
-                {{/props}} \
-              </div> \
+              {{if canChangeLayout}} \
+                <a class='sl-toolbox-header layouts'> \
+                  <i></i> \
+                </a> \
+                <div class='sl-toolbox-layouts'> \
+                  {{props layouts}} \
+                    <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
+                      <span class='description'>{{>prop}} {{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
+                    </a> \
+                  {{/props}} \
+                </div> \
+              {{/if}} \
           </div> \
         </div>");
 
@@ -75,7 +77,8 @@ define([], function() {
     var data = {
       "components": blocks,
       "layouts": options.layouts,
-      "labels": options.components.labels
+      "labels": options.components.labels,
+      "canChangeLayout": options.canChangeLayouts
     };
 
     var element = $(template.render(data));
