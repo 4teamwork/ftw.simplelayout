@@ -8,10 +8,7 @@
   <p tal:condition="python: view.can_add and not view.get_images()"
      i18n:translate="">This block is empty.</p>
 
-	<tal:boxes
-		repeat="img view/get_images"
-		define="width python:str(view.get_box_boundaries()[0])+'px';
-				height python:str(view.get_box_boundaries()[1])+'px'">
+	<tal:boxes repeat="img view/get_images">
 
 		<div class="galleryblockImageWrapper">
 			<a class="colorboxLink" href="#"
@@ -19,8 +16,10 @@
 					title string:${img/title_or_id} ${img/Description};
 					rel string:colorbox-${here/getId};
 					href img/absolute_url">
-				<img tal:replace="structure img/@@images/image/simplelayout_galleryblock" />
+                <img tal:define="scales img/@@images"
+                     tal:replace="structure python: scales.tag('image', scale='simplelayout_galleryblock', direction='down')" />
 			</a>
 		</div>
+
 	</tal:boxes>
 </html>
