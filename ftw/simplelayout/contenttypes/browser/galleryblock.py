@@ -1,8 +1,10 @@
 from Acquisition._Acquisition import aq_inner
+from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from plone.app.imaging.utils import getAllowedSizes
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.i18n import translate
 
 
 class GalleryBlockView(BaseBlock):
@@ -24,3 +26,9 @@ class GalleryBlockView(BaseBlock):
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add GalleryBlock', context)
         return bool(permission)
+
+    def generate_image_title(self, img):
+        return translate(_(u'galleryblock_link_title',
+                           default=u'${title}, opens in a overlay.',
+                           mapping={'title': img.title_or_id()}),
+                         context=self.request)

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-08-28 13:06+0000\n"
+"POT-Creation-Date: 2015-09-07 13:41+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,6 +151,11 @@ msgstr "Typ"
 #: ./ftw/simplelayout/interfaces.py:83
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
+
+#. Default: "${title}, opens in a overlay."
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:31
+msgid "galleryblock_link_title"
+msgstr "${title}. Link öffnet das Bild in einem grösseren Fenster (Overlay)."
 
 #. Default: "Please drag, no click required"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:100
