@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-09-07 13:41+0000\n"
+"POT-Creation-Date: 2015-09-11 06:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/behaviors.py:34
+#: ./ftw/simplelayout/contenttypes/behaviors.py:40
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
@@ -155,6 +155,11 @@ msgstr ""
 msgid "desc_sl_config_control_panel"
 msgstr ""
 
+#. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
+#: ./ftw/simplelayout/contenttypes/behaviors.py:19
+msgid "description_teaser_fieldset"
+msgstr ""
+
 #. Default: "${title}, opens in a overlay."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:31
 msgid "galleryblock_link_title"
@@ -214,7 +219,7 @@ msgid "label_edit_block"
 msgstr ""
 
 #. Default: "External URL"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:22
+#: ./ftw/simplelayout/contenttypes/behaviors.py:28
 msgid "label_external_link"
 msgstr ""
 
@@ -270,7 +275,7 @@ msgid "label_image_without_floating"
 msgstr ""
 
 #. Default: "Internal link"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:26
+#: ./ftw/simplelayout/contenttypes/behaviors.py:32
 msgid "label_internal_link"
 msgstr ""
 

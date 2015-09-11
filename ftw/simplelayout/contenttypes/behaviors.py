@@ -15,7 +15,13 @@ class ITeaser(model.Schema):
     model.fieldset(
         'teaser',
         label=_(u'Teaser'),
-        fields=('external_link', 'internal_link')
+        fields=('external_link', 'internal_link'),
+        description=_(
+            u"description_teaser_fieldset",
+            default=(
+                u"Use the teaser to redirect to another content or website."
+                u"The title and the image of the block will be used to show a link")
+        )
     )
 
     external_link = schema.URI(
