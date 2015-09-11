@@ -171,16 +171,20 @@
       var layoutBeforeMoved;
 
       simplelayout.on("blockMoved", function(block) {
-        if(layoutBeforeMoved.hasBlocks()) {
-          layoutBeforeMoved.toolbar.disable("delete");
-        } else {
-          layoutBeforeMoved.toolbar.enable("delete");
+        if(layoutBeforeMoved) {
+          if(layoutBeforeMoved.hasBlocks()) {
+            layoutBeforeMoved.toolbar.disable("delete");
+          } else {
+            layoutBeforeMoved.toolbar.enable("delete");
+          }
         }
-        var currentLayout = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
-        if(currentLayout.hasBlocks()) {
-          currentLayout.toolbar.disable("delete");
-        } else {
-          currentLayout.toolbar.enable("delete");
+        if(block.element) {
+          var currentLayout = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
+          if(currentLayout.hasBlocks()) {
+            currentLayout.toolbar.disable("delete");
+          } else {
+            currentLayout.toolbar.enable("delete");
+          }
         }
         instance.saveState();
       });
