@@ -1,11 +1,14 @@
 (function(global, $) {
+
   "use strict";
 
-  $(function() {
+  var init = function() {
 
-    var isUploading = function() {
-      return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0;
-    };
+    var target = $("body");
+
+    var baseUrl = $("body").data("base-url") ? $("body").data("base-url") + "/" : $("base").attr("href");
+
+    var isUploading = function() { return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0; };
 
     var initializeColorbox = function() {
       if($(".colorboxLink").length > 0) {
@@ -15,283 +18,211 @@
       }
     };
 
-    var baseUrl = $("body").data("base-url") ? $("body").data("base-url") + "/" : $("base").attr("href");
+    var options = $.extend({
+      canChangeLayout: false,
+      canEdit: false,
+      endpoints: {
+        toolbox: baseUrl + "sl-toolbox-view",
+        state: baseUrl + "sl-ajax-save-state-view"
+      }
+    }, $(".sl-simplelayout").data("slSettings"));
 
-    var currentBlock;
+    if (!options.canEdit) { return false; }
 
-    var addFormUrl;
-
+    var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
+    var editOverlay = new global.FormOverlay();
+    var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
     var addOverlay = new global.FormOverlay();
+    var toolbox;
+    var simplelayout;
 
-    var instance = {
-      settings: {
-        toolboxDataEndpoint: baseUrl + "sl-toolbox-view",
-        saveStateEndpoint: baseUrl + "sl-ajax-save-state-view",
-        source: ".sl-simplelayout",
-        layouts: [1, 2, 4],
-        canChangeLayouts: false,
-        canEdit: false
-      },
-      simplelayout: null,
-      init: function(callback) {
-        var self = this;
-        var source = $(this.settings.source);
-        if (source.length === 0){
-          return;
+    var loadComponents = function(callback) {
+      $.get(options.endpoints.toolbox).done(function(data, textStatus, request) {
+        var contentType = request.getResponseHeader("Content-Type");
+        if (contentType.indexOf("application/json") < 0) {
+          throw new Error("Bad response [content-type: " + contentType + "]");
         }
+        callback(data);
+      });
+    };
 
-        var settings = source.data("slSettings") || {};
-        this.settings = $.extend(this.settings, settings);
-
-        if (!this.settings.canEdit) {
-          return;
-        }
-
-        $("body").addClass("simplelayout-initialized");
-
-        this.loadComponents(function(components) {
-          var toolbox = new global.Toolbox({ layouts: self.settings.layouts, components: components, canChangeLayouts: self.settings.canChangeLayouts });
-          self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
-          self.simplelayout.on("blockInserted", function(block) {
-            var blockData = block.element.data();
-            var layout = self.simplelayout.getManagers()[blockData.container].layouts[blockData.layoutId];
-            if(layout.hasBlocks()) {
-              layout.toolbar.disable("delete");
-            }
-          });
-          toolbox.attachTo($("body"));
-          self.simplelayout.deserialize($("body"));
-
-          self.simplelayout.on("blockInserted", function(block) {
-            currentBlock = block;
-            addOverlay.load(addFormUrl);
-          });
-
-          callback(self.simplelayout);
-        });
-
-      },
-      loadComponents: function(callback) {
-        $.get(this.settings.toolboxDataEndpoint).done(function(data, textStatus, request) {
-          var contentType = request.getResponseHeader("Content-Type");
-          if(contentType.indexOf("application/json") < 0) {
-            throw new Error("Bad response [content-type: " + contentType + "]");
-          }
-          callback(data);
-        });
-      },
-      saveState: function() {
-        var state = {};
-        $(".sl-simplelayout").each(function(manIdx, manager) {
-          state[manager.id] = [];
-          $(".sl-layout", manager).each(function(layIdx, layout) {
-            state[manager.id][layIdx] = {};
-            state[manager.id][layIdx].cols = [];
-            $(".sl-column", layout).each(function(colIdx, column) {
-              state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
-              $(".sl-block", column).each(function(bloIdx, block) {
-                state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data("uid") };
-              });
+    var saveState = function() {
+      var state = {};
+      $(".sl-simplelayout").each(function(manIdx, manager) {
+        state[manager.id] = [];
+        $(".sl-layout", manager).each(function(layIdx, layout) {
+          state[manager.id][layIdx] = {};
+          state[manager.id][layIdx].cols = [];
+          $(".sl-column", layout).each(function(colIdx, column) {
+            state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
+            $(".sl-block", column).each(function(bloIdx, block) {
+              state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data().represents };
             });
           });
         });
-        $.post(this.settings.saveStateEndpoint, {
-          data: JSON.stringify(state),
-          _authenticator: $('input[name="_authenticator"]').val()
-        });
-      },
-      cleanup: function() {
-        var blocks = this.simplelayout.getInsertedBlocks();
-        var self = this;
-        $.each(blocks, function(idx, block) {
-          var data = block.element.data();
-          var managerId = data.container;
-          var layoutId = data.layoutId;
-          var columnId = data.columnId;
-          var blockId = data.blockId;
-          self.simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
-        });
-      }
+      });
+      $.post(options.endpoints.state, {
+        data: JSON.stringify(state),
+        _authenticator: $('input[name="_authenticator"]').val()
+      });
     };
 
-    instance.init(function(simplelayout) {
-      var activeBlockElement;
-      var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
-      var editOverlay = new global.FormOverlay();
-      var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
+    loadComponents(function(settings) {
 
-      if (!instance.settings.canChangeLayouts){
-        $(simplelayout.options.source).sortable("disable");
-      }
+      settings = $.extend(settings, options);
 
-      simplelayout.on("blockReplaced", function() {
-        $(document).trigger("blockContentReplaced", arguments);
+      toolbox = new global.Toolbox(settings);
+      toolbox.attachTo(target);
+
+      simplelayout = new global.Simplelayout({toolbox: toolbox});
+
+      simplelayout.on("blockInserted", function(block) {
+        var layout = block.parent;
+        if(layout.hasBlocks()) {
+          layout.toolbar.disable("delete");
+        }
+        if(block.type) {
+          addOverlay.load(toolbox.options.blocks[block.type].formUrl);
+        }
+        addOverlay.onSubmit(function(data) {
+          block.represents = data.uid;
+          block.data({ represents: data.uid, url: data.url });
+          block.content(data.content);
+          block.commit();
+          saveState();
+          this.close();
+        });
+        addOverlay.onCancel(function() {
+          if(!block.committed) {
+            block.remove().delete();
+          }
+        });
       });
 
-      editOverlay.onSubmit(function(blockData) {
-        var activeBlockData = activeBlockElement.data();
-        var activeBlock = simplelayout.getManagers()[activeBlockData.container].getBlock(activeBlockData.layoutId, activeBlockData.columnId, activeBlockData.blockId);
-        activeBlock.content(blockData.content);
-        instance.saveState();
-        initializeColorbox();
-        this.close();
-      });
+      simplelayout.restore(target);
 
-      deleteOverlay.onSubmit(function() {
-        var activeBlockData = activeBlockElement.data();
-        var managerId = activeBlockData.container;
-        var layoutId = activeBlockData.layoutId;
-        var columnId = activeBlockData.columnId;
-        var blockId = activeBlockData.blockId;
-        simplelayout.getManagers()[managerId].deleteBlock(layoutId, columnId, blockId);
-        instance.saveState();
-        this.close();
-      });
-
-      addOverlay.onSubmit(function(newBlockData) {
-        currentBlock.element.data("uid", newBlockData.uid);
-        currentBlock.element.data("url", newBlockData.url);
-        currentBlock.content(newBlockData.content);
-        currentBlock.commit();
-        instance.saveState();
-        this.close();
-      });
-
-      addOverlay.onCancel(function() {
-        instance.cleanup();
-      });
-
-      simplelayout.options.toolbox.element.find(".sl-toolbox-component").on("dragstart", function(e) {
-        addFormUrl = $(e.target).data("form_url");
-      });
-
-      simplelayout.on("blockDeleted", function(blockData) {
-        var layout = simplelayout.getManagers()[blockData.container].layouts[blockData.layoutId];
+      simplelayout.on("blockDeleted", function(block) {
+        var layout = block.parent;
         if(!layout.hasBlocks()) {
           layout.toolbar.enable("delete");
         }
       });
 
-      var layoutBeforeMoved;
+      simplelayout.on("layoutInserted", function(layout) {
+        layout.commit();
+        toolbox.blocksEnabled(true);
+        saveState();
+      });
 
-      simplelayout.on("blockMoved", function(block) {
-        if(layoutBeforeMoved) {
-          if(layoutBeforeMoved.hasBlocks()) {
-            layoutBeforeMoved.toolbar.disable("delete");
-          } else {
-            layoutBeforeMoved.toolbar.enable("delete");
-          }
+      simplelayout.on("layoutDeleted", function(layout) {
+        if(!layout.parent.hasLayouts()) {
+          toolbox.blocksEnabled(false);
         }
-        if(block.element) {
-          var currentLayout = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
+        saveState();
+      });
+
+      simplelayout.on("blockMoved", function() { saveState(); });
+
+      simplelayout.on("beforeBlockMoved", function(beforeBlock) {
+        simplelayout.on("blockMoved", function(block) {
+          var beforeLayout = beforeBlock.parent;
+          var currentLayout = block.parent;
+          if(beforeLayout.hasBlocks()) {
+            beforeLayout.toolbar.disable("delete");
+          } else {
+            beforeLayout.toolbar.enable("delete");
+          }
           if(currentLayout.hasBlocks()) {
             currentLayout.toolbar.disable("delete");
           } else {
             currentLayout.toolbar.enable("delete");
           }
-        }
-        instance.saveState();
-      });
-
-      simplelayout.on("beforeBlockMoved", function(block) {
-        layoutBeforeMoved = simplelayout.getManagers()[block.element.data("container")].layouts[block.element.data("layoutId")];
-      });
-
-      simplelayout.on("layoutMoved", function() { instance.saveState(); });
-
-      simplelayout.on("layoutInserted", function(layout) {
-        layout.commit();
-        simplelayout.options.toolbox.enableComponents();
-      });
-
-      simplelayout.on("layoutDeleted", function(layout) {
-        if(!simplelayout.getManagers()[layout.element.data("container")].hasLayouts()) {
-          simplelayout.options.toolbox.disableComponents();
-        }
-      });
-
-      $(global.document).on("click", ".sl-block .delete", function(event) {
-        event.preventDefault();
-        activeBlockElement = $(this).parents(".sl-block");
-        var config = {"block": activeBlockElement.data("uid")};
-        deleteOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
-      });
-
-      $(global.document).on("click", ".sl-block .edit", function(event) {
-        event.preventDefault();
-        activeBlockElement = $(this).parents(".sl-block");
-        var config = {"block": activeBlockElement.data("uid")};
-        editOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)});
-      });
-
-      $(global.document).on("click", ".sl-layout .delete", function() {
-        var data = $(this).parents(".sl-layout").data();
-        var layout = simplelayout.getManagers()[data.container].layouts[data.layoutId];
-        if(!layout.hasBlocks()) {
-          var managerId = layout.element.data().container;
-          simplelayout.getManagers()[managerId].deleteLayout(layout.element.data("layoutId"));
-          instance.saveState();
-        }
-      });
-
-      $(global.document).on("click", ".sl-block .redirect", function(event) {
-        event.preventDefault();
-        activeBlockElement = $(this).parents(".sl-block");
-        window.location.href = activeBlockElement.data("url") + $(this).attr("href");
-      });
-
-      $(global.document).on("click", ".sl-block .upload", function(event) {
-        event.preventDefault();
-        activeBlockElement = $(this).parents(".sl-block");
-        var config = {"block": activeBlockElement.data("uid")};
-        uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify(config)}, function(){
-          var self = this;
-
-          global.Browser.onUploadComplete = function(){ return; };
-
-          self.element.on("click", "#button-upload-done", function(uploadEvent) {
-            uploadEvent.preventDefault();
-            self.onFormCancel.call(self);
-          });
-
-        });
-
-        uploadOverlay.onCancel(function(){
-          var payLoad = {};
-          var action = $(this);
-          var configRequest;
-          payLoad.uid = activeBlockElement.data("uid");
-          $.extend(payLoad, action.data());
-          configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
-          configRequest.done(function(blockContent) {
-            var data = activeBlockElement.data();
-            var manager = simplelayout.getManagers()[data.container];
-            var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
-            block.content(blockContent);
-            initializeColorbox();
-          });
         });
       });
 
-      $(global.document).on("click", ".server-action", function(event) {
-        event.preventDefault();
-        var payLoad = {};
-        var action = $(this);
-        var configRequest;
-        activeBlockElement = $(this).parents(".sl-block");
-        payLoad.uid = activeBlockElement.data("uid");
-        var data = activeBlockElement.data();
-        var manager = simplelayout.getManagers()[data.container];
-        var block = manager.getBlock(data.layoutId, data.columnId, data.blockId);
-        $.extend(payLoad, action.data());
-        configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
-        configRequest.done(function(blockContent) {
-          block.content(blockContent);
-        });
-      });
+      simplelayout.on("layoutMoved", function() { saveState(); });
+
+      simplelayout.on("blockReplaced", function() { $(document).trigger("blockContentReplaced", arguments); });
 
     });
 
-  });
+    $(global.document).on("click", ".sl-layout .delete", function() {
+      var layout = $(this).parents(".sl-layout").data().object;
+      if(!layout.hasBlocks()) {
+        layout.remove().delete();
+      }
+    });
+
+    $(global.document).on("click", ".sl-block .delete", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      deleteOverlay.load($(this).attr("href"), { data: JSON.stringify({ block: block.represents }) });
+      deleteOverlay.onSubmit(function() {
+        if(block.committed) {
+          block.remove().delete();
+        }
+        saveState();
+        this.close();
+      });
+    });
+
+    $(global.document).on("click", ".sl-block .edit", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      editOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })});
+      editOverlay.onSubmit(function(data) {
+        block.content(data.content);
+        initializeColorbox();
+        this.close();
+      });
+    });
+
+    $(global.document).on("click", ".sl-block .redirect", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      window.location.href = block.data().url + $(this).attr("href");
+    });
+
+    $(global.document).on("click", ".server-action", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      var payLoad = {};
+      var action = $(this);
+      payLoad.uid = block.represents;
+      $.extend(payLoad, action.data());
+      var configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
+      configRequest.done(function(blockContent) {
+        block.content(blockContent);
+      });
+    });
+
+    $(global.document).on("click", ".sl-block .upload", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })}, function(){
+        var self = this;
+        global.Browser.onUploadComplete = function(){ return; };
+        self.element.on("click", "#button-upload-done", function(uploadEvent) {
+          uploadEvent.preventDefault();
+          self.onFormCancel.call(self);
+        });
+
+      });
+      uploadOverlay.onCancel(function(){
+        var payLoad = {};
+        var action = $(this);
+        payLoad.uid = block.represents;
+        $.extend(payLoad, action.data());
+        var configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
+        configRequest.done(function(blockContent) {
+          block.content(blockContent);
+          initializeColorbox();
+        });
+      });
+    });
+
+  };
+
+  $(init);
 
 }(window, jQuery));
