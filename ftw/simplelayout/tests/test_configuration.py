@@ -177,6 +177,21 @@ class TestPageConfigFunctions(SimplelayoutTestCase):
                 {'uid': 'staticuid00000000000000000000003'}]}]}]},
             IPageConfiguration(page).load())
 
+    @staticuid('staticuid')
+    def test_synchronize_page_config_with_blocks_on_empty_page(self):
+        page = create(Builder('sample container'))
+        create(Builder('sample block').within(page))
+        result = synchronize_page_config_with_blocks(page)
+        self.assertEquals(
+            {'added': ['staticuid00000000000000000000002'],
+             'removed': []},
+            result)
+
+        self.assertEquals(
+            {'default': [{'cols': [{'blocks': [
+                {'uid': 'staticuid00000000000000000000002'}]}]}]},
+            IPageConfiguration(page).load())
+
 
 class TestBlockConfiguration(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING

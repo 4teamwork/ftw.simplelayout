@@ -163,7 +163,7 @@ class PageConfiguration(object):
             if layout is not None:
                 return layout
 
-        return {}
+        return {'default': [{"cols": [{"blocks": []}]}]}
 
 
 class BlockConfiguration(object):
