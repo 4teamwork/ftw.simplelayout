@@ -1,146 +1,88 @@
-define(["app/simplelayout/Layout", "app/simplelayout/EventEmitter", "app/simplelayout/idHelper"], function(Layout, eventEmitter, idHelper) {
+define([
+      "app/simplelayout/Layout",
+      "app/simplelayout/Block",
+      "app/simplelayout/EventEmitter",
+      "app/simplelayout/Element",
+      "app/simplelayout/transactional",
+      "app/helpers/template_range"
+    ],
+    function(
+      Layout,
+      Block,
+      EventEmitter,
+      Element,
+      transactional) {
 
   "use strict";
 
-  function Layoutmanager(_options) {
+  var Layoutmanager = function() {
 
     if (!(this instanceof Layoutmanager)) {
       throw new TypeError("Layoutmanager constructor cannot be called as a function.");
     }
 
-    var options = $.extend({ width: "100%" }, _options || {});
+    var template = "<div class='sl-simplelayout'></div>";
 
-    var element;
+    Element.call(this, template);
 
-    var id = 0;
+    this.name = "layoutmanager";
 
-    if (options.source) {
-      element = $(options.source);
-      element.addClass("sl-simplelayout");
-    } else {
-      var template = $.templates("<div class='sl-simplelayout' style='width:{{:width}};''></div>");
-      element = $(template.render(options));
-    }
+    this.create();
 
-    return {
+    this.layouts = {};
 
-      layouts: {},
+    this.attachTo = function(target) { $(target).append(this.element); };
 
-      options: options,
-
-      element: element,
-
-      attachTo: function(target) { $(target).append(element); },
-
-      insertLayout: function(layoutOptions) {
-        layoutOptions = $.extend({
-          columns: 4
-        }, layoutOptions || {});
-        var columns = layoutOptions.source ? $(".sl-column", layoutOptions.source).length : layoutOptions.columns;
-        var layout = new Layout(columns);
-        layout.create(id, element.data("container"));
-        if(layoutOptions.source) {
-          var data = layout.element.data();
-          layout.element = layoutOptions.source;
-          $.extend(layout.element.data(), data);
-        }
-        this.layouts[id] = layout;
-        eventEmitter.trigger("layoutInserted", [layout]);
-        id++;
-        return layout;
-      },
-
-      deleteLayout: function(layoutId) {
-        this.layouts[layoutId].element.remove();
-        delete this.layouts[layoutId];
-        eventEmitter.trigger("layoutDeleted", [this]);
-      },
-
-      commitLayouts: function() {
-        for (var key in this.layouts) {
-          this.layouts[key].commit();
-        }
-      },
-
-      getCommittedLayouts: function() {
-        var committedLayouts = {};
-        for (var key in this.layouts) {
-          if (this.layouts[key].committed) {
-            committedLayouts[key] = this.layouts[key];
-          }
-        }
-        return committedLayouts;
-      },
-
-      getBlock: function(layoutId, columnId, blockId) { return this.layouts[layoutId].columns[columnId].blocks[blockId]; },
-
-      getCommittedBlocks: function() {
-        var committedBlocks = [];
-        for(var key in this.layouts) {
-          committedBlocks = $.merge(this.layouts[key].getCommittedBlocks(), committedBlocks);
-        }
-        return committedBlocks;
-      },
-
-      getInsertedBlocks: function() {
-        var insertedBlocks = [];
-        for(var key in this.layouts) {
-          insertedBlocks = $.merge(this.layouts[key].getInsertedBlocks(), insertedBlocks);
-        }
-        return insertedBlocks;
-      },
-
-      setBlock: function(layoutId, columnId, blockId, block) { this.layouts[layoutId].columns[columnId].blocks[blockId] = block; },
-
-      insertBlock: function(layoutId, columnId, content, type) {
-        var layout = this.layouts[layoutId];
-        var block = layout.insertBlock(columnId, content, type);
-        return block;
-      },
-
-      deleteBlock: function(layoutId, columnId, blockId) { this.layouts[layoutId].deleteBlock(columnId, blockId); },
-
-      moveLayout: function(oldLayout, newLayoutId) {
-        var self = this;
-        $.each(this.layouts[newLayoutId].columns, function(colIdx, column) {
-          column.element.data("layoutId", newLayoutId);
-          column.element.data("container", self.element.data("container"));
-          $.each(column.blocks, function(bloIdx, block) {
-            block.element.data("layoutId", newLayoutId);
-            block.element.data("container", self.element.data("container"));
-          });
-        });
-        eventEmitter.trigger("layoutMoved", [newLayoutId]);
-      },
-
-      commitBlocks: function(layoutId, columnId) { this.layouts[layoutId].commitBlocks(columnId); },
-
-      hasLayouts: function() { return Object.keys(this.layouts).length > 0; },
-
-      moveBlock: function(oldLayoutId, oldColumnId, oldBlockId, newLayoutId, newColumnId) {
-        var block = this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
-
-        var nextBlockId = idHelper.generateFromHash(this.layouts[newLayoutId].columns[newColumnId].blocks);
-        $.extend(block.element.data(), { layoutId: newLayoutId, columnId: newColumnId, blockId: nextBlockId });
-        delete this.layouts[oldLayoutId].columns[oldColumnId].blocks[oldBlockId];
-        this.layouts[newLayoutId].columns[newColumnId].blocks[nextBlockId] = block;
-        eventEmitter.trigger("blockMoved", [nextBlockId]);
-      },
-
-      deserialize: function() {
-        var self = this;
-        $(".sl-layout", this.element).each(function(idx, e) {
-          e = $(e);
-          var layout = self.insertLayout({ source: e });
-          layout.commit();
-          layout.deserialize();
-        });
-      },
-
-      toJSON: function() { return { layouts: this.layouts, container: this.element.attr("id") }; }
+    this.insertLayout = function(columns) {
+      var layout = new Layout(columns);
+      layout.parent = this;
+      layout.data({ parent: this });
+      this.layouts[layout.id] = layout;
+      EventEmitter.trigger("layoutInserted", [layout]);
+      return layout;
     };
 
-  }
+    this.deleteLayout = function(id) {
+      var layout = this.layouts[id];
+      delete this.layouts[id];
+      EventEmitter.trigger("layoutDeleted", [layout]);
+      return layout;
+    };
+
+    this.hasLayouts = function() { return Object.keys(this.layouts).length > 0; };
+
+    this.getInsertedBlocks = function() {
+      return $.map(this.layouts, function(layout) {
+        return layout.getInsertedBlocks();
+      });
+    };
+
+    this.getCommittedBlocks = function() {
+      return $.map(this.layouts, function(layout) {
+        return layout.getCommittedBlocks();
+      });
+    };
+
+    this.moveBlock = function(block, target) {
+      block.parent.moveBlock(block, target);
+      return this;
+    };
+
+    this.restore = function(restoreElement, represents) {
+      var self = this;
+      Layoutmanager.prototype.restore.call(this, restoreElement, null, represents);
+      this.commit();
+      $(".sl-layout", restoreElement).each(function() {
+        self.insertLayout().restore(this, self, $(".sl-column", this).length);
+      });
+    };
+
+    this.toJSON = function() { return { layouts: this.layouts, represents: this.represents }; };
+
+  };
+
+  Element.call(Layoutmanager.prototype);
+  transactional.call(Layoutmanager.prototype);
 
   return Layoutmanager;
 

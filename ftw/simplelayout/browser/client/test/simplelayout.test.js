@@ -2,66 +2,17 @@ suite("Simplelayout", function() {
   "use strict";
 
   var Simplelayout;
-  var Toolbox;
   var simplelayout;
-  var manager;
-  var toolbox;
 
   suiteSetup(function(done) {
-    require(["app/simplelayout/Simplelayout", "app/toolbox/Toolbox"], function(_Simplelayout, _Toolbox) {
-      Toolbox = _Toolbox;
-      toolbox = new Toolbox({
-        layouts: [1, 2, 4],
-        components: {
-
-          addableBlocks: {
-            listingblock: {
-              title: "Listingblock",
-              description: "can list things",
-              contentType: "listingblock",
-              formUrl: "http://www.google.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            },
-            textblock: {
-              title: "Textblock",
-              description: "can show text",
-              contentType: "textblock",
-              formUrl: "http://www.bing.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            }
-          },
-          layoutActions: {
-            actions: {
-              move: {
-                class: "iconmove move",
-                title: "Move this layout arround."
-              },
-              delete: {
-                class: "icondelete delete",
-                title: "Delete this layout."
-              }
-            }
-          }
-        }
-      });
+    require(["app/simplelayout/Simplelayout"], function(_Simplelayout) {
       Simplelayout = _Simplelayout;
       done();
     });
   });
 
   setup(function(done) {
-    simplelayout = new Simplelayout({toolbox: toolbox});
-    manager = simplelayout.insertManager();
+    simplelayout = new Simplelayout();
     done();
   });
 
@@ -69,100 +20,148 @@ suite("Simplelayout", function() {
     assert.throw(Simplelayout, TypeError, "Simplelayout constructor cannot be called as a function.");
   });
 
-  test("manager stores information", function() { assert.deepEqual(manager.element.data("container"), 0); });
-
-  test("layout stores information", function() {
-    manager.insertLayout(4);
-    var data = $.map(manager.layouts[0].element, function(e) {
-      e = $(e);
-      return { container: e.data().container, layoutId: e.data().layoutId };
-    });
-    assert.deepEqual(data, [{ container: 0, layoutId: 0 }]);
+  test("can insert a manager", function() {
+    var generatedManager = simplelayout.insertManager();
+    assert.deepEqual($.map(simplelayout.managers, function(manager) {
+      return { id: manager.id };
+    }), [ { id: generatedManager.id } ]);
   });
 
-  test("column stores information", function() {
-    manager.insertLayout(4);
-    var data = $.map(manager.layouts[0].columns, function(e) {
-      data = e.element.data();
-      return { container: data.container, layoutId: data.layoutId, columnId: data.columnId };
-    });
-    assert.deepEqual(data, [
-      { container: 0, layoutId: 0, columnId: 0 },
-      { container: 0, layoutId: 0, columnId: 1 },
-      { container: 0, layoutId: 0, columnId: 2 },
-      { container: 0, layoutId: 0, columnId: 3 }
-    ]);
-  });
+  suite("Element transactions", function () {
+    test("can move a layout", function() {
+      var manager1 = simplelayout.insertManager();
+      var manager2 = simplelayout.insertManager();
 
-  test("block stores information", function() {
-    manager.insertLayout(4);
-    manager.insertBlock(0, 0, null, "textblock");
-    var data = $.map(manager.layouts[0].columns[0].blocks, function(e) {
-      data = e.element.data();
-      return { container: data.container, layoutId: data.layoutId, columnId: data.columnId, blockId: data.blockId };
-    });
-    assert.deepEqual(data, [
-      { container: 0, layoutId: 0, columnId: 0, blockId: 0 } ]);
-  });
+      var layout1 = manager1.insertLayout().commit();
+      var layout2 = manager1.insertLayout().commit();
+      var layout3 = manager2.insertLayout().commit();
 
-  test("can move a layout", function() {
-    var manager2 = simplelayout.insertManager();
-    var layout = manager.insertLayout(4);
-    manager.insertLayout(4);
-    manager2.insertLayout(4);
-    manager2.insertLayout(4);
-    var block = manager.insertBlock(0, 0, null, "textblock");
-    manager.insertBlock(0, 1, null, "textblock");
-    manager.insertBlock(0, 2, null, "textblock");
-    manager2.insertBlock(1, 0, null, "textblock");
-    manager2.insertBlock(1, 1, null, "textblock");
-    manager2.insertBlock(1, 2, null, "textblock");
-    simplelayout.moveLayout(layout, manager2.element.data("container"));
-    assert.deepEqual(layout.element.data(), { container: 1, layoutId: 2 });
-    assert.deepEqual(block.element.data(), { blockId: 0, type: "textblock", columnId: 0, layoutId: 2, container: 1 });
-  });
+      simplelayout.moveLayout(layout1, manager2);
 
-  test("can move a block", function() {
-    var manager2 = simplelayout.insertManager();
-    manager.insertLayout(4);
-    manager2.insertLayout(4);
-    var block = manager.insertBlock(0, 0, null, "textblock");
-    block.commit();
-    simplelayout.moveBlock(block, 1, 0, 0);
-    var blocks = $.map(manager2.getCommittedBlocks(), function(e) {
-      return e.element.data();
+      assert.deepEqual($.map(manager1.layouts, function(layout) {
+        return { id: layout.id, committed: layout.committed };
+      }), [ { id: layout2.id, committed: true } ]);
+
+      assert.deepEqual($.map(manager2.layouts, function(layout) {
+        return { id: layout.id, committed: layout.committed, data: layout.data() };
+      }), [ { id: layout3.id, committed: true, data: layout3.data() },
+            { id: layout1.id, committed: true, data: layout1.data() } ]);
+
     });
-    assert.deepEqual(blocks, [{ blockId: 0, type: "textblock", columnId: 0, layoutId: 0, container: 1 }]);
   });
 
   test("can get committed blocks", function() {
-    var layout = manager.insertLayout(4);
-    var block = layout.insertBlock(0, null, "textblock");
-    assert.deepEqual([], $.map(simplelayout.getCommittedBlocks(), function(e) {
-        return e.committed;
-      }), "should have no committed blocks.");
-    block.commit();
-    assert.deepEqual([true], $.map(simplelayout.getCommittedBlocks(), function(e) {
-        return e.committed;
-      }), "should have one committed blocks.");
+    var manager1 = simplelayout.insertManager();
+    var layout1 = manager1.insertLayout();
+    var generatedBlock = layout1.insertBlock("<p></p>", "textblock");
+
+    assert.deepEqual([], $.map(simplelayout.getCommittedBlocks(), function(block) {
+      return block.committed;
+    }), "should have no committed blocks.");
+
+    generatedBlock.commit();
+
+    assert.deepEqual([true], $.map(simplelayout.getCommittedBlocks(), function(block) {
+      return block.committed;
+    }), "should have one committed blocks.");
   });
 
   test("can get inserted blocks", function() {
-    var layout = manager.insertLayout(4);
-    var block = layout.insertBlock(0, null, "textblock");
-    assert.deepEqual([false], $.map(simplelayout.getInsertedBlocks(), function(e) {
-        return e.committed;
-      }), "should have one committed block.");
-    block.commit();
-    assert.deepEqual([], $.map(simplelayout.getInsertedBlocks(), function(e) {
-        return e.committed;
-      }), "should have no inserted blocks.");
+    var manager1 = simplelayout.insertManager();
+    var layout1 = manager1.insertLayout();
+    var generatedBlock = layout1.insertBlock("<p></p>", "textblock");
+
+    assert.deepEqual([false], $.map(simplelayout.getInsertedBlocks(), function(block) {
+      return block.committed;
+    }), "should have one committed block.");
+
+    generatedBlock.commit();
+
+    assert.deepEqual([], $.map(simplelayout.getInsertedBlocks(), function(block) {
+      return block.committed;
+    }), "should have no inserted blocks.");
   });
 
-  test("can de- and serialize", function() {
+  test("can restore DOM structure", function() {
     fixtures.load("simplelayout.html");
-    simplelayout.deserialize($(fixtures.body()));
-    assert.equal(fixtures.read("simplelayout.json"), simplelayout.serialize());
+    simplelayout.restore($(fixtures.body()));
+    var data = $.map(simplelayout.managers, function(manager) {
+      return {
+        committed: manager.committed,
+        represents: manager.represents,
+        layouts: $.map(manager.layouts, function(layout) {
+          return {
+            committed: layout.committed,
+            columns: layout.columns,
+            blocks: $.map(layout.blocks, function(block) {
+              return {
+                committed: block.committed,
+                represents: block.represents,
+                type: block.type
+              };
+            })
+          };
+        })
+       };
+    });
+    assert.deepEqual(data,
+    [{
+      committed: true,
+      represents: "slot1",
+      layouts: [
+      {
+        committed: true,
+        columns: 4,
+        blocks: [
+        {
+          committed: true,
+          represents: "c968b492-563a-11e5-885d-feff819cdc9f",
+          type: "textblock"
+        },
+        {
+          committed: true,
+          represents: "c968b726-563a-11e5-885d-deff819cdc9f",
+          type: "textblock"
+        }
+        ]
+      }
+      ]
+    },
+    {
+      committed: true,
+      represents: "slot2",
+      layouts: [
+      {
+        committed: true,
+        columns: 4,
+        blocks: [
+        {
+          committed: true,
+          represents: "c968b816-563a-11e5-885d-feff819cd49f",
+          type: "textblock"
+        },
+        {
+          committed: true,
+          represents: "c968b492-563a-11e5-885d-fedf819cdc9f",
+          type: "textblock"
+        },
+        {
+          committed: true,
+          represents: "c968b492-563a-11e5-885d-feff8196dc9f",
+          type: "textblock"
+        }
+        ]
+      }
+      ]
+    }]);
+  });
+
+  test("can serialize", function(done) {
+    done();
+    fixtures.load("simplelayout.html");
+    simplelayout.restore($(fixtures.body()));
+    var jsonRepresentation = fixtures.read("simplelayout.json");
+    assert.equal(jsonRepresentation, simplelayout.serialize());
   });
 
 });

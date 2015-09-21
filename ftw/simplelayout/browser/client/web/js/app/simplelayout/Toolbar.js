@@ -1,16 +1,18 @@
-define([], function() {
+define(["app/simplelayout/Element"], function(Element) {
 
   "use strict";
 
-  function Toolbar(_actions, orientation, type) {
+  var Toolbar = function(actions, orientation, type) {
 
     if (!(this instanceof Toolbar)) {
       throw new TypeError("Toolbar constructor cannot be called as a function.");
     }
 
-    var defaultActions = {};
+    actions = actions || [];
 
-    var actions = $.extend(defaultActions, _actions || {});
+    var template = $.templates("<ul class='sl-toolbar{{if type}}-{{:type}}{{/if}}{{if orientation}} {{:orientation}}{{/if}}'>{{for actions}}<li><a {{props}} {{>key}}='{{>prop}}' {{/props}}></a></li><li class='delimiter'></li>{{/for}}</ul>");
+
+    Element.call(this, template);
 
     var normalizedActions = [];
 
@@ -18,36 +20,16 @@ define([], function() {
       normalizedActions.push(value);
     });
 
-    var template = $.templates(
-      /*eslint no-multi-str: 0 */
-      "<ul class='sl-toolbar{{if type}}-{{:type}}{{/if}}{{if orientation}} {{:orientation}}{{/if}}'> \
-        {{for actions}} \
-          <li> \
-            <a {{props}} {{>key}}='{{>prop}}' {{/props}}></a> \
-          </li> \
-          <li class='delimiter'></li> \
-        {{/for}} \
-      </ul>");
+    this.create({ actions: normalizedActions, orientation: orientation, type: type });
 
-    var element = $(template.render({
-      actions: normalizedActions,
-      orientation: orientation,
-      type: type
-    }));
+    this.disable = function(action) { $("." + action, this.element).hide(); };
 
-    var disable = function(action) { $("." + action, element).hide(); };
+    this.enable = function(action) { $("." + action, this.element).show(); };
 
-    var enable = function(action) { $("." + action, element).show(); };
+  };
 
-    return {
+  Element.call(Toolbar.prototype);
 
-      element: element,
-      disable: disable,
-      enable: enable
-
-    };
-
-  }
   return Toolbar;
 
 });

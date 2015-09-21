@@ -15,7 +15,6 @@ suite("Block", function() {
 
   setup(function(done) {
     block = new Block("<p>Test</p>", "textblock");
-    block.create();
     done();
   });
 
@@ -25,7 +24,7 @@ suite("Block", function() {
 
   test("can create a block", function() {
     var node = $.map(block.element, function(blockNode) {
-      return {tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type};
+      return { tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type };
     });
 
     assert.deepEqual(node, [{tagName: "DIV", content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Test</p></div>', type: "textblock"}]);
@@ -43,6 +42,7 @@ suite("Block", function() {
 
   test("can attach a toolbar", function() {
     var toolbar = new Toolbar();
+
     block.attachToolbar(toolbar);
 
     var node = $.map($(".sl-toolbar", block.element), function(toolbarNode) {
@@ -60,12 +60,12 @@ suite("Block", function() {
 
   test("can enable and disable frameFix", function() {
     block.enableFrame();
-    var frameFixElement = $.map(block.frame, function(frame) {
+    var frameFixElement = $.map(block.element.find(".iFrameFix"), function(frame) {
       return { display: frame.style.display };
     });
     assert.deepEqual(frameFixElement, [{ display: "block" }]);
     block.disableFrame();
-    frameFixElement = $.map(block.frame, function(frame) {
+    frameFixElement = $.map(block.element.find(".iFrameFix"), function(frame) {
       return { display: frame.style.display };
     });
     assert.deepEqual(frameFixElement, [{ display: "none" }]);
