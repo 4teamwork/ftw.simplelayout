@@ -1,11 +1,13 @@
 from copy import deepcopy
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from operator import itemgetter
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
+from plone.uuid.interfaces import IUUID
 from zExceptions import Unauthorized
 from zope.annotation import IAnnotations
 from zope.component import queryMultiAdapter
@@ -40,6 +42,78 @@ def make_resursive_persistent(conf):
         return data
 
     return persist(conf)
+
+
+def columns_in_config(config):
+    """Returns each column-dict found in the config.
+    """
+    columns = []
+
+    for container in config.values():
+        for layout in container:
+            columns.extend(layout.get('cols', ()))
+
+    return columns
+
+
+def flattened_block_uids(config):
+    """Accepting a page configuration, this function returns a flat list of block
+    uids found in the configuration in order of appearance.
+    """
+
+    uids = []
+
+    for column in columns_in_config(config):
+        for block in column.get('blocks', ()):
+            uids.append(block.get('uid'))
+
+    return uids
+
+
+def block_uids_in_page(page):
+    """Returns a list of block UIDs of a page.
+    """
+    return map(IUUID, filter(ISimplelayoutBlock.providedBy, page.objectValues()))
+
+
+def block_uids_missing_in_config(page):
+    """Returns a list of UIDs of blocks, which are missing in the page's config.
+    """
+
+    in_config = flattened_block_uids(IPageConfiguration(page).load())
+    return filter(lambda uid: uid not in in_config, block_uids_in_page(page))
+
+
+def synchronize_page_config_with_blocks(page):
+    """Updates the page config:
+    - adds blocks to the config, which exist in the page but not in the config
+    - removes blocks from the config, which do no longer exist in the page
+
+    A dict with ``added`` and ``removed`` block UIDs is returned.
+    """
+
+    config = IPageConfiguration(page).load()
+    columns = columns_in_config(config)
+    existing_uids = block_uids_in_page(page)
+    removed = []
+
+    for column in columns:
+        new_blocks = []
+        for block in column.get('blocks', ()):
+            if block['uid'] in existing_uids:
+                new_blocks.append(block)
+            else:
+                removed.append(block['uid'])
+
+        column['blocks'][:] = new_blocks
+
+    # Add missing blocks to the bottom of the first column found.
+    added = block_uids_missing_in_config(page)
+    for uid in added:
+        columns[0]['blocks'].append({'uid': uid})
+
+    IPageConfiguration(page).store(config)
+    return {'added': added, 'removed': removed}
 
 
 class PageConfiguration(object):
