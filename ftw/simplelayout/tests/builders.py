@@ -1,11 +1,27 @@
 from ftw.builder import builder_registry
+from ftw.builder import create
 from ftw.builder.dexterity import DexterityBuilder
+from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
+from operator import methodcaller
 from path import Path
 from plone.namedfile.file import NamedBlobImage
 
 
 class ContenPageBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.ContentPage'
+
+    def __init__(self, session):
+        super(ContenPageBuilder, self).__init__(session)
+        self.block_builders = []
+
+    def with_blocks(self, *block_builders):
+        self.block_builders.extend(block_builders)
+        return self
+
+    def after_create(self, obj):
+        map(create, map(methodcaller('within', obj), self.block_builders))
+        synchronize_page_config_with_blocks(obj)
+        return super(ContenPageBuilder, self).after_create(obj)
 
 builder_registry.register('sl content page', ContenPageBuilder)
 
