@@ -132,14 +132,14 @@ body.simplelayout-initialized {
   -ms-user-select: none;
   user-select: none;
 }
-.sl-toolbox .components {
+.sl-toolbox > div {
   display: table-cell;
   vertical-align: middle;
 }
-.sl-toolbox .components .sl-toolbox-components.disabled {
+.sl-toolbox > div .sl-toolbox-blocks.disabled {
   position: relative;
 }
-.sl-toolbox .components .sl-toolbox-components.disabled:before {
+.sl-toolbox > div .sl-toolbox-blocks.disabled:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -149,10 +149,10 @@ body.simplelayout-initialized {
   left: 0;
   z-index: 1;
 }
-.sl-toolbox .components .sl-toolbox-layouts a {
+.sl-toolbox > div .sl-toolbox-layouts a {
   font-weight: bold;
 }
-.sl-toolbox .components a {
+.sl-toolbox > div a {
   position: relative;
   display: block;
   color: #7e7f84;
@@ -164,10 +164,10 @@ body.simplelayout-initialized {
   text-align: center;
   border-bottom: 1px solid #30333a;
 }
-.sl-toolbox .components a.ui-draggable-dragging {
+.sl-toolbox > div a.ui-draggable-dragging {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.5);
 }
-.sl-toolbox .components a:before {
+.sl-toolbox > div a:before {
   content: "";
   display: inline-block;
   height: 100%;
@@ -177,24 +177,24 @@ body.simplelayout-initialized {
   bottom: 0;
   right: -2px;
 }
-.sl-toolbox .components a:hover {
+.sl-toolbox > div a:hover {
   cursor: pointer;
   color: #fff;
   text-decoration: none;
 }
-.sl-toolbox .components a:hover:before {
+.sl-toolbox > div a:hover:before {
   background-color: #75ad0a;
 }
-.sl-toolbox .components a:hover > .description {
+.sl-toolbox > div a:hover > .description {
   visibility: visible;
   margin-right: 25px;
   opacity: 1;
 }
-.sl-toolbox .components a i {
+.sl-toolbox > div a i {
   display: inline-block;
   vertical-align: middle;
 }
-.sl-toolbox .components a .description {
+.sl-toolbox > div a .description {
   direction: ltr;
   white-space: nowrap;
   text-align: right;
@@ -210,19 +210,19 @@ body.simplelayout-initialized {
   position: absolute;
   font-weight: normal;
 }
-.sl-toolbox .components a.sl-toolbox-header {
+.sl-toolbox > div a.sl-toolbox-header {
   background-color: #75ad0a;
   color: #fff;
   padding: 10px;
   border: 0;
 }
-.sl-toolbox .components a.sl-toolbox-header:before {
+.sl-toolbox > div a.sl-toolbox-header:before {
   background-color: #75ad0a;
 }
-.sl-toolbox .components a.sl-toolbox-header:hover {
+.sl-toolbox > div a.sl-toolbox-header:hover {
   cursor: default;
 }
-.sl-toolbox .components .ui-sortable-helper {
+.sl-toolbox > div .ui-sortable-helper {
   width: 50px !important;
   height: auto !important;
 }
