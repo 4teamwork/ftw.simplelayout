@@ -14,10 +14,10 @@ body.simplelayout-initialized {
   border-right: 2px solid $tb-border-color;
   box-shadow: 0 0 5px 0 $tb-border-color;
   @include noselect();
-  .components {
+  > div {
     display: table-cell;
     vertical-align: middle;
-    .sl-toolbox-components {
+    .sl-toolbox-blocks {
       &.disabled {
         position: relative;
         &:before {

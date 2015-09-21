@@ -35,9 +35,9 @@ class TestSimplelayoutAsFrontPage(SimplelayoutTestCase):
 
         view = self.portal.restrictedTraverse('@@sl-toolbox-view')
 
-        allowed_block_types = [item[0]
-                               for item in view.addable_blocks()]
-        result = list(allowed_block_types)
+        result = [item.get('contentType')
+                  for item in list(view.addable_blocks())]
+
         result.sort()
 
         self.assertEquals(

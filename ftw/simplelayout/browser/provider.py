@@ -154,7 +154,7 @@ class BaseSimplelayoutExpression(object):
         return json.dumps(self._get_sl_settings())
 
     def update_permission_related_settings(self, settings):
-        settings['canChangeLayouts'] = api.user.has_permission(
+        settings['canChangeLayout'] = api.user.has_permission(
             'ftw.simplelayout: Change Layouts',
             obj=self.context)
         settings['canEdit'] = api.user.has_permission(

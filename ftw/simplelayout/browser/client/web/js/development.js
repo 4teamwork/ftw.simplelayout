@@ -25,8 +25,8 @@ require(["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simplelayo
   $(document).ready(function() {
     var toolbox = new Toolbox({
       layouts: [1, 2, 4],
-      components: {
-        listingblock: {
+      blocks: [
+        {
           title: "Listingblock",
           description: "can list things",
           contentType: "listingblock",
@@ -38,7 +38,7 @@ require(["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simplelayo
             }
           }
         },
-        textblock: {
+        {
           title: "Textblock",
           description: "can show text",
           contentType: "textblock",
@@ -54,12 +54,18 @@ require(["app/simplelayout/Simplelayout", "app/toolbox/Toolbox", "app/simplelayo
             }
           }
         }
+      ],
+      labels: {
+        labelColumnPostfix: " - Columns"
       }
     });
 
     toolbox.attachTo($("body"));
-    var simplelayout = new Simplelayout({toolbox: toolbox});
-    simplelayout.deserialize();
+    var simplelayout = new Simplelayout({
+      toolbox: toolbox
+    });
+    window.simplelayout = simplelayout;
+    simplelayout.restore();
   });
 
 });
