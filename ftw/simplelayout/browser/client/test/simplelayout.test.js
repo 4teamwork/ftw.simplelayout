@@ -27,6 +27,40 @@ suite("Simplelayout", function() {
     }), [ { id: generatedManager.id } ]);
   });
 
+  test("can manage restrictions for given layout", function() {
+    var testStructure = fixtures.read("simplelayout.html");
+    var simplelayout2 = new Simplelayout();
+    simplelayout2.restore($(testStructure));
+    var managers = $.map(simplelayout2.managers, function(manager) { return manager; });
+    var manager1 = managers[0];
+    var manager2 = managers[1];
+    simplelayout2.options.layoutRestrictions = {
+      2: [manager1.id],
+      4: [manager2.id]
+    };
+
+    simplelayout2.restrictLayout(2);
+    assert.deepEqual($.map(simplelayout2.managers, function(manager) {
+      return manager.enabled;
+    }), [false, true]);
+
+    simplelayout2.restrictLayout(4);
+    simplelayout2.restrictLayout(2);
+    assert.deepEqual($.map(simplelayout2.managers, function(manager) {
+      return manager.enabled;
+    }), [false, false]);
+
+    simplelayout2.allowLayout(4);
+    assert.deepEqual($.map(simplelayout2.managers, function(manager) {
+      return manager.enabled;
+    }), [false, true]);
+
+    simplelayout2.allowLayout(2);
+    assert.deepEqual($.map(simplelayout2.managers, function(manager) {
+      return manager.enabled;
+    }), [true, true]);
+  });
+
   suite("Element transactions", function () {
     test("can move a layout", function() {
       var manager1 = simplelayout.insertManager();

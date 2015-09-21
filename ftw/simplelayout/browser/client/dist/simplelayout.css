@@ -1,8 +1,8 @@
 .sl-layout-dragging .sl-simplelayout {
-  -moz-box-shadow: 0 0 5px 1px #000;
-  -webkit-box-shadow: 0 0 5px 1px #000;
   box-shadow: 0 0 5px 1px #000;
-  float: left;
+}
+.sl-layout-dragging .sl-simplelayout.disabled {
+  box-shadow: none;
 }
 
 .sl-simplelayout {
@@ -10,6 +10,7 @@
   z-index: 0;
   display: inline-block;
   width: 100%;
+  float: left;
 }
 .sl-simplelayout .layout-placeholder {
   background-color: #b9cbe5;
