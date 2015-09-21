@@ -497,7 +497,6 @@ define('app/simplelayout/idHelper',[], function() {
   "use strict";
 
   return {
-
     createGUID: function() {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
           var r = Math.random() * 16 | 0;
