@@ -130,8 +130,6 @@ define([
         if(ui.item.parent()[0] === this && !ui.sender) {
           EventEmitter.trigger("layoutMoved", [ui.item.data().object]);
         }
-        self.disableFrames();
-        root.removeClass("sl-layout-dragging");
       },
       stop: function() {
         self.disableFrames();
@@ -168,8 +166,6 @@ define([
         if(ui.item.parent()[0] === this && !ui.sender) {
           EventEmitter.trigger("blockMoved", [ui.item.data().object]);
         }
-        self.disableFrames();
-        root.removeClass("sl-block-dragging");
       },
       stop: function() {
         self.disableFrames();
