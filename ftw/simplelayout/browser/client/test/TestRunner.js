@@ -44,7 +44,8 @@
       "toolbox.test",
       "idHelper.test",
       "element.test",
-      "transactional.test"
+      "transactional.test",
+      "integration.test"
     ], function() {
       if(window.mochaPhantomJS){
         mochaPhantomJS.run();
