@@ -64,11 +64,6 @@ class TestSimplelayoutView(SimplelayoutTestCase):
             ]
         }
 
-    def test_page_configuration_is_recusrive_persistent(self):
-        self.page_config.store(self.payload)
-
-        self.assert_recursive_persistence(self.page_config.load())
-
     @browsing
     def test_render_blocks_not_in_page_configuration(self, browser):
         # Fallback for not saved blocks thru the simplelayout JS lib.
@@ -357,9 +352,9 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_block_has_anchor(self, browser):
-        block1 = create(Builder('sample block')
-                        .titled('Block 1')
-                        .within(self.container))
+        create(Builder('sample block')
+               .titled('Block 1')
+               .within(self.container))
 
         browser.login().open(self.container)
         self.assertEqual(
