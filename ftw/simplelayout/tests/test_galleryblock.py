@@ -60,7 +60,7 @@ class TestGalleryBlock(TestCase):
                .within(block))
 
         create(Builder('image')
-               .titled('Test image')
+               .titled('Test im\xc3\xa4ge')
                .with_dummy_content()
                .within(block))
 

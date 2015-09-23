@@ -28,7 +28,8 @@ class GalleryBlockView(BaseBlock):
         return bool(permission)
 
     def generate_image_title(self, img):
+        title = img.title_or_id().decode('utf-8')
         return translate(_(u'galleryblock_link_title',
                            default=u'${title}, opens in a overlay.',
-                           mapping={'title': img.title_or_id()}),
+                           mapping={'title': title}),
                          context=self.request)
