@@ -17,7 +17,7 @@ define(["app/simplelayout/Element", "jsrender"], function(Element) {
         </a> \
           <div class='sl-toolbox-blocks'> \
             {{for blocks}} \
-              <a class='sl-toolbox-block' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
+              <a class='sl-toolbox-block {{:contentType}}' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
                 <i class='icon-{{:contentType}}'></i> \
                 <span class='description'>{{:title}}</span> \
               </a> \
