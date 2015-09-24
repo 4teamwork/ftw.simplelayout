@@ -66,6 +66,21 @@ body.simplelayout-initialized {
         right: -2px;
       }
 
+      &:after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: $editbar-background-color;
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        right: 50%;
+        margin-right: -5px;
+        margin-top: -5px;
+      }
+
       &:hover {
         cursor: pointer;
         color: $tb-icon-hover-color;
@@ -77,6 +92,14 @@ body.simplelayout-initialized {
           visibility: visible;
           margin-right: 25px;
           opacity: 1;
+        }
+      }
+
+      &.hintDropped {
+        &:after {
+          transition: transform 300ms, opacity 300ms;
+          transform: scale(20);
+          opacity: 0;
         }
       }
 
