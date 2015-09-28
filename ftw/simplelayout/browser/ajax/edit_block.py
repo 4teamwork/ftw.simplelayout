@@ -57,6 +57,11 @@ class EditForm(DefaultEditForm):
         if self._finished_edit:
             response['proceed'] = True
             response['content'] = get_block_html(self.context)
+
+        self.request.response.setHeader("Cache-Control",
+                                        "no-cache, no-store, must-revalidate")
+        self.request.response.setHeader("Expires", "Sat, 1 Jan 2000 00:00:00 GMT")
+
         return json_response(self.request, response)
 
 classImplements(EditForm, IDexterityEditForm)
