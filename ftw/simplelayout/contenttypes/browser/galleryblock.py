@@ -27,7 +27,7 @@ class GalleryBlockView(BaseBlock):
             'ftw.simplelayout: Add GalleryBlock', context)
         return bool(permission)
 
-    def generate_image_title(self, img):
+    def generate_image_alttext(self, img):
         title = img.title_or_id().decode('utf-8')
         return translate(_(u'galleryblock_link_title',
                            default=u'${title}, opens in a overlay.',
