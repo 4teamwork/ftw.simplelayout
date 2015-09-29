@@ -13,11 +13,11 @@
 		<div class="galleryblockImageWrapper">
 			<a class="colorboxLink" href="#"
 				tal:attributes="
-					title python:view.generate_image_title(img);
+					title img/title_or_id;
 					rel string:colorbox-${here/getId};
 					href img/absolute_url">
                 <img tal:define="scales img/@@images"
-                     tal:replace="structure python: scales.tag('image', scale='simplelayout_galleryblock', direction='down')" />
+                     tal:replace="structure python: scales.tag('image', scale='simplelayout_galleryblock', direction='down', alt=view.generate_image_alttext(img))" />
 			</a>
 		</div>
 
