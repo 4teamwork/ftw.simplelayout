@@ -19,6 +19,17 @@
   @include ul(plain);
 }
 
+.sl-spinner {
+  $spinner-size: 50px;
+  display: none;
+  background: rgba(0, 0, 0, .3) url('++resource++ftw.simplelayout.resources/images/spinner.gif') no-repeat center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-radius: inherit;
+}
 
 .sl-image {
   &.left {

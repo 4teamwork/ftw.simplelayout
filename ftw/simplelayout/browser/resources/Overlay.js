@@ -97,6 +97,7 @@
         $.getJSON(formUrl, payload, function(data) {
           if(!self.overlay) {
             self.element = $("<div class='overlay'></div>").addClass(options.cssclass);
+            self.spinner = $("<div class='sl-spinner'></div>");
             self.overlay = self.element.overlay(self.settings).overlay();
             self.element.on("submit", "form", function(event) {
               event.preventDefault();
@@ -109,6 +110,7 @@
             $("body").append(self.element);
           }
           self.element.html(data.content);
+          self.element.append(self.spinner);
           self.form = $("form", self.element);
           self.initializePloneComponents();
           self.open();
@@ -118,6 +120,7 @@
       requestForm: function(action, payload) {
         var self = this;
         payload.append("_authenticator", $('input[name="_authenticator"]').val());
+        self.spinner.show();
         return $.ajax({
           type: "POST",
           url: action,
@@ -132,6 +135,7 @@
           this.formSubmitted = true;
           $(this.element).trigger("overlaySubmit", this);
           this.onSubmitCallback.call(overlay, data);
+          this.spinner.hide();
         } else {
           this.element.html(data.content);
           this.element.trigger("OverlayContentReloaded", [this]);
