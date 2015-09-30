@@ -32,6 +32,16 @@
         <li tal:content="view/context_state/object_title">The item title (ID)</li>
       </ul>
 
+      <div tal:define="breaches view/get_link_integrity_breaches"
+           tal:condition="breaches">
+           <p i18n:translate="title_delete_link_check">These internal links will be broken</p>
+           <ul>
+            <li tal:repeat="breach breaches">
+                <a targe="_blank" tal:attributes="href breach/url" tal:content="breach/title" />
+            </li>
+           </ul>
+      </div>
+
       <form method="POST"
             action="#"
             tal:attributes="action view/context_state/current_base_url"

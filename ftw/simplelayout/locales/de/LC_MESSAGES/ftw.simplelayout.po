@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-09-11 06:09+0000\n"
+"POT-Creation-Date: 2015-10-01 13:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr "Abbrechen"
 msgid "ContentPage"
 msgstr "Inhaltsseite"
 
-#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:51
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
 msgid "Delete"
 msgstr "Löschen"
 
@@ -158,7 +158,7 @@ msgid "description_teaser_fieldset"
 msgstr "Mit der Teaser-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Teaserfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
 #. Default: "${title}, opens in a overlay."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:31
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
 msgid "galleryblock_link_title"
 msgstr "${title}. Link öffnet das Bild in einem grösseren Fenster (Overlay)."
 
@@ -183,7 +183,7 @@ msgid "label_ascending"
 msgstr "Aufsteigend"
 
 #. Default: "Cancel"
-#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:58
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:68
 msgid "label_cancel"
 msgstr "Abbrechen"
 
@@ -346,5 +346,11 @@ msgstr "Video-URL"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "review_state"
 msgstr "Status"
+
+#. Default: "These internal links will be broken"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
+#, fuzzy
+msgid "title_delete_link_check"
+msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 
 
