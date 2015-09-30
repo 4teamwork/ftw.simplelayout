@@ -23,6 +23,12 @@
         insert-after="++resource++ftw.simplelayout.resources/Overlay.js"
         />
 
+    <javascript
+        id="++resource++ftw.simplelayout.resources/XHRHTTPErrorHandler.js"
+        enabled="True"
+        authenticated="True"
+        insert-after="++resource++ftw.simplelayout.client/dist/simplelayout.min.js"
+        />
 
     <!-- Do not compress already compressed jqueryui.min.js -->
     <javascript
