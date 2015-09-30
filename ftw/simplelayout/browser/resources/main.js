@@ -53,9 +53,7 @@
           var toolbox = new global.Toolbox({ layouts: self.settings.layouts, components: components, canChangeLayouts: self.settings.canChangeLayouts });
           self.simplelayout = new global.Simplelayout({source: self.settings.source, toolbox: toolbox});
           self.simplelayout.on("blockInserted", function(block) {
-            currentBlock = block;
             var blockData = block.element.data();
-            addOverlay.load(addFormUrl);
             var layout = self.simplelayout.getManagers()[blockData.container].layouts[blockData.layoutId];
             if(layout.hasBlocks()) {
               layout.toolbar.disable("delete");
@@ -63,6 +61,12 @@
           });
           toolbox.attachTo($("body"));
           self.simplelayout.deserialize($("body"));
+
+          self.simplelayout.on("blockInserted", function(block) {
+            currentBlock = block;
+            addOverlay.load(addFormUrl);
+          });
+
           callback(self.simplelayout);
         });
 
