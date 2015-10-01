@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-09-11 06:09+0000\n"
+"POT-Creation-Date: 2015-10-01 13:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "ContentPage"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:51
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
 msgid "Delete"
 msgstr ""
 
@@ -161,7 +161,7 @@ msgid "description_teaser_fieldset"
 msgstr ""
 
 #. Default: "${title}, opens in a overlay."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:31
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
 msgid "galleryblock_link_title"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgid "label_ascending"
 msgstr ""
 
 #. Default: "Cancel"
-#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:58
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:68
 msgid "label_cancel"
 msgstr ""
 
@@ -348,6 +348,11 @@ msgstr ""
 #. Default: "Review State"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "review_state"
+msgstr ""
+
+#. Default: "These internal links will be broken"
+#: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
+msgid "title_delete_link_check"
 msgstr ""
 
 
