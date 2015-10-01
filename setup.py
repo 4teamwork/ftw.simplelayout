@@ -95,6 +95,7 @@ setup(name='ftw.simplelayout',
           'zope.lifecycleevent',
           'zope.publisher',
           'Zope2',
+          'Plone',
           ],
 
       tests_require=tests_require,
