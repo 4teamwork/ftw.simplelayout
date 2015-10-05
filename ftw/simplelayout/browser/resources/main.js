@@ -25,7 +25,7 @@
 
     var instance = {
       settings: {
-        toolboxDataEndpoint: baseUrl + "sl-toolbox-view",
+        toolboxDataEndpoint: baseUrl + "sl-toolbox-view" + "?spinner=false",
         saveStateEndpoint: baseUrl + "sl-ajax-save-state-view",
         source: ".sl-simplelayout",
         layouts: [1, 2, 4],
