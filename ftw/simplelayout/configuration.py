@@ -134,7 +134,12 @@ class PageConfiguration(object):
     def store(self, conf):
         self.check_permission(conf)
         annotations = IAnnotations(self.context)
-        annotations[SL_ANNOTATION_KEY] = make_resursive_persistent(conf)
+
+        storage = annotations.get(SL_ANNOTATION_KEY, None)
+        if storage:
+            storage.update(make_resursive_persistent(conf))
+        else:
+            annotations[SL_ANNOTATION_KEY] = make_resursive_persistent(conf)
 
     def load(self):
         annotations = IAnnotations(self.context)
