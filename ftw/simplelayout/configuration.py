@@ -44,12 +44,17 @@ def make_resursive_persistent(conf):
     return persist(conf)
 
 
-def columns_in_config(config):
+def columns_in_config(config, container=None):
     """Returns each column-dict found in the config.
     """
     columns = []
 
-    for container in config.values():
+    if container is None:
+        containers = config.values()
+    else:
+        containers = [config.get(container, [{"cols": [{"blocks": []}]}])]
+
+    for container in containers:
         for layout in container:
             columns.extend(layout.get('cols', ()))
 
@@ -107,10 +112,12 @@ def synchronize_page_config_with_blocks(page):
 
         column['blocks'][:] = new_blocks
 
-    # Add missing blocks to the bottom of the first column found.
+    # Add missing blocks to the bottom of the first column of the "default"
+    # container.
     added = block_uids_missing_in_config(page)
     for uid in added:
-        columns[0]['blocks'].append({'uid': uid})
+        default_columns = columns_in_config(config, container='default')
+        default_columns[0]['blocks'].append({'uid': uid})
 
     IPageConfiguration(page).store(config)
     return {'added': added, 'removed': removed}
