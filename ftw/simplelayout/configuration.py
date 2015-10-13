@@ -143,8 +143,9 @@ class PageConfiguration(object):
 
     def load(self):
         annotations = IAnnotations(self.context)
-        return deepcopy(annotations.setdefault(SL_ANNOTATION_KEY,
-                                               self._default_page_config()))
+        return deepcopy(annotations.setdefault(
+            SL_ANNOTATION_KEY,
+            make_resursive_persistent(self._default_page_config())))
 
     def check_permission(self, new_state):
         def flatten(payload):
