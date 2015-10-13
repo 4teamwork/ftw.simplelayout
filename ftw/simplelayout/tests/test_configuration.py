@@ -48,6 +48,10 @@ class TestPageConfiguration(SimplelayoutTestCase):
         )
         self.assert_recursive_persistence(config.load())
 
+    def test_default_config_is_recursive_persistent(self):
+        config = IPageConfiguration(create(Builder('sample container')))
+        self.assert_recursive_persistence(config.load())
+
     def test_loaded_config_mutations_are_not_stored(self):
         config = IPageConfiguration(create(Builder('sample container')))
         config.store(
