@@ -192,6 +192,29 @@ class TestPageConfigFunctions(SimplelayoutTestCase):
                 {'uid': 'staticuid00000000000000000000002'}]}]}]},
             IPageConfiguration(page).load())
 
+    def test_store_partial_updates(self):
+        page = create(Builder('sample container'))
+        config = IPageConfiguration(page)
+
+        state = {'default': [{'cols': [{'blocks': [{'uid': 'foo'}]}]},
+                             {'cols': [{'blocks': [{'uid': 'bar'}]},
+                                       {'blocks': []}]}],
+                 'sidebar': [{'cols': [{'blocks': [{'uid': 'baz'},
+                                                   {'uid': 'foobar'}]}]}]}
+        config.store(state)
+
+        partial_state = {'sidebar': [{'cols': [
+            {'blocks': [{'uid': 'baz'}]}]}]}
+        config.store(partial_state)
+
+        # Remove block "foobar" from "sidebar" slot
+        new_state = {'default': [{'cols': [{'blocks': [{'uid': 'foo'}]}]},
+                                 {'cols': [{'blocks': [{'uid': 'bar'}]},
+                                           {'blocks': []}]}],
+                     'sidebar': [{'cols': [{'blocks': [{'uid': 'baz'}]}]}]}
+
+        self.assertEquals(new_state, config.load())
+
 
 class TestBlockConfiguration(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
