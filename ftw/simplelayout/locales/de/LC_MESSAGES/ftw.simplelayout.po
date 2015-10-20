@@ -250,7 +250,7 @@ msgstr "Dateien über Inhalte verwalten."
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
-msgid "label_getContentType"
+msgid "label_portal_type"
 msgstr "Typ"
 
 msgid "label_id"

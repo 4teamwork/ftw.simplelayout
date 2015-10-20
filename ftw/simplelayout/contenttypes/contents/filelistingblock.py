@@ -43,7 +43,7 @@ class ListingBlockDefaultColumns(object):
         columns = (
             {'column': 'getContentType',
              'column_title': _(u'column_type', default=u'Type'),
-             'sort_index': 'getContentType',
+             'sort_index': 'portal_type',
              'transform': download_link(icon=True, icon_only=True)},
 
             {'column': 'Title',

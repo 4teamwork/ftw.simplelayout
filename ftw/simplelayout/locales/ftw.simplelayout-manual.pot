@@ -17,7 +17,7 @@ msgstr ""
 msgid "label_sortable_title"
 msgstr ""
 
-msgid "label_getContentType"
+msgid "label_portal_type"
 msgstr ""
 
 msgid "label_modified"
