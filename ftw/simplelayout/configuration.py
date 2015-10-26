@@ -123,6 +123,12 @@ def synchronize_page_config_with_blocks(page):
     return {'added': added, 'removed': removed}
 
 
+def has_slot_layout_changed(old_data, new_data):
+    old_layouts = map(len, map(itemgetter('cols'), old_data))
+    new_layouts = map(len, map(itemgetter('cols'), new_data))
+    return old_layouts != new_layouts
+
+
 class PageConfiguration(object):
     """Adapter for storing simplelayout page configuration.
     """
@@ -148,21 +154,23 @@ class PageConfiguration(object):
             make_resursive_persistent(self._default_page_config())))
 
     def check_permission(self, new_state):
-        def flatten(payload):
-            return [(name, map(len, map(itemgetter('cols'), data)))
-                    for name, data in payload.items()]
+        if api.user.has_permission('ftw.simplelayout: Change Layouts',
+                                   obj=self.context):
+            return
 
-        if not api.user.has_permission('ftw.simplelayout: Change Layouts',
-                                       obj=self.context):
-            # The user does not have the permission to manipulate the
-            # structure. But the new configuration is serialized from the DOM
-            # So we need to check if the user has manipulated the DOM by
-            # himself. This is done by flatten the actual and the new state
-            # without the block informations.
-            flatten_old = flatten(self.load())
-            flatten_new = flatten(new_state)
+        # The user does not have the permission to manipulate the
+        # structure. But the new configuration is serialized from the DOM
+        # So we need to check if the user has manipulated the DOM by
+        # himself. This is done by checking the stored state and the new state
+        # generated from the DOM.
 
-            if flatten_old != flatten_new:
+        old_state = self.load()
+
+        for slot_name, new_slot_state in new_state.items():
+            if slot_name not in old_state:
+                continue
+
+            if has_slot_layout_changed(old_state[slot_name], new_slot_state):
                 raise Unauthorized()
 
     def _default_page_config(self):
