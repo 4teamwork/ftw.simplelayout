@@ -13,7 +13,6 @@
 		<div class="galleryblockImageWrapper">
 			<a class="colorboxLink" href="#"
 				tal:attributes="
-					title img/title_or_id;
 					rel string:colorbox-${here/getId};
 					href img/absolute_url">
                 <img tal:define="scales img/@@images"
