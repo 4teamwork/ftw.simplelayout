@@ -53,8 +53,9 @@ class BaseSimplelayoutExpression(object):
             row['class'] = 'sl-layout'
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
-                col['blocks'] = filter(lambda block: block['uid'] in blocks,
-                                       col['blocks'])
+                col['blocks'] = filter(
+                    lambda block: block.get('uid', '') in blocks,
+                    col['blocks'])
 
                 for block in col['blocks']:
                     obj = blocks[block['uid']]
@@ -122,7 +123,8 @@ class BaseSimplelayoutExpression(object):
             for row in container:
                 for col in row['cols']:
                     for block in col['blocks']:
-                        saved_blocks.append(block['uid'])
+                        if 'uid' in block:
+                            saved_blocks.append(block['uid'])
 
         return filter(lambda x: x[0] not in saved_blocks,
                       self._blocks().items())
