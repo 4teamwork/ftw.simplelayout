@@ -170,6 +170,17 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                 browser.css('.sl-block')))
 
     @browsing
+    def test_empty_block_state_does_not_break_the_view(self, browser):
+        self.payload['default'][0]['cols'][0]['blocks'].append({})
+        self.page_config.store(self.payload)
+        transaction.commit()
+
+        browser.login().visit(self.container)
+        self.assertTrue(
+            browser.css('body.template-simplelayout-view'),
+            'Expect to be on the simplelayout template, not the error page.')
+
+    @browsing
     def test_simplelayout_default_config_from_control_panel(self, browser):
         browser.login().visit(self.container, view='@@simplelayout-view')
 
