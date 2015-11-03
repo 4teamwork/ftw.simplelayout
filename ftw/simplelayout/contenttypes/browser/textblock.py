@@ -20,7 +20,7 @@ class TextBlockView(BaseBlock):
         if not teaser:
             return None
 
-        if teaser.internal_link:
+        if teaser.internal_link and teaser.internal_link.to_object:
             return teaser.internal_link.to_object.absolute_url()
         elif teaser.external_link:
             return teaser.external_link
