@@ -12,11 +12,8 @@ class BlockSearchableTextIndexer(object):
 
     def __call__(self):
         searchable_text = ''
-        contents = self.context.getFolderContents(
-            {'object_provides': ISimplelayoutBlock.__identifier__,
-             'sort_order': 'getObjPositionInParent'},
-            full_objects=True)
-        for content in contents:
-            searchable_text += indexer.dynamic_searchable_text_indexer(
-                content)()
+        for content in self.context.objectValues():
+            if ISimplelayoutBlock.providedBy(content):
+                searchable_text += indexer.dynamic_searchable_text_indexer(
+                    content)()
         return searchable_text
