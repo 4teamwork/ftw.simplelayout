@@ -74,7 +74,7 @@
       toolbox = new global.Toolbox(settings);
       toolbox.attachTo(target);
 
-      simplelayout = new global.Simplelayout({toolbox: toolbox});
+      simplelayout = new global.Simplelayout({toolbox: toolbox, editLayouts: settings.canChangeLayout });
 
       simplelayout.on("blockInserted", function(block) {
         var layout = block.parent;

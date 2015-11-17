@@ -3,13 +3,15 @@ define([
       "app/simplelayout/EventEmitter",
       "app/simplelayout/transactional",
       "app/simplelayout/Element",
+      "app/simplelayout/Toolbar",
       "app/helpers/template_range"
     ],
     function(
       Block,
       EventEmitter,
       transactional,
-      Element) {
+      Element,
+      Toolbar) {
 
   "use strict";
 
@@ -31,6 +33,8 @@ define([
     this.columns = columns;
 
     this.blocks = {};
+
+    this.toolbar = new Toolbar();
 
     this.hasBlocks = function() { return Object.keys(this.blocks).length > 0; };
 

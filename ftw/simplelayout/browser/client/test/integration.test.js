@@ -50,4 +50,22 @@ suite("Integration", function() {
     }), ["edit", "move"]);
   });
 
+  test("does not create toolbar for layouts if layout edit is inactive", function() {
+    simplelayout.options.editLayouts = false;
+    var layout = manager.insertLayout().commit();
+    layout.insertBlock("<p></p>", "textblock").commit();
+
+    assert.deepEqual($.map(layout.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), []);
+
+    simplelayout.options.editLayouts = true;
+    layout = manager.insertLayout().commit();
+    layout.insertBlock("<p></p>", "textblock").commit();
+
+    assert.deepEqual($.map(layout.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move"]);
+  });
+
 });

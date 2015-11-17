@@ -23,7 +23,8 @@ define([
     var self = this;
 
     this.options = $.extend({
-      toolbox: new Toolbox()
+      toolbox: new Toolbox(),
+      editLayouts: true
     }, options || {});
 
     this.managers = {};
@@ -177,9 +178,11 @@ define([
     };
 
     this.on("layout-committed", function(layout) {
-      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
-      layout.attachToolbar(layoutToolbar);
-      $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+      if(self.options.editLayouts) {
+        var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
+        layout.attachToolbar(layoutToolbar);
+        $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+      }
     });
 
     this.on("block-committed", function(block) {
