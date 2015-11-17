@@ -36,17 +36,17 @@ define(["app/simplelayout/Element", "jsrender"], function(Element) {
                 </div> \
               {{/if}} \
           </div> \
-          <a class='sl-toolbox-header layouts'> \
-            <i></i> \
-          </a> \
           {{if canChangeLayout}} \
-          <div class='sl-toolbox-layouts'> \
-            {{props layouts}} \
-              <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
-                <span class='description'>{{>prop}}{{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
-              </a> \
-            {{/props}} \
-          </div> \
+            <a class='sl-toolbox-header layouts'> \
+              <i></i> \
+            </a> \
+            <div class='sl-toolbox-layouts'> \
+              {{props layouts}} \
+                <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
+                  <span class='description'>{{>prop}}{{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
+                </a> \
+              {{/props}} \
+            </div> \
           {{/if}} \
         </div> \
       </div>");
