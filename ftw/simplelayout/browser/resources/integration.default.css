@@ -1,6 +1,51 @@
 /* This file is only used with standard Plone when ftw.theming is not installed.
  */
 
+/* @group icons */
+
+.sl-toolbox a {
+  background-image: url("images/contenttype_icons.png");
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 40px;
+}
+
+.sl-toolbox-layouts > a {
+  background-image: none;
+}
+
+.sl-toolbox-header.components {
+  background-position: 5px -2px;
+}
+
+.sl-toolbox-header.layouts {
+  background-position: 5px -86px;
+}
+
+/* Sprite generated with http://spritegen.website-performance.org/ */
+
+.ftw-simplelayout-videoblock {
+    background-position: -37px -2px;
+}
+
+.ftw-simplelayout-filelistingblock {
+    background-position: 5px -44px;
+}
+
+.ftw-simplelayout-mapblock {
+    background-position: -37px -44px;
+}
+
+.ftw-simplelayout-textblock {
+    background-position: -79px -2px;
+}
+
+.ftw-simplelayout-galleryblock {
+    background-position: -79px -44px;
+}
+
+/* */
+
 /* Fix broken z-indeces */
 .contenttreeWindowBlocker {
     z-index: 70000 !important;
