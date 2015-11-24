@@ -994,7 +994,7 @@ define('app/toolbox/Toolbox',[], function() {
             </a> \
               <div class='sl-toolbox-components'> \
                 {{for components}} \
-                  <a class='sl-toolbox-component' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
+                  <a class='sl-toolbox-component {{:contentType}}' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
                     <i class='icon-{{:contentType}}'></i> \
                     <span class='description'>{{:title}}</span> \
                   </a> \

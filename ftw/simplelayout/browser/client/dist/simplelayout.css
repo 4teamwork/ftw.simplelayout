@@ -156,7 +156,7 @@ body.simplelayout-initialized {
   position: relative;
   display: block;
   color: #7e7f84;
-  background: #2c2c34;
+  background-color: #2c2c34;
   width: 100%;
   box-sizing: border-box;
   direction: rtl;
@@ -235,7 +235,7 @@ ul[class^="sl-toolbar"] {
   height: 40px;
   margin: 0;
   padding: 0;
-  background: #333840;
+  background-color: #333840;
   list-style-type: none;
   opacity: 0;
   visibility: hidden;
