@@ -101,7 +101,6 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       handle: ".sl-toolbar-layout .move",
       placeholder: "layout-placeholder",
       axis: "y",
-      tolerance: "intersects",
       forcePlaceholderSize: true,
       helper: sortableHelper,
       receive: function(event, ui) {
@@ -146,7 +145,6 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       forcePlaceholderSize: true,
       handle: ".sl-toolbar-block .move",
       helper: sortableHelper,
-      tolerance: "pointer",
       receive: function(event, ui) {
         var manager = managers[$(this).data("container")];
         var data = $(this).data();
