@@ -14,11 +14,11 @@ def unwrap_persistence(conf):
     """Unwrap recursice persistent page state
     """
     def unwrap(data):
-        if isinstance(data, PersistentMapping):
+        if isinstance(data, (PersistentMapping, dict)):
             data = dict(data)
             for key, value in data.items():
                 data[key] = unwrap(value)
-        elif isinstance(data, PersistentList):
+        elif isinstance(data, (PersistentList, list, tuple, set)):
             return list(map(unwrap, data))
         else:
             # Usually we got basestrings, or integer here, so do nothing.
