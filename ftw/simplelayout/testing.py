@@ -94,6 +94,22 @@ class SimplelayoutTestCase(TestCase):
 
         is_persistent(structure)
 
+    def assert_unwrapped_persistence(self, structure):
+        def is_unwrapped(item):
+            if not isinstance(item, basestring) and not isinstance(item, int):
+                assert isinstance(item, dict) or \
+                    isinstance(item, list), \
+                    '{0} needs to be unwrapped'.format(str(item))
+
+                if hasattr(item, 'values'):
+                    item = item.values()
+                for subitem in item:
+                    is_unwrapped(subitem)
+            else:
+                return
+
+        is_unwrapped(structure)
+
     def setup_sample_ftis(self, portal):
         sample_types.setup_ftis(portal)
 
