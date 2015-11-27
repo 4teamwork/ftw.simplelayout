@@ -6,7 +6,8 @@
   i18n:domain="ftw.simplelayout">
 
   <h2 tal:condition="view/block_title">
-      <a tal:attributes="href teaser_url;"
+      <a tal:attributes="href teaser_url;
+                         title view/block_title"
          tal:content="view/block_title"
          tal:omit-tag="not:teaser_url">Title</a>
   </h2>
@@ -15,6 +16,7 @@
     <div tal:attributes="class image/wrapper_css_classes">
         <a tal:omit-tag="not: image/link_url"
            tal:attributes="href image/link_url;
+                           title image/link_title;
                            class image/link_css_classes">
             <img tal:replace="structure image/image_tag" />
         </a>
