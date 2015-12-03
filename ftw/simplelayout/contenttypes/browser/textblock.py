@@ -41,6 +41,7 @@ class TextBlockView(BaseBlock):
                  self._get_image_float()]
             ),
             'link_url': '',
+            'link_title': self.context.Title(),
             'link_css_classes': '',
             'image_tag': self._get_image_scale().tag(
                 alt=ITextBlockSchema(self.context).image_alt_text or '',
