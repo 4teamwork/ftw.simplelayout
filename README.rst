@@ -17,19 +17,48 @@ Because of the restricted dimensions of text, images and other content elements,
 the general result is content with a uniform look and feel throughout the site.
 
 
+Alpha state
+-----------
+This package is ready for production, but has no uninstall profile.
+Minor and Major changes may occur until the final version, but we will provide an uprade path.
+Plone 4.3.x stylings only covers the essentials, you may install ``ftw.simplelayout`` along with `plonetheme.onegovbear <https://github.com/OneGov/plonetheme.onegovbear/>`_,which ships with a nice simpelayout interface.
+
+
 Compatibility
 -------------
 
-Plone 4.3.x
+**Plone 4.3.x**
 
 .. image:: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg/badge/icon
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
 
+**Plone 5**
+
+Plone 5 is supported but without any default contenttypes.
+
 Installation
 ============
 
-- Add the package to your buildout configuration:
+- Add the package to your buildout configuration (Plone 4.3.x with ContentTypes):
+
+::
+
+    [instance]
+    eggs +=
+        ...
+        ftw.simplelayout[contenttypes]
+
+- With mapblock:
+
+::
+
+    [instance]
+    eggs +=
+        ...
+        ftw.simplelayout[contenttypes, mapblock]
+
+- Or wihtout any extras (Plone 5 is supported):
 
 ::
 
@@ -41,16 +70,11 @@ Installation
 
 Then you got several profile from wich you can choose from:
 
-- ``ftw.simplelayout`` default profile - Installs everything you need include default
-  DX based content to start with.
+- ``ftw.simplelayout`` **lib** profile - Just the basics without any ContentTypes. This profile is also available for Plone 5
 
-- ``ftw.simplelayout`` js lib profile - Only installs the JS library and the control panel.
-  No example content, no further views. This profile is for Developers, who want to write their
-  own simplelayout content types and views.
+- ``ftw.simplelayout`` **default** profile - Installs Simplelayout with default ContentTypes and everything you need to create content the Simplelayout way.
 
-- ``ftw.simplelayout`` develpment profile - Only installs the JS library with non minified resources and the control panel.
-  No example content, no further views. This profile is for Developers, who want to write their
-  own simplelayout content types and views.
+- ``ftw.simplelayout`` **development** profile - Installs non minified versions of *simplelayout.js* and *simplelayout.css* - for DEV environments. You need to install this profile on top of lib or the default profile
 
 This package uses the `Simplelayout Javascript Lib <https://github.com/4teamwork/ftw.simplelayout/ftw/simplelayout/browser/client>`_, which provides the basic functionality.
 Further this package provides a Plone integration of the Simplelayout Lib:
@@ -70,7 +94,7 @@ First steps
 
 It's a good idea to install the default profile, which ships some basic contenttypes, such as ContentPage and TextBlock.
 
-Simply add a new ContentPage instead of a Plone Document. A Toolbox appears on right bottom, which allows you to create content on/in your ContentPage with Simplelayout.
+Simply add a new ContentPage instead of a Plone Document. A Toolbox appears on right, which allows you to create content on/in your ContentPage with Simplelayout.
 
 By default you can choose between a 1 column, 2 Column or 4 Column layout.
 Simplelayout adds an empty 1 column layout for you by default, so you can directly start adding a Block.
@@ -163,6 +187,7 @@ Simplelayout your site
 - Change representation of blocks directly on the Block itself
 - Responsive by default
 - Create multiple column pages with ease.
+- Uninstall profile
 
 
 Development
@@ -351,6 +376,14 @@ Note 2: With the ``default_page_layout`` method you can also define default layo
 
 4. By default the ``canChangeLayouts`` option is injected by the Simplelayout provider. It checks if the current logged in user has the ``ftw.simplelayout: Change Layouts`` permission.
 
+
+TODO
+====
+- Update/Finish examples.
+- Update/Add images (animated gifs).
+- Improve Plone 5 support (probably with plone 5 contentttypes).
+- Archetypes block integration (for legacy packages).
+- JS Refactoring of @bierik needs to be tested. 
 
 Links
 =====
