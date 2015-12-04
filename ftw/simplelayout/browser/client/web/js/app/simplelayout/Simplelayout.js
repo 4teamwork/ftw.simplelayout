@@ -83,7 +83,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       }
     };
 
-    var sortableHelper = function(){ return $('<div class="draggableHelper"><div>'); };
+    var sortableHelper = function(){ return $('<div class="draggableHelper" style="width: 100px"><div>'); };
 
     var animatedrop = function(ui){
       ui.item.addClass("animated");
@@ -145,6 +145,7 @@ define(["app/simplelayout/Layoutmanager", "app/simplelayout/Toolbar", "app/toolb
       forcePlaceholderSize: true,
       handle: ".sl-toolbar-block .move",
       helper: sortableHelper,
+      cursorAt: { left: 50, top: 50 },
       receive: function(event, ui) {
         var manager = managers[$(this).data("container")];
         var data = $(this).data();
