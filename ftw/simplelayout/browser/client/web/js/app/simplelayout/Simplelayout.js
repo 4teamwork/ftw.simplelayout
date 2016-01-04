@@ -89,6 +89,10 @@ define([
         self.enableFrames();
         root.addClass("sl-block-dragging");
       },
+      stop: function() {
+        self.disableFrames();
+        root.removeClass("sl-block-dragging");
+      },
       update: function(event, ui) {
         if(ui.item.parent()[0] === this && !ui.sender) {
           EventEmitter.trigger("blockMoved", [ui.item.data().object]);
