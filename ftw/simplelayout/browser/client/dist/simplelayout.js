@@ -1110,19 +1110,20 @@ define('app/toolbox/Toolbox',["app/simplelayout/Element", "jsrender", "jquery-pa
     };
 
     this.triggerHint = function(addable, target, animationOptions) {
+
       animationOptions = $.extend({
         time: 500,
         easing: "easeInOutQuad"
       }, animationOptions);
       var path = {
         start: {
-          x: addable.offset().left - addable.offset().left,
-          y: addable.offset().top,
+          x: 0,
+          y: addable.position().top,
           angle: 70
         },
         end: {
-          x: -target.offset().left - (target.width() / 2) + (addable.width() / 2),
-          y: target.offset().top,
+          x: -$(window).width() / 2 + addable.width(),
+          y: $(window).height() / 2 - addable.height(),
           angle: 290
         }
       };
