@@ -6,6 +6,7 @@ define(["app/simplelayout/idHelper", "jsrender"], function(idHelper) {
 
     this.template = $.templates(template);
     this.represents = represents;
+    this.enabled = true;
 
     this.create = function(data) {
       this.element = $(this.template.render(data));
@@ -34,6 +35,12 @@ define(["app/simplelayout/idHelper", "jsrender"], function(idHelper) {
     this.attachToolbar = function(toolbar) {
       this.toolbar = toolbar;
       this.element.append(toolbar.element);
+      return this;
+    };
+
+    this.isEnabled = function(state) {
+      this.element.toggleClass("disabled", !state);
+      this.enabled = state;
       return this;
     };
 

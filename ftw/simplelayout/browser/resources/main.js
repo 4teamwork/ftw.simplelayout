@@ -186,11 +186,10 @@
     $(global.document).on("click", ".server-action", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;
-      var payLoad = {};
+      var payLoad = { uid: block.represents };
       var action = $(this);
-      payLoad.uid = block.represents;
       $.extend(payLoad, action.data());
-      var configRequest = $.post(action.attr("href"), {"data": JSON.stringify(payLoad)});
+      var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
       });

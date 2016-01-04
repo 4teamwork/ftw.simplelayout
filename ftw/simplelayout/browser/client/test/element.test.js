@@ -26,6 +26,24 @@ suite("element", function() {
     assert.deepEqual(nodeProps, [{ content: "James Bond", tagName: "P" }]);
   });
 
+  test("element is enabled initially", function() {
+    var element = new Element("<p></p>");
+    var jQueryElement = element.create();
+    assert.isTrue(element.enabled);
+    assert.equal(jQueryElement[0].className, "");
+  });
+
+  test("element can get enabled and disabled", function() {
+    var element = new Element("<p></p>");
+    var jQueryElement = element.create();
+    element.isEnabled(false);
+    assert.isFalse(element.enabled, "Element should be disabled");
+    assert.equal(jQueryElement[0].className, "disabled");
+    element.isEnabled(true);
+    assert.isTrue(element.enabled, "Element should be enabled");
+    assert.equal(jQueryElement[0].className, "");
+  });
+
   test("element can store data", function() {
     var element = new Element("<p></p>");
     var jQueryElement = element.create();

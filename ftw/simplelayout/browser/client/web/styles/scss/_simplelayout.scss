@@ -3,10 +3,10 @@
     // BUG: Firefox cant handle the outline correctly.
     // Because that, we use box-shadow instead;
     // http://stackoverflow.com/questions/10662902/css-outline-different-behavior-behavior-on-webkit-gecko
-    -moz-box-shadow: 0 0 5px 1px #000;
-    -webkit-box-shadow: 0 0 5px 1px #000;
     box-shadow: 0 0 5px 1px #000;
-    float: left;
+    &.disabled {
+      box-shadow: none;
+    }
   }
 }
 
@@ -15,6 +15,7 @@
   z-index: 0;
   display: inline-block;
   width: 100%;
+  float: left;
   .layout-placeholder {
     background-color: $layout-placeholder-background-color;
     width: 100%;

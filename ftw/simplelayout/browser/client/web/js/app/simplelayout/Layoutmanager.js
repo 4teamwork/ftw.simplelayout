@@ -31,7 +31,10 @@ define([
 
     this.layouts = {};
 
-    this.attachTo = function(target) { $(target).append(this.element); };
+    this.attachTo = function(target) {
+      $(target).append(this.element);
+      return this;
+    };
 
     this.insertLayout = function(columns) {
       var layout = new Layout(columns);
