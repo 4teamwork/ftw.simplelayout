@@ -915,32 +915,19 @@ define('app/toolbox/Toolbox',["app/simplelayout/Element", "jsrender"], function(
     }
 
     var template = $.templates(
-      /*eslint no-multi-str: 0 */
-      "<div id='sl-toolbox' class='sl-toolbox'> \
-          <div class='components'> \
-            <a class='sl-toolbox-header components'> \
-              <i></i> \
-            </a> \
-              <div class='sl-toolbox-components'> \
-                {{for components}} \
-                  <a class='sl-toolbox-component {{:contentType}}' data-type='{{:contentType}}' data-form_url='{{:formUrl}}'> \
-                    <i class='icon-{{:contentType}}'></i> \
-                    <span class='description'>{{:title}}</span> \
-                  </a> \
-                {{/for}} \
-              </div> \
-              {{if canChangeLayout}} \
-                <a class='sl-toolbox-header layouts'> \
-                  <i></i> \
-                </a> \
-                <div class='sl-toolbox-layouts'> \
-                  {{props layouts}} \
-                    <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
-                      <span class='description'>{{>prop}} {{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
-                    </a> \
-                  {{/props}} \
-                </div> \
-              {{/if}} \
+    /*eslint no-multi-str: 0 */
+    "<div id='sl-toolbox' class='sl-toolbox'> \
+      <div> \
+        <a class='sl-toolbox-header blocks'> \
+          <i></i> \
+        </a> \
+          <div class='sl-toolbox-blocks'> \
+            {{for blocks}} \
+              <a class='sl-toolbox-block' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
+                <i class='icon-{{:contentType}}'></i> \
+                <span class='description'>{{:title}}</span> \
+              </a> \
+            {{/for}} \
           </div> \
           {{if canChangeLayout}} \
             <a class='sl-toolbox-header layouts'> \
