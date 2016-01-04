@@ -3,9 +3,7 @@
 
     <javascript
         id="++resource++ftw.simplelayout.resources/videoblock.js"
-        enabled="True"
         authenticated="False"
-        insert-after="++resource++ftw.simplelayout.resources/main.js"
         />
 
 </object>
