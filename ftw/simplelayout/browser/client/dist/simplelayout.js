@@ -497,7 +497,6 @@ define('app/simplelayout/idHelper',[], function() {
   "use strict";
 
   return {
-
     createGUID: function() {
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
           var r = Math.random() * 16 | 0;
@@ -923,7 +922,7 @@ define('app/toolbox/Toolbox',["app/simplelayout/Element", "jsrender"], function(
         </a> \
           <div class='sl-toolbox-blocks'> \
             {{for blocks}} \
-              <a class='sl-toolbox-block' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
+              <a class='sl-toolbox-block {{:contentType}}' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
                 <i class='icon-{{:contentType}}'></i> \
                 <span class='description'>{{:title}}</span> \
               </a> \
