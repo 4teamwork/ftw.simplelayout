@@ -101,6 +101,17 @@
 
       simplelayout.restore(target);
 
+      simplelayout.on("block-committed", function(block) {
+        block.element.css("opacity", "0");
+        block.element.animate(
+          { opacity: 1, backgroundColor: "#fff3a5" },
+          300,
+          function() {
+            $(this).animate({ backgroundColor: "#fff" }, 300);
+          }
+        );
+      });
+
       simplelayout.on("blockDeleted", function(block) {
         var layout = block.parent;
         if(!layout.hasBlocks()) {
