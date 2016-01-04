@@ -28,6 +28,7 @@
     // Needs to be important, since jquery.ui always sets the height style attr on the helper element.
     // Check http://bugs.jqueryui.com/ticket/4345
     height: 100px !important;
+    width: 100px !important;
     background-color: rgba(0,0,0,0.2);
     box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3), inset 0 0 5px 0 rgba(255, 255, 255, 0.3);
   }

@@ -1174,7 +1174,6 @@ define('app/simplelayout/Simplelayout',[
       handle: ".sl-toolbar-layout .move",
       placeholder: "layout-placeholder",
       axis: "y",
-      tolerance: "intersects",
       forcePlaceholderSize: true,
       helper: sortableHelper,
       receive: function(event, ui) {
@@ -1215,7 +1214,7 @@ define('app/simplelayout/Simplelayout',[
       forcePlaceholderSize: true,
       handle: ".sl-toolbar-block .move",
       helper: sortableHelper,
-      tolerance: "pointer",
+      cursorAt: { left: 50, top: 50 },
       receive: function(event, ui) {
         var block;
         if($(ui.item).hasClass("sl-toolbox-block")) {
@@ -1232,6 +1231,7 @@ define('app/simplelayout/Simplelayout',[
       start: function() {
         self.enableFrames();
         root.addClass("sl-block-dragging");
+        $(".sl-column").sortable("refreshPositions");
       },
       stop: function() {
         self.disableFrames();
