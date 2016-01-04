@@ -88,7 +88,7 @@ class SimplelayoutToolbox(BrowserView):
     def client_labels(self):
         return {
             'labelColumnPostfix': translate(_(u'label_column_postfix',
-                                              default=u'Column(s)'),
+                                              default=u' Column(s)'),
                                             context=self.request
                                             ),
             'helpDragHint': translate(
