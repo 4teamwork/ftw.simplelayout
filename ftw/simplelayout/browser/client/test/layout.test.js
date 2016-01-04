@@ -2,18 +2,19 @@ suite("Layout", function() {
   "use strict";
 
   var Layout;
+  var Toolbar;
   var layout;
 
   suiteSetup(function(done) {
-    require(["app/simplelayout/Layout"], function(_Layout) {
+    require(["app/simplelayout/Layout", "app/simplelayout/Toolbar"], function(_Layout, _Toolbar) {
       Layout = _Layout;
+      Toolbar = _Toolbar;
       done();
     });
   });
 
   setup(function(done) {
     layout = new Layout(4);
-    layout.create();
     done();
   });
 
@@ -21,78 +22,120 @@ suite("Layout", function() {
     assert.throw(Layout, TypeError, "Layout constructor cannot be called as a function.");
   });
 
-  test("defining an empty layout raises an exception", function() {
-    assert.throw(function() {
-      layout = new Layout();
-      layout();
-    }, Error, "Columns are not defined.");
-  });
-
   test("each column of 4 column layout has sl-col-4 class", function() {
-    var columns = layout.columns;
-
-    var nodes = $.map(columns, function(column) {
-      return $.map(column.element, function(el) {
-        return {tag: el.tagName, classes: el.className, id: $(el).data("columnId")};
-      });
+    var nodes = $.map(layout.element.find(".sl-column"), function(column) {
+      return { tag: column.tagName, classes: column.className };
     });
 
     assert.deepEqual(nodes, [
-      {tag: "DIV", classes: "sl-column sl-col-4", id: 0},
-      {tag: "DIV", classes: "sl-column sl-col-4", id: 1},
-      {tag: "DIV", classes: "sl-column sl-col-4", id: 2},
-      {tag: "DIV", classes: "sl-column sl-col-4", id: 3}
+      {tag: "DIV", classes: "sl-column sl-col-4" },
+      {tag: "DIV", classes: "sl-column sl-col-4" },
+      {tag: "DIV", classes: "sl-column sl-col-4" },
+      {tag: "DIV", classes: "sl-column sl-col-4" }
     ]);
 
   });
 
+  test("default layout is 4", function() {
+    var emptyLayout = new Layout();
+
+    assert.equal(emptyLayout.columns, 4, "Default layout is not 4");
+  });
+
   test("hasBlocks return true if at least one block is existing on a layout", function() {
     assert(!layout.hasBlocks(), "Layout should not have any blocks");
-    layout.insertBlock(0);
+    layout.insertBlock();
     assert(layout.hasBlocks(), "Layout has blocks");
   });
 
-  test("can get all blocks", function() {
-    layout.insertBlock(0);
-    layout.insertBlock(0);
-    var blocks = $.map(layout.getBlocks(), function(block) {
-      return block.committed;
-    });
-    assert.deepEqual(blocks, [false, false]);
+  test("can attach a toolbar", function() {
+    var layoutToolbar = new Toolbar([{move: { title: "move", class: "move"}}], "vertical", "layout");
+    layout.attachToolbar(layoutToolbar);
+    assert.equal(layout.element.find(".sl-toolbar-layout").length, 1, "Toolbar is not present");
   });
 
   suite("Block-transactions", function() {
 
     test("can insert a block", function() {
-      layout.insertBlock(0, "<p>Test</p>", "textblock");
-
-      var blocks = $.map(layout.columns[0].blocks, function(block) {
-        return {committed: block.committed, columnId: block.element.data("columnId"), blockId: block.element.data("block-id"), type: block.type};
+      var generatedBlock = layout.insertBlock("<p></p>", "textblock");
+      var blocks = $.map(layout.blocks, function(block) {
+        return {committed: block.committed, id: block.id, type: block.type};
       });
 
-      assert.deepEqual(blocks, [{committed: false, columnId: 0, blockId: 0, type: "textblock"}]);
+      assert.deepEqual(blocks, [{committed: false, id: generatedBlock.id, type: "textblock"}]);
     });
 
     test("can delete a block", function() {
-      var block = layout.insertBlock(0, "<p>Test</p>", "textblock");
-      layout.deleteBlock(0, block.element.data("blockId"));
+      var generatedBlock = layout.insertBlock();
+      layout.deleteBlock(generatedBlock.id);
 
-      var blocks = $.map(layout.columns[0].blocks, function(e) {
-        return {committed: e.committed, columnId: e.element.data("columnId"), blockId: e.element.data("block-id"), type: e.type};
+      var blocks = $.map(layout.blocks, function(block) {
+        return {committed: block.committed, id: block.id, type: block.type};
       });
 
       assert.deepEqual(blocks, [], "Should have no blocks after deleting them");
     });
 
-    test("can commit a block", function() {
-      layout.insertBlock(0, "<p>Test</p>", "textblock");
-      layout.commitBlocks(0);
-      var blocks = $.map(layout.columns[0].getCommittedBlocks(), function(block) {
-        return {committed: block.committed};
+    test("can move a block to another layout", function() {
+      var generatedBlock = layout.insertBlock("<p>Test</p>", "textblock").commit();
+      var target = new Layout();
+      layout.moveBlock(generatedBlock, target);
+
+      assert.equal(layout.getCommittedBlocks(), 0, "Sourcelayout shoult not have any blocks");
+      assert.deepEqual([ { id: generatedBlock.id, committed: true, parent: target.id }],
+        $.map(target.getCommittedBlocks(), function(block) {
+          return { id: block.id, committed: block.committed, parent: block.parent.id };
+      }));
+    });
+
+    test("block stores parent information", function() {
+      var generatedLayout = new Layout();
+      var generatedBlock = generatedLayout.insertBlock();
+
+      assert.equal(generatedLayout.id, generatedBlock.parent.id, "Should store parent id");
+    });
+
+  });
+
+  suite("Block accessors", function() {
+
+    test("can get committed blocks", function() {
+      var block2 = layout.insertBlock();
+      layout.insertBlock();
+      layout.insertBlock();
+      var blocks = $.map(layout.getCommittedBlocks(), function(block) {
+        return block.committed;
       });
+      assert.deepEqual(blocks, []);
+      block2.commit();
+      blocks = $.map(layout.getCommittedBlocks(), function(block) {
+        return block.committed;
+      });
+      assert.deepEqual(blocks, [true]);
+    });
 
-      assert.deepEqual(blocks, [{committed: true}]);
+    test("can get inserted blocks", function() {
+      var block2 = layout.insertBlock();
+      layout.insertBlock();
+      layout.insertBlock();
+      var blocks = $.map(layout.getInsertedBlocks(), function(block) {
+        return block.committed;
+      });
+      assert.deepEqual(blocks, [false, false, false]);
+      block2.commit();
+      blocks = $.map(layout.getInsertedBlocks(), function(block) {
+        return block.committed;
+      });
+      assert.deepEqual(blocks, [false, false]);
+    });
 
+    test("block can remove hinself from layout", function() {
+      var generatedBlock = layout.insertBlock();
+      generatedBlock.delete();
+
+      assert.deepEqual($.map(layout.blocks, function(block) {
+        return block.id;
+      }), []);
     });
 
   });

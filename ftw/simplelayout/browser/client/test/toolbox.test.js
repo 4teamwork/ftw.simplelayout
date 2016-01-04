@@ -3,7 +3,7 @@ suite("Toolbox", function() {
 
   var Toolbox;
 
-  setup(function(done) {
+  suiteSetup(function(done) {
     require(["app/toolbox/Toolbox"], function(_Toolbox) {
       Toolbox = _Toolbox;
       done();
@@ -14,8 +14,13 @@ suite("Toolbox", function() {
     assert.throw(Toolbox, TypeError, "Toolbox constructor cannot be called as a function.");
   });
 
+  test("default layouts are [1, 2, 4]", function() {
+    var defaultToolbox = new Toolbox();
+    assert.deepEqual(defaultToolbox.options.layouts, [1, 2, 4]);
+  });
+
   test("attaches to target container", function() {
-    var toolbox = new Toolbox({layouts: [0]});
+    var toolbox = new Toolbox();
     var target = $("<div></div>");
 
     toolbox.attachTo(target);
@@ -26,229 +31,114 @@ suite("Toolbox", function() {
     assert.deepEqual(addedNodes, [{tag: "DIV", id: "sl-toolbox", classes: "sl-toolbox"}]);
   });
 
-  test("disables components", function() {
-    var toolbox = new Toolbox({layouts: [0]});
-    var target = $("<div></div>");
+  test("can enable and disable blocks", function() {
+    var toolbox = new Toolbox();
+    toolbox.blocksEnabled(false);
 
-    toolbox.attachTo(target);
+    assert.equal("sl-toolbox-blocks disabled", toolbox.element.find(".sl-toolbox-blocks")[0].className);
 
-    toolbox.disableComponents();
+    toolbox.blocksEnabled(true);
 
-    assert.equal("sl-toolbox-components disabled", toolbox.element.find(".sl-toolbox-components")[0].className);
+    assert.equal("sl-toolbox-blocks", toolbox.element.find(".sl-toolbox-blocks")[0].className);
   });
 
-  suite("components", function() {
-    test("can set components", function() {
+  suite("addables", function() {
+    test("can render blocks", function() {
       var toolbox = new Toolbox({
-        layouts: [0],
-        components: {
+        blocks: [{ title: "Textblock", contentType: "textblock", formUrl: "URL" }]
+      });
 
-          addableBlocks: {
-            listingblock: {
-              title: "Listingblock",
-              contentType: "listingblock",
-              formUrl: "http://www.google.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            },
-            textblock: {
-              title: "Textblock",
-              contentType: "textblock",
-              formUrl: "http://www.bing.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            }
-          },
-          layoutActions: {
-            actions: {
-              move: {
-                class: "iconmove move",
-                title: "Move this layout arround."
-              },
-              delete: {
-                class: "icondelete delete",
-                title: "Delete this layout."
-              }
-            }
-          }
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-block"), function(block) {
+        return {
+          tagName: block.tagName,
+          formUrl: $(block).data().formUrl,
+          contentType: $(block).data().type
+        };
+      }), [{
+        tagName: "A",
+        formUrl: "URL",
+        contentType: "textblock"
+      }]);
+
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks .description"), function(description) {
+        return { description: description.innerHTML };
+      }), [{ description: "Textblock" }]);
+    });
+
+    test("can render layouts", function() {
+      var toolbox = new Toolbox({
+        canChangeLayout: true,
+        layouts: [1, 2]
+      });
+
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-layout"), function(layout) {
+        return { columns: $(layout).data().columns };
+      }), [{ columns: 1 }, { columns: 2 }]);
+
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-layout .description"), function(description) {
+        return { description: description.innerHTML };
+      }), [{ description: "1" }, { description: "2" }]);
+    });
+
+    test("can render label for layout description", function() {
+      var toolbox = new Toolbox({
+        canChangeLayout: true,
+        layouts: [1, 2],
+        labels: {
+          labelColumnPostfix: " - Columns"
         }
       });
 
-      var target = $("<div></div>");
-      toolbox.attachTo(target);
-
-      var addedNodes = $.map(target.find(".sl-toolbox-component"), function(e) {
-        return {title: $(e).text().trim(), iconClass: $("i", e).attr("class"), formUrl: $(e).data("form_url")};
-      });
-
-      assert.deepEqual(addedNodes, [{title: "Listingblock", iconClass: "icon-listingblock", formUrl: "http://www.google.com"}, {title: "Textblock", iconClass: "icon-textblock", formUrl: "http://www.bing.com"}]);
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-layout .description"), function(description) {
+        return { description: description.innerHTML };
+      }), [{ description: "1 - Columns" }, { description: "2 - Columns" }]);
     });
 
-    test("raises exception when no layout is defined", function() {
-      assert.throws(function(){
-        var toolbox = new Toolbox();
-        toolbox();
-      }, Error, "No layouts defined.");
-    });
-
-    test("can allow layouts by column count", function() {
+    test("can render icon", function() {
       var toolbox = new Toolbox({
-        canChangeLayout: true,
-        layouts: [1, 2, 4]
+        blocks: [{ title: "Textblock", contentType: "textblock", formUrl: "URL" }]
       });
-      var target = $("<div></div>");
 
-      toolbox.attachTo(target);
-
-      var addedNodes = $.map(target.find(".sl-toolbox-layout"), function(e) {
-        return $(e).data("columns");
-      });
-      assert.deepEqual(addedNodes, [1, 2, 4]);
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks i"), function(icon) {
+        return { className: icon.className };
+      }), [{ className: "icon-textblock" }]);
     });
 
-    test("toolbox components are sorted asc", function() {
-      /*
-      PhantomJS ignores the caseFirst option for localeComparison
-      So skip the test if running in phantonJS environment.
-       */
-      if(!window.mochaPhantomJS) {
-        var toolbox = new Toolbox({
-          layouts: [0],
-          components: {
-            addableBlocks: {
-              cue: {title: "Ü"},
-              r: {title: "r"},
-              ue: {title: "ü"},
-              d: {title: "d"},
-              coe: {title: "Ö"},
-              o: {title: "o"},
-              oe: {title: "ö"},
-              u: {title: "u"},
-              cae: {title: "Ä"},
-              a: {title: "a"}
-            }
-          }
-        });
-        var target = $("<div></div>");
-        toolbox.attachTo(target);
-        var components = $.map(target.find(".sl-toolbox-components a"), function(e) {
-          return e.text.trim();
-        });
-        assert.deepEqual(components, ["a", "Ä", "d", "o", "ö", "Ö", "r", "u", "ü", "Ü"]);
-      }
-    });
-
-    test("can render layout label", function() {
+    test("creates Object references from blocks", function() {
       var toolbox = new Toolbox({
         layouts: [1, 2, 4],
         canChangeLayout: true,
-        components: {
-
-          addableBlocks: {
-            listingblock: {
-              title: "Listingblock",
-              contentType: "listingblock",
-              formUrl: "http://www.google.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
+        blocks: [
+          { title: "Textblock", contentType: "textblock", formUrl: "URL" },
+          { title: "Listingblock", contentType: "listingblock", formUrl: "URL" }
+        ],
+        layoutActions: {
+          actions: {
+            move: {
+              class: "iconmove move",
+              title: "Move this layout arround."
             },
-            textblock: {
-              title: "Textblock",
-              contentType: "textblock",
-              formUrl: "http://www.bing.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
+            delete: {
+              class: "icondelete delete",
+              title: "Delete this layout."
             }
-          },
-          layoutActions: {
-            actions: {
-              move: {
-                class: "iconmove move",
-                title: "Move this layout arround."
-              },
-              delete: {
-                class: "icondelete delete",
-                title: "Delete this layout."
-              }
-            }
-          },
-          labels: {
-            labelColumnPostfix: "Column(s)"
           }
+        },
+        labels: {
+          labelColumnPostfix: "Column(s)"
         }
       });
-      var target = $("<div></div>");
 
-      toolbox.attachTo(target);
-
-      var labels = $.map(target.find(".sl-toolbox-layout .description"), function(e) {
-        return $(e).text();
+      assert.deepEqual(toolbox.options.blocks, {
+        textblock: { title: "Textblock", contentType: "textblock", formUrl: "URL" },
+        listingblock: { title: "Listingblock", contentType: "listingblock", formUrl: "URL" }
       });
-      assert.deepEqual(labels, ["1 Column(s)", "2 Column(s)", "4 Column(s)"]);
     });
 
     test("does not reder layout when canChangeLayout is disabled", function() {
       var toolbox = new Toolbox({
         layouts: [1, 2, 4],
-        canChangeLayout: false,
-        components: {
-
-          addableBlocks: {
-            listingblock: {
-              title: "Listingblock",
-              contentType: "listingblock",
-              formUrl: "http://www.google.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            },
-            textblock: {
-              title: "Textblock",
-              contentType: "textblock",
-              formUrl: "http://www.bing.com",
-              actions: {
-                edit: {
-                  name: "edit",
-                  description: "Edit this block"
-                }
-              }
-            }
-          },
-          layoutActions: {
-            actions: {
-              move: {
-                class: "iconmove move",
-                title: "Move this layout arround."
-              },
-              delete: {
-                class: "icondelete delete",
-                title: "Delete this layout."
-              }
-            }
-          },
-          labels: {
-            labelColumnPostfix: "Column(s)"
-          }
-        }
+        canChangeLayout: false
       });
       var target = $("<div></div>");
 

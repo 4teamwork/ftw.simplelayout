@@ -10,19 +10,12 @@ suite("idHelper", function() {
     });
   });
 
-  test("generates a new id from a hash with sorted numeric keys", function() {
-    var nextId = idHelper.generateFromHash({1: "a", 2: "b", 5: "c", 123: "d"});
-    assert.equal(nextId, 124);
-  });
+  function isUUID(search) {
+    return /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/.test(search);
+  }
 
-  test("generates a new id from a hash with unsorted numeric keys", function() {
-    var nextId = idHelper.generateFromHash({127: "a", 724: "b", 34: "c", 1158: "d", 95: "e"});
-    assert.equal(nextId, 1159);
-  });
-
-  test("generates a new id from a empty hash", function() {
-    var nextId = idHelper.generateFromHash({});
-    assert.equal(nextId, 0);
+  test("generates a UUID", function() {
+    assert.isTrue(isUUID(idHelper.createGUID()));
   });
 
 });

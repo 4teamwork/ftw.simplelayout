@@ -17,7 +17,7 @@ class SimplelayoutToolbox(BrowserView):
 
     def __call__(self):
         toolbox = {
-            'addableBlocks': dict(self.addable_blocks()),
+            'blocks': list(self.addable_blocks()),
             'layoutActions': self.layouts_actions(),
             'labels': self.client_labels()}
 
@@ -47,20 +47,17 @@ class SimplelayoutToolbox(BrowserView):
                     actions = specific_actions
                 else:
                     actions = default_actions
-                yield (
-                    normalized_portal_type,
-                    {
-                        'title': translate(msgid=fti.Title(),
-                                           domain=fti.i18n_domain,
-                                           context=self.request),
-                        'description': translate(msgid=fti.Description(),
-                                                 domain=fti.i18n_domain,
-                                                 context=self.request),
-                        'contentType': normalized_portal_type,
-                        'formUrl': add_url,
-                        'actions': actions.actions,
-                    }
-                )
+                yield {
+                    'title': translate(msgid=fti.Title(),
+                                       domain=fti.i18n_domain,
+                                       context=self.request),
+                    'description': translate(msgid=fti.Description(),
+                                             domain=fti.i18n_domain,
+                                             context=self.request),
+                    'contentType': normalized_portal_type,
+                    'formUrl': add_url,
+                    'actions': actions.actions,
+                }
 
     def _addable_types(self):
         allowed_types = _allowedTypes(self.request, self.context)
@@ -74,19 +71,17 @@ class SimplelayoutToolbox(BrowserView):
 
     def layouts_actions(self):
         return {
-            'actions': {
-                'move': {
-                    'title': translate(_(u'label_move_layout',
-                                         default=u'Move layout'),
-                                       context=self.request),
-                    'class': 'icon-move move'
-                },
-                'delete': {
-                    'title': translate(_(u'label_delete_layout',
-                                         default=u'Delete layout'),
-                                       context=self.request),
-                    'class': 'icon-delete delete'
-                }
+            'move': {
+                'title': translate(_(u'label_move_layout',
+                                     default=u'Move layout'),
+                                   context=self.request),
+                'class': 'icon-move move'
+            },
+            'delete': {
+                'title': translate(_(u'label_delete_layout',
+                                     default=u'Delete layout'),
+                                   context=self.request),
+                'class': 'icon-delete delete'
             }
         }
 

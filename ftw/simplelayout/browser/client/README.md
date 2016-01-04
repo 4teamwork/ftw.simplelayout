@@ -67,19 +67,16 @@ grunt prod
 ```
 ## Getting started
 
-### Toolbox
+## Toolbox
 
 Provide a toolbox instance for the simplelayout.
 
 ```javascript
 var toolbox = new Toolbox({
   layouts: [1, 2, 4],
-  components: {
-    textblock: {
-      title: "Textblock",
-      description: "Can show some text",
-      contentType: "textblock",
-      formUrl: "http://www.google.com",
+  canChangeLayout: true, // Decides if toolbox get rendered
+  blocks: [
+    { title: "Textblock", contentType: "textblock", formUrl: "URL",
       actions: {
         edit: {
           class="edit",
@@ -91,12 +88,28 @@ var toolbox = new Toolbox({
           description: "Move this block"
         }
       }
+    },
+    { title: "Listingblock", contentType: "listingblock", formUrl: "URL" }
+  ],
+  layoutActions: {
+    actions: {
+      move: {
+        class: "iconmove move",
+        title: "Move this layout arround."
+      },
+      delete: {
+        class: "icondelete delete",
+        title: "Delete this layout."
+      }
     }
+  },
+  labels: {
+    labelColumnPostfix: "Column(s)" // Used for label in toolbox
   }
 });
 ```
 
-####Componets
+###Blocks
 
 | Key | is required | Description |
 |---|---|---|
@@ -105,7 +118,7 @@ var toolbox = new Toolbox({
 |   contentType | required | Represents the type for each block |
 | actions | required | Title in the toolbox |
 
-####Actions
+###Actions
 
 | Key | is required | Description |
 |---|---|---|
@@ -114,7 +127,7 @@ var toolbox = new Toolbox({
 | description | optional | Used for title attribute |
 | custom | optional | Will be provided as data attribute |
 
-### Simplelayout
+## Simplelayout
 
 Use toolbox instance for initializing a simplelayout.
 
@@ -122,7 +135,7 @@ Use toolbox instance for initializing a simplelayout.
 var simplelayout = new Simplelayout({toolbox: toolbox});
 ```
 
-#### Deserialize
+### Deserialize
 
 Use existing markup for deserializing the simplelayout state.
 
@@ -161,27 +174,52 @@ Make sure that each datatype in the structure is covered in the toolbox.
 Attach events using the singleton instance of eventEmitter.
 
 ```javascript
-var eventEmitter = require("app/simplelayout/EventEmitter");
-eventEmitter.on(eventType, callback);
+var simplelayout = new Simplelayout({toolbox: toolbox});
+simplelayout.on(eventType, callback);
 ```
 
-#### Eventtypes
+### Eventtypes
 
 blockInserted(block)
 
 blockCommitted(block)
 
+blockRollbacked(block)
+
+beforeBlockMoved(block)
+
 blockMoved(block)
 
-blockDeleted()
+blockDeleted(block)
 
 layoutInserted(layout)
 
 layoutCommitted(layout)
 
-layoutMoved(newId)
+layoutRollbacked(layout)
 
-layoutDeleted()
+layoutMoved(layout)
+
+layoutDeleted(layout)
+
+### DOM properties
+
+Each block and layout is represented in the DOM through an ID.
+
+Each DOM element provides the following properties:
+
+- object --> object representation in simplelayout
+- parent --> parent object representation in simplelayout
+- id --> generated UUID for this element
+- represents --> representer from origin (empty if object only exists local)
+
+These properties can get extracted as a jQueryElement:
+
+```javascript
+var block = $(".sl-block").first();
+var blockObj = block.data().object;
+```
+
 
 ## Testing
 

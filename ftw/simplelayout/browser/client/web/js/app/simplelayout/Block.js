@@ -1,66 +1,68 @@
-define(["app/simplelayout/EventEmitter"], function(eventEmitter) {
+define([
+      "app/simplelayout/EventEmitter",
+      "app/simplelayout/transactional",
+      "app/simplelayout/Element"
+    ], function(EventEmitter, transactional, Element) {
 
   "use strict";
 
-  function Block(content, type) {
+  var Block = function(content, type) {
 
     if (!(this instanceof Block)) {
       throw new TypeError("Block constructor cannot be called as a function.");
     }
 
-    var frameFixTemplate = $.templates('<div class="iFrameFix"></div>');
+    this.name = "block";
 
-    var template = $.templates(
-      '<div data-type="{{:type}}" class="sl-block {{:type}}"><div class="sl-block-content">{{:content}}</div></div>'
-    );
+    this.type = type;
 
-    return {
+    var frame = $($.templates('<div class="iFrameFix"></div>').render());
 
-      committed: false,
+    var template = '<div data-type="{{:type}}" class="sl-block {{:type}}"><div class="sl-block-content">{{:content}}</div></div>';
 
-      uid: null,
+    Element.call(this, template);
 
-      toolbar: null,
+    this.create({ type: type, content: content });
 
-      type: type,
-
-      element: null,
-
-      create: function() {
-        var data = { "content": content, "type": type };
-        this.element = $(template.render(data));
-        this.fixFrame();
-        return this.element;
-      },
-
-      fixFrame: function() {
-        this.frame = $(frameFixTemplate.render());
-        this.element.prepend(this.frame);
-      },
-
-      enableFrame: function() { this.frame.show(); },
-
-      disableFrame: function() { this.frame.hide(); },
-
-      content: function(toReplace) {
-        $(".sl-block-content", this.element).html(toReplace);
-        eventEmitter.trigger("blockReplaced", [this]);
-      },
-
-      commit: function() {
-        this.committed = true;
-        eventEmitter.trigger("blockCommitted", [this]);
-      },
-
-      attachToolbar: function(toolbar) {
-        this.toolbar = toolbar;
-        this.element.append(toolbar.element);
-      },
-
-      toJSON: function() { return { uid: this.uid, type: this.type }; }
+    this.content = function(toReplace) {
+      $(".sl-block-content", this.element).html(toReplace);
+      EventEmitter.trigger("blockReplaced", [this]);
+      return this;
     };
 
-  }
+    this.delete = function() { return this.parent.deleteBlock(this.id); };
+
+    this.fixFrame = function() {
+      this.element.prepend(frame);
+      return this;
+    };
+
+    this.fixFrame();
+
+    this.enableFrame = function() {
+      frame.show();
+      return this;
+    };
+
+    this.disableFrame = function() {
+      frame.hide();
+      return this;
+    };
+
+    this.restore = function(restoreElement, restoreParent, restoreType, represents) {
+      this.type = restoreType;
+      Block.prototype.restore.call(this, restoreElement, restoreParent, represents);
+      this.fixFrame();
+      this.commit();
+    };
+
+    this.toJSON = function() { return { represents: this.represents, type: this.type }; };
+
+  };
+
+  transactional.call(Block.prototype);
+  Element.call(Block.prototype);
+
   return Block;
 
 });

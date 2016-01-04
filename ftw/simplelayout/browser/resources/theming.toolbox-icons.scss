@@ -6,8 +6,8 @@
     @extend .fa-th;
   }
 
-  .sl-toolbox .components a.sl-toolbox-component [class^="icon-"],
-  .sl-toolbox .components a.sl-toolbox-component [class*=" icon-"] {
+  .sl-toolbox a.sl-toolbox-block [class^="icon-"],
+  .sl-toolbox a.sl-toolbox-block [class*=" icon-"] {
     background: none;
     font-style: normal;
     display: inline;
@@ -26,12 +26,12 @@
     }
   }
 
-  .sl-toolbox .components .sl-toolbox-header {
+  .sl-toolbox .sl-toolbox-header {
     i {
       font-style: normal;
       @extend .fa-icon;
     }
-    &.components i {
+    &.blocks i {
       @extend .fa-cube;
     }
     &.layouts i {
@@ -40,7 +40,7 @@
   }
 
   @each $type, $value in get-portal-type-icons-for-iconset(font-awesome) {
-    body .sl-toolbox .components a.sl-toolbox-component .icon-#{$type} {
+    body .sl-toolbox a.sl-toolbox-block .icon-#{$type} {
       @extend body.icons-on .contenttype-#{$type};
       &:before {
         color: inherit;

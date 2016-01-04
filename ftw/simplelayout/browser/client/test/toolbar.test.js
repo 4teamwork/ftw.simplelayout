@@ -3,7 +3,7 @@ suite("Toolbar", function() {
 
   var Toolbar;
 
-  setup(function(done) {
+  suiteSetup(function(done) {
     require(["app/simplelayout/Toolbar"], function(_Toolbar) {
       Toolbar = _Toolbar;
       done();

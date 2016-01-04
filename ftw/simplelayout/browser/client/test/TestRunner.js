@@ -37,13 +37,15 @@
     mocha.setup("tdd");
     require([
       "block.test",
-      "column.test",
       "layout.test",
       "layoutmanager.test",
       "simplelayout.test",
       "toolbar.test",
       "toolbox.test",
-      "idHelper.test"
+      "idHelper.test",
+      "element.test",
+      "transactional.test",
+      "integration.test"
     ], function() {
       if(window.mochaPhantomJS){
         mochaPhantomJS.run();

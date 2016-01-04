@@ -20,9 +20,8 @@ class TestAddableBlocksDefaultContent(TestCase):
 
         view = page.restrictedTraverse('@@sl-toolbox-view')
 
-        allowed_block_types = [item[0]
-                               for item in view.addable_blocks()]
-        result = list(allowed_block_types)
+        result = [item.get('contentType')
+                  for item in list(view.addable_blocks())]
         result.sort()
 
         self.assertEquals(
@@ -36,32 +35,11 @@ class TestAddableBlocksDefaultContent(TestCase):
     def test_addable_blocks_json(self):
         page = create(Builder('sl content page'))
         view = page.restrictedTraverse('@@sl-toolbox-view')
-        addable_types_json = json.loads(view())['addableBlocks']
+
+        addable_types_json = json.loads(view())['blocks']
 
         self.maxDiff = None
 
-        self.assertDictEqual(
-            {u'title': u'FileListingBlock',
-             u'description': u'The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing.',
-             u'contentType': u'ftw-simplelayout-filelistingblock',
-             u'actions': {u'delete': {u'class': u'delete icon-delete',
-                                      u'href': u'./sl-ajax-delete-blocks-view',
-                                      u'title': u'Delete block'},
-                          u'edit': {u'class': u'edit icon-edit',
-                                    u'href': u'./sl-ajax-edit-block-view',
-                                    u'title': u'Edit block'},
-                          u'upload': {u'class': u'upload icon-image-upload',
-                                      u'href': u'./sl-ajax-upload-block-view',
-                                      u'title': u'Upload'},
-                          u'folderContents': {u'class': u'icon-folder-contents redirect',
-                                              u'href': u'/folder_contents',
-                                              u'title': u'Go to folder contents for managing files'},
-                          u'move': {u'class': u'move icon-move',
-                                    u'title': u'Move block'}},
-             u'formUrl': u'{0}/++add_block++ftw.simplelayout.FileListingBlock'.format(
-                 page.absolute_url())
-             },
-            addable_types_json[u'ftw-simplelayout-filelistingblock'])
 
         self.assertDictEqual(
             {u'title': u'TextBlock',
@@ -103,4 +81,27 @@ class TestAddableBlocksDefaultContent(TestCase):
              u'formUrl': u'{0}/++add_block++ftw.simplelayout.TextBlock'.format(
                  page.absolute_url())
              },
-            addable_types_json[u'ftw-simplelayout-textblock'])
+            addable_types_json[0])
+
+        self.assertDictEqual(
+            {u'title': u'FileListingBlock',
+             u'description': u'The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing.',
+             u'contentType': u'ftw-simplelayout-filelistingblock',
+             u'actions': {u'delete': {u'class': u'delete icon-delete',
+                                      u'href': u'./sl-ajax-delete-blocks-view',
+                                      u'title': u'Delete block'},
+                          u'edit': {u'class': u'edit icon-edit',
+                                    u'href': u'./sl-ajax-edit-block-view',
+                                    u'title': u'Edit block'},
+                          u'upload': {u'class': u'upload icon-image-upload',
+                                      u'href': u'./sl-ajax-upload-block-view',
+                                      u'title': u'Upload'},
+                          u'folderContents': {u'class': u'icon-folder-contents redirect',
+                                              u'href': u'/folder_contents',
+                                              u'title': u'Go to folder contents for managing files'},
+                          u'move': {u'class': u'move icon-move',
+                                    u'title': u'Move block'}},
+             u'formUrl': u'{0}/++add_block++ftw.simplelayout.FileListingBlock'.format(
+                 page.absolute_url())
+             },
+            addable_types_json[1])

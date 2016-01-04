@@ -204,7 +204,7 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
 
-        self.assertTrue(data_attr_value['canChangeLayouts'],
+        self.assertTrue(data_attr_value['canChangeLayout'],
                         'Should have the Change layouts permission.')
 
         self.container.manage_permission('ftw.simplelayout: Change Layouts',
@@ -216,7 +216,7 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         data_attr_value = json.loads(browser.css(
             '[data-sl-settings]').first.attrib['data-sl-settings'])
 
-        self.assertFalse(data_attr_value['canChangeLayouts'],
+        self.assertFalse(data_attr_value['canChangeLayout'],
                          'Should NOT have the Change layouts permission.')
 
     @browsing

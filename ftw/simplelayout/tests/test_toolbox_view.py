@@ -22,7 +22,8 @@ class TestToolBoxView(SimplelayoutTestCase):
         response = browser.json
 
         self.assertEquals(
-            {u'sampleblock': {u'formUrl': u'http://nohost/plone/samplecontainer/++add_block++SampleBlock',
+            [
+                {u'formUrl': u'http://nohost/plone/samplecontainer/++add_block++SampleBlock',
                               u'contentType': u'sampleblock',
                               u'description': u'',
                               u'actions': {u'edit': {u'href': u'./sl-ajax-edit-block-view',
@@ -33,8 +34,9 @@ class TestToolBoxView(SimplelayoutTestCase):
                                            u'delete': {u'href': u'./sl-ajax-delete-blocks-view',
                                                        u'class': u'delete icon-delete',
                                                        u'title': u'Delete block'}},
-                              u'title': u'SampleBlock'}},
-            response['addableBlocks'])
+                              u'title': u'SampleBlock'}
+            ],
+            response['blocks'])
 
     @browsing
     def test_layout_actions(self, browser):
@@ -42,8 +44,8 @@ class TestToolBoxView(SimplelayoutTestCase):
         response = browser.json
 
         self.assertEquals(
-            {u'actions': {u'move': {u'class': u'icon-move move',
+            {u'move': {u'class': u'icon-move move',
                                     u'title': u'Move layout'},
                           u'delete': {u'class': u'icon-delete delete',
-                                      u'title': u'Delete layout'}}},
+                                      u'title': u'Delete layout'}},
             response['layoutActions'])

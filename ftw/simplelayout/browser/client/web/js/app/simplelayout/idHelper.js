@@ -3,11 +3,13 @@ define([], function() {
   "use strict";
 
   return {
-    generateFromHash: function(hash) {
-      if($.isEmptyObject(hash)) {
-        return 0;
-      }
-      return Math.max.apply(null, Object.keys(hash)) + 1;
+
+    createGUID: function() {
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+          var r = Math.random() * 16 | 0;
+          var v = c === "x" ? r : (r & 0x3 | 0x8);
+          return v.toString(16);
+      });
     }
   };
 
