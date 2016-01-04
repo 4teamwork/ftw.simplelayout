@@ -10,7 +10,8 @@
     "chai": "2.1.0",
     "mocha": "2.2.5",
     "fixtures": "1.5.3",
-    "almond": "0.3.1"
+    "almond": "0.3.1",
+    "jquery-path": "git://github.com/weepy/jquery.path#master"
   },
   "homepage": "https://github.com/4teamwork/simplelayout-mockup",
   "authors": [

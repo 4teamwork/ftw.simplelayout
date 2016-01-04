@@ -155,6 +155,10 @@
 
       simplelayout.on("blockReplaced", function() { $(document).trigger("blockContentReplaced", arguments); });
 
+      $(toolbox.element).on("click", ".sl-toolbox-block, .sl-toolbox-layout", function() {
+        toolbox.triggerHint($(this), $("#default"));
+      });
+
     });
 
     $(global.document).on("click", ".sl-layout .delete", function() {

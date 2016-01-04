@@ -1,4 +1,4 @@
-define(["app/simplelayout/Element", "jsrender"], function(Element) {
+define(["app/simplelayout/Element", "jsrender", "jquery-path"], function(Element) {
 
   "use strict";
 
@@ -70,6 +70,31 @@ define(["app/simplelayout/Element", "jsrender"], function(Element) {
     $.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
         this._trigger("beforeStart", event, this._uiHash());
         oldMouseStart.apply(this, [event, overrideHandle, noActivation]);
+    };
+
+    this.triggerHint = function(addable, target, animationOptions) {
+      animationOptions = $.extend({
+        time: 500,
+        easing: "easeInOutQuad"
+      }, animationOptions);
+      var path = {
+        start: {
+          x: addable.offset().left - addable.offset().left,
+          y: addable.offset().top,
+          angle: 70
+        },
+        end: {
+          x: -target.offset().left - (target.width() / 2) + (addable.width() / 2),
+          y: target.offset().top,
+          angle: 290
+        }
+      };
+      /*eslint new-cap: 0 */
+      var bezier = new $.path.bezier(path);
+      var clone = addable.clone().insertAfter(addable);
+      clone.css("position", "absolute").css("z-index", "1");
+      clone.animate({ path: bezier }, animationOptions.time, animationOptions.easing, function() { clone.css("z-index", "auto").addClass("hintDropped"); });
+      setTimeout(function() { clone.remove(); }, animationOptions.time + 300);
     };
 
   };

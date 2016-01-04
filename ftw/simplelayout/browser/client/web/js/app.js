@@ -5,7 +5,8 @@ require.config({
     "EventEmitter": "eventEmitter/EventEmitter.min",
     "jquery": "jquery/dist/jquery",
     "jqueryui": "jquery-ui/ui/minified/jquery-ui.custom.min",
-    "jsrender": "jsrender/jsrender.min"
+    "jsrender": "jsrender/jsrender.min",
+    "jquery-path": "jquery-path/jquery.path"
   },
   "shim": {
     "jsrender": {
@@ -14,6 +15,9 @@ require.config({
     },
     "jqueryui": {
       "deps": ["jquery"]
+    },
+    "jquery-path": {
+      "exports": "jQuery.path"
     }
   }
 });

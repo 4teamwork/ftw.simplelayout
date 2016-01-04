@@ -11,6 +11,7 @@
       "mocha": "../web/js/lib/mocha/mocha",
       "chai": "../web/js/lib/chai/chai",
       "fixtures": "/web/js/lib/fixtures/fixtures",
+      "jquery-path": "/web/js/lib/jquery-path/jquery.path",
       "EventEmitter": "/web/js/lib/eventEmitter/EventEmitter",
       "app": "../web/js/app"
     },

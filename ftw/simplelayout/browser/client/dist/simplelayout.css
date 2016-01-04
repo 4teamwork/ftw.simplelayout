@@ -178,6 +178,20 @@ body.simplelayout-initialized {
   bottom: 0;
   right: -2px;
 }
+.sl-toolbox > div a:after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #333840;
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  right: 50%;
+  margin-right: -5px;
+  margin-top: -5px;
+}
 .sl-toolbox > div a:hover {
   cursor: pointer;
   color: #fff;
@@ -190,6 +204,11 @@ body.simplelayout-initialized {
   visibility: visible;
   margin-right: 25px;
   opacity: 1;
+}
+.sl-toolbox > div a.hintDropped:after {
+  transition: transform 300ms, opacity 300ms;
+  transform: scale(20);
+  opacity: 0;
 }
 .sl-toolbox > div a i {
   display: inline-block;
