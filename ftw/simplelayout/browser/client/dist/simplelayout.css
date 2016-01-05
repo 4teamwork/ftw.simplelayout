@@ -22,6 +22,7 @@
 .sl-simplelayout .draggableHelper {
   margin: -1px;
   height: 100px !important;
+  width: 100px !important;
   background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 10px 10px 10px 0 rgba(0, 0, 0, 0.3), inset 0 0 5px 0 rgba(255, 255, 255, 0.3);
 }
@@ -89,6 +90,7 @@
   opacity: 1;
   transition: opacity .2s, background .2s;
   position: relative;
+  float: left;
 }
 .sl-block.ui-sortable-helper {
   opacity: .8;
@@ -266,7 +268,7 @@ ul[class^="sl-toolbar"] li {
   display: inline-block;
 }
 ul[class^="sl-toolbar"] li a {
-  display: inline-block;
+  display: block;
   width: 40px;
   height: 40px;
   background-size: 20px;

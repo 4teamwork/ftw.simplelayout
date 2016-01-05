@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-10-01 13:54+0000\n"
+"POT-Creation-Date: 2016-01-04 14:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,6 +26,10 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/configure.zcml:23
+msgid "Extends a content by two fields internal and external link"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr ""
@@ -43,12 +47,36 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
+#: ./ftw/simplelayout/configure.zcml:63
+msgid "Javascript resources from client are not compressed"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/edit_block.py:37
 msgid "Save"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:31
+msgid "Simlelayout default content types"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:44
+msgid "Simlelayout js library"
+msgstr ""
+
+#: ./ftw/simplelayout/mapblock/configure.zcml:21
+msgid "Simlelayout map block type"
+msgstr ""
+
+#: ./ftw/simplelayout/behaviors.zcml:18
+msgid "Simplelayout block behavior"
+msgstr ""
+
+#: ./ftw/simplelayout/behaviors.zcml:18
+msgid "Simplelayout block content marker"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:82
@@ -60,8 +88,20 @@ msgstr ""
 msgid "Simplelayout default settings"
 msgstr ""
 
+#: ./ftw/simplelayout/behaviors.zcml:12
+msgid "Simplelayout page"
+msgstr ""
+
+#: ./ftw/simplelayout/behaviors.zcml:12
+msgid "Simplelayout page marker behavior"
+msgstr ""
+
 #: ./ftw/simplelayout/browser/controlpanel/simplelayout_controlpanel.py:16
 msgid "Simplelayout settings"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:23
+msgid "Simplelayout teaser behavior"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/behaviors.py:17
@@ -160,13 +200,29 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
+#: ./ftw/simplelayout/configure.zcml:63
+msgid "ftw.simplelayout development"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:44
+msgid "ftw.simplelayout js library"
+msgstr ""
+
+#: ./ftw/simplelayout/mapblock/configure.zcml:21
+msgid "ftw.simplelayout mapblock default"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:31
+msgid "ftw.simplelayout.contenttypes default"
+msgstr ""
+
 #. Default: "${title}, opens in a overlay."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
 msgid "galleryblock_link_title"
 msgstr ""
 
 #. Default: "Please drag, no click required"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:100
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:95
 msgid "help_drag_hint"
 msgstr ""
 
@@ -190,8 +246,8 @@ msgstr ""
 msgid "label_cancel"
 msgstr ""
 
-#. Default: "Column(s)"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:95
+#. Default: " Column(s)"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:90
 msgid "label_column_postfix"
 msgstr ""
 
@@ -201,7 +257,7 @@ msgid "label_columns"
 msgstr ""
 
 #. Default: "Delete layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:85
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:81
 msgid "label_delete_layout"
 msgstr ""
 
@@ -253,9 +309,6 @@ msgstr ""
 msgid "label_folder_contents_images"
 msgstr ""
 
-msgid "label_getContentType"
-msgstr ""
-
 msgid "label_id"
 msgstr ""
 
@@ -288,13 +341,16 @@ msgid "label_move_block"
 msgstr ""
 
 #. Default: "Move layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:79
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:75
 msgid "label_move_layout"
 msgstr ""
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
 msgid "label_open_image_in_overlay"
+msgstr ""
+
+msgid "label_portal_type"
 msgstr ""
 
 #. Default: "Position in Folder"
@@ -354,5 +410,4 @@ msgstr ""
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
 msgstr ""
-
 

@@ -74,7 +74,7 @@
       toolbox = new global.Toolbox(settings);
       toolbox.attachTo(target);
 
-      simplelayout = new global.Simplelayout({toolbox: toolbox, editLayouts: settings.canChangeLayout });
+      simplelayout = new global.Simplelayout({ toolbox: toolbox, editLayouts: settings.canChangeLayout });
 
       simplelayout.on("blockInserted", function(block) {
         var layout = block.parent;
@@ -100,6 +100,10 @@
       });
 
       simplelayout.restore(target);
+
+      var sidebarContainer = $("#portletright").data().id;
+
+      simplelayout.options.layoutRestrictions = { 2: [sidebarContainer], 3: [sidebarContainer], 4: [sidebarContainer] };
 
       simplelayout.on("block-committed", function(block) {
         block.element.css("opacity", "0");
