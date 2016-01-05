@@ -61,6 +61,7 @@ define([
         if(ui.item.hasClass("sl-layout")) {
           self.allowLayout(ui.item.data().object.columns);
         }
+        root.removeClass("sl-layout-dragging");
       }
     };
 
