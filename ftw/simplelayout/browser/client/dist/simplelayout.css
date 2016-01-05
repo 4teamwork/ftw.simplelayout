@@ -90,6 +90,7 @@
   opacity: 1;
   transition: opacity .2s, background .2s;
   position: relative;
+  float: left;
 }
 .sl-block.ui-sortable-helper {
   opacity: .8;
