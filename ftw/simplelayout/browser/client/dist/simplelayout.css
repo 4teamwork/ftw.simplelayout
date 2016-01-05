@@ -267,7 +267,7 @@ ul[class^="sl-toolbar"] li {
   display: inline-block;
 }
 ul[class^="sl-toolbar"] li a {
-  display: inline-block;
+  display: block;
   width: 40px;
   height: 40px;
   background-size: 20px;
