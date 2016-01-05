@@ -51,6 +51,7 @@ define([
       start: function() {
         self.enableFrames();
         root.addClass("sl-layout-dragging");
+        $(".sl-simplelayout").sortable("refreshPositions");
       },
       update: function(event, ui) {
         if(ui.item.parent()[0] === this && !ui.sender) {
