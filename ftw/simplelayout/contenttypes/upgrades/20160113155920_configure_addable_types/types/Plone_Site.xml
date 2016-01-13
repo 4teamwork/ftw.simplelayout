@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<object name="Plone Site"
+   meta_type="Factory-based Type Information with dynamic views"
+   i18n:domain="plone" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+ <property name="view_methods" purge="False">
+  <element value="simplelayout-view"/>
+ </property>
+
+ <property name="allowed_content_types" purge="False">
+  <element value="ftw.simplelayout.ContentPage"/>
+  <element value="ftw.simplelayout.TextBlock" />
+  <element value="ftw.simplelayout.FileListingBlock" />
+  <element value="ftw.simplelayout.VideoBlock" />
+  <element value="ftw.simplelayout.GalleryBlock" />
+ </property>
+
+
+</object>

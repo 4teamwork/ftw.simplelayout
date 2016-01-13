@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-01-04 14:19+0000\n"
+"POT-Creation-Date: 2016-01-13 13:53+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,10 +23,6 @@ msgstr "Inhaltsseite"
 msgid "Delete"
 msgstr "Löschen"
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:23
-msgid "Extends a content by two fields internal and external link"
-msgstr ""
-
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr "Dateiauflistung"
@@ -44,10 +40,6 @@ msgstr "ID"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:63
-msgid "Javascript resources from client are not compressed"
-msgstr ""
-
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr "Karte"
@@ -56,25 +48,8 @@ msgstr "Karte"
 msgid "Save"
 msgstr "Speichern"
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:31
-msgid "Simlelayout default content types"
-msgstr ""
-
-#: ./ftw/simplelayout/configure.zcml:44
-msgid "Simlelayout js library"
-msgstr ""
-
-#: ./ftw/simplelayout/mapblock/configure.zcml:21
-msgid "Simlelayout map block type"
-msgstr ""
-
-#: ./ftw/simplelayout/behaviors.zcml:18
-msgid "Simplelayout block behavior"
-msgstr ""
-
-#: ./ftw/simplelayout/behaviors.zcml:18
-msgid "Simplelayout block content marker"
-msgstr ""
+msgid "Simplelayout View"
+msgstr "Simplelayout Ansicht"
 
 #: ./ftw/simplelayout/interfaces.py:82
 msgid "Simplelayout default configuration"
@@ -85,21 +60,9 @@ msgstr "Simplelayout Standard-Konfiguration"
 msgid "Simplelayout default settings"
 msgstr "Simplelayout Standard-Einstellungen"
 
-#: ./ftw/simplelayout/behaviors.zcml:12
-msgid "Simplelayout page"
-msgstr ""
-
-#: ./ftw/simplelayout/behaviors.zcml:12
-msgid "Simplelayout page marker behavior"
-msgstr ""
-
 #: ./ftw/simplelayout/browser/controlpanel/simplelayout_controlpanel.py:16
 msgid "Simplelayout settings"
 msgstr "Simplelayout Einstellungen"
-
-#: ./ftw/simplelayout/contenttypes/configure.zcml:23
-msgid "Simplelayout teaser behavior"
-msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/behaviors.py:17
 msgid "Teaser"
@@ -196,22 +159,6 @@ msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: ht
 #: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "description_teaser_fieldset"
 msgstr "Mit der Teaser-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Teaserfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
-
-#: ./ftw/simplelayout/configure.zcml:63
-msgid "ftw.simplelayout development"
-msgstr ""
-
-#: ./ftw/simplelayout/configure.zcml:44
-msgid "ftw.simplelayout js library"
-msgstr ""
-
-#: ./ftw/simplelayout/mapblock/configure.zcml:21
-msgid "ftw.simplelayout mapblock default"
-msgstr ""
-
-#: ./ftw/simplelayout/contenttypes/configure.zcml:31
-msgid "ftw.simplelayout.contenttypes default"
-msgstr ""
 
 #. Default: "${title}, opens in a overlay."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
@@ -408,4 +355,5 @@ msgstr "Status"
 #, fuzzy
 msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
+
 
