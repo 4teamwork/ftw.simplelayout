@@ -5,7 +5,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add Simlelayout view as possible front page layout + addable types on the plone site.
+  This change provides no upgrade step, since it may break the configuration.
+  [mathias.leimgruber]
 
 
 1.0a1 (2015-12-04)

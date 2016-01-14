@@ -5,6 +5,7 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
     <include package="plone.behavior" file="meta.zcml" />
@@ -34,5 +35,14 @@
         profile="ftw.simplelayout.contenttypes:default"
         directory="./upgrades"
         />
+
+
+  <include package="plone.app.contentmenu" />
+
+  <browser:menuItem
+      for="ftw.simplelayout.interfaces.ISimplelayout"
+      menu="plone_displayviews"
+      title="Simplelayout View"
+      action="@@simplelayout-view" />
 
 </configure>
