@@ -50,7 +50,8 @@ class FileListingBlockView(BaseBlock):
         return generator.generate(
             self.get_table_contents(),
             list(self._filtered_columns()),
-            sortable=True,
+            sortable=False,
+            css_mapping={'table': 'listing nosort'},
             template=template,
             options={'table_summary': self.context.Title()},
             selected=(self._build_query['sort_on'],

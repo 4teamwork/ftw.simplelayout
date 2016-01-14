@@ -5,6 +5,10 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Use default table listing for the listingblock styles.
+  Also implement some sane default withs for columns.
+  [mathias.leimgruber]
+
 - Add Simlelayout view as possible front page layout + addable types on the plone site.
   This change provides no upgrade step, since it may break the configuration.
   [mathias.leimgruber]
