@@ -46,7 +46,7 @@
   opacity: 0;
 }
 
-
+// Galleryblock
 .galleryblockImageWrapper{
   display: table-cell;
   float: left;
@@ -74,4 +74,42 @@
 }
 .contenttreeWindow {
     z-index: 70001 !important;
+}
+
+// Listingblock
+.sl-block.ftw-simplelayout-filelistingblock {
+  table {
+    tr {
+      th {
+        white-space: nowrap;
+        text-align: left;
+        &.header-getObjSize {
+          text-align: right;
+        }
+      }
+      td {
+
+        &.column-modified {
+          width: 85px;
+        }
+
+        &.column-portal_type {
+          width: 25px;
+          padding-right: 0;
+        }
+
+        &.column-getObjSize {
+          width: 75px;
+        }
+
+        &:last-child:not(.column-sortable_title){
+          text-align: right;
+        }
+
+        img {
+          margin: 0;
+        }
+      }
+    }
+  }
 }

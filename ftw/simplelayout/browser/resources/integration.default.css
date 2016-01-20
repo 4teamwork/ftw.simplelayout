@@ -305,6 +305,7 @@
   .sl-column.sl-col-2 {
     width: 100%;
   }
+}
 
 @media (min-width: 1360px) {
 
@@ -360,4 +361,37 @@
     margin-right: 0 !important;
   }
 
+}
+
+
+/* @group Filelistingblock */
+
+.sl-block.ftw-simplelayout-filelistingblock table tr th {
+  white-space: nowrap;
+  text-align: left;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr th.header-getObjSize {
+  text-align: right;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr td.column-modified {
+  width: 85px;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr td.column-portal_type {
+  width: 25px;
+  padding-right: 0;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr td.column-getObjSize {
+  width: 75px;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr td:last-child:not(.column-sortable_title) {
+  text-align: right;
+}
+
+.sl-block.ftw-simplelayout-filelistingblock table tr td img {
+  margin: 0;
 }
