@@ -27,7 +27,12 @@ def hide_blocks_in_factory_menu(context, request):
 
     cachekey = hashlib.md5(''.join(selectors)).hexdigest()
 
+    if len(selectors):
+        source = TEMPLATE.format(', '.join(selectors))
+    else:
+        source = ''
+
     return DynamicSCSSResource('simplelayout_hide_blocks.scss',
                                slot='addon',
-                               source=TEMPLATE.format(', '.join(selectors)),
+                               source=source,
                                cachekey=cachekey)
