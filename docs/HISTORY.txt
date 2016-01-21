@@ -5,6 +5,10 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Fix simplelayout dynamic scss resource, so it does not return invalid code
+  if the selector is empty.
+  [mathias.leimgruber]
+
 - Use default table listing for the listingblock styles.
   Also implement some sane default withs for columns.
   [mathias.leimgruber]
