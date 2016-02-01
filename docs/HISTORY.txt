@@ -5,6 +5,10 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Implement better image alt text for galleryblock and textblock.
+  Improves Accessibility.
+  [mathias.leimgruber]
+
 - Right column overlapps the toolbar, apply fixed z-index.
   [Kevin Bieri]
 
