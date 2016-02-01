@@ -1,71 +1,83 @@
+// Tried to use contrast function but is not working in tests.
+// Better solution should look like this:
+// $color-icon: contrast($color-edit,
+//                       $color-text-inverted,
+//                       $color-text,
+//                       $lightness:63%);
+// Todo: It would be nice to have this working.
+
+$color-icon: $color-text-inverted;
+
+$color-icon-hover: lighten($color-icon, 20%);
+
 [class^="sl-toolbar-"] {
   > li > a {
     background-repeat: no-repeat;
 
     &.icon-delete {
-      background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/delete.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-edit {
-      background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/edit.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image-left-large {
-      background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image-float-left-large.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image-left {
-      background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image-float-left.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image-right-large {
-      background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image-float-right-large.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image-right {
-      background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image-float-right.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image {
-      background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-no-image {
-      background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/image-no-float.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-move {
-      background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/move.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-folder-contents {
-      background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/folder-contents.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
     &.icon-image-upload {
-      background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $gray]);
+      background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $color-icon]);
       &:hover {
-        background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $gray-lighter]);
+        background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
   }
