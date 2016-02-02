@@ -27,7 +27,7 @@ class LeadImageView(BrowserView):
     def __call__(self):
         self._get_image()
 
-        scale = self.request.get('scale', 'preview')
+        scale = self.request.get('scale', 'mini')
 
         if self.has_image:
             scaler = self.block.restrictedTraverse('@@images')

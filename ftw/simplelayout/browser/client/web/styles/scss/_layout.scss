@@ -1,0 +1,49 @@
+.sl-layout {
+    width: 100%;
+    opacity: 1;
+    position: relative;
+    min-height: 100px;
+    transition: opacity .2s, background .2s, max-height .2s;
+    margin-bottom: 10px;
+    .block-placeholder {
+        background-color: $block-placeholder-background-color;
+        width: 100%;
+        min-height: 100px;
+        float: left;
+    }
+    &.ui-sortable-helper {
+        opacity: .9;
+        background-color: #fff;
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 1);
+        padding: 5px;
+    }
+    &:hover .sl-toolbar-layout {
+        visibility: visible;
+        opacity: 1;
+    }
+    &.animated {
+        opacity: 0;
+        background: $block-placeholder-background-color;
+    }
+    &.inactive {
+        overflow: hidden;
+        box-sizing: border-box;
+        margin: 10px 0;
+        padding: 30px;
+        &:before {
+            content: "";
+            position: absolute;
+            display: block;
+            z-index: 2;
+            left: -10px;
+            right: -10px;
+            top: -10px;
+            bottom: -10px;
+            background: -webkit-gradient(linear, left top, left bottom,
+                                         color-stop(0%, rgba(175, 175, 170, 0.1)),
+                                         color-stop(1%, rgba(176, 176, 171, 0.1)),
+                                         color-stop(85%, rgba(251, 251, 251, 1)),
+                                         color-stop(100%, rgba(255, 255, 255, 1)));
+        }
+    }
+}

@@ -5,10 +5,6 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
-- Move styling from client library to ftw.theming integration using
-  base variables from ftw.theming.
-  [Kevin Bieri]
-
 - Fix simplelayout dynamic scss resource, so it does not return invalid code
   if the selector is empty.
   [mathias.leimgruber]

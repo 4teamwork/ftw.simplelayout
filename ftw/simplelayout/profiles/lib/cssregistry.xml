@@ -2,6 +2,19 @@
 <object name="portal_css" meta_type="Stylesheets Registry" autogroup="False">
 
     <stylesheet
+        id="++resource++ftw.simplelayout.client/dist/simplelayout.min.css"
+        title=""
+        cacheable="True"
+        compression="none"
+        cookable="True"
+        enabled="1"
+        expression=""
+        media="all"
+        rel="stylesheet"
+        rendering="link"
+        />
+
+    <stylesheet
         id="++resource++ftw.simplelayout.resources/icons.css"
         title=""
         cacheable="True"
