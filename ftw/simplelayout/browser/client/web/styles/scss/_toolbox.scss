@@ -1,0 +1,146 @@
+body.simplelayout-initialized {
+  padding-right: 52px;
+}
+
+.sl-toolbox {
+  width: 50px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  display: table;
+  background: $tb-bg-color;
+  border-right: 2px solid $tb-border-color;
+  box-shadow: 0 0 5px 0 $tb-border-color;
+  @include noselect();
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+    .sl-toolbox-blocks {
+      &.disabled {
+        position: relative;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, .5);
+          top: 0;
+          left: 0;
+          z-index: 1;
+        }
+      }
+    }
+
+    .sl-toolbox-layouts {
+      a {
+        font-weight: bold;
+      }
+    }
+
+    a {
+      position: relative;
+      display: block;
+      color: $tb-icon-color;
+      background-color: $tb-bg-color;
+      width: 100%;
+      box-sizing: border-box;
+      direction: rtl;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid $tb-separator-color;
+
+      &.ui-draggable-dragging {
+        box-shadow: 0 0 15px 0 rgba(0, 0, 0, .5);
+      }
+
+      &:before {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 2px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -2px;
+      }
+
+      &:after {
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: $editbar-background-color;
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        right: 50%;
+        margin-right: -5px;
+        margin-top: -5px;
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: $tb-icon-hover-color;
+        text-decoration: none;
+        &:before {
+          background-color: $tb-active-color;
+        }
+        > .description {
+          visibility: visible;
+          margin-right: 25px;
+          opacity: 1;
+        }
+      }
+
+      &.hintDropped {
+        &:after {
+          transition: transform 300ms, opacity 300ms;
+          transform: scale(20);
+          opacity: 0;
+        }
+      }
+
+      i {
+          display: inline-block;
+          vertical-align: middle;
+      }
+
+      .description {
+        direction: ltr;
+        white-space: nowrap;
+        text-align: right;
+        margin-right: 15px;
+        background-color: $tb-bg-color;
+        padding: 4px 7px;
+        color: $tb-icon-hover-color;
+        border-radius: 2px;
+        float: right;
+        margin-top: -2px;
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        font-weight: normal;
+      }
+
+      &.sl-toolbox-header {
+        background-color: $tb-active-color;
+        color: $tb-icon-hover-color;
+        padding: 10px;
+        border: 0;
+        &:before {
+          background-color: $tb-active-color;
+        }
+        &:hover {
+          cursor: default;
+        }
+      }
+    }
+    .ui-sortable-helper {
+      width: 50px !important;
+      height: auto !important;
+    }
+  }
+}

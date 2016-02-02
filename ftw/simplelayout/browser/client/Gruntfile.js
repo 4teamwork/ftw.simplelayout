@@ -9,6 +9,9 @@ module.exports = function(grunt) {
         options: {
           variables: {
             "optimize": "none",
+            "sass-style": "expanded",
+            "sourcemap": "inline",
+            "cssoutput": "dist/simplelayout.css",
             "jsoutput": "dist/simplelayout.js"
           }
         }
@@ -17,6 +20,9 @@ module.exports = function(grunt) {
         options: {
           variables: {
             "optimize": "uglify",
+            "sass-style": "compressed",
+            "sourcemap": "none",
+            "cssoutput": "dist/simplelayout.min.css",
             "jsoutput": "dist/simplelayout.min.js"
           }
         }
@@ -47,10 +53,21 @@ module.exports = function(grunt) {
         }
       }
     },
+    sass: {
+      dist: {
+        options: {
+          style: "<%= grunt.config.get('sass-style') %>",
+          sourcemap: "<%= grunt.config.get('sourcemap') %>"
+        },
+        files: {
+          "<%= grunt.config.get('cssoutput') %>": "web/styles/scss/main.scss"
+        }
+      }
+    },
     watch: {
       scripts: {
-        files: ["web/js/app/**/*.js"],
-        tasks: ["requirejs"],
+        files: ["web/styles/scss/**/*.scss", "web/js/app/**/*.js"],
+        tasks: ["sass", "requirejs"],
         options: {
           spawn: false
         }
@@ -88,6 +105,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-config");
   grunt.loadNpmTasks("grunt-eslint");
   grunt.loadNpmTasks("grunt-contrib-requirejs");
+  grunt.loadNpmTasks("grunt-contrib-sass");
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-shell");
   grunt.loadNpmTasks("grunt-http-server");
@@ -96,9 +114,9 @@ module.exports = function(grunt) {
   grunt.registerTask("default", ["browser-test"]);
   grunt.registerTask("test", ["http-server:test", "mocha_phantomjs"]);
   grunt.registerTask("browser-test", ["shell:test", "http-server:browserTest"]);
-  grunt.registerTask("dev", ["config:dev", "requirejs", "watch"]);
+  grunt.registerTask("dev", ["config:dev", "sass", "requirejs", "watch"]);
   grunt.registerTask("serve", ["shell:serve", "http-server:serve"]);
   grunt.registerTask("lint", ["eslint"]);
-  grunt.registerTask("prod", ["config:prod", "lint", "requirejs"]);
+  grunt.registerTask("prod", ["config:prod", "lint", "requirejs", "sass"]);
 
 };

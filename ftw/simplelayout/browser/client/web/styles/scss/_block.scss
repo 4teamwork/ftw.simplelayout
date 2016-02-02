@@ -1,0 +1,27 @@
+.sl-block {
+  width: 100%;
+  opacity: 1;
+  transition: opacity .2s, background .2s;
+  position: relative;
+  float: left;
+  &.ui-sortable-helper {
+    opacity: .8;
+  }
+  &:hover .sl-toolbar-block {
+    opacity: 1;
+    visibility: visible;
+  }
+  &.animated {
+    opacity: 0;
+    background: $block-placeholder-background-color;
+  }
+  .iFrameFix {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    opacity: 0.001;
+    z-index: 1000;
+    background-color: #fff;
+  }
+}

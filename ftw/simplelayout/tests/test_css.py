@@ -20,7 +20,7 @@ class TestCSSIsUpToDate(SimplelayoutTestCase):
             '..', '..', 'browser', 'resources', 'icons.css').abspath()
 
         files = list(self.get_source_files_by_path(
-            'ftw/theming/resources/scss/globals/variables.scss',
+            'ftw/theming/resources/scss/default_variables.scss',
             'ftw/simplelayout/browser/resources/theming.toolbar-icons.scss',
         ))
 
