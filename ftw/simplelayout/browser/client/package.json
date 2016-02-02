@@ -8,7 +8,6 @@
     "grunt-cli": "~0.1.7",
     "grunt-config": "^0.2.2",
     "grunt-eslint": "5.1.0",
-    "grunt-contrib-sass": "0.8.1",
     "grunt-contrib-watch": "0.6.0",
     "grunt-contrib-requirejs": "~0.4.1",
     "grunt-mocha-phantomjs": "0.6.1",

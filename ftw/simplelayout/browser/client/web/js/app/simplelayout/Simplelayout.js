@@ -228,6 +228,8 @@ define([
     $(".sl-simplelayout").sortable(LAYOUT_SORTABLE);
     $(".sl-column").sortable(BLOCK_SORTABLE);
 
+    root.addClass("simplelayout-initialized");
+
     /* Patch for registring beforeStart event */
     var oldMouseStart = $.ui.sortable.prototype._mouseStart;
     $.ui.sortable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
