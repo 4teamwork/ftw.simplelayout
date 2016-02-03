@@ -1,4 +1,5 @@
 from Acquisition._Acquisition import aq_inner
+from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.behaviors import ITeaser
 from ftw.simplelayout.contenttypes.contents.textblock import ITextBlockSchema
@@ -8,6 +9,7 @@ from plone.memoize.instance import memoize
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.component import queryMultiAdapter
+from zope.i18n import translate
 
 
 class TextBlockView(BaseBlock):
@@ -41,10 +43,10 @@ class TextBlockView(BaseBlock):
                  self._get_image_float()]
             ),
             'link_url': '',
-            'link_title': self.context.Title(),
+            'link_title': self._get_link_title(),
             'link_css_classes': '',
             'image_tag': self._get_image_scale().tag(
-                alt=ITextBlockSchema(self.context).image_alt_text or '',
+                alt=self._get_image_alt_text(),
                 title=None,
                 height=None,
                 width=None
@@ -70,6 +72,26 @@ class TextBlockView(BaseBlock):
             return data
 
         return data
+
+    def _get_link_title(self):
+        alttext = ITextBlockSchema(self.context).image_alt_text
+
+        if not alttext:
+            return ''
+
+        elif self.context.open_image_in_overlay and not self.teaser_url:
+            return translate(_(u'image_link_alttext',
+                               default=u'${title}, enlarged picture.',
+                               mapping={'title': alttext}),
+                             context=self.request)
+        else:
+            return alttext
+
+    def _get_image_alt_text(self):
+        if self.context.open_image_in_overlay or self.teaser_url:
+            return ''
+        else:
+            return self._get_link_title()
 
     @memoize
     def _get_image_scale_name(self):

@@ -29,7 +29,7 @@ class GalleryBlockView(BaseBlock):
 
     def generate_image_alttext(self, img):
         title = img.title_or_id().decode('utf-8')
-        return translate(_(u'galleryblock_link_title',
-                           default=u'${title}, opens in a overlay.',
+        return translate(_(u'image_link_alttext',
+                           default=u'${title}, enlarged picture.',
                            mapping={'title': title}),
                          context=self.request)

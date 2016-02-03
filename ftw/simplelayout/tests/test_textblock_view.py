@@ -187,7 +187,8 @@ class TestTextBlockRendering(TestCase):
                        .having(text=RichTextValue('The text'))
                        .having(image=NamedBlobImage(data=self.image.read(),
                                                     filename=u'test.gif'))
-                       .having(open_image_in_overlay=True))
+                       .having(open_image_in_overlay=True,
+                               ))
 
         browser.login().visit(block, view='@@block_view')
         link_url = browser.css('a.colorboxLink').first.attrib['href']
@@ -226,3 +227,20 @@ class TestTextBlockRendering(TestCase):
             [],
             browser.css('a.colorboxLink')
         )
+
+    @browsing
+    def test_auto_appending_enlarged_picture_for_overlay(self, browser):
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True,
+                               image_alt_text='Some alt text'))
+
+        browser.login().visit(block, view='@@block_view')
+        self.assertTrue(
+            browser.css('a.colorboxLink').first.attrib['title'].endswith(
+                'enlarged picture.'),
+            'Expect "enlarged picture." hint in alt text of img.')
