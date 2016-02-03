@@ -1,3 +1,4 @@
+from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.table.interfaces import ITableGenerator
@@ -56,3 +57,11 @@ class FileListingBlockView(BaseBlock):
             options={'table_summary': self.context.Title()},
             selected=(self._build_query['sort_on'],
                       self._build_query['sort_order']))
+
+    @property
+    def can_add(self):
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership')
+        permission = mtool.checkPermission(
+            'ftw.simplelayout: Add FileListingBlock', context)
+        return bool(permission)

@@ -5,6 +5,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Show hint on empty listing and galeryblock.
+  [mathias.leimgruber]
+
 - Implement better image alt text for galleryblock and textblock.
   Improves Accessibility.
   [mathias.leimgruber]
