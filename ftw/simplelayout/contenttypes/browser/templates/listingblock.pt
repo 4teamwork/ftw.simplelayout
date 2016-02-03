@@ -7,5 +7,7 @@
         tal:condition="view/block_title" />
 
     <div tal:replace="structure view/render_table" />
+    <p tal:condition="python: view.can_add and not view.get_table_contents()"
+     i18n:translate="">This block is empty.</p>
 
 </html>
