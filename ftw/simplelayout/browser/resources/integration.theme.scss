@@ -234,6 +234,7 @@ ul[class^="sl-toolbar"] {
   background-color: $color-edit;
   visibility: hidden;
   border-radius: $border-radius-primary;
+  z-index: 1;
   li {
     text-align: center;
     a {

@@ -5,6 +5,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Right column overlapps the toolbar, apply fixed z-index.
+  [Kevin Bieri]
+
 - Move styling from client library to ftw.theming integration using
   base variables from ftw.theming.
   [Kevin Bieri]
