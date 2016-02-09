@@ -41,11 +41,7 @@
     display: block;
     img {
       vertical-align: middle;
-      transition: transform .2s ease-out;
       margin: 0;
-      &:hover {
-        transform: scale(1.2);
-      }
     }
   }
 }
