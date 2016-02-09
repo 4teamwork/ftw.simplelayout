@@ -1,44 +1,5 @@
 @if $standard-iconset == font-awesome {
 
-  .sl-toolbox .components a.sl-toolbox-layout .icon-layout {
-    font-style: normal;
-    @extend .fa-icon;
-    @extend .fa-th;
-  }
-
-  .sl-toolbox a.sl-toolbox-block [class^="icon-"],
-  .sl-toolbox a.sl-toolbox-block [class*=" icon-"] {
-    background: none;
-    font-style: normal;
-    display: inline;
-    position: relative;
-    @extend .fa-icon;
-    @extend .fa-times-circle;
-    &:before {
-      color: fuchsia;
-    }
-  }
-
-  .sl-toolbox i {
-    -webkit-font-smoothing: antialiased;
-    &:before {
-      margin-right: 0 !important;
-    }
-  }
-
-  .sl-toolbox .sl-toolbox-header {
-    i {
-      font-style: normal;
-      @extend .fa-icon;
-    }
-    &.blocks i {
-      @extend .fa-cube;
-    }
-    &.layouts i {
-      @extend .fa-th;
-    }
-  }
-
   @each $type, $value in get-portal-type-icons-for-iconset(font-awesome) {
     body .sl-toolbox a.sl-toolbox-block .icon-#{$type} {
       @extend body.icons-on .contenttype-#{$type};

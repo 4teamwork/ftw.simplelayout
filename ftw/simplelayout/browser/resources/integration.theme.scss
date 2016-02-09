@@ -223,7 +223,7 @@
   }
 }
 
-$editbar-height: $font-size-medium + 2 * $padding-vertical;
+$editbar-height: $line-height-base + 2 * $padding-vertical;
 
 ul[class^="sl-toolbar"] {
   @include list();
@@ -269,7 +269,7 @@ ul[class^="sl-toolbar"] {
 }
 
 .simplelayout-initialized body {
-  padding-right: $padding-horizontal * 3;
+  padding-right: $editbar-height;
 }
 
 .sl-toolbox {
@@ -281,122 +281,130 @@ ul[class^="sl-toolbar"] {
   z-index: 1;
   display: table;
   background: $color-text;
+
+  span {
+    @extend .fa-icon;
+    // Needs to be set because the icons looks bold without this attribute.
+    // See http://caniuse.com/#search=font-smooth for more information
+    -webkit-font-smoothing: antialiased;
+    display: table-cell;
+    vertical-align: middle;
+    &:before {
+      margin: 0 !important;
+    }
+  }
+
+  .blocks span {
+    @extend .fa-cube;
+  }
+  .layouts span {
+    @extend .fa-th;
+  }
+
   > div {
     display: table-cell;
     vertical-align: middle;
-    .sl-toolbox-layouts {
-      a {
-        font-weight: bold;
-        .description {
-          margin-top: 0;
-        }
-      }
+  }
+
+  a {
+    display: table;
+    color: darken($color-text-inverted, 20%);
+    background-color: $color-text;
+    width: 100%;
+    box-sizing: border-box;
+    direction: rtl;
+    text-align: center;
+    border-bottom: 1px solid lighten($color-text, 5%);
+    box-sizing:content-box;
+    position: relative;
+    width: $editbar-height;
+    height: $editbar-height;
+
+    &.ui-draggable-dragging {
+      box-shadow: $box-shadow-secondary;
     }
 
-    a {
-      position: relative;
+    &:before {
+      content: "";
+      display: inline-block;
+      height: 100%;
+      width: 2px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+    }
+
+    // Drag hint when clicking a block without dragging.
+    &:after {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
       display: block;
-      color: darken($color-text-inverted, 20%);
-      background-color: $color-text;
-      width: 100%;
-      box-sizing: border-box;
-      direction: rtl;
-      width: $padding-horizontal;
-      height: $padding-horizontal;
-      padding: $padding-horizontal;
-      text-align: center;
-      border-bottom: 1px solid lighten($color-text, 5%);
-      box-sizing:content-box;
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      right: 50%;
+      margin-right: -5px;
+      margin-top: -5px;
+    }
 
-      &.ui-draggable-dragging {
-        box-shadow: $box-shadow-secondary;
-      }
-
+    &:hover {
+      cursor: pointer;
+      color: $color-text-inverted;
+      text-decoration: none;
       &:before {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        width: 2px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-      }
-
-      // Drag hint when clicking a block without dragging.
-      &:after {
-        content: "";
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        display: block;
-        position: absolute;
-        z-index: -1;
-        top: 50%;
-        right: 50%;
-        margin-right: -5px;
-        margin-top: -5px  ;
-      }
-
-      &:hover {
-        cursor: pointer;
-        color: $color-text-inverted;
-        text-decoration: none;
-        &:before {
-          background-color: $color-edit;
-        }
-        > .description {
-          visibility: visible;
-        }
-      }
-
-      &.hintDropped {
-        &:after {
-          background-color: $color-edit;
-          transition: transform 300ms, opacity 300ms;
-          transform: scale(20);
-          opacity: 0;
-        }
-      }
-
-      i {
-          display: inline-block;
-          vertical-align: middle;
-      }
-
-      .description {
-        direction: ltr;
-        white-space: nowrap;
-        text-align: right;
-        background-color: $color-text;
-        padding: $padding-vertical / 2 $padding-horizontal / 2;
-        color: $color-text-inverted;
-        border-radius: $border-radius-primary;
-        float: right;
-        visibility: hidden;
-        position: absolute;
-        font-weight: normal;
-        margin-top: - $padding-vertical - 1em;
-        margin-right: 4 * $padding-vertical;
-      }
-
-      &.sl-toolbox-header {
-        @include auto-text-color($color-edit);
         background-color: $color-edit;
-        border: 0;
-        &:before {
-          background-color: $color-edit;
-        }
-        &:hover {
-          cursor: default;
-        }
+      }
+      > .description {
+        visibility: visible;
       }
     }
-    .ui-sortable-helper {
-      width: 1em !important;
-      height: auto !important;
+
+    &.hintDropped {
+      &:after {
+        background-color: $color-edit;
+        transition: transform 300ms, opacity 300ms;
+        transform: scale(20);
+        opacity: 0;
+      }
     }
   }
+
+  .description {
+    direction: ltr;
+    white-space: nowrap;
+    text-align: right;
+    background-color: $color-text;
+    padding: $padding-vertical / 2 $padding-horizontal / 2;
+    color: $color-text-inverted;
+    border-radius: $border-radius-primary;
+    float: right;
+    visibility: hidden;
+    position: absolute;
+    font-weight: normal;
+    margin-top: ($padding-vertical / 2 + 1em) / 4;
+    margin-right: $margin-horizontal;
+  }
+
+  .sl-toolbox-header {
+    @include auto-text-color($color-edit);
+    background-color: $color-edit;
+    border: 0;
+    &:before {
+      background-color: $color-edit;
+    }
+    &:hover {
+      cursor: default;
+    }
+  }
+
+  .ui-sortable-helper {
+    width: 1em !important;
+    height: auto !important;
+  }
+
 }
 
 // If user is permitted to edit the simplelayout page
