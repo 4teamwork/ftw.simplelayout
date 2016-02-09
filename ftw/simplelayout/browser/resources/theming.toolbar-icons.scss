@@ -1,14 +1,6 @@
-// Tried to use contrast function but is not working in tests.
-// Better solution should look like this:
-// $color-icon: contrast($color-edit,
-//                       $color-text-inverted,
-//                       $color-text,
-//                       $lightness:63%);
-// Todo: It would be nice to have this working.
+$color-icon: darken($color-text-inverted, 20%);
 
-$color-icon: $color-text-inverted;
-
-$color-icon-hover: lighten($color-icon, 20%);
+$color-icon-hover: $color-text-inverted;
 
 [class^="sl-toolbar-"] {
   > li > a {

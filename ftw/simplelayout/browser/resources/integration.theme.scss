@@ -227,7 +227,7 @@ ul[class^="sl-toolbar"] {
   top: 0;
   right: -$editbar-height;
   white-space: nowrap;
-  background-color: $color-edit;
+  background-color: $color-text;
   visibility: hidden;
   border-radius: $border-radius-primary;
   z-index: 1;
@@ -244,7 +244,7 @@ ul[class^="sl-toolbar"] {
     &.delimiter {
       width: $editbar-height;
       height: 1px;
-      background: lighten($color-edit, 5%);
+      background: lighten($color-text, 5%);
       &:last-child {
         display: none;
       }
