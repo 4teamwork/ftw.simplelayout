@@ -254,8 +254,10 @@ ul[class^="sl-toolbar"] {
     @include list-horizontal();
     right: 0;
     top: -$editbar-height;
+    height: $editbar-height;
     li {
-      float: left;
+      display: inline-block;
+      float: none;
       &.delimiter {
         width: 1px;
         height: $editbar-height;
