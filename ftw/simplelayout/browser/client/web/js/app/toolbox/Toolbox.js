@@ -13,23 +13,24 @@ define(["app/simplelayout/Element", "jsrender", "jquery-path"], function(Element
     "<div id='sl-toolbox' class='sl-toolbox'> \
       <div> \
         <a class='sl-toolbox-header blocks'> \
-          <i></i> \
+          <span></span> \
         </a> \
           <div class='sl-toolbox-blocks'> \
             {{for blocks}} \
               <a class='sl-toolbox-block {{:contentType}}' data-type='{{:contentType}}' data-form-url='{{:formUrl}}'> \
-                <i class='icon-{{:contentType}}'></i> \
+                <span class='icon-{{:contentType}}'></span> \
                 <span class='description'>{{:title}}</span> \
               </a> \
             {{/for}} \
           </div> \
           {{if canChangeLayout}} \
             <a class='sl-toolbox-header layouts'> \
-              <i></i> \
+              <span></span> \
             </a> \
             <div class='sl-toolbox-layouts'> \
               {{props layouts}} \
-                <a class='sl-toolbox-layout' data-columns='{{>prop}}'>{{>prop}} \
+                <a class='sl-toolbox-layout' data-columns='{{>prop}}'> \
+                  <span>{{>prop}}</span> \
                   <span class='description'>{{>prop}}{{>#parent.parent.data.labels.labelColumnPostfix}}</span> \
                 </a> \
               {{/props}} \
