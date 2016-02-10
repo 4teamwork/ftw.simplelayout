@@ -41,11 +41,7 @@
     display: block;
     img {
       vertical-align: middle;
-      transition: transform .2s ease-out;
       margin: 0;
-      &:hover {
-        transform: scale(1.2);
-      }
     }
   }
 }
@@ -231,7 +227,7 @@ ul[class^="sl-toolbar"] {
   top: 0;
   right: -$editbar-height;
   white-space: nowrap;
-  background-color: $color-edit;
+  background-color: $color-text;
   visibility: hidden;
   border-radius: $border-radius-primary;
   z-index: 1;
@@ -248,7 +244,7 @@ ul[class^="sl-toolbar"] {
     &.delimiter {
       width: $editbar-height;
       height: 1px;
-      background: lighten($color-edit, 5%);
+      background: lighten($color-text, 5%);
       &:last-child {
         display: none;
       }
@@ -258,8 +254,10 @@ ul[class^="sl-toolbar"] {
     @include list-horizontal();
     right: 0;
     top: -$editbar-height;
+    height: $editbar-height;
     li {
-      float: left;
+      display: inline-block;
+      float: none;
       &.delimiter {
         width: 1px;
         height: $editbar-height;
