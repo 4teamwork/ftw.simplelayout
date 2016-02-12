@@ -30,8 +30,9 @@ class Renderer(base.Renderer):
         if self.has_blocks():
             return True
         else:
+            disabled = int(self.request.get('disable_border', 0)) == 1
             return api.user.has_permission('Modify portal content',
-                                           obj=self.context)
+                                           obj=self.context) and not disabled
 
     def has_blocks(self):
         config = IPageConfiguration(self.context)
