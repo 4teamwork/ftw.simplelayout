@@ -91,3 +91,11 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         self.assertFalse(browser.css('.portlet.SimplelayoutPortlet'),
                          'Portlet is empty and should not be visible')
+
+    @browsing
+    def test_portlet_is_not_visible_when_empty_and_disable_border_is_true(self, browser):
+        self.setup_portlet()
+        browser.login().visit(self.container, data={'disable_border': 1})
+
+        self.assertFalse(browser.css('.portlet.SimplelayoutPortlet'),
+                         'Portlet is empty and should not be visible')

@@ -157,9 +157,12 @@ class BaseSimplelayoutExpression(object):
         settings['canChangeLayout'] = api.user.has_permission(
             'ftw.simplelayout: Change Layouts',
             obj=self.context)
+
+        # Check if disable_border is in request, if it's there do not load
+        # simplelayout.
         settings['canEdit'] = api.user.has_permission(
             'Modify portal content',
-            obj=self.context)
+            obj=self.context) and int(self.request.get('disable_border', 0)) == 0
 
 
 class SimplelayoutExpression(BaseSimplelayoutExpression,
