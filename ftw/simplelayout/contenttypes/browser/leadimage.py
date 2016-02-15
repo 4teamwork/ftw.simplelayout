@@ -2,18 +2,9 @@ from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from ftw.simplelayout.handlers import unwrap_persistence
 from ftw.simplelayout.interfaces import IPageConfiguration
 from plone.app.uuid.utils import uuidToObject
-from plone.memoize import ram
 from Products.Five.browser import BrowserView
-import hashlib
 import json
 import re
-
-
-def _render_cachkey(method, self):
-    key = (str(self.context.modified().millis()),
-           self.request.get('scale', ''),
-           __name__ + method.__name__)
-    return hashlib.md5(';'.join(key)).hexdigest()
 
 
 class LeadImageView(BrowserView):
@@ -23,7 +14,6 @@ class LeadImageView(BrowserView):
     has_image = None
     block = None
 
-    @ram.cache(_render_cachkey)
     def __call__(self):
         self._get_image()
 
