@@ -33,8 +33,6 @@
 
     </div>
 
-    <p>
-      <button id="button-upload-done" class="context">Fertig</button>
-    </p>
+    <button id="button-upload-done" class="context">Fertig</button>
 
 </div>
