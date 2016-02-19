@@ -8,6 +8,8 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
 
 .sl-image {
+  width: 100%;
+
   &.left {
     float: left;
   }
@@ -15,16 +17,18 @@
     float: right;
   }
   &.sl_textblock_small{
-    width: 25%;
+    @include screen-medium() {
+      width: 25%;
+    }
   }
   &.sl_textblock_middle {
-    width: 50%;
+    @include screen-medium() {
+      width: 50%;
+    }
   }
-  &.sl_textblock_large {
-    width: 100%;
   }
   img {
-    width: 100%;
+    vertical-align: middle;
   }
 }
 
@@ -49,16 +53,15 @@
 .sl-block-content {
   @include clearfix();
   .sl-image {
+    margin-bottom: $margin-paragraph-vertical;
+
     &.left {
-      margin-right: $margin-horizontal;
+      margin-right: $margin-paragraph-vertical;
     }
 
     &.right {
-      margin-left: $margin-horizontal;
+      margin-left: $margin-paragraph-vertical;
     }
-  }
-  img {
-    margin-bottom: $margin-vertical;
   }
 }
 
