@@ -72,5 +72,11 @@ $color-icon-hover: $color-text-inverted;
         background-image: embed-resource("fonts/multiupload.svg", $fill-css:['.icon': $color-icon-hover]);
       }
     }
+    &.icon-image-shadow {
+      background-image: embed-resource("fonts/image-frame.svg", $fill-css:['.icon': $color-icon]);
+      &:hover {
+        background-image: embed-resource("fonts/image-frame.svg", $fill-css:['.icon': $color-icon-hover]);
+      }
+    }
   }
 }
