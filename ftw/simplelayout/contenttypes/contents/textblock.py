@@ -71,13 +71,19 @@ class TextBlockModifier(object):
     def modify(self, data):
         image_scale = data.get('scale', None)
         image_float = data.get('imagefloat', None)
+        image_shadow = data.get('imageshadow', None)
         conf = IBlockConfiguration(self.context)
         blockconf = conf.load()
+
+        if image_shadow and blockconf.get('imageshadow', None) is not None:
+            blockconf['imageshadow'] = not blockconf['imageshadow']
+        else:
+            blockconf['imageshadow'] = True
 
         if image_scale:
             blockconf['scale'] = image_scale
             blockconf['imagefloat'] = image_float
-            conf.store(blockconf)  # necessary?
+        conf.store(blockconf)  # necessary?
         return
 
 
@@ -133,5 +139,14 @@ class TextBlockActions(DefaultActions):
                 'href': './sl-ajax-reload-block-view',
                 'data-scale': 'sl_textblock_small',
                 'data-imagefloat': 'right'
+            }),
+            ('imageShadow', {
+                'class': 'icon-image-shadow server-action',
+                'title': translate(
+                    _(u'label_image_shadow',
+                      default=u'Apply shadow to image'),
+                    context=self.request),
+                'href': './sl-ajax-reload-block-view',
+                'data-imageshadow': 'toggle'
             }),
         ])

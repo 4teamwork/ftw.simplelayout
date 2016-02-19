@@ -21,7 +21,7 @@ class LeadImageView(BrowserView):
 
         if self.has_image:
             scaler = self.block.restrictedTraverse('@@images')
-            return scaler.scale('image', scale=scale).tag()
+            return scaler.scale('image', scale=scale, direction='down').tag()
         else:
             return ''
 

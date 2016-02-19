@@ -40,7 +40,8 @@ class TextBlockView(BaseBlock):
         data = {
             'wrapper_css_classes': ' '.join(
                 ['sl-image', self._get_image_scale_name(),
-                 self._get_image_float()]
+                 self._get_image_float(),
+                 self._get_image_shadow()]
             ),
             'link_url': '',
             'link_title': self._get_link_title(),
@@ -134,6 +135,10 @@ class TextBlockView(BaseBlock):
     @memoize
     def _get_default_image_float(self):
         return self._get_default_actions()['data-imagefloat']
+
+    @memoize
+    def _get_image_shadow(self):
+        return 'sl_image_shadow' if self.blockconfig.get('imageshadow', False) else ''
 
     @property
     def can_add(self):
