@@ -14,14 +14,14 @@ class LeadImageView(BrowserView):
     has_image = None
     block = None
 
-    def __call__(self):
+    def __call__(self, scale=None):
         self._get_image()
 
-        scale = self.request.get('scale', 'preview')
+        scale = scale or self.request.get('scale', 'preview')
 
         if self.has_image:
             scaler = self.block.restrictedTraverse('@@images')
-            return scaler.scale('image', scale=scale).tag()
+            return scaler.scale('image', scale=scale, direction="down").tag()
         else:
             return ''
 
