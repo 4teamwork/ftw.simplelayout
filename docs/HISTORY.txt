@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a2 (unreleased)
+1.1.0 (2016-03-03)
 ------------------
 
 - Respect disable_border key in request and do not load simplelayout if present.
