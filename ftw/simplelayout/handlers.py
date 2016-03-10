@@ -60,6 +60,9 @@ def update_page_state_on_block_remove(block, event):
         if parent is not event.oldParent:
             return
 
+        if not ISimplelayout.providedBy(parent):
+            return
+
         config = IPageConfiguration(parent)
         page_state = config.load()
 
