@@ -234,3 +234,7 @@ Create ``` test/fixtures/fixture.html ```
 Use ``` fixtures.load("fixture.html") ```for loading the fixture as an iframe.
 
 Use ``` fixtures.read("fixture.html") ``` for getting the text content from the file.
+
+### Structure
+
+![Class diagram](https://raw.githubusercontent.com/4teamwork/ftw.simplelayout/master/ftw/simplelayout/browser/client/class_diagramm.png)
