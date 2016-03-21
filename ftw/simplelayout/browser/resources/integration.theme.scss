@@ -17,12 +17,12 @@
     float: right;
   }
   &.sl_textblock_small{
-    @include screen-medium() {
+    @include screen-small() {
       width: 25%;
     }
   }
   &.sl_textblock_middle {
-    @include screen-medium() {
+    @include screen-small() {
       width: 50%;
     }
   }
