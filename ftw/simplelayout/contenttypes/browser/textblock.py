@@ -105,7 +105,7 @@ class TextBlockView(BaseBlock):
         if not scale:
             scale = self._get_image_scale_name()
         scaler = self.context.restrictedTraverse('@@images')
-        return scaler.scale('image', scale=scale)
+        return scaler.scale('image', scale=scale, direction='down')
 
     @memoize
     def _get_default_actions(self):
