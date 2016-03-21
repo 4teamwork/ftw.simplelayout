@@ -36,20 +36,6 @@
   opacity: 0;
 }
 
-.galleryblockImageWrapper {
-  float: left;
-  @include floatgrid(4);
-  overflow: hidden;
-  margin-bottom: $margin-vertical;
-  > a {
-    display: block;
-    img {
-      vertical-align: middle;
-      margin: 0;
-    }
-  }
-}
-
 .sl-block-content {
   @include clearfix();
   .sl-image {
@@ -417,6 +403,18 @@ ul[class^="sl-toolbar"] {
     @include transition(box-shadow .3s ease-out);
     &:hover {
       @include boxshadow(0 0 20px 0 $color-edit);
+    }
+  }
+}
+
+.galleryblockImageWrapper {
+  @include floatgrid(4);
+  margin-bottom: $margin-vertical;
+  > a {
+    display: block;
+    img {
+      vertical-align: middle;
+      margin: 0;
     }
   }
 }
