@@ -5,7 +5,17 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Match the image scaling dimensions on media breakpoints from ftw.theming.
+  [Kevin Bieri]
+
+- Use crop scale for textblock images.
+  [Kevin Bieri]
+
+- Make textblock images full with for medium screen.
+  [Kevin Bieri]
+
+- Extend documentation with class diagram.
+  [Kevin Bieri]
 
 
 1.1.0 (2016-03-03)
