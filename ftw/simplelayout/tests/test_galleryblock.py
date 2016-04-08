@@ -145,7 +145,8 @@ class TestGalleryBlock(TestCase):
     def test_hidden_galleryblock_has_special_class(self, browser):
         """
         This test makes sure that a special class is available on the block
-        if the block is hidden.
+        if the block is hidden. This can be used to visually highlight
+        hidden blocks.
         """
         galleryblock = create(Builder('sl galleryblock')
                               .titled('My galleryblock')
@@ -173,4 +174,30 @@ class TestGalleryBlock(TestCase):
         self.assertEqual(
             'sl-block ftw-simplelayout-galleryblock',
             browser.css('.ftw-simplelayout-galleryblock').first.attrib['class']
+        )
+
+    @browsing
+    def test_hidden_galleryblock_not_visible_without_edit_permission(self, browser):
+        """
+        This test makes sure that users without edit permission, e.g. the
+        anonymous user, do not see the hidden block.
+        """
+        galleryblock = create(Builder('sl galleryblock')
+                              .titled('My galleryblock')
+                              .having(show_title=True)
+                              .having(is_hidden=True)
+                              .within(self.page))
+
+        # Make sure an anonymous user cannot see the block.
+        browser.logout().visit(self.page)
+        self.assertEqual(
+            [],
+            browser.css('.ftw-simplelayout-galleryblock')
+        )
+
+        # Login to make sure the block is visible for admin users.
+        browser.login().visit(self.page)
+        self.assertEqual(
+            ['My galleryblock'],
+            browser.css('.ftw-simplelayout-galleryblock h2').text
         )

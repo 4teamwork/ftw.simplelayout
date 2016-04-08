@@ -117,9 +117,6 @@
     z-index: 1000;
     background-color: $color-content-background;
   }
-  &.hidden {
-    display: none;
-  }
 }
 
 .sl-block-dragging {
@@ -407,7 +404,6 @@ ul[class^="sl-toolbar"] {
       @include boxshadow(0 0 20px 0 $color-edit);
     }
     &.hidden {
-      display: block;
       @include boxshadow(0 0 20px 0 $color-warning);
     }
   }

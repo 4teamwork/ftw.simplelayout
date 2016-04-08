@@ -143,7 +143,8 @@ class TestListingBlock(TestCase):
     def test_hidden_listingblock_has_special_class(self, browser):
         """
         This test makes sure that a special class is available on the block
-        if the block is hidden.
+        if the block is hidden. This can be used to visually highlight
+        hidden blocks.
         """
         listingblock = create(Builder('sl listingblock')
                               .titled('My listingblock')
@@ -171,4 +172,30 @@ class TestListingBlock(TestCase):
         self.assertEqual(
             'sl-block ftw-simplelayout-filelistingblock',
             browser.css('.ftw-simplelayout-filelistingblock').first.attrib['class']
+        )
+
+    @browsing
+    def test_hidden_listingblock_not_visible_without_edit_permission(self, browser):
+        """
+        This test makes sure that users without edit permission, e.g. the
+        anonymous user, do not see the hidden block.
+        """
+        listingblock = create(Builder('sl listingblock')
+                              .titled('My listingblock')
+                              .having(show_title=True)
+                              .having(is_hidden=True)
+                              .within(self.page))
+
+        # Make sure an anonymous user cannot see the block.
+        browser.logout().visit(self.page)
+        self.assertEqual(
+            [],
+            browser.css('.ftw-simplelayout-filelistingblock')
+        )
+
+        # Login to make sure the block is visible for admin users.
+        browser.login().visit(self.page)
+        self.assertEqual(
+            ['My listingblock'],
+            browser.css('.ftw-simplelayout-filelistingblock h2').text
         )
