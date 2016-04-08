@@ -138,3 +138,37 @@ class TestListingBlock(TestCase):
         transaction.commit()
         browser.login().visit(self.page)
         self.assertEqual([], browser.css(title_css_selector))
+
+    @browsing
+    def test_hidden_listingblock_has_special_class(self, browser):
+        """
+        This test makes sure that a special class is available on the block
+        if the block is hidden.
+        """
+        listingblock = create(Builder('sl listingblock')
+                              .titled('My listingblock')
+                              .having(show_title=True)
+                              .having(is_hidden=True)
+                              .within(self.page))
+
+        browser.login()
+
+        # The block must have a class "hidden".
+        browser.visit(self.page)
+        self.assertEqual(
+            'sl-block ftw-simplelayout-filelistingblock hidden',
+            browser.css('.ftw-simplelayout-filelistingblock').first.attrib['class']
+        )
+
+        # Edit the block and make appear again.
+        browser.visit(listingblock, view='edit.json')
+        response = browser.json
+        browser.open_html(response['content'])
+        browser.fill({'Hide the block': False, 'Columns': 'Type'}).submit()
+
+        # The block must no longer have a class "hidden".
+        browser.visit(self.page)
+        self.assertEqual(
+            'sl-block ftw-simplelayout-filelistingblock',
+            browser.css('.ftw-simplelayout-filelistingblock').first.attrib['class']
+        )

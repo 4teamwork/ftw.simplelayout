@@ -9,7 +9,7 @@
          tal:repeat="col row/cols"
          tal:attributes="class col/class">
       <tal:blocks tal:repeat="block col/blocks">
-        <div tal:attributes="class string:sl-block ${block/type};
+        <div tal:attributes="class block/css_classes;
                              data-type block/type;
                              data-uid block/uid;
                              data-url block/url;">

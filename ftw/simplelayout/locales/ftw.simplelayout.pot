@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-08 08:13+0000\n"
+"POT-Creation-Date: 2016-04-08 08:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -200,6 +200,12 @@ msgstr ""
 msgid "desc_sl_config_control_panel"
 msgstr ""
 
+#. Default: "This will visually hide the block. This is not a security feature, the block and its content can still be accessed."
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:162
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:29
+msgid "description_is_hidden"
+msgstr ""
+
 #. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "description_teaser_fieldset"
@@ -306,12 +312,12 @@ msgid "label_float_large_image_right"
 msgstr ""
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:187
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:192
 msgid "label_folder_contents_files"
 msgstr ""
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:54
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:59
 msgid "label_folder_contents_images"
 msgstr ""
 
@@ -336,6 +342,12 @@ msgstr ""
 #. Default: "Internal link"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:32
 msgid "label_internal_link"
+msgstr ""
+
+#. Default: "Hide the block"
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:161
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:28
+msgid "label_is_hidden"
 msgstr ""
 
 msgid "label_modified"
@@ -397,8 +409,8 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:180
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:47
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:185
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
 msgid "label_upload"
 msgstr ""
 

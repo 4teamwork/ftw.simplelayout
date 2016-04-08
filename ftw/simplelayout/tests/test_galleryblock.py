@@ -140,3 +140,37 @@ class TestGalleryBlock(TestCase):
         transaction.commit()
         browser.login().visit(self.page)
         self.assertEqual([], browser.css(title_css_selector))
+
+    @browsing
+    def test_hidden_galleryblock_has_special_class(self, browser):
+        """
+        This test makes sure that a special class is available on the block
+        if the block is hidden.
+        """
+        galleryblock = create(Builder('sl galleryblock')
+                              .titled('My galleryblock')
+                              .having(show_title=True)
+                              .having(is_hidden=True)
+                              .within(self.page))
+
+        browser.login()
+
+        # The block must have a class "hidden".
+        browser.visit(self.page)
+        self.assertEqual(
+            'sl-block ftw-simplelayout-galleryblock hidden',
+            browser.css('.ftw-simplelayout-galleryblock').first.attrib['class']
+        )
+
+        # Edit the block and make appear again.
+        browser.visit(galleryblock, view='edit.json')
+        response = browser.json
+        browser.open_html(response['content'])
+        browser.fill({'Hide the block': False}).submit()
+
+        # The block must no longer have a class "hidden".
+        browser.visit(self.page)
+        self.assertEqual(
+            'sl-block ftw-simplelayout-galleryblock',
+            browser.css('.ftw-simplelayout-galleryblock').first.attrib['class']
+        )

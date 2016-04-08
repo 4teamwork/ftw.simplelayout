@@ -24,6 +24,16 @@ class IGalleryBlockSchema(form.Schema):
         default=True,
         required=False)
 
+    is_hidden = schema.Bool(
+        title=_(u'label_is_hidden', default=u'Hide the block'),
+        description=_(
+            u'description_is_hidden',
+            default=u'This will visually hide the block. This is not a '
+                    u'security feature, the block and its content can '
+                    u'still be accessed.'),
+        default=False,
+        required=False)
+
 
 alsoProvides(IGalleryBlockSchema, IFormFieldProvider)
 
