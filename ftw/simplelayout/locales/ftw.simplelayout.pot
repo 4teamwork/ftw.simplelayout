@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-02-01 13:26+0000\n"
+"POT-Creation-Date: 2016-04-08 08:13+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,6 +133,7 @@ msgid "The video block renders videos loaded from YouTube or Vimeo."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "This block is empty."
 msgstr ""
@@ -227,7 +228,7 @@ msgstr ""
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:80
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
 msgid "image_link_alttext"
 msgstr ""
 
@@ -305,12 +306,12 @@ msgid "label_float_large_image_right"
 msgstr ""
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:182
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:187
 msgid "label_folder_contents_files"
 msgstr ""
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:49
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:54
 msgid "label_folder_contents_images"
 msgstr ""
 
@@ -396,8 +397,8 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:175
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:42
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:180
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:47
 msgid "label_upload"
 msgstr ""
 

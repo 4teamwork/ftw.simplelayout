@@ -28,6 +28,3 @@ msgstr ""
 
 msgid "label_documentDate"
 msgstr ""
-
-msgid "Simplelayout View"
-msgstr ""
