@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-02-01 13:26+0000\n"
+"POT-Creation-Date: 2016-04-08 08:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,6 +130,7 @@ msgid "The video block renders videos loaded from YouTube or Vimeo."
 msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
@@ -196,6 +197,12 @@ msgstr "Typ"
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
+#. Default: "This will visually hide the block. This is not a security feature, the block and its content can still be accessed."
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:162
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:29
+msgid "description_is_hidden"
+msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature, der Block und sein Inhalt bleibt immer noch aufrufbar."
+
 #. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "description_teaser_fieldset"
@@ -224,7 +231,7 @@ msgstr "Bitte den Inhalt per Drag & Drop hinzufügen."
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:32
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:80
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
 msgid "image_link_alttext"
 msgstr "${title}. Vergrösserte Ansicht"
 
@@ -302,12 +309,12 @@ msgid "label_float_large_image_right"
 msgstr "Grosses Bild rechts ausrichten"
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:182
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:192
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:49
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:59
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
@@ -333,6 +340,12 @@ msgstr "Bild ohne Ausrichtung"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:32
 msgid "label_internal_link"
 msgstr "Interne Referenz"
+
+#. Default: "Hide the block"
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:161
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:28
+msgid "label_is_hidden"
+msgstr "Block verstecken"
 
 msgid "label_modified"
 msgstr "Bearbeitungsdatum"
@@ -393,8 +406,8 @@ msgid "label_title"
 msgstr "Titel"
 
 #. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:175
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:42
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:185
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
 msgid "label_upload"
 msgstr "Datei hochladen"
 

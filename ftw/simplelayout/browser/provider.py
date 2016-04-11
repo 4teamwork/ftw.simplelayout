@@ -49,6 +49,8 @@ class BaseSimplelayoutExpression(object):
 
         rows = page_conf.load().get(self.name, self.one_layout_one_column)
 
+        user_can_edit = api.user.has_permission('Modify portal content')
+
         for row in rows:
             row['class'] = 'sl-layout'
             for col in row['cols']:
@@ -59,27 +61,53 @@ class BaseSimplelayoutExpression(object):
 
                 for block in col['blocks']:
                     obj = blocks[block['uid']]
-                    block['obj_html'] = self._render_block_html(obj)
-                    block['type'] = normalize_portal_type(obj.portal_type)
-                    block['url'] = obj.absolute_url()
-                    block['id'] = obj.getId()
+                    self.create_or_update_block(obj, block)
+
+                # Remove hidden blocks for users not having the permission
+                # to edit content.
+                col['blocks'] = [
+                    block for block in col['blocks']
+                    if not block['is_hidden'] or block['is_hidden'] and user_can_edit
+                ]
 
         # Append blocks, which are not in the simplelayout configuration into
         # the last column.
 
         if self.name == 'default':
             for uid, obj in self._blocks_without_state():
-                rows[-1]['cols'][-1]['blocks'].append(
-                    {
-                        'uid': uid,
-                        'obj_html': self._render_block_html(obj),
-                        'type': normalize_portal_type(obj.portal_type),
-                        'url': obj.absolute_url(),
-                        'id': obj.getId(),
-                    }
-                )
+                block = self.create_or_update_block(obj, uid=uid)
+
+                # Skip hidden blocks for users not having the permission
+                # to edit content.
+                if block['is_hidden'] and not user_can_edit:
+                    continue
+
+                rows[-1]['cols'][-1]['blocks'].append(block)
 
         return rows
+
+    def create_or_update_block(self, obj, block_dict=None, uid=None):
+        if not block_dict:
+            block_dict = {}
+
+        if uid:
+            block_dict['uid'] = uid
+
+        block_type = normalize_portal_type(obj.portal_type)
+        block_is_hidden = getattr(obj, 'is_hidden', False)
+
+        css_classes = ['sl-block', block_type]
+        if block_is_hidden:
+            css_classes.append('hidden')
+
+        block_dict['is_hidden'] = block_is_hidden
+        block_dict['obj_html'] = self._render_block_html(obj)
+        block_dict['type'] = block_type
+        block_dict['url'] = obj.absolute_url()
+        block_dict['id'] = obj.getId()
+        block_dict['css_classes'] = ' '.join(css_classes)
+
+        return block_dict
 
     def _get_first_column_config(self):
         settings = self._get_sl_settings()

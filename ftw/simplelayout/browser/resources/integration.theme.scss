@@ -403,6 +403,9 @@ ul[class^="sl-toolbar"] {
     &:hover {
       @include boxshadow(0 0 20px 0 $color-edit);
     }
+    &.hidden {
+      @include boxshadow(0 0 20px 0 $color-warning);
+    }
   }
 }
 
