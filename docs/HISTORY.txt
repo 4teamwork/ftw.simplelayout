@@ -5,6 +5,9 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
+- Reset default scale behavior for textblock images.
+  [Kevin Bieri]
+
 - Some blocks can be hidden now. Users allowed to edit the block will see
   the block anyway.
   [mbaechtold]
