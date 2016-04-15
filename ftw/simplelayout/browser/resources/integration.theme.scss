@@ -130,9 +130,7 @@
     width: 100%;
     opacity: 1;
     position: relative;
-    min-height: 100px;
     transition: background .2s;
-    margin-bottom: $margin-vertical;
     float: left;
     .block-placeholder {
         background-color: $color-gray-dark;
@@ -155,7 +153,6 @@
 .sl-column {
   float: left;
   background: $color-content-background;
-  min-height: 100px;
 }
 
 @for $x from 1 through $columns {
@@ -184,7 +181,6 @@
 
 .sl-simplelayout {
   @include clearfix();
-  min-height: 100px;
   z-index: 0;
   display: block;
   width: 100%;
@@ -395,8 +391,18 @@ ul[class^="sl-toolbar"] {
 
 // If user is permitted to edit the simplelayout page
 .documentEditable {
-  .sl-column:empty {
-    border: 1px dashed $color-text;
+  .sl-simplelayout {
+    min-height: 100px;
+  }
+  .sl-layout {
+    min-height: 100px;
+    margin-bottom: $margin-vertical;
+  }
+  .sl-column {
+    min-height: 100px;
+    &:empty {
+      border: 1px dashed $color-text;
+    }
   }
   .sl-block {
     @include transition(box-shadow .3s ease-out);
