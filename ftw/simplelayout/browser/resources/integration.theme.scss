@@ -410,7 +410,7 @@ ul[class^="sl-toolbar"] {
 }
 
 .galleryblockImageWrapper {
-  @include floatgrid(4);
+  @include floatgrid(4, $by-index: false);
   margin-bottom: $margin-vertical;
   > a {
     display: block;
