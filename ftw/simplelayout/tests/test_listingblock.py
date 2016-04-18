@@ -60,7 +60,7 @@ class TestListingBlock(TestCase):
         factoriesmenu.add('FileListingBlock')
 
         self.assertEquals(
-            ['creater', 'size', 'Review State', 'ID'],
+            ['creater', 'size', 'ID'],
             browser.css('#form-widgets-columns-from option').text)
 
         self.assertEquals(

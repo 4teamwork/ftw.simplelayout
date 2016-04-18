@@ -66,11 +66,6 @@ class ListingBlockDefaultColumns(object):
              'column_title': _(u'column_size', default=u'size'),
              },
 
-            {'column': 'review_state',
-             'column_title': _(u'review_state', default=u'Review State'),
-             'transform': helper.translated_string(),
-             },
-
             {'column': 'id',
              'column_title': _(u'ID', default=u'ID'),
              'sort_index': 'id',
