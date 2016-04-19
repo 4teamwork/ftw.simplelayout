@@ -90,7 +90,6 @@
 
 .sl-block {
   @include clearfix();
-  min-height: 98px;
   width: 100%;
   opacity: 1;
   transition: opacity .2s, background .2s;
@@ -406,6 +405,7 @@ ul[class^="sl-toolbar"] {
   }
   .sl-block {
     @include transition(box-shadow .3s ease-out);
+    min-height: 98px;
     &:hover {
       @include boxshadow(0 0 20px 0 $color-edit);
     }
