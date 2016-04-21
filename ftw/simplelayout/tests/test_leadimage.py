@@ -79,36 +79,23 @@ class TestLeadImage(SimplelayoutTestCase):
             browser.css('img').first.attrib['width'])
 
     @browsing
-    def test_only_get_image_from_block_in_default_container(self, browser):
-        second_block_with_image = create(Builder('sl textblock')
-                                         .within(self.page)
-                                         .with_dummy_image())
-
-        self.page_state.update({"other": [
-            {
-                "cols": [
-                    {
-                        "blocks": [
-                            {
-                                "uid": IUUID(second_block_with_image)
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]})
-
-        self.page_config.store(self.page_state)
+    def test_get_image_from_block_in_any_container(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').with_dummy_image().within(page))
+        IPageConfiguration(page).store(
+            {"portletright": [{"cols": [{"blocks": [
+                {"uid": IUUID(block)},
+            ]}]}]})
         transaction.commit()
 
-        browser.login().visit(self.page, view='@@leadimage')
-        self.assertTrue(
-            browser.css('img').first.attrib['src'].startswith(
-                self.block_with_image.absolute_url()))
+        browser.login().visit(page, view='@@leadimage')
+        src_url = browser.css('img').first.attrib['src']
+        self.assertRegexpMatches(src_url, r'^{}'.format(
+            re.escape(block.absolute_url())))
 
     @browsing
     def test_support_images_in_gallery_blocks(self, browser):
-        page = create(Builder('sl content page').titled(u'hans'))
+        page = create(Builder('sl content page'))
         gallery = create(Builder('sl galleryblock').within(page))
         image = create(Builder('image').with_dummy_content().within(gallery))
         page_config = IPageConfiguration(page)
