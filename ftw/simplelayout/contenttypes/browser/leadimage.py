@@ -1,3 +1,4 @@
+from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
 from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from ftw.simplelayout.handlers import unwrap_persistence
 from ftw.simplelayout.interfaces import IPageConfiguration
@@ -39,4 +40,10 @@ class LeadImageView(BrowserView):
                and block.image.data:
                 self.has_image = True
                 self.block = block
-                break
+                return
+
+            if IGalleryBlock.providedBy(block):
+                for image in block.listFolderContents({'portal_type': 'Image'}):
+                    self.has_image = True
+                    self.block = image
+                    return

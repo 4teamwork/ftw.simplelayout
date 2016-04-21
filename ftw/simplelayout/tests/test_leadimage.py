@@ -7,6 +7,7 @@ from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
 from unittest2 import skipUnless
+import re
 import transaction
 
 
@@ -104,3 +105,20 @@ class TestLeadImage(SimplelayoutTestCase):
         self.assertTrue(
             browser.css('img').first.attrib['src'].startswith(
                 self.block_with_image.absolute_url()))
+
+    @browsing
+    def test_support_images_in_gallery_blocks(self, browser):
+        page = create(Builder('sl content page').titled(u'hans'))
+        gallery = create(Builder('sl galleryblock').within(page))
+        image = create(Builder('image').with_dummy_content().within(gallery))
+        page_config = IPageConfiguration(page)
+        page_config.store(
+            {"default": [{"cols": [{"blocks": [
+                {"uid": IUUID(gallery)},
+            ]}]}]})
+        transaction.commit()
+
+        browser.login().visit(page, view='@@leadimage')
+        src_url = browser.css('img').first.attrib['src']
+        self.assertRegexpMatches(src_url, r'^{}'.format(
+            re.escape(image.absolute_url())))
