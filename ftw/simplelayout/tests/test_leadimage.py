@@ -6,11 +6,11 @@ from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
-from unittest2 import skipIf
+from unittest2 import skipUnless
 import transaction
 
 
-@skipIf(not IS_PLONE_5, 'requires plone < 5')
+@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestLeadImage(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
@@ -62,19 +62,19 @@ class TestLeadImage(SimplelayoutTestCase):
                 self.block_with_image.absolute_url()))
 
     @browsing
-    def test_default_scale_is_mini(self, browser):
+    def test_default_scale_is_preview(self, browser):
         browser.login().visit(self.page, view='@@leadimage')
         self.assertEquals(
-            '200',
+            '400',
             browser.css('img').first.attrib['width'])
 
     @browsing
     def test_render_image_with_other_scale(self, browser):
         browser.login().visit(self.page,
                               view='@@leadimage',
-                              data={'scale': 'preview'})
+                              data={'scale': 'mini'})
         self.assertEquals(
-            '400',
+            '200',
             browser.css('img').first.attrib['width'])
 
     @browsing
