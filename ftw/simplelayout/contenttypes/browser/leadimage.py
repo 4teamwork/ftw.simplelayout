@@ -28,9 +28,12 @@ class LeadImageView(BrowserView):
 
     def _get_uids(self):
         page_conf = IPageConfiguration(self.context)
+        # look for blocks in default slot first ...
         state_string = json.dumps(unwrap_persistence(
             page_conf.load().get('default', {})))
-
+        # ... then look in all slots.
+        state_string += json.dumps(unwrap_persistence(
+            page_conf.load()))
         return re.findall(r'\"uid\"\: \"(.+?)\"', state_string)
 
     def _get_image(self):
