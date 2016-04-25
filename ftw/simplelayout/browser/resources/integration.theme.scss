@@ -213,7 +213,7 @@ ul[class^="sl-toolbar"] {
   background-color: $color-text;
   visibility: hidden;
   border-radius: $border-radius-primary;
-  z-index: 1;
+  z-index: 4;
   li {
     text-align: center;
     a {
