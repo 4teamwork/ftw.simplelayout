@@ -5,6 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Add min-height to SimplelayoutBlock empty columns.
+  [mathias.leimgruber]
+
 - Fix mouse pointer position according to openlayers pointer.
   [mathias.leimgruber]
 
