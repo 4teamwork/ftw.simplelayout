@@ -5,6 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- GalleryBlock: Show 4 images in a row for 1 col, 2 in a row for 2 col and 1 a row for 4 col.
+  [mathias.leimgruber]
+
 - Add min-height to SimplelayoutBlock empty columns.
   [mathias.leimgruber]
 

@@ -419,7 +419,6 @@ ul[class^="sl-toolbar"] {
 }
 
 .galleryblockImageWrapper {
-  @include floatgrid(4, $by-index: false);
   margin-bottom: $margin-vertical;
   > a {
     display: block;
@@ -428,6 +427,20 @@ ul[class^="sl-toolbar"] {
       margin: 0;
     }
   }
+}
+
+@for $x from 1 through $columns {
+  .sl-col-#{$x} .galleryblockImageWrapper {
+    @if $x <= 4 {
+      @include floatgrid(4 / $x, $by-index: false);
+    } @else {
+      @include floatgrid(1, $by-index: false);
+    }
+  }
+}
+
+.SimplelayoutPortlet .galleryblockImageWrapper {
+  @include floatgrid(1, $by-index: false);
 }
 
 .SimplelayoutPortlet {
