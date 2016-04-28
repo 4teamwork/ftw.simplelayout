@@ -5,6 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Fix mouse pointer position according to openlayers pointer.
+  [mathias.leimgruber]
+
 - Hide main scrollbar when overlay is opened. [jone]
 
 - Lead-Image: support all slots. [jone]

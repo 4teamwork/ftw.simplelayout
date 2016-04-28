@@ -16,6 +16,12 @@
         maps.collectivegeo();
         mapWidgets.collectivegeo("add_edit_layer");
         mapWidgets.collectivegeo("add_geocoder");
+
+        // Fix mouse pointer position according to openlayers pointer
+        $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
+          mapWidgets.collectivegeo("refresh");
+        });
+
       }
     });
   });
