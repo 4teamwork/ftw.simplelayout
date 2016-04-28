@@ -20,6 +20,8 @@
                            class image/link_css_classes">
             <img tal:replace="structure image/image_tag" />
         </a>
+        <div class="hiddenStructure" i18n:translate="hidden_label_image_caption">Image caption:</div>
+        <div class="image-caption" tal:content="context/image_caption" />
     </div>
   </tal:image>
   <div tal:replace="structure here/text/output | nothing" />
