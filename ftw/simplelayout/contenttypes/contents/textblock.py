@@ -21,6 +21,12 @@ class ITextBlockSchema(form.Schema):
     """TextBlock for simplelayout
     """
 
+    form.fieldset('image',
+                  label=_(u'Image'),
+                  fields=['image', 'image_alt_text', 'image_caption',
+                          'open_image_in_overlay']
+                  )
+
     title = schema.TextLine(
         title=_(u'label_title', default=u'Title'),
         required=False)

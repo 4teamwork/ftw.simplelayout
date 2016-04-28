@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-28 07:30+0000\n"
+"POT-Creation-Date: 2016-04-28 07:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,6 +41,10 @@ msgstr ""
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "ID"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:25
+msgid "Image"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/behaviors.py:40
@@ -297,22 +301,22 @@ msgid "label_external_link"
 msgstr ""
 
 #. Default: "Float image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:95
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:101
 msgid "label_float_image_left"
 msgstr ""
 
 #. Default: "Float image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:134
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:140
 msgid "label_float_image_right"
 msgstr ""
 
 #. Default: "Float large image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:104
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:110
 msgid "label_float_large_image_left"
 msgstr ""
 
 #. Default: "Float large image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:124
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:130
 msgid "label_float_large_image_right"
 msgstr ""
 
@@ -330,22 +334,22 @@ msgid "label_id"
 msgstr ""
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:47
 msgid "label_image"
 msgstr ""
 
 #. Default: "Image alternative text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:45
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:51
 msgid "label_image_alt_text"
 msgstr ""
 
 #. Default: "Image caption"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
 msgid "label_image_caption"
 msgstr ""
 
 #. Default: "Image without floating"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:114
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:120
 msgid "label_image_without_floating"
 msgstr ""
 
@@ -374,7 +378,7 @@ msgid "label_move_layout"
 msgstr ""
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:53
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:59
 msgid "label_open_image_in_overlay"
 msgstr ""
 
@@ -389,7 +393,7 @@ msgstr ""
 #. Default: "Show title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
 msgid "label_show_title"
 msgstr ""
 
@@ -407,14 +411,14 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
 msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:25
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:31
 msgid "label_title"
 msgstr ""
 

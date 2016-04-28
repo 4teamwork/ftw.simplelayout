@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-28 07:30+0000\n"
+"POT-Creation-Date: 2016-04-28 07:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,6 +39,10 @@ msgstr "Bildergalerie"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "ID"
 msgstr "ID"
+
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:25
+msgid "Image"
+msgstr "Bild"
 
 #: ./ftw/simplelayout/contenttypes/behaviors.py:40
 msgid "It's not possible to have an internal_link and an external_link together"
@@ -294,22 +298,22 @@ msgid "label_external_link"
 msgstr "Externe URL"
 
 #. Default: "Float image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:95
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:101
 msgid "label_float_image_left"
 msgstr "Bild links ausrichten"
 
 #. Default: "Float image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:134
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:140
 msgid "label_float_image_right"
 msgstr "Bild rechts ausrichten"
 
 #. Default: "Float large image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:104
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:110
 msgid "label_float_large_image_left"
 msgstr "Grosses Bild links ausrichten"
 
 #. Default: "Float large image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:124
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:130
 msgid "label_float_large_image_right"
 msgstr "Grosses Bild rechts ausrichten"
 
@@ -327,22 +331,22 @@ msgid "label_id"
 msgstr "ID"
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:47
 msgid "label_image"
 msgstr "Bild"
 
 #. Default: "Image alternative text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:45
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:51
 msgid "label_image_alt_text"
 msgstr "Alternativer Text des Bildes"
 
 #. Default: "Image caption"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
 msgid "label_image_caption"
 msgstr "Bildlegende"
 
 #. Default: "Image without floating"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:114
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:120
 msgid "label_image_without_floating"
 msgstr "Bild ohne Ausrichtung"
 
@@ -371,7 +375,7 @@ msgid "label_move_layout"
 msgstr "Zeile verschieben"
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:53
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:59
 msgid "label_open_image_in_overlay"
 msgstr "Bild in Overlay öffnen (nur wenn keine Teaser-URL hinterlegt ist)"
 
@@ -386,7 +390,7 @@ msgstr "Ordnerreihenfolge"
 #. Default: "Show title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
 
@@ -404,14 +408,14 @@ msgid "label_sortable_title"
 msgstr "Titel"
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
 msgid "label_text"
 msgstr "Text"
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:25
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:31
 msgid "label_title"
 msgstr "Titel"
 
