@@ -3,6 +3,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="ftw.simplelayout">
 
 
@@ -19,6 +20,14 @@
         class=".viewlet.OpenGraph"
         permission="zope2.View"
         layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        />
+
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <plone:behavior
+        title="Simplelayout OpenGraph Viewlet"
+        description="Shows OpenGraph meta tags"
+        provides=".interfaces.IOpenGraphSupport"
         />
 
 </configure>
