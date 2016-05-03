@@ -161,7 +161,7 @@ class BaseSimplelayoutExpression(object):
         # 1. global settings
         registry = getUtility(IRegistry)
         settings = json.loads(
-            registry.forInterface(ISimplelayoutDefaultSettings).slconfig)
+            registry.forInterface(ISimplelayoutDefaultSettings, check=False).slconfig)
 
         # 2. Update with Permission check
         self.update_permission_related_settings(settings)
