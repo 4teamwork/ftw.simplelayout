@@ -57,7 +57,7 @@ class TestOpenGraph(TestCase):
 
         site_root_og = getMultiAdapter(
             (self.portal, self.portal.REQUEST, None),
-            IOpenGraphDataProvider)
+            IOpenGraphDataProvider, name='opengraph')
 
         self.assertEquals([], site_root_og().items())
 

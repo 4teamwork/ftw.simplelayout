@@ -12,4 +12,4 @@ class OpenGraph(ViewletBase):
 
     def get_og_data(self):
         return getMultiAdapter((self.context, self.request, self.view),
-                               IOpenGraphDataProvider)()
+                               IOpenGraphDataProvider, name="opengraph")()
