@@ -6,7 +6,20 @@ class IOpenGraphSupport(Interface):
 
 
 class IOpenGraphDataProvider(Interface):
-    """Data provider for opengraphable content"""
+    """Data provider for opengraphable content
+        By default it needs to provide the basic metadata fields:
+        - og:title
+        - og:type
+        - og:image
+        - og:url
+
+        I a content is part of larger website you can also provide:
+        - og:site:name
+
+        You can provide more fields as you wish, check http://ogp.me
+
+        We use a OrderedDict, since the OG is ordered.
+    """
 
     def __init__(context, request, view):
         """adapts context and request and view"""
