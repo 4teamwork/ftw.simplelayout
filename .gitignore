@@ -14,7 +14,7 @@ src/
 var/
 
 ### Bower ###
-lib/
+client/**/lib/
 
 ### Node ###
 node_modules

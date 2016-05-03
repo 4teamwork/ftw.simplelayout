@@ -7,6 +7,10 @@ from zope import schema
 from zope.interface import Interface
 
 
+class ISimplelayoutLayer(Interface):
+    """Browserlayer for simplelayout"""
+
+
 class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 

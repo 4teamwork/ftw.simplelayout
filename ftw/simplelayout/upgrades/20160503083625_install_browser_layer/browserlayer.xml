@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<layers>
+
+    <layer name="ftw.simplelayout" interface="ftw.simplelayout.interfaces.ISimplelayoutLayer" />
+
+</layers>
