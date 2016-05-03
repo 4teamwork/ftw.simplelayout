@@ -18,13 +18,16 @@ class LeadImageView(BrowserView):
     def __call__(self, scale=None):
         self._get_image()
 
-        scale = scale or self.request.get('scale', 'preview')
-
         if self.has_image:
-            scaler = self.block.restrictedTraverse('@@images')
-            return scaler.scale('image', scale=scale, direction="down").tag()
+            scale = self.get_scale(scale)
+            return scale.tag()
         else:
             return ''
+
+    def get_scale(self, scale=None):
+        scale = scale or self.request.get('scale', 'preview')
+        scaler = self.block.restrictedTraverse('@@images')
+        return scaler.scale('image', scale=scale, direction="down")
 
     def _get_uids(self):
         page_conf = IPageConfiguration(self.context)
