@@ -11,7 +11,8 @@
         <implements interface="ftw.simplelayout.opengraph.interfaces.IOpenGraphSupport" />
     </class>
 
-    <adapter factory=".og_site_root.PloneRootOpengrah" />
+    <adapter factory=".og_site_root.PloneRootOpenGraph" />
+    <adapter factory=".og_sl_page.SimplelayoutPageOpenGraph" />
 
     <browser:viewlet
         name="ftw.simplelyout.opengraph"

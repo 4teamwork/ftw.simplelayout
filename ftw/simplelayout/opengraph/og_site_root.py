@@ -10,7 +10,7 @@ from zope.interface import implements
 from zope.interface import Interface
 
 
-class PloneRootOpengrah(object):
+class PloneRootOpenGraph(object):
     implements(IOpenGraphDataProvider)
     adapts(IPloneSiteRoot, Interface, Interface)
 
