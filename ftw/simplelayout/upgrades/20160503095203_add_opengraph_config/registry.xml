@@ -1,0 +1,9 @@
+<registry>
+
+    <records interface="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings" />
+
+    <record name="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings.opengraph_plone_root">
+        <value>True</value>
+    </record>
+
+</registry>

@@ -1,0 +1,24 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="ftw.simplelayout">
+
+
+    <class class="Products.CMFPlone.Portal.PloneSite">
+        <implements interface="ftw.simplelayout.opengraph.interfaces.IOpenGraphSupport" />
+    </class>
+
+    <adapter factory=".og_site_root.PloneRootOpengrah" />
+
+    <browser:viewlet
+        name="ftw.simplelyout.opengraph"
+        for="ftw.simplelayout.opengraph.interfaces.IOpenGraphSupport"
+        manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+        class=".viewlet.OpenGraph"
+        permission="zope2.View"
+        layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        />
+
+</configure>

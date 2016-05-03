@@ -92,6 +92,12 @@ class ISimplelayoutDefaultSettings(Interface):
         default=u'{}',
         required=False)
 
+    opengraph_plone_root = schema.Bool(
+        title=_(u'Enable OpenGraph support on plone root'),
+        default=True,
+        required=False
+    )
+
 
 class IBlockModifier(Interface):
     """Block specific modifier"""
