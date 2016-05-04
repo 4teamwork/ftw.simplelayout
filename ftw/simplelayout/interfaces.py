@@ -98,6 +98,13 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
     )
 
+    opengraph_global_type = schema.TextLine(
+        title=_(u'OpenGraph global type'),
+        description=_(u'Check possible values on http://ogp.me'),
+        default=u'website',
+        required=False
+    )
+
 
 class IBlockModifier(Interface):
     """Block specific modifier"""

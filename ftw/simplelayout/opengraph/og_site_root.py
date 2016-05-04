@@ -23,11 +23,7 @@ class PloneRootOpenGraph(object):
     def __call__(self):
         """Returns a dict with all og:key, value"""
 
-        registry = getUtility(IRegistry)
-        enabled = registry.forInterface(
-            ISimplelayoutDefaultSettings, check=False).opengraph_plone_root
-
-        if enabled:
+        if self._settings.opengraph_plone_root:
             return OrderedDict([
                 ('og:title', self.get_title()),
                 ('og:type', self.get_type()),
@@ -37,6 +33,12 @@ class PloneRootOpenGraph(object):
         else:
             return OrderedDict([])
 
+    @property
+    def _settings(self):
+        registry = getUtility(IRegistry)
+        return registry.forInterface(
+            ISimplelayoutDefaultSettings, check=False)
+
     def get_title(self):
         """OG Title"""
         return api.portal.get().Title().decode('utf-8')
@@ -44,7 +46,7 @@ class PloneRootOpenGraph(object):
     def get_type(self):
         """OG type"""
 
-        return u'website'
+        return self._settings.opengraph_global_type
 
     def get_url(self):
         """OG url"""

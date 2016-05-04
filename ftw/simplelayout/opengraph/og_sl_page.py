@@ -1,11 +1,8 @@
 from collections import OrderedDict
 from ftw.simplelayout.interfaces import ISimplelayout
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.opengraph.og_site_root import PloneRootOpenGraph
 from plone import api
-from plone.registry.interfaces import IRegistry
 from zope.component import adapts
-from zope.component import getUtility
 from zope.interface import Interface
 
 
@@ -14,10 +11,6 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
 
     def __call__(self):
         """Returns a dict with all og:key, value"""
-
-        # registry = getUtility(IRegistry)
-        # enabled = registry.forInterface(
-        #     ISimplelayoutDefaultSettings, check=False).opengraph_plone_root
 
         return OrderedDict([
             ('og:title', self.get_title()),

@@ -39,7 +39,7 @@ class TestOpenGraph(TestCase):
 
         self.assertOg('og:title', api.portal.get().Title())
         self.assertOg('og:url', self.portal.absolute_url())
-        self.assertOg('og:type', 'website')
+        self.assertOg('og:type', u'website')
         self.assertOg('og:image', self.portal.absolute_url() + '/logo.jpg')
 
     @browsing
@@ -68,7 +68,7 @@ class TestOpenGraph(TestCase):
 
         self.assertOg('og:title', page.Title().decode('utf-8'))
         self.assertOg('og:url', page.absolute_url())
-        self.assertOg('og:type', 'website')
+        self.assertOg('og:type', u'website')
         self.assertOg('og:image', self.portal.absolute_url() + '/logo.jpg')
 
     @browsing
@@ -85,6 +85,18 @@ class TestOpenGraph(TestCase):
 
         browser.login().visit(page)
         self.assertOg('og:image', src)
+
+    @browsing
+    def test_change_og_type(self, browser):
+        self.set_og_type(u'food')
+        browser.login().visit()
+        self.assertOg('og:type', u'food')
+
+    def set_og_type(self, typename):
+        registry = getUtility(IRegistry)
+        settings = registry.forInterface(ISimplelayoutDefaultSettings)
+        settings.opengraph_global_type = typename
+        transaction.commit()
 
     def save_state(self, page, block):
         self.page_state = {
