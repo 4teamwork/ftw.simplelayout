@@ -435,6 +435,7 @@ ul[class^="sl-toolbar"] {
   min-height: 100px;
     &:empty {
       border: 1px dashed $color-text;
+      margin-bottom: $margin-vertical;
     }
   }
 }
