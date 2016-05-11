@@ -5,10 +5,13 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
     i18n_domain="ftw.simplelayout">
 
     <include package="ftw.autofeature" file="meta.zcml" />
     <autofeature:extras />
+
+    <include package="ftw.upgrade" file="meta.zcml" />
 
     <five:registerPackage package="." initialize=".initialize" />
     <i18n:registerTranslations directory="locales" />
@@ -16,6 +19,7 @@
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".portlets" />
+    <include package=".opengraph" />
     <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
@@ -42,6 +46,12 @@
             description="Simlelayout js library"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
+
+        <upgrade-step:directory
+            profile="ftw.simplelayout:lib"
+            directory="./upgrades"
+            />
+
     </configure>
 
     <configure zcml:condition="have plone-5">

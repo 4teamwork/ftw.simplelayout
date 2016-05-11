@@ -1,0 +1,13 @@
+<registry>
+
+    <records interface="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings" />
+
+    <record name="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings.opengraph_plone_root">
+        <value>True</value>
+    </record>
+
+    <record name="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings.opengraph_global_type">
+        <value>website</value>
+    </record>
+
+</registry>

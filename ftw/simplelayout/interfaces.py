@@ -7,6 +7,10 @@ from zope import schema
 from zope.interface import Interface
 
 
+class ISimplelayoutLayer(Interface):
+    """Browserlayer for simplelayout"""
+
+
 class ISimplelayout(Interface):
     """Marker for Simplelayout content pages"""
 
@@ -87,6 +91,19 @@ class ISimplelayoutDefaultSettings(Interface):
             u'docu: https://github.com/4teamwork/ftw.simplelayout#usage')),
         default=u'{}',
         required=False)
+
+    opengraph_plone_root = schema.Bool(
+        title=_(u'Enable OpenGraph support on plone root'),
+        default=True,
+        required=False
+    )
+
+    opengraph_global_type = schema.TextLine(
+        title=_(u'OpenGraph global type'),
+        description=_(u'Check possible values on http://ogp.me'),
+        default=u'website',
+        required=False
+    )
 
 
 class IBlockModifier(Interface):

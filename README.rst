@@ -377,6 +377,13 @@ Note 2: With the ``default_page_layout`` method you can also define default layo
 4. By default the ``canChangeLayouts`` option is injected by the Simplelayout provider. It checks if the current logged in user has the ``ftw.simplelayout: Change Layouts`` permission.
 
 
+OpenGraph support
+-----------------
+Simplelayouts provides a basic `OpenGraph <http://ogp.me/>`_ integration.
+You can disable (Simplelayout Settings - Control Panel) Opengraph for the plone root as you wish, because it's enabled by default.
+On Simplelayout sites itself the OpenGraph meta tags can be controlled by the `OpenGraph marker behavior`.
+
+
 TODO
 ====
 - Update/Finish examples.
