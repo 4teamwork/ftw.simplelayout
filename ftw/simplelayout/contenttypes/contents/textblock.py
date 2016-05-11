@@ -69,6 +69,13 @@ alsoProvides(ITextBlockSchema, IFormFieldProvider)
 class TextBlock(Item):
     implements(ITextBlock)
 
+    @property
+    def additional_css(self):
+        if self.title and not (self.image or self.text):
+            return ['titleOnly']
+        else:
+            return []
+
 
 class TextBlockModifier(object):
 

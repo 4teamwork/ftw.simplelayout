@@ -25,7 +25,7 @@
     </div>
   </tal:image>
   <div tal:replace="structure here/text/output | nothing" />
-  <p tal:condition="python: view.can_add and not (here.image or here.text)"
+  <p tal:condition="python: view.can_add and not (here.image or here.text or here.title)"
      i18n:translate="">This block is empty.</p>
 
 </html>

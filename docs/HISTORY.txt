@@ -5,6 +5,12 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Remove block bottom margin from textblocks containing only a title.
+  [mathias.leimgruber]
+
+- Do not show empty block warning on textblock if there is only a title.
+  [mathias.leimgruber]
+
 - GalleryBlock: Show 4 images in a row for 1 col, 2 in a row for 2 col and 1 a row for 4 col.
   [mathias.leimgruber]
 
