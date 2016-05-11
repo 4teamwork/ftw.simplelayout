@@ -244,3 +244,13 @@ class TestTextBlockRendering(TestCase):
             browser.css('a.colorboxLink').first.attrib['title'].endswith(
                 'enlarged picture.'),
             'Expect "enlarged picture." hint in alt text of img.')
+
+    @browsing
+    def test_title_only_css_class(self, browser):
+        create(Builder('sl textblock')
+               .within(self.page)
+               .titled('TextBlock title'))
+
+        browser.login().visit(self.page)
+        self.assertTrue(
+            browser.css('.sl-block.titleOnly'), 'Expext title only class.')

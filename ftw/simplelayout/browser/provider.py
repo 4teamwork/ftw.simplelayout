@@ -100,6 +100,8 @@ class BaseSimplelayoutExpression(object):
         if block_is_hidden:
             css_classes.append('hidden')
 
+        css_classes.extend(getattr(obj, 'additional_css', []))
+
         block_dict['is_hidden'] = block_is_hidden
         block_dict['obj_html'] = self._render_block_html(obj)
         block_dict['type'] = block_type

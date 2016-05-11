@@ -99,6 +99,9 @@
   position: relative;
   float: left;
   margin-bottom: $margin-vertical;
+  &.titleOnly {
+    margin-bottom: 0;
+  }
   &.ui-sortable-helper {
     opacity: .8;
   }
