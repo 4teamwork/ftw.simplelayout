@@ -5,6 +5,10 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Update z3c.form to 2.9.3.
+  Fixes error when adding a filelisting-block in IE11.
+  [Kevin Bieri]
+
 - Remove block bottom margin from textblocks containing only a title.
   [mathias.leimgruber]
 
