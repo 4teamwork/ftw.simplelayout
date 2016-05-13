@@ -95,6 +95,7 @@ setup(name='ftw.simplelayout',
           'zope.lifecycleevent',
           'zope.publisher',
           'Zope2',
+          'z3c.form>=3.2.9',
           'Plone',
           ],
 
