@@ -41,6 +41,15 @@ class BaseSimplelayoutExpression(object):
     def one_layout_one_column(self):
         return [{"cols": [{"blocks": []}]}]
 
+    def can_user_edit(self):
+        return api.user.has_permission('Modify portal content')
+
+    def get_css_class(self):
+        css_classes = ['sl-simplelayout'];
+        if self.can_user_edit():
+            css_classes.append("sl-can-edit")
+        return " ".join(css_classes)
+
     def rows(self):
         """ Return datastructure for rendering blocks.
         """
@@ -49,7 +58,7 @@ class BaseSimplelayoutExpression(object):
 
         rows = page_conf.load().get(self.name, self.one_layout_one_column)
 
-        user_can_edit = api.user.has_permission('Modify portal content')
+        user_can_edit = self.can_user_edit()
 
         for row in rows:
             row['class'] = 'sl-layout'

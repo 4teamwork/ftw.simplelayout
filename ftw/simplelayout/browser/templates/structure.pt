@@ -1,7 +1,7 @@
 
-<div class="sl-simplelayout"
-     tal:attributes="id view/name;
-                     data-sl-settings view/get_simplelayout_settings">
+<div tal:attributes="id view/name;
+                     data-sl-settings view/get_simplelayout_settings;
+                     class view/get_css_class">
   <div class="sl-layout"
        tal:repeat="row view/rows"
        tal:attributes="class row/class">
