@@ -2,6 +2,57 @@
 
   "use strict";
 
+  function StateKeeper() {
+
+    var counter = 0;
+
+    function parseQueryString(queryString) {
+      if(!queryString) {
+        return {};
+      }
+      var params = {}
+      var queries
+      var temp
+      var i
+      var l;
+      queries = queryString.split("&");
+      for (i = 0, l = queries.length; i < l; i++) {
+        temp = queries[i].split("=");
+        params[temp[0]] = temp[1];
+      }
+      return params;
+    };
+
+    function parseURL(url) {
+      url = url || document.URL;
+      var parser = document.createElement("a");
+      parser.href = url;
+      return parser;
+    }
+
+    function restore() { counter = parseInt(global.localStorage.getItem("sl-state-counter")) || 0; }
+
+    function createURL() {
+      var url = parseURL();
+      var queryString = parseQueryString(url.search.replace(/^\?/, ""));
+      queryString["sl-state-counter"] = counter;
+      return url.protocol + "//" + url.host + url.pathname + "?" + global.decodeURIComponent($.param(queryString)) + url.hash;
+    }
+
+    function update() {
+      counter += 1;
+      global.localStorage.setItem("sl-state-counter", counter);
+      global.history.pushState({}, "", createURL());
+    }
+
+    restore();
+
+    return Object.freeze({ update: update });
+
+  }
+
+  var statekeeper = StateKeeper();
+
   var init = function() {
 
     var target = $("body");
@@ -117,6 +168,7 @@
         if(!layout.hasBlocks()) {
           layout.toolbar.enable("delete");
         }
+        statekeeper.update();
       });
 
       simplelayout.on("layoutInserted", function(layout) {
@@ -153,7 +205,10 @@
 
       simplelayout.on("layoutMoved", function() { saveState(); });
 
-      simplelayout.on("blockReplaced", function() { $(document).trigger("blockContentReplaced", arguments); });
+      simplelayout.on("blockReplaced", function() {
+        $(document).trigger("blockContentReplaced", arguments);
+        statekeeper.update();
+      });
 
       $(toolbox.element).on("click", ".sl-toolbox-block, .sl-toolbox-layout", function() {
         toolbox.triggerHint($(this), $("#default"));
