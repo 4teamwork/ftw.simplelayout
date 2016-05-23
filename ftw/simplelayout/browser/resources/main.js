@@ -10,10 +10,10 @@
       if(!queryString) {
         return {};
       }
-      var params = {}
-      var queries
-      var temp
-      var i
+      var params = {};
+      var queries;
+      var temp;
+      var i;
       var l;
       queries = queryString.split("&");
       for (i = 0, l = queries.length; i < l; i++) {
@@ -21,7 +21,7 @@
         params[temp[0]] = temp[1];
       }
       return params;
-    };
+    }
 
     function parseURL(url) {
       url = url || document.URL;
@@ -30,7 +30,7 @@
       return parser;
     }
 
-    function restore() { counter = parseInt(global.localStorage.getItem("sl-state-counter")) || 0; }
+    function restore() { counter = parseInt(global.localStorage.getItem("sl-state-counter"), 10) || 0; }
 
     function createURL() {
       var url = parseURL();
