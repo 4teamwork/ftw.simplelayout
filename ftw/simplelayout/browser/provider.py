@@ -41,6 +41,17 @@ class BaseSimplelayoutExpression(object):
     def one_layout_one_column(self):
         return [{"cols": [{"blocks": []}]}]
 
+    def user_can_edit(self):
+        return api.user.has_permission(
+            'Modify portal content',
+            obj=self.context) and int(self.request.get('disable_border', 0)) == 0
+
+    def get_css_class(self):
+        css_classes = ['sl-simplelayout']
+        if self.user_can_edit():
+            css_classes.append("sl-can-edit")
+        return " ".join(css_classes)
+
     def rows(self):
         """ Return datastructure for rendering blocks.
         """
@@ -49,7 +60,7 @@ class BaseSimplelayoutExpression(object):
 
         rows = page_conf.load().get(self.name, self.one_layout_one_column)
 
-        user_can_edit = api.user.has_permission('Modify portal content')
+        user_can_edit = self.user_can_edit()
 
         for row in rows:
             row['class'] = 'sl-layout'
@@ -190,9 +201,7 @@ class BaseSimplelayoutExpression(object):
 
         # Check if disable_border is in request, if it's there do not load
         # simplelayout.
-        settings['canEdit'] = api.user.has_permission(
-            'Modify portal content',
-            obj=self.context) and int(self.request.get('disable_border', 0)) == 0
+        settings['canEdit'] = self.user_can_edit()
 
 
 class SimplelayoutExpression(BaseSimplelayoutExpression,

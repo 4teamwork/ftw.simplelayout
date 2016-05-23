@@ -393,3 +393,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         self.assertFalse(data_attr_value['canEdit'],
                          'Edit should be disabled if disable_border is there.')
+
+    @browsing
+    def test_sl_container_has_sl_edit_css_class(self, browser):
+        browser.login().visit(self.container)
+        self.assertTrue(len(browser.css('.sl-can-edit')),
+                        'Expect the sl-can-edit class on sl-simplelayout.')
+
+    @browsing
+    def test_sl_container_no_sl_edi_css_class(self, browser):
+        browser.login().visit(self.container, data={'disable_border': 1})
+        self.assertFalse(len(browser.css('.sl-can-edit')),
+                         'no sl-can-edit class expected.')
