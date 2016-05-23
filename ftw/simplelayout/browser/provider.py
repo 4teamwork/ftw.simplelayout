@@ -1,3 +1,4 @@
+from Acquisition import aq_base
 from Acquisition import aq_inner
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
@@ -111,7 +112,7 @@ class BaseSimplelayoutExpression(object):
         if block_is_hidden:
             css_classes.append('hidden')
 
-        css_classes.extend(getattr(obj, 'additional_css', []))
+        css_classes.extend(getattr(aq_base(obj), 'additional_css_classes', []))
 
         block_dict['is_hidden'] = block_is_hidden
         block_dict['obj_html'] = self._render_block_html(obj)

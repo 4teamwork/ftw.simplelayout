@@ -70,7 +70,7 @@ class TextBlock(Item):
     implements(ITextBlock)
 
     @property
-    def additional_css(self):
+    def additional_css_classes(self):
         if self.title and not (self.image or self.text):
             return ['titleOnly']
         else:
