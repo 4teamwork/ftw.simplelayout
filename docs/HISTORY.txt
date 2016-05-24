@@ -5,7 +5,7 @@ Changelog
 1.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix editing issues in IE 11. [jone]
 
 
 1.4.0 (2016-05-24)

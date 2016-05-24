@@ -36,7 +36,7 @@
       var url = parseURL();
       var queryString = parseQueryString(url.search.replace(/^\?/, ""));
       queryString["sl-state-counter"] = counter;
-      return url.protocol + "//" + url.host + url.pathname + "?" + global.decodeURIComponent($.param(queryString)) + url.hash;
+      return url.protocol + "//" + url.host + url.pathname.replace(/^\/?/, '/') + "?" + global.decodeURIComponent($.param(queryString)) + url.hash;
     }
 
     function update() {
