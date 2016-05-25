@@ -33,7 +33,7 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
         leadimage_view._get_image()
         if leadimage_view.has_image:
             scale = leadimage_view.get_scale()
-            return scale.url
+            return scale and scale.url or ''
         else:
             return super(SimplelayoutPageOpenGraph, self).get_image_url()
 
