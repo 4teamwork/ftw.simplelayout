@@ -5,6 +5,9 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
+- Implement request tracker.
+  [Kevin Bieri]
+
 - Block Views: Check for extisting viewname before setting the view_name value.
   [mathias.leimgruber]
 

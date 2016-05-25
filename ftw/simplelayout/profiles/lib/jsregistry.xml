@@ -36,4 +36,11 @@
         compression="none"
         />
 
+    <javascript
+        id="++resource++ftw.simplelayout.resources/RequestTracker.js"
+        enabled="True"
+        authenticated="True"
+        insert-after="kss-bbb.js"
+        />
+
 </object>
