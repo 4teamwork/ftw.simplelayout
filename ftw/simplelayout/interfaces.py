@@ -69,11 +69,6 @@ class IBlockProperties(Interface):
         context.
         """
 
-    def get_available_views():
-        """Returns a list of available views. Each element contains the
-        viewname and a human readable title
-        """
-
     def set_view(name):
         """Sets the current view of the context to ``name``.
         """

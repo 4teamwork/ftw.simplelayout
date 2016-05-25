@@ -28,14 +28,6 @@ class TestMultiViewBlockProperties(SimplelayoutTestCase):
         self.assertEqual(properties.get_current_view_name(),
                          'block_view')
 
-    def test_get_available_views(self):
-        properties = getMultiAdapter((self.block, self.block.REQUEST),
-                                     IBlockProperties)
-        self.assertEquals(['block_view_broken',
-                           'block_view_different',
-                           'block_view'],
-                          properties.get_available_views())
-
     def test_changing_view(self):
         properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)

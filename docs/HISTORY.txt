@@ -5,6 +5,9 @@ Changelog
 1.4.3 (unreleased)
 ------------------
 
+- Block Views: Check for extisting viewname before setting the view_name value.
+  [mathias.leimgruber]
+
 - Make getting the og:image url more robust by checking for the scale.
   [mathias.leimgruber]
 
