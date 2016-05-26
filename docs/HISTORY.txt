@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.1 (unreleased)
+1.5.1 (2016-05-26)
 ------------------
 
 - Fix IE11 issues on succeding edits with TinyMCE by foucusing first input field. [jone]
