@@ -4,7 +4,6 @@
 
   var URLWhiteList = [
     "sl-ajax-reload-block-view",
-    "sl-toolbox-view",
     "sl-ajax-delete-blocks-view",
     "add_block",
     "sl-ajax-edit-block-view",
