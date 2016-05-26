@@ -51,6 +51,7 @@
         }
         this.overlay.load();
         this.bindCloseEvents();
+        this.form.find('input:visible:first').focus();
         root.addClass("overlay-open");
       },
       close: function() {
