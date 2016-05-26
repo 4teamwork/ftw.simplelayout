@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.2 (unreleased)
+1.5.2 (2016-05-26)
 ------------------
 
 - Do not show spinner when loading toolbox. [jone]
