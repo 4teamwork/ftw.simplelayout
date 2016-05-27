@@ -27,6 +27,7 @@ extras_require = {
         'collective.quickupload',
         'ftw.colorbox',
         'ftw.table',
+        'ftw.upgrade',
         'plone.app.dexterity',
         'plone.app.relationfield',
         'plone.autoform',
