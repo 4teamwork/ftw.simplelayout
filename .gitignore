@@ -14,7 +14,7 @@ src/
 var/
 
 ### Bower ###
-client/**/lib/
+ftw/simplelayout/browser/client/web/js/lib/
 
 ### Node ###
 node_modules

@@ -5,6 +5,9 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
+- Make simplelayout events globally available.
+  [raphael-s]
+
 - Add min-height to empty Simplelyout portlet.
   This fixes a issue, when it was no longer possible to re-add a layout after deleting the last one.
   [mathias.leimgruber]

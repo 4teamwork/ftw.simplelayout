@@ -2,14 +2,25 @@ define(["EventEmitter"], function(EE){
 
   "use strict";
 
+  var eventEmitter = null;
   var instance = null;
 
-  function EventEmitter(){}
+  function EventEmitter(){
+    this.trigger = function(eventType, data) {
+      $(document).trigger(eventType, data);
+      eventEmitter.trigger(eventType, data);
+    };
+
+    this.on = function(eventType, callback) { eventEmitter.on(eventType, callback); };
+  }
 
   EventEmitter.getInstance = function(){
+
     if(instance === null){
-      instance = new EE();
+      eventEmitter = new EE();
+      instance = new EventEmitter();
     }
+
     return instance;
   };
 
