@@ -73,7 +73,7 @@
           try {
             var registry = require("pat-registry");
             if(registry) {
-              registry.scan(this.form);
+              registry.scan(this.element);
             }
           } catch(e) {
             console.error("Pattern Registry could not get initialized", e);
