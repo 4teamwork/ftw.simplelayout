@@ -5,6 +5,9 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
+- Fix floating images on mobile view.
+  [Kevin Bieri]
+
 - Make simplelayout events globally available.
   [raphael-s]
 
