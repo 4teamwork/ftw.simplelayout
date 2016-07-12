@@ -11,10 +11,14 @@
   width: 100%;
 
   &.left {
-    float: left;
+    @include screen-small() {
+      float: left;
+    }
   }
   &.right {
-    float: right;
+    @include screen-small() {
+      float: right;
+    }
   }
   &.sl_textblock_small{
     @include screen-small() {
