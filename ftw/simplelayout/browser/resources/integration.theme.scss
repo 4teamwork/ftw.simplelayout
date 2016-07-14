@@ -104,6 +104,7 @@
   }
 
   iframe {
+    float: left;
     @include ie-only() {
       pointer-events: none;
     }
