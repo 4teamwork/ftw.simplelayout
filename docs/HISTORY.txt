@@ -5,6 +5,9 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
+- Fix missing toolbar on videoblocks
+  [Kevin Bieri]
+
 - Use zindex system from ftw.theming
   Fix iframeblock boundaries
   [Kevin Bieri]
