@@ -5,6 +5,9 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
+- Display default youtube player controls
+  [Kevin Bieri]
+
 - Translate quickupload title in overlay for filelistings and galleryblocks.
   [elioschmutz]
 
