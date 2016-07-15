@@ -15,7 +15,7 @@
           videoId: null,
           playerVars: {
             autoplay: 0,
-            controls: 0,
+            controls: 1,
             rel: 0,
             showInfo: 0
           }
