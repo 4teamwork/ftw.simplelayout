@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.3 (unreleased)
+1.6.0 (2016-07-18)
 ------------------
 
 - Fix missing toolbar on videoblocks
