@@ -96,19 +96,11 @@
 }
 
 // Videoblock
-.sl-can-edit .ftw-simplelayout-videoblock {
-  .sl-block-content {
-    @include ie-only() {
-      cursor: not-allowed;
-    }
-  }
-
-  iframe {
-    float: left;
-    @include ie-only() {
-      pointer-events: none;
-    }
-  }
+@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content") {
+  cursor: not-allowed;
+}
+@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content iframe") {
+  pointer-events: none;
 }
 
 .sl-block {
