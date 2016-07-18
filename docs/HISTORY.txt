@@ -5,6 +5,10 @@ Changelog
 1.5.3 (unreleased)
 ------------------
 
+- Use zindex system from ftw.theming
+  Fix iframeblock boundaries
+  [Kevin Bieri]
+
 - Display default youtube player controls
   [Kevin Bieri]
 
