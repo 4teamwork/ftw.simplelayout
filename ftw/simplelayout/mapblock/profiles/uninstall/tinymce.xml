@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes>
+
+        <linkable purge="False">
+            <element value="ftw.simplelayout.MapBlock" remove="True" />
+        </linkable>
+
+    </resourcetypes>
+</object>
