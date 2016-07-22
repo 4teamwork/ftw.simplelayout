@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="ftw.simplelayout: Add MapBlock" acquire="True">
+    </permission>
+  </permissions>
+</rolemap>

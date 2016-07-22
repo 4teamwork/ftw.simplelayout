@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<object name="portal_workflow" meta_type="Plone Workflow Tool">
+ <bindings>
+  <type type_id="ftw.simplelayout.TextBlock" remove="True"/>
+  <type type_id="ftw.simplelayout.FileListingBlock" remove="True"/>
+  <type type_id="ftw.simplelayout.VideoBlock" remove="True"/>
+  <type type_id="ftw.simplelayout.GalleryBlock" remove="True"/>
+ </bindings>
+</object>

@@ -6,6 +6,8 @@
     xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.simplelayout">
 
+    <five:registerPackage package="." initialize=".initialize" />
+
     <include file="permissions.zcml" />
     <include package=".browser" />
     <include package=".contents" />
@@ -18,6 +20,15 @@
         directory="profiles/default"
         description="Simlelayout map block type"
         provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="Uninstall ftw.simplelayout.mapblocks"
+        directory="profiles/uninstall"
+        description="Uninstalls the ftw.simplelayout.mapblocks package."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         />
 
 </configure>
