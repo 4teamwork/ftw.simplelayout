@@ -5,6 +5,9 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
+- Add uninstall profile for ftw.simplelayout.contenttypes.
+  [elioschmutz]
+
 - Add uninstall profile for ftw.simplelayout.mapblock.
   [elioschmutz]
 

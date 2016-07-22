@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes>
+
+        <linkable purge="False">
+            <element value="ftw.simplelayout.ContentPage" remove="True"/>
+            <element value="ftw.simplelayout.FileListingBlock" remove="True"/>
+            <element value="ftw.simplelayout.GalleryBlock" remove="True"/>
+            <element value="ftw.simplelayout.TextBlock" remove="True"/>
+            <element value="ftw.simplelayout.VideoBlock" remove="True"/>
+        </linkable>
+
+        <containsobjects purge="False">
+            <element value="ftw.simplelayout.ContentPage" remove="True"/>
+            <element value="ftw.simplelayout.FileListingBlock" remove="True"/>
+            <element value="ftw.simplelayout.GalleryBlock" remove="True"/>
+        </containsobjects>
+
+    </resourcetypes>
+</object>

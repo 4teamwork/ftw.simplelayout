@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="ftw.simplelayout: Add ContentPage" acquire="True"></permission>
+    <permission name="ftw.simplelayout: Add TextBlock" acquire="True"></permission>
+    <permission name="ftw.simplelayout: Add FileListingBlock" acquire="True"></permission>
+    <permission name="ftw.simplelayout: Add VideoBlock" acquire="True"></permission>
+    <permission name="ftw.simplelayout: Add GalleryBlock" acquire="True"></permission>
+  </permissions>
+</rolemap>
