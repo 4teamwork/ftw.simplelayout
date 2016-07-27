@@ -5,6 +5,11 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
+- Add IE11 fix for InAndOutWidget Javascript.
+  In IE11 it's not possible to manipulate a select (multiple) after
+  modifying the text of a option.
+  [mathias.leimgruber]
+
 - Add uninstall profile for ftw.simplelayout.contenttypes.
   [elioschmutz]
 

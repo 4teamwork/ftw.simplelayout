@@ -50,11 +50,19 @@ function swapFields(a, b)
   // swap value
   temp = a.value;
   a.value = b.value;
-  b.value = temp;z
+  b.value = temp;
   // swap selection
   temp = a.selected;
   a.selected = b.selected;
   b.selected = temp;
+
+  // HOTFIX START
+  // Fix ugly IE problem: After manipulating a text of an option it's disabled.
+  setTimeout(function(){
+    a.parentElement.add(new Option('', ''));
+    a.parentElement.options.remove([a.parentElement.options.length - 1]);
+  }, 1);
+  // HOTFIX END
 
   }
 

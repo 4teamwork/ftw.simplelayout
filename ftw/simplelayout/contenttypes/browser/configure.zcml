@@ -46,4 +46,10 @@
         provides="collective.quickupload.interfaces.IQuickUploadFileFactory"
         />
 
+  <browser:resource
+      name="orderedselect_input.js"
+      file="overrides/orderedselect_input.js"
+      layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+      />
+
 </configure>
