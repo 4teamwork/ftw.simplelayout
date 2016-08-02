@@ -277,7 +277,7 @@ ul[class^="sl-toolbar"] {
   right: 0;
   top: 0;
   height: 100%;
-  z-index: $zindex-tooltip;
+  z-index: $zindex-overlay - 10;
   display: table;
   background: $color-text;
 
