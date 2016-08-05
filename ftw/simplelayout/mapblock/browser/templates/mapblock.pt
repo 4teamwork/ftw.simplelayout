@@ -1,3 +1,24 @@
-<tal:omit tal:define="cgmap view/get_address_map" tal:omit-tag="">
-  <metal:use use-macro="context/@@collectivegeo-macros/map-widget" />
-</tal:omit>
+<tal:map define="cgmap view/get_address_map;
+                 geosettings python:context.restrictedTraverse('@@geosettings-view');
+                 mapwidgets view/@@collectivegeo-maps/mapwidgets;
+                 cgmap python:cgmap or mapwidgets[0];
+                 mapid cgmap/mapid | string:map;
+                 map_defaults cgmap/map_defaults">
+  <div id="map" class="widget-cgmap"
+       tal:attributes="id mapid;
+          style context/@@collectivegeo-macros/map_inline_css;
+          data-googlejs string:${geosettings/google_maps_js};
+          data-cgeolatitude map_defaults/latitude|nothing;
+          data-cgeolongitude map_defaults/longitude|nothing;
+          data-cgeozoom map_defaults/zoom|nothing;
+          data-cgeolang map_defaults/lang|nothing;
+          data-geocoderurl map_defaults/geocoderurl|nothing;">
+    <!-- openlayers map -->
+  </div>
+
+  <script type="text/javascript"
+          tal:content="structure cgmap/layers/js | nothing"></script>
+  <script type="text/javascript"
+          tal:condition="cgmap/js|nothing"
+          tal:content="structure cgmap/js"><!-- additional javascript --></script>
+</tal:map>

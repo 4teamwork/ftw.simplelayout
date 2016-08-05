@@ -5,6 +5,10 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
+- Implement new block coordinate behavior, which uses it's own widget
+  for JS compatibility (it handles the google map api integration).
+  [mathias.leimgruber]
+
 - Fix toolbox label zindex
   [Kevin Bieri]
 

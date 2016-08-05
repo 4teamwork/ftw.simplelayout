@@ -4,6 +4,8 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
+    xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="ftw.simplelayout">
 
     <five:registerPackage package="." initialize=".initialize" />
@@ -30,5 +32,23 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         />
+
+    <include package="ftw.upgrade" file="meta.zcml" />
+
+    <upgrade-step:directory
+        profile="ftw.simplelayout.mapblock:default"
+        directory="./upgrades"
+        />
+
+
+    <include package="plone.behavior" file="meta.zcml" />
+    <plone:behavior
+        title="Collective Geo Maps"
+        description="This behaviour will make a content geo referenceable"
+        provides=".behavior.IBlockCoordinates"
+        marker="collective.geo.geographer.interfaces.IGeoreferenceable"
+        factory="collective.geo.behaviour.behaviour.Coordinates"
+        />
+
 
 </configure>
