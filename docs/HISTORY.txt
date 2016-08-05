@@ -5,7 +5,8 @@ Changelog
 1.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix word breaks in listingblock table.
+  [Kevin Bieri]
 
 
 1.7.0 (2016-08-05)
