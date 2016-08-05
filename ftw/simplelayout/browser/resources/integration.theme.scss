@@ -70,21 +70,22 @@
       }
       td {
 
+        text-align: left;
+
         &.column-modified {
-          width: 85px;
+          white-space: nowrap;
         }
 
         &.column-portal_type {
-          width: 25px;
-          padding-right: 0;
+          white-space: nowrap;
         }
 
         &.column-getObjSize {
-          width: 75px;
+          white-space: nowrap;
         }
 
-        &:last-child:not(.column-sortable_title){
-          text-align: right;
+        &.column-id {
+          white-space: nowrap;
         }
 
         img {
