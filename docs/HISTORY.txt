@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.6.1 (unreleased)
+1.7.0 (2016-08-05)
 ------------------
 
 - Implement new block coordinate behavior, which uses it's own widget
