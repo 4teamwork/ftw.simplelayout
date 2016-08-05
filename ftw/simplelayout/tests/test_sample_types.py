@@ -94,9 +94,9 @@ class TestSampleTypes(TestCase):
     def test_adding_mapblock(self, browser):
         browser.login().visit(self.page)
         factoriesmenu.add('MapBlock')
-        browser.fill({'form.widgets.ICoordinates.coordinates': 'POINT(7.444608499999999 46.9479222)'})
+        browser.fill({'form.widgets.IBlockCoordinates.coordinates': 'POINT(7.444608499999999 46.9479222)'})
         browser.find_button_by_label('Save').click()
-        self.assertEquals(1, len(browser.css('.block-map.widget-cgmap')))
+        self.assertEquals(1, len(browser.css('.ftw-simplelayout-mapblock')))
 
     @browsing
     def test_mapblock_id_based_on_block_id(self, browser):

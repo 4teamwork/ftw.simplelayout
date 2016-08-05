@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
     i18n_domain="ftw.simplelayout">
 
     <browser:resourceDirectory
@@ -9,13 +10,25 @@
         directory="resources"
         />
 
-    <include package=".viewlets" />
-
     <browser:page
         for="ftw.simplelayout.mapblock.contents.interfaces.IMapBlock"
         name="block_view"
         permission="zope2.View"
         class=".mapblock.MapBlockView"
+        />
+
+    <z3c:widgetTemplate
+        mode="input"
+        widget=".widget.IBlockFormMapWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="templates/map_input.pt"
+        />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget=".widget.IBlockFormMapWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="templates/map_display.pt"
         />
 
 </configure>

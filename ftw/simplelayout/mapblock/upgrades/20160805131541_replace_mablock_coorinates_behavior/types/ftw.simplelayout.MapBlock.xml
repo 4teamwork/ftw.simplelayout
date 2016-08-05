@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="ftw.simplelayout.MapBlock"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.simplelayout" >
+
+    <property name="behaviors" purge="False">
+        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable" remove="True"/>
+        <element value="collective.geo.behaviour.interfaces.ICoordinates" remove="True"/>
+        <element value="ftw.simplelayout.mapblock.behavior.IBlockCoordinates" />
+    </property>
+
+</object>
