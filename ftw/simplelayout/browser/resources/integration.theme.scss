@@ -9,6 +9,7 @@
 
 .sl-image {
   width: 100%;
+  position: relative;
 
   &.left {
     @include screen-small() {
