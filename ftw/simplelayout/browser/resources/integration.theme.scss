@@ -36,6 +36,27 @@
   }
 }
 
+.icons-on .sl-image .colorboxLink{
+  @extend .fa-expand;
+  @extend .fa-icon;
+
+  &:before {
+    color: white;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 1.5em;
+    background: rgb(0,0,0);
+    opacity: 0.5;
+    border-radius: 2px;
+    padding: 2px 0px 1px 0px;
+  }
+
+  &:hover:before {
+    opacity: 1;
+  }
+}
+
 .ui-sortable-disabled .sl-layout:hover .sl-toolbar-layout {
   opacity: 0;
 }
