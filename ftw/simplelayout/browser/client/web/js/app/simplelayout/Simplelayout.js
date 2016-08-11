@@ -29,7 +29,8 @@ define([
       items: ".sl-layout",
       handle: ".sl-toolbar-layout .move",
       placeholder: "layout-placeholder",
-      axis: "y",
+      cursorAt: { left: 50, top: 50 },
+      // axis: "y",
       forcePlaceholderSize: true,
       helper: sortableHelper,
       receive: function(event, ui) {
@@ -40,7 +41,8 @@ define([
           layout.element.insertAfter(item);
           item.remove();
         } else {
-          self.moveLayout($(this).data().object, $(this).data().parent);
+          self.moveLayout($(ui.item).data().object, $(this).data().object);
+          self.disableFrames();
         }
       },
       beforeStart: function(event, ui) {
@@ -63,6 +65,7 @@ define([
           self.allowLayout(ui.item.data().object.columns);
         }
         root.removeClass("sl-layout-dragging");
+        self.disableFrames();
       }
     };
 
@@ -118,8 +121,11 @@ define([
 
     this.moveLayout = function(layout, target) {
       var source = layout.parent;
-      source.deleteLayout(layout.id);
+
+      layout.data({ parent: target });
       target.layouts[layout.id] = layout;
+
+      source.deleteLayout(layout.id);
       EventEmitter.trigger("layoutMoved", [layout]);
       return this;
     };

@@ -5,6 +5,18 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
+- Fix layout state, while moving layouts between containers.
+  [mathias.leimgruber]
+
+- Disable iframe fix after stop/receving a layout.
+  [mathias.leimgruber]
+
+- Move layouts like blocks.
+  [mathias.leimgruber]
+
+- Fix moveing layouts between containers. The usability is still no the best.
+  [mathias.leimgruber]
+
 - Add an icon to mark an colorbox image.
   [tschanzt]
 
