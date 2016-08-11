@@ -1200,6 +1200,7 @@ define('app/simplelayout/Simplelayout',[
           item.remove();
         } else {
           self.moveLayout($(ui.item).data().object, $(this).data().object);
+          self.disableFrames();
         }
       },
       beforeStart: function(event, ui) {
@@ -1222,6 +1223,7 @@ define('app/simplelayout/Simplelayout',[
           self.allowLayout(ui.item.data().object.columns);
         }
         root.removeClass("sl-layout-dragging");
+        self.disableFrames();
       }
     };
 

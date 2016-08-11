@@ -5,6 +5,9 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
+- Disable iframe fix after stop/receving a layout.
+  [mathias.leimgruber]
+
 - Move layouts like blocks.
   [mathias.leimgruber]
 
