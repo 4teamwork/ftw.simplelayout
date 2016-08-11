@@ -121,8 +121,11 @@ define([
 
     this.moveLayout = function(layout, target) {
       var source = layout.parent;
-      source.deleteLayout(layout.id);
+
+      layout.data({ parent: target });
       target.layouts[layout.id] = layout;
+
+      source.deleteLayout(layout.id);
       EventEmitter.trigger("layoutMoved", [layout]);
       return this;
     };

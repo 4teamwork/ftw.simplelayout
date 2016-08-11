@@ -5,6 +5,9 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
+- Fix layout state, while moving layouts between containers.
+  [mathias.leimgruber]
+
 - Disable iframe fix after stop/receving a layout.
   [mathias.leimgruber]
 

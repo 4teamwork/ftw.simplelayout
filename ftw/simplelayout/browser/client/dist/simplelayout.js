@@ -1279,8 +1279,13 @@ define('app/simplelayout/Simplelayout',[
 
     this.moveLayout = function(layout, target) {
       var source = layout.parent;
-      source.deleteLayout(layout.id);
+
+      layout.data({ parent: target });
+      layout.parent = target
       target.layouts[layout.id] = layout;
+
+      debugger;
+      source.deleteLayout(layout.id);
       EventEmitter.trigger("layoutMoved", [layout]);
       return this;
     };
