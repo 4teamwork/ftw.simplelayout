@@ -5,6 +5,9 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
+- Fix moveing layouts between containers. The usability is still no the best.
+  [mathias.leimgruber]
+
 - Add an icon to mark an colorbox image.
   [tschanzt]
 

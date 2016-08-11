@@ -40,7 +40,7 @@ define([
           layout.element.insertAfter(item);
           item.remove();
         } else {
-          self.moveLayout($(this).data().object, $(this).data().parent);
+          self.moveLayout($(ui.item).data().object, $(this).data().object);
         }
       },
       beforeStart: function(event, ui) {
