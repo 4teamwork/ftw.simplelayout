@@ -5,6 +5,9 @@ Changelog
 1.7.2 (unreleased)
 ------------------
 
+- Move layouts like blocks.
+  [mathias.leimgruber]
+
 - Fix moveing layouts between containers. The usability is still no the best.
   [mathias.leimgruber]
 

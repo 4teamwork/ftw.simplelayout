@@ -1187,7 +1187,8 @@ define('app/simplelayout/Simplelayout',[
       items: ".sl-layout",
       handle: ".sl-toolbar-layout .move",
       placeholder: "layout-placeholder",
-      axis: "y",
+      cursorAt: { left: 50, top: 50 },
+      // axis: "y",
       forcePlaceholderSize: true,
       helper: sortableHelper,
       receive: function(event, ui) {
