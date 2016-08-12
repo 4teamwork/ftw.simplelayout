@@ -123,6 +123,7 @@ define([
       var source = layout.parent;
 
       layout.data({ parent: target });
+      layout.parent = target;
       target.layouts[layout.id] = layout;
 
       source.deleteLayout(layout.id);

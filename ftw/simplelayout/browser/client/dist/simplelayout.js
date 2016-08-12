@@ -1281,10 +1281,9 @@ define('app/simplelayout/Simplelayout',[
       var source = layout.parent;
 
       layout.data({ parent: target });
-      layout.parent = target
+      layout.parent = target;
       target.layouts[layout.id] = layout;
 
-      debugger;
       source.deleteLayout(layout.id);
       EventEmitter.trigger("layoutMoved", [layout]);
       return this;
