@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.3 (unreleased)
+1.7.3 (2016-08-12)
 ------------------
 
 - Fix 1.7.2 broken simplelayout.js build release.
