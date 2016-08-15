@@ -384,13 +384,23 @@ You can disable (Simplelayout Settings - Control Panel) Opengraph for the plone 
 On Simplelayout sites itself the OpenGraph meta tags can be controlled by the `OpenGraph marker behavior`.
 
 
+Migration from ftw.contentpage
+==============================
+
+This package is the successor of
+`ftw.contentpage <https://github.com/4teamwork/ftw.contentpage>`_.
+In order to migrate from `ftw.contentpage` types to `ftw.simplelayout` types,
+take a look at the preconfigured inplace migrators in the `migration.py` of
+`ftw.simplelayout`.
+
+
 TODO
 ====
 - Update/Finish examples.
 - Update/Add images (animated gifs).
 - Improve Plone 5 support (probably with plone 5 contentttypes).
 - Archetypes block integration (for legacy packages).
-- JS Refactoring of @bierik needs to be tested. 
+- JS Refactoring of @bierik needs to be tested.
 
 Links
 =====
