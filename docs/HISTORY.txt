@@ -5,7 +5,12 @@ Changelog
 1.7.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Display mapblock in 2/3 ratio.
+  [mathias.leimgruber]
+
+- Implement a really hackish way to support IE11.
+  Native c.geo implementation always implements the map api twice and has caching issues.
+  [mathias.leimgruber]
 
 
 1.7.3 (2016-08-12)
