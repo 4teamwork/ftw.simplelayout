@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.4 (unreleased)
+1.7.4 (2016-08-16)
 ------------------
 
 - Display mapblock in 2/3 ratio.
