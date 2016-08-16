@@ -11,5 +11,6 @@ class MapBlockView(BaseBlock):
         address_map = MapWidget(self, self.request, self.context)
         address_map.mapid = "geo-%s" % self.context.getId()
         address_map.addClass('block-map')
+        address_map.klass = 'blockwidget-cgmap'
 
         return address_map
