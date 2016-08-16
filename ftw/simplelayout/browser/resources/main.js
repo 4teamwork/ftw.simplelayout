@@ -141,6 +141,7 @@
           block.content(data.content);
           block.commit();
           saveState();
+          initializeColorbox();
           this.close();
         });
         addOverlay.onCancel(function() {
