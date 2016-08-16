@@ -2,6 +2,12 @@
 
   "use strict";
 
+    var setMapHeight = function(maps){
+      maps.each(function(index, map){
+        $(map).css('height', $(map).width() / 3 * 2);
+      });
+    };
+
     var initGoogleMaps = function(callback){
       var widget = $('.blockwidget-cgmap, .map-widget');
       if (widget.length > 0) {
@@ -13,6 +19,8 @@
           $.getScript(googleJS, function(){
             if ($.fn.collectivegeo) {
               var maps = $(".blockwidget-cgmap").filter(":visible");
+
+              setMapHeight(maps);
               maps.collectivegeo();
             }
 
@@ -25,10 +33,19 @@
       initGoogleMaps();
     });
 
+    $(document).on('blockMoved', function(event, data){
+      var map = data.element.find('.blockwidget-cgmap');
+      setMapHeight(map);
+      map.collectivegeo('refresh');
+    });
+
+
   $(function() {
     $(document).on("onBeforeClose", ".overlay", function() {
       if ($.fn.collectivegeo) {
-        $(".blockwidget-cgmap").filter(":visible").collectivegeo();
+        var map = $(".blockwidget-cgmap").filter(":visible")
+        setMapHeight(map);
+        map.collectivegeo();
       }
     });
 
