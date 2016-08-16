@@ -5,6 +5,9 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
+- Fix image overlay in textblocks
+  [Kevin Bieri]
+
 - Set permission for change layout, site admin & manager now have permission to change the layout.
   [raphael-s]
 
