@@ -5,7 +5,8 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Set permission for change layout, site admin & manager now have permission to change the layout.
+  [raphael-s]
 
 
 1.7.4 (2016-08-16)
