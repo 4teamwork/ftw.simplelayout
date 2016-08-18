@@ -5,6 +5,9 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
+- BugFix: Copyied event is called recursively. Check if the block is actually part of the current page.
+  [mathias.leimgruber]
+
 - Fix image overlay in textblocks
   [Kevin Bieri]
 

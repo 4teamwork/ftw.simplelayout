@@ -36,6 +36,11 @@ def update_page_state_on_copy_paste_block(block, event):
     if not ISimplelayout.providedBy(event.original):
         return
 
+    # The event is triggered recursively - we need to check if the block is
+    # actually part of the original page
+    if event.original.get(block.id) is None:
+        return
+
     origin_block_uid = IUUID(event.original.get(block.id))
     page_config = IPageConfiguration(block.aq_parent)
     page_state = unwrap_persistence(page_config.load())
