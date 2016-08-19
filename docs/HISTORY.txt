@@ -5,6 +5,9 @@ Changelog
 1.8.2 (unreleased)
 ------------------
 
+- Fix Icon position. It is now postitioned to the image not the container.
+  [tschanzt]
+
 - Add optional title to the video block (disabled by default).
   [mbaechtold]
 
