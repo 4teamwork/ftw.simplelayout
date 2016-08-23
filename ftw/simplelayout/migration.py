@@ -602,7 +602,7 @@ class ListingBlockMigrator(object):
         children_types = set(map(attrgetter('portal_type'),
                                  old_object.objectValues()))
 
-        if view == 'slider':
+        if view == 'slider' and children_types == {'Image'}:
             map(self.image_to_slider_pane_migrator.migrate_object,
                 old_object.objectValues()[:])
             self.sliderblock_migrator.migrate_object(old_object)
