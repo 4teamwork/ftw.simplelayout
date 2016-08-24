@@ -14,6 +14,8 @@ Changelog
 - Set permission for change layout, site admin & manager now have permission to change the layout.
   [raphael-s]
 
+- Implement inplace migrators for migration from ftw.contentpage. [jone]
+
 
 1.7.4 (2016-08-16)
 ------------------
