@@ -144,9 +144,8 @@
     opacity: 1;
     visibility: visible;
   }
-  &.animated {
-    opacity: 0;
-    background: $color-content-background;
+  &.dropped {
+    @include animation(fade, 1s ease-in-out)
   }
   .iFrameFix {
     width: 100%;
@@ -502,4 +501,10 @@ ul[class^="sl-toolbar"] {
 
 .overlay-open {
   overflow: hidden;
+}
+
+@include keyframes(fade) {
+  0%   { background-color: transparent; }
+  50%   { background-color: #fff3a5; }
+  100% { background-color: transparent; }
 }
