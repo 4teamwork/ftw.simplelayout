@@ -5,6 +5,8 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
+- Make leadimages "has_image" and "get_scale" usable. [jone]
+
 - BugFix: Copyied event is called recursively. Check if the block is actually part of the current page.
   [mathias.leimgruber]
 

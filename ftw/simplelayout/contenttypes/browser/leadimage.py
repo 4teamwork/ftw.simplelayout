@@ -12,19 +12,26 @@ class LeadImageView(BrowserView):
     """Returns the first image of a textblock with image placed in the
     'default' simplelayout container."""
 
-    has_image = None
+    _has_image = None
     block = None
 
     def __call__(self, scale=None):
-        self._get_image()
-
         if self.has_image:
             scale = self.get_scale(scale)
             return scale.tag()
         else:
             return ''
 
+    @property
+    def has_image(self):
+        self._load()
+        return self._has_image
+
     def get_scale(self, scale=None):
+        self._load()
+        if not self.has_image:
+            return
+
         scale = scale or self.request.get('scale', 'preview')
         scaler = self.block.restrictedTraverse('@@images')
         return scaler.scale('image', scale=scale, direction="down")
@@ -39,17 +46,21 @@ class LeadImageView(BrowserView):
             page_conf.load()))
         return re.findall(r'\"uid\"\: \"(.+?)\"', state_string)
 
-    def _get_image(self):
+    def _load(self):
+        if getattr(self, '_loaded', False):
+            return
+        self._loaded = True
+
         for uid in self._get_uids():
             block = uuidToObject(uid)
             if ITextBlock.providedBy(block) and block.image \
                and block.image.data:
-                self.has_image = True
+                self._has_image = True
                 self.block = block
                 return
 
             if IGalleryBlock.providedBy(block):
                 for image in block.listFolderContents({'portal_type': 'Image'}):
-                    self.has_image = True
+                    self._has_image = True
                     self.block = image
                     return
