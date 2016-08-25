@@ -30,7 +30,6 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
     def get_image_url(self):
         """OG image"""
         leadimage_view = self.context.restrictedTraverse('@@leadimage')
-        leadimage_view._get_image()
         if leadimage_view.has_image:
             scale = leadimage_view.get_scale()
             return scale and scale.url or ''
