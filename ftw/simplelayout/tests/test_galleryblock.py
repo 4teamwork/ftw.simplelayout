@@ -1,3 +1,4 @@
+from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
@@ -177,16 +178,17 @@ class TestGalleryBlock(TestCase):
         )
 
     @browsing
-    def test_hidden_galleryblock_not_visible_without_edit_permission(self, browser):
+    def test_hidden_galleryblock_not_visible_without_edit_permission(self,
+                                                                     browser):
         """
         This test makes sure that users without edit permission, e.g. the
         anonymous user, do not see the hidden block.
         """
-        galleryblock = create(Builder('sl galleryblock')
-                              .titled('My galleryblock')
-                              .having(show_title=True)
-                              .having(is_hidden=True)
-                              .within(self.page))
+        create(Builder('sl galleryblock')
+               .titled('My galleryblock')
+               .having(show_title=True)
+               .having(is_hidden=True)
+               .within(self.page))
 
         # Make sure an anonymous user cannot see the block.
         browser.logout().visit(self.page)
@@ -201,3 +203,141 @@ class TestGalleryBlock(TestCase):
             ['My galleryblock'],
             browser.css('.ftw-simplelayout-galleryblock h2').text
         )
+
+    @browsing
+    def test_sort_by_title_ascending(self, browser):
+        gallery = create(Builder('sl galleryblock')
+                         .titled('My galleryblock')
+                         .having(sort_on='sortable_title')
+                         .having(sort_order='ascending')
+                         .within(self.page))
+
+        create(Builder('image')
+               .titled('a_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        create(Builder('image')
+               .titled('b_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        create(Builder('image')
+               .titled('c_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        browser.login().visit(self.page)
+
+        img_list = browser.css('.colorboxLink img')
+        img_title_list = []
+
+        for img in img_list:
+            img_title_list.append(img.get('alt').split(',')[0])
+
+        self.assertEqual(img_title_list, ['a_img', 'b_img', 'c_img'])
+
+    @browsing
+    def test_sort_by_title_descending(self, browser):
+        gallery = create(Builder('sl galleryblock')
+                         .titled('My galleryblock')
+                         .having(sort_on='sortable_title')
+                         .having(sort_order='descending')
+                         .within(self.page))
+
+        create(Builder('image')
+               .titled('a_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        create(Builder('image')
+               .titled('b_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        create(Builder('image')
+               .titled('c_img')
+               .with_dummy_content()
+               .within(gallery))
+
+        browser.login().visit(self.page)
+
+        img_list = browser.css('.colorboxLink img')
+        img_title_list = []
+
+        for img in img_list:
+            img_title_list.append(img.get('alt').split(',')[0])
+
+        self.assertEqual(img_title_list, ['c_img', 'b_img', 'a_img'])
+
+    @browsing
+    def test_sort_by_modified_ascending(self, browser):
+        gallery = create(Builder('sl galleryblock')
+                         .titled('My galleryblock')
+                         .having(sort_on='modified')
+                         .having(sort_order='ascending')
+                         .within(self.page))
+
+        create(Builder('image')
+               .titled('a_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2014-01-01")))
+
+        create(Builder('image')
+               .titled('b_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2016-01-01")))
+
+        create(Builder('image')
+               .titled('c_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2015-01-01")))
+
+        browser.login().visit(self.page)
+
+        img_list = browser.css('.colorboxLink img')
+        img_title_list = []
+
+        for img in img_list:
+            img_title_list.append(img.get('alt').split(',')[0])
+
+        self.assertEqual(img_title_list, ['a_img', 'c_img', 'b_img'])
+
+    @browsing
+    def test_sort_by_modified_descending(self, browser):
+        gallery = create(Builder('sl galleryblock')
+                         .titled('My galleryblock')
+                         .having(sort_on='modified')
+                         .having(sort_order='descending')
+                         .within(self.page))
+
+        create(Builder('image')
+               .titled('a_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2014-01-01")))
+
+        create(Builder('image')
+               .titled('b_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2016-01-01")))
+
+        create(Builder('image')
+               .titled('c_img')
+               .with_dummy_content()
+               .within(gallery)
+               .with_modification_date(DateTime("2015-01-01")))
+
+        browser.login().visit(self.page)
+
+        img_list = browser.css('.colorboxLink img')
+        img_title_list = []
+
+        for img in img_list:
+            img_title_list.append(img.get('alt').split(',')[0])
+
+        self.assertEqual(img_title_list, ['b_img', 'c_img', 'a_img'])
