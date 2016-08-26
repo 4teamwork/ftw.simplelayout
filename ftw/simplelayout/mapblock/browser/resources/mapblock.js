@@ -43,7 +43,7 @@
   $(function() {
     $(document).on("onBeforeClose", ".overlay", function() {
       if ($.fn.collectivegeo) {
-        var map = $(".blockwidget-cgmap").filter(":visible")
+        var map = $(".blockwidget-cgmap").filter(":visible");
         setMapHeight(map);
         map.collectivegeo();
       }
