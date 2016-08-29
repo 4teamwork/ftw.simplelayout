@@ -16,12 +16,11 @@ class GalleryBlockView(BaseBlock):
         imgBrains = self.context.portal_catalog.searchResults(
             portal_type="Image",
             sort_on=self.context.sort_on,
-            sort_order=self.context.sort_order)
+            sort_order=self.context.sort_order,
+            path='/'.join(self.context.getPhysicalPath()))
         images = []
         for img in imgBrains:
-            imgObj = img.getObject()
-            if imgObj.getParentNode() == self.context:
-                images.append(imgObj)
+            images.append(img.getObject())
         return images
 
     def get_box_boundaries(self):
