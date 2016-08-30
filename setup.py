@@ -98,6 +98,7 @@ setup(name='ftw.simplelayout',
           'Zope2',
           'z3c.form>=3.2.9',
           'Plone',
+          'ftw.referencewidget',
           ],
 
       tests_require=tests_require,
