@@ -111,6 +111,9 @@ Changelog
   This fixes a issue, when it was no longer possible to re-add a layout after deleting the last one.
   [mathias.leimgruber]
 
+- Add sort-options to image gallery block.
+  [raphael-s]
+
 
 1.5.2 (2016-05-26)
 ------------------

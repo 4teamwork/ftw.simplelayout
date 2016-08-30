@@ -13,8 +13,15 @@ class GalleryBlockView(BaseBlock):
     template = ViewPageTemplateFile('templates/galleryblock.pt')
 
     def get_images(self):
-        return self.context.listFolderContents(
-            contentFilter=dict(portal_type=['Image']))
+        imgBrains = self.context.portal_catalog.searchResults(
+            portal_type="Image",
+            sort_on=self.context.sort_on,
+            sort_order=self.context.sort_order,
+            path='/'.join(self.context.getPhysicalPath()))
+        images = []
+        for img in imgBrains:
+            images.append(img.getObject())
+        return images
 
     def get_box_boundaries(self):
         return getAllowedSizes().get('simplelayout_galleryblock')
