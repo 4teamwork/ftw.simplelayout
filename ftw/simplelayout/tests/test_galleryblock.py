@@ -35,6 +35,36 @@ class TestGalleryBlock(TestCase):
             "Available scales: {0}".format(allowed_sizes))
 
     @browsing
+    def test_get_images_only_returns_images_of_current_context(self, browser):
+        gallery1 = create(Builder('sl galleryblock')
+                          .titled('Galleryblock 1')
+                          .having(show_title=True)
+                          .within(self.page))
+
+        create(Builder('image')
+               .titled('gallery1_img')
+               .with_dummy_content()
+               .within(gallery1))
+
+        gallery2 = create(Builder('sl galleryblock')
+                          .titled('Galleryblock 2')
+                          .having(show_title=True)
+                          .within(self.page))
+
+        create(Builder('image')
+               .titled('gallery2_img')
+               .with_dummy_content()
+               .within(gallery2))
+
+        browser.login().visit(self.page)
+
+        css_items = browser.css(
+            'a.colorboxLink[rel="colorbox-galleryblock-1"] img')
+        nodes = [node.get('alt').split(',')[0] for node in css_items]
+
+        self.assertEqual(nodes, ['gallery1_img'])
+
+    @browsing
     def test_rendering(self, browser):
         create(Builder('sl galleryblock')
                .titled('My galleryblock')
@@ -341,3 +371,5 @@ class TestGalleryBlock(TestCase):
             img_title_list.append(img.get('alt').split(',')[0])
 
         self.assertEqual(img_title_list, ['b_img', 'c_img', 'a_img'])
+
+
