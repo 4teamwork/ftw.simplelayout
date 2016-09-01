@@ -111,7 +111,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/behaviors.py:17
 msgid "Teaser"
-msgstr "Teaser"
+msgstr "Link"
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.TextBlock.xml
 msgid "TextBlock"
@@ -210,7 +210,7 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 #. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "description_teaser_fieldset"
-msgstr "Mit der Teaser-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Teaserfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
+msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
 #: ./ftw/simplelayout/configure.zcml:63
 msgid "ftw.simplelayout development"
@@ -377,7 +377,7 @@ msgstr "Zeile verschieben"
 #. Default: "Open image in overlay (only if there is no teaser url)"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:59
 msgid "label_open_image_in_overlay"
-msgstr "Bild in Overlay öffnen (nur wenn keine Teaser-URL hinterlegt ist)"
+msgstr "Bild in Overlay öffnen (nur wenn kein Link hinterlegt ist)"
 
 msgid "label_portal_type"
 msgstr "Typ"
