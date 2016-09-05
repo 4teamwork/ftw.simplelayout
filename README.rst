@@ -149,6 +149,9 @@ Behaviors
 - The Teaser behavior is enabled by default on `TextBlock`. It allows you to add an
   internal or external link to the block.
 
+- The `show_title` behavior is disabled by default. It can be enabled to add a checkbox
+  to the configuration of contentpages. With this checkbox, the title can be hidden.
+
 
 Portlets
 --------

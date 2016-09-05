@@ -7,7 +7,8 @@ from zope.interface import implements
 from zope.publisher.browser import BrowserView
 import json
 import logging
-
+from ftw.simplelayout.interfaces import IContentPageShowTitle
+from zope.component import queryAdapter
 LOG = logging.getLogger('ftw.simplelayout')
 
 
@@ -41,3 +42,10 @@ class SimplelayoutView(BrowserView):
         Example: ['ftw.simplelayout.TextBlock']
         """
         return [block_type.id for block_type in utils.get_block_types()]
+
+    def show_title(self):
+        try:
+            adapted_obj = IContentPageShowTitle(self.context)
+            return adapted_obj.show_title
+        except TypeError:
+            return True

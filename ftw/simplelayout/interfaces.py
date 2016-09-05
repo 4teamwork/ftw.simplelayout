@@ -3,8 +3,11 @@
 # E0213: Method should have "self" as first argument
 
 from ftw.simplelayout import _
+from plone.autoform.interfaces import IFormFieldProvider
+from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
+from zope.interface import provider
 
 
 class ISimplelayoutLayer(Interface):
@@ -17,6 +20,17 @@ class ISimplelayout(Interface):
 
 class ISimplelayoutBlock(Interface):
     """Marker for simplelayout blocks"""
+
+
+@provider(IFormFieldProvider)
+class IContentPageShowTitle(model.Schema):
+    """Adds checkbox to hide title of a contentpage"""
+
+    show_title = schema.Bool(
+        title=_(u'Show title'),
+        default=True,
+        required=False
+    )
 
 
 class ISimplelayoutView(Interface):

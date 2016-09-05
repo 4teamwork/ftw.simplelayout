@@ -17,6 +17,12 @@
         provides="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         />
 
+    <plone:behavior
+        title="Contentpage show title behavior"
+        description="Adds checkbox to hide title of a contentpage"
+        provides="ftw.simplelayout.interfaces.IContentPageShowTitle"
+        />
+
     <adapter
         factory=".indexer.BlockSearchableTextIndexer"
         provides="collective.dexteritytextindexer.IDynamicTextIndexExtender"
