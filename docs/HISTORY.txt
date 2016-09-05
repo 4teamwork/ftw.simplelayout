@@ -5,6 +5,9 @@ Changelog
 1.7.5 (unreleased)
 ------------------
 
+- Fix drop animation backgroundcolor
+  [Kevin Bieri]
+
 - Make leadimages "has_image" and "get_scale" usable. [jone]
 
 - BugFix: Copyied event is called recursively. Check if the block is actually part of the current page.
