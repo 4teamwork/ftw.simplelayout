@@ -1,7 +1,8 @@
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.simplelayout import utils
+from ftw.simplelayout.interfaces import IContentPageShowTitle
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
@@ -41,3 +42,10 @@ class SimplelayoutView(BrowserView):
         Example: ['ftw.simplelayout.TextBlock']
         """
         return [block_type.id for block_type in utils.get_block_types()]
+
+    def show_title(self):
+        try:
+            adapted_obj = IContentPageShowTitle(self.context)
+            return adapted_obj.show_title
+        except TypeError:
+            return True
