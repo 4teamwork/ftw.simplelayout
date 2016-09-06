@@ -5,6 +5,9 @@ Changelog
 1.8.2 (unreleased)
 ------------------
 
+- Add field description for 'Image alternative text' and 'Open image in overlay'.
+  [raphael-s]
+
 - Fix Icon position. It is now postitioned to the image not the container.
   [tschanzt]
 
