@@ -1,14 +1,14 @@
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.simplelayout import utils
+from ftw.simplelayout.interfaces import IContentPageShowTitle
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
 from zope.interface import implements
 from zope.publisher.browser import BrowserView
 import json
 import logging
-from ftw.simplelayout.interfaces import IContentPageShowTitle
-from zope.component import queryAdapter
+
 LOG = logging.getLogger('ftw.simplelayout')
 
 

@@ -53,3 +53,15 @@ class TestSampleTypes(TestCase):
 
         conf = IBlockConfiguration(block).load()
         self.assertEquals('mini', conf.get('scale'))
+
+    @browsing
+    def test_contentpage_without_show_title_behavior(self, browser):
+        page = create(Builder('sl content page')
+                      .titled(u'A page')
+                      .within(self.portal))
+
+        browser.login().visit(page)
+
+        self.assertEqual(
+            ['A page'],
+            browser.css('.documentFirstHeading').text)
