@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.1 (unreleased)
+1.8.1 (2016-09-06)
 ------------------
 
 - Add optional behavior to add a checkbox to show/hide the title of a contentpage.
