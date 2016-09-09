@@ -22,9 +22,9 @@ define(["app/simplelayout/Element"], function(Element) {
 
     this.create({ actions: normalizedActions, orientation: orientation, type: type });
 
-    this.disable = function(action) { $("." + action, this.element).hide(); };
+    this.disable = function(action) { $("." + action, this.element).css("display", "none"); };
 
-    this.enable = function(action) { $("." + action, this.element).show(); };
+    this.enable = function(action) { $("." + action, this.element).css("display", "inline"); };
 
   };
 

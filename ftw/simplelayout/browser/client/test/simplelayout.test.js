@@ -190,12 +190,4 @@ suite("Simplelayout", function() {
     }]);
   });
 
-  test("can serialize", function(done) {
-    done();
-    fixtures.load("simplelayout.html");
-    simplelayout.restore($(fixtures.body()));
-    var jsonRepresentation = fixtures.read("simplelayout.json");
-    assert.equal(jsonRepresentation, simplelayout.serialize());
-  });
-
 });

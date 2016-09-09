@@ -40,12 +40,12 @@ define([
     this.fixFrame();
 
     this.enableFrame = function() {
-      frame.show();
+      frame.css("display", "block");
       return this;
     };
 
     this.disableFrame = function() {
-      frame.hide();
+      frame.css("display", "none");
       return this;
     };
 

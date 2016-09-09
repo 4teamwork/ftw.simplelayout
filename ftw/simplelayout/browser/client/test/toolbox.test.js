@@ -99,7 +99,7 @@ suite("Toolbox", function() {
         blocks: [{ title: "Textblock", contentType: "textblock", formUrl: "URL" }]
       });
 
-      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks i"), function(icon) {
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks .icon-textblock"), function(icon) {
         return { className: icon.className };
       }), [{ className: "icon-textblock" }]);
     });
