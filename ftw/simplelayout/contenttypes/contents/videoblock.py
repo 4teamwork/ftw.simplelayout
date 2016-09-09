@@ -29,6 +29,15 @@ class IVideoBlockSchema(form.Schema):
     """VideoBlock for simplelayout
     """
 
+    title = schema.TextLine(
+        title=_(u'label_title', default=u'Title'),
+        required=False)
+
+    show_title = schema.Bool(
+        title=_(u'label_show_title', default=u'Show title'),
+        default=False,
+        required=False)
+
     video_url = schema.URI(
         title=_(u'label_video_url', default=u'Youtube, or Vimeo URL'),
         description=_(u'Youtube format: http(s)://youtu.be/VIDEO_ID<br/>'

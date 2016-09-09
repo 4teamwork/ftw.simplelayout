@@ -1,1 +1,2 @@
+<h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
 <iframe tal:attributes="src view/vimeo_player" width="100%" height="500px" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
