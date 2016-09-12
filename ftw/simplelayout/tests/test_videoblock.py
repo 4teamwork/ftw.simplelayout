@@ -143,3 +143,47 @@ class TestTextBlockRendering(TestCase):
 
         videoblock_view = videoblock.restrictedTraverse('@@block_view')
         self.assertIsNone(videoblock_view.get_video_id())
+
+    @browsing
+    def test_youtube_video_block_title(self, browser):
+        videoblock = create(Builder('sl videoblock')
+                            .having(video_url='https://youtu.be/W42x6-Wf3Cs')
+                            .titled(u'A video on Youtube')
+                            .within(self.page))
+
+        browser.login()
+
+        # Make sure the title is not rendered by default.
+        browser.visit(videoblock, view='@@block_view')
+        self.assertEqual([], browser.css('h2'))
+
+        # Configure the block to render the title.
+        browser.visit(videoblock, view='edit')
+        browser.fill({'Show title': True}).submit()
+        browser.visit(videoblock, view='@@block_view')
+        self.assertEquals(
+            'A video on Youtube',
+            browser.css('h2').first.text
+        )
+
+    @browsing
+    def test_vimeo_block_title(self, browser):
+        videoblock = create(Builder('sl videoblock')
+                            .having(video_url='https://vimeo.com/channels/staffpicks/128510631')
+                            .titled(u'A video on Vimeo')
+                            .within(self.page))
+
+        browser.login()
+
+        # Make sure the title is not rendered by default.
+        browser.visit(videoblock, view='@@block_view')
+        self.assertEqual([], browser.css('h2'))
+
+        # Configure the block to render the title.
+        browser.visit(videoblock, view='edit')
+        browser.fill({'Show title': True}).submit()
+        browser.visit(videoblock, view='@@block_view')
+        self.assertEquals(
+            'A video on Vimeo',
+            browser.css('h2').first.text
+        )
