@@ -36,6 +36,10 @@
   }
 }
 
+.icons-on .sl-image .imageContainer {
+    position:relative;
+}
+
 .icons-on .sl-image .colorboxLink{
   @extend .fa-expand;
   @extend .fa-icon;
