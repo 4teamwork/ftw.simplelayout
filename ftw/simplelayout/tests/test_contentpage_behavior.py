@@ -8,7 +8,7 @@ from zope.component import getUtility
 import transaction
 
 
-class TestTextBlockRendering(SimplelayoutTestCase):
+class TestContentPageShowTitleBehavior(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
