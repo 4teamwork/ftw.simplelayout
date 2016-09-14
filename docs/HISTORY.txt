@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.2 (unreleased)
+1.8.2 (2016-09-14)
 ------------------
 
 - Add field description for 'Image alternative text' and 'Open image in overlay'.
