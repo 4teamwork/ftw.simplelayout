@@ -1,10 +1,11 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
-from ftw.testbrowser import browsing
 from ftw.simplelayout.testing import SimplelayoutTestCase
-from zope.component import getUtility
+from ftw.testbrowser import browsing
 from plone.dexterity.interfaces import IDexterityFTI
+from zope.component import getUtility
+import transaction
 
 
 class TestTextBlockRendering(SimplelayoutTestCase):
@@ -41,3 +42,24 @@ class TestTextBlockRendering(SimplelayoutTestCase):
         self.assertEqual(
             ['A page'],
             browser.css('.documentFirstHeading').text)
+
+    @browsing
+    def test_allow_and_disallow_changing_show_title_field(self, browser):
+
+        self.page.manage_permission('ftw.simplelayout: Hide title',
+                                    roles=[],
+                                    acquire=0)
+        transaction.commit()
+
+        browser.login().visit(self.page, view='edit')
+        self.assertIsNone(browser.find_form_by_field('Show title'),
+                          'Do not expect the "Show title" field.')
+
+        self.page.manage_permission('ftw.simplelayout: Hide title',
+                                    roles=['Manager'],
+                                    acquire=0)
+        transaction.commit()
+
+        browser.visit(self.page, view='edit')
+        self.assertTrue(browser.find_form_by_field('Show title'),
+                        'Exepct the "Show title" field.')
