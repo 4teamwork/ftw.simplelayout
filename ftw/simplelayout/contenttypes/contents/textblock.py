@@ -49,7 +49,9 @@ class ITextBlockSchema(form.Schema):
 
     image_alt_text = schema.TextLine(
         title=_(u'label_image_alt_text', default=u'Image alternative text'),
-        required=False)
+        required=False,
+        description=_(u'description_image_alt_text',
+                      default=u'Enter an alternative text for the image'))
 
     image_caption = schema.TextLine(
         title=_(u'label_image_caption', default=u'Image caption'),
@@ -60,7 +62,9 @@ class ITextBlockSchema(form.Schema):
                 default=u'Open image in overlay'
                 u' (only if there is no teaser url)'),
         default=False,
-        required=False)
+        required=False,
+        description=_(u'description_image_clickable',
+                      default=u'Opens image in an overlay'))
 
 
 alsoProvides(ITextBlockSchema, IFormFieldProvider)
