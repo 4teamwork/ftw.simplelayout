@@ -3,6 +3,7 @@
 # E0213: Method should have "self" as first argument
 
 from ftw.simplelayout import _
+from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.supermodel import model
 from zope import schema
@@ -31,6 +32,9 @@ class IContentPageShowTitle(model.Schema):
         default=True,
         required=False
     )
+
+    directives.write_permission(
+        show_title='ftw.simplelayout.HideTitle')
 
 
 class ISimplelayoutView(Interface):
