@@ -626,12 +626,12 @@ define('app/simplelayout/Block',[
     this.fixFrame();
 
     this.enableFrame = function() {
-      frame.show();
+      frame.css("display", "block");
       return this;
     };
 
     this.disableFrame = function() {
-      frame.hide();
+      frame.css("display", "none");
       return this;
     };
 
@@ -677,9 +677,9 @@ define('app/simplelayout/Toolbar',["app/simplelayout/Element"], function(Element
 
     this.create({ actions: normalizedActions, orientation: orientation, type: type });
 
-    this.disable = function(action) { $("." + action, this.element).hide(); };
+    this.disable = function(action) { $("." + action, this.element).css("display", "none"); };
 
-    this.enable = function(action) { $("." + action, this.element).show(); };
+    this.enable = function(action) { $("." + action, this.element).css("display", "inline"); };
 
   };
 
