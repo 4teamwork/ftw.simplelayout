@@ -1,11 +1,12 @@
+from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
 from plone.autoform.interfaces import IFormFieldProvider
-from plone.formwidget.contenttree import ObjPathSourceBinder
+from plone.directives.form import widget
 from plone.supermodel import model
-from z3c.relationfield.schema import RelationChoice
+from z3c.relationfield.schema import Relation
 from zope import schema
-from zope.interface import Invalid
 from zope.interface import alsoProvides
+from zope.interface import Invalid
 from zope.interface import invariant
 
 
@@ -28,9 +29,11 @@ class ITeaser(model.Schema):
         title=_(u'label_external_link', default=u'External URL'),
         required=False)
 
-    internal_link = RelationChoice(
+    widget('internal_link',
+           ReferenceBrowserWidget,
+           allow_nonsearched_types=True)
+    internal_link = Relation(
         title=_(u'label_internal_link', default=u'Internal link'),
-        source=ObjPathSourceBinder(),
         required=False,
     )
 
