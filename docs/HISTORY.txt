@@ -5,6 +5,9 @@ Changelog
 1.8.3 (unreleased)
 ------------------
 
+- Use ftw.referencewidget instead of plone.formwidget.contenttree.
+  [tschanzt]
+
 - Protect new show/hide title behavior.
   [mathias.leimgruber]
 
@@ -16,9 +19,6 @@ Changelog
   [raphael-s]
 
 - Fix Icon position. It is now postitioned to the image not the container.
-  [tschanzt]
-
-- Use ftw.referencewidget instead of plone.formwidget.contenttree.
   [tschanzt]
 
 - Add optional title to the video block (disabled by default).
