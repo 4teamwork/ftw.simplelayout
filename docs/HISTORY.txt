@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.8.3 (unreleased)
+1.8.3 (2016-09-16)
 ------------------
 
 - Use ftw.referencewidget instead of plone.formwidget.contenttree.
