@@ -5,7 +5,7 @@ Changelog
 1.8.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Extend inplace migrator to create listing blocks of ftw.news and ftw.events. [jone]
 
 
 1.8.3 (2016-09-16)

@@ -270,7 +270,9 @@ class NewsFolderMigrator(InplaceMigrator):
                    'expirationDate',
                    'subject')),
             field_mapping=field_mapping,
-            additional_steps=additional_steps,
+            additional_steps=(
+                (self.create_news_listing_block, )
+                + additional_steps),
             options=options,
         )
 
@@ -279,6 +281,10 @@ class NewsFolderMigrator(InplaceMigrator):
         if path:
             query['path'] = path
         return query
+
+    def create_news_listing_block(self, old_news_folder, new_news_folder):
+        from ftw.news.contents.news_folder import create_news_listing_block
+        create_news_listing_block(new_news_folder)
 
 
 class NewsMigrator(InplaceMigrator):
@@ -330,7 +336,9 @@ class EventFolderMigrator(InplaceMigrator):
                    'expirationDate',
                    'subject')),
             field_mapping=field_mapping,
-            additional_steps=additional_steps,
+            additional_steps=(
+                (self.create_event_listing_block, )
+                + additional_steps),
             options=options,
         )
 
@@ -339,6 +347,10 @@ class EventFolderMigrator(InplaceMigrator):
         if path:
             query['path'] = path
         return query
+
+    def create_event_listing_block(self, old_event_folder, new_event_folder):
+        from ftw.events.contents.eventfolder import create_event_listing_block
+        create_event_listing_block(new_event_folder)
 
 
 class EventPageMigrator(InplaceMigrator):
