@@ -635,6 +635,13 @@ define('app/simplelayout/Block',[
       return this;
     };
 
+    this.markLinks = function() {
+      var url = window.location.protocol + "//" + window.location.host;
+      // all http links (without the link-plain class), not within this site
+      $("a[href^=\"http\"]:not(.link-plain):not([href^=\"" + url + "\"])", this.element).attr("target", "_blank");
+      return this;
+    };
+
     this.restore = function(restoreElement, restoreParent, restoreType, represents) {
       this.type = restoreType;
       Block.prototype.restore.call(this, restoreElement, restoreParent, represents);

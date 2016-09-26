@@ -200,9 +200,11 @@
 
       simplelayout.on("layoutMoved", function() { saveState(); });
 
-      simplelayout.on("blockReplaced", function() {
+      simplelayout.on("blockReplaced", function(block) {
         $(document).trigger("blockContentReplaced", arguments);
         statekeeper.update();
+        if (typeof external_links_open_new_window === 'string' && external_links_open_new_window.toLowerCase() === 'true')
+          block.markLinks();
       });
 
       $(toolbox.element).on("click", ".sl-toolbox-block, .sl-toolbox-layout", function() {
