@@ -2,6 +2,15 @@
 
   "use strict";
 
+  function markLinks(element) {
+    debugger;
+    if (typeof global.external_links_open_new_window === "string" && global.external_links_open_new_window.toLowerCase() === "true") {
+      var url = window.location.protocol + "//" + window.location.host;
+      // all http links (without the link-plain class), not within this site
+      $("a[href^=\"http\"]:not(.link-plain):not([href^=\"" + url + "\"])", element).attr("target", "_blank");
+    }
+  }
+
   function StateKeeper() {
 
     var counter = 0;
@@ -203,8 +212,7 @@
       simplelayout.on("blockReplaced", function(block) {
         $(document).trigger("blockContentReplaced", arguments);
         statekeeper.update();
-        if (typeof external_links_open_new_window === 'string' && external_links_open_new_window.toLowerCase() === 'true')
-          block.markLinks();
+        markLinks(block.element);
       });
 
       $(toolbox.element).on("click", ".sl-toolbox-block, .sl-toolbox-layout", function() {

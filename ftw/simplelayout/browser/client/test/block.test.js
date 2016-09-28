@@ -71,12 +71,4 @@ suite("Block", function() {
     assert.deepEqual(frameFixElement, [{ display: "none" }]);
   });
 
-  test("external links open in new tab", function() {
-    block = new Block('<a href="http://google.com">Google</a><a href="/test">Local</a>', "textblock");
-    block.markLinks();
-    assert.equal(
-      '<a href="http://google.com" target="_blank">Google</a><a href="/test">Local</a>',
-      $(".sl-block-content", block.element).html());
-  });
-
 });
