@@ -5,7 +5,9 @@ Changelog
 1.11.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix SCSS linting errors
+
+    - This requires ftw.theming>=1.7.0
 
 
 1.11.0 (2016-10-05)
