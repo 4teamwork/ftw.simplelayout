@@ -5,7 +5,8 @@ Changelog
 1.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Open external links in new tab on block creation.
+  [Kevin Bieri]
 
 
 1.9.0 (2016-09-26)
