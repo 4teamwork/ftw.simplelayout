@@ -18,6 +18,9 @@ Changelog
 1.9.0 (2016-09-26)
 ------------------
 
+- Drop support for standard plone theme (sunburst)
+  [Kevin Bieri]
+
 - Extend inplace migrator to create listing blocks of ftw.news and ftw.events. [jone]
 
 

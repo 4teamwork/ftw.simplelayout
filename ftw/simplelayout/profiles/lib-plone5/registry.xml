@@ -17,20 +17,10 @@
     <value key="deps">jquery</value>
   </records>
 
-  <records prefix="plone.resources/ftw-simplelayout-icons"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="css">
-      <element>++plone++ftw.simplelayout/icons.css</element>
-    </value>
-  </records>
-
   <records prefix="plone.resources/ftw-simplelayout-integration"
            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
     <value key="js">++plone++ftw.simplelayout/main.js</value>
     <value key="deps">jquery</value>
-    <value key="css">
-      <!-- <element>++plone++ftw.simplelayout/simplelayout.integration.css</element> -->
-    </value>
   </records>
 
 	<records prefix="plone.bundles/ftw-simplelayout"
@@ -38,7 +28,6 @@
 	  <value key="resources">
 	    <element>ftw-simplelayout</element>
       <element>ftw-simplelayout-overlay</element>
-      <element>ftw-simplelayout-icons</element>
       <element>ftw-simplelayout-integration</element>
 	  </value>
 	  <value key="enabled">True</value>
@@ -46,7 +35,6 @@
     <value key="depends">plone-legacy</value>
     <value key="compile">False</value>
     <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-compiled.js</value>
-    <value key="csscompilation">++plone++ftw.simplelayout/simplelayout-compiled.css</value>
 	</records>
 
 </registry>
