@@ -5,7 +5,7 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Support Chameleon caching. [jone]
 
 
 1.10.0 (2016-09-30)

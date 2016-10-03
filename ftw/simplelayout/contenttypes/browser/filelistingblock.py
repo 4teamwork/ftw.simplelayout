@@ -12,6 +12,8 @@ class FileListingBlockView(BaseBlock):
     """ListingBlock default view"""
 
     template = ViewPageTemplateFile('templates/listingblock.pt')
+    table_template = ViewPageTemplateFile(
+        'templates/ftw.table.custom.template.pt')
 
     def get_table_contents(self):
         catalog = getToolByName(self.context, 'portal_catalog')
@@ -45,15 +47,13 @@ class FileListingBlockView(BaseBlock):
         # The id value is moved to a css klass.
         # Reason: It's no allowed to have an id more than once (In case we
         # have more than one Listingblock on one contentpage)
-        template = ViewPageTemplateFile(
-            'templates/ftw.table.custom.template.pt')
         generator = queryUtility(ITableGenerator, 'ftw.tablegenerator')
         return generator.generate(
             self.get_table_contents(),
             list(self._filtered_columns()),
             sortable=False,
             css_mapping={'table': 'listing nosort'},
-            template=template,
+            template=self.table_template,
             options={'table_summary': self.context.Title()},
             selected=(self._build_query['sort_on'],
                       self._build_query['sort_order']))
