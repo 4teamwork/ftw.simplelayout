@@ -20,6 +20,8 @@ class AddViewTraverser(object):
     adapts(ISimplelayout, Interface)
     implements(ITraversable)
 
+    template = ViewPageTemplateFile('templates/add.pt')
+
     def __init__(self, context, request):
         self.context = context
         self.request = request
@@ -32,8 +34,8 @@ class AddViewTraverser(object):
 
             if add_view is not None:
                 add_view.__name__ = ti.factory
-                template = ViewPageTemplateFile('templates/add.pt')
-                add_view.index = BoundPageTemplate(template, add_view)
+                add_view.index = BoundPageTemplate(self.template.im_func,
+                                                   add_view)
                 return add_view.__of__(self.context)
 
         raise TraversalError(self.context, name)
