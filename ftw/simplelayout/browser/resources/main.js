@@ -3,7 +3,6 @@
   "use strict";
 
   function markLinks(element) {
-    debugger;
     if (typeof global.external_links_open_new_window === "string" && global.external_links_open_new_window.toLowerCase() === "true") {
       var url = window.location.protocol + "//" + window.location.host;
       // all http links (without the link-plain class), not within this site

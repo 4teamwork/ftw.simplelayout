@@ -5,6 +5,8 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
+- Remove debugger statement :pig:. [Kevin Bieri]
+
 - Support Chameleon caching. [jone]
 
 
