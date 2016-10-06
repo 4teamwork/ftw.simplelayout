@@ -98,7 +98,7 @@ setup(name='ftw.simplelayout',
           'z3c.form>=3.2.9',
           'Plone',
           'ftw.referencewidget',
-          'ftw.theming',
+          'ftw.theming>=1.7.0',
           ],
 
       tests_require=tests_require,
