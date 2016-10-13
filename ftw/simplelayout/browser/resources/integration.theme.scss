@@ -507,6 +507,11 @@ ul[class^="sl-toolbar"] {
   overflow: hidden;
 }
 
+// Prevent FOUC when manually setting the video dimensions
+.sl-youtube-video {
+  visibility: hidden;
+}
+
 @include keyframes(fade) {
   0%   { background-color: transparent; }
   50%   { background-color: #fff3a5; }

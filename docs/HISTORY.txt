@@ -5,6 +5,9 @@ Changelog
 1.11.1 (unreleased)
 -------------------
 
+- Make youtube-videoblocks auto-resize to the max space available.
+  [raphael-s]
+
 - Fix SCSS linting errors
 
     - This requires ftw.theming>=1.7.0

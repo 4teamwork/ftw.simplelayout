@@ -2,6 +2,29 @@
 
   "use strict";
 
+  // Return function that will be only called during a free painting loop
+  function throttle(func) { return function() { window.requestAnimationFrame(func); }; }
+
+  $(window).on("resize", throttle(resizeAll));
+
+  var ratios = {};
+
+  function resizeAll() { $.map($(".sl-youtube-video"), resizeYoutubePlayer); }
+
+  function onPlayerReady(player) {
+    var iframe = player.target.a;
+
+    ratios[iframe.id] = ratios[iframe.id] || iframe.height/iframe.width;
+
+    iframe.width = "100%";
+    resizeYoutubePlayer(iframe);
+    iframe.style.visibility = "visible";
+  };
+
+  function resizeYoutubePlayer(iframe) {
+    iframe.height = iframe.offsetWidth * ratios[iframe.id];
+  }
+
   $(function() {
 
     var youtubePlayer = {
@@ -18,7 +41,8 @@
             controls: 1,
             rel: 0,
             showInfo: 0
-          }
+          },
+          events: { "onReady": onPlayerReady }
         };
 
         var options = $.extend(defaults, config);
@@ -48,9 +72,7 @@
     };
 
 
-    $(document).on("onBeforeClose", ".overlay", function() {
-      initializeYoutubeApi();
-    });
+    $(document).on("onBeforeClose", ".overlay", initializeYoutubeApi);
 
     initializeYoutubeApi();
 

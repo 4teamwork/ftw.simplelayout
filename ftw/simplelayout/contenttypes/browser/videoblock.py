@@ -31,8 +31,7 @@ class VideoBlockView(BaseBlock):
         return 'uuid_{0}'.format(IUUID(self.context))
 
     def youtube_config(self):
-        config = {'videoId': self.get_video_id(),
-                  'width': '100%'}
+        config = {'videoId': self.get_video_id()}
 
         return json.dumps(config)
 
