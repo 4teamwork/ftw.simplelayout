@@ -251,6 +251,18 @@
       });
     });
 
+    $(global.document).on("click", ".sl-block .inneredit", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      editOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "uid": $(this).data('uid') })});
+      editOverlay.onSubmit(function(data) {
+        block.content(data.content);
+        initializeColorbox();
+        this.close();
+      });
+    });
+
+
     $(global.document).on("click", ".sl-block .redirect", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;

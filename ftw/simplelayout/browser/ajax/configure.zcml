@@ -38,6 +38,13 @@
 
     <browser:page
         for="*"
+        name="sl-ajax-inner-edit-view"
+        class=".edit_block.InnerEditRedirector"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="*"
         name="sl-ajax-upload-block-view"
         class=".upload.UploadForm"
         permission="cmf.ModifyPortalContent"
@@ -51,5 +58,11 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="*"
+        name="inner_edit.json"
+        class=".edit_block.InnerEditForm"
+        permission="cmf.ModifyPortalContent"
+        />
 
 </configure>
