@@ -97,10 +97,10 @@
       var addFormUrl;
       var currentBlock;
       var activeBlockElement;
-      var addOverlay = new global.FormOverlay();
-      var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
-      var editOverlay = new global.FormOverlay();
-      var uploadOverlay = new global.FormOverlay({ disableClose: isUploading });
+      var addOverlay = new global.FormOverlay({ cssclass: "overlay-add" });
+      var deleteOverlay = new global.FormOverlay({ cssclass: "overlay-delete" });
+      var editOverlay = new global.FormOverlay({ cssclass: "overlay-edit" });
+      var uploadOverlay = new global.FormOverlay({ cssclass: "overlay-upload", disableClose: isUploading });
 
       if (!instance.settings.canChangeLayouts){
         $(simplelayout.options.source).sortable("disable");
