@@ -264,11 +264,12 @@ Global Simplelayout configuration
 Create new Block representations
 --------------------------------
 
-Directly edit items in a folderish Block
+Directly edit items in a folderish block
 ----------------------------------------
 
 For this purpose you can place a link in the rendered block.
-Assume you want to edit a file in a ListingBlock you need a link, which is pointing to `./sl-ajax-inner-edit-view`, has the css class `inneredit` and a data attribute named `uid` containing the uid of the content.
+Assume you want to edit a file in a listing block: you need a link, which is pointing to ``./sl-ajax-inner-edit-view``,
+has the css class ``inneredit`` and a data attribute named ``uid`` containing the uid of the content.
 
 .. code-block:: xml
 
@@ -277,7 +278,7 @@ Assume you want to edit a file in a ListingBlock you need a link, which is point
        tal:attributes="data-uid file_object/UID">EDIT</a>
 
 
-After editing the content the view automatically reloads the block.
+After editing the content, the view automatically reloads the block.
 
 
 Run custom JS code
