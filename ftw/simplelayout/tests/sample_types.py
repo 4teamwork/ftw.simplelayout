@@ -43,9 +43,17 @@ class ISampleDXBlock(Interface):
     pass
 
 
+class ISampleDXFolderishBlock(Interface):
+    pass
+
+
 class SampleBlock(Item):
     # In Plone 5 the ISimplelayoutBlock marker behavior does not work in tests.
     implements(ISampleDXBlock, ISimplelayoutBlock)
+
+
+class SampleFolderishBlock(Container):
+    implements(ISampleDXFolderishBlock, ISimplelayoutBlock)
 
 
 class ISampleSimplelayoutContainer(Interface):
@@ -68,8 +76,14 @@ class SampleBlockBuilder(DexterityBuilder):
     portal_type = 'SampleBlock'
 
 
+class SampleFolderishBlockBuilder(DexterityBuilder):
+    portal_type = 'SampleFolderishBlock'
+
+
 registry.builder_registry.register('sample block', SampleBlockBuilder)
 registry.builder_registry.register('sample container', SampleContainerBuilder)
+registry.builder_registry.register('sample folderish block',
+                                   SampleFolderishBlockBuilder)
 
 
 # Setup
@@ -102,9 +116,23 @@ def setup_ftis(portal):
 
     types_tool._setObject('SampleBlock', fti)
 
+    # Simplelayout folderish Block
+    fti = DexterityFTI('SampleFolderishBlock')
+    fti.schema = 'ftw.simplelayout.tests.sample_types.ISampleDXBlockSchema'
+    fti.klass = 'ftw.simplelayout.tests.sample_types.SampleFolderishBlock'
+    fti.default_view = 'block_view'
+    fti.global_allow = False
+    fti.behaviors = (
+        'ftw.simplelayout.interfaces.ISimplelayoutBlock',
+        'plone.app.lockingbehavior.behaviors.ILocking',
+        'plone.app.content.interfaces.INameFromTitle',)
+
+    types_tool._setObject('SampleFolderishBlock', fti)
+    folderishblock_fti = types_tool.get('SampleFolderishBlock')
+    folderishblock_fti.allowed_content_types = ('SampleContainer', )
+
     contentpage_fti = types_tool.get('SampleContainer')
-    contentpage_fti.allowed_content_types = (
-        'SampleBlock', )
+    contentpage_fti.allowed_content_types = ('SampleBlock', )
 
 
 def setup_views():
@@ -116,6 +144,11 @@ def setup_views():
 
     provideAdapter(SampleBlockView,
                    adapts=(ISampleDXBlock, Interface),
+                   provides=IBrowserView,
+                   name='block_view')
+
+    provideAdapter(SampleBlockView,
+                   adapts=(ISampleDXFolderishBlock, Interface),
                    provides=IBrowserView,
                    name='block_view')
 

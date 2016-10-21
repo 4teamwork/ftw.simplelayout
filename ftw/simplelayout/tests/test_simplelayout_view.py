@@ -381,7 +381,7 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         view = self.container.restrictedTraverse('@@simplelayout-view')
         self.assertEqual(
-            ['SampleBlock'],
+            ['SampleBlock', 'SampleFolderishBlock'],
             view.addable_block_types()
         )
 

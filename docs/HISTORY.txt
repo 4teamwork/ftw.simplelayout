@@ -5,7 +5,11 @@ Changelog
 1.11.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Implement a inner_edit.json view, which allows us to edit an item in a
+  folderish block. For example edit a file directly in a FilelistingBlock.
+  This view works almost like the block edit view, the difference is, that
+  the inner_edit.json view returns the rendered html of its parent (the Block).
+  [mathias.leimgruber]
 
 
 1.11.1 (2016-10-13)
