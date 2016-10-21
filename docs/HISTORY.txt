@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.11.2 (unreleased)
+1.12.0 (2016-10-21)
 -------------------
 
 - Implement a inner_edit.json view, which allows us to edit an item in a
