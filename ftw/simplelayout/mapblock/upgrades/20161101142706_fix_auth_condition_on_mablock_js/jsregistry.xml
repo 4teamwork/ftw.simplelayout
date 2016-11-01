@@ -3,9 +3,7 @@
 
     <javascript
         id="++resource++ftw.simplelayout.mapblock.resources/mapblock.js"
-        enabled="True"
         authenticated="False"
-        insert-after="++resource++ftw.simplelayout.resources/main.js"
         />
 
 </object>
