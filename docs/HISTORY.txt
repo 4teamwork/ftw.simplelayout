@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.12.1 (unreleased)
+1.12.1 (2016-11-01)
 -------------------
 
 - Enable mapblock.js for anonymous users.
