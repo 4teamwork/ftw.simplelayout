@@ -257,7 +257,7 @@ ul[class^="sl-toolbar"] {
   background-color: $color-text;
   visibility: hidden;
   border-radius: $border-radius-primary;
-  z-index: $zindex-tooltip;
+  z-index: $zindex-base + 10;
   li {
     text-align: center;
     a {
@@ -303,8 +303,8 @@ ul[class^="sl-toolbar"] {
   right: 0;
   top: 0;
   height: 100%;
-  z-index: $zindex-overlay - 10;
-  display: table;
+  z-index: $zindex-base;
+  display: none;
   background: $color-text;
 
   span {
