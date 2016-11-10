@@ -294,11 +294,17 @@ ul[class^="sl-toolbar"] {
 }
 
 .simplelayout-initialized body {
-  padding-right: $editbar-height;
+  @include screen-small() {
+    padding-right: $editbar-height;
+  }
 }
 
 .sl-toolbox {
   @include noselect();
+  @include screen-small() {
+    display: table;
+  }
+
   position: fixed;
   right: 0;
   top: 0;

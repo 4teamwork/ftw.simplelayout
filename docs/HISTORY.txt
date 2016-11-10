@@ -5,6 +5,9 @@ Changelog
 1.12.3 (unreleased)
 -------------------
 
+- Hide toolbox on small devices.
+  [Kevin Bieri]
+
 - Highlight active layout.
   [Kevin Bieri]
 
