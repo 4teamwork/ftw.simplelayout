@@ -5,6 +5,12 @@ Changelog
 1.12.3 (unreleased)
 -------------------
 
+- Highlight active layout.
+  [Kevin Bieri]
+
+- Fix toolbar zindex.
+  [Kevin Bieri]
+
 - Fix layout delete button when block has been moved.
   [Kevin Bieri]
 
