@@ -5,7 +5,9 @@ Changelog
 1.12.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Don't allow all non-folderish types to be selectable as default page.
+  Without this types like the TextBlock can be selected and would break the site.
+  [lknoepfel]
 
 
 1.12.1 (2016-11-01)

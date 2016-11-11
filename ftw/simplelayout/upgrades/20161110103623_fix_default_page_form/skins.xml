@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+
+ <object
+    name="ftw.simplelayout"
+    meta_type="Filesystem Directory View"
+    directory="ftw.simplelayout:skins/ftw.simplelayout"/>
+
+    <skin-path name="*">
+        <layer name="ftw.simplelayout" insert-after="custom"/>
+    </skin-path>
+
+</object>

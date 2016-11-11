@@ -6,6 +6,7 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="ftw.simplelayout">
 
     <include package="ftw.autofeature" file="meta.zcml" />
@@ -26,6 +27,11 @@
 
     <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
     <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
+
+    <cmf:registerDirectory
+            name="ftw.simplelayout"
+            directory="skins"
+            recursive="True" />
 
     <adapter
         factory="ftw.simplelayout.properties.MultiViewBlockProperties"
