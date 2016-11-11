@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<object name="portal_skins" allow_any="False" cookie_persistence="False">
+<object name="portal_skins">
 
  <object
     name="ftw.simplelayout"
     meta_type="Filesystem Directory View"
-    directory="ftw.simplelayout:skins"/>
+    directory="ftw.simplelayout:skins/ftw.simplelayout"/>
 
     <skin-path name="*">
         <layer name="ftw.simplelayout" insert-after="custom"/>
