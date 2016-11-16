@@ -1,0 +1,126 @@
+$background-gallery: rgba(0, 0, 0, .8) !default;
+
+.button-gallery {
+  @extend .fa;
+  background-color: $color-content-background;
+  position: absolute;
+  top: 50%;
+  width: 30px;
+  height: 40px;
+  margin-top: -20px;
+  padding: 0;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $color-content-background;
+    color: $color-primary;
+  }
+}
+
+.button-gallery-next {
+  @extend .fa-chevron-right;
+  right: 0;
+  @include screen-medium() {
+    right: $padding-horizontal;
+  }
+}
+
+.button-gallery-prev {
+  @extend .fa-chevron-left;
+  left: 0;
+  @include screen-medium() {
+    left: $padding-horizontal;
+  }
+}
+
+.ftw-gallery {
+
+  z-index: $zindex-overlay;
+
+  #ftw-showroom-close {
+    @extend .fa;
+    @extend .fa-close;
+
+    right: 0;
+    top: 0;
+
+    z-index: $zindex-overlay + 10;
+
+    @include screen-medium() {
+      right: 200px;
+    }
+    position: absolute;
+    background-color: $color-content-background;
+    background-image: none;
+    height: 40px;
+    width: 40px;
+    color: $color-primary;
+    padding: 0;
+    border-radius: $border-radius-primary;
+
+    &:hover {
+      background-image: none;
+    }
+  }
+
+  background: $background-gallery;
+
+  figure {
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    @include screen-medium() {
+      top: 100px;
+      right: 100px;
+      left: 100px;
+      bottom: auto;
+    }
+
+    @include screen-large() {
+      top: 100px;
+      right: 240px;
+      left: 240px;
+    }
+
+    background-color: $color-content-background;
+    padding: $padding-horizontal;
+    position: absolute;
+    margin: 0;
+
+    > img {
+      @include screen-medium() {
+        max-height: calc(100vh - (2 * 100px + 2 * #{$padding-horizontal}));
+        position: static;
+        transform: none;
+        display: block;
+        margin: 0 auto;
+      }
+
+      @include translate(-50%, -50%);
+      max-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  .description {
+    margin: 0;
+  }
+
+  .gallery-title {
+    font-size: $font-size-h4;
+  }
+
+  .gallery-caption {
+    position: absolute;
+    padding: $padding-horizontal;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: $color-content-background;
+  }
+
+}
