@@ -37,18 +37,15 @@ $background-gallery: rgba(0, 0, 0, .8) !default;
 
   z-index: $zindex-overlay;
 
-  #ftw-showroom-close {
+  .ftw-showroom-close {
     @extend .fa;
     @extend .fa-close;
 
-    right: 0;
     top: 0;
+    right: 0;
 
     z-index: $zindex-overlay + 10;
 
-    @include screen-medium() {
-      right: 200px;
-    }
     position: absolute;
     background-color: $color-content-background;
     background-image: none;
@@ -100,18 +97,24 @@ $background-gallery: rgba(0, 0, 0, .8) !default;
 
       @include translate(-50%, -50%);
       max-height: 100%;
+      width: auto;
       position: absolute;
       top: 50%;
       left: 50%;
     }
   }
 
-  .description {
-    margin: 0;
+  .gallery-pagenumber {
+    color: $color-text-light;
+    font-size: $font-size-base;
+    vertical-align: middle;
   }
 
   .gallery-title {
-    font-size: $font-size-h4;
+    font-size: $font-size-medium;
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
   }
 
   .gallery-caption {

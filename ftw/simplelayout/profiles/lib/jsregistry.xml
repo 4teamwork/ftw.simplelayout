@@ -43,4 +43,10 @@
         insert-after="kss-bbb.js"
         />
 
+    <javascript
+        id="++resource++ftw.simplelayout.resources/Gallery.js"
+        enabled="True"
+        insert-after="++resource++ftw.showroom/ftw.showroom.js"
+        />
+
 </object>

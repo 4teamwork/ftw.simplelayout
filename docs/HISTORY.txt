@@ -5,6 +5,9 @@ Changelog
 1.13.1 (unreleased)
 -------------------
 
+- Implement galleryblock using ftw.showroom.
+  [Kevin Bieri]
+
 - Move ``ftw.referencewidget`` dependency to ``contenttypes`` extras. [jone]
 
 - Drop ``plone.formwidget.contenttree`` dependency. [jone]
