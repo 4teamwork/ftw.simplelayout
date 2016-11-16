@@ -5,7 +5,8 @@ Changelog
 1.12.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix layout delete button when block has been moved.
+  [Kevin Bieri]
 
 
 1.12.2 (2016-11-11)

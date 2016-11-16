@@ -679,7 +679,7 @@ define('app/simplelayout/Toolbar',["app/simplelayout/Element"], function(Element
 
     this.disable = function(action) { $("." + action, this.element).css("display", "none"); };
 
-    this.enable = function(action) { $("." + action, this.element).css("display", "inline"); };
+    this.enable = function(action) { $("." + action, this.element).css("display", "block"); };
 
   };
 
