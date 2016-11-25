@@ -2,6 +2,11 @@
 
   "use strict";
 
+  // Disable inline validation of the Plone forms in the overlay.
+  $(document).on('onLoad OverlayContentReloaded', '.overlay', function(){
+    $('.z3cformInlineValidation').removeClass('z3cformInlineValidation');
+  });
+
   function markLinks(element) {
     if (typeof global.external_links_open_new_window === "string" && global.external_links_open_new_window.toLowerCase() === "true") {
       var url = window.location.protocol + "//" + window.location.host;

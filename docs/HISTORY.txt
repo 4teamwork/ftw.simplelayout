@@ -5,6 +5,9 @@ Changelog
 1.12.3 (unreleased)
 -------------------
 
+- Disable inline validation of the Plone forms in the overlay.
+  [mbaechtold]
+
 - Hide toolbox on small devices.
   [Kevin Bieri]
 
