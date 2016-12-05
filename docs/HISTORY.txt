@@ -5,6 +5,10 @@ Changelog
 1.12.3 (unreleased)
 -------------------
 
+- Prevent gallery block from failing when it contains image objects having
+  umlauts in their title.
+  [mbaechtold]
+
 - Disable inline validation of the Plone forms in the overlay.
   [mbaechtold]
 
