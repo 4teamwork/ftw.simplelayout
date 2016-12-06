@@ -3,6 +3,7 @@ from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from plone.app.imaging.utils import getAllowedSizes
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
 
@@ -35,7 +36,7 @@ class GalleryBlockView(BaseBlock):
         return bool(permission)
 
     def generate_image_alttext(self, img):
-        title = img.title_or_id().decode('utf-8')
+        title = safe_unicode(img.title_or_id())
         return translate(_(u'image_link_alttext',
                            default=u'${title}, enlarged picture.',
                            mapping={'title': title}),

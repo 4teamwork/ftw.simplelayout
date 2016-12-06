@@ -372,4 +372,27 @@ class TestGalleryBlock(TestCase):
 
         self.assertEqual(img_title_list, ['b_img', 'c_img', 'a_img'])
 
+    @browsing
+    def test_image_title_with_umlaut(self, browser):
+        """
+        This test makes sure that gallery block does not fail when
+        it contains image objects having umlauts in their title.
+        """
+        gallery = create(Builder('sl galleryblock')
+                         .titled('My Gallery Block')
+                         .within(self.page))
+        create(Builder('image')
+               .titled(u'T\xe4st')
+               .with_dummy_content()
+               .within(gallery))
 
+        browser.login()
+        browser.open(self.page)
+        self.assertEqual(
+            u'T\xe4st',
+            browser.css('.ftw-simplelayout-galleryblock .sl-block-content a').first.attrib['title']
+        )
+        self.assertEqual(
+            u'T\xe4st, enlarged picture.',
+            browser.css('.ftw-simplelayout-galleryblock .sl-block-content a img').first.attrib['alt']
+        )
