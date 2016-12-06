@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.12.3 (unreleased)
+1.13.0 (2016-12-06)
 -------------------
 
 - Prevent gallery block from failing when it contains image objects having
