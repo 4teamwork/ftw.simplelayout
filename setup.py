@@ -33,7 +33,7 @@ extras_require = {
         'plone.behavior',
         'plone.dexterity',
         'plone.directives.form',
-        'plone.formwidget.contenttree',
+        'ftw.referencewidget',
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
@@ -97,7 +97,6 @@ setup(name='ftw.simplelayout',
           'Zope2',
           'z3c.form>=3.2.9',
           'Plone',
-          'ftw.referencewidget',
           'ftw.theming>=1.7.0',
           ],
 

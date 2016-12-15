@@ -5,7 +5,9 @@ Changelog
 1.13.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Move ``ftw.referencewidget`` dependency to ``contenttypes`` extras. [jone]
+
+- Drop ``plone.formwidget.contenttree`` dependency. [jone]
 
 
 1.13.0 (2016-12-06)
