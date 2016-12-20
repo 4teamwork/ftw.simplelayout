@@ -5,6 +5,9 @@ Changelog
 1.13.1 (unreleased)
 -------------------
 
+- Move option to hide a block to a behavior so it can be used on other blocks too.
+  [mbaechtold]
+
 - Move ``ftw.referencewidget`` dependency to ``contenttypes`` extras. [jone]
 
 - Drop ``plone.formwidget.contenttree`` dependency. [jone]

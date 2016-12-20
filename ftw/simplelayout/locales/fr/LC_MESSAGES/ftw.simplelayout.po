@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-09-14 06:59+0000\n"
+"POT-Creation-Date: 2016-12-20 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,15 +14,19 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+#: ./ftw/simplelayout/behaviors.zcml:37
+msgid "Adds an option to (visually) hide a block"
+msgstr ""
+
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:48
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:49
 msgid "Cancel"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:112
+#: ./ftw/simplelayout/interfaces.py:116
 msgid "Check possible values on http://ogp.me"
 msgstr ""
 
@@ -46,7 +50,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:105
+#: ./ftw/simplelayout/interfaces.py:109
 msgid "Enable OpenGraph support on plone root"
 msgstr ""
 
@@ -62,6 +66,10 @@ msgstr ""
 msgid "GalleryBlock"
 msgstr ""
 
+#: ./ftw/simplelayout/behaviors.zcml:37
+msgid "Hide block"
+msgstr ""
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:70
 msgid "ID"
@@ -71,11 +79,11 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/behaviors.py:40
+#: ./ftw/simplelayout/contenttypes/behaviors.py:44
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:73
+#: ./ftw/simplelayout/configure.zcml:79
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -87,15 +95,15 @@ msgstr ""
 msgid "Modify geographical data for this content"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:111
+#: ./ftw/simplelayout/interfaces.py:115
 msgid "OpenGraph global type"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:37
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:38
 msgid "Save"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:30
+#: ./ftw/simplelayout/interfaces.py:31
 msgid "Show title"
 msgstr ""
 
@@ -107,7 +115,7 @@ msgstr ""
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:48
+#: ./ftw/simplelayout/configure.zcml:54
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -131,7 +139,7 @@ msgstr ""
 msgid "Simplelayout block content marker"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:95
+#: ./ftw/simplelayout/interfaces.py:99
 msgid "Simplelayout default configuration"
 msgstr ""
 
@@ -156,7 +164,7 @@ msgstr ""
 msgid "Simplelayout teaser behavior"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/behaviors.py:17
+#: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "Teaser"
 msgstr ""
 
@@ -265,7 +273,7 @@ msgid "column_type"
 msgstr ""
 
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
-#: ./ftw/simplelayout/interfaces.py:96
+#: ./ftw/simplelayout/interfaces.py:100
 msgid "desc_sl_config_control_panel"
 msgstr ""
 
@@ -280,21 +288,20 @@ msgid "description_image_clickable"
 msgstr "Ouvre l'image dans un overlay"
 
 #. Default: "This will visually hide the block. This is not a security feature, the block and its content can still be accessed."
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:157
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:70
+#: ./ftw/simplelayout/contenttypes/behaviors.py:56
 msgid "description_is_hidden"
 msgstr ""
 
 #. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:19
+#: ./ftw/simplelayout/contenttypes/behaviors.py:21
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:73
+#: ./ftw/simplelayout/configure.zcml:79
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:48
+#: ./ftw/simplelayout/configure.zcml:54
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -317,7 +324,7 @@ msgid "hidden_label_image_caption"
 msgstr ""
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:39
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:40
 #: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
 msgid "image_link_alttext"
 msgstr ""
@@ -373,7 +380,7 @@ msgid "label_edit_block"
 msgstr ""
 
 #. Default: "External URL"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:28
+#: ./ftw/simplelayout/contenttypes/behaviors.py:30
 msgid "label_external_link"
 msgstr ""
 
@@ -398,12 +405,12 @@ msgid "label_float_large_image_right"
 msgstr ""
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:187
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:177
 msgid "label_folder_contents_files"
 msgstr ""
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:100
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:90
 msgid "label_folder_contents_images"
 msgstr ""
 
@@ -431,13 +438,12 @@ msgid "label_image_without_floating"
 msgstr ""
 
 #. Default: "Internal link"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:32
+#: ./ftw/simplelayout/contenttypes/behaviors.py:37
 msgid "label_internal_link"
 msgstr ""
 
 #. Default: "Hide the block"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:156
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:69
+#: ./ftw/simplelayout/contenttypes/behaviors.py:55
 msgid "label_is_hidden"
 msgstr ""
 
@@ -507,8 +513,8 @@ msgid "label_title"
 msgstr ""
 
 #. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:180
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:93
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
 msgid "label_upload"
 msgstr ""
 
