@@ -534,7 +534,6 @@ ul[class^="sl-toolbar"] {
   100% { background-color: transparent; }
 }
 
-
 /*
    TinyMCE: Disable "anchor"-tab in link dialog because this dialog only support
    anchors within the same TinyMCE instance, but we need to be able to select
@@ -544,4 +543,18 @@ ul[class^="sl-toolbar"] {
 */
 #plonebrowser #anchor_link {
   display: none;
+}
+
+/* Multiupload */
+.filedropzone {
+  width: 100%;
+  background-color: red;
+  min-height: 20px;
+  display: block;
+  float: left;
+
+  &.dz-drag-hover {
+    border: 5px dotted blue;
+    background-color: yellow; 
+  }
 }

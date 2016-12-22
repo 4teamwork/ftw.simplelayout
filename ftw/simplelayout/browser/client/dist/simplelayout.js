@@ -1390,6 +1390,57 @@ define('app/simplelayout/Simplelayout',[
     this.options.toolbox.element.find(".sl-toolbox-layout").draggable("option", "connectToSortable", ".sl-simplelayout");
     this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
 
+
+    $(".sl-column").on("dragenter", function(event){
+        event.stopPropagation();
+        event.preventDefault();
+
+        if ($(this).find('.filedropzone').length === 0) {
+          var template = $('<form class="filedropzoneWrapper" />');
+          template.append("<div class='filedropzone'/>");
+          template.append('<input type="radio" name="content" value="textblock"/> TextBlock');
+          template.append('<input type="radio" name="content" value="galleryblock"/> GalleryBlock');
+          template.append('<button class="triggerUpload">Upload</button>');
+
+          var blocks = $(this).find('.sl-block');
+
+          if (blocks.length !== 0) {
+            blocks.before(template.clone());
+            blocks.eq(-1).after(template.clone());
+          }
+
+
+          $('.filedropzone').each(function(){
+            var target = $(this);
+            target.dropzone({
+              url: "sl-ajax-upload",
+              autoProcessQueue: false,
+              parallelUploads: 10000,
+              uploadMultiple: true,
+            });
+
+            target[0].dropzone.on('sending', function(file, xhr, formData){
+              formData.append('_authenticator', $('[name="_authenticator"]').val());
+              formData.append('contenttype', $('[name="content"]').val());
+            });
+
+            target[0].dropzone.on('success', function(a, respond){
+              formData.append('_authenticator', $('[name="_authenticator"]').val());
+              formData.append('contenttype', $('[name="content"]').val());
+            });
+
+            target.parent().find('.triggerUpload').on('click', function(event){
+              event.preventDefault();
+              event.stopPropagation();
+              target[0].dropzone.processQueue();
+            });
+          });
+
+        }
+
+    });
+
+
     $(".sl-simplelayout").sortable(LAYOUT_SORTABLE);
     $(".sl-column").sortable(BLOCK_SORTABLE);
 

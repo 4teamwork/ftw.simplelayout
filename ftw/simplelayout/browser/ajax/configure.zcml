@@ -59,6 +59,14 @@
 
 
     <browser:page
+        for="*"
+        name="sl-ajax-upload"
+        class=".upload.DnDUpload"
+        permission="cmf.ModifyPortalContent"
+        />
+
+
+    <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         name="edit.json"
         class=".edit_block.EditForm"
