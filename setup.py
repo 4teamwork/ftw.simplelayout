@@ -25,6 +25,7 @@ extras_require = {
     'contenttypes': [
         'collective.quickupload',
         'ftw.colorbox',
+        'ftw.showroom',
         'ftw.table',
         'ftw.upgrade',
         'plone.app.dexterity',

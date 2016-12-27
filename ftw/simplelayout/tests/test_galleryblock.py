@@ -35,36 +35,6 @@ class TestGalleryBlock(TestCase):
             "Available scales: {0}".format(allowed_sizes))
 
     @browsing
-    def test_get_images_only_returns_images_of_current_context(self, browser):
-        gallery1 = create(Builder('sl galleryblock')
-                          .titled('Galleryblock 1')
-                          .having(show_title=True)
-                          .within(self.page))
-
-        create(Builder('image')
-               .titled('gallery1_img')
-               .with_dummy_content()
-               .within(gallery1))
-
-        gallery2 = create(Builder('sl galleryblock')
-                          .titled('Galleryblock 2')
-                          .having(show_title=True)
-                          .within(self.page))
-
-        create(Builder('image')
-               .titled('gallery2_img')
-               .with_dummy_content()
-               .within(gallery2))
-
-        browser.login().visit(self.page)
-
-        css_items = browser.css(
-            'a.colorboxLink[rel="colorbox-galleryblock-1"] img')
-        nodes = [node.get('alt').split(',')[0] for node in css_items]
-
-        self.assertEqual(nodes, ['gallery1_img'])
-
-    @browsing
     def test_rendering(self, browser):
         create(Builder('sl galleryblock')
                .titled('My galleryblock')
@@ -97,53 +67,6 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
         self.assertEquals(2, len(browser.css('.sl-block-content img')))
-
-    @browsing
-    def test_each_gallery_has_a_unique_rel_name(self, browser):
-        gallerie_1 = create(Builder('sl galleryblock')
-                            .titled('My galleryblock')
-                            .having(show_title=True)
-                            .within(self.page))
-
-        create(Builder('image')
-               .titled('Test image')
-               .with_dummy_content()
-               .within(gallerie_1))
-
-        create(Builder('image')
-               .titled('Test image')
-               .with_dummy_content()
-               .within(gallerie_1))
-
-        gallerie_2 = create(Builder('sl galleryblock')
-                            .titled('My galleryblock')
-                            .having(show_title=True)
-                            .within(self.page))
-
-        create(Builder('image')
-               .titled('Test image')
-               .with_dummy_content()
-               .within(gallerie_2))
-
-        create(Builder('image')
-               .titled('Test image')
-               .with_dummy_content()
-               .within(gallerie_2))
-
-        browser.login().visit(self.page)
-
-        # Should be two images in each gallery.
-        # The rel is 'colorbox-{block-id}'
-
-        self.assertEquals(
-            2,
-            len(browser.css('.sl-block-content a[rel="colorbox-{0}"]'.format(
-                gallerie_1.getId()))))
-
-        self.assertEquals(
-            2,
-            len(browser.css('.sl-block-content a[rel="colorbox-{0}"]'.format(
-                gallerie_2.getId()))))
 
     @browsing
     def test_galleryblock_title_not_rendered_when_empty(self, browser):
@@ -259,7 +182,7 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
 
-        img_list = browser.css('.colorboxLink img')
+        img_list = browser.css('.gallery-item img')
         img_title_list = []
 
         for img in img_list:
@@ -292,7 +215,7 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
 
-        img_list = browser.css('.colorboxLink img')
+        img_list = browser.css('.gallery-item img')
         img_title_list = []
 
         for img in img_list:
@@ -328,7 +251,7 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
 
-        img_list = browser.css('.colorboxLink img')
+        img_list = browser.css('.gallery-item img')
         img_title_list = []
 
         for img in img_list:
@@ -364,7 +287,7 @@ class TestGalleryBlock(TestCase):
 
         browser.login().visit(self.page)
 
-        img_list = browser.css('.colorboxLink img')
+        img_list = browser.css('.gallery-item img')
         img_title_list = []
 
         for img in img_list:

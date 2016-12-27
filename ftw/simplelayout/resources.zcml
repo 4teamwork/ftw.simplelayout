@@ -8,12 +8,13 @@
     <theme:scss_factory factory=".browser.dynamic_scss_resources.hide_blocks_in_factory_menu" />
 
     <theme:resources profile="ftw.simplelayout:lib" slot="addon">
-        <theme:scss file="browser/resources/integration.theme.scss" />
+        <theme:scss file="browser/resources/scss/integration.theme.scss" />
 
-        <theme:scss file="browser/resources/theming.toolbox-icons.scss" slot="bottom"
+        <theme:scss file="browser/resources/scss/theming.toolbox-icons.scss" slot="bottom"
                     after="ftw.theming:resources/scss/iconset_font-awesome.scss" />
 
-        <theme:scss file="browser/resources/theming.toolbar-icons.scss" />
+        <theme:scss file="browser/resources/scss/theming.toolbar-icons.scss" />
+        <theme:scss file="browser/resources/scss/gallery.scss" />
     </theme:resources>
 
 </configure>

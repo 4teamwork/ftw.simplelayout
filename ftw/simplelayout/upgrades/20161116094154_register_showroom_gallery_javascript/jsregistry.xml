@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts">
+
+    <javascript
+        id="++resource++ftw.simplelayout.resources/Gallery.js"
+        enabled="True"
+        insert-after="++resource++ftw.showroom/ftw.showroom.js"
+        />
+
+    <javascript
+        id="++resource++ftw.simplelayout.resources/main.js"
+        enabled="True"
+        insert-after="++resource++ftw.simplelayout.resources/Gallery.js"
+        />
+
+</object>

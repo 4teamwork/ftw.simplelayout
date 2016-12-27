@@ -10,14 +10,16 @@
 
 	<tal:boxes repeat="img view/get_images">
 
-		<div class="galleryblockImageWrapper">
-			<a class="colorboxLink" href="#"
+		<div class="galleryblockImageWrapper"
+         tal:define="scales img/@@images;
+                     full python: scales.scale('image', scale='colorbox', direction='down');
+                     thumb python: scales.tag('image', scale='simplelayout_galleryblock', direction='down', alt=view.generate_image_alttext(img))">
+			<a class="showroom-item gallery-item" href="#"
 				tal:attributes="
-					title img/title_or_id;
-					rel string:colorbox-${here/getId};
-					href img/absolute_url">
-                <img tal:define="scales img/@@images"
-                     tal:replace="structure python: scales.tag('image', scale='simplelayout_galleryblock', direction='down', alt=view.generate_image_alttext(img))" />
+					data-showroom-title img/title_or_id;
+          title img/title_or_id;
+					data-showroom-target python: view.get_image_details(full)">
+                <img tal:replace="structure thumb" />
 			</a>
 		</div>
 

@@ -6,6 +6,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.i18n import translate
+import json
 
 
 class GalleryBlockView(BaseBlock):
@@ -41,3 +42,10 @@ class GalleryBlockView(BaseBlock):
                            default=u'${title}, enlarged picture.',
                            mapping={'title': title}),
                          context=self.request)
+
+    def get_image_details(self, scale):
+        return json.dumps({
+            "url": scale.url,
+            "width": scale.width,
+            "height": scale.height,
+        })

@@ -1,4 +1,4 @@
-(function(global, $) {
+(function(global, $, Gallery) {
 
   "use strict";
 
@@ -74,14 +74,6 @@
 
     var isUploading = function() { return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0; };
 
-    var initializeColorbox = function() {
-      if($(".colorboxLink").length > 0) {
-        if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
-          global.ftwColorboxInitialize();
-        }
-      }
-    };
-
     var options = $.extend({
       canChangeLayout: false,
       canEdit: false,
@@ -154,7 +146,6 @@
           block.content(data.content);
           block.commit();
           saveState();
-          initializeColorbox();
           this.close();
         });
         addOverlay.onCancel(function() {
@@ -251,7 +242,6 @@
       editOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })});
       editOverlay.onSubmit(function(data) {
         block.content(data.content);
-        initializeColorbox();
         this.close();
       });
     });
@@ -262,7 +252,6 @@
       editOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "uid": $(this).data('uid') })});
       editOverlay.onSubmit(function(data) {
         block.content(data.content);
-        initializeColorbox();
         this.close();
       });
     });
@@ -306,7 +295,11 @@
         var configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
         configRequest.done(function(blockContent) {
           block.content(blockContent);
-          initializeColorbox();
+          if(block.data().gallery) {
+            block.data().gallery.refresh();
+          } else {
+            Gallery(block.element[0]);
+          }
         });
       });
     });
@@ -315,4 +308,4 @@
 
   $(init);
 
-}(window, jQuery));
+}(window, jQuery, window.Gallery));
