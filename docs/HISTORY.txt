@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.13.1 (unreleased)
+1.14.0 (2017-01-04)
 -------------------
 
 - Move option to hide a block to a behavior so it can be used on other blocks too.
