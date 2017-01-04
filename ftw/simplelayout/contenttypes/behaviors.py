@@ -8,6 +8,7 @@ from zope import schema
 from zope.interface import alsoProvides
 from zope.interface import Invalid
 from zope.interface import invariant
+from zope.interface import provider
 
 
 class ITeaser(model.Schema):
@@ -45,3 +46,18 @@ class ITeaser(model.Schema):
                 u"external_link together"))
 
 alsoProvides(ITeaser, IFormFieldProvider)
+
+
+@provider(IFormFieldProvider)
+class IHiddenBlock(model.Schema):
+
+    is_hidden = schema.Bool(
+        title=_(u'label_is_hidden', default=u'Hide the block'),
+        description=_(
+            u'description_is_hidden',
+            default=u'This will visually hide the block. This is not a '
+                    u'security feature, the block and its content can '
+                    u'still be accessed.'),
+        default=False,
+        required=False,
+    )
