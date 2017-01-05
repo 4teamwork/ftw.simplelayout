@@ -5,7 +5,7 @@ Changelog
 1.14.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Log traceback too when a block cannot be rendered. [jone]
 
 
 1.14.0 (2017-01-04)

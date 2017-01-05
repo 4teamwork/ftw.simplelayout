@@ -138,10 +138,8 @@ class BaseSimplelayoutExpression(object):
         except ConflictError:
             raise
         except Exception, exc:
+            LOG.exception(exc)
             html = self.fallbackview()
-            LOG.error('Could not render block: {}: {}'.format(
-                exc.__class__.__name__,
-                str(exc)))
 
         return html
 
