@@ -67,7 +67,7 @@ class SimplelayoutRenderer(object):
         user_can_edit = self._user_can_edit()
 
         for row in self.rows:
-            row['class'] = 'sl-layout ' + row.get('cssklasses', '')
+            row['class'] = 'sl-layout'
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
                 col['blocks'] = filter(
