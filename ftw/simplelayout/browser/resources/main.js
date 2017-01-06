@@ -231,6 +231,24 @@
       }
     });
 
+    $(global.document).on("click", ".sl-layout .reload", function() {
+      event.preventDefault();
+      var action = $(this);
+      var layout = action.parents(".sl-layout");
+      var container = action.closest('.sl-simplelayout');
+      var payload = {
+        name: container.attr('id'),
+        layoutindex: container.find('.sl-layout').index(layout)
+      };
+      $.extend(payload, action.data());
+
+      var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payload) });
+      configRequest.done(function(layoutdata) {
+        layout.replaceWith(layoutdata);
+        EventEmitter.trigger("layoutMoved", [ui.item.data().object]);
+      });
+    });
+
     $(global.document).on("click", ".sl-block .delete", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;

@@ -82,7 +82,16 @@ class SimplelayoutToolbox(BrowserView):
                                      default=u'Delete layout'),
                                    context=self.request),
                 'class': 'icon-delete delete'
+            },
+            'highlighted': {
+                'title': translate(_(u'label_hightlight_layout',
+                                     default=u'Highlighted layout'),
+                                   context=self.request),
+                'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-highlighted reload',
+                'data-cssklasses': 'highlighted green'
             }
+
         }
 
     def client_labels(self):
