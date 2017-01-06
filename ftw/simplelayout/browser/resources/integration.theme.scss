@@ -7,6 +7,11 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
 
+
+.highlighted .sl-column {
+  background-color: green;
+}
+
 .sl-image {
   width: 100%;
   position: relative;
