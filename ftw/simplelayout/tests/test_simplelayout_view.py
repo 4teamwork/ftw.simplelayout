@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.browser.provider import SimplelayoutRenderer
 from ftw.simplelayout.browser.simplelayout import SimplelayoutView
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
@@ -405,3 +406,28 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         browser.login().visit(self.container, data={'disable_border': 1})
         self.assertFalse(len(browser.css('.sl-can-edit')),
                          'no sl-can-edit class expected.')
+
+    @browsing
+    def test_simplelayout_renderer_only_one_layout_of_storage(self, browser):
+        storage = self.payload.copy()
+        sl_renderer = SimplelayoutRenderer(self.container, storage, 'default')
+
+        browser.open_html(sl_renderer.render_layout(index=1))
+        self.assertEquals(1, len(browser.css('.sl-layout')),
+                          'Expect only one layout')
+
+        browser.open_html(sl_renderer.render_layout(index=0))
+        self.assertEquals(1, len(browser.css('.sl-layout')),
+                          'Expect only one layout')
+
+        browser.open_html(sl_renderer.render_layout())
+        self.assertEquals(2, len(browser.css('.sl-layout')),
+                          'Expect both layouts')
+
+    @browsing
+    def test_simplelayout_renderer_raises_ValueError(self, browser):
+        storage = self.payload.copy()
+        sl_renderer = SimplelayoutRenderer(self.container, storage, 'default')
+
+        with self.assertRaises(ValueError):
+            sl_renderer.render_layout(index=4)

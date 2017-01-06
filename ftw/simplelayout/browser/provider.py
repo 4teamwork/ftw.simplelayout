@@ -33,37 +33,40 @@ class CleanedViewPageTemplateFile(ViewPageTemplateFile):
         return re.sub(">\s*<", "><", text), type_
 
 
-class BaseSimplelayoutExpression(object):
+class SimplelayoutRenderer(object):
 
+    layout_template = CleanedViewPageTemplateFile('templates/layout.pt')
+    slot_template = CleanedViewPageTemplateFile('templates/slot.pt')
     fallbackview = ViewPageTemplateFile('templates/render_block_error.pt')
-    structure = CleanedViewPageTemplateFile('templates/structure.pt')
 
-    @property
-    def one_layout_one_column(self):
-        return [{"cols": [{"blocks": []}]}]
+    def __init__(self, context, storage, name, view=None):
 
-    def user_can_edit(self):
-        return api.user.has_permission(
-            'Modify portal content',
-            obj=self.context) and int(self.request.get('disable_border', 0)) == 0
+        self.context = context
+        self.request = self.context.REQUEST
+        self.storage = storage
+        self.name = name
+        self.view = view
 
-    def get_css_class(self):
-        css_classes = ['sl-simplelayout']
-        if self.user_can_edit():
-            css_classes.append("sl-can-edit")
-        return " ".join(css_classes)
+    def render_slot(self):
+        return self.slot_template()
 
-    def rows(self):
-        """ Return datastructure for rendering blocks.
-        """
-        page_conf = IPageConfiguration(self.context)
+    def render_layout(self, index=None):
+
+        self.rows = self.storage.get(self.name, self._one_layout_one_column())
+
+        # If index is None, render all layouts.
+        # If not, render only a specific layout
+        if index is not None:
+            if index > len(self.rows) - 1:
+                raise ValueError('Layout with index {} does not exists'.format(
+                    index))
+            else:
+                self.rows = [self.rows[index]]
+
         blocks = self._blocks()
+        user_can_edit = self._user_can_edit()
 
-        rows = page_conf.load().get(self.name, self.one_layout_one_column)
-
-        user_can_edit = self.user_can_edit()
-
-        for row in rows:
+        for row in self.rows:
             row['class'] = 'sl-layout'
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
@@ -73,7 +76,7 @@ class BaseSimplelayoutExpression(object):
 
                 for block in col['blocks']:
                     obj = blocks[block['uid']]
-                    self.create_or_update_block(obj, block)
+                    self._create_or_update_block(obj, block)
 
                 # Remove hidden blocks for users not having the permission
                 # to edit content.
@@ -82,66 +85,35 @@ class BaseSimplelayoutExpression(object):
                     if not block['is_hidden'] or block['is_hidden'] and user_can_edit
                 ]
 
-        # Append blocks, which are not in the simplelayout configuration into
-        # the last column.
-
         if self.name == 'default':
             for uid, obj in self._blocks_without_state():
-                block = self.create_or_update_block(obj, uid=uid)
+                block = self._create_or_update_block(obj, uid=uid)
 
                 # Skip hidden blocks for users not having the permission
                 # to edit content.
                 if block['is_hidden'] and not user_can_edit:
                     continue
 
-                rows[-1]['cols'][-1]['blocks'].append(block)
+                self.rows[-1]['cols'][-1]['blocks'].append(block)
 
-        return rows
+        return self.layout_template()
 
-    def create_or_update_block(self, obj, block_dict=None, uid=None):
-        if not block_dict:
-            block_dict = {}
+    def get_simplelayout_settings(self):
+        return json.dumps(self._get_sl_settings())
 
-        if uid:
-            block_dict['uid'] = uid
+    def get_css_class(self):
+        css_classes = ['sl-simplelayout']
+        if self._user_can_edit():
+            css_classes.append("sl-can-edit")
+        return " ".join(css_classes)
 
-        block_type = normalize_portal_type(obj.portal_type)
-        block_is_hidden = getattr(obj, 'is_hidden', False)
+    def _user_can_edit(self):
+        return api.user.has_permission(
+            'Modify portal content',
+            obj=self.context) and int(self.request.get('disable_border', 0)) == 0
 
-        css_classes = ['sl-block', block_type]
-        if block_is_hidden:
-            css_classes.append('hidden')
-
-        css_classes.extend(getattr(aq_base(obj), 'additional_css_classes', []))
-
-        block_dict['is_hidden'] = block_is_hidden
-        block_dict['obj_html'] = self._render_block_html(obj)
-        block_dict['type'] = block_type
-        block_dict['url'] = obj.absolute_url()
-        block_dict['id'] = obj.getId()
-        block_dict['css_classes'] = ' '.join(css_classes)
-
-        return block_dict
-
-    def _get_first_column_config(self):
-        settings = self._get_sl_settings()
-        if settings and settings.get('layout'):
-            return self._get_sl_settings()['layout'][0]
-        else:
-            # One column by default.
-            return 1
-
-    def _render_block_html(self, block):
-
-        try:
-            html = get_block_html(block)
-        except ConflictError:
-            raise
-        except Exception, exc:
-            LOG.exception(exc)
-            html = self.fallbackview()
-
-        return html
+    def _one_layout_one_column(self):
+        return [{"cols": [{"blocks": []}]}]
 
     def _blocks(self):
         """ Return block objects by UID.
@@ -169,14 +141,40 @@ class BaseSimplelayoutExpression(object):
         return filter(lambda x: x[0] not in saved_blocks,
                       self._blocks().items())
 
+    def _create_or_update_block(self, obj, block_dict=None, uid=None):
+        if not block_dict:
+            block_dict = {}
+
+        if uid:
+            block_dict['uid'] = uid
+
+        block_type = normalize_portal_type(obj.portal_type)
+        block_is_hidden = getattr(obj, 'is_hidden', False)
+
+        css_classes = ['sl-block', block_type]
+        if block_is_hidden:
+            css_classes.append('hidden')
+
+        css_classes.extend(getattr(aq_base(obj), 'additional_css_classes', []))
+
+        block_dict['is_hidden'] = block_is_hidden
+        block_dict['obj_html'] = self._render_block_html(obj)
+        block_dict['type'] = block_type
+        block_dict['url'] = obj.absolute_url()
+        block_dict['id'] = obj.getId()
+        block_dict['css_classes'] = ' '.join(css_classes)
+
+        return block_dict
+
     def _get_sl_settings(self):
         # 1. global settings
         registry = getUtility(IRegistry)
         settings = json.loads(
-            registry.forInterface(ISimplelayoutDefaultSettings, check=False).slconfig)
+            registry.forInterface(ISimplelayoutDefaultSettings,
+                                  check=False).slconfig)
 
         # 2. Update with Permission check
-        self.update_permission_related_settings(settings)
+        self._update_permission_related_settings(settings)
 
         # 3. Update with ISimplelayoutContainerConfig adapter
         adapter = queryMultiAdapter((self.context, self.request),
@@ -190,17 +188,42 @@ class BaseSimplelayoutExpression(object):
             getattr(self.view, method)(settings)
         return settings
 
-    def get_simplelayout_settings(self):
-        return json.dumps(self._get_sl_settings())
+    def _render_block_html(self, block):
 
-    def update_permission_related_settings(self, settings):
+        try:
+            html = get_block_html(block)
+        except ConflictError:
+            raise
+        except Exception, exc:
+            LOG.exception(exc)
+            html = self.fallbackview()
+
+        return html
+
+    def _update_permission_related_settings(self, settings):
         settings['canChangeLayout'] = api.user.has_permission(
             'ftw.simplelayout: Change Layouts',
             obj=self.context)
 
         # Check if disable_border is in request, if it's there do not load
         # simplelayout.
-        settings['canEdit'] = self.user_can_edit()
+        settings['canEdit'] = self._user_can_edit()
+
+
+class BaseSimplelayoutExpression(object):
+
+    def structure(self):
+        """ Render a simplelayout slot by name.
+        Name is given by the simplelayout expression.
+        """
+        page_conf = IPageConfiguration(self.context)
+        storage = page_conf.load()
+        sl_renderer = SimplelayoutRenderer(self.context,
+                                           storage,
+                                           self.name,
+                                           view=self.view)
+
+        return sl_renderer.render_slot()
 
 
 class SimplelayoutExpression(BaseSimplelayoutExpression,

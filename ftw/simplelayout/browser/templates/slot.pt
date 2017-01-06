@@ -1,0 +1,7 @@
+<div tal:attributes="id view/name;
+                     data-sl-settings view/get_simplelayout_settings;
+                     class view/get_css_class">
+
+    <tal:layouts replace="structure view/render_layout" />
+
+</div>
