@@ -16,5 +16,9 @@
             <element value="ftw.simplelayout.GalleryBlock" remove="True"/>
         </containsobjects>
 
+        <containsanchors purge="False">
+            <element value="ftw.simplelayout.ContentPage" remove="True"/>
+        </containsanchors>
+
     </resourcetypes>
 </object>

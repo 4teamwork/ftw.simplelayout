@@ -5,6 +5,13 @@ Changelog
 1.14.1 (unreleased)
 -------------------
 
+- TinyMCE: Disable "anchor"-Tab when creating a link. [jone]
+
+- TinyMCE: configure content page to contain anchors. [jone]
+
+- Change primary field of text block from "image" to "text" field
+  in order to support anchors. [jone]
+
 - Log traceback too when a block cannot be rendered. [jone]
 
 
