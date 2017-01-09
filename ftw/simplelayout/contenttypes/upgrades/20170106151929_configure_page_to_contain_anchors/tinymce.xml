@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object>
+    <resourcetypes>
+
+        <containsanchors purge="False">
+            <element value="ftw.simplelayout.ContentPage"/>
+        </containsanchors>
+
+    </resourcetypes>
+</object>

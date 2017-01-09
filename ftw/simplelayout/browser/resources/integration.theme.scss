@@ -528,3 +528,15 @@ ul[class^="sl-toolbar"] {
   50%   { background-color: #fff3a5; }
   100% { background-color: transparent; }
 }
+
+
+/*
+   TinyMCE: Disable "anchor"-tab in link dialog because this dialog only support
+   anchors within the same TinyMCE instance, but we need to be able to select
+   anchors from other blocks.
+   In order to select anchors, select the page in the regular "internal" tab,
+   and then select the anchor.
+*/
+#plonebrowser #anchor_link {
+  display: none;
+}
