@@ -12,6 +12,11 @@ Changelog
 - Change primary field of text block from "image" to "text" field
   in order to support anchors. [jone]
 
+- Implement a simplelayout renderer object. This allows us to render
+  simplelayoutish structures without the simplelayout provider expression.
+  Further it's now possible to render only one layout of slot.
+  [mathias.leimgruber]
+
 - Log traceback too when a block cannot be rendered. [jone]
 
 
