@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.14.1 (unreleased)
+1.15.0 (2017-01-16)
 -------------------
 
 - TinyMCE: Disable "anchor"-Tab when creating a link. [jone]
