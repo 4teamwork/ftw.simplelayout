@@ -1,5 +1,6 @@
 from ftw.builder import builder_registry
 from ftw.builder import create
+from ftw.builder.archetypes import ArchetypesBuilder
 from ftw.builder.dexterity import DexterityBuilder
 from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
 from operator import methodcaller
@@ -60,3 +61,9 @@ class GalleryBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.GalleryBlock'
 
 builder_registry.register('sl galleryblock', GalleryBlockBuilder)
+
+
+class LinkBuilder(ArchetypesBuilder):
+    portal_type = 'Link'
+
+builder_registry.register('link', LinkBuilder)
