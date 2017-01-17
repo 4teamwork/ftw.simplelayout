@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.15.1 (unreleased)
+1.15.1 (2017-01-17)
 -------------------
 
 - Do render the simplelayout portlet on non-simplelayout
