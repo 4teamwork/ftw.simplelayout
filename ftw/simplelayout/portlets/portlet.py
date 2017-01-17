@@ -27,6 +27,8 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
+        if not IPageConfiguration(self.context, None):
+            return False
         if self.has_blocks():
             return True
         else:

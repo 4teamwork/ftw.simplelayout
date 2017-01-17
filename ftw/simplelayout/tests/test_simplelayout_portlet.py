@@ -7,6 +7,7 @@ from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
 from plone.portlets.interfaces import IPortletAssignmentMapping
+from plone.portlets.interfaces import IPortletRenderer
 from plone.portlets.interfaces import IPortletManager
 from plone.uuid.interfaces import IUUID
 from zope.component import getMultiAdapter
@@ -14,7 +15,7 @@ from zope.component import getUtility
 import transaction
 
 
-class TestSimplelayoutView(SimplelayoutTestCase):
+class TestSimplelayoutPortlet(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 
@@ -99,3 +100,41 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         self.assertFalse(browser.css('.portlet.SimplelayoutPortlet'),
                          'Portlet is empty and should not be visible')
+
+    def test_simplelayout_portlet_not_available_on_non_simplelayout_types(self):
+        """
+        This test makes sure that the simplelayout portlet is not available on
+        non-simplelayout items.
+
+        This prevents the logs from flooding with error like:
+
+            TypeError:
+                'Could not adapt',
+                <ATLink at /plone/samplecontainer/link used for /plone/samplecontainer/link>,
+                <InterfaceClass ftw.simplelayout.interfaces.IPageConfiguration>
+        """
+        self.setup_portlet()
+        self.setup_block()
+
+        # Add "Link" to addable types of "SampleContainer".
+        fti = self.portal.portal_types.get('SampleContainer')
+        allowed_content_types = list(fti.allowed_content_types)
+        allowed_content_types += ['Link']
+        fti.allowed_content_types = tuple(set(allowed_content_types))
+        transaction.commit()
+
+        # Create a link below the container where the portlet is assigned.
+        link = create(Builder('link').within(self.container))
+
+        # Get the portlet renderer on the link.
+        request = self.layer['request']
+        view = link.restrictedTraverse('@@plone')
+        manager = getUtility(IPortletManager, name='plone.rightcolumn', context=link)
+        assignment = Assignment()
+        renderer = getMultiAdapter(
+            (link, request, view, manager, assignment),
+            IPortletRenderer
+        )
+
+        # Make sure the portlet is not available.
+        self.assertFalse(renderer.available)
