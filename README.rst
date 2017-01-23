@@ -79,9 +79,6 @@ Then you got several profile from wich you can choose from:
 
 - ``ftw.simplelayout`` **development** profile - Installs non minified versions of *simplelayout.js* and *simplelayout.css* - for DEV environments. You need to install this profile on top of lib or the default profile
 
-This package uses the `Simplelayout Javascript Lib <https://github.com/4teamwork/ftw.simplelayout/ftw/simplelayout/browser/client>`_, which provides the basic functionality.
-Further this package provides a Plone integration of the Simplelayout Lib:
-
 - Overlays for manipulate blocks, such as adding, deleting and modifying.
 - Saving the current Simplelayout state.
 - Loading the configuration of a simplelayout page.
@@ -415,6 +412,219 @@ In order to migrate from `ftw.contentpage` types to `ftw.simplelayout` types,
 take a look at the preconfigured inplace migrators in the `migration.py` of
 `ftw.simplelayout`.
 
+Client Library
+==============
+
+Building
+--------
+
+Rebuilding the library (resources/ftw.simplelayout.js):
+
+.. code-block:: bash
+
+    grunt dist
+
+Watching for changes and rebuild the bundle automatically:
+
+.. code-block:: bash
+
+    grunt dev
+
+or the default task
+
+.. code-block:: bash
+
+    grunt
+
+Testing
+-------
+
+Running all test:
+
+.. code-block:: bash
+
+    npm test
+
+or
+
+.. code-block:: bash
+
+    grunt test
+
+Running a specific test:
+
+.. code-block:: bash
+
+    grunt test --grep="Name of your test"
+
+Getting started
+---------------
+
+Toolbox
+-------
+
+Provide a toolbox instance for the simplelayout.
+
+.. code-block:: javascript
+    var toolbox = new Toolbox({
+      layouts: [1, 2, 4],
+      canChangeLayout: true, // Decides if toolbox get rendered
+      blocks: [
+        { title: "Textblock", contentType: "textblock", formUrl: "URL",
+          actions: {
+            edit: {
+              class="edit",
+              description: "Edit this block",
+              someCustomAttribute: "someCustomValue"
+            },
+            move: {
+              class: "move",
+              description: "Move this block"
+            }
+          }
+        },
+        { title: "Listingblock", contentType: "listingblock", formUrl: "URL" }
+      ],
+      layoutActions: {
+        actions: {
+          move: {
+            class: "iconmove move",
+            title: "Move this layout arround."
+          },
+          delete: {
+            class: "icondelete delete",
+            title: "Delete this layout."
+          }
+        }
+      },
+      labels: {
+        labelColumnPostfix: "Column(s)" // Used for label in toolbox
+      }
+    });
+
+Blocks
+------
+
++-------------+-------------+------------------------------------+
+| key         | is required | description                        |
++-------------+-------------+------------------------------------+
+| title       |             | Title in the toolbox               |
++-------------+-------------+------------------------------------+
+| description |             | Used for titleattribute            |
++-------------+-------------+------------------------------------+
+| contentType | ✓           | Represents the type for each block |
++-------------+-------------+------------------------------------+
+| actions     | ✓           | Describes the actions              |
++-------------+-------------+------------------------------------+
+
+Actions
+-------
+
++-------------+-------------+------------------------------------+
+| key         | is required | description                        |
++-------------+-------------+------------------------------------+
+| key         | ✓           | Name for the action                |
++-------------+-------------+------------------------------------+
+| class       |             | Classattribute for the action      |
++-------------+-------------+------------------------------------+
+| description |             | Used for title attribute           |
++-------------+-------------+------------------------------------+
+| custom      |             | Will be provided as data attribute |
++-------------+-------------+------------------------------------+
+
+Simplelayout
+------------
+
+Use toolbox instance for initializing a simplelayout.
+
+.. code-block:: javascript
+    var simplelayout = new Simplelayout({toolbox: toolbox});
+
+Deserialize
+-----------
+
+Use existing markup for deserializing the simplelayout state.
+
+Provided HTML Structure
+
+.. code-block:: html
+    <div class="sl-simplelayout" id="slot1">
+      <div class="sl-layout">
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content"></div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content"></div>
+          </div>
+        </div>
+        <div class="sl-column">
+          <div class="sl-block" data-type="textblock">
+            <div class="sl-block-content">
+              <p>I am a textblock</p>
+            </div>
+          </div>
+        </div>
+        <div class="sl-column"></div>
+      </div>
+    </div>
+
+Make sure that each datatype in the structure is covered in the toolbox.
+
+Events
+------
+
+Attach events using the singleton instance of eventEmitter.
+
+.. code-block:: javascript
+    var simplelayout = new Simplelayout({toolbox: toolbox});
+    simplelayout.on(eventType, callback);
+
+Eventtypes
+----------
+
+blockInserted(block)
+
+blockCommitted(block)
+
+blockRollbacked(block)
+
+beforeBlockMoved(block)
+
+blockMoved(block)
+
+blockDeleted(block)
+
+layoutInserted(layout)
+
+layoutCommitted(layout)
+
+layoutRollbacked(layout)
+
+layoutMoved(layout)
+
+layoutDeleted(layout)
+
+DOM properties
+--------------
+
+Each block and layout is represented in the DOM through an ID.
+
+Each DOM element provides the following properties:
+
+- object --> object representation in simplelayout
+- parent --> parent object representation in simplelayout
+- id --> generated UUID for this element
+- represents --> representer from origin (empty if object only exists local)
+
+These properties can get extracted as a jQueryElement:
+
+.. code-block:: javascript
+    var block = $(".sl-block").first();
+    var blockObj = block.data().object;
+
 
 TODO
 ====
@@ -422,7 +632,6 @@ TODO
 - Update/Add images (animated gifs).
 - Improve Plone 5 support (probably with plone 5 contentttypes).
 - Archetypes block integration (for legacy packages).
-- JS Refactoring of @bierik needs to be tested.
 
 Links
 =====
@@ -431,7 +640,6 @@ Links
 - Issues: https://github.com/4teamwork/ftw.simplelayout/issues
 - Pypi: http://pypi.python.org/pypi/ftw.simplelayout
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.simplelayout
-- `Client library documentation <https://github.com/4teamwork/ftw.simplelayout/ftw/simplelayout/browser/client/README.md>`_
 
 Copyright
 =========
