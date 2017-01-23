@@ -6,13 +6,8 @@
     i18n_domain="ftw.simplelayout">
 
     <browser:resourceDirectory
-        name="ftw.simplelayout.resources"
+        name="ftw.simplelayout"
         directory="resources"
-        />
-
-    <browser:resourceDirectory
-        name="ftw.simplelayout.client"
-        directory="client"
         />
 
     <include package="plone.resource" file="meta.zcml"/>

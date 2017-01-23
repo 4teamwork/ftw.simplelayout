@@ -2,10 +2,10 @@
 <object name="portal_javascripts">
 
     <javascript
-        id="++resource++ftw.simplelayout.resources/videoblock.js"
+        id="++resource++ftw.simplelayout/videoblock.js"
         enabled="True"
         authenticated="False"
-        insert-after="++resource++ftw.simplelayout.resources/main.js"
+        insert-after="++resource++ftw.simplelayout/main.js"
         />
 
 </object>
