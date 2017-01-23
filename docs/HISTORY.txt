@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.15.2 (unreleased)
+1.16.0 (2017-01-23)
 -------------------
 
 - Extend the textblock with the "data-caption" attribute which can hold
