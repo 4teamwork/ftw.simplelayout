@@ -254,3 +254,25 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(self.page)
         self.assertTrue(
             browser.css('.sl-block.titleOnly'), 'Expext title only class.')
+
+    @browsing
+    def test_data_caption_holds_caption_of_image(self, browser):
+        """
+        This test makes sure that there is an attribute "data-caption"
+        on the link opening the colorbox and that it holds the caption
+        defined on the textblock.
+        """
+        block = create(Builder('sl textblock')
+                       .within(self.page)
+                       .titled('TextBlock title')
+                       .having(image_caption=u'The caption')
+                       .having(text=RichTextValue('The text'))
+                       .having(image=NamedBlobImage(data=self.image.read(),
+                                                    filename=u'test.gif'))
+                       .having(open_image_in_overlay=True,))
+
+        browser.login().visit(block, view='@@block_view')
+        self.assertEqual(
+            u'The caption',
+            browser.css('a.colorboxLink').first.attrib['data-caption']
+        )

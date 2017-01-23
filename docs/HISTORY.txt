@@ -5,7 +5,9 @@ Changelog
 1.15.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Extend the textblock with the "data-caption" attribute which can hold
+  the caption rendered in the colorbox (requires "ftw.colorbox" 1.3).
+  [mbaechtold]
 
 
 1.15.1 (2017-01-17)

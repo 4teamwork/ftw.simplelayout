@@ -18,6 +18,7 @@
             <a tal:omit-tag="not: image/link_url"
                tal:attributes="href image/link_url;
                                title image/link_title;
+                               data-caption context/image_caption;
                                class image/link_css_classes">
                 <img tal:replace="structure image/image_tag" />
             </a>
