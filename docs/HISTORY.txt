@@ -5,7 +5,12 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Use browserify as javascript bundler
+
+  - Update tests using karma
+  - Add support for ES6 using babeljs
+
+  [Kevin Bieri]
 
 
 1.16.0 (2017-01-23)

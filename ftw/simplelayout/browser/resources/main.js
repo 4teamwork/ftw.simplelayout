@@ -135,10 +135,10 @@
 
       settings = $.extend(settings, options);
 
-      toolbox = new global.Toolbox(settings);
+      toolbox = new global.ftw.simplelayout.toolbox(settings);
       toolbox.attachTo(target);
 
-      simplelayout = new global.Simplelayout({ toolbox: toolbox, editLayouts: settings.canChangeLayout });
+      simplelayout = new global.ftw.simplelayout.simplelayout({ toolbox: toolbox, editLayouts: settings.canChangeLayout });
 
       simplelayout.on("blockInserted", function(block) {
         var layout = block.parent;
@@ -217,10 +217,6 @@
         $(document).trigger("blockContentReplaced", arguments);
         statekeeper.update();
         markLinks(block.element);
-      });
-
-      $(toolbox.element).on("click", ".sl-toolbox-block, .sl-toolbox-layout", function() {
-        toolbox.triggerHint($(this), $("#default"));
       });
 
     });

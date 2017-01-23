@@ -1,0 +1,63 @@
+{
+  "name": "ftw.simplelayout",
+  "version": "1.0.0",
+  "description": "Layoutingsystem for plone contenttypes.",
+  "devDependencies": {
+    "babel-preset-es2015": "6.16.0",
+    "babelify": "7.3.0",
+    "babelify-es6-polyfill": "1.0.4",
+    "browserify-shim": "3.8.12",
+    "chai": "3.5.0",
+    "grunt": "1.0.1",
+    "grunt-browserify": "5.0.0",
+    "grunt-karma": "2.0.0",
+    "jasmine-core": "2.5.2",
+    "jquery": "2.1.0",
+    "jquery-ui": "1.10.4",
+    "karma": "1.3.0",
+    "karma-babel-preprocessor": "6.0.1",
+    "karma-browserify": "5.1.0",
+    "karma-chai": "0.1.0",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-fixture": "0.2.6",
+    "karma-html2js-preprocessor": "1.1.0",
+    "karma-jasmine": "1.0.2",
+    "karma-mocha-reporter": "^2.2.2",
+    "karma-phantomjs-launcher": "1.0.2",
+    "underscore": "1.8.3"
+  },
+  "dependencies": {
+    "jsrender": "0.9.83",
+    "wolfy87-eventemitter": "Olical/EventEmitter",
+    "handlebars": "4.0.5"
+  },
+  "browserify-shim": {
+    "jquery": {
+      "exports": "global:$"
+    },
+    "jquery-ui": {
+      "exports": "global:$.ui",
+      "deps": ["jquery"]
+    },
+    "handlebars": {
+      "exports": "global:Handlebars"
+    }
+  },
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:4teamwork/simplelayout-mockup.git"
+  },
+  "keywords": [
+    "simplelayout",
+    "plone"
+  ],
+  "author": "Kevin Bieri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/4teamwork/simplelayout/issues"
+  },
+  "homepage": "https://github.com/4teamwork/simplelayout"
+}
