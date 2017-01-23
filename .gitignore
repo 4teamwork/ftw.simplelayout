@@ -10,17 +10,13 @@ coverage/
 develop-eggs/
 eggs/
 parts/
-src/
+/src/
 var/
-
-### Bower ###
-ftw/simplelayout/browser/client/web/js/lib/
 
 ### Node ###
 node_modules
+.npm
 
 ### Grunt ###
 .grunt
 
-### SCSS ###
-**/.sass-cache
