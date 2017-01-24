@@ -545,6 +545,10 @@ ul[class^="sl-toolbar"] {
   display: none;
 }
 
+.filedropzoneWrapper {
+  @include clearfix();
+}
+
 /* Multiupload */
 .filedropzone {
   width: 50%;
