@@ -1,5 +1,6 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
-from ftw.simplelayout.utils import get_block_html
+from ftw.simplelayout.browser.provider import SimplelayoutRenderer
+from ftw.simplelayout.interfaces import IPageConfiguration
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import addContentToContainer
@@ -48,39 +49,33 @@ class UploadForm(BrowserView):
 
 class DnDUpload(BrowserView):
 
-    def __call__(self):
-        content = self.request.get('content', None)
+    def __init__(self, context, request):
+        super(DnDUpload, self).__init__(context, request)
+        self.contenttype = self.request.get('content', None)
+        self.name = self.request.get('name', None)
+        self.columns = self.request.get('columns', None)
 
+    def __call__(self):
         content_created = []
         response = {}
 
-        if content == 'galleryblock':
+        if self.contenttype == 'galleryblock':
             contenttype = 'ftw.simplelayout.GallerBlock'
+            # XXX: Implement me
         else:
-            # contenttype = 'ftw.simplelayout.TextBlock'
-            for item in self.request:
-                if item.startswith('file['):
+            contenttype = 'ftw.simplelayout.TextBlock'
+
+            for param, value in self.request.items():
+                if param.startswith('file['):
                     content_created.append(
-                        self.create_textblock(self.request.get(item)))
-                else:
-                    raise ValueError('Oh my... you just broke the site')
+                        self.create_textblock(value))
 
-            if len(content_created) == 1:
-                # Insert a single block
-                return json_response(
-                    self.request,
-                    content=get_block_html(content_created[0]),
-                    type='singleblock')
-            else:
-                # Insert multible blocks in layout
-                return json_response(
-                    self.request,
-                    content=get_block_html(content_created[0]),
-                    type='singleblock')
+        response['content'] = self.create_layout_with_blocks(content_created)
+        return json_response(self.request, response)
 
-    def create_layout_with_blocks(blocks):
-        structure = {
-            "default": [
+    def create_layout_with_blocks(self, blocks):
+        storage = {
+            "tmp": [
                 # {
                 #     "cols": [
                 #         {
@@ -96,20 +91,35 @@ class DnDUpload(BrowserView):
         }
 
         for i, block in enumerate(blocks):
-            if i % 2 == 0:
-                structure['default'].append(
-                    {'cols': [{'blocks': []}]})
-            structure['default'][-1]['blocks'].append(
-                {'uid': IUUID(block)})
+            if i % int(self.columns) == 0:
+                storage['tmp'].append(
+                    {'cols': []})
 
-        # return render_layout()
+            storage['tmp'][-1]['cols'].append(
+                {'blocks': [
+                    {
+                        'uid': IUUID(block)
+                    }
+                ]}
+            )
+
+        conf = IPageConfiguration(self.context)
+        data = conf.load()
+        # Instert layouts from storage in position 0
+        data[self.name][0:0] = storage.get('tmp')
+        conf.store(data)
+
+        sl_renderer = SimplelayoutRenderer(
+            self.context, storage, 'tmp', view=self)
+        return sl_renderer.render_layout()
 
     def create_textblock(self, _file):
-        kwargs = {'title': _file.filename,
+        filename = _file.filename.decode('utf-8')
+        kwargs = {'title': filename,
                   'text': RichTextValue(''),
                   'show_title': False,
                   'image': NamedBlobImage(data=_file.read(),
-                                          filename=_file)}
+                                          filename=filename)}
         textblock = createContent('ftw.simplelayout.TextBlock',
                                   **kwargs)
         obj = addContentToContainer(self.context, textblock)

@@ -1391,26 +1391,29 @@ define('app/simplelayout/Simplelayout',[
     this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
 
 
-    $(".sl-column").on("dragenter", function(event){
+    $(document).on("dragenter", ".sl-layout", function(event){
         event.stopPropagation();
         event.preventDefault();
 
-        if ($(this).find('.filedropzone').length === 0) {
-          var template = $('<form class="filedropzoneWrapper" />');
-          template.append("<div class='filedropzone'/>");
-          template.append('<input type="radio" name="content" value="textblock"/> TextBlock');
-          template.append('<input type="radio" name="content" value="galleryblock"/> GalleryBlock');
-          template.append('<button class="triggerUpload">Upload</button>');
+        var layout = $(this);
+        if (layout.find(".filedropzoneWrapper").length === 0) {
 
-          var blocks = $(this).find('.sl-block');
+          var template = $(
+            ["<form class='filedropzoneWrapper'>",
+                "<div class='filedropzone textbblock' data-contenttype='textblock'>",
+                 "Drop here to create TextBlocks",
+                 "<button class='triggerUpload'>Upload</button>",
+               "</div>",
+               "<div class='filedropzone galleryblock' data-contenttype='galleryblock'>",
+                 "Drop here to create Gallerblock",
+                 "<button class='triggerUpload'>Upload</button>",
+               "</div>",
+             "</form>"].join("\n")
+          );
+          layout.prepend(template.clone());
 
-          if (blocks.length !== 0) {
-            blocks.before(template.clone());
-            blocks.eq(-1).after(template.clone());
-          }
 
-
-          $('.filedropzone').each(function(){
+          layout.find(".filedropzone").each(function(){
             var target = $(this);
             target.dropzone({
               url: "sl-ajax-upload",
@@ -1419,17 +1422,25 @@ define('app/simplelayout/Simplelayout',[
               uploadMultiple: true,
             });
 
-            target[0].dropzone.on('sending', function(file, xhr, formData){
-              formData.append('_authenticator', $('[name="_authenticator"]').val());
-              formData.append('contenttype', $('[name="content"]').val());
+            target[0].dropzone.on("sendingmultiple", function(files, xhr, formData){
+              formData.append("_authenticator", $("[name='_authenticator']").val());
+              formData.append("contenttype", target.data("contenttype"));
+              formData.append("name", target.closest(".sl-simplelayout").attr("id"));
+              formData.append("columns", layout.find('.sl-column').length);
             });
 
-            target[0].dropzone.on('success', function(a, respond){
-              formData.append('_authenticator', $('[name="_authenticator"]').val());
-              formData.append('contenttype', $('[name="content"]').val());
+            target[0].dropzone.on("successmultiple", function(files, response){
+              if (layout.find("sl-blocks").length === 0) {
+                // Layout with no block, we simply replace the hole layout by the response
+                layout.replaceWith(response.content);
+              } else {
+                // There are blocks, so we insert the new layout before the current one
+                layout.before(response.content);
+                $(".filedropzoneWrapper").remove();
+              }
             });
 
-            target.parent().find('.triggerUpload').on('click', function(event){
+            target.parent().find(".triggerUpload").on("click", function(event){
               event.preventDefault();
               event.stopPropagation();
               target[0].dropzone.processQueue();
