@@ -69,7 +69,7 @@ export default function Toolbox(options) {
 
   this.blocksEnabled = function(state) { $(".sl-toolbox-blocks", this.element).toggleClass("disabled", !state); };
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = $.ui.draggable.prototype._mouseStart;
   $.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
       this._trigger("beforeStart", event, this._uiHash());

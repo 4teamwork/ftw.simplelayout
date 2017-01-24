@@ -258,7 +258,7 @@ export default function Simplelayout(options) {
 
   root.addClass("simplelayout-initialized");
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = $.ui.sortable.prototype._mouseStart;
   $.ui.sortable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
       this._trigger("beforeStart", event, this._uiHash());
