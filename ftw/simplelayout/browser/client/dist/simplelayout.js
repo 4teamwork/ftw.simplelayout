@@ -1426,7 +1426,7 @@ define('app/simplelayout/Simplelayout',[
               formData.append("_authenticator", $("[name='_authenticator']").val());
               formData.append("contenttype", target.data("contenttype"));
               formData.append("name", target.closest(".sl-simplelayout").attr("id"));
-              formData.append("columns", layout.find('.sl-column').length);
+              formData.append("columns", layout.find(".sl-column").length);
             });
 
             target[0].dropzone.on("successmultiple", function(files, response){

@@ -2,6 +2,7 @@ from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.browser.provider import SimplelayoutRenderer
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
+from plone import api
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.utils import addContentToContainer
@@ -52,7 +53,7 @@ class DnDUpload(BrowserView):
 
     def __init__(self, context, request):
         super(DnDUpload, self).__init__(context, request)
-        self.contenttype = self.request.get('content', None)
+        self.contenttype = self.request.get('contenttype', None)
         self.name = self.request.get('name', None)
         self.columns = self.request.get('columns', None)
 
@@ -61,11 +62,13 @@ class DnDUpload(BrowserView):
         response = {}
 
         if self.contenttype == 'galleryblock':
-            contenttype = 'ftw.simplelayout.GallerBlock'
-            # XXX: Implement me
-        else:
-            contenttype = 'ftw.simplelayout.TextBlock'
+            galleryblock = self.create_gallerblock()
+            for param, value in self.request.items():
+                if param.startswith('file['):
+                    self.add_image_to_gallery(galleryblock, value)
+            content_created.append(galleryblock)
 
+        else:
             for param, value in self.request.items():
                 if param.startswith('file['):
                     content_created.append(
@@ -131,3 +134,23 @@ class DnDUpload(BrowserView):
         config.store(data)
 
         return obj
+
+    def create_gallerblock(self):
+        # XXX: Implement title
+        kwargs = {}
+        galleryblock = createContent('ftw.simplelayout.GalleryBlock',
+                                     **kwargs)
+        obj = addContentToContainer(self.context, galleryblock)
+        return obj
+
+    def add_image_to_gallery(self, galleryblock, _file):
+        filename = _file.filename.decode('utf-8')
+        kwargs = {'title': filename,
+                  'text': RichTextValue(''),
+                  'show_title': False,
+                  'image': _file}
+
+        api.content.create(container=galleryblock,
+                           type='Image',
+                           safe_id=True,
+                           **kwargs)
