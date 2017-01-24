@@ -1,5 +1,6 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.browser.provider import SimplelayoutRenderer
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
@@ -123,4 +124,10 @@ class DnDUpload(BrowserView):
         textblock = createContent('ftw.simplelayout.TextBlock',
                                   **kwargs)
         obj = addContentToContainer(self.context, textblock)
+        config = IBlockConfiguration(obj)
+        data = config.load()
+        data['scale'] = 'sl_textblock_large'
+        data['imagefloat'] = 'no-float'
+        config.store(data)
+
         return obj
