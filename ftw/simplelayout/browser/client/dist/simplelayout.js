@@ -1430,7 +1430,7 @@ define('app/simplelayout/Simplelayout',[
             });
 
             target[0].dropzone.on("successmultiple", function(files, response){
-              if (layout.find("sl-blocks").length === 0) {
+              if (layout.find(".sl-blocks").length === 0) {
                 // Layout with no block, we simply replace the hole layout by the response
                 layout.replaceWith(response.content);
               } else {
