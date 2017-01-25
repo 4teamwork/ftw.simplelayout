@@ -5,6 +5,9 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
+- Fix map block not showing the Google maps.
+  [mbaechtold]
+
 - Use browserify as javascript bundler
 
   - Update tests using karma
