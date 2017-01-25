@@ -292,7 +292,7 @@
       window.location.href = block.data().url + $(this).attr("href");
     });
 
-    $(global.document).on("click", ".server-action", function(event) {
+    $(global.document).on("click", ".block-server-action", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;
       var payLoad = { uid: block.represents };
@@ -301,6 +301,18 @@
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
+      });
+    });
+
+    $(global.document).on("click", ".layout-server-action", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-layout").data().object;
+      var payLoad = { uid: layout.represents };
+      var action = $(this);
+      $.extend(payLoad, action.data());
+      var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
+      configRequest.done(function(layoutContent) {
+        layout.content(layoutContent);
       });
     });
 

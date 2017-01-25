@@ -1,6 +1,7 @@
 import Layout from "simplelayout/Layout";
 import Toolbar from "simplelayout/Toolbar";
 import $ from "jquery";
+import { getNodeAttributesAsObject } from "../helpers/DOMHelpers";
 
 describe("Layout", function() {
 
@@ -9,6 +10,29 @@ describe("Layout", function() {
   beforeEach(function() {
     layout = new Layout(4);
   });
+
+  describe("setConfig", () => {
+    it("should serialize a config object to html parameter string", () => {
+      const config = {class: "testclass", "some-data": "data"};
+      layout.setConfig(config);
+      assert.deepEqual(config, getNodeAttributesAsObject(layout.element.get(0)));
+    });
+
+    it("should extend an existing config placed on the layout element", () => {
+      const config1 = { class: "testclass" };
+      const config2 = { "some-data": "data" };
+
+      layout.setConfig(config1);
+      assert.deepEqual(config1, getNodeAttributesAsObject(layout.element.get(0)));
+
+      layout.setConfig(config2);
+      assert.deepEqual(
+        $.extend(config1, config2),
+        getNodeAttributesAsObject(layout.element.get(0))
+      );
+    });
+  });
+
 
   it("is a constructor function", function() {
     assert.throw(Layout, TypeError, "Layout constructor cannot be called as a function.");

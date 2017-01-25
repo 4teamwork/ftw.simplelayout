@@ -5,6 +5,7 @@ import Element from "simplelayout/Element";
 import Toolbar from "simplelayout/Toolbar";
 import handlebarsTimes from "helpers/handlebars";
 import $ from "jquery";
+import { getNodeAttributesAsObject } from "../helpers/DOMHelpers";
 
 const EE = EventEmitter.getInstance();
 
@@ -68,6 +69,17 @@ export default function Layout(columns) {
     block.data({ parent: target });
     target.blocks[block.id] = block;
     EE.trigger("blockMoved", [block]);
+    return this;
+  };
+
+  this.setConfig = function(config) {
+    const currentConfig = getNodeAttributesAsObject(this.element.get(0));
+
+    Object.keys(
+      $.extend(currentConfig, config)
+    ).forEach((key) => {
+      this.element.attr(key, config[key]);
+    });
     return this;
   };
 
