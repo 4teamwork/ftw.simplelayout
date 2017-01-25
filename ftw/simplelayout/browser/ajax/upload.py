@@ -136,11 +136,11 @@ class DnDUpload(BrowserView):
         return obj
 
     def create_gallerblock(self):
-        # XXX: Implement title
-        kwargs = {}
-        galleryblock = createContent('ftw.simplelayout.GalleryBlock',
-                                     **kwargs)
-        obj = addContentToContainer(self.context, galleryblock)
+        kwargs = {'title': 'Gallery'}
+        obj = api.content.create(container=self.context,
+                                 type='ftw.simplelayout.GalleryBlock',
+                                 safe_id=True,
+                                 **kwargs)
         return obj
 
     def add_image_to_gallery(self, galleryblock, _file):
