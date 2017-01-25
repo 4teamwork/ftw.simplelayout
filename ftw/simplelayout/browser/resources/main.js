@@ -115,8 +115,10 @@
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
         $(".sl-layout", manager).each(function(layIdx, layout) {
+          console.log("peter");
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
+          state[manager.id][layIdx].config = $(layout).data().object.config();
           $(".sl-column", layout).each(function(colIdx, column) {
             state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
             $(".sl-block", column).each(function(bloIdx, block) {
@@ -183,8 +185,10 @@
       });
 
       simplelayout.on("layoutInserted", function(layout) {
-        layout.commit();
         toolbox.blocksEnabled(true);
+      });
+
+      simplelayout.on("layout-committed", function() {
         saveState();
       });
 
@@ -234,18 +238,17 @@
     $(global.document).on("click", ".sl-layout .reload", function() {
       event.preventDefault();
       var action = $(this);
-      var layout = action.parents(".sl-layout");
-      var container = action.closest('.sl-simplelayout');
+      var layout = action.parents(".sl-layout").data().object;
+      var container = layout.parent;
       var payload = {
-        name: container.attr('id'),
-        layoutindex: container.find('.sl-layout').index(layout)
+        name: container.represents,
+        layoutindex: container.element.find('.sl-layout').index(layout.element)
       };
-      $.extend(payload, action.data());
+      $.extend(payload, { config: action.data() });
 
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payload) });
       configRequest.done(function(layoutdata) {
-        layout.replaceWith(layoutdata);
-        EventEmitter.trigger("layoutMoved", [ui.item.data().object]);
+        layout.content(layoutdata.content);
       });
     });
 
@@ -301,18 +304,6 @@
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
-      });
-    });
-
-    $(global.document).on("click", ".layout-server-action", function(event) {
-      event.preventDefault();
-      var block = $(this).parents(".sl-layout").data().object;
-      var payLoad = { uid: layout.represents };
-      var action = $(this);
-      $.extend(payLoad, action.data());
-      var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
-      configRequest.done(function(layoutContent) {
-        layout.content(layoutContent);
       });
     });
 

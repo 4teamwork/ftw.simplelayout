@@ -1,10 +1,10 @@
-require('babelify-es6-polyfill');
+import $ from "jQuery";
 
 export function getNodeAttributesAsObject(node) {
   const attributesMap = node.attributes;
-  let attributesObject = {};
-  Array.from(attributesMap).forEach((item) => {
-    attributesObject[item.name] = item.value;
+  const attributesObject = {};
+  $.each(attributesMap, (i, e) => {
+    attributesObject[e.name] = e.value;
   });
   return attributesObject;
 }

@@ -34,6 +34,7 @@ export default function Simplelayout(options) {
         layout = $(this).data().object.insertLayout(ui.item.data().columns);
         layout.element.insertAfter(item);
         item.remove();
+        layout.commit();
       } else {
         self.moveLayout($(ui.item).data().object, $(this).data().object);
         self.disableFrames();
@@ -240,6 +241,14 @@ export default function Simplelayout(options) {
       $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
     self._checkMoveAction();
+  });
+
+  this.on("layoutReplaced", function(layout) {
+    if(self.options.editLayouts) {
+      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
+      layout.attachToolbar(layoutToolbar);
+      $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+    }
   });
 
   this.on("block-committed", function(block) {

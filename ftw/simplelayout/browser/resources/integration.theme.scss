@@ -15,7 +15,7 @@
   @include fix-iframe-hover();
 
 .highlighted .sl-column {
-  background-color: green;
+  background-color: $color-gray-dark;
 }
 
 .sl-image {

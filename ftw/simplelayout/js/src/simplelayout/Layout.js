@@ -16,7 +16,15 @@ export default function Layout(columns) {
 
   columns = columns || 4;
 
-  var template = "<div class='sl-layout'>{{#times columns}}<div class='sl-column sl-col-{{../columns}}'></div>{{/times}}</div>";
+  var template = `
+    <div class='sl-layout'>
+      <div class='sl-layout-content' data-config='{}'>
+        {{#times columns}}
+          <div class='sl-column sl-col-{{../columns}}'></div>
+        {{/times}}
+      </div>
+    </div>
+  `;
 
   Element.call(this, template);
 
@@ -72,14 +80,9 @@ export default function Layout(columns) {
     return this;
   };
 
-  this.setConfig = function(config) {
-    const currentConfig = getNodeAttributesAsObject(this.element.get(0));
-
-    Object.keys(
-      $.extend(currentConfig, config)
-    ).forEach((key) => {
-      this.element.attr(key, config[key]);
-    });
+  this.content = function(toReplace) {
+    $(this.element).html(toReplace);
+    EE.trigger("layoutReplaced", [this]);
     return this;
   };
 
@@ -92,6 +95,8 @@ export default function Layout(columns) {
       self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
     });
   };
+
+  this.config = function() { return this.element.find(".sl-layout-content").data('config'); }
 
   this.toJSON = function() { return { columns: this.columns, blocks: this.blocks }; };
 
