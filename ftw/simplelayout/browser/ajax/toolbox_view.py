@@ -89,7 +89,7 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-highlighted reload',
-                'data-cssklasses': 'highlighted green'
+                'data-highlighted': 'highlighted'
             }
 
         }
