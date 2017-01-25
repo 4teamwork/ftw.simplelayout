@@ -51,12 +51,12 @@ class SimplelayoutRenderer(object):
     def render_slot(self):
         return self.slot_template()
 
-    def render_layout(self, index=None):
+    def render_layout(self, index=None, is_update=False):
 
         self.rows = self.storage.get(self.name, self._one_layout_one_column())
 
         # If index is None, render all layouts.
-        # If not, render only a specific layout
+        # If not render only a specific layout
         if index is not None:
             if index > len(self.rows) - 1:
                 raise ValueError('Layout with index {} does not exists'.format(
@@ -97,7 +97,7 @@ class SimplelayoutRenderer(object):
 
                 self.rows[-1]['cols'][-1]['blocks'].append(block)
 
-        return self.layout_template()
+        return self.layout_template(is_update=is_update)
 
     def get_simplelayout_settings(self):
         return json.dumps(self._get_sl_settings())
