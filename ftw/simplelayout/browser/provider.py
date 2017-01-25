@@ -6,6 +6,7 @@ from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import get_block_html
 from ftw.simplelayout.utils import normalize_portal_type
+from persistent.mapping import PersistentMapping
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
@@ -68,7 +69,15 @@ class SimplelayoutRenderer(object):
         user_can_edit = self._user_can_edit()
 
         for row in self.rows:
-            row['class'] = 'sl-layout ' + row.get('cssklasses', '')
+            config = row.get('config', PersistentMapping())
+            if not isinstance(config, PersistentMapping):
+                config = {}
+            else:
+                config = config.data
+
+            row['class'] = ' '.join(config.values())
+            row['config_json'] = json.dumps(config)
+
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
                 col['blocks'] = filter(
