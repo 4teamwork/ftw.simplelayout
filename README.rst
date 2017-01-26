@@ -466,6 +466,7 @@ Toolbox
 Provide a toolbox instance for the simplelayout.
 
 .. code-block:: javascript
+
     var toolbox = new Toolbox({
       layouts: [1, 2, 4],
       canChangeLayout: true, // Decides if toolbox get rendered
@@ -538,6 +539,7 @@ Simplelayout
 Use toolbox instance for initializing a simplelayout.
 
 .. code-block:: javascript
+
     var simplelayout = new Simplelayout({toolbox: toolbox});
 
 Deserialize
@@ -548,6 +550,7 @@ Use existing markup for deserializing the simplelayout state.
 Provided HTML Structure
 
 .. code-block:: html
+
     <div class="sl-simplelayout" id="slot1">
       <div class="sl-layout">
         <div class="sl-column">
@@ -579,6 +582,7 @@ Events
 Attach events using the singleton instance of eventEmitter.
 
 .. code-block:: javascript
+
     var simplelayout = new Simplelayout({toolbox: toolbox});
     simplelayout.on(eventType, callback);
 
@@ -622,6 +626,7 @@ Each DOM element provides the following properties:
 These properties can get extracted as a jQueryElement:
 
 .. code-block:: javascript
+
     var block = $(".sl-block").first();
     var blockObj = block.data().object;
 
