@@ -38,9 +38,6 @@
     "jquery-ui": {
       "exports": "global:$.ui",
       "deps": ["jquery"]
-    },
-    "handlebars": {
-      "exports": "global:Handlebars"
     }
   },
   "scripts": {
