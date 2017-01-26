@@ -51,7 +51,7 @@ export default function Simplelayout(options) {
     },
     update: function(event, ui) {
       if(ui.item.parent()[0] === this && !ui.sender) {
-        EventEmitter.trigger("layoutMoved", [ui.item.data().object]);
+        EE.trigger("layoutMoved", [ui.item.data().object]);
       }
     },
     stop: function(event, ui) {

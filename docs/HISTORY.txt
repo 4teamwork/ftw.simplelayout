@@ -5,6 +5,9 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
+- Conditionally display move action on toolbar on the layout
+  [Kevin Bieri]
+
 - Include handlebars in distributed library.
   [Kevin Bieri]
 
