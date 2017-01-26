@@ -5,6 +5,9 @@ Changelog
 1.16.1 (unreleased)
 -------------------
 
+- Include handlebars in distributed library.
+  [Kevin Bieri]
+
 - Fix map block not showing the Google maps.
   [mbaechtold]
 
