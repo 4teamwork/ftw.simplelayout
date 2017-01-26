@@ -29,6 +29,25 @@ describe("Integration", function() {
       manager = simplelayout.insertManager();
   });
 
+  it("should not have a move action if just one layout is available", () => {
+    manager.insertLayout().commit();
+    $.map(manager.layouts, (layout) => {
+      assert.equal(layout.toolbar.element.find(".move").css("display"), "none");
+    });
+
+    const layout1 = manager.insertLayout().commit();
+
+    $.map(manager.layouts, (layout) => {
+      assert.equal(layout.toolbar.element.find(".move").css("display"), "block");
+    });
+
+    layout1.delete();
+
+    $.map(manager.layouts, (layout) => {
+      assert.equal(layout.toolbar.element.find(".move").css("display"), "none");
+    });
+  })
+
   it("creates toolbar on layout with given layoutactions from toolbox", function() {
     var layout = manager.insertLayout().commit();
 

@@ -51,7 +51,7 @@ export default function Simplelayout(options) {
     },
     update: function(event, ui) {
       if(ui.item.parent()[0] === this && !ui.sender) {
-        EventEmitter.trigger("layoutMoved", [ui.item.data().object]);
+        EE.trigger("layoutMoved", [ui.item.data().object]);
       }
     },
     stop: function(event, ui) {
@@ -184,6 +184,18 @@ export default function Simplelayout(options) {
     return this;
   };
 
+  this.getInsertedLayouts = function() {
+    return $.map(this.managers, function(manager) {
+      return manager.getInsertedLayouts();
+    });
+  };
+
+  this.getCommittedLayouts = function() {
+    return $.map(this.managers, function(manager) {
+      return manager.getCommittedLayouts();
+    });
+  };
+
   var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = {
     helper: "clone",
     cursor: "pointer",
@@ -207,12 +219,27 @@ export default function Simplelayout(options) {
     }
   };
 
+  this._checkMoveAction = function() {
+    const layouts = self.getCommittedLayouts();
+
+    if(Object.keys(self.managers).length === 1 && layouts.length === 1) {
+      layouts[0].toolbar.disable("move");
+    } else {
+      $.map(layouts, (layout) => {
+        layout.toolbar.enable("move");
+      });
+    }
+  }
+
+  this.on("layoutDeleted", function(layout) { self._checkMoveAction(); });
+
   this.on("layout-committed", function(layout) {
     if(self.options.editLayouts) {
       var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
       $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
+    self._checkMoveAction();
   });
 
   this.on("block-committed", function(block) {

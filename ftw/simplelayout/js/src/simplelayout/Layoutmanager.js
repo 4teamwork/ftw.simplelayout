@@ -58,6 +58,18 @@ export default function Layoutmanager() {
     });
   };
 
+  this.getInsertedLayouts = function() {
+    return $.grep($.map(this.layouts, function(layout) { return layout; }), function(layout) {
+      return !layout.committed;
+    });
+  };
+
+  this.getCommittedLayouts = function() {
+    return $.grep($.map(this.layouts, function(layout) { return layout; }), function(layout) {
+      return layout.committed;
+    });
+  };
+
   this.moveBlock = function(block, target) {
     block.parent.moveBlock(block, target);
     return this;
