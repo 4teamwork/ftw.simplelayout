@@ -487,6 +487,22 @@ function Layoutmanager() {
     });
   };
 
+  this.getInsertedLayouts = function () {
+    return _jquery2.default.grep(_jquery2.default.map(this.layouts, function (layout) {
+      return layout;
+    }), function (layout) {
+      return !layout.committed;
+    });
+  };
+
+  this.getCommittedLayouts = function () {
+    return _jquery2.default.grep(_jquery2.default.map(this.layouts, function (layout) {
+      return layout;
+    }), function (layout) {
+      return layout.committed;
+    });
+  };
+
   this.moveBlock = function (block, target) {
     block.parent.moveBlock(block, target);
     return this;
@@ -726,6 +742,18 @@ function Simplelayout(options) {
     return this;
   };
 
+  this.getInsertedLayouts = function () {
+    return _jquery2.default.map(this.managers, function (manager) {
+      return manager.getInsertedLayouts();
+    });
+  };
+
+  this.getCommittedLayouts = function () {
+    return _jquery2.default.map(this.managers, function (manager) {
+      return manager.getCommittedLayouts();
+    });
+  };
+
   var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = {
     helper: "clone",
     cursor: "pointer",
@@ -749,12 +777,29 @@ function Simplelayout(options) {
     }
   };
 
+  this._checkMoveAction = function () {
+    var layouts = self.getCommittedLayouts();
+
+    if (Object.keys(self.managers).length === 1 && layouts.length === 1) {
+      layouts[0].toolbar.disable("move");
+    } else {
+      _jquery2.default.map(layouts, function (layout) {
+        layout.toolbar.enable("move");
+      });
+    }
+  };
+
+  this.on("layoutDeleted", function (layout) {
+    self._checkMoveAction();
+  });
+
   this.on("layout-committed", function (layout) {
     if (self.options.editLayouts) {
       var layoutToolbar = new _Toolbar2.default(self.options.toolbox.options.layoutActions, "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
       (0, _jquery2.default)(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
+    self._checkMoveAction();
   });
 
   this.on("block-committed", function (block) {

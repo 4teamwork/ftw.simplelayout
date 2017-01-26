@@ -32,6 +32,21 @@ describe("Layoutmanager", function() {
     assert.isTrue(layoutmanager.hasLayouts(), "Should have layouts inserted");
   });
 
+  it("can get inserted and committed layouts", function() {
+    var layout2 = layoutmanager.insertLayout();
+    layoutmanager.insertLayout();
+    layoutmanager.insertLayout();
+    var layouts = $.map(layoutmanager.getCommittedLayouts(), function(block) {
+      return block.committed;
+    });
+    assert.deepEqual(layouts, []);
+    layout2.commit();
+    layouts = $.map(layoutmanager.getCommittedLayouts(), function(block) {
+      return block.committed;
+    });
+    assert.deepEqual(layouts, [true]);
+  });
+
   describe("Layout-transactions", function() {
 
     it("can insert a Layout.", function() {
