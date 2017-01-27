@@ -545,14 +545,12 @@ ul[class^="sl-toolbar"] {
   display: none;
 }
 
-.uploadDropzoneWrapper {
-  @include clearfix();
-}
-
 /* Multiupload */
 .sl-simplelayout .uploadArea {
-  position: relative;
+  position: absolute;
   white-space: nowrap;
+  z-index: $zindex-base + 1;
+  width: 100%;
 
   .buttons {
     display: none;
@@ -579,7 +577,6 @@ ul[class^="sl-toolbar"] {
     &.dz-started {
       width: 100%;
       background-color: white;
-      z-index: 1;
       display: block;
       padding-bottom: $padding-vertical * 8;
     }

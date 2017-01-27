@@ -1392,7 +1392,6 @@ define('app/simplelayout/Simplelayout',[
 
 
     $(document).on("dragenter", ".sl-layout", function(event){
-        event.stopPropagation();
         event.preventDefault();
 
         var layout = $(this);
