@@ -545,20 +545,44 @@ ul[class^="sl-toolbar"] {
   display: none;
 }
 
-.filedropzoneWrapper {
+.uploadDropzoneWrapper {
   @include clearfix();
 }
 
 /* Multiupload */
-.filedropzone {
-  width: 50%;
-  background-color: red;
-  min-height: 20px;
-  display: block;
-  float: left;
+.sl-simplelayout .uploadArea {
+  position: relative;
+  white-space: nowrap;
 
-  &.dz-drag-hover {
-    border: 5px dotted blue;
-    background-color: yellow; 
+  button {
+    display: none;
+    position: relative;
+    top: $padding-vertical * -7;
+    left: $padding-horizontal * 2;
+  }
+ 
+  .dropzone {
+    width: 50%;
+    min-height: 20px;
+    display: inline-block;
+    transition: width .5s;
+    white-space: normal;
+
+    .dz-preview.dz-image-preview {
+      background-color: transparent;
+    }
+
+    &.dz-started {
+      width: 100%;
+      background-color: white;
+      z-index: 1;
+      display: block;
+      padding-bottom: $padding-vertical * 8;
+    }
+
+    &.dz-drag-hover {
+      box-shadow: inset 0px 1px 80px 0px $color-edit;
+    }
   }
 }
+

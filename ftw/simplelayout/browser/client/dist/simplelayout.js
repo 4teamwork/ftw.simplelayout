@@ -1396,30 +1396,31 @@ define('app/simplelayout/Simplelayout',[
         event.preventDefault();
 
         var layout = $(this);
-        if (layout.find(".filedropzoneWrapper").length === 0) {
+        if (layout.find(".uploadArea").length === 0) {
 
           var template = $(
-            ["<form class='filedropzoneWrapper'>",
-                "<div class='filedropzone textbblock' data-contenttype='textblock'>",
-                 "Drop here to create TextBlocks",
-                 "<button class='triggerUpload'>Upload</button>",
-               "</div>",
-               "<div class='filedropzone galleryblock' data-contenttype='galleryblock'>",
-                 "Drop here to create Gallerblock",
-                 "<button class='triggerUpload'>Upload</button>",
-               "</div>",
+            ["<form class='uploadArea'>",
+                "<div class='dropzone textbblock' data-contenttype='textblock' data-text='Drag here for TextBlocks' />",
+                "<div class='dropzone galleryblock' data-contenttype='galleryblock' data-text='Drag here for Galleryblock' />",
+                "<button class='triggerUpload'>Upload</button>",
              "</form>"].join("\n")
           );
           layout.prepend(template.clone());
 
 
-          layout.find(".filedropzone").each(function(){
+          layout.find(".dropzone").each(function(){
             var target = $(this);
+            var area = target.parent();
             target.dropzone({
               url: "sl-ajax-upload",
               autoProcessQueue: false,
               parallelUploads: 10000,
               uploadMultiple: true,
+              dictDefaultMessage: target.data('text'),
+              drop: function(event){
+                area.find(".triggerUpload").show();
+                area.find(".dropzone").not(target[0]).hide();
+              }
             });
 
             target[0].dropzone.on("sendingmultiple", function(files, xhr, formData){
@@ -1436,7 +1437,7 @@ define('app/simplelayout/Simplelayout',[
               } else {
                 // There are blocks, so we insert the new layout before the current one
                 layout.before(response.content);
-                $(".filedropzoneWrapper").remove();
+                $(".uploadArea").remove();
               }
             });
 
