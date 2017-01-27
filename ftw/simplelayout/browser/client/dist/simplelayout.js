@@ -1400,9 +1400,12 @@ define('app/simplelayout/Simplelayout',[
 
           var template = $(
             ["<form class='uploadArea'>",
-                "<div class='dropzone textbblock' data-contenttype='textblock' data-text='Drag here for TextBlocks' />",
-                "<div class='dropzone galleryblock' data-contenttype='galleryblock' data-text='Drag here for Galleryblock' />",
-                "<button class='triggerUpload'>Upload</button>",
+                "<div class='dropzone textbblock' data-contenttype='textblock' data-text='Drag here for TextBlocks'>",
+                "</div><div class='dropzone galleryblock' data-contenttype='galleryblock' data-text='Drag here for Galleryblock' />",
+                "<div class='buttons'>",
+                  "<button class='triggerUpload'>Upload</button>",
+                  "<button class='cancelUpload'>Cancel</button>",
+                "</div>",
              "</form>"].join("\n")
           );
           layout.prepend(template.clone());
@@ -1418,7 +1421,7 @@ define('app/simplelayout/Simplelayout',[
               uploadMultiple: true,
               dictDefaultMessage: target.data('text'),
               drop: function(event){
-                area.find(".triggerUpload").show();
+                area.find(".buttons").show();
                 area.find(".dropzone").not(target[0]).hide();
               }
             });
@@ -1441,11 +1444,18 @@ define('app/simplelayout/Simplelayout',[
               }
             });
 
-            target.parent().find(".triggerUpload").on("click", function(event){
+            area.find(".triggerUpload").on("click", function(event){
               event.preventDefault();
               event.stopPropagation();
               target[0].dropzone.processQueue();
             });
+
+            area.find(".cancelUpload").on("click", function(event){
+              event.preventDefault();
+              event.stopPropagation();
+              $(".uploadArea").remove();
+            });
+
           });
 
         }

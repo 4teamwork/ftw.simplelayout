@@ -554,11 +554,15 @@ ul[class^="sl-toolbar"] {
   position: relative;
   white-space: nowrap;
 
-  button {
+  .buttons {
     display: none;
     position: relative;
     top: $padding-vertical * -7;
     left: $padding-horizontal * 2;
+
+    .cancelUpload {
+      @include button-danger();
+    }
   }
  
   .dropzone {
