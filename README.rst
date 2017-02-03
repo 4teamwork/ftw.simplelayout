@@ -26,8 +26,9 @@ Compatibility
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
 **Themes**
-We recommend using a ftw.theming based theme. Currently we do not support the standard
-plonetheme sunburst. It may work but we're not working on sunburst compatibility.
+
+To have proper styles we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
+
 
 **Plone 5**
 
