@@ -149,9 +149,16 @@ class PageConfiguration(object):
 
     def load(self):
         annotations = IAnnotations(self.context)
-        return deepcopy(annotations.setdefault(
+        default_state = deepcopy(self._default_page_config())
+        page_state = deepcopy(annotations.setdefault(
             SL_ANNOTATION_KEY,
-            make_resursive_persistent(self._default_page_config())))
+            make_resursive_persistent(default_state)))
+
+        for slotname in default_state:
+            if not page_state.get(slotname):
+                page_state[slotname] = default_state[slotname]
+
+        return page_state
 
     def check_permission(self, new_state):
         if api.user.has_permission('ftw.simplelayout: Change Layouts',

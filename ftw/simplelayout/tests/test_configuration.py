@@ -7,10 +7,14 @@ from ftw.simplelayout.configuration import flattened_block_uids
 from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
+from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
+from ftw.simplelayout.tests.sample_types import ISampleSimplelayoutContainer
 from ftw.testing import staticuid
 from zExceptions import Unauthorized
+from zope.component import getGlobalSiteManager
+from zope.interface import Interface
 from zope.interface.verify import verifyObject
 
 
@@ -51,6 +55,53 @@ class TestPageConfiguration(SimplelayoutTestCase):
     def test_default_config_is_recursive_persistent(self):
         config = IPageConfiguration(create(Builder('sample container')))
         self.assert_recursive_persistence(config.load())
+
+    def test_restore_slot_default_when_removing_last_layout(self):
+        """If the last layout was removed from a state, the slot default
+        should be restored.
+        """
+
+        class ConfigAdapter(object):
+            def __init__(self, context, request):
+                pass
+
+            def __call__(self, settings):
+                pass
+
+            def default_page_layout(self):
+                return {'default': [{'cols': [{'blocks': [{'uid': 'foo'}]}]}]}
+
+        adapter_registration_kwargs = {
+            'factory': ConfigAdapter,
+            'required': (ISampleSimplelayoutContainer, Interface),
+            'provided': ISimplelayoutContainerConfig}
+
+        container = create(Builder('sample container'))
+
+        gsm = getGlobalSiteManager()
+        gsm.registerAdapter(**adapter_registration_kwargs)
+        try:
+            config = IPageConfiguration(container)
+            config.store(config.load())
+            self.assertEquals(
+                {'default': [{'cols': [{'blocks': [{'uid': 'foo'}]}]}]},
+                config.load())
+
+            config.store({'default': [{'cols': [{'blocks': []}]}],
+                          'portlet': [{'cols': [{'blocks': [{'uid': 'bar'}]}]}]})
+            self.assertEquals(
+                {'default': [{'cols': [{'blocks': []}]}],
+                 'portlet': [{'cols': [{'blocks': [{'uid': 'bar'}]}]}]},
+                config.load())
+
+            config.store({'default': []})
+            self.assertEquals(
+                {'default': [{'cols': [{'blocks': [{'uid': 'foo'}]}]}],
+                 'portlet': [{'cols': [{'blocks': [{'uid': 'bar'}]}]}]},
+                config.load())
+
+        finally:
+            gsm.unregisterAdapter(**adapter_registration_kwargs)
 
     def test_loaded_config_mutations_are_not_stored(self):
         config = IPageConfiguration(create(Builder('sample container')))
