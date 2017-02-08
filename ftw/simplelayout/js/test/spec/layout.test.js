@@ -14,16 +14,7 @@ describe("Layout", function() {
   it("can set layout-content", function() {
     layout.content("<p>Hallo</p>");
 
-    var node = $.map(layout.element, function(layoutNode) {
-      return {tagName: layoutNode.tagName, content: layoutNode.innerHTML};
-    });
-
-    assert.deepEqual(node,
-      [{
-        tagName: "DIV",
-        content: '<p>Hallo</p>'
-      }]
-    );
+    assert.equal(layout.element.find("p").html(), "Hallo");
   });
 
   it("is a constructor function", function() {

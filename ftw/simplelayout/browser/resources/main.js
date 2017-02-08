@@ -115,7 +115,6 @@
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
         $(".sl-layout", manager).each(function(layIdx, layout) {
-          console.log("peter");
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
           state[manager.id][layIdx].config = $(layout).data().object.config();
@@ -189,6 +188,7 @@
       });
 
       simplelayout.on("layout-committed", function() {
+        statekeeper.update();
         saveState();
       });
 

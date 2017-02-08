@@ -240,14 +240,8 @@ export default function Simplelayout(options) {
       layout.attachToolbar(layoutToolbar);
       $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
-    self._checkMoveAction();
-  });
-
-  this.on("layoutReplaced", function(layout) {
-    if(self.options.editLayouts) {
-      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
-      layout.attachToolbar(layoutToolbar);
-      $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+    if(layout.hasBlocks()) {
+      layout.toolbar.disable("delete");
     }
   });
 

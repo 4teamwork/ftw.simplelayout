@@ -81,12 +81,17 @@ export default function Layout(columns) {
   };
 
   this.content = function(toReplace) {
+    var self = this;
     $(this.element).html(toReplace);
-    EE.trigger("layoutReplaced", [this]);
+    this.blocks = {};
+    $(".sl-block", this.element).each(function() {
+      self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
+    });
+    EE.trigger("layout-committed", [this]);
     return this;
   };
 
-  this.restore = function(restoreElement, restoreParent, restoreColumn, represents) {
+  this.restore = function(restoreElement = this.element, restoreParent = this.parent, restoreColumn = this.columns, represents = this.represents) {
     var self = this;
     this.columns = restoreColumn;
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
