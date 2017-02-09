@@ -236,7 +236,7 @@ export default function Simplelayout(options) {
 
   this.on("layout-committed", function(layout) {
     if(self.options.editLayouts) {
-      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
+      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
       $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }

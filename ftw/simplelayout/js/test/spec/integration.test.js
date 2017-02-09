@@ -21,39 +21,13 @@ describe("Integration", function() {
             }
           }],
           layoutActions: {
-            edit: {"class": "edit", "title": "Can edit this block"},
-            move: {"class": "move", "title": "Can move this block"}
+            edit: {"class": "edit", "title": "Can edit this block", "rules": [1, 2, 3, 4]},
+            move: {"class": "move", "title": "Can move this block", "rules": [1, 2, 3, 4]},
+            ratio: {"class": "specific-ratio", "title": "specific ratio", "rules": [2]}
           }
         })
       });
       manager = simplelayout.insertManager();
-  });
-
-  it("should not have a move action if just one layout is available", () => {
-    manager.insertLayout().commit();
-    $.map(manager.layouts, (layout) => {
-      assert.equal(layout.toolbar.element.find(".move").css("display"), "none");
-    });
-
-    const layout1 = manager.insertLayout().commit();
-
-    $.map(manager.layouts, (layout) => {
-      assert.equal(layout.toolbar.element.find(".move").css("display"), "block");
-    });
-
-    layout1.delete();
-
-    $.map(manager.layouts, (layout) => {
-      assert.equal(layout.toolbar.element.find(".move").css("display"), "none");
-    });
-  })
-
-  it("creates toolbar on layout with given layoutactions from toolbox", function() {
-    var layout = manager.insertLayout().commit();
-
-    assert.deepEqual($.map(layout.element.find(".sl-toolbar-layout a"), function(action) {
-      return action.className;
-    }), ["edit", "move"]);
   });
 
   it("creates toolbar on block with given blockactions from toolbox", function(done) {
@@ -101,6 +75,19 @@ describe("Integration", function() {
     layout.content(
       "<div data-type='textblock' class='sl-block'></div><div data-type='textblock' class='sl-block'></div>"
     );
+  });
+
+  it("a layout should only have its configured actions", () => {
+    const layout4 = manager.insertLayout(4).commit();
+    const layout2 = manager.insertLayout(2).commit();
+
+    assert.deepEqual($.map(layout2.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move", "specific-ratio"]);
+
+    assert.deepEqual($.map(layout4.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move"]);
   });
 
 });

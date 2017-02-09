@@ -63,6 +63,15 @@ export default function Toolbox(options) {
     blockObjects[block.contentType] = block;
   });
 
+  var layoutActions = {};
+  $.each(this.options.layoutActions, (name, action) => {
+    $.each(action.rules || {}, (idx, columns) => {
+      layoutActions[columns] = layoutActions[columns] || {};
+      layoutActions[columns][name] = action;
+    });
+  });
+
+  this.options.layoutActions = layoutActions;
   this.options.blocks = blockObjects;
 
   this.attachTo = function(target) { target.append(this.element); };
