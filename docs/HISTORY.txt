@@ -5,6 +5,8 @@ Changelog
 1.17.1 (unreleased)
 -------------------
 
+- Prevent plone ajax spinner from being shown. [Kevin Bieri]
+
 - Restore slot defaults when removing last layout. [jone]
 
 
