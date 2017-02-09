@@ -98,7 +98,7 @@
       Disable kss spinner. In order for this to work, this file must be evaluated after kss-bbb.js.
       As you can see in the lib profile's jsregistry.xml.
     */
-    $document.off("ajaxStart");
+    $.ajaxSetup({ global: false });
 
     $document.on("ajaxSend", function(event, jqxhr, params) { track(params.url); });
     $document.on("ajaxComplete", function(event, jqxhr, params) { untrack(params.url); });
