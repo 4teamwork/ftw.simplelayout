@@ -1,3 +1,7 @@
+import EventEmitter from "simplelayout/EventEmitter";
+
+const EE = EventEmitter.getInstance();
+
 chai.config.truncateThreshold = 0
 
 beforeAll(() => {
@@ -6,4 +10,5 @@ beforeAll(() => {
 
 afterEach(function(){
   fixture.cleanup();
+  EE.clean();
 });

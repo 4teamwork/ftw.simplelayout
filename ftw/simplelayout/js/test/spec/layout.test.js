@@ -2,6 +2,9 @@ import Layout from "simplelayout/Layout";
 import Toolbar from "simplelayout/Toolbar";
 import $ from "jquery";
 import { getNodeAttributesAsObject } from "../helpers/DOMHelpers";
+import EventEmitter from "simplelayout/EventEmitter";
+
+const EE = EventEmitter.getInstance();
 
 describe("Layout", function() {
 
@@ -9,12 +12,6 @@ describe("Layout", function() {
 
   beforeEach(function() {
     layout = new Layout(4);
-  });
-
-  it("can set layout-content", function() {
-    layout.content("<p>Hallo</p>");
-
-    assert.equal(layout.element.find("p").html(), "Hallo");
   });
 
   it("is a constructor function", function() {
@@ -94,6 +91,41 @@ describe("Layout", function() {
       assert.equal(generatedLayout.id, generatedBlock.parent.id, "Should store parent id");
     });
 
+  });
+
+  describe("set content", function() {
+    it("can set layout-content", function() {
+      layout.content("<p>Hallo</p>");
+
+      assert.equal(layout.element.find("p").html(), "Hallo");
+    });
+
+    it("should restore all blocks containing the layout", function(done) {
+      const block1 = layout.insertBlock().commit();
+      const block2 = layout.insertBlock().commit();
+
+      EE.on("block-committed", function() {
+        EE.on("block-committed", function() {
+          expect($.map(layout.blocks, (block) => {
+            return block.element.text();
+          })).toEqual(["Hallo", "Velo"]);
+          done();
+        });
+      });
+
+      layout.content(
+        "<div class='sl-block'>Hallo</div><div class='sl-block'>Velo</div>"
+      );
+
+    });
+
+    // it("should restore the layout toolbar", () => {
+
+    // });
+
+    // it("should restore all block toolbars containing the layout", () => {
+    //   // body...
+    // });
   });
 
   describe("Block accessors", function() {

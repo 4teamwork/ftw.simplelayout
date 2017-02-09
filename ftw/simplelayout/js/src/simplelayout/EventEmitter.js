@@ -11,6 +11,14 @@ export default function EventEmitter(){
   };
 
   this.on = function(eventType, callback) { eventEmitter.on(eventType, callback); };
+
+  this.clean = function() {
+    var listeners = [];
+    $.each(eventEmitter.getListeners(/./g), (i, e) => {
+      listeners = listeners.concat(eventEmitter.flattenListeners(e));
+    });
+    eventEmitter.removeListeners.call(eventEmitter, /./g, listeners);
+  }
 }
 
 EventEmitter.getInstance = function(){

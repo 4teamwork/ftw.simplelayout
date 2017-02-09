@@ -7,7 +7,7 @@ describe("Integration", function() {
   var simplelayout;
   var manager;
 
-  beforeAll(function() {
+  beforeEach(function() {
     simplelayout = new Simplelayout({
         toolbox: new Toolbox({
           blocks: [
@@ -56,13 +56,17 @@ describe("Integration", function() {
     }), ["edit", "move"]);
   });
 
-  it("creates toolbar on block with given blockactions from toolbox", function() {
+  it("creates toolbar on block with given blockactions from toolbox", function(done) {
     var layout = manager.insertLayout().commit();
-    var block = layout.insertBlock("<p></p>", "textblock").commit();
 
-    assert.deepEqual($.map(block.element.find(".sl-toolbar-block a"), function(action) {
-      return action.className;
-    }), ["edit", "move"]);
+    simplelayout.on("toolbar-attached", (block) => {
+      expect($.map(block.element.find(".sl-toolbar-block a"), function(action) {
+        return action.className;
+      })).toEqual(["edit", "move"]);
+      done();
+    });
+
+    var block = layout.insertBlock("<p></p>", "textblock").commit();
   });
 
   it("does not create toolbar for layouts if layout edit is inactive", function() {
