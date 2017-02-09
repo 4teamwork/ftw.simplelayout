@@ -3,15 +3,18 @@ import Toolbar from "simplelayout/Toolbar";
 import $ from "jquery";
 import { getNodeAttributesAsObject } from "../helpers/DOMHelpers";
 import EventEmitter from "simplelayout/EventEmitter";
+import Simplelayout from "simplelayout/Simplelayout";
 
 const EE = EventEmitter.getInstance();
 
 describe("Layout", function() {
 
   var layout;
+  var simplelayout;
 
   beforeEach(function() {
     layout = new Layout(4);
+    simplelayout = new Simplelayout();
   });
 
   it("is a constructor function", function() {
@@ -119,13 +122,15 @@ describe("Layout", function() {
 
     });
 
-    // it("should restore the layout toolbar", () => {
+    it("should restore the layout toolbar", (done) => {
+      EE.on("toolbar-attached", (layout) => {
+        expect(layout.element.find(".sl-toolbar-layout").length)
+          .toEqual(1, "The layout toolbar was not restored.")
+        done();
+      });
 
-    // });
-
-    // it("should restore all block toolbars containing the layout", () => {
-    //   // body...
-    // });
+      layout.content("");
+    });
   });
 
   describe("Block accessors", function() {

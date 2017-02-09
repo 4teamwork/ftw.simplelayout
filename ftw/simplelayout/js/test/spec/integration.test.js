@@ -87,4 +87,20 @@ describe("Integration", function() {
     }), ["edit", "move"]);
   });
 
+  it("should restore all block toolbars containing the layout", (done) => {
+    const layout = manager.insertLayout().commit();
+    simplelayout.on("toolbar-attached", function() {
+      simplelayout.on("toolbar-attached", function() {
+        expect($.map(layout.blocks, (block) => {
+          return block.element.find(".sl-toolbar-block").length;
+        })).toEqual([1, 1]);
+        done();
+      });
+    });
+
+    layout.content(
+      "<div data-type='textblock' class='sl-block'></div><div data-type='textblock' class='sl-block'></div>"
+    );
+  });
+
 });
