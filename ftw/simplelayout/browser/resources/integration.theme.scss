@@ -18,6 +18,17 @@
   background-color: $color-gray-dark;
 }
 
+.golden-ratio .sl-column {
+  $golden-ratio: 61.803398875%;
+  $gutter-width-relative: ($gutter-width / $max-width-page * 100%);
+  &:nth-child(1) {
+    width: $golden-ratio - ($gutter-width-relative / 2);
+  }
+  &:nth-child(2) {
+    width: 100 - $golden-ratio - ($gutter-width-relative / 2);
+  }
+}
+
 .sl-image {
   width: 100%;
   position: relative;

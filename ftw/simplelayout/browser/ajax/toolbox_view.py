@@ -75,13 +75,15 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_move_layout',
                                      default=u'Move layout'),
                                    context=self.request),
-                'class': 'icon-move move'
+                'class': 'icon-move move',
+                'rules': [1,2,3,4],
             },
             'delete': {
                 'title': translate(_(u'label_delete_layout',
                                      default=u'Delete layout'),
                                    context=self.request),
-                'class': 'icon-delete delete'
+                'class': 'icon-delete delete',
+                'rules': [1,2,3,4],
             },
             'highlighted': {
                 'title': translate(_(u'label_hightlight_layout',
@@ -89,7 +91,17 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-highlighted reload',
-                'data-highlighted': 'highlighted'
+                'data-highlighted': 'highlighted',
+                'rules': [1,2,3,4],
+            },
+            'golden-ratio': {
+                'title': translate(_(u'label_golden_ratio',
+                                     default=u'Goldener Schnitt'),
+                                   context=self.request),
+                'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-golden-ratio reload',
+                'data-golden_ratio': 'golden-ratio',
+                'rules': [2],
             }
 
         }
