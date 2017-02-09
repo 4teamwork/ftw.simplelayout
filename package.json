@@ -27,6 +27,8 @@
     "underscore": "1.8.3"
   },
   "dependencies": {
+    "group-by": "0.0.1",
+    "handlebars": "4.0.5",
     "jsrender": "0.9.83",
     "wolfy87-eventemitter": "5.1.0",
     "handlebars": "4.0.5"
