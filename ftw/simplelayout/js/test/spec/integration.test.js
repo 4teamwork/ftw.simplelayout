@@ -23,7 +23,8 @@ describe("Integration", function() {
           layoutActions: {
             edit: {"class": "edit", "title": "Can edit this block", "rules": [1, 2, 3, 4]},
             move: {"class": "move", "title": "Can move this block", "rules": [1, 2, 3, 4]},
-            ratio: {"class": "specific-ratio", "title": "specific ratio", "rules": [2]}
+            ratio: {"class": "specific-ratio", "title": "specific ratio", "rules": [2]},
+            all: {"class": "all", "title": "all"},
           }
         })
       });
@@ -58,7 +59,7 @@ describe("Integration", function() {
 
     assert.deepEqual($.map(layout.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
-    }), ["edit", "move"]);
+    }), ["edit", "move", "all"]);
   });
 
   it("should restore all block toolbars containing the layout", (done) => {
@@ -83,11 +84,29 @@ describe("Integration", function() {
 
     assert.deepEqual($.map(layout2.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
-    }), ["edit", "move", "specific-ratio"]);
+    }), ["edit", "move", "specific-ratio", "all"]);
 
     assert.deepEqual($.map(layout4.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
-    }), ["edit", "move"]);
+    }), ["edit", "move", "all"]);
+  });
+
+  it("an action with no rules should be applied to all layouts", () => {
+    const layout1 = manager.insertLayout(1).commit();
+    const layout2 = manager.insertLayout(2).commit();
+    const layout4 = manager.insertLayout(4).commit();
+
+    assert.deepEqual($.map(layout1.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move", "all"]);
+
+    assert.deepEqual($.map(layout2.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move", "specific-ratio", "all"]);
+
+    assert.deepEqual($.map(layout4.element.find(".sl-toolbar-layout a"), function(action) {
+      return action.className;
+    }), ["edit", "move", "all"]);
   });
 
 });

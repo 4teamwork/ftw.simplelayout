@@ -65,7 +65,10 @@ export default function Toolbox(options) {
 
   var layoutActions = {};
   $.each(this.options.layoutActions, (name, action) => {
-    $.each(action.rules || {}, (idx, columns) => {
+    if(!action.rules) {
+      action.rules = this.options.layouts;
+    }
+    $.each(action.rules, (idx, columns) => {
       layoutActions[columns] = layoutActions[columns] || {};
       layoutActions[columns][name] = action;
     });
