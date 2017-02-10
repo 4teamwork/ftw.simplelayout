@@ -40,12 +40,28 @@ class TestToolBoxView(SimplelayoutTestCase):
 
     @browsing
     def test_layout_actions(self, browser):
+        self.maxDiff = None
         browser.login().visit(self.container, view='@@sl-toolbox-view')
         response = browser.json
 
         self.assertEquals(
-            {u'move': {u'class': u'icon-move move',
-                                    u'title': u'Move layout'},
-                          u'delete': {u'class': u'icon-delete delete',
-                                      u'title': u'Delete layout'}},
+            {u'move':         {u'class': u'icon-move move',
+                               u'title': u'Move layout'},
+             u'delete':       {u'class': u'icon-delete delete',
+                               u'title': u'Delete layout'},
+             u'highlighted':  {u'class': u'icon-highlighted reload',
+                               u'title': u'Highlighted layout',
+                               u'href' : u'./sl-ajax-reload-layout-view',
+                               u'data-highlighted' : u'highlighted'},
+             u'golden-ratio': {u'class': u'icon-golden-ratio reload',
+                               u'title': u'golden ratio',
+                               u'href' : u'./sl-ajax-reload-layout-view',
+                               u'data-golden_ratio' : u'golden-ratio',
+                               u'rules': [2]},
+             u'layout121':    {u'class': u'icon-layout121 reload',
+                               u'title': u'1-2-1 layout',
+                               u'href' : u'./sl-ajax-reload-layout-view',
+                               u'data-layout121' : u'layout121',
+                               u'rules': [3]},
+            },
             response['layoutActions'])
