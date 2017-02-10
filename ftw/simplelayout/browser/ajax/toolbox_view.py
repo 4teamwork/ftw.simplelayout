@@ -76,7 +76,7 @@ class SimplelayoutToolbox(BrowserView):
                                      default=u'Move layout'),
                                    context=self.request),
                 'class': 'icon-move move',
-                'rules': [1,2,3,4],
+                'rules': [2],
             },
             'delete': {
                 'title': translate(_(u'label_delete_layout',
@@ -102,6 +102,15 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-golden-ratio reload',
                 'data-golden_ratio': 'golden-ratio',
                 'rules': [2],
+            },
+            'komischs-layout': {
+                'title': translate(_(u'label_komischs-layout',
+                                     default=u'komischs-Layout'),
+                                   context=self.request),
+                'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-komischs-layout reload',
+                'data-komischs_layout': 'komischs-layout',
+                'rules': [3],
             }
 
         }

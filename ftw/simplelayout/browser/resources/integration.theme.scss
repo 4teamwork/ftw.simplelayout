@@ -29,6 +29,19 @@
   }
 }
 
+.komischs-layout .sl-column {
+  $gutter-width-relative: ($gutter-width / $max-width-page * 100%);
+  &:nth-child(1) {
+    width: (100% / 4) - (($gutter-width-relative * 2) / 3);
+  }
+  &:nth-child(2) {
+    width: (100% / 4) * 2 - (($gutter-width-relative * 2) / 3);
+  }
+  &:nth-child(3) {
+    width: (100% / 4) - (($gutter-width-relative * 2) / 3);
+  }
+}
+
 .sl-image {
   width: 100%;
   position: relative;
