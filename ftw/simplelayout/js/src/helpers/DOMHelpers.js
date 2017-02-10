@@ -1,4 +1,4 @@
-import $ from "jQuery";
+import $ from "jquery";
 
 export function getNodeAttributesAsObject(node) {
   const attributesMap = node.attributes;
