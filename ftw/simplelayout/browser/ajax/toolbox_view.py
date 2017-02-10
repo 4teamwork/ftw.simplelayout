@@ -76,14 +76,12 @@ class SimplelayoutToolbox(BrowserView):
                                      default=u'Move layout'),
                                    context=self.request),
                 'class': 'icon-move move',
-                'rules': [2],
             },
             'delete': {
                 'title': translate(_(u'label_delete_layout',
                                      default=u'Delete layout'),
                                    context=self.request),
                 'class': 'icon-delete delete',
-                'rules': [1,2,3,4],
             },
             'highlighted': {
                 'title': translate(_(u'label_hightlight_layout',
@@ -92,24 +90,23 @@ class SimplelayoutToolbox(BrowserView):
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-highlighted reload',
                 'data-highlighted': 'highlighted',
-                'rules': [1,2,3,4],
             },
             'golden-ratio': {
                 'title': translate(_(u'label_golden_ratio',
-                                     default=u'Goldener Schnitt'),
+                                     default=u'golden ratio'),
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-golden-ratio reload',
                 'data-golden_ratio': 'golden-ratio',
                 'rules': [2],
             },
-            'komischs-layout': {
-                'title': translate(_(u'label_komischs-layout',
-                                     default=u'komischs-Layout'),
+            'layout121': {
+                'title': translate(_(u'label_layout121',
+                                     default=u'1-2-1 layout'),
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
-                'class': 'icon-komischs-layout reload',
-                'data-komischs_layout': 'komischs-layout',
+                'class': 'icon-layout121 reload',
+                'data-layout121': 'layout121',
                 'rules': [3],
             }
 

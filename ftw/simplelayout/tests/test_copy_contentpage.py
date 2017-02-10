@@ -51,12 +51,12 @@ class TestCopySimplelayoutPage(SimplelayoutTestCase):
 
             self.assertEquals(
                 1,
-                len(browser.css('.sl-layout:first-child > .sl-column:first-child > .sl-block')),
+                len(browser.css('.sl-layout:first-child .sl-column:first-child > .sl-block')),
                 'Expect one block in first column of the first layout.')
 
             self.assertEquals(
                 1,
-                len(browser.css('.sl-layout:first-child > .sl-column:nth-child(2) > .sl-block')),
+                len(browser.css('.sl-layout:first-child .sl-column:nth-child(2) > .sl-block')),
                 'Expect one block in second column of the first layout.')
 
             self.assertEquals(
