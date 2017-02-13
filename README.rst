@@ -17,13 +17,6 @@ Because of the restricted dimensions of text, images and other content elements,
 the general result is content with a uniform look and feel throughout the site.
 
 
-Alpha state
------------
-This package is ready for production, but has no uninstall profile.
-Minor and Major changes may occur until the final version, but we will provide an uprade path.
-Plone 4.3.x stylings only covers the essentials, you may install ``ftw.simplelayout`` along with `plonetheme.onegovbear <https://github.com/OneGov/plonetheme.onegovbear/>`_,which ships with a nice simpelayout interface.
-
-
 Compatibility
 -------------
 
@@ -33,8 +26,9 @@ Compatibility
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
 **Themes**
-We recommend using a ftw.theming based theme. Currently we do not support the standard
-plonetheme sunburst. It may work but we're not working on sunburst compatibility.
+
+To have proper styles we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
+
 
 **Plone 5**
 
