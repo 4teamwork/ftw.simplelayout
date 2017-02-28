@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.1 (unreleased)
+1.17.1 (2017-02-28)
 -------------------
 
 - Include theme compatibility hint in readme.
