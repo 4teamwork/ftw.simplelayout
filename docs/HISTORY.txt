@@ -5,7 +5,7 @@ Changelog
 1.17.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make MapBlock addable on plone site per default [raphael-s]
 
 
 1.17.1 (2017-02-28)
