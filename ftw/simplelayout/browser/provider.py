@@ -1,5 +1,6 @@
 from Acquisition import aq_base
 from Acquisition import aq_inner
+from ftw.simplelayout.contenttypes.behaviors import IHiddenBlock
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
@@ -149,11 +150,15 @@ class SimplelayoutRenderer(object):
             block_dict['uid'] = uid
 
         block_type = normalize_portal_type(obj.portal_type)
-        block_is_hidden = getattr(obj, 'is_hidden', False)
 
         css_classes = ['sl-block', block_type]
-        if block_is_hidden:
-            css_classes.append('hidden')
+
+        block_is_hidden = False
+        hidden_block_support = IHiddenBlock(obj, None)
+        if hidden_block_support:
+            block_is_hidden = hidden_block_support.is_hidden
+            if block_is_hidden:
+                css_classes.append('hidden')
 
         css_classes.extend(getattr(aq_base(obj), 'additional_css_classes', []))
 
