@@ -260,20 +260,19 @@ ul[class^="sl-toolbar"] {
   z-index: $zindex-base + 10;
   li {
     text-align: center;
-    a {
+    > a {
       width: $editbar-height;
       height: $editbar-height;
       background-size: $font-size-medium;
       background-position: center;
       padding: 0;
       cursor: pointer;
+      border-bottom: 1px solid lighten($color-text, 5%);
     }
-    &.delimiter {
-      width: $editbar-height;
-      height: 1px;
-      background: lighten($color-text, 5%);
-      &:last-child {
-        display: none;
+
+    &:last-child {
+      > a {
+        border: 0;
       }
     }
   }
@@ -285,9 +284,16 @@ ul[class^="sl-toolbar"] {
     li {
       display: inline-block;
       float: none;
-      &.delimiter {
-        width: 1px;
-        height: $editbar-height;
+
+      > a {
+        border-bottom: 0;
+        border-right: 1px solid lighten($color-text, 5%);
+      }
+
+      &:last-child {
+        > a {
+          border: 0;
+        }
       }
     }
   }

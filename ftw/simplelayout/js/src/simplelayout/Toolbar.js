@@ -21,7 +21,6 @@ export default function Toolbar(actions, orientation, type) {
           >
           </a>
         </li>
-        <li class='delimiter'></li>
       {{/each}}
     </ul>
   `;
