@@ -5,6 +5,8 @@ Changelog
 1.17.3 (unreleased)
 -------------------
 
+- Improve anchor extraction. [mbaechtold]
+
 - Synchronize simplelayout block order to Plone's ordered container. [jone]
 
 - Improve support for hidden blocks introduced in 1.2.1. [mbaechtold]
