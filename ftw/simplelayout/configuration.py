@@ -4,6 +4,7 @@ from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from operator import itemgetter
+from operator import methodcaller
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
@@ -147,6 +148,8 @@ class PageConfiguration(object):
         else:
             annotations[SL_ANNOTATION_KEY] = make_resursive_persistent(conf)
 
+        self.update_object_positions()
+
     def load(self):
         annotations = IAnnotations(self.context)
         default_state = deepcopy(self._default_page_config())
@@ -179,6 +182,31 @@ class PageConfiguration(object):
 
             if has_slot_layout_changed(old_state[slot_name], new_slot_state):
                 raise Unauthorized()
+
+    def get_ordered_blocks(self):
+        """Returns all blocks in the page, ordered by the order stored
+        in the page state.
+        """
+        uid_order = flattened_block_uids(self.load())
+
+        def block_sort_key(block):
+            uid = IUUID(block)
+            if uid not in uid_order:
+                return '~'
+            else:
+                return uid_order.index(uid)
+
+        blocks = filter(ISimplelayoutBlock.providedBy,
+                        map(self.context._getOb,
+                            self.context.objectIds(ordered=False)))
+        blocks.sort(key=block_sort_key)
+        return blocks
+
+    def update_object_positions(self):
+        """Update the positions of the sl blocks in the orderable folder.
+        """
+        block_ids = map(methodcaller('getId'), self.get_ordered_blocks())
+        self.context.getOrdering().moveObjectsToTop(block_ids)
 
     def _default_page_config(self):
         """Returns a default page config"""
