@@ -7,6 +7,8 @@ Changelog
 
 - Make anchor extraction more robust. [mbaechtold]
 
+- Remove unused "addable_block_types" method from simplelayout view. [jone]
+
 
 1.18.1 (2017-03-23)
 -------------------

@@ -375,18 +375,6 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         )
 
     @browsing
-    def test_addable_block_types_view_property(self, browser):
-        create(Builder('sample block')
-               .titled('Block 1')
-               .within(self.container))
-
-        view = self.container.restrictedTraverse('@@simplelayout-view')
-        self.assertEqual(
-            ['SampleBlock', 'SampleFolderishBlock'],
-            view.addable_block_types()
-        )
-
-    @browsing
     def test_canEdit_is_false_if_border_disabled(self, browser):
         browser.login().visit(self.container, data={'disable_border': 1})
         data_attr_value = json.loads(browser.css(
