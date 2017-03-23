@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.3 (unreleased)
+1.18.0 (2017-03-23)
 -------------------
 
 - Improve anchor extraction. [mbaechtold]
