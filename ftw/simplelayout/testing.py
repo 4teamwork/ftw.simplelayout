@@ -52,9 +52,6 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
-        import ftw.simplelayout
-        xmlconfig.file('configure.zcml', ftw.simplelayout,
-                       context=configurationContext)
         z2.installProduct(app, 'ftw.simplelayout')
 
     def setUpPloneSite(self, portal):
