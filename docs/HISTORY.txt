@@ -5,6 +5,8 @@ Changelog
 1.18.1 (unreleased)
 -------------------
 
+- Fix copy/paste bug with p.a.referenceablebehavior. [jone]
+
 - Make sure plone.app.referenceablebehavior is installed. [jone]
 
 
