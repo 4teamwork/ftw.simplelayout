@@ -138,7 +138,7 @@ class PageConfiguration(object):
     def __init__(self, context):
         self.context = context
 
-    def store(self, conf):
+    def store(self, conf, update_positions=True):
         self.check_permission(conf)
         annotations = IAnnotations(self.context)
 
@@ -148,7 +148,8 @@ class PageConfiguration(object):
         else:
             annotations[SL_ANNOTATION_KEY] = make_resursive_persistent(conf)
 
-        self.update_object_positions()
+        if update_positions:
+            self.update_object_positions()
 
     def load(self):
         annotations = IAnnotations(self.context)

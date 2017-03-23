@@ -50,7 +50,14 @@ def update_page_state_on_copy_paste_block(block, event):
         json.dumps(page_state).replace(origin_block_uid,
                                        new_block_uid))
 
-    page_config.store(new_page_state)
+    # We should not update object positions here, because:
+    # 1. "Ordered folder" makes sure that the order is the same as before
+    #    when copy / pasting.
+    # 2. Updating positions does not work here, because our objects are not
+    #    acquisition wrappable yet (since not yet pasted) and the updating
+    #    mechanism will trigger events (such as plone.app.referenceablebehavior),
+    #    which require acquisition.
+    page_config.store(new_page_state, update_positions=False)
 
 
 def update_page_state_on_block_remove(block, event):
