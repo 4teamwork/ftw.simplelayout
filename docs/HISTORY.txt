@@ -5,7 +5,7 @@ Changelog
 1.18.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make sure plone.app.referenceablebehavior is installed. [jone]
 
 
 1.18.0 (2017-03-23)
