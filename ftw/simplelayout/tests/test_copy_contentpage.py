@@ -1,7 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import IPageConfiguration
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import Browser
 from plone.uuid.interfaces import IUUID
@@ -10,17 +10,17 @@ import transaction
 
 class TestCopySimplelayoutPage(SimplelayoutTestCase):
 
-    layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
         self.setup_sample_ftis(self.portal)
         self.setup_block_views()
 
-        self.page = create(Builder('sample container'))
-        self.block_left = create(Builder('sample block').within(self.page))
-        self.block_right = create(Builder('sample block').within(self.page))
-        self.block_below = create(Builder('sample block').within(self.page))
+        self.page = create(Builder('sl content page'))
+        self.block_left = create(Builder('sl textblock').within(self.page))
+        self.block_right = create(Builder('sl textblock').within(self.page))
+        self.block_below = create(Builder('sl textblock').within(self.page))
 
         self.page_state = {
             "default": [
