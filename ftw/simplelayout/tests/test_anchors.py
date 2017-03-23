@@ -30,3 +30,19 @@ class TestPageAnchors(TestCase):
         anchor_names = view.listAnchorNames()
         self.assertEqual(['anchor-textblock1', 'anchor-textblock2'],
                          anchor_names)
+
+    def test_anchors_in_empty_textblock(self):
+        """
+        A textblock without content does not contain anchors. Make sure the anchor
+        extraction does not fail in this case.
+        """
+        contentpage = create(Builder('sl content page').titled(u'The Page'))
+        create(Builder('sl textblock')
+               .within(contentpage)
+               .with_dummy_image())
+        view = contentpage.restrictedTraverse('content_anchors')
+        anchor_names = view.listAnchorNames()
+        self.assertEqual(
+            [],
+            anchor_names
+        )
