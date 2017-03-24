@@ -9,5 +9,6 @@
     <dependency>profile-ftw.colorbox:default</dependency>
     <dependency>profile-ftw.table:default</dependency>
     <dependency>profile-ftw.referencewidget:default</dependency>
+    <dependency>profile-ftw.iframefix:default</dependency>
   </dependencies>
 </metadata>

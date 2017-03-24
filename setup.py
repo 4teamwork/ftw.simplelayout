@@ -33,6 +33,7 @@ extras_require = {
         'plone.behavior',
         'plone.dexterity',
         'plone.directives.form',
+        'ftw.iframefix',
         'ftw.referencewidget',
     ],
     'mapblock': [

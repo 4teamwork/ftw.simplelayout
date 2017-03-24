@@ -122,14 +122,6 @@
   }
 }
 
-// Videoblock
-@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content") {
-  cursor: not-allowed;
-}
-@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content iframe") {
-  pointer-events: none;
-}
-
 .sl-block {
   @include clearfix();
   width: 100%;
