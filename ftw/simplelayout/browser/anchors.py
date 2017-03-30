@@ -47,6 +47,8 @@ class BlockAnchorsView(BrowserView):
         return fields
 
     def extract_anchors(self, text):
+        if not text:
+            return []
         tree = fromstring(text)
         return [
             anchor.get('name') for anchor in tree.findall(SEARCHPATTERN)
