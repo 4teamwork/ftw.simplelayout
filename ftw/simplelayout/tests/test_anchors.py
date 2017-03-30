@@ -46,3 +46,19 @@ class TestPageAnchors(TestCase):
             [],
             anchor_names
         )
+
+    def test_anchors_with_empty_strings(self):
+        """
+        A rich text value containing a zero-length string does not contain anchors.
+        Make sure the anchor extraction does not fail in this case.
+        """
+        contentpage = create(Builder('sl content page').titled(u'The Page'))
+        create(Builder('sl textblock')
+               .within(contentpage)
+               .having(text=RichTextValue(u'')))
+        view = contentpage.restrictedTraverse('content_anchors')
+        anchor_names = view.listAnchorNames()
+        self.assertEqual(
+            [],
+            anchor_names
+        )
