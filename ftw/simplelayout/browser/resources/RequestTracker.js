@@ -97,11 +97,19 @@
     /*
       Disable kss spinner. In order for this to work, this file must be evaluated after kss-bbb.js.
       As you can see in the lib profile's jsregistry.xml.
-    */
-    $.ajaxSetup({ global: false });
 
-    $document.on("ajaxSend", function(event, jqxhr, params) { track(params.url); });
-    $document.on("ajaxComplete", function(event, jqxhr, params) { untrack(params.url); });
+      The `ajaxStart` and `ajaxStop` event is used in kss-bbb.js to toggle the spinner.
+      In simplelayout we have our own spinner so by unbinding these two events the spinner
+      is no longer shown.
+      So for every XHR request that has been started. it'll be tracked by the RequestTracker to
+      handle the spinner.
+    */
+    $(function() {
+      $document.unbind("ajaxStart");
+      $document.unbind("ajaxStop");
+      $document.on("ajaxSend", function(event, jqxhr, params) { track(params.url); });
+      $document.on("ajaxComplete", function(event, jqxhr, params) { untrack(params.url); });
+    })
 
     return Object.freeze({
       track: track,
