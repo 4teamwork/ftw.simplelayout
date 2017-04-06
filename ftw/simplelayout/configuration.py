@@ -199,7 +199,7 @@ class PageConfiguration(object):
 
         blocks = filter(ISimplelayoutBlock.providedBy,
                         map(self.context._getOb,
-                            self.context.objectIds(ordered=False)))
+                            self.context.objectIds()))
         blocks.sort(key=block_sort_key)
         return blocks
 
@@ -207,7 +207,7 @@ class PageConfiguration(object):
         """Update the positions of the sl blocks in the orderable folder.
         """
         block_ids = map(methodcaller('getId'), self.get_ordered_blocks())
-        self.context.getOrdering().moveObjectsToTop(block_ids)
+        self.context.moveObjectsToTop(block_ids)
 
     def _default_page_config(self):
         """Returns a default page config"""
