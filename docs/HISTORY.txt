@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.18.3 (unreleased)
+1.18.3 (2017-04-06)
 -------------------
 
 - Fix ordering error on Plone site root. [jone]
