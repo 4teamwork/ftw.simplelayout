@@ -57,6 +57,7 @@ try:
     from simplelayout.base.interfaces import ISlotB
     from simplelayout.base.interfaces import ISlotC
     from simplelayout.base.interfaces import ISlotD
+    from simplelayout.portlet.dropzone.interfaces import IPortletColumn
     from simplelayout.portlet.dropzone.interfaces import ISlotBlock
     from zope.component import implementedBy
     from zope.component import providedBy
@@ -111,13 +112,13 @@ def move_sl_block_into_slot(old_page, new_page, block, slot_name):
 
         # setup different layouts
         if slot_name == 'default' and ISimplelayoutTwoColumnView.providedBy(old_page):
-            # who columns
+            # two columns
             page_state[slot_name] = [
                 {'cols': [ {'blocks': []}, {'blocks': []} ]}
             ]
 
         elif slot_name == 'default' and ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
-            # who columns and a top row
+            # two columns and a top row
             page_state[slot_name] = [
                 {'cols': [{'blocks': []}]},
                 {'cols': [ {'blocks': []}, {'blocks': []} ]}
@@ -201,7 +202,7 @@ def migrate_simplelayout_page_state(old_page, new_page):
         if not ISimpleLayoutBlock.providedBy(block):
             continue
 
-        if ISlotBlock.providedBy(block):
+        if ISlotBlock.providedBy(block) or IPortletColumn.providedBy(block):
             move_sl_block_into_slot(old_page, new_page, block, 'portletright')
 
         elif ISlotD.providedBy(block):
