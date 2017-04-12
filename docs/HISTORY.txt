@@ -5,7 +5,7 @@ Changelog
 1.18.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Disable kss spinner. [Kevin Bieri]
 
 
 1.18.3 (2017-04-06)
