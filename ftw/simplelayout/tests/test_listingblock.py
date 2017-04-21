@@ -164,7 +164,7 @@ class TestListingBlock(TestCase):
         # Edit the block and make appear again.
         browser.visit(listingblock, view='edit.json')
         response = browser.json
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         browser.fill({'Hide the block': False, 'Columns': 'Type'}).submit()
 
         # The block must no longer have a class "hidden".

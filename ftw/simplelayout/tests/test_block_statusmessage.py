@@ -20,7 +20,7 @@ class TestBlockStatusmessage(SimplelayoutTestCase):
         browser.login().visit(self.page, view="++add_block++SampleBlock")
         response = browser.json
 
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         browser.fill({'Title': u'This is a TextBlock',
                       'Text': u'Some text'})
         browser.find_button_by_label('Save').click()
@@ -34,7 +34,7 @@ class TestBlockStatusmessage(SimplelayoutTestCase):
         browser.login().visit(block, view='edit.json')
         response = browser.json
 
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         browser.fill({'Title': u'This is a TextBlock',
                       'Text': u'Some text'})
         browser.find_button_by_label('Save').click()
