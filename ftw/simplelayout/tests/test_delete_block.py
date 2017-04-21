@@ -31,7 +31,7 @@ class TestBlockDelete(SimplelayoutTestCase):
                               view='@@sl-ajax-delete-blocks-view',
                               data=self.get_payload(block))
 
-        browser.open_html(browser.json['content'])
+        browser.parse(browser.json['content'])
 
         browser.find('Delete').click()
 

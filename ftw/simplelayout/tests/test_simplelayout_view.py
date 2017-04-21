@@ -400,15 +400,15 @@ class TestSimplelayoutView(SimplelayoutTestCase):
         storage = self.payload.copy()
         sl_renderer = SimplelayoutRenderer(self.container, storage, 'default')
 
-        browser.open_html(sl_renderer.render_layout(index=1))
+        browser.parse(sl_renderer.render_layout(index=1))
         self.assertEquals(1, len(browser.css('.sl-layout')),
                           'Expect only one layout')
 
-        browser.open_html(sl_renderer.render_layout(index=0))
+        browser.parse(sl_renderer.render_layout(index=0))
         self.assertEquals(1, len(browser.css('.sl-layout')),
                           'Expect only one layout')
 
-        browser.open_html(sl_renderer.render_layout())
+        browser.parse(sl_renderer.render_layout())
         self.assertEquals(2, len(browser.css('.sl-layout')),
                           'Expect both layouts')
 

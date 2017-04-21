@@ -81,7 +81,8 @@ class TestOpenGraph(TestCase):
         browser.login().visit(page)
 
         tag = page.restrictedTraverse('@@leadimage')()
-        src = browser.open_html(tag).css('img').first.attrib['src']
+        browser.parse(tag)
+        src = browser.css('img').first.attrib['src']
 
         browser.login().visit(page)
         self.assertOg('og:image', src)

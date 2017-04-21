@@ -3,6 +3,7 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
+from ftw.testing import staticuid
 import json
 
 
@@ -41,7 +42,7 @@ class TestAddBlock(SimplelayoutTestCase):
     def test_add_block_traverser_content_contains_a_form(self, browser):
         browser.login().visit(self.page, view=self.textblockaddtraverser)
         response = browser.json
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
 
         self.assertTrue(browser.css('form'), 'No form found in content.')
 
@@ -57,35 +58,28 @@ class TestAddBlock(SimplelayoutTestCase):
         browser.login().visit(self.page, view=self.textblockaddtraverser)
         response = browser.json
 
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         browser.fill({'Title': u'This is a TextBlock',
                       'Text': u'Some text'})
         browser.find_button_by_label('Save').click()
 
-        response = browser.json
-
-        self.assertEqual(
-            'http://nohost/plone/samplecontainer/'
-            'this-is-a-textblock',
-            response['url']
-        )
-
-        browser.open_html(response['content'])
-        self.assertFalse(browser.css('form'), 'No form expected.')
-        self.assertEquals('OK',
-                          browser.contents)
+        self.assertDictContainsSubset(
+            {u'url': 'http://nohost/plone/samplecontainer/this-is-a-textblock',
+             u'content': 'OK',
+             u'proceed': True},
+            browser.json)
 
     @browsing
     def test_submit_add_block_traverser_proceed_returns_true(self, browser):
         browser.login().visit(self.page, view=self.textblockaddtraverser)
         response = browser.json
 
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         browser.fill({'Title': u'This is a TextBlock',
                       'Text': u'Some text'})
         browser.find_button_by_label('Save').click()
 
         response = browser.json
-        browser.open_html(response['content'])
+        browser.parse(response['content'])
         self.assertTrue(
             response['proceed'], 'Proceed should be true after submitting the form.')
