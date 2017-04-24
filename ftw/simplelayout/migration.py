@@ -111,13 +111,13 @@ def move_sl_block_into_slot(old_page, new_page, block, slot_name):
     if slot_name == 'default' and page_state == page_configuration._default_page_config():
 
         # setup different layouts
-        if slot_name == 'default' and ISimplelayoutTwoColumnView.providedBy(old_page):
+        if ISimplelayoutTwoColumnView.providedBy(old_page):
             # two columns
             page_state[slot_name] = [
                 {'cols': [ {'blocks': []}, {'blocks': []} ]}
             ]
 
-        elif slot_name == 'default' and ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
+        elif ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
             # two columns and a top row
             page_state[slot_name] = [
                 {'cols': [{'blocks': []}]},
