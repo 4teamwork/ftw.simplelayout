@@ -50,7 +50,14 @@ try:
     from plone.uuid.interfaces import IUUID
     from simplelayout.base.interfaces import IBlockConfig
     from simplelayout.base.interfaces import ISimpleLayoutBlock
+    from simplelayout.base.interfaces import ISimplelayoutTwoColumnOneOnTopView
+    from simplelayout.base.interfaces import ISimplelayoutTwoColumnView
+    from simplelayout.base.interfaces import ISimplelayoutView
+    from simplelayout.base.interfaces import ISlotA
+    from simplelayout.base.interfaces import ISlotB
+    from simplelayout.base.interfaces import ISlotC
     from simplelayout.base.interfaces import ISlotD
+    from simplelayout.portlet.dropzone.interfaces import IPortletColumn
     from simplelayout.portlet.dropzone.interfaces import ISlotBlock
     from zope.component import implementedBy
     from zope.component import providedBy
@@ -96,15 +103,61 @@ SL_BLOCK_DEFAULT_IGNORED_FIELDS = (
 )
 
 
-
-def move_sl_block_into_slot(page, block, slot_name):
-    page_configuration = IPageConfiguration(page)
+def move_sl_block_into_slot(old_page, new_page, block, slot_name):
+    page_configuration = IPageConfiguration(new_page)
     page_state = page_configuration.load()
+
+    # initiate layout if it is in its initial state
+    if slot_name == 'default' and page_state == page_configuration._default_page_config():
+
+        # setup different layouts
+        if ISimplelayoutTwoColumnView.providedBy(old_page):
+            # two columns
+            page_state[slot_name] = [
+                {'cols': [ {'blocks': []}, {'blocks': []} ]}
+            ]
+
+        elif ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
+            # two columns and a top row
+            page_state[slot_name] = [
+                {'cols': [{'blocks': []}]},
+                {'cols': [ {'blocks': []}, {'blocks': []} ]}
+            ]
+
     if slot_name not in page_state:
+        # normal single column layout
         page_state[slot_name] = [{'cols': [{'blocks': []}]}]
 
-    page_state[slot_name][0]['cols'][0]['blocks'].append({
-        'uid': IUUID(block)})
+    if slot_name == 'default':
+        slot = page_state['default']
+
+        # two column layout
+        if ISimplelayoutTwoColumnView.providedBy(old_page):
+            if ISlotA.providedBy(block):  # left column
+                slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+            elif ISlotB.providedBy(block):  # right column
+                slot[0]['cols'][1]['blocks'].append({'uid': IUUID(block)})
+            else:
+                raise ValueError('Block has unused slot in layout.')
+
+        # two columns and a top row layout
+        elif ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
+            if ISlotA.providedBy(block):  # top row
+                slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+            elif ISlotB.providedBy(block):  # bottom row, left column
+                slot[1]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+            elif ISlotC.providedBy(block):  # bottom row, right column
+                slot[1]['cols'][1]['blocks'].append({'uid': IUUID(block)})
+            else:
+                raise ValueError('Block has unused slot in layout.')
+
+        else:
+            slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+
+    else:
+        page_state[slot_name][0]['cols'][0]['blocks'].append({
+            'uid': IUUID(block)})
+
     page_configuration.store(page_state)
 
 
@@ -132,7 +185,7 @@ def migrate_sl_image_layout(old_object, new_object):
 
     old_config = IBlockConfig(old_object)
     image_layout = old_config.get_image_layout()
-    if image_layout == 'dummy-dummy-dummy':
+    if not image_layout or image_layout == 'dummy-dummy-dummy':
         return
 
     new_config = IBlockConfiguration(new_object)
@@ -149,14 +202,14 @@ def migrate_simplelayout_page_state(old_page, new_page):
         if not ISimpleLayoutBlock.providedBy(block):
             continue
 
-        if ISlotBlock.providedBy(block):
-            move_sl_block_into_slot(new_page, block, 'portletright')
+        if ISlotBlock.providedBy(block) or IPortletColumn.providedBy(block):
+            move_sl_block_into_slot(old_page, new_page, block, 'portletright')
 
         elif ISlotD.providedBy(block):
-            move_sl_block_into_slot(new_page, block, 'bottom')
+            move_sl_block_into_slot(old_page, new_page, block, 'bottom')
 
         else:
-            move_sl_block_into_slot(new_page, block, 'default')
+            move_sl_block_into_slot(old_page, new_page, block, 'default')
 
 
 def migrate_lead_image_into_textblock(old_page, new_page):
@@ -198,7 +251,7 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     # Therefore we must migrate the view from the page to the new
     # teaser block.
     migrate_sl_image_layout(old_page, teaser_block)
-    move_sl_block_into_slot(new_page, teaser_block, 'default')
+    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default')
 
 
 def migrate_image_to_file(obj):
