@@ -5,7 +5,6 @@ from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone import api
 from plone.uuid.interfaces import IUUID
-from zExceptions import BadRequest
 import json
 
 
@@ -30,19 +29,6 @@ class TestInnerEdit(SimplelayoutTestCase):
     def get_payload(self, content):
         uid = IUUID(content)
         return {'data': json.dumps({'uid': uid})}
-
-    @browsing
-    def test_redirector_redirects_to_edit_view(self, browser):
-        browser.login()
-
-        with self.assertRaises(BadRequest):
-            browser.visit(self.page,
-                          view='sl-ajax-inner-edit-view',
-                          data={})
-
-            browser.visit(self.page,
-                          view='sl-ajax-inner-edit-view',
-                          data={'data': json.dumps({'block': 'DUMMY'})})
 
         browser.visit(self.page,
                       view='sl-ajax-inner-edit-view',

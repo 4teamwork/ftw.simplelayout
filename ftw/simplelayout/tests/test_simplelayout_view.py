@@ -82,7 +82,7 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
     @browsing
     def test_invalid_simplelayout_save_state_request(self, browser):
-        with self.assertRaises(BadRequest):
+        with browser.expect_http_error(reason='Bad Request'):
             browser.login().visit(self.container,
                                   view='sl-ajax-save-state-view',
                                   data={})
@@ -228,9 +228,9 @@ class TestSimplelayoutView(SimplelayoutTestCase):
                                          acquire=0)
         transaction.commit()
 
-        with self.assertRaises(Unauthorized):
-            self.payload['default'].append({'cols': [{}]})
-            payload = {"data": json.dumps(self.payload)}
+        self.payload['default'].append({'cols': [{}]})
+        payload = {"data": json.dumps(self.payload)}
+        with browser.expect_unauthorized():
             browser.login().visit(self.container,
                                   view='sl-ajax-save-state-view',
                                   data=payload)

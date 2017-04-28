@@ -138,6 +138,7 @@ class TestTextBlockRendering(TestCase):
                             .having(video_url='https://example.com')
                             .within(self.page))
 
+        browser.exception_bubbling = True
         with self.assertRaises(ValueError):
             browser.login().visit(videoblock, view='@@block_view')
 

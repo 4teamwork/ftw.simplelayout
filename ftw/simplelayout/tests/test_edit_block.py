@@ -4,7 +4,6 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
-from zExceptions import BadRequest
 import json
 
 
@@ -27,14 +26,10 @@ class TestEditBlock(SimplelayoutTestCase):
     def test_redirector_redirects_to_edit_view(self, browser):
         browser.login()
 
-        with self.assertRaises(BadRequest):
+        with browser.expect_http_error(reason='Bad Request'):
             browser.visit(self.page,
                           view='sl-ajax-edit-block-view',
                           data={})
-
-            browser.visit(self.page,
-                          view='sl-ajax-edit-block-view',
-                          data={'data': json.dumps({'block': 'DUMMY'})})
 
         browser.visit(self.page,
                       view='sl-ajax-edit-block-view',
