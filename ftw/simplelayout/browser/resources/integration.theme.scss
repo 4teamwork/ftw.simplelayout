@@ -250,6 +250,10 @@ $editbar-height: $line-height-base + 2 * $padding-vertical;
 
 ul[class^="sl-toolbar"] {
   @include list();
+  @include print() {
+    display: none !important;
+  }
+
   position: absolute;
   top: 0;
   right: -$editbar-height;
@@ -309,6 +313,10 @@ ul[class^="sl-toolbar"] {
   @include noselect();
   @include screen-small() {
     display: table;
+  }
+
+  @include print() {
+    display: none !important;
   }
 
   position: fixed;

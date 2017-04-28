@@ -5,6 +5,8 @@ Changelog
 1.18.4 (unreleased)
 -------------------
 
+- Move print styles accidentally defined in plonetheme.blueberry. [Kevin Bieri]
+
 - Migration: Handle different simplelayout layouts. [lknoepfel]
 
 - Disable kss spinner. [Kevin Bieri]
