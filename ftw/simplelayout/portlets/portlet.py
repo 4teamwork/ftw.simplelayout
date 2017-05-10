@@ -40,6 +40,7 @@ class Renderer(base.Renderer):
         config = IPageConfiguration(self.context)
         data = config.load()
 
+        portlet_container = []
         if self.manager.__name__ == 'plone.rightcolumn':
             portlet_container = data.get('portletright', [])
         elif self.manager.__name__ == 'plone.leftcolumn':

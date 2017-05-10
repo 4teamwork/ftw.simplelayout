@@ -21,6 +21,8 @@ Changelog
 1.18.2 (2017-03-30)
 -------------------
 
+- Fix UnboundLocalError in the simplelayout portlet. [mbaechtold]
+
 - Make anchor extraction more robust. [mbaechtold]
 
 - Remove unused "addable_block_types" method from simplelayout view. [jone]
