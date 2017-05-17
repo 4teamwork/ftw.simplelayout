@@ -5,6 +5,8 @@ Changelog
 1.18.4 (unreleased)
 -------------------
 
+- Add more sorting options (position in parent, id) to the gallery block. [mbaechtold]
+
 - Move print styles accidentally defined in plonetheme.blueberry. [Kevin Bieri]
 
 - Migration: Handle different simplelayout layouts. [lknoepfel]
