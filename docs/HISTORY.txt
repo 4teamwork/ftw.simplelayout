@@ -5,7 +5,7 @@ Changelog
 1.18.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Change display mode (inline-block) of link tag around images in textblocks. [mbaechtold]
 
 
 1.18.4 (2017-06-15)
