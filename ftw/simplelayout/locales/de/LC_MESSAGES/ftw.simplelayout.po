@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-20 13:51+0000\n"
+"POT-Creation-Date: 2017-06-30 14:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,7 +191,7 @@ msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:31
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
@@ -250,7 +250,6 @@ msgstr "Ersteller"
 
 #. Default: "modified"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:55
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:28
 msgid "column_modified"
 msgstr "Bearbeitet"
 
@@ -316,7 +315,7 @@ msgid "help_drag_hint"
 msgstr "Bitte den Inhalt per Drag & Drop hinzufügen."
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:25
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "hidden_label_image_caption"
 msgstr "Bild Legende:"
 
@@ -411,6 +410,8 @@ msgstr "Dateien über Inhalte verwalten."
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
+#. Default: "ID"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
 msgstr "ID"
 
@@ -444,6 +445,8 @@ msgstr "Interne Referenz"
 msgid "label_is_hidden"
 msgstr "Block verstecken"
 
+#. Default: "Modification date"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 msgid "label_modified"
 msgstr "Bearbeitungsdatum"
 
@@ -467,6 +470,7 @@ msgstr "Typ"
 
 #. Default: "Position in Folder"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr "Ordnerreihenfolge"
 
@@ -476,11 +480,6 @@ msgstr "Ordnerreihenfolge"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
-
-#. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
-msgid "label_sort_by_title"
-msgstr "Sortieren nach Titel"
 
 #. Default: "Sort by"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:144
@@ -498,13 +497,13 @@ msgid "label_sortable_title"
 msgstr "Titel"
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:42
 msgid "label_text"
 msgstr "Text"
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:48
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:31
 msgid "label_title"
 msgstr "Titel"

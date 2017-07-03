@@ -1,7 +1,6 @@
 from collections import OrderedDict
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
-from ftw.simplelayout.contenttypes.contents.filelistingblock import sort_index_vocabulary as filelisting_block_sort_index_vocabulary
 from ftw.simplelayout.contenttypes.contents.interfaces import IGalleryBlock
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Container
@@ -9,25 +8,29 @@ from plone.directives import form
 from zope import schema
 from zope.i18n import translate
 from zope.interface import alsoProvides
-from zope.interface import directlyProvides
 from zope.interface import implements
-from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
 
-def sort_index_vocabulary(context):
-    vocabulary = filelisting_block_sort_index_vocabulary(context)
-
-    # Remove the option "portal type", because the gallery block only
-    # accepts objects from one type.
-    vocabulary._terms = filter(
-        lambda term: term.token != 'portal_type',
-        vocabulary._terms
+sort_index_vocabulary = SimpleVocabulary([
+    SimpleTerm(
+        value='sortable_title',
+        title=_(u'label_title', default=u'Title')
+    ),
+    SimpleTerm(
+        value='modified',
+        title=_(u'label_modified', default=u'Modification date')
+    ),
+    SimpleTerm(
+        value='id',
+        title=_(u'label_id', default=u'ID')
+    ),
+    SimpleTerm(
+        value='getObjPositionInParent',
+        title=_(u'label_position_in_folder', default=u'Position in Folder')
     )
-    return vocabulary
-
-directlyProvides(sort_index_vocabulary, IContextSourceBinder)
+])
 
 sort_order_vocabulary = SimpleVocabulary([
     SimpleTerm(value='ascending',

@@ -237,11 +237,6 @@ class TestGalleryBlock(TestCase):
 
     @browsing
     def test_available_sort_options(self, browser):
-        """
-        A safety net in case some fellow programmer modifies the sort options in 
-        the file listing block not knowing that they are used on the gallery 
-        block too.
-        """
         gallery_block = create(Builder('sl galleryblock')
                                .titled('My galleryblock')
                                .within(self.page))
@@ -249,9 +244,9 @@ class TestGalleryBlock(TestCase):
         browser.visit(gallery_block, view='edit')
         self.assertEqual(
             [
-                ('sortable_title', 'sortable_title'),
-                ('modified', 'modified'),
-                ('id', 'id'),
+                ('sortable_title', 'Title'),
+                ('modified', 'Modification date'),
+                ('id', 'ID'),
                 ('getObjPositionInParent', 'Position in Folder'),
             ],
             browser.forms['form'].find_field('Sort by').options

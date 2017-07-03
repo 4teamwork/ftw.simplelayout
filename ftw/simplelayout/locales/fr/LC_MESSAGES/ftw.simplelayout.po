@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-12-20 13:51+0000\n"
+"POT-Creation-Date: 2017-06-30 14:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -194,7 +194,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:31
 msgid "This block is empty."
 msgstr ""
 
@@ -253,7 +253,6 @@ msgstr ""
 
 #. Default: "modified"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:55
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:28
 msgid "column_modified"
 msgstr ""
 
@@ -319,7 +318,7 @@ msgid "help_drag_hint"
 msgstr ""
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:25
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "hidden_label_image_caption"
 msgstr ""
 
@@ -414,6 +413,8 @@ msgstr ""
 msgid "label_folder_contents_images"
 msgstr ""
 
+#. Default: "ID"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
 msgstr ""
 
@@ -447,6 +448,8 @@ msgstr ""
 msgid "label_is_hidden"
 msgstr ""
 
+#. Default: "Modification date"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 msgid "label_modified"
 msgstr ""
 
@@ -470,6 +473,7 @@ msgstr ""
 
 #. Default: "Position in Folder"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr ""
 
@@ -478,11 +482,6 @@ msgstr ""
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
 msgid "label_show_title"
-msgstr ""
-
-#. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
-msgid "label_sort_by_title"
 msgstr ""
 
 #. Default: "Sort by"
@@ -501,13 +500,13 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:42
 msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:48
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:31
 msgid "label_title"
 msgstr ""
