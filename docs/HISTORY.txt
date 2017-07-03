@@ -7,6 +7,7 @@ Changelog
 
 - Add sort-options to image gallery block. [raphael-s]
 - Add more sorting options (position in parent, id) to the gallery block. [mbaechtold]
+- Use a static vocabulary for the sort options of the gallery block. [mbaechtold]
 
 
 1.6.0 (2016-07-18)

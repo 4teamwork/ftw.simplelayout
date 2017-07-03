@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-28 07:46+0000\n"
+"POT-Creation-Date: 2017-06-30 14:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,7 +138,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:28
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:31
 msgid "This block is empty."
 msgstr ""
 
@@ -237,7 +237,7 @@ msgid "help_drag_hint"
 msgstr ""
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:23
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "hidden_label_image_caption"
 msgstr ""
 
@@ -330,6 +330,8 @@ msgstr ""
 msgid "label_folder_contents_images"
 msgstr ""
 
+#. Default: "ID"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
 msgstr ""
 
@@ -364,6 +366,8 @@ msgstr ""
 msgid "label_is_hidden"
 msgstr ""
 
+#. Default: "Modification date"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 msgid "label_modified"
 msgstr ""
 
@@ -387,6 +391,7 @@ msgstr ""
 
 #. Default: "Position in Folder"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr ""
 
@@ -411,7 +416,7 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:42
 msgid "label_text"
 msgstr ""
 

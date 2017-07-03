@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-04-28 07:46+0000\n"
+"POT-Creation-Date: 2017-06-30 14:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -135,7 +135,7 @@ msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:28
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:31
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
@@ -234,7 +234,7 @@ msgid "help_drag_hint"
 msgstr "Bitte den Inhalt per Drag & Drop hinzufügen."
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:23
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
 msgid "hidden_label_image_caption"
 msgstr "Bild Legende:"
 
@@ -327,6 +327,8 @@ msgstr "Dateien über Inhalte verwalten."
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
+#. Default: "ID"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
 msgstr "ID"
 
@@ -361,6 +363,8 @@ msgstr "Interne Referenz"
 msgid "label_is_hidden"
 msgstr "Block verstecken"
 
+#. Default: "Modification date"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 msgid "label_modified"
 msgstr "Bearbeitungsdatum"
 
@@ -384,6 +388,7 @@ msgstr "Typ"
 
 #. Default: "Position in Folder"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr "Ordnerreihenfolge"
 
@@ -408,7 +413,7 @@ msgid "label_sortable_title"
 msgstr "Titel"
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:41
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:42
 msgid "label_text"
 msgstr "Text"
 

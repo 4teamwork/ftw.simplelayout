@@ -20,11 +20,5 @@ msgstr ""
 msgid "label_portal_type"
 msgstr ""
 
-msgid "label_modified"
-msgstr ""
-
-msgid "label_id"
-msgstr ""
-
 msgid "label_documentDate"
 msgstr ""
