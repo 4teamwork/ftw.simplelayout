@@ -7,6 +7,14 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
 
+@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content") {
+  @include fix-iframe-cursor();
+}
+
+@include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content iframe") {
+  @include fix-iframe-hover();
+}
+
 .sl-image {
   width: 100%;
   position: relative;

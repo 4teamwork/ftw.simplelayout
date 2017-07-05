@@ -5,6 +5,8 @@ Changelog
 1.18.5 (unreleased)
 -------------------
 
+- Make iframe fixes compatible with ftw.iframefix 2.0. [Kevin Bieri]
+
 - Use a static vocabulary for the sort options of the gallery block. [mbaechtold]
 
 - Install ftw.iframefix
