@@ -1,3 +1,4 @@
+import os
 from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
@@ -541,4 +542,27 @@ class TestGalleryBlock(TestCase):
         self.assertEqual(
             u'T\xe4st, enlarged picture.',
             browser.css('.ftw-simplelayout-galleryblock .sl-block-content a img').first.attrib['alt']
+        )
+
+    @browsing
+    def test_render_fallback_image_for_truncated_images(self, browser):
+        block = create(Builder('sl galleryblock')
+                       .titled('My galleryblock')
+                       .having(show_title=True)
+                       .within(self.page))
+
+        # Create an image inside the gallery block using a truncated image file.
+        current_folder = os.path.dirname(__file__)
+        truncated_image_path = os.path.join(current_folder, 'assets', 'truncated_image.jpg')
+        with open(truncated_image_path, 'rb') as truncated_image:
+            create(Builder('image')
+                   .titled('Test image')
+                   .attach_file_containing(truncated_image.read())
+                   .within(block))
+
+        # The galleryblock renders a fallback image.
+        browser.login().visit(self.page)
+        self.assertEqual(
+            'http://nohost/plone/++resource++ftw.simplelayout/image_unavailable.png',
+            browser.css('.sl-block-content img').first.attrib['src']
         )
