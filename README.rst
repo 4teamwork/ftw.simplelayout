@@ -585,9 +585,9 @@ Eventtypes
 
 blockInserted(block)
 
-blockCommitted(block)
+block-committed(block)
 
-blockRollbacked(block)
+block-rollbacked(block)
 
 beforeBlockMoved(block)
 
@@ -597,9 +597,9 @@ blockDeleted(block)
 
 layoutInserted(layout)
 
-layoutCommitted(layout)
+layout-committed(layout)
 
-layoutRollbacked(layout)
+layout-rollbacked(layout)
 
 layoutMoved(layout)
 
