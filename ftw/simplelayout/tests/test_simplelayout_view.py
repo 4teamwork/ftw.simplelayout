@@ -419,3 +419,12 @@ class TestSimplelayoutView(SimplelayoutTestCase):
 
         with self.assertRaises(ValueError):
             sl_renderer.render_layout(index=4)
+
+    @browsing
+    def test_simplelayout_renderer_can_omit_sl_layout_class(self, browser):
+        storage = self.payload.copy()
+        sl_renderer = SimplelayoutRenderer(self.container, storage, 'default')
+
+        browser.open_html(sl_renderer.render_layout(index=0, is_update=True))
+        self.assertEquals(0, len(browser.css('.sl-layout')),
+                          'Expect no sl-layout wrapper')
