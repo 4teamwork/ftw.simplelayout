@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.interfaces import ISimplelayoutActions
@@ -70,20 +71,20 @@ class SimplelayoutToolbox(BrowserView):
                     if fti.getId() in locally_allowed]
 
     def layouts_actions(self):
-        return {
-            'move': {
+        return OrderedDict([
+            ('move', {
                 'title': translate(_(u'label_move_layout',
                                      default=u'Move layout'),
                                    context=self.request),
                 'class': 'icon-move move',
-            },
-            'delete': {
+            }),
+            ('delete', {
                 'title': translate(_(u'label_delete_layout',
                                      default=u'Delete layout'),
                                    context=self.request),
                 'class': 'icon-delete delete',
-            },
-            'layout-inverse': {
+            }),
+            ('layout-inverse', {
                 'title': translate(_(u'label_layout_inverse',
                                      default=u'Invert layout'),
                                    context=self.request),
@@ -91,8 +92,8 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-layout-inverse reload',
                 'data-layoutinverse': 'layout-inverse',
                 'rules': [2, 3],
-            },
-            'golden-ratio': {
+            }),
+            ('golden-ratio', {
                 'title': translate(_(u'label_golden_ratio',
                                      default=u'golden ratio'),
                                    context=self.request),
@@ -100,8 +101,8 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-golden-ratio reload',
                 'data-golden_ratio': 'golden-ratio',
                 'rules': [2],
-            },
-            'layout13': {
+            }),
+            ('layout13', {
                 'title': translate(_(u'label_layout13',
                                      default=u'1-3 layout'),
                                    context=self.request),
@@ -109,8 +110,8 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-layout13 reload',
                 'data-layout13': 'layout13',
                 'rules': [2],
-            },
-            'layout121': {
+            }),
+            ('layout121', {
                 'title': translate(_(u'label_layout121',
                                      default=u'1-2-1 layout'),
                                    context=self.request),
@@ -118,8 +119,8 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-layout121 reload',
                 'data-layout121': 'layout121',
                 'rules': [3],
-            },
-            'layout112': {
+            }),
+            ('layout112', {
                 'title': translate(_(u'label_layout112',
                                      default=u'1-1-2 layout'),
                                    context=self.request),
@@ -127,8 +128,8 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-layout112 reload',
                 'data-layout112': 'layout112',
                 'rules': [3],
-            },
-        }
+            })
+        ])
 
     def client_labels(self):
         return {
