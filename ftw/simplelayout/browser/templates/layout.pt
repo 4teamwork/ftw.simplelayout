@@ -2,7 +2,7 @@
   tal:repeat="row view/rows">
 
   <div tal:attributes="class python:'sl-layout-content ' + row['class'];
-                       data-config row/config_json">
+                       data-config row/config_json | nothing">
     <div class="sl-column"
          tal:repeat="col row/cols"
          tal:attributes="class col/class">
