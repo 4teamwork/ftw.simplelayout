@@ -1,7 +1,9 @@
+from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.browser.provider import SimplelayoutRenderer
 from ftw.simplelayout.interfaces import IPageConfiguration
+from persistent.mapping import PersistentMapping
+from zExceptions import BadRequest
 from zope.publisher.browser import BrowserView
-from ftw.simplelayout.browser.ajax.utils import json_response
 import json
 
 
@@ -15,6 +17,9 @@ class ReloadLayoutView(BrowserView):
     def __call__(self):
         self.data = json.loads(self.request.get('data', '{}'))
 
+        if 'name' not in self.data or 'layoutindex' not in self.data:
+            raise BadRequest('"name" and "layoutindex" are required')
+
         self.name = self.data['name']
         self.layoutindex = int(self.data['layoutindex'])
         self.set_layout_state()
@@ -23,10 +28,13 @@ class ReloadLayoutView(BrowserView):
 
     def set_layout_state(self):
         page_conf = IPageConfiguration(self.context)
-        self.new_state = page_conf.load()
+        state = page_conf.load()
 
-        current_config = self.new_state.get(self.name)[self.layoutindex].get(
-            'config', {})
+        if 'config' not in self.data:
+            return
+
+        current_config = state.get(self.name)[self.layoutindex].get(
+            'config', PersistentMapping())
 
         for key, value in self.data['config'].items():
             if key in current_config:
@@ -34,13 +42,14 @@ class ReloadLayoutView(BrowserView):
             else:
                 current_config[key] = value
 
-        self.new_state.get(
+        state.get(
             self.name)[self.layoutindex]['config'] = current_config
-        page_conf.store(self.new_state)
+        page_conf.store(state)
 
     def render_new_layout(self):
+        page_conf = IPageConfiguration(self.context)
         sl_renderer = SimplelayoutRenderer(self.context,
-                                           self.new_state,
+                                           page_conf.load(),
                                            self.name)
         return sl_renderer.render_layout(index=self.layoutindex,
                                          is_update=True)

@@ -1,7 +1,7 @@
 <div class="sl-layout" tal:omit-tag="options/is_update | nothing"
   tal:repeat="row view/rows">
 
-  <div tal:attributes="class string:sl-layout-content ${row/class};
+  <div tal:attributes="class python:'sl-layout-content ' + row['class'];
                        data-config row/config_json">
     <div class="sl-column"
          tal:repeat="col row/cols"

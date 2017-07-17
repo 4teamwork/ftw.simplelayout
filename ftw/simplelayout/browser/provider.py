@@ -71,7 +71,7 @@ class SimplelayoutRenderer(object):
         for row in self.rows:
             config = row.get('config', PersistentMapping())
             if not isinstance(config, PersistentMapping):
-                config = {}
+                config = config
             else:
                 config = config.data
 
