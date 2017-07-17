@@ -118,8 +118,16 @@ class SimplelayoutToolbox(BrowserView):
                 'class': 'icon-layout121 reload',
                 'data-layout121': 'layout121',
                 'rules': [3],
-            }
-
+            },
+            'layout112': {
+                'title': translate(_(u'label_layout112',
+                                     default=u'1-1-2 layout'),
+                                   context=self.request),
+                'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-layout112 reload',
+                'data-layout112': 'layout112',
+                'rules': [3],
+            },
         }
 
     def client_labels(self):
