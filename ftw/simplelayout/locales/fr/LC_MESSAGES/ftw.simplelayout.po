@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-06-30 14:40+0000\n"
+"POT-Creation-Date: 2017-07-17 13:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -313,7 +313,7 @@ msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
 #. Default: "Please drag, no click required"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:95
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:141
 msgid "help_drag_hint"
 msgstr ""
 
@@ -350,7 +350,7 @@ msgid "label_cancel"
 msgstr ""
 
 #. Default: " Column(s)"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:90
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:136
 msgid "label_column_postfix"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgid "label_columns"
 msgstr ""
 
 #. Default: "Delete layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:81
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:82
 msgid "label_delete_layout"
 msgstr ""
 
@@ -413,6 +413,11 @@ msgstr ""
 msgid "label_folder_contents_images"
 msgstr ""
 
+#. Default: "golden ratio"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:97
+msgid "label_golden_ratio"
+msgstr ""
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
@@ -448,6 +453,26 @@ msgstr ""
 msgid "label_is_hidden"
 msgstr ""
 
+#. Default: "1-1-2 layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:124
+msgid "label_layout112"
+msgstr ""
+
+#. Default: "1-2-1 layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:115
+msgid "label_layout121"
+msgstr ""
+
+#. Default: "1-3 layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:106
+msgid "label_layout13"
+msgstr ""
+
+#. Default: "Invert layout"
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:88
+msgid "label_layout_inverse"
+msgstr ""
+
 #. Default: "Modification date"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
 msgid "label_modified"
@@ -459,7 +484,7 @@ msgid "label_move_block"
 msgstr ""
 
 #. Default: "Move layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:75
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:76
 msgid "label_move_layout"
 msgstr ""
 
