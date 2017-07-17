@@ -83,13 +83,8 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'class': 'icon-delete delete',
             },
-            'highlighted': {
-                'title': translate(_(u'label_hightlight_layout',
-                                     default=u'Highlighted layout'),
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
-                'class': 'icon-highlighted reload',
-                'data-highlighted': 'highlighted',
             },
             'golden-ratio': {
                 'title': translate(_(u'label_golden_ratio',

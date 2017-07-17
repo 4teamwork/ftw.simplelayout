@@ -15,10 +15,6 @@
   @include fix-iframe-hover();
 }
 
-.highlighted .sl-column {
-  background-color: $color-gray-dark;
-}
-
 .golden-ratio .sl-column {
   $golden-ratio: 61.803398875%;
   $gutter-width-relative: ($gutter-width / $max-width-page * 100%);
