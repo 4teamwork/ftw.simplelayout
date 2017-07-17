@@ -43,6 +43,34 @@
   }
 }
 
+.layout13 {
+  $gutter-width-relative: ($gutter-width / $max-width-page * 100%);
+  $large-part: 75% - ($gutter-width-relative / 1.5);
+  $small-part: 25% - ($gutter-width-relative / 1.5);
+
+  .sl-column {
+    &:nth-child(1) {
+      width: $large-part;
+    }
+
+    &:nth-child(2) {
+      width: $small-part;
+    }
+  }
+
+  &.layout-inverse .sl-column {
+
+    &:nth-child(1) {
+      width: $small-part;
+    }
+
+    &:nth-child(2) {
+      width: $large-part;
+    }
+  }
+
+}
+
 .sl-image {
   width: 100%;
   position: relative;

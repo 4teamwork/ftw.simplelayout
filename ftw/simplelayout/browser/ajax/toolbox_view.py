@@ -101,6 +101,15 @@ class SimplelayoutToolbox(BrowserView):
                 'data-golden_ratio': 'golden-ratio',
                 'rules': [2],
             },
+            'layout13': {
+                'title': translate(_(u'label_layout13',
+                                     default=u'1-3 layout'),
+                                   context=self.request),
+                'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-layout13 reload',
+                'data-layout13': 'layout13',
+                'rules': [2],
+            },
             'layout121': {
                 'title': translate(_(u'label_layout121',
                                      default=u'1-2-1 layout'),
