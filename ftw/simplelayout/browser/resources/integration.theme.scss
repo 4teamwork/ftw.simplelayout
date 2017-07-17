@@ -13,6 +13,7 @@
 
 @include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content iframe") {
   @include fix-iframe-hover();
+}
 
 .highlighted .sl-column {
   background-color: $color-gray-dark;
