@@ -83,8 +83,14 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'class': 'icon-delete delete',
             },
+            'layout-inverse': {
+                'title': translate(_(u'label_layout_inverse',
+                                     default=u'Invert layout'),
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
+                'class': 'icon-layout-inverse reload',
+                'data-layoutinverse': 'layout-inverse',
+                'rules': [2, 3],
             },
             'golden-ratio': {
                 'title': translate(_(u'label_golden_ratio',

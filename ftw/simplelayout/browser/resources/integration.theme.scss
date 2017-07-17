@@ -15,14 +15,31 @@
   @include fix-iframe-hover();
 }
 
-.golden-ratio .sl-column {
+.golden-ratio {
   $golden-ratio: 61.803398875%;
   $gutter-width-relative: ($gutter-width / $max-width-page * 100%);
-  &:nth-child(1) {
-    width: $golden-ratio - ($gutter-width-relative / 2);
+  $large-part: $golden-ratio - ($gutter-width-relative / 2);
+  $small-part: 100 - $golden-ratio - ($gutter-width-relative / 2);
+
+  .sl-column {
+    &:nth-child(1) {
+      width: $large-part;
+    }
+
+    &:nth-child(2) {
+      width: $small-part;
+    }
   }
-  &:nth-child(2) {
-    width: 100 - $golden-ratio - ($gutter-width-relative / 2);
+
+  &.layout-inverse .sl-column {
+
+    &:nth-child(1) {
+      width: $small-part;
+    }
+
+    &:nth-child(2) {
+      width: $large-part;
+    }
   }
 }
 
