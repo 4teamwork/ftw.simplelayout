@@ -24,8 +24,8 @@ export default function Block(content, type) {
 
   this.create({ type: type, content: content });
 
-  this.content = function(toReplace) {
-    $(".sl-block-content", this.element).html(toReplace);
+  this.content = function(toReplace, id) {
+    $(".sl-block-content", this.element).attr('id', id).html(toReplace);
     EE.trigger("blockReplaced", [this]);
     return this;
   };

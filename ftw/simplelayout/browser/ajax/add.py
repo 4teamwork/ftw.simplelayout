@@ -71,7 +71,8 @@ class AddView(DefaultAddView):
                                  uid=self.form_instance.obj_uid,
                                  url=obj.absolute_url(),
                                  content=self.form_instance.obj_html,
-                                 proceed=True)
+                                 proceed=True,
+                                 id=obj.id)
 
         return json_response(self.request,
                              content=super(AddView, self).render(),

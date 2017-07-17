@@ -151,7 +151,7 @@
         addOverlay.onSubmit(function(data) {
           block.represents = data.uid;
           block.data({ represents: data.uid, url: data.url });
-          block.content(data.content);
+          block.content(data.content, data.id);
           block.commit();
           saveState();
           initializeColorbox();
