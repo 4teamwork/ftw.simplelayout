@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="85px" height="85px" viewBox="0 0 85 85" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>reverse</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="reverse" fill="#000000">
+            <g id="arrow-right" transform="translate(10.000000, 10.000000)">
+                <path class="icon" d="M0,10 L52.9866094,10 L52.9866094,16 L0,16 L0,10 Z M52.9866094,13 L52.9866094,10 L49.9866094,10 L52.9866094,13 Z M49.9866094,16 L52.9866094,16 L52.9866094,13 L49.9866094,16 Z" id="arrow-body"></path>
+                <path class="icon" d="M46,26 L46,25.2 L46,26 L59.0026093,13 L58.2013046,13 L59.0026093,13 L46,0 L46,0.8 L46,0 L52,0 L65,13 L52,26 L46,26 Z" id="arrow-tip"></path>
+            </g>
+            <g id="arrow-left" transform="translate(10.000000, 49.000000)">
+                <path class="icon" d="M12,10 L64.9866094,10 L64.9866094,16 L12,16 L12,10 Z M64.9866094,13 L64.9866094,10 L61.9866094,10 L64.9866094,13 Z M61.9866094,16 L64.9866094,16 L64.9866094,13 L61.9866094,16 Z" id="arrow-body" transform="translate(38.493305, 13.000000) scale(-1, 1) translate(-38.493305, -13.000000) "></path>
+                <path class="icon" d="M0,26 L0,25.2 L0,26 L13.0026093,13 L12.2013046,13 L13.0026093,13 L0,0 L0,0.8 L0,0 L6,0 L19,13 L6,26 L-3.33066907e-16,26 Z" id="arrow-tip" transform="translate(9.500000, 13.000000) scale(-1, 1) translate(-9.500000, -13.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

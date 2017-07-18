@@ -31,7 +31,7 @@
     }
   }
 
-  &.layout-inverse .sl-column {
+  &.layout-reverse .sl-column {
 
     &:nth-child(1) {
       width: $small-part;
@@ -58,7 +58,7 @@
     }
   }
 
-  &.layout-inverse .sl-column {
+  &.layout-reverse .sl-column {
 
     &:nth-child(1) {
       width: $small-part;
@@ -89,7 +89,7 @@
     }
   }
 
-  &.layout-inverse .sl-column {
+  &.layout-reverse .sl-column {
 
     &:nth-child(1) {
       width: $large-part;
