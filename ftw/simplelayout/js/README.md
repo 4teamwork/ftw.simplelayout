@@ -202,6 +202,12 @@ layoutMoved(layout)
 
 layoutDeleted(layout)
 
+block-added(block)
+
+block-edited(block)
+
+sl-state-updated
+
 ### DOM properties
 
 Each block and layout is represented in the DOM through an ID.

@@ -128,6 +128,8 @@
       $.post(options.endpoints.state, {
         data: JSON.stringify(state),
         _authenticator: $('input[name="_authenticator"]').val()
+      }).done(function() {
+        $(document).trigger('sl-state-updated');
       });
     };
 
@@ -156,6 +158,7 @@
           saveState();
           initializeColorbox();
           this.close();
+          $(document).trigger('block-added', [block]);
         });
         addOverlay.onCancel(function() {
           if(!block.committed) {
@@ -246,6 +249,7 @@
       var block = $(this).parents(".sl-block").data().object;
       editOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })});
       editOverlay.onSubmit(function(data) {
+        $(document).trigger('block-edited', [block]);
         block.content(data.content);
         initializeColorbox();
         this.close();
