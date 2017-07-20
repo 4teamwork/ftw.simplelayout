@@ -105,8 +105,8 @@ function Block(content, type) {
 
   this.create({ type: type, content: content });
 
-  this.content = function (toReplace) {
-    (0, _jquery2.default)(".sl-block-content", this.element).html(toReplace);
+  this.content = function (toReplace, id) {
+    (0, _jquery2.default)(".sl-block-content", this.element).attr('id', id).html(toReplace);
     EE.trigger("blockReplaced", [this]);
     return this;
   };
@@ -6367,6 +6367,10 @@ process.off = noop;
 process.removeListener = noop;
 process.removeAllListeners = noop;
 process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
 
 process.binding = function (name) {
     throw new Error('process.binding is not supported');
@@ -9562,7 +9566,7 @@ define(function (require, exports, module) {
 
     /**
      * Adds listeners in bulk using the manipulateListeners method.
-     * If you pass an object as the first argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
+     * If you pass an object as the second argument you can add to multiple events at once. The object should contain key value pairs of events and listeners or listener arrays. You can also pass it an event name and an array of listeners to be added.
      * You can also pass it a regular expression to add the array of listeners to all events that match it.
      * Yeah, this function does quite a bit. That's probably a bad thing.
      *
@@ -9577,7 +9581,7 @@ define(function (require, exports, module) {
 
     /**
      * Removes listeners in bulk using the manipulateListeners method.
-     * If you pass an object as the first argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
+     * If you pass an object as the second argument you can remove from multiple events at once. The object should contain key value pairs of events and listeners or listener arrays.
      * You can also pass it an event name and an array of listeners to be removed.
      * You can also pass it a regular expression to remove the listeners from all events that match it.
      *

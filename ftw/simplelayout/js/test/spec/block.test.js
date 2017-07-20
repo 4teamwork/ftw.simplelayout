@@ -31,6 +31,22 @@ describe("Block", function() {
     assert.deepEqual(node, [{tagName: "DIV", content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Hallo</p></div>', type: "textblock"}]);
   });
 
+  it("should set id on block content when adding a new block", () => {
+    block.content("<p>hallo</p>", "block-id");
+
+    var node = $.map(block.element, function(blockNode) {
+      return {tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type };
+    });
+
+    assert.deepEqual(node, [
+      {
+        tagName: "DIV",
+        content: '<div class="iFrameFix"></div><div class="sl-block-content" id="block-id"><p>hallo</p></div>',
+        type: "textblock",
+      }
+    ]);
+  });
+
   it("can attach a toolbar", function() {
     var toolbar = new Toolbar();
 
