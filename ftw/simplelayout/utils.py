@@ -1,6 +1,7 @@
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from plone.dexterity.interfaces import IDexterityFTI
+from plone.dexterity.utils import safe_utf8
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
@@ -17,7 +18,7 @@ def get_block_html(block):
     properties = queryMultiAdapter((block, block.REQUEST),
                                    IBlockProperties)
     viewname = properties.get_current_view_name()
-    return block.restrictedTraverse(viewname)()
+    return block.restrictedTraverse(safe_utf8(viewname))()
 
 
 def get_block_types():
