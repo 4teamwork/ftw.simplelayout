@@ -5,6 +5,8 @@ Changelog
 1.18.5 (unreleased)
 -------------------
 
+- Handle view names in unicode strings. [mbaechtold]
+
 - Add anchor to new created blocks. [Kevin Bieri]
 
 - The galleryblock now renders a fallback image when the image to be displayed is truncated. [mbaechtold]
