@@ -34,6 +34,7 @@ export default function Simplelayout(options) {
         layout = $(this).data().object.insertLayout(ui.item.data().columns);
         layout.element.insertAfter(item);
         item.remove();
+        layout.commit();
       } else {
         self.moveLayout($(ui.item).data().object, $(this).data().object);
         self.disableFrames();
@@ -235,11 +236,13 @@ export default function Simplelayout(options) {
 
   this.on("layout-committed", function(layout) {
     if(self.options.editLayouts) {
-      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions, "vertical", "layout");
+      var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
       $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
-    self._checkMoveAction();
+    if(layout.hasBlocks()) {
+      layout.toolbar.disable("delete");
+    }
   });
 
   this.on("block-committed", function(block) {
@@ -258,7 +261,7 @@ export default function Simplelayout(options) {
 
   root.addClass("simplelayout-initialized");
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = $.ui.sortable.prototype._mouseStart;
   $.ui.sortable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
       this._trigger("beforeStart", event, this._uiHash());

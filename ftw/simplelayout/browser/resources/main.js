@@ -117,6 +117,7 @@
         $(".sl-layout", manager).each(function(layIdx, layout) {
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
+          state[manager.id][layIdx].config = $(layout).data().object.config();
           $(".sl-column", layout).each(function(colIdx, column) {
             state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
             $(".sl-block", column).each(function(bloIdx, block) {
@@ -183,8 +184,11 @@
       });
 
       simplelayout.on("layoutInserted", function(layout) {
-        layout.commit();
         toolbox.blocksEnabled(true);
+      });
+
+      simplelayout.on("layout-committed", function() {
+        statekeeper.update();
         saveState();
       });
 
@@ -231,6 +235,23 @@
       }
     });
 
+    $(global.document).on("click", ".sl-layout .reload", function() {
+      event.preventDefault();
+      var action = $(this);
+      var layout = action.parents(".sl-layout").data().object;
+      var container = layout.parent;
+      var payload = {
+        name: container.represents,
+        layoutindex: container.element.find('.sl-layout').index(layout.element)
+      };
+      $.extend(payload, { config: action.data() });
+
+      var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payload) });
+      configRequest.done(function(layoutdata) {
+        layout.content(layoutdata.content);
+      });
+    });
+
     $(global.document).on("click", ".sl-block .delete", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;
@@ -274,7 +295,7 @@
       window.location.href = block.data().url + $(this).attr("href");
     });
 
-    $(global.document).on("click", ".server-action", function(event) {
+    $(global.document).on("click", ".block-server-action", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;
       var payLoad = { uid: block.represents };

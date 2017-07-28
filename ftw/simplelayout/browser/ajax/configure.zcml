@@ -11,6 +11,13 @@
         />
 
     <browser:page
+        for="ftw.simplelayout.interfaces.ISimplelayout"
+        name="sl-ajax-reload-layout-view"
+        class=".reloadlayoutview.ReloadLayoutView"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         for="*"
         name="sl-toolbox-view"
         class=".toolbox_view.SimplelayoutToolbox"

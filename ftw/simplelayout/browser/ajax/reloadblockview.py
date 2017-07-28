@@ -9,7 +9,7 @@ import json
 
 
 class ReloadBlockView(BrowserView):
-    """Reloads a block and performance several modifications before.
+    """Reloads a block and performs several modifications before.
     By default it tries to change the view, if the view_name parameter is
     present in the request. Afterwards the BlockReloader adapter gets called,
     which performs block specific modification, like storing image scales.

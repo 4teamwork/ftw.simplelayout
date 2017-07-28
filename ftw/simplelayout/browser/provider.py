@@ -6,6 +6,7 @@ from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import get_block_html
 from ftw.simplelayout.utils import normalize_portal_type
+from persistent.mapping import PersistentMapping
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
@@ -51,12 +52,12 @@ class SimplelayoutRenderer(object):
     def render_slot(self):
         return self.slot_template()
 
-    def render_layout(self, index=None):
+    def render_layout(self, index=None, is_update=False):
 
         self.rows = self.storage.get(self.name, self._one_layout_one_column())
 
         # If index is None, render all layouts.
-        # If not, render only a specific layout
+        # If not render only a specific layout
         if index is not None:
             if index > len(self.rows) - 1:
                 raise ValueError('Layout with index {} does not exists'.format(
@@ -68,7 +69,15 @@ class SimplelayoutRenderer(object):
         user_can_edit = self._user_can_edit()
 
         for row in self.rows:
-            row['class'] = 'sl-layout'
+            config = row.get('config', PersistentMapping())
+            if not isinstance(config, PersistentMapping):
+                config = config
+            else:
+                config = config.data
+
+            row['class'] = ' '.join(config.values())
+            row['config_json'] = json.dumps(config)
+
             for col in row['cols']:
                 col['class'] = 'sl-column sl-col-{}'.format(len(row['cols']))
                 col['blocks'] = filter(
@@ -97,7 +106,7 @@ class SimplelayoutRenderer(object):
 
                 self.rows[-1]['cols'][-1]['blocks'].append(block)
 
-        return self.layout_template()
+        return self.layout_template(is_update=is_update)
 
     def get_simplelayout_settings(self):
         return json.dumps(self._get_sl_settings())

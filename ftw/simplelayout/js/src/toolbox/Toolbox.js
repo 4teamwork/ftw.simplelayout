@@ -63,13 +63,25 @@ export default function Toolbox(options) {
     blockObjects[block.contentType] = block;
   });
 
+  var layoutActions = {};
+  $.each(this.options.layoutActions, (name, action) => {
+    if(!action.rules) {
+      action.rules = this.options.layouts;
+    }
+    $.each(action.rules, (idx, columns) => {
+      layoutActions[columns] = layoutActions[columns] || {};
+      layoutActions[columns][name] = action;
+    });
+  });
+
+  this.options.layoutActions = layoutActions;
   this.options.blocks = blockObjects;
 
   this.attachTo = function(target) { target.append(this.element); };
 
   this.blocksEnabled = function(state) { $(".sl-toolbox-blocks", this.element).toggleClass("disabled", !state); };
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = $.ui.draggable.prototype._mouseStart;
   $.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
       this._trigger("beforeStart", event, this._uiHash());

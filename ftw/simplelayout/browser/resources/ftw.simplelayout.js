@@ -16,7 +16,32 @@ module.exports = {
   toolbox: _Toolbox2.default
 };
 
-},{"simplelayout/Simplelayout":9,"toolbox/Toolbox":12}],2:[function(require,module,exports){
+},{"simplelayout/Simplelayout":10,"toolbox/Toolbox":13}],2:[function(require,module,exports){
+(function (global){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getNodeAttributesAsObject = getNodeAttributesAsObject;
+
+var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getNodeAttributesAsObject(node) {
+  var attributesMap = node.attributes;
+  var attributesObject = {};
+  _jquery2.default.each(attributesMap, function (i, e) {
+    attributesObject[e.name] = e.value;
+  });
+  return attributesObject;
+}
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39,7 +64,7 @@ _handlebars2.default.registerHelper('times', function (n, block) {
 
 function handlebarsTimes() {}
 
-},{"handlebars":44}],3:[function(require,module,exports){
+},{"handlebars":45}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -54,7 +79,7 @@ function createGUID() {
     });
 }
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -148,7 +173,7 @@ _transactional2.default.call(Block.prototype);
 _Element2.default.call(Block.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":44,"simplelayout/Element":5,"simplelayout/EventEmitter":6,"simplelayout/transactional":11}],5:[function(require,module,exports){
+},{"handlebars":45,"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/transactional":12}],6:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -169,7 +194,13 @@ var _handlebars = require("handlebars");
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
+var _EventEmitter = require("simplelayout/EventEmitter");
+
+var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EE = _EventEmitter2.default.getInstance();
 
 function Element(template, represents) {
 
@@ -204,6 +235,7 @@ function Element(template, represents) {
   this.attachToolbar = function (toolbar) {
     this.toolbar = toolbar;
     this.element.append(toolbar.element);
+    EE.trigger("toolbar-attached", [this]);
     return this;
   };
 
@@ -224,7 +256,7 @@ function Element(template, represents) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":44,"helpers/idHelper":3}],6:[function(require,module,exports){
+},{"handlebars":45,"helpers/idHelper":4,"simplelayout/EventEmitter":7}],7:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -253,6 +285,14 @@ function EventEmitter() {
   this.on = function (eventType, callback) {
     eventEmitter.on(eventType, callback);
   };
+
+  this.clean = function () {
+    var listeners = [];
+    _jquery2.default.each(eventEmitter.getListeners(/./g), function (i, e) {
+      listeners = listeners.concat(eventEmitter.flattenListeners(e));
+    });
+    eventEmitter.removeListeners.call(eventEmitter, /./g, listeners);
+  };
 }
 
 EventEmitter.getInstance = function () {
@@ -266,7 +306,7 @@ EventEmitter.getInstance = function () {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"wolfy87-eventemitter":58}],7:[function(require,module,exports){
+},{"wolfy87-eventemitter":59}],8:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -303,6 +343,8 @@ var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _DOMHelpers = require("../helpers/DOMHelpers");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EE = _EventEmitter2.default.getInstance();
@@ -314,7 +356,7 @@ function Layout(columns) {
 
   columns = columns || 4;
 
-  var template = "<div class='sl-layout'>{{#times columns}}<div class='sl-column sl-col-{{../columns}}'></div>{{/times}}</div>";
+  var template = "\n    <div class='sl-layout'>\n      <div class='sl-layout-content' data-config='{}'>\n        {{#times columns}}\n          <div class='sl-column sl-col-{{../columns}}'></div>\n        {{/times}}\n      </div>\n    </div>\n  ";
 
   _Element2.default.call(this, template);
 
@@ -378,7 +420,23 @@ function Layout(columns) {
     return this;
   };
 
-  this.restore = function (restoreElement, restoreParent, restoreColumn, represents) {
+  this.content = function (toReplace) {
+    var self = this;
+    (0, _jquery2.default)(this.element).html(toReplace);
+    this.blocks = {};
+    (0, _jquery2.default)(".sl-block", this.element).each(function () {
+      self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+    });
+    EE.trigger("layout-committed", [this]);
+    return this;
+  };
+
+  this.restore = function () {
+    var restoreElement = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.element;
+    var restoreParent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : this.parent;
+    var restoreColumn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.columns;
+    var represents = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.represents;
+
     var self = this;
     this.columns = restoreColumn;
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
@@ -386,6 +444,10 @@ function Layout(columns) {
     (0, _jquery2.default)(".sl-block", restoreElement).each(function () {
       self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
     });
+  };
+
+  this.config = function () {
+    return this.element.find(".sl-layout-content").data('config');
   };
 
   this.toJSON = function () {
@@ -397,7 +459,7 @@ _transactional2.default.call(Layout.prototype);
 _Element2.default.call(Layout.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"helpers/handlebars":2,"simplelayout/Block":4,"simplelayout/Element":5,"simplelayout/EventEmitter":6,"simplelayout/Toolbar":10,"simplelayout/transactional":11}],8:[function(require,module,exports){
+},{"../helpers/DOMHelpers":2,"helpers/handlebars":3,"simplelayout/Block":5,"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/Toolbar":11,"simplelayout/transactional":12}],9:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -526,7 +588,7 @@ _Element2.default.call(Layoutmanager.prototype);
 _transactional2.default.call(Layoutmanager.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"simplelayout/Block":4,"simplelayout/Element":5,"simplelayout/EventEmitter":6,"simplelayout/Layout":7,"simplelayout/transactional":11}],9:[function(require,module,exports){
+},{"simplelayout/Block":5,"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/Layout":8,"simplelayout/transactional":12}],10:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -590,6 +652,7 @@ function Simplelayout(options) {
         layout = (0, _jquery2.default)(this).data().object.insertLayout(ui.item.data().columns);
         layout.element.insertAfter(item);
         item.remove();
+        layout.commit();
       } else {
         self.moveLayout((0, _jquery2.default)(ui.item).data().object, (0, _jquery2.default)(this).data().object);
         self.disableFrames();
@@ -795,11 +858,13 @@ function Simplelayout(options) {
 
   this.on("layout-committed", function (layout) {
     if (self.options.editLayouts) {
-      var layoutToolbar = new _Toolbar2.default(self.options.toolbox.options.layoutActions, "vertical", "layout");
+      var layoutToolbar = new _Toolbar2.default(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
       (0, _jquery2.default)(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
     }
-    self._checkMoveAction();
+    if (layout.hasBlocks()) {
+      layout.toolbar.disable("delete");
+    }
   });
 
   this.on("block-committed", function (block) {
@@ -818,7 +883,7 @@ function Simplelayout(options) {
 
   root.addClass("simplelayout-initialized");
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = _jquery2.default.ui.sortable.prototype._mouseStart;
   _jquery2.default.ui.sortable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
     this._trigger("beforeStart", event, this._uiHash());
@@ -827,7 +892,7 @@ function Simplelayout(options) {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"simplelayout/EventEmitter":6,"simplelayout/Layoutmanager":8,"simplelayout/Toolbar":10,"toolbox/Toolbox":12}],10:[function(require,module,exports){
+},{"simplelayout/EventEmitter":7,"simplelayout/Layoutmanager":9,"simplelayout/Toolbar":11,"toolbox/Toolbox":13}],11:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -876,7 +941,7 @@ function Toolbar(actions, orientation, type) {
 _Element2.default.call(Toolbar.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":44,"simplelayout/Element":5}],11:[function(require,module,exports){
+},{"handlebars":45,"simplelayout/Element":6}],12:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -915,7 +980,7 @@ function transactional() {
   };
 };
 
-},{"simplelayout/EventEmitter":6}],12:[function(require,module,exports){
+},{"simplelayout/EventEmitter":7}],13:[function(require,module,exports){
 (function (global){
 "use strict";
 
@@ -945,6 +1010,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (typeof window !== "undefined" ? window['$']['ui'] : typeof global !== "undefined" ? global['$']['ui'] : null);
 
 function Toolbox(options) {
+  var _this = this;
 
   if (!(this instanceof Toolbox)) {
     throw new TypeError("Toolbox constructor cannot be called as a function.");
@@ -973,6 +1039,18 @@ function Toolbox(options) {
     blockObjects[block.contentType] = block;
   });
 
+  var layoutActions = {};
+  _jquery2.default.each(this.options.layoutActions, function (name, action) {
+    if (!action.rules) {
+      action.rules = _this.options.layouts;
+    }
+    _jquery2.default.each(action.rules, function (idx, columns) {
+      layoutActions[columns] = layoutActions[columns] || {};
+      layoutActions[columns][name] = action;
+    });
+  });
+
+  this.options.layoutActions = layoutActions;
   this.options.blocks = blockObjects;
 
   this.attachTo = function (target) {
@@ -983,7 +1061,7 @@ function Toolbox(options) {
     (0, _jquery2.default)(".sl-toolbox-blocks", this.element).toggleClass("disabled", !state);
   };
 
-  /* Patch for registring beforeStart event */
+  /* Patch for registering beforeStart event */
   var oldMouseStart = _jquery2.default.ui.draggable.prototype._mouseStart;
   _jquery2.default.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
     this._trigger("beforeStart", event, this._uiHash());
@@ -994,7 +1072,7 @@ function Toolbox(options) {
 _Element2.default.call(Toolbox.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":44,"path":45,"simplelayout/Element":5}],13:[function(require,module,exports){
+},{"handlebars":45,"path":46,"simplelayout/Element":6}],14:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.1 Copyright (c) 2011-2016, The Dojo Foundation All Rights Reserved.
@@ -1299,9 +1377,9 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/amdefine/amdefine.js")
-},{"_process":46,"path":45}],14:[function(require,module,exports){
+},{"_process":47,"path":46}],15:[function(require,module,exports){
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1368,7 +1446,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars.runtime":16,"./handlebars/compiler/ast":18,"./handlebars/compiler/base":19,"./handlebars/compiler/compiler":21,"./handlebars/compiler/javascript-compiler":23,"./handlebars/compiler/visitor":26,"./handlebars/no-conflict":40}],16:[function(require,module,exports){
+},{"./handlebars.runtime":17,"./handlebars/compiler/ast":19,"./handlebars/compiler/base":20,"./handlebars/compiler/compiler":22,"./handlebars/compiler/javascript-compiler":24,"./handlebars/compiler/visitor":27,"./handlebars/no-conflict":41}],17:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1436,7 +1514,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":17,"./handlebars/exception":30,"./handlebars/no-conflict":40,"./handlebars/runtime":41,"./handlebars/safe-string":42,"./handlebars/utils":43}],17:[function(require,module,exports){
+},{"./handlebars/base":18,"./handlebars/exception":31,"./handlebars/no-conflict":41,"./handlebars/runtime":42,"./handlebars/safe-string":43,"./handlebars/utils":44}],18:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1542,7 +1620,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":28,"./exception":30,"./helpers":31,"./logger":39,"./utils":43}],18:[function(require,module,exports){
+},{"./decorators":29,"./exception":31,"./helpers":32,"./logger":40,"./utils":44}],19:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1575,7 +1653,7 @@ exports['default'] = AST;
 module.exports = exports['default'];
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -1625,7 +1703,7 @@ function parse(input, options) {
 }
 
 
-},{"../utils":43,"./helpers":22,"./parser":24,"./whitespace-control":27}],20:[function(require,module,exports){
+},{"../utils":44,"./helpers":23,"./parser":25,"./whitespace-control":28}],21:[function(require,module,exports){
 /* global define */
 'use strict';
 
@@ -1793,7 +1871,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 
-},{"../utils":43,"source-map":47}],21:[function(require,module,exports){
+},{"../utils":44,"source-map":48}],22:[function(require,module,exports){
 /* eslint-disable new-cap */
 
 'use strict';
@@ -2367,7 +2445,7 @@ function transformLiteralToPath(sexpr) {
 }
 
 
-},{"../exception":30,"../utils":43,"./ast":18}],22:[function(require,module,exports){
+},{"../exception":31,"../utils":44,"./ast":19}],23:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -2599,7 +2677,7 @@ function preparePartialBlock(open, program, close, locInfo) {
 }
 
 
-},{"../exception":30}],23:[function(require,module,exports){
+},{"../exception":31}],24:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -3727,7 +3805,7 @@ exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
 
 
-},{"../base":17,"../exception":30,"../utils":43,"./code-gen":20}],24:[function(require,module,exports){
+},{"../base":18,"../exception":31,"../utils":44,"./code-gen":21}],25:[function(require,module,exports){
 /* istanbul ignore next */
 /* Jison generated parser */
 "use strict";
@@ -4467,7 +4545,7 @@ var handlebars = (function () {
 exports['default'] = handlebars;
 
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* eslint-disable new-cap */
 'use strict';
 
@@ -4655,7 +4733,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
 /* eslint-enable new-cap */
 
 
-},{"./visitor":26}],26:[function(require,module,exports){
+},{"./visitor":27}],27:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -4797,7 +4875,7 @@ exports['default'] = Visitor;
 module.exports = exports['default'];
 
 
-},{"../exception":30}],27:[function(require,module,exports){
+},{"../exception":31}],28:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5020,7 +5098,7 @@ exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
 
 
-},{"./visitor":26}],28:[function(require,module,exports){
+},{"./visitor":27}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5038,7 +5116,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":29}],29:[function(require,module,exports){
+},{"./decorators/inline":30}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5069,7 +5147,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":43}],30:[function(require,module,exports){
+},{"../utils":44}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5111,7 +5189,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5159,7 +5237,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":32,"./helpers/each":33,"./helpers/helper-missing":34,"./helpers/if":35,"./helpers/log":36,"./helpers/lookup":37,"./helpers/with":38}],32:[function(require,module,exports){
+},{"./helpers/block-helper-missing":33,"./helpers/each":34,"./helpers/helper-missing":35,"./helpers/if":36,"./helpers/log":37,"./helpers/lookup":38,"./helpers/with":39}],33:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5200,7 +5278,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":43}],33:[function(require,module,exports){
+},{"../utils":44}],34:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5296,7 +5374,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":30,"../utils":43}],34:[function(require,module,exports){
+},{"../exception":31,"../utils":44}],35:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5323,7 +5401,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":30}],35:[function(require,module,exports){
+},{"../exception":31}],36:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5354,7 +5432,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":43}],36:[function(require,module,exports){
+},{"../utils":44}],37:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5382,7 +5460,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5396,7 +5474,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5431,7 +5509,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":43}],39:[function(require,module,exports){
+},{"../utils":44}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5480,7 +5558,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":43}],40:[function(require,module,exports){
+},{"./utils":44}],41:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -5504,7 +5582,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5798,7 +5876,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":17,"./exception":30,"./utils":43}],42:[function(require,module,exports){
+},{"./base":18,"./exception":31,"./utils":44}],43:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -5815,7 +5893,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5941,7 +6019,7 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -5968,7 +6046,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":15,"../dist/cjs/handlebars/compiler/printer":25,"fs":14}],45:[function(require,module,exports){
+},{"../dist/cjs/handlebars":16,"../dist/cjs/handlebars/compiler/printer":26,"fs":15}],46:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -6196,7 +6274,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":46}],46:[function(require,module,exports){
+},{"_process":47}],47:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -6382,7 +6460,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -6392,7 +6470,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":54,"./source-map/source-map-generator":55,"./source-map/source-node":56}],48:[function(require,module,exports){
+},{"./source-map/source-map-consumer":55,"./source-map/source-map-generator":56,"./source-map/source-node":57}],49:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -6501,7 +6579,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":57,"amdefine":13}],49:[function(require,module,exports){
+},{"./util":58,"amdefine":14}],50:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -6649,7 +6727,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":50,"amdefine":13}],50:[function(require,module,exports){
+},{"./base64":51,"amdefine":14}],51:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -6724,7 +6802,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":13}],51:[function(require,module,exports){
+},{"amdefine":14}],52:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -6843,7 +6921,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":13}],52:[function(require,module,exports){
+},{"amdefine":14}],53:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -6931,7 +7009,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":57,"amdefine":13}],53:[function(require,module,exports){
+},{"./util":58,"amdefine":14}],54:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -7053,7 +7131,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":13}],54:[function(require,module,exports){
+},{"amdefine":14}],55:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8132,7 +8210,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":48,"./base64-vlq":49,"./binary-search":51,"./quick-sort":53,"./util":57,"amdefine":13}],55:[function(require,module,exports){
+},{"./array-set":49,"./base64-vlq":50,"./binary-search":52,"./quick-sort":54,"./util":58,"amdefine":14}],56:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8533,7 +8611,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":48,"./base64-vlq":49,"./mapping-list":52,"./util":57,"amdefine":13}],56:[function(require,module,exports){
+},{"./array-set":49,"./base64-vlq":50,"./mapping-list":53,"./util":58,"amdefine":14}],57:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -8949,7 +9027,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":55,"./util":57,"amdefine":13}],57:[function(require,module,exports){
+},{"./source-map-generator":56,"./util":58,"amdefine":14}],58:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -9321,7 +9399,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":13}],58:[function(require,module,exports){
+},{"amdefine":14}],59:[function(require,module,exports){
 /*!
  * EventEmitter v5.1.0 - git.io/ee
  * Unlicense - http://unlicense.org/

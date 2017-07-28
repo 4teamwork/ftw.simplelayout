@@ -1,6 +1,9 @@
 import createGUID from "helpers/idHelper";
 import $ from "jquery";
 import Handlebars from "handlebars";
+import EventEmitter from "simplelayout/EventEmitter";
+
+const EE = EventEmitter.getInstance();
 
 export default function Element(template, represents) {
 
@@ -35,6 +38,7 @@ export default function Element(template, represents) {
   this.attachToolbar = function(toolbar) {
     this.toolbar = toolbar;
     this.element.append(toolbar.element);
+    EE.trigger("toolbar-attached", [this])
     return this;
   };
 

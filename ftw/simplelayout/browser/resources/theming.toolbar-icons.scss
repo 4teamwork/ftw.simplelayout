@@ -72,5 +72,41 @@ $color-icon-hover: $color-text-inverted;
         background-image: embed-resource("fonts/multiupload.svg", $fill-css:('.icon', $color-icon-hover));
       }
     }
+    &.icon-highlighted {
+      background-image: embed-resource("fonts/pipette.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/pipette.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-golden-ratio {
+      background-image: embed-resource("fonts/gold-ingots.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/gold-ingots.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-layout13 {
+      background-image: embed-resource("fonts/1-3.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/1-3.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-layout121 {
+      background-image: embed-resource("fonts/1-2-1.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/1-2-1.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-layout112 {
+      background-image: embed-resource("fonts/1-1-2.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/1-1-2.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-layout-reverse {
+      background-image: embed-resource("fonts/reverse.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/reverse.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
   }
 }

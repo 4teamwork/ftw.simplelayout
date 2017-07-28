@@ -5,6 +5,7 @@ import Element from "simplelayout/Element";
 import Toolbar from "simplelayout/Toolbar";
 import handlebarsTimes from "helpers/handlebars";
 import $ from "jquery";
+import { getNodeAttributesAsObject } from "../helpers/DOMHelpers";
 
 const EE = EventEmitter.getInstance();
 
@@ -15,7 +16,15 @@ export default function Layout(columns) {
 
   columns = columns || 4;
 
-  var template = "<div class='sl-layout'>{{#times columns}}<div class='sl-column sl-col-{{../columns}}'></div>{{/times}}</div>";
+  var template = `
+    <div class='sl-layout'>
+      <div class='sl-layout-content' data-config='{}'>
+        {{#times columns}}
+          <div class='sl-column sl-col-{{../columns}}'></div>
+        {{/times}}
+      </div>
+    </div>
+  `;
 
   Element.call(this, template);
 
@@ -71,7 +80,18 @@ export default function Layout(columns) {
     return this;
   };
 
-  this.restore = function(restoreElement, restoreParent, restoreColumn, represents) {
+  this.content = function(toReplace) {
+    var self = this;
+    $(this.element).html(toReplace);
+    this.blocks = {};
+    $(".sl-block", this.element).each(function() {
+      self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
+    });
+    EE.trigger("layout-committed", [this]);
+    return this;
+  };
+
+  this.restore = function(restoreElement = this.element, restoreParent = this.parent, restoreColumn = this.columns, represents = this.represents) {
     var self = this;
     this.columns = restoreColumn;
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
@@ -80,6 +100,8 @@ export default function Layout(columns) {
       self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
     });
   };
+
+  this.config = function() { return this.element.find(".sl-layout-content").data('config'); }
 
   this.toJSON = function() { return { columns: this.columns, blocks: this.blocks }; };
 
