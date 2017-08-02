@@ -3,19 +3,21 @@
 
   <div tal:attributes="class python:'sl-layout-content ' + row['class'];
                        data-config row/config_json | nothing">
-    <div class="sl-column"
-         tal:repeat="col row/cols"
-         tal:attributes="class col/class">
-      <tal:blocks tal:repeat="block col/blocks">
-        <div tal:attributes="class block/css_classes;
-                             data-type block/type;
-                             data-uid block/uid;
-                             data-url block/url;">
-          <a tal:attributes="name block/id"></a>
-          <div class="sl-block-content"
-               tal:content="structure block/obj_html">Block Content</div>
-        </div>
-      </tal:blocks>
+    <div class="sl-columns">
+      <div class="sl-column"
+           tal:repeat="col row/cols"
+           tal:attributes="class col/class">
+        <tal:blocks tal:repeat="block col/blocks">
+          <div tal:attributes="class block/css_classes;
+                               data-type block/type;
+                               data-uid block/uid;
+                               data-url block/url;">
+            <a tal:attributes="name block/id"></a>
+            <div class="sl-block-content"
+                 tal:content="structure block/obj_html">Block Content</div>
+          </div>
+        </tal:blocks>
+      </div>
     </div>
   </div>
 
