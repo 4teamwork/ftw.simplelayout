@@ -5,10 +5,12 @@ Changelog
 1.19.0 (unreleased)
 -------------------
 
-- Introduce asymmetric layouts. [Kevin Bieri, mathias.leimgruber]
+- New Feature: Asymmetric layouts. [Kevin Bieri, mathias.leimgruber]
 
   - Introduced layout configurations (classes on layouts)
   - By default we have golden ratio-, 1-2-1-, 3-1, 1-1-2-layouts
+  - This change introduces two now wrappers (div-tag), while render the simplelayout content.
+    Please be aware that those new wrappers may break your CSS selectors.
 
 
 1.18.5 (2017-07-25)
