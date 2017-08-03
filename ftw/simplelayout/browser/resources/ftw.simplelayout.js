@@ -356,7 +356,7 @@ function Layout(columns) {
 
   columns = columns || 4;
 
-  var template = "\n    <div class='sl-layout'>\n      <div class='sl-layout-content' data-config='{}'>\n        {{#times columns}}\n          <div class='sl-column sl-col-{{../columns}}'></div>\n        {{/times}}\n      </div>\n    </div>\n  ";
+  var template = "\n    <div class='sl-layout'>\n      <div class='sl-layout-content' data-config='{}'>\n        <div class=\"sl-columns\">\n          {{#times columns}}\n            <div class='sl-column sl-col-{{../columns}}'></div>\n          {{/times}}\n        </div>\n      </div>\n    </div>\n  ";
 
   _Element2.default.call(this, template);
 

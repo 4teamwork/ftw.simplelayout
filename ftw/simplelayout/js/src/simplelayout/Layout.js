@@ -19,9 +19,11 @@ export default function Layout(columns) {
   var template = `
     <div class='sl-layout'>
       <div class='sl-layout-content' data-config='{}'>
-        {{#times columns}}
-          <div class='sl-column sl-col-{{../columns}}'></div>
-        {{/times}}
+        <div class="sl-columns">
+          {{#times columns}}
+            <div class='sl-column sl-col-{{../columns}}'></div>
+          {{/times}}
+        </div>
       </div>
     </div>
   `;
