@@ -5,6 +5,8 @@ Changelog
 1.19.0 (unreleased)
 -------------------
 
+- Handle view names in unicode strings. [mbaechtold]
+
 - New Feature: Asymmetric layouts. [Kevin Bieri, mathias.leimgruber]
 
   - Introduced layout configurations (classes on layouts)
