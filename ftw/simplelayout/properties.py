@@ -1,5 +1,6 @@
 from ftw.simplelayout.interfaces import IBlockProperties
 from Persistence import PersistentMapping
+from plone.dexterity.utils import safe_utf8
 from zope.annotation import IAnnotations
 from zope.interface import implements
 
@@ -35,4 +36,4 @@ class MultiViewBlockProperties(object):
         return annotations[BLOCK_PROPERTIES_KEY]
 
     def is_view_available(self, name):
-        return self.context.restrictedTraverse(name, None) is not None
+        return self.context.restrictedTraverse(safe_utf8(name), None) is not None

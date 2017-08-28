@@ -36,6 +36,14 @@ class TestMultiViewBlockProperties(SimplelayoutTestCase):
         self.assertEqual(properties.get_current_view_name(),
                          'block_view_different')
 
+    def test_changing_view_unicode(self):
+        properties = getMultiAdapter((self.block, self.block.REQUEST),
+                                     IBlockProperties)
+
+        properties.set_view(u'block_view_different')
+        self.assertEqual(properties.get_current_view_name(),
+                         'block_view_different')
+
     def test_setting_invalid_view_name_raises_error(self):
         properties = getMultiAdapter((self.block, self.block.REQUEST),
                                      IBlockProperties)
