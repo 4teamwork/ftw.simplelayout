@@ -5,6 +5,8 @@ Changelog
 1.19.0 (unreleased)
 -------------------
 
+- The browser does no longer jump to the top when opening an overlay. [Kevin Bieri]
+
 - Handle view names in unicode strings. [mbaechtold]
 
 - New Feature: Asymmetric layouts. [Kevin Bieri, mathias.leimgruber]
