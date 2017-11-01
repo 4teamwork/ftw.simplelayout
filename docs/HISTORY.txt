@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.19.0 (unreleased)
+1.19.0 (2017-11-01)
 -------------------
 
 - The browser does no longer jump to the top when opening an overlay. [Kevin Bieri]
