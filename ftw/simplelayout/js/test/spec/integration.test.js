@@ -44,6 +44,33 @@ describe("Integration", function() {
     var block = layout.insertBlock("<p></p>", "textblock").commit();
   });
 
+  it("markes active actions on the block toolbar", function() {
+    simplelayout = new Simplelayout({
+        toolbox: new Toolbox({
+          blocks: [
+          {
+            title: "Textblock",
+            contentType: "textblock",
+            formUrl: "URL",
+            actions: {
+              edit: {"class": "block-server-action", "data-float": "left", "title": "Image to the left"},
+              move: {"class": "block-server-action", "data-float": "right", "title": "Image to the right"}
+            }
+          }]
+        })
+    });
+    manager = simplelayout.insertManager();
+    var layout = manager.insertLayout().commit();
+
+    simplelayout.on("toolbar-attached", (block) => {
+      block.element.data("float", "right");
+
+      expect($.map(block.element.find('.block-server-action'), function(action) {
+        return action.hasClass('active');
+      })).toEqual([false, true]);
+    });
+  });
+
   it("does not create toolbar for layouts if layout edit is inactive", function() {
     simplelayout.options.editLayouts = false;
     var layout = manager.insertLayout().commit();

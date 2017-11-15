@@ -38,9 +38,13 @@ export default function Element(template, represents) {
   this.attachToolbar = function(toolbar) {
     this.toolbar = toolbar;
     this.element.append(toolbar.element);
+    this.updateToolbar();
     EE.trigger("toolbar-attached", [this])
     return this;
   };
+
+  // mark options on toolbar according to element state
+  this.updateToolbar = function() {};
 
   this.isEnabled = function(state) {
     this.element.toggleClass("disabled", !state);

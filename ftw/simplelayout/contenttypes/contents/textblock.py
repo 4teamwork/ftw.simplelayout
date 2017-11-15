@@ -98,7 +98,6 @@ class TextBlockModifier(object):
         if image_scale:
             blockconf['scale'] = image_scale
             blockconf['imagefloat'] = image_float
-            conf.store(blockconf)  # necessary?
         return
 
 
