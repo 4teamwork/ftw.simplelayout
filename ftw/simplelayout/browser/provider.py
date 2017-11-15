@@ -1,6 +1,8 @@
 from Acquisition import aq_base
 from Acquisition import aq_inner
 from ftw.simplelayout.contenttypes.behaviors import IHiddenBlock
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutContainerConfig
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
@@ -158,6 +160,8 @@ class SimplelayoutRenderer(object):
         if uid:
             block_dict['uid'] = uid
 
+        properties = queryMultiAdapter((obj, self.request), IBlockProperties)
+
         block_type = normalize_portal_type(obj.portal_type)
 
         css_classes = ['sl-block', block_type]
@@ -177,6 +181,10 @@ class SimplelayoutRenderer(object):
         block_dict['url'] = obj.absolute_url()
         block_dict['id'] = obj.getId()
         block_dict['css_classes'] = ' '.join(css_classes)
+        block_dict['view_name'] = properties.get_current_view_name()
+
+        block_config = IBlockConfiguration(obj).load()
+        block_dict['config'] = block_config
 
         return block_dict
 

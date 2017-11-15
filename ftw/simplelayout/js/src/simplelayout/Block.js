@@ -56,6 +56,18 @@ export default function Block(content, type) {
     this.commit();
   };
 
+  this.updateToolbar = function() {
+    // check if configuration on block indicates that button is active
+    $(".block-server-action", this.toolbar.element).toArray().forEach(function(e) {
+      var buttonParameter = $(e).data();
+      var active = Object.keys(buttonParameter).every(function(propertyName) {
+        return (propertyName in this.data() &&
+                buttonParameter[propertyName] == this.data()[propertyName]);
+      }, this);
+      $(e).toggleClass("active", active);
+    }.bind(this));
+  };
+
   this.toJSON = function() { return { represents: this.represents, type: this.type }; };
 
 };

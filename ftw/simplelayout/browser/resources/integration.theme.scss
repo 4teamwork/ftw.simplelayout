@@ -398,6 +398,10 @@ ul[class^="sl-toolbar"] {
       > a {
         border-bottom: 0;
         border-right: 1px solid lighten($color-text, 5%);
+
+        &.active {
+          border-bottom: 3px solid $color-edit;
+        }
       }
 
       &:last-child {
