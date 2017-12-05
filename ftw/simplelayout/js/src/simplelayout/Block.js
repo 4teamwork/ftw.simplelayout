@@ -60,9 +60,11 @@ export default function Block(content, type) {
     // check if configuration on block indicates that button is active
     $(".block-server-action", this.toolbar.element).toArray().forEach(function(e) {
       var buttonParameter = $(e).data();
+      var blockConfig = this.data("config") || {};
+
       var active = Object.keys(buttonParameter).every(function(propertyName) {
-        return (propertyName in this.data() &&
-                buttonParameter[propertyName] == this.data()[propertyName]);
+        return (propertyName in blockConfig &&
+                buttonParameter[propertyName] == blockConfig[propertyName]);
       }, this);
       $(e).toggleClass("active", active);
     }.bind(this));

@@ -307,8 +307,8 @@
         block.content(blockData.obj_html);
 
         // update the block metadata
-        delete blockData.obj_html;
-        block.element.data(blockData);
+        var config = block.element.data('config');
+        $.extend(config, blockData.config);
         block.updateToolbar();
       });
     });
