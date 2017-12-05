@@ -25,7 +25,16 @@ describe("Integration", function() {
           layoutActions: {
             edit: {"class": "edit", "title": "Can edit this block", "rules": [1, 2, 3, 4]},
             move: {"class": "move", "title": "Can move this block", "rules": [1, 2, 3, 4]},
-            ratio: {"class": "specific-ratio", "title": "specific ratio", "rules": [2]},
+            layout13: {"class": "layout13 reload",
+                      "title": "1-3 layout",
+                      "href": "./sl-ajax-reload-layout-view",
+                      "rules": [2],
+                      "data-layout": "layout112"},
+            goldenratio: {"class": "golden-ratio reload",
+                          "title": "golden ratio",
+                          "href": "./sl-ajax-reload-layout-view",
+                          "rules": [2],
+                          "data-layout": "golden-ratio"},
             all: {"class": "all", "title": "all"},
           }
         })
@@ -101,7 +110,7 @@ describe("Integration", function() {
 
     assert.deepEqual($.map(layout2.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
-    }), ["edit", "move", "specific-ratio", "all"]);
+    }), ["edit", "move", "layout13 reload", "golden-ratio reload", "all"]);
 
     assert.deepEqual($.map(layout4.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
@@ -119,11 +128,21 @@ describe("Integration", function() {
 
     assert.deepEqual($.map(layout2.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
-    }), ["edit", "move", "specific-ratio", "all"]);
+    }), ["edit", "move", "layout13 reload", "golden-ratio reload", "all"]);
 
     assert.deepEqual($.map(layout4.element.find(".sl-toolbar-layout a"), function(action) {
       return action.className;
     }), ["edit", "move", "all"]);
+  });
+
+  it("marks active actions on the toolbar", function() {
+    const layout2 = manager.insertLayout(2).commit();
+    layout2.element.find(".sl-layout-content").data("config", {layout: "golden-ratio"});
+    layout2.updateToolbar();
+
+    expect($.map(layout2.toolbar.element.find(".reload"), function(action) {
+      return $(action).hasClass("active");
+    })).toEqual([false, true]);
   });
 
 });
