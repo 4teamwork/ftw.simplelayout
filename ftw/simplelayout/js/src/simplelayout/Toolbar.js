@@ -12,16 +12,14 @@ export default function Toolbar(actions, orientation, type) {
 
   var template = `
     <ul class='sl-toolbar{{#if type}}-{{type}}{{/if}}{{#if orientation}} {{orientation}}{{/if}}'>
-      {{#each actions}}
-        <li>
+      {{#each actions}}<li>
           <a
             {{#each this}}
             {{@key}}="{{this}}"
             {{/each}}
           >
           </a>
-        </li>
-      {{/each}}
+      </li>{{/each}}
     </ul>
   `;
 
