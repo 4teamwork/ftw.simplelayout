@@ -99,7 +99,7 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-golden-ratio reload',
-                'data-golden_ratio': 'golden-ratio',
+                'data-layout': 'golden-ratio',
                 'rules': [2],
             }),
             ('layout13', {
@@ -108,7 +108,7 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-layout13 reload',
-                'data-layout13': 'layout13',
+                'data-layout': 'layout13',
                 'rules': [2],
             }),
             ('layout121', {
@@ -117,7 +117,7 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-layout121 reload',
-                'data-layout121': 'layout121',
+                'data-layout': 'layout121',
                 'rules': [3],
             }),
             ('layout112', {
@@ -126,7 +126,7 @@ class SimplelayoutToolbox(BrowserView):
                                    context=self.request),
                 'href': './sl-ajax-reload-layout-view',
                 'class': 'icon-layout112 reload',
-                'data-layout112': 'layout112',
+                'data-layout': 'layout112',
                 'rules': [3],
             })
         ])
