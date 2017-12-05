@@ -389,6 +389,12 @@ ul[class^="sl-toolbar"] {
       }
     }
   }
+  &.vertical {
+    .active {
+      border-left: 3px solid $color-edit;
+    }
+  }
+
   &.horizontal {
     @include list-horizontal();
     right: 0;

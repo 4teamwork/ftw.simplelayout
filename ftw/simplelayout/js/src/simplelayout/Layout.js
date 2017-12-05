@@ -103,6 +103,19 @@ export default function Layout(columns) {
     });
   };
 
+  this.updateToolbar = function() {
+    let layoutConfig = this.config();
+    $(".reload", this.toolbar.element).toArray().forEach(function(e) {
+      let buttonParameter = $(e).data();
+
+      var active = Object.keys(buttonParameter).every(function(propertyName) {
+        return (propertyName in layoutConfig &&
+                buttonParameter[propertyName] == layoutConfig[propertyName]);
+      }, this);
+      $(e).toggleClass("active", active);
+    }.bind(this));
+  }
+
   this.config = function() { return this.element.find(".sl-layout-content").data('config'); }
 
   this.toJSON = function() { return { columns: this.columns, blocks: this.blocks }; };

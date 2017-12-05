@@ -37,7 +37,7 @@ class ReloadLayoutView(BrowserView):
             'config', PersistentMapping())
 
         for key, value in self.data['config'].items():
-            if key in current_config:
+            if key in current_config and value == current_config[key]:
                 del current_config[key]
             else:
                 current_config[key] = value
