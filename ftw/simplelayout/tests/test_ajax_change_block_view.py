@@ -65,7 +65,7 @@ class TestBlockReloadView(SimplelayoutTestCase):
         reload_output = json.loads(reload_view())
 
         self.assertEquals('OK - different view', reload_output['obj_html'])
-        self.assertEquals('block_view_different', reload_output['view_name'])
+        self.assertEquals('block_view_different', reload_output['config']['view_name'])
 
     def test_block_specific_modifier_gets_called(self):
 

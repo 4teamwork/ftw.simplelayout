@@ -29,9 +29,10 @@ class ReloadBlockView(BrowserView):
         self._set_new_view()
         self._block_specific_modifications()
 
-        block_data = unwrap_persistence(IBlockConfiguration(self.block).load())
-        block_data['view_name'] = self.properties.get_current_view_name()
+        block_data = dict()
         block_data['obj_html'] = self._render_block()
+        block_data['config'] = unwrap_persistence(IBlockConfiguration(self.block).load())
+        block_data['config']['view_name'] = self.properties.get_current_view_name()
 
         self.request.response.setHeader("Content-type", "text/json")
         return json.dumps(block_data)

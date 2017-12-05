@@ -17,7 +17,9 @@ describe("Integration", function() {
             formUrl: "URL",
             actions: {
               edit: {"class": "edit", "title": "Can edit this block"},
-              move: {"class": "move", "title": "Can edit this block"}
+              move: {"class": "move", "title": "Can edit this block"},
+              left: {"class": "block-server-action", "data-float": "left", "title": "Image to the left"},
+              right: {"class": "block-server-action", "data-float": "right", "title": "Image to the right"}
             }
           }],
           layoutActions: {
@@ -37,38 +39,26 @@ describe("Integration", function() {
     simplelayout.on("toolbar-attached", (block) => {
       expect($.map(block.element.find(".sl-toolbar-block a"), function(action) {
         return action.className;
-      })).toEqual(["edit", "move"]);
+      })).toEqual(["edit", "move", "block-server-action", "block-server-action"]);
       done();
     });
 
     var block = layout.insertBlock("<p></p>", "textblock").commit();
   });
 
-  it("markes active actions on the block toolbar", function() {
-    simplelayout = new Simplelayout({
-        toolbox: new Toolbox({
-          blocks: [
-          {
-            title: "Textblock",
-            contentType: "textblock",
-            formUrl: "URL",
-            actions: {
-              edit: {"class": "block-server-action", "data-float": "left", "title": "Image to the left"},
-              move: {"class": "block-server-action", "data-float": "right", "title": "Image to the right"}
-            }
-          }]
-        })
-    });
-    manager = simplelayout.insertManager();
-    var layout = manager.insertLayout().commit();
+  it("markes active actions on the block toolbar", function(done) {
+    let layout = manager.insertLayout().commit();
 
     simplelayout.on("toolbar-attached", (block) => {
-      block.element.data("float", "right");
-
+      block.element.data("config", {float: "right"});
+      block.updateToolbar();
       expect($.map(block.element.find('.block-server-action'), function(action) {
-        return action.hasClass('active');
+        return $(action).hasClass('active');
       })).toEqual([false, true]);
+      done();
     });
+
+    let block = layout.insertBlock("<p></p>", "textblock").commit();
   });
 
   it("does not create toolbar for layouts if layout edit is inactive", function() {
