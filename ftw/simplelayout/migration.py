@@ -251,7 +251,14 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     # Therefore we must migrate the view from the page to the new
     # teaser block.
     migrate_sl_image_layout(old_page, teaser_block)
-    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default')
+
+    # Insert the new block at the top of the default page
+    page_configuration = IPageConfiguration(new_page)
+    page_state = page_configuration.load()
+    page_state['default'][0]['cols'][0]['blocks'].insert(0, {
+        'uid': IUUID(teaser_block)
+    })
+    page_configuration.store(page_state)
 
 
 def migrate_image_to_file(obj):
