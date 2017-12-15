@@ -1,3 +1,4 @@
+from collective.geo.mapwidget.browser.widget import MapLayers
 from collective.z3cform.mapwidget.widget import FormMapWidget
 from collective.z3cform.mapwidget.widget import IFormMapWidget
 from collective.z3cform.mapwidget.widget import MapDisplayWidget
@@ -32,3 +33,26 @@ class BlockFormMapWidget(FormMapWidget):
 def BlockMapFieldWidget(field, request):
     """IFieldWidget factory for FormMapWidget."""
     return FieldWidget(field, BlockFormMapWidget(request))
+
+
+class FixedMapLayers(MapLayers):
+
+    @property
+    def js(self):
+        layers = self.layers()
+        return """
+$(window).bind('mapload', function (evt, widget) {
+    // INFO: No longer load more layers if they're already there.
+    if (widget.map.layers.length !== 0) {
+        return;
+    }
+
+    widget.addLayers([
+        %(layers)s
+    ], '%(mapid)s');
+});
+
+""" % {
+            'layers': ",\n".join([l.jsfactory for l in layers]),
+            'mapid': self.widget.mapid
+        }
