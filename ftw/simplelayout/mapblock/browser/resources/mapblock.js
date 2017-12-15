@@ -67,6 +67,11 @@
           mapWidgets.collectivegeo("add_edit_layer");
           mapWidgets.collectivegeo("add_geocoder");
 
+          if (mapWidgets.data('collectivegeo') === undefined) {
+            // No widget initialized
+            return;
+          }
+
           var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
           ol_map.events.register('zoomend', ol_map, function(event){
             var zoom = event.object.zoom;
