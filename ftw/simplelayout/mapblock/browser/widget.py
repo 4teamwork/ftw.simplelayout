@@ -1,5 +1,8 @@
 from collective.z3cform.mapwidget.widget import FormMapWidget
 from collective.z3cform.mapwidget.widget import IFormMapWidget
+from collective.z3cform.mapwidget.widget import MapDisplayWidget
+from ftw.simplelayout.mapblock.browser.mapblock import BlockMapWidget
+from z3c.form.interfaces import DISPLAY_MODE
 from z3c.form.interfaces import IFieldWidget
 from z3c.form.interfaces import IFormLayer
 from z3c.form.widget import FieldWidget
@@ -16,6 +19,12 @@ class IBlockFormMapWidget(IFormMapWidget):
 
 class BlockFormMapWidget(FormMapWidget):
     implementsOnly(IBlockFormMapWidget)
+
+    @property
+    def cgmap(self):
+        if self.mode == DISPLAY_MODE:
+            return MapDisplayWidget(self, self.request, self.context)
+        return BlockMapWidget(self, self.request, self.context)
 
 
 @adapter(IField, IFormLayer)

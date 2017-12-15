@@ -26,7 +26,8 @@
               data-cgeolongitude map_defaults/longitude|nothing;
               data-cgeozoom map_defaults/zoom|nothing;
               data-cgeolang map_defaults/lang|nothing;
-              data-geocoderurl map_defaults/geocoderurl|nothing;">
+              data-geocoderurl map_defaults/geocoderurl|nothing;
+              data-maplayer map_defaults/maplayer|nothing;">
         <!-- openlayers map -->
       </div>
 

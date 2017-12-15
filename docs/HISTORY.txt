@@ -8,6 +8,9 @@ Changelog
 - Content page builder only synchronises page config if the
   page contains blocks. [mbaechtold]
 
+- Implement persisten map layer and zoom value.
+  Both can be chosen in the edit widget and will be reused on the display widget. [mathias.leimgruber]
+
 
 1.19.0 (2017-11-01)
 -------------------
