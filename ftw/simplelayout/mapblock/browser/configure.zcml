@@ -31,4 +31,12 @@
         template="templates/map_display.pt"
         />
 
+    <!-- Implement more specific MapLayers factory to prevent adding the same layers multiple times -->
+    <adapter
+        for="zope.interface.Interface
+             ftw.simplelayout.interfaces.ISimplelayoutLayer
+             zope.interface.Interface
+             collective.geo.mapwidget.interfaces.IMapWidget"
+        factory=".widget.FixedMapLayers" />
+
 </configure>
