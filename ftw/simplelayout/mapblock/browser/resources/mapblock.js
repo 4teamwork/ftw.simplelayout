@@ -55,6 +55,15 @@
       setTimeout(function(){
           map.map.setCenter(map.map.center, map.settings.zoom);
         }, 200);
+
+
+        // Set base layer based on settings
+        var maplayer = $(map.trigger).data('maplayer');
+        if (maplayer) {
+          var initLayer = map.map.getLayersByName(maplayer);
+          map.map.setBaseLayer(initLayer[0]);
+        }
+
     });
 
     $(document).on("onLoad", ".overlay", function() {
