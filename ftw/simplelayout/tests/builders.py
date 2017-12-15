@@ -20,8 +20,9 @@ class ContenPageBuilder(DexterityBuilder):
         return self
 
     def after_create(self, obj):
-        map(create, map(methodcaller('within', obj), self.block_builders))
-        synchronize_page_config_with_blocks(obj)
+        if self.block_builders:
+            map(create, map(methodcaller('within', obj), self.block_builders))
+            synchronize_page_config_with_blocks(obj)
         return super(ContenPageBuilder, self).after_create(obj)
 
 builder_registry.register('sl content page', ContenPageBuilder)

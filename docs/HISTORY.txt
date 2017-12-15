@@ -5,7 +5,8 @@ Changelog
 1.19.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Content page builder only synchronises page config if the
+  page contains blocks. [mbaechtold]
 
 
 1.19.0 (2017-11-01)
