@@ -29,7 +29,6 @@
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"/>
-        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
     <!-- View information -->

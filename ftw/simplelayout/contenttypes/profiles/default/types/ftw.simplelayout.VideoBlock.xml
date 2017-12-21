@@ -26,7 +26,6 @@
     <property name="behaviors">
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
-        <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
     </property>
 
     <!-- View information -->
