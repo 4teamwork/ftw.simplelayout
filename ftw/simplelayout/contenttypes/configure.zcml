@@ -27,12 +27,23 @@
         />
 
     <genericsetup:registerProfile
+        zcml:condition="not-have plone-5"
         name="default"
         title="ftw.simplelayout.contenttypes default"
         directory="profiles/default"
         description="Simlelayout default content types"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
+
+    <genericsetup:registerProfile
+        zcml:condition="have plone-5"
+        name="default"
+        title="ftw.simplelayout.contenttypes default"
+        directory="profiles/default_plone5"
+        description="Simlelayout default content types"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
 
     <genericsetup:registerProfile
         name="uninstall"
