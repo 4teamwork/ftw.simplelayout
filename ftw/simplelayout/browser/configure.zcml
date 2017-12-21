@@ -52,4 +52,13 @@
              *"
         />
 
+    <configure package="plone.app.content.browser.selection">
+        <browser:page
+            for="ftw.simplelayout.interfaces.ISimplelayout"
+            name="select_default_page"
+            class="ftw.simplelayout.browser.selection.SimplelayoutDefaultPageSelectionView"
+            template="templates/select_default_page.pt"
+            permission="cmf.ModifyViewTemplate"
+            />
+    </configure>
 </configure>
