@@ -241,5 +241,5 @@ class BlockConfiguration(object):
 
     def load(self):
         annotations = IAnnotations(self.context)
-        return annotations.setdefault(BLOCK_ANNOTATION_KEY,
-                                      PersistentMapping())
+        return annotations.get(BLOCK_ANNOTATION_KEY,
+                               PersistentMapping())
