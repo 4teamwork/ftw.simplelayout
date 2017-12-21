@@ -1,5 +1,6 @@
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
+from pkg_resources import get_distribution
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import safe_utf8
@@ -18,6 +19,9 @@ except pkg_resources.DistributionNotFound:
 else:
     FTW_TRASH_SUPPORT = True
     from ftw.trash.interfaces import ITrashed
+
+
+IS_PLONE_5 = get_distribution('Plone').version >= '5'
 
 
 def normalize_portal_type(portal_type):
