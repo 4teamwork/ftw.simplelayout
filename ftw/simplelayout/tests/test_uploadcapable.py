@@ -1,12 +1,21 @@
-from collective.quickupload.interfaces import IQuickUploadFileFactory
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.contenttypes.browser import uploadcapable
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
+from unittest2 import skipIf
 from unittest2 import TestCase
 from zope.component import queryAdapter
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('collective.quickupload')
+    from collective.quickupload.interfaces import IQuickUploadFileFactory
+    from ftw.simplelayout.contenttypes.browser import uploadcapable
+except pkg_resources.DistributionNotFound:
+    pass
 
 
+@skipIf(IS_PLONE_5, 'c.quickupload does no exists for plone 5')
 class TestUploadCapableAdapter(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
