@@ -42,6 +42,7 @@ extras_require = {
     ],
     'plone4': [
         'collective.quickupload',
+        'plone.app.referenceablebehavior',
     ],
     'trash': [
         'ftw.trash',
@@ -90,7 +91,6 @@ setup(name='ftw.simplelayout',
           'ftw.autofeature',
           'plone.api',
           'plone.app.blob',
-          'plone.app.referenceablebehavior',
           'plone.uuid',
           'Products.Archetypes',
           'Products.ATContentTypes',
