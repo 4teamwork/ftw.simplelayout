@@ -5,7 +5,7 @@
     <dependency>profile-collective.js.jqueryui:default</dependency>
     <dependency>profile-plone.app.relationfield:default</dependency>
     <dependency>profile-ftw.simplelayout:lib</dependency>
-    <!-- <dependency>profile-ftw.colorbox:default</dependency> -->
+    <dependency>profile-ftw.colorbox:default</dependency>
     <dependency>profile-ftw.table:default</dependency>
     <dependency>profile-ftw.referencewidget:default</dependency>
     <dependency>profile-ftw.iframefix:default</dependency>
