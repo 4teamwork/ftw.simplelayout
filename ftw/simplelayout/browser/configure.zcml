@@ -52,11 +52,4 @@
              *"
         />
 
-    <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayout"
-        name="content_anchors"
-        class=".anchors.BlockAnchorsView"
-        permission="zope2.View"
-        />
-
 </configure>
