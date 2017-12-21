@@ -2,16 +2,13 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.uuid.interfaces import IUUID
-from unittest2 import skipUnless
 import re
 import transaction
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestLeadImage(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING

@@ -4,20 +4,17 @@ from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.opengraph.interfaces import IOpenGraphDataProvider
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from plone import api
 from plone.uuid.interfaces import IUUID
 from plone.registry.interfaces import IRegistry
-from unittest2 import skipUnless
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 import transaction
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestOpenGraph(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
