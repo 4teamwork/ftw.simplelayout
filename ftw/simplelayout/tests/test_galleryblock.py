@@ -207,8 +207,6 @@ class TestGalleryBlock(TestCase):
         response = browser.json
         browser.parse(response['content'])
         browser.fill({'Hide the block': False}).submit()
-        import pdb
-        pdb.set_trace()
         # The block must no longer have a class "hidden".
         browser.visit(self.page)
         self.assertEqual(
