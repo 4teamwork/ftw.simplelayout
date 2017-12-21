@@ -9,6 +9,7 @@ from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.simplelayout.tests.sample_types import ISampleSimplelayoutContainer
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
 from plone.registry.interfaces import IRegistry
@@ -90,10 +91,16 @@ class TestSimplelayoutView(SimplelayoutTestCase):
     @browsing
     def test_store_save_simplelayout_state_thru_view(self, browser):
         payload = {"data": json.dumps(self.payload)}
+
+        if IS_PLONE_5:
+            from plone.protect.authenticator import createToken
+            payload["_authenticator"] = createToken()
+
         browser.login().visit(self.container,
                               view='sl-ajax-save-state-view',
                               data=payload)
 
+        browser.visit(self.container)
         self.assertEquals(self.payload, self.page_config.load())
 
     @browsing
