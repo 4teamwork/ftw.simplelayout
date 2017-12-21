@@ -4,7 +4,6 @@ from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
-from ftw.testbrowser.pages import folder_contents
 from plone.uuid.interfaces import IUUID
 import transaction
 
@@ -38,9 +37,7 @@ class TestRemoveBlockPloneUI(SimplelayoutTestCase):
     def test_page_state_is_updated_after_block_removal(self, browser):
         browser.login().visit(self.page, view='folder_contents')
 
-        # XXX: This no linger works with our sample block
-        # folder_contents.select(self.block)
-        browser.fill({'paths:list': True})
-        folder_contents.form().find_button_by_label('Delete').click()
+        browser.visit(self.block, view='delete_confirmation')
+        browser.find_button_by_label('Delete').click()
         browser.visit(self.page)
         self.assertFalse(browser.css('.sl-block'))
