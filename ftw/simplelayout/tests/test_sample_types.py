@@ -1,9 +1,11 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
+from unittest2 import skipIf
 from unittest2 import TestCase
 
 
@@ -87,6 +89,7 @@ class TestSampleTypes(TestCase):
             browser.url)
 
 
+    @skipIf(IS_PLONE_5, 'No mapblock on plone 5.1')
     @browsing
     def test_adding_mapblock(self, browser):
         browser.login().visit(self.page)
@@ -95,6 +98,7 @@ class TestSampleTypes(TestCase):
         browser.find_button_by_label('Save').click()
         self.assertEquals(1, len(browser.css('.ftw-simplelayout-mapblock')))
 
+    @skipIf(IS_PLONE_5, 'No mapblock on plone 5.1')
     @browsing
     def test_mapblock_id_based_on_block_id(self, browser):
         mapblock = create(Builder('sl mapblock').within(self.page))
