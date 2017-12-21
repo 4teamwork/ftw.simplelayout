@@ -25,7 +25,6 @@ extras_require = {
     'tests': tests_require,
     'test': tests_require,
     'contenttypes': [
-        'collective.quickupload',
         'ftw.colorbox',
         'ftw.table',
         'ftw.upgrade',
@@ -40,6 +39,9 @@ extras_require = {
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
+    ],
+    'plone4': [
+        'collective.quickupload',
     ],
     'trash': [
         'ftw.trash',
