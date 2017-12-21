@@ -41,6 +41,7 @@
         />
 
     <adapter
+        zcml:condition="not-have plone-5"
         factory=".uploadcapable.FileListingQuickUploadCapableFileFactory"
         for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
         provides="collective.quickupload.interfaces.IQuickUploadFileFactory"
