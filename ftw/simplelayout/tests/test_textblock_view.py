@@ -2,7 +2,6 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
 from plone import api
 from plone.app.textfield.value import RichTextValue
@@ -10,7 +9,6 @@ from plone.namedfile.file import NamedBlobImage
 from plone.uuid.interfaces import IUUID
 from Products.CMFCore.utils import getToolByName
 from StringIO import StringIO
-from unittest2 import skipUnless
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
@@ -19,7 +17,6 @@ import json
 import transaction
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestTextBlockRendering(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
