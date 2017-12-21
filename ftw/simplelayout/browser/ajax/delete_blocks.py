@@ -1,5 +1,6 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
-from plone.app.linkintegrity.interfaces import ILinkIntegrityInfo
+from ftw.simplelayout.utils import IS_PLONE_5
+from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
 from Products.CMFPlone.utils import isLinked
@@ -26,7 +27,9 @@ class DeleteBlocks(BrowserView):
             raise BadRequest('No data given')
 
         # TODO validate payload contains blocks and confirmed flag.
-        self.link_integrity = ILinkIntegrityInfo(self.request)
+        if not IS_PLONE_5:
+            from plone.app.linkintegrity.interfaces import ILinkIntegrityInfo
+            self.link_integrity = ILinkIntegrityInfo(self.request)
 
         data = json.loads(payload)
         self.block = uuidToObject(data['block'])
@@ -48,7 +51,17 @@ class DeleteBlocks(BrowserView):
 
     def get_link_integrity_breaches(self):
         if isLinked(self.block):
-            breaches = self.link_integrity.getIntegrityBreaches()
+
+            if IS_PLONE_5:
+                portal = api.portal.get()
+                view = api.content.get_view(
+                    'delete_confirmation_info',
+                    portal,
+                    self.request)
+                breaches = view.get_breaches([self.block, ])
+            else:
+                breaches = self.link_integrity.getIntegrityBreaches()
+
             breaches_info = []
             sources = breaches.values()
             sources = len(sources) and sources[0] or sources
