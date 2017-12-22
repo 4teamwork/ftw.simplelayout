@@ -71,6 +71,12 @@
             description="Simlelayout js library"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
+
+        <upgrade-step:directory
+            profile="ftw.simplelayout:lib"
+            directory="./upgrades"
+            />
+
     </configure>
 
     <genericsetup:registerProfile
