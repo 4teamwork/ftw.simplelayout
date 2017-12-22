@@ -4,7 +4,10 @@
     <permission name="ftw.simplelayout: Change Layouts" acquire="False">
       <role name="Manager" />
       <role name="Site Administrator"/>
-      <role name="Contributor" />
+    </permission>
+    <permission name="ftw.simplelayout: Hide title" acquire="False">
+      <role name="Manager" />
+      <role name="Site Administrator"/>
     </permission>
   </permissions>
 </rolemap>
