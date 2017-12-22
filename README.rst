@@ -32,7 +32,18 @@ To have proper styles we recommend using `plonetheme.blueberry <https://github.c
 
 **Plone 5**
 
-Plone 5 is supported but without any default contenttypes.
+WIP Plone 5.1 Support.
+
+Features dropped but needs to be implemented again with plone 5.1:
+
+- Anchor extraction from Blocks for anchors on a page.
+- MultiUpload solution based on quickupload
+- Plone 4 profile is need, which installs c.quickupload in metadata.xml.
+- Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
+- Mapblock relpacement for plone 5.1 (c.geo is no longer supported)
+- Development profile for plone 5.1 is missing.
+
+
 
 **Trash**
 
@@ -50,14 +61,6 @@ Installation
         ...
         ftw.simplelayout[contenttypes]
 
-- With mapblock:
-
-::
-
-    [instance]
-    eggs +=
-        ...
-        ftw.simplelayout[contenttypes, mapblock]
 
 - Or wihtout any extras (Plone 5 is supported):
 
