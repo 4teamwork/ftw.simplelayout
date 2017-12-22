@@ -71,6 +71,7 @@ class SimplelayoutToolbox(BrowserView):
                     if fti.getId() in locally_allowed]
 
     def layouts_actions(self):
+        RELOAD_LAYOUT_URL = self.context.absolute_url() + '/sl-ajax-reload-layout-view'
         return OrderedDict([
             ('move', {
                 'title': translate(_(u'label_move_layout',
@@ -88,7 +89,7 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_layout_inverse',
                                      default=u'Invert layout'),
                                    context=self.request),
-                'href': './sl-ajax-reload-layout-view',
+                'href': RELOAD_LAYOUT_URL,
                 'class': 'icon-layout-reverse reload',
                 'data-layoutreverse': 'layout-reverse',
                 'rules': [2, 3],
@@ -97,7 +98,7 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_golden_ratio',
                                      default=u'golden ratio'),
                                    context=self.request),
-                'href': './sl-ajax-reload-layout-view',
+                'href': RELOAD_LAYOUT_URL,
                 'class': 'icon-golden-ratio reload',
                 'data-golden_ratio': 'golden-ratio',
                 'rules': [2],
@@ -106,7 +107,7 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_layout13',
                                      default=u'1-3 layout'),
                                    context=self.request),
-                'href': './sl-ajax-reload-layout-view',
+                'href': RELOAD_LAYOUT_URL,
                 'class': 'icon-layout13 reload',
                 'data-layout13': 'layout13',
                 'rules': [2],
@@ -115,7 +116,7 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_layout121',
                                      default=u'1-2-1 layout'),
                                    context=self.request),
-                'href': './sl-ajax-reload-layout-view',
+                'href': RELOAD_LAYOUT_URL,
                 'class': 'icon-layout121 reload',
                 'data-layout121': 'layout121',
                 'rules': [3],
@@ -124,7 +125,7 @@ class SimplelayoutToolbox(BrowserView):
                 'title': translate(_(u'label_layout112',
                                      default=u'1-1-2 layout'),
                                    context=self.request),
-                'href': './sl-ajax-reload-layout-view',
+                'href': RELOAD_LAYOUT_URL,
                 'class': 'icon-layout112 reload',
                 'data-layout112': 'layout112',
                 'rules': [3],
