@@ -2,16 +2,19 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from plone import api
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
+from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
-from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
 from StringIO import StringIO
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
+from zope.component import queryUtility
 from zope.intid.interfaces import IIntIds
 import json
 import transaction
@@ -193,22 +196,29 @@ class TestTextBlockRendering(TestCase):
         link_url = browser.css('a.colorboxLink').first.attrib['href']
 
         browser.open(link_url)
-        self.assertEquals(
-            'image/jpeg',
-            browser.headers['content-type']
-        )
+
+        if IS_PLONE_5:
+            self.assertEquals('image/png', browser.headers['content-type'])
+        else:
+            self.assertEquals('image/jpeg', browser.headers['content-type'])
 
     @browsing
     def test_image_overlay_when_scale_is_missing(self, browser):
-        # Get the imaging properties.
-        properties_tool = getToolByName(self.page, 'portal_properties')
-        imaging_properties = properties_tool.get('imaging_properties')
-        allowed_sizes = imaging_properties.allowed_sizes
+        if IS_PLONE_5:
+            registry = queryUtility(IRegistry)
+            sizes = registry.forInterface(IImagingSchema, prefix="plone").allowed_sizes
+
+        else:
+            ptool = api.get_tool('portal_properties')
+            sizes = ptool.get('imaging_properties').allowed_sizes
 
         # Remove the colorbox scale.
-        allowed_sizes = filter(lambda x: not x.startswith('colorbox'),
-                               allowed_sizes)
-        imaging_properties.allowed_sizes = tuple(allowed_sizes)
+        allowed_sizes = filter(lambda x: not x.startswith('colorbox'), sizes)
+
+        if IS_PLONE_5:
+            registry.forInterface(IImagingSchema, prefix="plone").allowed_sizes = allowed_sizes
+        else:
+            ptool.get('imaging_properties').allowed_sizes = tuple(allowed_sizes)
         transaction.commit()
 
         block = create(Builder('sl textblock')
