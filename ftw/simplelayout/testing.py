@@ -2,6 +2,7 @@ from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
 from ftw.simplelayout.tests import sample_types
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testing.layer import ComponentRegistryLayer
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
@@ -62,7 +63,9 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
 
         applyProfile(portal, 'plone.app.contenttypes:default')
         applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
-        applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+
+        if not IS_PLONE_5:
+            applyProfile(portal, 'ftw.simplelayout.mapblock:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
