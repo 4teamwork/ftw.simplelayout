@@ -1,4 +1,5 @@
-from collective.geo.behaviour import MessageFactory as _
+from collective.geo.behaviour import MessageFactory as CGMF
+from ftw.simplelayout import _
 from ftw.simplelayout.mapblock.contents.interfaces import IMapBlock
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
@@ -12,6 +13,15 @@ from zope.interface import implements
 class IMapBlockSchema(form.Schema):
     """MapBlock for simplelayout
     """
+
+    title = schema.TextLine(
+        title=_(u'label_title', default=u'Title'),
+        required=False)
+
+    show_title = schema.Bool(
+        title=_(u'label_show_title', default=u'Show title'),
+        default=True,
+        required=False)
 
     form.mode(zoomlevel='hidden')
     zoomlevel = schema.TextLine(
@@ -27,7 +37,7 @@ class IMapBlockSchema(form.Schema):
 
     model.fieldset(
         'coordinates',
-        label=_(u'Coordinates'),
+        label=CGMF(u'Coordinates'),
         fields=('zoomlevel', 'maplayer')
     )
 
