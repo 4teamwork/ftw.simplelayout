@@ -9,10 +9,12 @@ from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
 from plone.uuid.interfaces import IUUID
+from Products.CMFPlone.events import ReorderedEvent
 from zExceptions import Unauthorized
 from zope.annotation import IAnnotations
 from zope.component import queryMultiAdapter
 from zope.component.hooks import getSite
+from zope.event import notify
 from zope.interface import implements
 
 
@@ -208,6 +210,8 @@ class PageConfiguration(object):
         """
         block_ids = map(methodcaller('getId'), self.get_ordered_blocks())
         self.context.moveObjectsToTop(block_ids)
+
+        notify(ReorderedEvent(self.context))  # ftw.gopip support
 
     def _default_page_config(self):
         """Returns a default page config"""

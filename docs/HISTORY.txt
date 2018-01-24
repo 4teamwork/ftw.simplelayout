@@ -5,6 +5,8 @@ Changelog
 1.19.1 (unreleased)
 -------------------
 
+- Add support for "ftw.gopip". [jone, mbaechtold]
+
 - Optionally render a title of the mapblock. [mbaechtold]
 
 - Content page builder only synchronises page config if the
