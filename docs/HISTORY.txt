@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.19.1 (unreleased)
+1.20.0 (2018-01-26)
 -------------------
 
 - Add support for "ftw.gopip". [jone, mbaechtold]
