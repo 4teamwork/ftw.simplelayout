@@ -1,3 +1,5 @@
+from ftw.simplelayout.handlers import unwrap_persistence
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.interfaces import IBlockProperties
 from plone.app.uuid.utils import uuidToObject
@@ -26,7 +28,14 @@ class ReloadBlockView(BrowserView):
         self._get_block()
         self._set_new_view()
         self._block_specific_modifications()
-        return self._render_block()
+
+        block_data = dict()
+        block_data['obj_html'] = self._render_block()
+        block_data['config'] = unwrap_persistence(IBlockConfiguration(self.block).load())
+        block_data['config']['view_name'] = self.properties.get_current_view_name()
+
+        self.request.response.setHeader("Content-type", "text/json")
+        return json.dumps(block_data)
 
     def _get_block(self):
         uid = self.data.get('uid', None)

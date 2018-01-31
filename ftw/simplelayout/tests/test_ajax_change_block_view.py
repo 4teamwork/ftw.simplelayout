@@ -53,7 +53,8 @@ class TestBlockReloadView(SimplelayoutTestCase):
         block = create(Builder('sample block').within(self.container))
         reload_view = self.get_reload_view(block)
 
-        self.assertEquals('OK', reload_view())
+        reload_output = json.loads(reload_view())
+        self.assertEquals('OK', reload_output['obj_html'])
 
     def test_changing_block_view(self):
         block = create(Builder('sample block').within(self.container))
@@ -61,7 +62,10 @@ class TestBlockReloadView(SimplelayoutTestCase):
             block,
             dict(view_name='block_view_different'))
 
-        self.assertEquals('OK - different view', reload_view())
+        reload_output = json.loads(reload_view())
+
+        self.assertEquals('OK - different view', reload_output['obj_html'])
+        self.assertEquals('block_view_different', reload_output['config']['view_name'])
 
     def test_block_specific_modifier_gets_called(self):
 

@@ -11,7 +11,8 @@
           <div tal:attributes="class block/css_classes;
                                data-type block/type;
                                data-uid block/uid;
-                               data-url block/url;">
+                               data-url block/url;
+                               data-config block/config;">
             <a tal:attributes="name block/id"></a>
             <div class="sl-block-content"
                  tal:content="structure block/obj_html">Block Content</div>

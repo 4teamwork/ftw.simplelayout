@@ -302,8 +302,14 @@
       var action = $(this);
       $.extend(payLoad, action.data());
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
-      configRequest.done(function(blockContent) {
-        block.content(blockContent);
+      configRequest.done(function(blockData) {
+        // replace the block html
+        block.content(blockData.obj_html);
+
+        // update the block metadata
+        var config = block.element.data('config');
+        $.extend(config, blockData.config);
+        block.updateToolbar();
       });
     });
 
