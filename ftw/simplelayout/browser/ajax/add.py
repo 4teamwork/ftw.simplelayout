@@ -1,13 +1,18 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
+from ftw.simplelayout.handlers import unwrap_persistence
+from ftw.simplelayout.interfaces import IBlockConfiguration
+from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayout
 from ftw.simplelayout.utils import get_block_html
 from plone.app.uuid.utils import uuidToObject
-from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+from plone.dexterity.browser.add import DefaultAddForm
+from plone.dexterity.browser.add import DefaultAddView
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import BoundPageTemplate
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import adapts
+from zope.component import getMultiAdapter
 from zope.interface import implements
 from zope.interface import Interface
 from zope.traversing.interfaces import ITraversable
@@ -67,12 +72,18 @@ class AddView(DefaultAddView):
             # Consume all statusmessages
             IStatusMessage(self.request).show()
 
+            block_config = unwrap_persistence(IBlockConfiguration(obj).load())
+            block_properties = getMultiAdapter((obj, self.request),
+                                                IBlockProperties)
+            block_config['view_name'] = block_properties.get_current_view_name()
+
             return json_response(self.request,
                                  uid=self.form_instance.obj_uid,
                                  url=obj.absolute_url(),
                                  content=self.form_instance.obj_html,
                                  proceed=True,
-                                 id=obj.id)
+                                 id=obj.id,
+                                 config=block_config)
 
         return json_response(self.request,
                              content=super(AddView, self).render(),

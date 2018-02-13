@@ -153,7 +153,7 @@
         }
         addOverlay.onSubmit(function(data) {
           block.represents = data.uid;
-          block.data({ represents: data.uid, url: data.url });
+          block.data({ represents: data.uid, url: data.url, config: data.config });
           block.content(data.content, data.id);
           block.commit();
           saveState();
