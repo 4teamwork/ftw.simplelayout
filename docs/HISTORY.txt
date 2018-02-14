@@ -5,6 +5,8 @@ Changelog
 1.20.1 (unreleased)
 -------------------
 
+- Move title and show_title field into the coordinates schemata on MapBlock. [mathias.leimgruber]
+
 - Fix loading google / geo maps in overlays within a tab. [mathias.leimgruber]
 
 
