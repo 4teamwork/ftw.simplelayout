@@ -5,7 +5,7 @@ Changelog
 1.20.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix loading google / geo maps in overlays within a tab. [mathias.leimgruber]
 
 
 1.20.0 (2018-01-26)
