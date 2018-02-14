@@ -38,7 +38,7 @@ class IMapBlockSchema(form.Schema):
     model.fieldset(
         'coordinates',
         label=CGMF(u'Coordinates'),
-        fields=('zoomlevel', 'maplayer')
+        fields=('zoomlevel', 'maplayer', 'title', 'show_title')
     )
 
 
