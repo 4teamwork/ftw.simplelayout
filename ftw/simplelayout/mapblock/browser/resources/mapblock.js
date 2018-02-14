@@ -68,52 +68,57 @@
 
     $(document).on("onLoad", ".overlay", function() {
 
+      function initEdit(mapWidgets) {
+
+        if (mapWidgets.length === 0) {
+          return;
+        }
+
+        mapWidgets.collectivegeo();
+        mapWidgets.collectivegeo("add_edit_layer");
+        mapWidgets.collectivegeo("add_geocoder");
+
+        var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
+        ol_map.events.register('zoomend', ol_map, function(event){
+          var zoom = event.object.zoom;
+          var zoomField = $('#form-widgets-zoomlevel');
+
+          if (zoomField !== undefined) {
+            zoomField.val(zoom);
+          }
+        });
+
+        ol_map.events.register('changebaselayer', ol_map, function(event){
+          var layer = event.object.baseLayer.name;
+          var layerField = $('#form-widgets-maplayer');
+          if (layerField !== undefined) {
+            layerField.val(layer);
+          }
+        });
+
+        // Fix mouse pointer position according to openlayers pointer
+        $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
+          mapWidgets.collectivegeo("refresh");
+        });
+      }
+
       window.MapBlockEditInitializer = function() {
         if ($.fn.collectivegeo) {
-          var maps = $(".blockwidget-cgmap").filter(":visible");
           var mapWidgets = $(".map-widget .blockwidget-cgmap").filter(":visible");
-          maps.collectivegeo();
-          mapWidgets.collectivegeo("add_edit_layer");
-          mapWidgets.collectivegeo("add_geocoder");
+          initEdit(mapWidgets);
 
           if (mapWidgets.data('collectivegeo') === undefined) {
             // No widget initialized
-            return;
-          }
-
-          var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
-          ol_map.events.register('zoomend', ol_map, function(event){
-            var zoom = event.object.zoom;
-            var zoomField = $('#form-widgets-zoomlevel');
-
-            if (zoomField !== undefined) {
-              zoomField.val(zoom);
-            }
-          });
-
-          ol_map.events.register('changebaselayer', ol_map, function(event){
-            var layer = event.object.baseLayer.name;
-            var layerField = $('#form-widgets-maplayer');
-            if (layerField !== undefined) {
-              layerField.val(layer);
-            }
-          });
-
-          // Fix mouse pointer position according to openlayers pointer
-          $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
-            mapWidgets.collectivegeo("refresh");
-          });
-
-          // get hidden maps (maps with no size yet)
-          maps = $('.blockwidget-cgmap').filter(':hidden');
-          if (maps.length > 0) {
-              var tabs = $('select.formTabs, ul.formTabs');
-              tabs.bind("onClick", function (e, index) {
+            // Get hidden maps (maps with no size yet)
+            if ($('.blockwidget-cgmap').filter(':hidden').length > 0) {
+                var tabs = $('select.formTabs, ul.formTabs');
+                tabs.bind("onClick", function (e, index) {
+                  initGoogleMaps();
                   var curpanel = $(this).data('tabs').getCurrentPane();
-                  curpanel.find('.blockwidget-cgmap').collectivegeo(); // refresh
-                  curpanel.find('.map-widget .blockwidget-cgmap').collectivegeo('add_edit_layer');
-                  curpanel.find('.map-widget .blockwidget-cgmap').collectivegeo('add_geocoder');
-              });
+                  initEdit(curpanel.find('.blockwidget-cgmap'));
+                });
+            }
+            return;
           }
         }
       };
