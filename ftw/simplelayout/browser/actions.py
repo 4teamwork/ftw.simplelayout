@@ -36,7 +36,7 @@ class DefaultActions(object):
                 'title': translate(
                     _(u'label:delete_block', default='Delete block'),
                     context=self.request),
-                'href': './sl-ajax-delete-blocks-view'
+                'href': self.context.absolute_url() + '/sl-ajax-delete-blocks-view'
             })
         ])
 
