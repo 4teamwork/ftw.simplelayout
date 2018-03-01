@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.20.1 (unreleased)
+1.20.1 (2018-03-01)
 -------------------
 
 - Move title and show_title field into the coordinates schemata on MapBlock. [mathias.leimgruber]
