@@ -45,6 +45,18 @@ class GalleryBlockView(BaseBlock):
                            mapping={'title': title}),
                          context=self.request)
 
+    def get_full_image_scale(self, img):
+        scales = img.restrictedTraverse('@@images')
+        try:
+            scale = scales.scale('image', scale='sl_galleryblock_4k', direction='up')
+        except IOError:
+            scale = None
+
+        if not scale:
+            scale = self._get_fallback_image_scale()
+
+        return scale.absolute_url()
+
     def get_image_scale_tag(self, img):
         scales = img.restrictedTraverse('@@images')
         try:

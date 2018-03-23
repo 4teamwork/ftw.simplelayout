@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+
+ <object name="imaging_properties" meta_type="Plone Property Sheet">
+  <property name="allowed_sizes" type="lines" purge="False">
+   <element value="sl_galleryblock_4k 3840:2160"/>
+  </property>
+ </object>
+
+</object>
