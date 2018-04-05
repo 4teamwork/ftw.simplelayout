@@ -152,9 +152,12 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(self.page,
                               view='sl-ajax-reload-block-view',
                               data=payload)
-        browser.visit(block, view='@@block_view')
+        browser.visit(self.page)
 
-        self.assertEquals(alt_text, browser.css('img').first.attrib['alt'])
+        self.assertEquals(
+            alt_text,
+            browser.css('.ftw-simplelayout-textblock img').first.attrib['alt']
+        )
 
     @browsing
     def test_image_alt_text_empty(self, browser):
