@@ -202,11 +202,10 @@ class TestGalleryBlock(TestCase):
             browser.css('.ftw-simplelayout-galleryblock').first.attrib['class']
         )
 
-        # Edit the block and make appear again.
-        browser.visit(galleryblock, view='edit.json')
-        response = browser.json
-        browser.parse(response['content'])
+        # Edit the block and make it appear again.
+        browser.visit(galleryblock, view='edit')
         browser.fill({'Hide the block': False}).submit()
+
         # The block must no longer have a class "hidden".
         browser.visit(self.page)
         self.assertEqual(
