@@ -25,7 +25,7 @@ extras_require = {
     'tests': tests_require,
     'test': tests_require,
     'contenttypes': [
-        'ftw.colorbox',
+        'ftw.colorbox >= 1.3.0',
         'ftw.table',
         'ftw.upgrade',
         'plone.app.dexterity',
