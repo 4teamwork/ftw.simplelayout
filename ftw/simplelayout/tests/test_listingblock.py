@@ -155,10 +155,8 @@ class TestListingBlock(TestCase):
             browser.css('.ftw-simplelayout-filelistingblock').first.attrib['class']
         )
 
-        # Edit the block and make appear again.
-        browser.visit(listingblock, view='edit.json')
-        response = browser.json
-        browser.parse(response['content'])
+        # Edit the block and make it appear again.
+        browser.visit(listingblock, view='edit')
         browser.fill({'Hide the block': False, 'Columns': 'Type'}).submit()
 
         # The block must no longer have a class "hidden".
