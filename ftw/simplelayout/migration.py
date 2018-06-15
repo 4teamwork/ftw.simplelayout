@@ -645,6 +645,7 @@ class ListingBlockMigrator(object):
                 'tableColumns'),
             field_mapping={
                 'showTitle': 'show_title',
+                'crop_image': 'False',
                 'slick_settings': 'slick_config'},
             additional_steps=additional_steps,
             options=options,
