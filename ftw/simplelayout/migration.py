@@ -62,6 +62,7 @@ try:
     from zope.component import implementedBy
     from zope.component import providedBy
     from zope.interface import noLongerProvides
+    from zope.interface import alsoProvides
     from zope.schema import getFieldsInOrder
 
 except ImportError, IMPORT_ERROR:
@@ -251,6 +252,7 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     # Therefore we must migrate the view from the page to the new
     # teaser block.
     migrate_sl_image_layout(old_page, teaser_block)
+    alsoProvides(teaser_block, ISlotA)
     move_sl_block_into_slot(old_page, new_page, teaser_block, 'default')
 
 
