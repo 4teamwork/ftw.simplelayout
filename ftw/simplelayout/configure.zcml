@@ -19,9 +19,10 @@
 
     <include file="permissions.zcml" />
     <include package=".browser" />
-    <include package=".portlets" />
-    <include package=".opengraph" />
     <include package=".images" />
+    <include package=".opengraph" />
+    <include package=".portlets" />
+    <include package=".staging" />
     <include file="behaviors.zcml" />
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
