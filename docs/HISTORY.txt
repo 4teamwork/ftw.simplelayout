@@ -5,8 +5,7 @@ Changelog
 1.20.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Add optional support for ``ftw.trash``. [jone]
 
 1.20.3 (2018-07-05)
 -------------------

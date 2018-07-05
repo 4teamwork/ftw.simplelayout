@@ -17,7 +17,8 @@ tests_require = [
     'transaction',
     'unittest2',
     'zope.configuration',
-    ]
+    'ftw.simplelayout [trash]',
+]
 
 extras_require = {
     'tests': tests_require,
@@ -38,6 +39,9 @@ extras_require = {
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
+    ],
+    'trash': [
+        'ftw.trash',
     ]
 }
 
