@@ -70,7 +70,7 @@
 
     var target = $("body");
 
-    var baseUrl = $("body").data("base-url") ? $("body").data("base-url") + "/" : $("base").attr("href");
+    var baseUrl = $("base").length === 1 ? $("base").attr("href") : $("body").data("base-url") + "/";
 
     var isUploading = function() { return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0; };
 
