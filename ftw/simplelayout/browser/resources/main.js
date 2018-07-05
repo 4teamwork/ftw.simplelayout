@@ -235,7 +235,7 @@
       }
     });
 
-    $(global.document).on("click", ".sl-layout .reload", function() {
+    $(global.document).on("click", ".sl-layout .reload", function(event) {
       event.preventDefault();
       var action = $(this);
       var layout = action.parents(".sl-layout").data().object;

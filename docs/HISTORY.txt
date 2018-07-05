@@ -7,6 +7,8 @@ Changelog
 
 - Support Plone 4.3.17 (Quick fix for getting the base-url still from the base tag). [mathias.leimgruber]
 
+- Fix JS error in FF by actually passing the event object as parameter. [mathias.leimgruber]
+
 
 1.21.0 (2018-07-05)
 -------------------
