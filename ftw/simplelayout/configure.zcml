@@ -79,6 +79,11 @@
         />
 
     <adapter
+        zcml:condition="have ftw.simplelayout:trash"
+        factory=".trash.is_restoring_bock_allowed"
+        />
+
+    <adapter
         for="ftw.simplelayout.interfaces.ISimplelayout"
         factory=".configuration.PageConfiguration"
         />

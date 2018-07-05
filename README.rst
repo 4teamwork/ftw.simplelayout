@@ -34,6 +34,10 @@ To have proper styles we recommend using `plonetheme.blueberry <https://github.c
 
 Plone 5 is supported but without any default contenttypes.
 
+**Trash**
+
+``ftw.simplelayout`` integrates automatically with `ftw.trash`_ when both are installed.
+
 Installation
 ============
 
@@ -646,3 +650,5 @@ Copyright
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.simplelayout`` is licensed under GNU General Public License, version 2.
+
+.. _ftw.trash: https://github.com/4teamwork/ftw.trash
