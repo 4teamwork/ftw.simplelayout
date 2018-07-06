@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.21.1 (unreleased)
+1.21.1 (2018-07-06)
 -------------------
 
 - Support Plone 4.3.17 (Quick fix for getting the base-url still from the base tag). [mathias.leimgruber]
