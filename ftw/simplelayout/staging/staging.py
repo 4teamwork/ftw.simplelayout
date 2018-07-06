@@ -16,6 +16,7 @@ from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.interface import Interface
+from zope.interface import noLongerProvides
 
 
 @implementer(IStaging)
@@ -36,15 +37,6 @@ class Staging(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
-    def create_working_copy(self, target_container):
-        """Make a working copy of the adapted context into the given target container.
-        """
-        working_copy = self._create_clone(self.context, target_container)
-        alsoProvides(self.context, IBaseline)
-        alsoProvides(working_copy, IWorkingCopy)
-        self._link(self.context, working_copy)
-        return working_copy
 
     def is_baseline(self):
         """Returns whether the adapted object is a baseline.
@@ -69,6 +61,29 @@ class Staging(object):
             return None
 
         return map(uuidToObject, self.context._working_copies)
+
+    def create_working_copy(self, target_container):
+        """Make a working copy of the adapted context into the given target container.
+        """
+        working_copy = self._create_clone(self.context, target_container)
+        alsoProvides(self.context, IBaseline)
+        alsoProvides(working_copy, IWorkingCopy)
+        self._link(self.context, working_copy)
+        return working_copy
+
+    def discard_working_copy(self):
+        """When the adapted context is the working copy, this method discards the
+        working copy by deleting it.
+        """
+        if not self.is_working_copy():
+            raise ValueError('Adapted context must be a working copy.')
+
+        baseline = self.get_baseline()
+        working_copy = self.context
+
+        self._unlink(baseline, working_copy)
+        noLongerProvides(baseline, IBaseline)
+        aq_parent(aq_inner(working_copy)).manage_delObjects([working_copy.getId()])
 
     def _create_clone(self, obj, target_container):
         """When cloning an object, we want to make sure that we do not clone
