@@ -1,9 +1,11 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.testing import staticuid
 from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
 from zope.interface.verify import verifyObject
@@ -69,6 +71,25 @@ class TestWorkingCopy(TestCase):
         self.assertEquals({'textblock'}, set(working_copy.objectIds()))
         self.assertEquals({'child-page', 'textblock'}, set(baseline.objectIds()))
         self.assertNotEquals(IUUID(baseline['textblock']), IUUID(working_copy['textblock']))
+
+    def test_UIDS_in_sl_state_are_updated_when_creating_working_copy(self):
+        with staticuid('baseline'):
+            baseline = create(Builder('sl content page').titled(u'A page')
+                              .with_blocks(Builder('sl textblock').titled(u'First'),
+                                           Builder('sl textblock').titled(u'Second')))
+
+        self.assertEquals(
+            {'default': [{'cols': [{'blocks': [{'uid': 'baseline000000000000000000000002'},
+                                               {'uid': 'baseline000000000000000000000003'}]}]}]},
+            IPageConfiguration(baseline).load())
+
+        with staticuid('workingcopy'):
+            working_copy = IStaging(baseline).create_working_copy(self.portal)
+
+        self.assertEquals(
+            {'default': [{'cols': [{'blocks': [{'uid': 'workingcopy000000000000000000001'},
+                                               {'uid': 'workingcopy000000000000000000002'}]}]}]},
+            IPageConfiguration(working_copy).load())
 
     def test_discard_working_copy(self):
         baseline = create(Builder('sl content page').titled(u'A page'))
