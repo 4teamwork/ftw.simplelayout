@@ -5,7 +5,7 @@ Changelog
 1.21.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add plone.restapi endpoint for synchronizing blocks with the page config [Nachtalb]
 
 
 1.21.1 (2018-07-06)

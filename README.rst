@@ -275,6 +275,15 @@ has the css class ``inneredit`` and a data attribute named ``uid`` containing th
 
 After editing the content, the view automatically reloads the block.
 
+Additional plone.restapi methods
+--------------------------------
+
+After creating blocks in a simplelayout content page they should be synchronized with the pages config. Otherwise
+the order in the frontend might me wrong. It also removes objects which are in the pages config but not in the page itself.
+
+To do this, you can simply send a RestAPI Post (more information about
+`plone.restapi <https://github.com/plone/plone.restapi>`_ ) request to the path of your page, appended with
+``@sl-synchronize-page-config-with-blocks``. A dict with ``added`` and ``removed`` block UIDs is returned.
 
 Run custom JS code
 ==================

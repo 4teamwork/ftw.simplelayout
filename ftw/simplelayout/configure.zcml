@@ -27,6 +27,7 @@
 
     <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
     <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
+    <include package=".restapi" zcml:condition="installed plone.restapi" />
 
     <cmf:registerDirectory
             name="ftw.simplelayout"

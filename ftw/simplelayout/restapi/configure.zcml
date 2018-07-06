@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <include package="plone.rest" file="meta.zcml" />
+
+  <plone:service
+      method="POST"
+      name="@sl-synchronize-page-config-with-blocks"
+      for="ftw.simplelayout.interfaces.ISimplelayout"
+      factory=".services.SynchronizePageConfigWithBlocks"
+      permission="cmf.ModifyPortalContent"
+      />
+</configure>
