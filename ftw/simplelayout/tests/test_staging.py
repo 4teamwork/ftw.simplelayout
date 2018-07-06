@@ -7,7 +7,6 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
 from zope.interface.verify import verifyObject
-import transaction
 
 
 class TestWorkingCopy(TestCase):
@@ -24,8 +23,6 @@ class TestWorkingCopy(TestCase):
         baseline = create(Builder('sl content page').titled(u'A page'))
         self.assert_staging_interfaces((), baseline)
         working_copy = IStaging(baseline).create_working_copy(self.portal)
-        transaction.commit()
-
         self.assertTrue(baseline._p_oid)
         self.assertTrue(working_copy._p_oid)
         self.assertNotEquals(baseline._p_oid, working_copy._p_oid)
@@ -44,6 +41,34 @@ class TestWorkingCopy(TestCase):
         self.assertEquals({'textblock'}, set(working_copy.objectIds()))
         self.assertEquals({'child-page', 'textblock'}, set(baseline.objectIds()))
         self.assertNotEquals(IUUID(baseline['textblock']), IUUID(working_copy['textblock']))
+
+    def test_is_baseline(self):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        self.assertFalse(IStaging(baseline).is_baseline())
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertTrue(IStaging(baseline).is_baseline())
+        self.assertFalse(IStaging(working_copy).is_baseline())
+
+    def test_is_working_copy(self):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        self.assertFalse(IStaging(baseline).is_working_copy())
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertFalse(IStaging(baseline).is_working_copy())
+        self.assertTrue(IStaging(working_copy).is_working_copy())
+
+    def test_get_baseline(self):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        self.assertIsNone(IStaging(baseline).get_baseline())
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertIsNone(IStaging(baseline).get_baseline())
+        self.assertEquals(baseline, IStaging(working_copy).get_baseline())
+
+    def test_get_working_copies(self):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        self.assertIsNone(IStaging(baseline).get_working_copies())
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertEquals([working_copy], IStaging(baseline).get_working_copies())
+        self.assertIsNone(IStaging(working_copy).get_working_copies())
 
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)

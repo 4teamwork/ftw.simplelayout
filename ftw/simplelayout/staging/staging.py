@@ -8,6 +8,8 @@ from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from persistent.list import PersistentList
+from plone.app.uuid.utils import uuidToObject
+from plone.uuid.interfaces import IUUID
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapter
 from zope.component import getMultiAdapter
@@ -41,7 +43,32 @@ class Staging(object):
         working_copy = self._create_clone(self.context, target_container)
         alsoProvides(self.context, IBaseline)
         alsoProvides(working_copy, IWorkingCopy)
+        self._link(self.context, working_copy)
         return working_copy
+
+    def is_baseline(self):
+        """Returns whether the adapted object is a baseline.
+        """
+        return IBaseline.providedBy(self.context)
+
+    def is_working_copy(self):
+        """Returns whether the adapted object is a working copy.
+        """
+        return IWorkingCopy.providedBy(self.context)
+
+    def get_baseline(self):
+        """When the adapted object is a working copy, the baseline is returned, otherwise None.
+        """
+        if self.is_working_copy():
+            return uuidToObject(self.context._baseline)
+
+    def get_working_copies(self):
+        """When the adapted object is a baseline, a list of working copies is returned.
+        """
+        if not self.is_baseline():
+            return None
+
+        return map(uuidToObject, self.context._working_copies)
 
     def _create_clone(self, obj, target_container):
         """When cloning an object, we want to make sure that we do not clone
@@ -85,3 +112,14 @@ class Staging(object):
         finally:
             if annkey in annotations:
                 annotations[annkey] = original
+
+    def _link(self, baseline, working_copy):
+        if not hasattr(baseline, '_working_copies'):
+            baseline._working_copies = PersistentList()
+
+        baseline._working_copies.append(IUUID(working_copy))
+        working_copy._baseline = IUUID(baseline)
+
+    def _unlink(self, baseline, working_copy):
+        del working_copy._baseline
+        baseline._working_copies.remove(IUUID(working_copy))
