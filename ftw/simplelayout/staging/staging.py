@@ -64,7 +64,8 @@ class Staging(object):
         return IWorkingCopy.providedBy(self.context)
 
     def get_baseline(self):
-        """When the adapted object is a working copy, the baseline is returned, otherwise None.
+        """When the adapted object is a working copy, the baseline is returned,
+        otherwise None.
         """
         if self.is_working_copy():
             return uuidToObject(self.context._baseline)
@@ -135,8 +136,8 @@ class Staging(object):
 
     @contextmanager
     def _cleanup_filter_tree(self, obj):
-        """Filter the child objects of the ``obj`` so only children considered as "integrated"
-        are beeing kept.
+        """Filter the child objects of the ``obj`` so only children considered
+        as "integrated" are beeing kept.
         The context manager restores on exit.
         """
         original = obj._tree
@@ -156,7 +157,8 @@ class Staging(object):
         annkey = 'plone.folder.ordered.order'
         if annkey in annotations:
             original = annotations[annkey]
-            annotations[annkey] = PersistentList([key for key in original if key in obj._tree])
+            annotations[annkey] = PersistentList(
+                [key for key in original if key in obj._tree])
         try:
             yield
         finally:
@@ -165,7 +167,8 @@ class Staging(object):
 
     def _map_uuids(self, baseline, working_copy):
         """Map uuids of baseline objects and working copy objects.
-        The uuid of the baseline object is stored on the working copy object, recursively.
+        The uuid of the baseline object is stored on the working copy object,
+        recursively.
         The method returns a map from baseline objects to their working copy objects.
         """
         baseline_to_workingcopy = {}
