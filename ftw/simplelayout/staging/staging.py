@@ -253,6 +253,8 @@ class Staging(object):
             source_storage = schemata(source)
             target_storage = schemata(target)
             value = getattr(source_storage, name)
+            if isinstance(value, str):
+                value = value.decode('utf-8')
             setattr(target_storage, field.getName(), value)
 
     def _copy_at_field_values(self, source, target):
