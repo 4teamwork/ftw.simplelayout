@@ -185,11 +185,13 @@ class TestWorkingCopy(TestCase):
                 {'uid': 'editing0000000000000000000000001'}]}]}]},
             IPageConfiguration(working_copy).load())
 
-        IStaging(working_copy).apply_working_copy()
+        with staticuid('applying'):
+            IStaging(working_copy).apply_working_copy()
+
         self.assertEquals(
             {'default': [{'cols': [{'blocks': [
                 {'uid': 'baseline000000000000000000000002'},
-                {'uid': 'editing0000000000000000000000001'}]}]}]},
+                {'uid': 'applying000000000000000000000001'}]}]}]},
             IPageConfiguration(baseline).load())
 
     def test_sl_block_state_is_copied_when_applying(self):

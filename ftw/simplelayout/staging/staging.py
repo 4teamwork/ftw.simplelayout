@@ -212,9 +212,9 @@ class Staging(object):
             target_uid = getattr(source_child, '_baseline_obj_uuid', None)
             if target_uid in target_children_map:
                 target_child = target_children_map.pop(target_uid)
-                self._apply_children(source_child, target_child, uuid_map=uuid_map)
             else:
-                self._move_new_obj(source_child, target)
+                target_child = self._copy_new_obj(source_child, target)
+            self._apply_children(source_child, target_child, uuid_map=uuid_map)
 
         target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
         return uuid_map
@@ -288,6 +288,7 @@ class Staging(object):
         for schema in getAdditionalSchemata(portal_type=portal_type):
             yield schema
 
-    def _move_new_obj(self, obj, new_parent):
-        clipboard = aq_parent(aq_inner(obj)).manage_cutObjects([obj.getId()])
-        new_parent.manage_pasteObjects(clipboard)
+    def _copy_new_obj(self, obj, new_parent):
+        clipboard = aq_parent(aq_inner(obj)).manage_copyObjects([obj.getId()])
+        info = new_parent.manage_pasteObjects(clipboard)
+        return new_parent.get(info[0]['new_id'])
