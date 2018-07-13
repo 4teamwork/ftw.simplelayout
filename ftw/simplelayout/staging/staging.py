@@ -201,25 +201,22 @@ class Staging(object):
         noLongerProvides(working_copy, IWorkingCopy)
         aq_parent(aq_inner(working_copy)).manage_delObjects([working_copy.getId()])
 
-    def _apply_children(self, source_container, target_container, condition=None,
-                        uuid_map=None):
+    def _apply_children(self, source, target, condition=None, uuid_map=None):
         uuid_map = uuid_map or {}
-        uuid_map[IUUID(source_container)] = IUUID(target_container)
-        target_children_map = {IUUID(obj): obj for obj
-                               in filter(condition, target_container.objectValues())}
-        self._copy_field_values(source_container, target_container)
-        self._update_simplelayout_block_state(source_container, target_container)
+        uuid_map[IUUID(source)] = IUUID(target)
+        target_children_map = {IUUID(obj): obj for obj in filter(condition, target.objectValues())}
+        self._copy_field_values(source, target)
+        self._update_simplelayout_block_state(source, target)
 
-        for source_obj in filter(condition, source_container.objectValues()):
-            target_uid = getattr(source_obj, '_baseline_obj_uuid', None)
+        for source_child in filter(condition, source.objectValues()):
+            target_uid = getattr(source_child, '_baseline_obj_uuid', None)
             if target_uid in target_children_map:
-                target_obj = target_children_map.pop(target_uid)
-                self._apply_children(source_obj, target_obj, uuid_map=uuid_map)
+                target_child = target_children_map.pop(target_uid)
+                self._apply_children(source_child, target_child, uuid_map=uuid_map)
             else:
-                self._move_new_obj(source_obj, target_container)
+                self._move_new_obj(source_child, target)
 
-        target_container.manage_delObjects(map(methodcaller('getId'),
-                                               target_children_map.values()))
+        target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
         return uuid_map
 
     def _update_simplelayout_page_state(self, working_copy, baseline, uuid_map):
