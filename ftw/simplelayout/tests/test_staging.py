@@ -1,6 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
@@ -190,6 +191,21 @@ class TestWorkingCopy(TestCase):
                 {'uid': 'baseline000000000000000000000002'},
                 {'uid': 'editing0000000000000000000000001'}]}]}]},
             IPageConfiguration(baseline).load())
+
+    def test_sl_block_state_is_copied_when_applying(self):
+        baseline = create(Builder('sl content page').titled(u'A page')
+                          .with_blocks(Builder('sl textblock').titled(u'Block')))
+        self.assertEqual({}, IBlockConfiguration(baseline.block).load())
+
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertEqual({}, IBlockConfiguration(working_copy.block).load())
+
+        IBlockConfiguration(working_copy.block).store({'scale': 'mini'})
+        self.assertEqual({}, IBlockConfiguration(baseline.block).load())
+        self.assertEqual({'scale': 'mini'}, IBlockConfiguration(working_copy.block).load())
+
+        IStaging(working_copy).apply_working_copy()
+        self.assertEqual({'scale': 'mini'}, IBlockConfiguration(baseline.block).load())
 
     def test_working_copy_is_removed_after_applying(self):
         bl_page = create(Builder('sl content page').titled(u'A page'))

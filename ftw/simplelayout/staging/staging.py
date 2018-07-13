@@ -3,7 +3,9 @@ from Acquisition import aq_inner
 from Acquisition import aq_parent
 from BTrees.OOBTree import OOBTree
 from contextlib import contextmanager
+from copy import deepcopy
 from ftw.simplelayout.configuration import columns_in_config
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.staging.interfaces import IBaseline
@@ -206,6 +208,7 @@ class Staging(object):
         target_children_map = {IUUID(obj): obj for obj
                                in filter(condition, target_container.objectValues())}
         self._copy_field_values(source_container, target_container)
+        self._update_simplelayout_block_state(source_container, target_container)
 
         for source_obj in filter(condition, source_container.objectValues()):
             target_uid = getattr(source_obj, '_baseline_obj_uuid', None)
@@ -231,6 +234,14 @@ class Staging(object):
                     block['uid'] = uuid_map[block['uid']]
 
         IPageConfiguration(baseline).store(config)
+
+    def _update_simplelayout_block_state(self, source, target):
+        """Copy the simplelayout block state from the source block to the target block.
+        """
+        source_configuration = IBlockConfiguration(source, None)
+        if source_configuration:
+            config = deepcopy(source_configuration.load())
+            IBlockConfiguration(target).store(config)
 
     def _copy_field_values(self, source, target):
         """Copy all fields values from "source" to "target".
