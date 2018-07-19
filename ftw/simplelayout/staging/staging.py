@@ -28,6 +28,16 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import noLongerProvides
 from zope.schema import getFieldsInOrder
+import pkg_resources
+
+
+try:
+    pkg_resources.get_distribution('ftw.trash')
+except pkg_resources.DistributionNotFound:
+    FTW_TRASH_SUPPORT = False
+else:
+    FTW_TRASH_SUPPORT = True
+    from ftw.trash.interfaces import ITrashed
 
 
 @implementer(IStaging)
@@ -204,11 +214,11 @@ class Staging(object):
     def _apply_children(self, source, target, condition=None, uuid_map=None):
         uuid_map = uuid_map or {}
         uuid_map[IUUID(source)] = IUUID(target)
-        target_children_map = {IUUID(obj): obj for obj in filter(condition, target.objectValues())}
+        target_children_map = {IUUID(obj): obj for obj in self._get_children(target, condition)}
         self._copy_field_values(source, target)
         self._update_simplelayout_block_state(source, target)
 
-        for source_child in filter(condition, source.objectValues()):
+        for source_child in self._get_children(source, condition):
             target_uid = getattr(source_child, '_baseline_obj_uuid', None)
             if target_uid in target_children_map:
                 target_child = target_children_map.pop(target_uid)
@@ -267,7 +277,7 @@ class Staging(object):
 
     def _copy_at_field_values(self, source, target):
         for source_field in source.Schema().values():
-            if source_field.__init__ in self.IGNORED_AT_FIELDS:
+            if source_field.__name__ in self.IGNORED_AT_FIELDS:
                 continue
 
             # Re-fetch the field from the target schema since source and
@@ -292,3 +302,14 @@ class Staging(object):
         clipboard = aq_parent(aq_inner(obj)).manage_copyObjects([obj.getId()])
         info = new_parent.manage_pasteObjects(clipboard)
         return new_parent.get(info[0]['new_id'])
+
+    def _get_children(self, folder, filter_condition=None):
+        """Return the children of a container, supporting the trash and an arbitrary
+        filter condition.
+        """
+        children = filter(filter_condition, folder.objectValues())
+
+        if FTW_TRASH_SUPPORT:
+            children = filter(lambda item: not ITrashed.providedBy(item), children)
+
+        return children
