@@ -112,7 +112,7 @@ class Staging(object):
         uuid_map = self._apply_children(working_copy, baseline,
                                         condition=self.is_child_integrated)
         self._update_simplelayout_page_state(working_copy, baseline, uuid_map)
-        self._delete_and_unlink_working_copy(baseline, working_copy)
+        self._unlink_and_delete_working_copy(baseline, working_copy)
 
     def discard_working_copy(self):
         """When the adapted context is the working copy, this method discards the
@@ -123,7 +123,7 @@ class Staging(object):
 
         baseline = self.get_baseline()
         working_copy = self.context
-        self._delete_and_unlink_working_copy(baseline, working_copy)
+        self._unlink_and_delete_working_copy(baseline, working_copy)
 
     def is_child_integrated(self, obj):
         """Condition for deciding whether a child is "integrated" or not.
@@ -205,7 +205,7 @@ class Staging(object):
         del working_copy._baseline
         baseline._working_copies.remove(IUUID(working_copy))
 
-    def _delete_and_unlink_working_copy(self, baseline, working_copy):
+    def _unlink_and_delete_working_copy(self, baseline, working_copy):
         self._unlink(baseline, working_copy)
         noLongerProvides(baseline, IBaseline)
         noLongerProvides(working_copy, IWorkingCopy)
