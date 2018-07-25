@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-17 13:19+0000\n"
+"POT-Creation-Date: 2018-07-25 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,6 +58,14 @@ msgstr ""
 msgid "Extends a content by two fields internal and external link"
 msgstr ""
 
+#: ./ftw/simplelayout/interfaces.py:129
+msgid "Facebook Admins"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:122
+msgid "Facebook App ID"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr ""
@@ -83,7 +91,7 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:79
+#: ./ftw/simplelayout/configure.zcml:80
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -93,6 +101,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/mapblock/behavior.py:16
 msgid "Modify geographical data for this content"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:123
+msgid "Multiple users are separated by comma"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:115
@@ -115,7 +127,7 @@ msgstr ""
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:54
+#: ./ftw/simplelayout/configure.zcml:55
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -296,11 +308,11 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:79
+#: ./ftw/simplelayout/configure.zcml:80
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:54
+#: ./ftw/simplelayout/configure.zcml:55
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -323,7 +335,7 @@ msgid "hidden_label_image_caption"
 msgstr ""
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:40
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
 #: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
 msgid "image_link_alttext"
 msgstr ""
