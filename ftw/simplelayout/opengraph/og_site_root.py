@@ -28,7 +28,10 @@ class PloneRootOpenGraph(object):
                 ('og:title', self.get_title()),
                 ('og:type', self.get_type()),
                 ('og:url', self.get_url()),
-                ('og:image', self.get_image_url())
+                ('og:image', self.get_image_url()),
+                ('og:description', self.get_description()),
+                ('fb:app_id', self.get_fb_app_id()),
+                ('fb:admins', self.get_fb_admins()),
             ])
         else:
             return OrderedDict([])
@@ -59,3 +62,15 @@ class PloneRootOpenGraph(object):
     def get_site_name(self):
         """OG site name"""
         return None
+
+    def get_description(self):
+        """OG description"""
+        return api.portal.get().Description().decode('utf-8')
+
+    def get_fb_app_id(self):
+        """FB app ID"""
+        return self._settings.facebook_app_id
+
+    def get_fb_admins(self):
+        """FB admins"""
+        return self._settings.facebook_admins

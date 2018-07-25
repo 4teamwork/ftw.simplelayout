@@ -6,7 +6,7 @@ Changelog
 -------------------
 
 - Add plone.restapi endpoint for synchronizing blocks with the page config [Nachtalb]
-
+- Add additional opengraph tags og:description fb:app_id fb:admins [Nachtalb]
 
 1.21.1 (2018-07-06)
 -------------------
