@@ -118,6 +118,19 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
     )
 
+    facebook_app_id = schema.TextLine(
+        title=_(u'Facebook App ID'),
+        description=_(u'Multiple users are separated by comma'),
+        default=u'',
+        required=False
+    )
+
+    facebook_admins = schema.TextLine(
+        title=_(u'Facebook Admins'),
+        default=u'',
+        required=False
+    )
+
 
 class IBlockModifier(Interface):
     """Block specific modifier"""

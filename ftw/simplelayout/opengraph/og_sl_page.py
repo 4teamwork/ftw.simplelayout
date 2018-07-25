@@ -16,7 +16,11 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
             ('og:title', self.get_title()),
             ('og:type', self.get_type()),
             ('og:url', self.get_url()),
-            ('og:image', self.get_image_url())
+            ('og:image', self.get_image_url()),
+            ('og:site_name', self.get_site_name()),
+            ('og:description', self.get_description()),
+            ('fb:app_id', self.get_fb_app_id()),
+            ('fb:admins', self.get_fb_admins()),
         ])
 
     def get_title(self):
@@ -39,3 +43,7 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
     def get_site_name(self):
         """OG site name"""
         return api.portal.get().Title().decode('utf-8')
+
+    def get_description(self):
+        """OG description"""
+        return self.context.Description().decode('utf-8')

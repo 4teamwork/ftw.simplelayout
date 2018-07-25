@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-07-17 13:19+0000\n"
+"POT-Creation-Date: 2018-07-25 10:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,6 +55,14 @@ msgstr "Aktiviere den OpenGraph Support auf dem Plone Root"
 msgid "Extends a content by two fields internal and external link"
 msgstr ""
 
+#: ./ftw/simplelayout/interfaces.py:129
+msgid "Facebook Admins"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:122
+msgid "Facebook App ID"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr "Dateiauflistung"
@@ -80,7 +88,7 @@ msgstr "Bild"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:79
+#: ./ftw/simplelayout/configure.zcml:80
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -91,6 +99,10 @@ msgstr "Karte"
 #: ./ftw/simplelayout/mapblock/behavior.py:16
 msgid "Modify geographical data for this content"
 msgstr "Ändere die geographischen Daten für diesen Inhalt"
+
+#: ./ftw/simplelayout/interfaces.py:123
+msgid "Multiple users are separated by comma"
+msgstr "Mehrere Benutzer werden mit Komma getrennt"
 
 #: ./ftw/simplelayout/interfaces.py:115
 msgid "OpenGraph global type"
@@ -112,7 +124,7 @@ msgstr "Zeigt die OpenGraph Meta Tags"
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:54
+#: ./ftw/simplelayout/configure.zcml:55
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -293,11 +305,11 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:79
+#: ./ftw/simplelayout/configure.zcml:80
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:54
+#: ./ftw/simplelayout/configure.zcml:55
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -320,7 +332,7 @@ msgid "hidden_label_image_caption"
 msgstr "Bild Legende:"
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:40
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
 #: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
 msgid "image_link_alttext"
 msgstr "${title}. Vergrösserte Ansicht"
