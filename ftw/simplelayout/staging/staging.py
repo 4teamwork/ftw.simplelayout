@@ -216,6 +216,7 @@ class Staging(object):
         uuid_map[IUUID(source)] = IUUID(target)
         target_children_map = {IUUID(obj): obj for obj in self._get_children(target, condition)}
         self._copy_field_values(source, target)
+        self._purge_scales(target)
         self._update_simplelayout_block_state(source, target)
 
         for source_child in self._get_children(source, condition):
@@ -302,6 +303,14 @@ class Staging(object):
         clipboard = aq_parent(aq_inner(obj)).manage_copyObjects([obj.getId()])
         info = new_parent.manage_pasteObjects(clipboard)
         return new_parent.get(info[0]['new_id'])
+
+    def _purge_scales(self, obj):
+        """When copying value from one object to another, they may include images
+        which have scales. In order to make sure that we do not use old caches,
+        we are purging the complete scaling cache so that the scales will be
+        regenerated when needed.
+        """
+        IAnnotations(obj).pop('plone.scale', None)
 
     def _get_children(self, folder, filter_condition=None):
         """Return the children of a container, supporting the trash and an arbitrary
