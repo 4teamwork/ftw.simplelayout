@@ -141,6 +141,18 @@ class TestWorkingCopy(TestCase):
 
         self.assertEquals(['foo'], bl_page.objectIds())
 
+    def test_applying_adds_new_containers_and_handles_recursion(self):
+        bl_page = create(Builder('sl content page').titled(u'Page'))
+        self.assertEquals([], bl_page.objectIds())
+
+        wc_page = IStaging(bl_page).create_working_copy(self.portal)
+        gallery = create(Builder('sl galleryblock').titled(u'Pictures').within(wc_page))
+        create(Builder('image').titled('Sea').within(gallery))
+        IStaging(wc_page).apply_working_copy()
+
+        self.assertEquals(['pictures'], bl_page.objectIds())
+        self.assertEquals(['sea'], bl_page.pictures.objectIds())
+
     def test_files_in_filelistingblocks_are_synced(self):
         bl_page = create(
             Builder('sl content page').titled(u'Page')
@@ -191,7 +203,7 @@ class TestWorkingCopy(TestCase):
         self.assertEquals(
             {'default': [{'cols': [{'blocks': [
                 {'uid': 'baseline000000000000000000000002'},
-                {'uid': 'applying000000000000000000000001'}]}]}]},
+                {'uid': 'editing0000000000000000000000001'}]}]}]},
             IPageConfiguration(baseline).load())
 
     def test_sl_block_state_is_copied_when_applying(self):

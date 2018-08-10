@@ -222,9 +222,9 @@ class Staging(object):
             target_uid = getattr(source_child, '_baseline_obj_uuid', None)
             if target_uid in target_children_map:
                 target_child = target_children_map.pop(target_uid)
+                self._apply_children(source_child, target_child, uuid_map=uuid_map)
             else:
                 target_child = self._copy_new_obj(source_child, target)
-            self._apply_children(source_child, target_child, uuid_map=uuid_map)
 
         target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
         return uuid_map
