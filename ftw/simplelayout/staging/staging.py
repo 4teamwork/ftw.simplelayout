@@ -209,7 +209,13 @@ class Staging(object):
         self._unlink(baseline, working_copy)
         noLongerProvides(baseline, IBaseline)
         noLongerProvides(working_copy, IWorkingCopy)
-        aq_parent(aq_inner(working_copy)).manage_delObjects([working_copy.getId()])
+
+        parent = aq_parent(aq_inner(working_copy))
+        if hasattr(parent, 'manage_immediatelyDeleteObjects'):
+            # When ftw.trash is installed, immediately delete the working copy.
+            parent.manage_immediatelyDeleteObjects([working_copy.getId()])
+        else:
+            parent.manage_delObjects([working_copy.getId()])
 
     def _apply_children(self, source, target, condition=None, uuid_map=None):
         uuid_map = uuid_map or {}
