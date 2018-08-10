@@ -13,6 +13,8 @@ from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from operator import methodcaller
 from persistent.list import PersistentList
+from plone.app.textfield.interfaces import IRichText
+from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.interfaces import IDexterityContent
 from plone.dexterity.interfaces import IDexterityFTI
@@ -97,7 +99,8 @@ class Staging(object):
         alsoProvides(self.context, IBaseline)
         alsoProvides(working_copy, IWorkingCopy)
         self._link(self.context, working_copy)
-        self._map_uuids(self.context, working_copy)
+        uuid_map = self._map_uuids(self.context, working_copy)
+        self._update_internal_links_recursively(working_copy, uuid_map)
         return working_copy
 
     def apply_working_copy(self):
@@ -111,6 +114,9 @@ class Staging(object):
         working_copy = self.context
         uuid_map = self._apply_children(working_copy, baseline,
                                         condition=self.is_child_integrated)
+        self._update_internal_links_recursively(baseline, uuid_map,
+                                                condition=self.is_child_integrated)
+
         self._update_simplelayout_page_state(working_copy, baseline, uuid_map)
         self._unlink_and_delete_working_copy(baseline, working_copy)
 
@@ -259,6 +265,33 @@ class Staging(object):
         if source_configuration:
             config = deepcopy(source_configuration.load())
             IBlockConfiguration(target).store(config)
+
+    def _update_internal_links_recursively(self, obj, uuid_map, condition=None):
+        if IDexterityContent.providedBy(obj):
+            self._update_internal_links_DX(obj, uuid_map)
+        for child in self._get_children(obj, condition):
+            self._update_internal_links_recursively(child, uuid_map)
+
+    def _update_internal_links_DX(self, obj, uuid_map):
+        for name, field, schemata in self._iter_fields(obj.portal_type):
+            if not IRichText.providedBy(field):
+                continue
+
+            storage = schemata(obj)
+            ori_text = getattr(storage, name)
+            if not ori_text:
+                continue
+
+            new_text = self._replace_uids_in_html(ori_text.raw, uuid_map)
+            if new_text == ori_text.raw:
+                continue
+
+            setattr(storage, name, RichTextValue(new_text))
+
+    def _replace_uids_in_html(self, html, uuid_map):
+        for from_uuid, to_uuid in uuid_map.items():
+            html = html.replace(from_uuid, to_uuid)
+        return html
 
     def _copy_field_values(self, source, target):
         """Copy all fields values from "source" to "target".

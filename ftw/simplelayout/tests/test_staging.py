@@ -229,6 +229,55 @@ class TestWorkingCopy(TestCase):
         IStaging(working_copy).apply_working_copy()
         self.assertEqual({'scale': 'mini'}, IBlockConfiguration(baseline.block).load())
 
+    def test_html_references_within_page_are_rewritten(self):
+        self.maxDiff = None
+        bl_page = create(Builder('sl content page').titled(u'A page'))
+        with staticuid('baseline'):
+            bl_one = create(Builder('sl textblock').titled(u'One').within(bl_page))
+            self.assertEquals('baseline000000000000000000000001', IUUID(bl_one))
+            bl_two = create(Builder('sl textblock').titled(u'Two').within(bl_page))
+            self.assertEquals('baseline000000000000000000000002', IUUID(bl_two))
+            create(Builder('sl textblock').titled(u'ToC').within(bl_page)
+                   .having(text=RichTextValue(u'''
+<p>
+  <a class="internal-link" href="resolveuid/baseline000000000000000000000001">One</a>
+</p>
+                            '''.strip())))
+
+        with staticuid('workingcopy'):
+            wc_page = IStaging(bl_page).create_working_copy(self.portal)
+            self.assertEquals('workingcopy000000000000000000001', IUUID(wc_page['one']))
+            self.assertEquals('workingcopy000000000000000000002', IUUID(wc_page['two']))
+
+        self.assertMultiLineEqual(u'''
+<p>
+  <a class="internal-link" href="resolveuid/workingcopy000000000000000000001">One</a>
+</p>
+        '''.strip(), wc_page.toc.text.raw.strip())
+
+        with staticuid('editing'):
+            wc_three = create(Builder('sl textblock').titled(u'Three').within(wc_page))
+            self.assertEquals('editing0000000000000000000000001', IUUID(wc_three))
+
+        wc_page.toc.text = RichTextValue(u'''
+<p>
+  <a class="internal-link" href="resolveuid/workingcopy000000000000000000001">One</a>
+  <a class="internal-link" href="resolveuid/workingcopy000000000000000000002">Two</a>
+  <a class="internal-link" href="resolveuid/editing0000000000000000000000001">Three</a>
+</p>
+        '''.strip())
+
+        with staticuid('apply'):
+            IStaging(wc_page).apply_working_copy()
+
+        self.assertMultiLineEqual(u'''
+<p>
+  <a class="internal-link" href="resolveuid/baseline000000000000000000000001">One</a>
+  <a class="internal-link" href="resolveuid/baseline000000000000000000000002">Two</a>
+  <a class="internal-link" href="resolveuid/editing0000000000000000000000001">Three</a>
+</p>
+        '''.strip(), bl_page.toc.text.raw.strip())
+
     def test_working_copy_is_removed_after_applying(self):
         bl_page = create(Builder('sl content page').titled(u'A page'))
         wc_page = IStaging(bl_page).create_working_copy(self.portal)
