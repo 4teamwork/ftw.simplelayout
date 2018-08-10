@@ -74,10 +74,13 @@ class TestWorkingCopy(TestCase):
         create(Builder('sl content page').titled(u'Child page').within(baseline))
         create(Builder('sl textblock').titled(u'Textblock').within(baseline))
         self.assertEquals({'child-page', 'textblock'}, set(baseline.objectIds()))
+        self.assertEquals(2, baseline.objectCount())
 
         working_copy = IStaging(baseline).create_working_copy(self.portal)
         self.assertEquals({'textblock'}, set(working_copy.objectIds()))
+        self.assertEquals(1, working_copy.objectCount())
         self.assertEquals({'child-page', 'textblock'}, set(baseline.objectIds()))
+        self.assertEquals(2, baseline.objectCount())
         self.assertNotEquals(IUUID(baseline['textblock']), IUUID(working_copy['textblock']))
 
     def test_UIDS_in_sl_state_are_updated_when_creating_working_copy(self):

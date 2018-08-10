@@ -155,10 +155,13 @@ class Staging(object):
         original = obj._tree
         obj._tree = OOBTree({key: value for (key, value) in obj._tree.items()
                              if self.is_child_integrated(value)})
+        original_count = obj._count()
+        obj._count.set(len(obj._tree))
         try:
             yield
         finally:
             obj._tree = original
+            obj._count.set(original_count)
 
     @contextmanager
     def _cleanup_filter_order(self, obj):
