@@ -4,6 +4,7 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import parent
 from unittest2 import TestCase
 import transaction
 
@@ -235,141 +236,151 @@ class TestGalleryBlock(TestCase):
         )
 
     @browsing
-    def test_sort_by_title_ascending(self, browser):
-        gallery = create(Builder('sl galleryblock')
-                         .titled('My galleryblock')
-                         .having(sort_on='sortable_title')
-                         .having(sort_order='ascending')
-                         .within(self.page))
+    def test_available_sort_options(self, browser):
+        """
+        A safety net in case some fellow programmer modifies the sort options in
+        the file listing block not knowing that they are used on the gallery
+        block too.
+        """
+        gallery_block = create(Builder('sl galleryblock')
+                               .titled('My galleryblock')
+                               .within(self.page))
+        browser.login()
+        browser.visit(gallery_block, view='edit')
+        self.assertEqual(
+            [
+                ('sortable_title', 'sortable_title'),
+                ('modified', 'modified'),
+                ('id', 'id'),
+                ('getObjPositionInParent', 'Position in Folder'),
+            ],
+            browser.forms['form'].find_field('Sort by').options
+        )
 
-        create(Builder('image')
-               .titled('a_img')
-               .with_dummy_content()
-               .within(gallery))
+        @browsing
+        def test_sort_by_position_in_parent_ascending(self, browser):
+            gallery_block = create(Builder('sl galleryblock')
+                                   .titled('My galleryblock')
+                                   .having(sort_on='getObjPositionInParent')
+                                   .having(sort_order='ascending')
+                                   .within(self.page))
 
-        create(Builder('image')
-               .titled('b_img')
-               .with_dummy_content()
-               .within(gallery))
+            create(Builder('image')
+                   .titled('a_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        create(Builder('image')
-               .titled('c_img')
-               .with_dummy_content()
-               .within(gallery))
+            img_b = create(Builder('image')
+                           .titled('b_img')
+                           .with_dummy_content()
+                           .within(gallery_block))
 
-        browser.login().visit(self.page)
+            create(Builder('image')
+                   .titled('c_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        img_list = browser.css('.colorboxLink img')
-        img_title_list = []
+            # Move "img_b" to bottom.
+            parent(img_b).moveObjectsToBottom(img_b.getId())
+            transaction.commit()
 
-        for img in img_list:
-            img_title_list.append(img.get('alt').split(',')[0])
+            browser.login()
+            browser.visit(gallery_block, view='block_view')
+            self.assertEqual(
+                ['a_img', 'c_img', 'b_img'],
+                [node.attrib['title'] for node in browser.css('a')]
+            )
 
-        self.assertEqual(img_title_list, ['a_img', 'b_img', 'c_img'])
+        @browsing
+        def test_sort_by_position_in_parent_descending(self, browser):
+            gallery_block = create(Builder('sl galleryblock')
+                                   .titled('My galleryblock')
+                                   .having(sort_on='getObjPositionInParent')
+                                   .having(sort_order='descending')
+                                   .within(self.page))
 
-    @browsing
-    def test_sort_by_title_descending(self, browser):
-        gallery = create(Builder('sl galleryblock')
-                         .titled('My galleryblock')
-                         .having(sort_on='sortable_title')
-                         .having(sort_order='descending')
-                         .within(self.page))
+            create(Builder('image')
+                   .titled('a_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        create(Builder('image')
-               .titled('a_img')
-               .with_dummy_content()
-               .within(gallery))
+            img_b = create(Builder('image')
+                           .titled('b_img')
+                           .with_dummy_content()
+                           .within(gallery_block))
 
-        create(Builder('image')
-               .titled('b_img')
-               .with_dummy_content()
-               .within(gallery))
+            create(Builder('image')
+                   .titled('c_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        create(Builder('image')
-               .titled('c_img')
-               .with_dummy_content()
-               .within(gallery))
+            # Move "img_b" to bottom.
+            parent(img_b).moveObjectsToBottom(img_b.getId())
+            transaction.commit()
 
-        browser.login().visit(self.page)
+            browser.login()
+            browser.visit(gallery_block, view='block_view')
+            self.assertEqual(
+                ['b_img', 'c_img', 'a_img'],
+                [node.attrib['title'] for node in browser.css('a')]
+            )
 
-        img_list = browser.css('.colorboxLink img')
-        img_title_list = []
+        @browsing
+        def test_sort_by_id_ascending(self, browser):
+            gallery_block = create(Builder('sl galleryblock')
+                                   .titled('My galleryblock')
+                                   .having(sort_on='id')
+                                   .having(sort_order='ascending')
+                                   .within(self.page))
 
-        for img in img_list:
-            img_title_list.append(img.get('alt').split(',')[0])
+            create(Builder('image')
+                   .titled('c_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        self.assertEqual(img_title_list, ['c_img', 'b_img', 'a_img'])
+            create(Builder('image')
+                   .titled('a_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-    @browsing
-    def test_sort_by_modified_ascending(self, browser):
-        gallery = create(Builder('sl galleryblock')
-                         .titled('My galleryblock')
-                         .having(sort_on='modified')
-                         .having(sort_order='ascending')
-                         .within(self.page))
+            create(Builder('image')
+                   .titled('b_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        create(Builder('image')
-               .titled('a_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2014-01-01")))
+            browser.login()
+            browser.visit(gallery_block, view='block_view')
+            self.assertEqual(
+                ['a_img', 'b_img', 'c_img'],
+                [node.attrib['title'] for node in browser.css('a')]
+            )
 
-        create(Builder('image')
-               .titled('b_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2016-01-01")))
+        @browsing
+        def test_sort_by_id_descending(self, browser):
+            gallery_block = create(Builder('sl galleryblock')
+                                   .titled('My galleryblock')
+                                   .having(sort_on='id')
+                                   .having(sort_order='descending')
+                                   .within(self.page))
 
-        create(Builder('image')
-               .titled('c_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2015-01-01")))
+            create(Builder('image')
+                   .titled('c_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        browser.login().visit(self.page)
+            create(Builder('image')
+                   .titled('a_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        img_list = browser.css('.colorboxLink img')
-        img_title_list = []
+            create(Builder('image')
+                   .titled('b_img')
+                   .with_dummy_content()
+                   .within(gallery_block))
 
-        for img in img_list:
-            img_title_list.append(img.get('alt').split(',')[0])
-
-        self.assertEqual(img_title_list, ['a_img', 'c_img', 'b_img'])
-
-    @browsing
-    def test_sort_by_modified_descending(self, browser):
-        gallery = create(Builder('sl galleryblock')
-                         .titled('My galleryblock')
-                         .having(sort_on='modified')
-                         .having(sort_order='descending')
-                         .within(self.page))
-
-        create(Builder('image')
-               .titled('a_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2014-01-01")))
-
-        create(Builder('image')
-               .titled('b_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2016-01-01")))
-
-        create(Builder('image')
-               .titled('c_img')
-               .with_dummy_content()
-               .within(gallery)
-               .with_modification_date(DateTime("2015-01-01")))
-
-        browser.login().visit(self.page)
-
-        img_list = browser.css('.colorboxLink img')
-        img_title_list = []
-
-        for img in img_list:
-            img_title_list.append(img.get('alt').split(',')[0])
-
-        self.assertEqual(img_title_list, ['b_img', 'c_img', 'a_img'])
-
-
+            browser.login()
+            browser.visit(gallery_block, view='block_view')
+            self.assertEqual(
+                ['c_img', 'b_img', 'a_img'],
+                [node.attrib['title'] for node in browser.css('a')]
+            )
