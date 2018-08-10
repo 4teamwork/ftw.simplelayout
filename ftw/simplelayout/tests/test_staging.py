@@ -1,3 +1,4 @@
+from datetime import datetime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
@@ -7,11 +8,15 @@ from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import statusmessages
+from ftw.testing import freeze
 from ftw.testing import staticuid
 from plone.app.textfield.value import RichTextValue
 from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
 from zope.interface.verify import verifyObject
+import transaction
 
 
 class TestWorkingCopy(TestCase):
@@ -247,6 +252,30 @@ class TestWorkingCopy(TestCase):
         self.assertIsNone(IStaging(baseline).get_working_copies())
         self.assertFalse(IStaging(baseline).is_working_copy())
         self.assertIsNone(IStaging(baseline).get_baseline())
+
+    @browsing
+    def test_message_is_displayed_on_working_copy(self, browser):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        with freeze(datetime(2017, 7, 24)):
+            working_copy = IStaging(baseline).create_working_copy(self.portal)
+
+        transaction.commit()
+
+        browser.login().open(working_copy)
+        statusmessages.assert_message(
+            'This is the working copy of test_user_1_, created at Aug 10, 2018.')
+
+    @browsing
+    def test_message_is_displayed_on_baseline(self, browser):
+        baseline = create(Builder('sl content page').titled(u'A page'))
+        with freeze(datetime(2017, 7, 24)):
+            IStaging(baseline).create_working_copy(self.portal)
+
+        transaction.commit()
+
+        browser.login().open(baseline)
+        statusmessages.assert_message(
+            'test_user_1_ is working on this page in a working copy created at Aug 10, 2018.')
 
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)

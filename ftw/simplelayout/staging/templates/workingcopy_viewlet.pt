@@ -1,0 +1,21 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.simplelayout">
+
+  <div class="staging-viewlet working-copy"
+       tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+
+    <dl class="portalMessage error">
+      <dt i18n:translate="" i18n:domain="plone">Warning</dt>
+      <dd i18n:translate="message_working_copy">
+        This is the working copy of
+        <tal:creator i18n:name="owner" content="view/owner_name" />,
+        created at
+        <tal:date i18n:name="date" content="python:toLocalizedTime(context.created())" />.
+      </dd>
+    </dl>
+
+  </div>
+
+</html>
