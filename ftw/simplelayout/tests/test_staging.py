@@ -315,7 +315,7 @@ class TestWorkingCopy(TestCase):
 
         browser.login().open(working_copy)
         statusmessages.assert_message(
-            'This is the working copy of test_user_1_, created at Aug 10, 2018.')
+            'This is the working copy of test_user_1_, created at Jul 24, 2017.')
 
     @browsing
     def test_message_is_displayed_on_baseline(self, browser):
@@ -327,7 +327,7 @@ class TestWorkingCopy(TestCase):
 
         browser.login().open(baseline)
         statusmessages.assert_message(
-            'test_user_1_ is working on this page in a working copy created at Aug 10, 2018.')
+            'test_user_1_ is working on this page in a working copy created at Jul 24, 2017.')
 
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)

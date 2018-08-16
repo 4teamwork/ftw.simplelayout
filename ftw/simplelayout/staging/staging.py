@@ -4,6 +4,7 @@ from Acquisition import aq_parent
 from BTrees.OOBTree import OOBTree
 from contextlib import contextmanager
 from copy import deepcopy
+from DateTime import DateTime
 from ftw.simplelayout.configuration import columns_in_config
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
@@ -150,7 +151,10 @@ class Staging(object):
         with self._cleanup_filter_tree(obj), self._cleanup_filter_order(obj):
             clipboard = source_container.manage_copyObjects([obj.getId()])
             copy_info, = target_container.manage_pasteObjects(clipboard)
-        return target_container.get(copy_info['new_id'])
+        working_copy = target_container.get(copy_info['new_id'])
+        working_copy.creation_date = DateTime()
+        working_copy.reindexObject(idxs=['created'])
+        return working_copy
 
     @contextmanager
     def _cleanup_filter_tree(self, obj):
