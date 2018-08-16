@@ -38,4 +38,6 @@
              *"
         />
 
+    <adapter factory="ftw.simplelayout.contenttypes.contents.textblock.TextBlockImageLimitValidator" />
+
 </configure>

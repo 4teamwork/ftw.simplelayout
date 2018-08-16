@@ -7,4 +7,7 @@
     <adapter for="zope.interface.Interface"
              factory=".limits.ImageLimits" />
 
+    <adapter for="zope.interface.Interface"
+             factory=".validators.ImageLimitValidatorMessages" />
+
 </configure>

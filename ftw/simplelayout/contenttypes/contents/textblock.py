@@ -3,6 +3,7 @@ from collective import dexteritytextindexer
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
+from ftw.simplelayout.images.validators import ImageLimitValidator
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from plone.app.textfield import RichText
@@ -10,6 +11,7 @@ from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
 from plone.namedfile.field import NamedBlobImage
+from z3c.form import validator
 from zope import schema
 from zope.i18n import translate
 from zope.interface import alsoProvides
@@ -68,6 +70,17 @@ class ITextBlockSchema(form.Schema):
 
 
 alsoProvides(ITextBlockSchema, IFormFieldProvider)
+
+
+class TextBlockImageLimitValidator(ImageLimitValidator):
+
+    identifier = 'ftw.simplelayout.TextBlock'
+
+
+validator.WidgetValidatorDiscriminators(
+    TextBlockImageLimitValidator,
+    field=ITextBlockSchema['image']
+)
 
 
 class TextBlock(Item):
