@@ -131,6 +131,25 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
     )
 
+    image_limits = schema.Text(
+        title=_(u'Image limits'),
+        description=_(
+            u'desc_image_limits',
+            default=u'An image limit will check the image dimensions and validates it agains the'
+            u'limit-types.<br><br>'
+            u'Define your limits as json in the following format:<br>'
+            u'{"portal-type": {"limit_type": {"width": value, "height": value}}}<br><br>'
+            u'example:<br>'
+            u'{"ftw.simplelayout.TextBlock" : {<br>'
+            u'   "soft": {"width": 400, "height": 300},<br>'
+            u'   "hard": {"width": 150}<br>'
+            u'  }'
+            u'}'
+            ),
+        default=u'{}',
+        required=False
+        )
+
 
 class IBlockModifier(Interface):
     """Block specific modifier"""

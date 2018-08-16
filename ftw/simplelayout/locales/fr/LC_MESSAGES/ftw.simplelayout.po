@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-25 10:02+0000\n"
+"POT-Creation-Date: 2018-08-24 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,11 +87,15 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
+#: ./ftw/simplelayout/interfaces.py:135
+msgid "Image limits"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/behaviors.py:44
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:80
+#: ./ftw/simplelayout/configure.zcml:81
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -127,7 +131,7 @@ msgstr ""
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:55
+#: ./ftw/simplelayout/configure.zcml:56
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -283,6 +287,11 @@ msgstr ""
 msgid "column_type"
 msgstr ""
 
+#. Default: "An image limit will check the image dimensions and validates it agains thelimit-types.<br><br>Define your limits as json in the following format:<br>{\"portal-type\": {\"limit_type\": {\"width\": value, \"height\": value}}}<br><br>example:<br>{\"ftw.simplelayout.TextBlock\" : {<br>   \"soft\": {\"width\": 400, \"height\": 300},<br>   \"hard\": {\"width\": 150}<br>  }}"
+#: ./ftw/simplelayout/interfaces.py:136
+msgid "desc_image_limits"
+msgstr ""
+
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
 #: ./ftw/simplelayout/interfaces.py:100
 msgid "desc_sl_config_control_panel"
@@ -308,11 +317,11 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:80
+#: ./ftw/simplelayout/configure.zcml:81
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:55
+#: ./ftw/simplelayout/configure.zcml:56
 msgid "ftw.simplelayout js library"
 msgstr ""
 

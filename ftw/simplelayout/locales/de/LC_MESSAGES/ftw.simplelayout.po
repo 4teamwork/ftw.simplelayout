@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-07-25 10:02+0000\n"
+"POT-Creation-Date: 2018-08-24 10:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -84,11 +84,15 @@ msgstr "ID"
 msgid "Image"
 msgstr "Bild"
 
+#: ./ftw/simplelayout/interfaces.py:135
+msgid "Image limits"
+msgstr "Bilderauflösungslimits"
+
 #: ./ftw/simplelayout/contenttypes/behaviors.py:44
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:80
+#: ./ftw/simplelayout/configure.zcml:81
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -124,7 +128,7 @@ msgstr "Zeigt die OpenGraph Meta Tags"
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:55
+#: ./ftw/simplelayout/configure.zcml:56
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -280,6 +284,11 @@ msgstr "Titel"
 msgid "column_type"
 msgstr "Typ"
 
+#. Default: "An image limit will check the image dimensions and validates it agains thelimit-types.<br><br>Define your limits as json in the following format:<br>{\"portal-type\": {\"limit_type\": {\"width\": value, \"height\": value}}}<br><br>example:<br>{\"ftw.simplelayout.TextBlock\" : {<br>   \"soft\": {\"width\": 400, \"height\": 300},<br>   \"hard\": {\"width\": 150}<br>  }}"
+#: ./ftw/simplelayout/interfaces.py:136
+msgid "desc_image_limits"
+msgstr "Ein Bildauflösungslimit überprüft das hochgeladene Bild auf seine Breite und Höhe.<br><br>Definiere deine Limits als JSON im folgenden Format:<br>{\"portal-type\": {\"limit_type\": {\"width\": value, \"height\": value}}}<br><br>example:<br>{\"ftw.simplelayout.TextBlock\" : {<br>   \"soft\": {\"width\": 400, \"height\": 300},<br>   \"hard\": {\"width\": 150}<br>  }}"
+
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
 #: ./ftw/simplelayout/interfaces.py:100
 msgid "desc_sl_config_control_panel"
@@ -305,11 +314,11 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:80
+#: ./ftw/simplelayout/configure.zcml:81
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:55
+#: ./ftw/simplelayout/configure.zcml:56
 msgid "ftw.simplelayout js library"
 msgstr ""
 
