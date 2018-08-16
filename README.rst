@@ -285,6 +285,47 @@ To do this, you can simply send a RestAPI Post (more information about
 `plone.restapi <https://github.com/plone/plone.restapi>`_ ) request to the path of your page, appended with
 ``@sl-synchronize-page-config-with-blocks``. A dict with ``added`` and ``removed`` block UIDs is returned.
 
+
+Staging
+-------
+
+Simplelayout provides integration level tools for setting up a staging solution for content pages.
+An ``IStaging`` adapter provides the functionality for making working copies and applying the
+changed content of the working copy onto the baseline.
+Simplelayout does not provide an integration; the integration must be implemented on project level.
+
+Simple usage example:
+
+.. code-block:: python
+
+    from Acquisition import aq_inner
+    from Acquisition import aq_parent
+    from ftw.simplelayout.staging.interfaces import IStaging
+
+    # Make a working copy of "baseline" in the folder "target"
+    target = aq_parent(aq_inner(baseline))
+    working_copy = IStaging(baseline).create_working_copy(target)
+
+    # Apply the working copy content to the baseline:
+    IStaging(working_copy).apply_working_copy()
+
+    # Or discard the working copy:
+    IStaging(working_copy).discard_working_copy()
+
+Although the staging can be integrated in various ways (actions, events, etc.),
+it is usually integrated in the workflow.
+Since ``ftw.lawgiver >= 1.15.0``, it supports [intercepting transitions](https://github.com/4teamwork/ftw.lawgiver/blob/master/README.rst#intercept-and-customize-transitions),
+which can be used for integrating a staging solution.
+
+When the working copy is created, only simplelayout block children are copied from the baseline
+to the working copy. This has the advantage that a root page of a large structure can be
+revised and copied without a performance problem because of many subpages.
+
+When the working copy is applied back, the content of its children are copied back to the
+baseline. The simplalyout state and relations are updated accordingly.
+
+
+
 Run custom JS code
 ==================
 
