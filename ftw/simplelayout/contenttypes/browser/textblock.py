@@ -142,3 +142,6 @@ class TextBlockView(BaseBlock):
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add TextBlock', context)
         return bool(permission)
+
+    def show_low_image_quality_indicator(self):
+        return self.can_add and self.context.is_low_quality_image()

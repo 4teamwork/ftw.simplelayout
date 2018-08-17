@@ -1,0 +1,8 @@
+<div class="lowImageQualityIndicator"
+     metal:define-macro="low_image_quality_indicator"
+     i18n:domain="ftw.simplelayout">
+     <div class="title" i18n:translate="low_quality_image_label">low image quality</div>
+     <div class="description">
+         <span i18n:translate="optimal_image_quality_label">Optimal image quality:</span> <span tal:content="context/low_quality_image_message"></span>
+     </div>
+ </div>

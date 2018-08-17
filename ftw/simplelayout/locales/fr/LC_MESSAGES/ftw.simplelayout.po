@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-24 10:40+0000\n"
+"POT-Creation-Date: 2018-08-24 10:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,7 +83,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:27
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
 msgid "Image"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:31
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:35
 msgid "This block is empty."
 msgstr ""
 
@@ -298,12 +298,12 @@ msgid "desc_sl_config_control_panel"
 msgstr ""
 
 #. Default: "Enter an alternative text for the image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:57
 msgid "description_image_alt_text"
 msgstr "Saisissez un texte alternatif pour l'image"
 
 #. Default: "Opens image in an overlay"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:68
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:70
 msgid "description_image_clickable"
 msgstr "Ouvre l'image dans un overlay"
 
@@ -344,7 +344,7 @@ msgid "help_drag_hint"
 msgstr ""
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:26
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:30
 msgid "hidden_label_image_caption"
 msgstr ""
 
@@ -410,22 +410,22 @@ msgid "label_external_link"
 msgstr ""
 
 #. Default: "Float image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:125
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:135
 msgid "label_float_image_left"
 msgstr ""
 
 #. Default: "Float image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:164
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:174
 msgid "label_float_image_right"
 msgstr ""
 
 #. Default: "Float large image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:134
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:144
 msgid "label_float_large_image_left"
 msgstr ""
 
 #. Default: "Float large image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:154
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:164
 msgid "label_float_large_image_right"
 msgstr ""
 
@@ -450,22 +450,22 @@ msgid "label_id"
 msgstr ""
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:51
 msgid "label_image"
 msgstr ""
 
 #. Default: "Image alternative text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:53
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
 msgid "label_image_alt_text"
 msgstr ""
 
 #. Default: "Image caption"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:59
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:61
 msgid "label_image_caption"
 msgstr ""
 
 #. Default: "Image without floating"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:144
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:154
 msgid "label_image_without_floating"
 msgstr ""
 
@@ -515,7 +515,7 @@ msgid "label_move_layout"
 msgstr ""
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:63
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:65
 msgid "label_open_image_in_overlay"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 #. Default: "Show title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:37
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:39
 msgid "label_show_title"
 msgstr ""
 
@@ -551,14 +551,14 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:44
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:46
 msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:33
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
 msgid "label_title"
 msgstr ""
 
@@ -586,6 +586,16 @@ msgstr ""
 #. Default: "width: ${width}px (current: ${current_width}px)"
 #: ./ftw/simplelayout/images/validators.py:48
 msgid "limit_width_str"
+msgstr ""
+
+#. Default: "low image quality"
+#: ./ftw/simplelayout/images/templates/macros.pt:4
+msgid "low_quality_image_label"
+msgstr ""
+
+#. Default: "Optimal image quality:"
+#: ./ftw/simplelayout/images/templates/macros.pt:6
+msgid "optimal_image_quality_label"
 msgstr ""
 
 #. Default: "These internal links will be broken"
