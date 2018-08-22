@@ -470,7 +470,7 @@ msgstr ""
 #. Default: "1-2-1 layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:115
 msgid "label_layout121"
-msgstr "20% - 50% - 25% Verteilung"
+msgstr "25% - 50% - 25% Verteilung"
 
 #. Default: "1-3 layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:106
