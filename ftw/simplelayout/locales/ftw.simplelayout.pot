@@ -4,7 +4,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
+<<<<<<< HEAD
 "POT-Creation-Date: 2018-08-24 10:48+0000\n"
+=======
+"POT-Creation-Date: 2018-08-22 15:22+0000\n"
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +24,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
+msgstr ""
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+msgid "Allows to crop an image and use the cropped image for display"
 msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/edit_block.py:49
@@ -83,8 +91,17 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:32
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "Image"
+msgstr ""
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+#: ./ftw/simplelayout/images/cropping.py:20
+msgid "Image cropping"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:135
@@ -298,12 +315,20 @@ msgid "desc_sl_config_control_panel"
 msgstr ""
 
 #. Default: "Enter an alternative text for the image"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:57
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:60
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "description_image_alt_text"
 msgstr ""
 
 #. Default: "Opens image in an overlay"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:70
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:73
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "description_image_clickable"
 msgstr ""
 
@@ -350,7 +375,7 @@ msgstr ""
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:84
 msgid "image_link_alttext"
 msgstr ""
 
@@ -385,6 +410,14 @@ msgstr ""
 msgid "label_columns"
 msgstr ""
 
+<<<<<<< HEAD
+=======
+#. Default: "Cropped Image"
+#: ./ftw/simplelayout/images/cropping.py:32
+msgid "label_cropped_image"
+msgstr ""
+
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 #. Default: "Delete layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:82
 msgid "label_delete_layout"
@@ -410,22 +443,38 @@ msgid "label_external_link"
 msgstr ""
 
 #. Default: "Float image left"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:135
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:139
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_float_image_left"
 msgstr ""
 
 #. Default: "Float image right"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:174
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:178
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_float_image_right"
 msgstr ""
 
 #. Default: "Float large image left"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:144
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:148
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_float_large_image_left"
 msgstr ""
 
 #. Default: "Float large image right"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:164
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:168
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_float_large_image_right"
 msgstr ""
 
@@ -450,22 +499,38 @@ msgid "label_id"
 msgstr ""
 
 #. Default: "Image"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:51
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:54
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_image"
 msgstr ""
 
 #. Default: "Image alternative text"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:58
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_image_alt_text"
 msgstr ""
 
 #. Default: "Image caption"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:61
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:64
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_image_caption"
 msgstr ""
 
 #. Default: "Image without floating"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:154
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:158
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_image_without_floating"
 msgstr ""
 
@@ -515,7 +580,11 @@ msgid "label_move_layout"
 msgstr ""
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:65
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:68
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_open_image_in_overlay"
 msgstr ""
 
@@ -531,7 +600,11 @@ msgstr ""
 #. Default: "Show title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:39
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:42
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_show_title"
 msgstr ""
 
@@ -551,14 +624,22 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:46
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
+<<<<<<< HEAD
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
+=======
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:38
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 msgid "label_title"
 msgstr ""
 
@@ -602,4 +683,13 @@ msgstr ""
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
 msgstr ""
+
+<<<<<<< HEAD
+=======
+#. Default: "Use cropped image for overlay"
+#: ./ftw/simplelayout/images/cropping.py:24
+msgid "use_cropped_image_for_overlay"
+msgstr ""
+
+>>>>>>> 28ef2f8... Add behavior for image-cropping fields
 

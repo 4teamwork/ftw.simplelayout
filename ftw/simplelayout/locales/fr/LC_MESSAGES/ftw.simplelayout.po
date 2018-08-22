@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-24 10:48+0000\n"
+"POT-Creation-Date: 2018-08-22 15:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
+msgstr ""
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+msgid "Allows to crop an image and use the cropped image for display"
 msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/edit_block.py:49
@@ -85,6 +89,11 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
 msgid "Image"
+msgstr ""
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+#: ./ftw/simplelayout/images/cropping.py:20
+msgid "Image cropping"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:135
@@ -350,7 +359,7 @@ msgstr ""
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:84
 msgid "image_link_alttext"
 msgstr ""
 
@@ -383,6 +392,11 @@ msgstr ""
 #. Default: "Columns"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:138
 msgid "label_columns"
+msgstr ""
+
+#. Default: "Cropped Image"
+#: ./ftw/simplelayout/images/cropping.py:32
+msgid "label_cropped_image"
 msgstr ""
 
 #. Default: "Delete layout"
@@ -601,5 +615,10 @@ msgstr ""
 #. Default: "These internal links will be broken"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
+msgstr ""
+
+#. Default: "Use cropped image for overlay"
+#: ./ftw/simplelayout/images/cropping.py:24
+msgid "use_cropped_image_for_overlay"
 msgstr ""
 

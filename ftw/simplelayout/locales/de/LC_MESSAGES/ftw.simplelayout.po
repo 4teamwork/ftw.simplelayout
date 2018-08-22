@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-24 10:48+0000\n"
+"POT-Creation-Date: 2018-08-22 15:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr "Fügt eine Option hinzu, die es erlaubt, Blöcke visuell zu verstecken"
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr "Fügt eine checkbox hinzu, mit der der Titel einer Inhaltsseite versteckt werden kann"
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+msgid "Allows to crop an image and use the cropped image for display"
+msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/edit_block.py:49
 msgid "Cancel"
@@ -83,6 +87,11 @@ msgstr "ID"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
 msgid "Image"
 msgstr "Bild"
+
+#: ./ftw/simplelayout/images/configure.zcml:25
+#: ./ftw/simplelayout/images/cropping.py:20
+msgid "Image cropping"
+msgstr "Bildbearbeitung"
 
 #: ./ftw/simplelayout/interfaces.py:135
 msgid "Image limits"
@@ -347,7 +356,7 @@ msgstr "Bild Legende:"
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:84
 msgid "image_link_alttext"
 msgstr "${title}. Vergrösserte Ansicht"
 
@@ -381,6 +390,11 @@ msgstr " Spalte(n)"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:138
 msgid "label_columns"
 msgstr "Spalten"
+
+#. Default: "Cropped Image"
+#: ./ftw/simplelayout/images/cropping.py:32
+msgid "label_cropped_image"
+msgstr ""
 
 #. Default: "Delete layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:82
@@ -599,4 +613,9 @@ msgstr "Optimale Bildauflösung:"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
+
+#. Default: "Use cropped image for overlay"
+#: ./ftw/simplelayout/images/cropping.py:24
+msgid "use_cropped_image_for_overlay"
+msgstr "Verwende ein zugeschnittenes Bild ebenfalls für das Overlay"
 
