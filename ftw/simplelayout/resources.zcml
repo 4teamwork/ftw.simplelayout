@@ -14,6 +14,8 @@
                     after="ftw.theming:resources/scss/iconset_font-awesome.scss" />
 
         <theme:scss file="browser/resources/theming.toolbar-icons.scss" />
+
+        <theme:scss file="browser/resources/vendor/cropper.min.css" />
     </theme:resources>
 
 </configure>
