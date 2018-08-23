@@ -358,3 +358,48 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block)
         self.assertEquals(1, len(browser.css('.lowImageQualityIndicator')))
 
+    @browsing
+    def test_display_corpped_image_if_available(self, browser):
+        # Do not commit the transaction in this test. Otherwise the test will
+        # always pass because the scaled image will be recreated even if it's
+        # the same image as before the transaction.
+
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page)
+                       .with_dummy_image()
+                       .with_cropped_image())
+
+        block_view = block.restrictedTraverse('block_view')
+        browser.open_html(block_view())
+
+        url = browser.css('.sl-image img').first.get('src')
+
+        block.cropped_image = None
+
+        browser.open_html(block_view())
+        self.assertNotEqual(browser.css('.sl-image img').first.get('src'), url)
+
+    @browsing
+    def test_show_cropped_image_in_overlay_if_attribute_is_set(self, browser):
+        # Do not commit the transaction in this test. Otherwise the test will
+        # always pass because the scaled image will be recreated even if it's
+        # the same image as before the transaction.
+
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page)
+                       .with_dummy_image()
+                       .with_cropped_image()
+                       .having(
+                           open_image_in_overlay=True,
+                           use_cropped_image_for_overlay=False))
+
+        block_view = block.restrictedTraverse('block_view')
+        browser.open_html(block_view())
+
+        url = browser.css('.sl-image .colorboxLink').first.get('href')
+
+        block.use_cropped_image_for_overlay = True
+
+        browser.open_html(block_view())
+
+        self.assertNotEqual(browser.css('.sl-image .colorboxLink').first.get('href'), url)

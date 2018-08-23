@@ -37,6 +37,12 @@ class TextBlockBuilder(DexterityBuilder):
                                                  filename=u'test.gif')
         return self
 
+    def with_cropped_image(self):
+        image = Path(__file__).joinpath('..', 'assets', 'cropped.jpg').abspath()
+        self.arguments['cropped_image'] = NamedBlobImage(data=image.bytes(),
+                                                         filename=u'cropped.gif')
+        return self
+
 builder_registry.register('sl textblock', TextBlockBuilder)
 
 
