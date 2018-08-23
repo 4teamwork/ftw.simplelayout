@@ -3,6 +3,7 @@ from collective import dexteritytextindexer
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
+from ftw.simplelayout.images.cropping import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
 from ftw.simplelayout.images.validators import ImageLimitValidator
@@ -95,13 +96,20 @@ class TextBlock(Item):
         else:
             return []
 
+    @property
+    def _image(self):
+        image = self.image
+        if IImageCropping.providedBy(self):
+            image = self.cropped_image or self.image
+
+        return image
+
     def is_low_quality_image(self):
-        return IImageLimits(self).has_low_quality_image(
-            self.image, self.portal_type)
+        return IImageLimits(self).has_low_quality_image(self._image, self.portal_type)
 
     def low_quality_image_message(self):
         return IImageLimitValidatorMessages(self).limit_str(
-            'soft', self.portal_type, self.image)
+            'soft', self.portal_type, self._image)
 
 
 class TextBlockModifier(object):

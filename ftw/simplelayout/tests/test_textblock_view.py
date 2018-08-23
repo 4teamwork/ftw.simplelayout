@@ -333,3 +333,28 @@ class TestTextBlockRendering(TestCase):
 
         browser.logout().visit(block)
         self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+
+    @browsing
+    def test_show_low_image_quality_indicator_respects_cropped_image(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page)
+                       .with_dummy_image()
+                       .with_cropped_image())
+
+        image_limit = block.cropped_image._width + 100
+
+        self.set_config({
+            block.portal_type: {
+                "soft": {"width": image_limit}
+            }
+        })
+
+        # This only verifies the image widths for further assertions.
+        # The image should be higher thant the limit and the cropped image
+        # should be lower than the limit.
+        self.assertGreater(block.image._width, image_limit)
+        self.assertLess(block.cropped_image._width, image_limit)
+
+        browser.login().visit(block)
+        self.assertEquals(1, len(browser.css('.lowImageQualityIndicator')))
+
