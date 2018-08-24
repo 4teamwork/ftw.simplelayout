@@ -186,4 +186,11 @@ class TextBlockActions(DefaultActions):
                 'data-scale': 'sl_textblock_small',
                 'data-imagefloat': 'right'
             }),
+            ('cropping', {
+                'class': 'icon-crop crop-image',
+                'title': translate(
+                    _(u'label_crop_image', default='Crop image'),
+                    context=self.request),
+                'href': './sl-ajax-crop-image'
+            }),
         ])

@@ -97,6 +97,7 @@
     var editOverlay = new global.FormOverlay({cssclass: "overlay-edit"});
     var uploadOverlay = new global.FormOverlay({ cssclass: "overlay-upload", disableClose: isUploading });
     var addOverlay = new global.FormOverlay({cssclass: "overlay-add"});
+    var cropImageOverlay = new global.FormOverlay({cssclass: "crop-image"});
     var toolbox;
     var simplelayout;
 
@@ -275,6 +276,31 @@
         initializeColorbox();
         this.close();
       });
+    });
+
+    $(global.document).on("click", ".sl-block .crop-image", function(event) {
+      event.preventDefault();
+      var block = $(this).parents(".sl-block").data().object;
+      var cropper = null;
+      cropImageOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })}, function() {
+        if ($('.croppingImage ', this.element).length > 0) {
+          cropper = new ftw.simplelayout.Cropper($('.imageCropperWrapper', this.element)[0])
+          cropper.run();
+        }
+      });
+      cropImageOverlay.onSubmit(function(data) {
+        $(document).trigger('block-edited', [block]);
+        block.content(data.content);
+        initializeColorbox();
+        this.close();
+      });
+      cropImageOverlay.onProcessFormData(function(form) {
+        var fd =  new global.FormData(form);
+        if (cropper !== null) {
+          cropper.processFormData(fd)
+        }
+        return fd
+      })
     });
 
     $(global.document).on("click", ".sl-block .inneredit", function(event) {

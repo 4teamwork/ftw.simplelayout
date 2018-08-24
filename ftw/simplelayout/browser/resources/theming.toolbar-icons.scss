@@ -5,7 +5,12 @@ $color-icon-hover: $color-text-inverted;
 [class^="sl-toolbar-"] {
   > li > a {
     background-repeat: no-repeat;
-
+    &.textButton {
+      color: $color-icon;
+      &:hover {
+        color: $color-icon-hover;
+      }
+    }
     &.icon-delete {
       background-image: embed-resource("fonts/delete.svg", $fill-css:('.icon', $color-icon));
       &:hover {

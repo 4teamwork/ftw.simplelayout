@@ -27,4 +27,11 @@
         for="plone.dexterity.interfaces.IDexterityContent"
         />
 
+    <browser:page
+      for="ftw.simplelayout.images.cropping.IImageCropping"
+      name="image_cropping.json"
+      class=".cropping.ImageCroppingView"
+      permission="cmf.ModifyPortalContent"
+      />
+
 </configure>

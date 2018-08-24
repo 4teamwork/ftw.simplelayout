@@ -1,11 +1,22 @@
+from binascii import a2b_base64
 from ftw.simplelayout import _
+from ftw.simplelayout.browser.ajax.utils import json_response
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
+from ftw.simplelayout.utils import get_block_html
+from plone import api
 from plone.autoform import directives as form
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.file import NamedBlobImage as NamedBlobImageFile
 from plone.supermodel import model
+from Products.Five.browser import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope import schema
+from zope.event import notify
 from zope.interface import Interface
 from zope.interface import provider
+from zope.lifecycleevent import ObjectModifiedEvent
+import json
 
 
 class IImageCroppingMarker(Interface):
@@ -34,8 +45,80 @@ class IImageCropping(model.Schema):
         title=_(u'label_cropped_image', default=u'Cropped Image'),
         required=False)
 
-    form.mode(cropped_image='hidden')
+    form.mode(cropped_config='hidden')
     cropped_config = schema.TextLine(
         title=_(u'label_cropped_config', default=u'The final cropped area position and size data'),
         required=False)
 
+
+class ImageCroppingView(BrowserView):
+    template = ViewPageTemplateFile('templates/cropping.pt')
+    aspect_ratio_configuration = {}
+
+    def __init__(self, context, request):
+        super(ImageCroppingView, self).__init__(context, request)
+        self._load_aspect_ratio_configuration()
+
+    def __call__(self):
+        response = {'content': self.template(),
+                    'proceed': False}
+
+        if 'form.buttons.save' in self.request.form:
+            self.handleSave()
+            response['proceed'] = True
+            response['content'] = self.get_block_content()
+
+        self.request.response.setHeader("Cache-Control",
+                                        "no-cache, no-store, must-revalidate")
+        self.request.response.setHeader("Expires", "Sat, 1 Jan 2000 00:00:00 GMT")
+
+        return json_response(self.request, response)
+
+    def handleSave(self):
+        is_cropped = json.loads(self.request.form.get('is_cropped', 'false'))
+
+        if is_cropped:
+            self.save_cropped_image()
+        else:
+            self.remove_cropped_image()
+
+        notify(ObjectModifiedEvent(self.context))
+
+    def save_cropped_image(self):
+        image_data = self.request.form.get('cropped_image_data')
+        config = self.request.form.get('cropped_config')
+
+        contentType, data = self._extract_image_data(image_data)
+
+        self.context.cropped_image = NamedBlobImageFile(
+            data=data,
+            contentType=contentType,
+            filename="abc" + self.context.image.filename)
+        self.context.cropped_config = config
+
+    def remove_cropped_image(self):
+        self.context.cropped_config = ''
+        self.context.cropped_image = None
+
+    def _extract_image_data(self, image_data):
+        contentTypePart, dataPart = image_data.split(';')
+        key, contentType = contentTypePart.split(':')
+        key, data = dataPart.split(',')
+
+        return contentType, a2b_base64(data)
+
+    def aspect_ratios(self):
+        return self.aspect_ratio_configuration.get(self.context.portal_type, [])
+
+    def get_block_content(self):
+        return get_block_html(self.context)
+
+    def _load_aspect_ratio_configuration(self):
+        self.aspect_ratio_configuration = json.loads(
+            self._aspect_ratio_configuration_json)
+
+    @property
+    def _aspect_ratio_configuration_json(self):
+        return api.portal.get_registry_record(
+            name='image_cropping_aspect_ratios',
+            interface=ISimplelayoutDefaultSettings) or '{}'
