@@ -27,6 +27,7 @@
     "underscore": "1.8.3"
   },
   "dependencies": {
+    "cropperjs": "^1.4.1",
     "group-by": "0.0.1",
     "handlebars": "4.0.5",
     "jsrender": "0.9.83",
