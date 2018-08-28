@@ -139,12 +139,16 @@
           this.initializePloneComponents();
         }
       },
+      onProcessFormData: function(form) {
+        return new global.FormData(form);
+      },
       onFormCancel: function() {
         overlay.close();
       },
       onFormSubmit: function(formData) {
-        var fd = new global.FormData(formData);
+        var fd = this.onProcessFormData(formData);
         fd.append("form.buttons.save", $("#form-buttons-save").val());
+
         this.requestForm(formData.action, fd);
       }
     };
@@ -160,6 +164,10 @@
 
       onSubmit: function(submitCallback) {
         overlay.onSubmitCallback = submitCallback;
+      },
+
+      onProcessFormData: function(onProcessFormDataCallback) {
+        overlay.onProcessFormData = onProcessFormDataCallback;
       },
 
       disableClose: function(disable) {
