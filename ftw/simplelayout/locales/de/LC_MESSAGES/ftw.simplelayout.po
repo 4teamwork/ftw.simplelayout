@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-29 10:11+0000\n"
+"POT-Creation-Date: 2018-08-30 09:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,7 +89,7 @@ msgid "Image"
 msgstr "Bild"
 
 #: ./ftw/simplelayout/images/configure.zcml:28
-#: ./ftw/simplelayout/images/cropping.py:31
+#: ./ftw/simplelayout/images/cropping.py:32
 msgid "Image cropping"
 msgstr "Bildbearbeitung"
 
@@ -97,7 +97,7 @@ msgstr "Bildbearbeitung"
 msgid "Image cropping aspect ratios"
 msgstr "Seitenverhältnisse"
 
-#: ./ftw/simplelayout/images/templates/cropping.pt:6
+#: ./ftw/simplelayout/images/templates/cropping.pt:7
 msgid "Image editor"
 msgstr "Bildbearbeitung"
 
@@ -125,7 +125,7 @@ msgstr "Ändere die geographischen Daten für diesen Inhalt"
 msgid "Multiple users are separated by comma"
 msgstr "Mehrere Benutzer werden mit Komma getrennt"
 
-#: ./ftw/simplelayout/images/templates/cropping.pt:49
+#: ./ftw/simplelayout/images/templates/cropping.pt:51
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
@@ -305,6 +305,31 @@ msgstr "Titel"
 msgid "column_type"
 msgstr "Typ"
 
+#. Default: "Height: {{currentHeight}}px (allowed: {{limitHeight}}px)"
+#: ./ftw/simplelayout/images/templates/cropping_hard_limit_message.pt:13
+msgid "cropper_hard_limit_reached_height"
+msgstr "Höhe: {{currentHeight}}px (erlaubt: {{limitHeight}}px)"
+
+#. Default: "image section is too small"
+#: ./ftw/simplelayout/images/templates/cropping_hard_limit_message.pt:5
+msgid "cropper_hard_limit_reached_label"
+msgstr "Bildausschnitt ist zu klein"
+
+#. Default: "Width: {{currentWidth}}px (allowed: {{limitWidth}}px)"
+#: ./ftw/simplelayout/images/templates/cropping_hard_limit_message.pt:8
+msgid "cropper_hard_limit_reached_width"
+msgstr "Breite: {{currentWidth}}px (erlaubt: {{limitWidth}}px)"
+
+#. Default: "Height: {{currentHeight}}px (optimal: {{limitHeight}}px)"
+#: ./ftw/simplelayout/images/templates/cropping_soft_limit_message.pt:13
+msgid "cropper_soft_limit_reached_height"
+msgstr "Höhe: {{currentHeight}}px (optimal: {{limitHeight}}px)"
+
+#. Default: "Width: {{currentWidth}}px (optimal: {{limitWidth}}px)"
+#: ./ftw/simplelayout/images/templates/cropping_soft_limit_message.pt:8
+msgid "cropper_soft_limit_reached_width"
+msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
+
 #. Default: "Define the aspecet ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
 #: ./ftw/simplelayout/interfaces.py:155
 msgid "desc_image_cropping_options"
@@ -414,12 +439,12 @@ msgid "label_crop_image"
 msgstr ""
 
 #. Default: "The final cropped area position and size data"
-#: ./ftw/simplelayout/images/cropping.py:50
+#: ./ftw/simplelayout/images/cropping.py:51
 msgid "label_cropped_config"
 msgstr ""
 
 #. Default: "Cropped Image"
-#: ./ftw/simplelayout/images/cropping.py:45
+#: ./ftw/simplelayout/images/cropping.py:46
 msgid "label_cropped_image"
 msgstr ""
 
@@ -627,6 +652,7 @@ msgid "limit_width_str"
 msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 
 #. Default: "low image quality"
+#: ./ftw/simplelayout/images/templates/cropping_soft_limit_message.pt:5
 #: ./ftw/simplelayout/images/templates/macros.pt:4
 msgid "low_quality_image_label"
 msgstr "Bildauflösung ist nicht optimal"
@@ -642,7 +668,7 @@ msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 
 #. Default: "Use cropped image for overlay"
-#: ./ftw/simplelayout/images/cropping.py:37
+#: ./ftw/simplelayout/images/cropping.py:38
 msgid "use_cropped_image_for_overlay"
 msgstr "Verwende ein zugeschnittenes Bild ebenfalls für das Overlay"
 

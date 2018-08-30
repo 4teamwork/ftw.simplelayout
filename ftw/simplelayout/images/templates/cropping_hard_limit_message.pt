@@ -1,0 +1,19 @@
+<div class="hardLimit"
+     i18n:domain="ftw.simplelayout">
+    <div class="icon"><span class="fa fa-exclamation-circle"></span></div>
+    <div class="content">
+        <div class="title" i18n:translate="cropper_hard_limit_reached_label">image section is too small</div>
+        <div class="description">
+            {{#if limitWidth}}
+                <div i18n:translate="cropper_hard_limit_reached_width">
+                    Width: {{currentWidth}}px (allowed: {{limitWidth}}px)
+                </div>
+            {{/if}}
+            {{#if limitHeight}}
+                <div i18n:translate="cropper_hard_limit_reached_height">
+                    Height: {{currentHeight}}px (allowed: {{limitHeight}}px)
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

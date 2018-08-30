@@ -1,6 +1,17 @@
-let Cropperjs = require("cropperjs");
+import Cropperjs from "cropperjs";
+import Handlebars from "handlebars";
 import $ from "jquery";
 
+
+class Button {
+    constructor(element) {
+        this.element = $(element)
+    }
+
+    render(props = {}) {
+        props.disabled ? this.element.prop("disabled",true) : this.element.prop("disabled", false)
+    }
+}
 
 class ToolbarButton {
     constructor(element) {
@@ -17,6 +28,14 @@ class ToolbarButton {
 
 export default class Cropper {
     constructor(imageCropperWrapper) {
+        this.HARD_LIMIT_IDENTIFIER = 'hard'
+        this.SOFT_LIMIT_IDENTIFIER = 'soft'
+
+        this.wrapper = $(imageCropperWrapper);
+        this.limits = this.wrapper.data('limits');
+
+        this.originalImage = $('.croppingImage', $(imageCropperWrapper)).get(0);
+
         this.btnDragModeMove = new ToolbarButton($('.btnDragModeMove', this.wrapper));
         this.btnDragModeCrop = new ToolbarButton($('.btnDragModeCrop', this.wrapper));
 
@@ -30,13 +49,25 @@ export default class Cropper {
 
         this.btnClear = new ToolbarButton($('.btnClear', this.wrapper));
 
+        this.btnSave = new Button($('.btnSave', this.wrapper))
+
+        this.validationMessageContainer = document.getElementById(
+            "image-cropper-validation-message-container");
+
+        this.hardLimitValidationTemplate = Handlebars.compile(
+            document.getElementById("hard-limit-validation-template").innerHTML);
+
+        this.softLimitValidationTemplate = Handlebars.compile(
+            document.getElementById("soft-limit-validation-template").innerHTML);
+
+
         this.state = {
             dragMode: 'crop',
-            aspectRatio: this.getDefaultAspectRatio()
+            aspectRatio: this.getDefaultAspectRatio(),
+            limits: this.wrapper.data('limits'),
+            allowSave: true,
+            showLimitValidation: '',
         };
-
-        this.wrapper = $(imageCropperWrapper);
-        this.originalImage = $('.croppingImage', $(imageCropperWrapper)).get(0);
 
         this.cropper = null
 
@@ -54,6 +85,9 @@ export default class Cropper {
             ready() {
                 this.cropper.setData(config);
                 self.render()
+            },
+            crop() {
+                self.validateLimits();
             }
         });
     }
@@ -69,6 +103,87 @@ export default class Cropper {
         };
 
         this.render();
+    }
+
+    validateLimits() {
+        this.validationMessageContainer.innerHTML = ''
+        if (this.validateHardLimit() && this.validateSoftLimit()) {
+            this.setState(() => ({
+                showLimitValidation: false,
+                allowSave: true
+            }));
+        }
+    }
+
+    validateSoftLimit() {
+        let { limits } = this.getState();
+        let { width, height } = this.cropper.getData();
+        let { cropped } = this.cropper;
+
+        if (!cropped) {
+            return true
+        }
+
+        if (width < limits.soft.width || height < limits.soft.height) {
+            this.setState(() => ({
+                showLimitValidation: this.SOFT_LIMIT_IDENTIFIER,
+                allowSave: true
+            }));
+            return false;
+        }
+        return true;
+    }
+
+    validateHardLimit() {
+        let { limits } = this.getState();
+        let { width, height } = this.cropper.getData();
+        let { cropped } = this.cropper;
+
+        if (!cropped) {
+            return true
+        }
+
+        if (width < limits.hard.width || height < limits.hard.height) {
+            this.setState(() => ({
+                showLimitValidation: this.HARD_LIMIT_IDENTIFIER,
+                allowSave: false
+            }));
+            return false;
+        }
+        return true;
+    }
+
+    handleLimitValidationMessage() {
+        let { showLimitValidation, limits } = this.getState()
+        let { width, height } = this.cropper.getData();
+
+        switch (showLimitValidation) {
+            case this.SOFT_LIMIT_IDENTIFIER:
+                this.showLimitValidationMessage(
+                    this.softLimitValidationTemplate,
+                    width, limits.soft.width, height, limits.soft.height)
+
+                break;
+
+            case this.HARD_LIMIT_IDENTIFIER:
+                this.showLimitValidationMessage(
+                    this.hardLimitValidationTemplate,
+                    width, limits.hard.width, height, limits.hard.height)
+
+                break;
+        }
+    }
+
+    showLimitValidationMessage(template, width, limitWidth, height, limitHeight) {
+
+        this.validationMessageContainer.innerHTML = template(
+            {
+                currentWidth: Math.round(width),
+                limitWidth,
+                currentHeight: Math.round(height),
+                limitHeight
+            }
+        );
     }
 
     getDefaultAspectRatio() {
@@ -98,8 +213,17 @@ export default class Cropper {
         this.cropper.clear();
     }
 
+    allowSave() {
+        let { showLimitValidation } = this.getState();
+        let { cropped } = this.cropper;
+
+        if (cropped && showLimitValidation == this.HARD_LIMIT_IDENTIFIER) {
+            return false
+        }
+        return true
+    }
     render() {
-        let { dragMode, aspectRatio } = this.getState();
+        let { dragMode, aspectRatio, allowSave } = this.getState();
 
         this.cropper.setDragMode(dragMode);
 
@@ -132,6 +256,13 @@ export default class Cropper {
         this.btnClear.render({
             onClick: () => this.clear()
         });
+
+        this.btnSave.render({
+            disabled: !this.allowSave()
+        })
+
+        this.handleLimitValidationMessage();
+
     }
 
     processFormData(formData) {

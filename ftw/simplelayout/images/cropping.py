@@ -1,6 +1,7 @@
 from binascii import a2b_base64
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.ajax.utils import json_response
+from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import get_block_html
 from plone import api
@@ -53,11 +54,15 @@ class IImageCropping(model.Schema):
 
 class ImageCroppingView(BrowserView):
     template = ViewPageTemplateFile('templates/cropping.pt')
+    hard_limit_template = ViewPageTemplateFile('templates/cropping_hard_limit_message.pt')
+    soft_limit_template = ViewPageTemplateFile('templates/cropping_soft_limit_message.pt')
+
     aspect_ratio_configuration = {}
 
     def __init__(self, context, request):
         super(ImageCroppingView, self).__init__(context, request)
         self._load_aspect_ratio_configuration()
+        self.image_limits = IImageLimits(self.context)
 
     def __call__(self):
         response = {'content': self.template(),
@@ -122,3 +127,15 @@ class ImageCroppingView(BrowserView):
         return api.portal.get_registry_record(
             name='image_cropping_aspect_ratios',
             interface=ISimplelayoutDefaultSettings) or '{}'
+
+    def hard_limit_validation_template(self):
+        return self.hard_limit_template()
+
+    def soft_limit_validation_template(self):
+        return self.soft_limit_template()
+
+    def limits_json(self):
+        return json.dumps(self.limits())
+
+    def limits(self):
+        return self.image_limits.get_all_limits_for(self.context.portal_type)

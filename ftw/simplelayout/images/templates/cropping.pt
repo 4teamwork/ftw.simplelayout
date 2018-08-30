@@ -2,8 +2,10 @@
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   tal:omit-tag="python: 1"
   i18n:domain="ftw.simplelayout">
-      <div class="imageCropperWrapper" tal:attributes="data-config context/cropped_config">
+      <div class="imageCropperWrapper" tal:attributes="data-config context/cropped_config;
+                                                       data-limits view/limits_json">
           <h1 i18n:translate="" class="documentFirstHeading">Image editor</h1>
+          <div id="image-cropper-validation-message-container"></div>
           <div class="imageCropperHeader">
               <div class="imageCropperControls">
                   <ul class="sl-toolbar-image-cropper horizontal">
@@ -69,4 +71,6 @@
               </form>
           </div>
     </div>
+    <script id="hard-limit-validation-template" type="text/x-handlebars-template" tal:content="structure view/hard_limit_validation_template"></script>
+    <script id="soft-limit-validation-template" type="text/x-handlebars-template" tal:content="structure view/soft_limit_validation_template"></script>
  </html>
