@@ -32,7 +32,7 @@ export default class Cropper {
         this.SOFT_LIMIT_IDENTIFIER = 'soft'
 
         this.wrapper = $(imageCropperWrapper);
-        this.limits = this.wrapper.data('limits');
+        this.config = this.wrapper.data('config')
 
         this.originalImage = $('.croppingImage', $(imageCropperWrapper)).get(0);
 
@@ -64,7 +64,7 @@ export default class Cropper {
         this.state = {
             dragMode: 'crop',
             aspectRatio: this.getDefaultAspectRatio(),
-            limits: this.wrapper.data('limits'),
+            limits: this.config.limits,
             allowSave: true,
             showLimitValidation: '',
         };
@@ -75,7 +75,6 @@ export default class Cropper {
     }
 
     run() {
-        let config = this.wrapper.data('config');
         let { aspectRatio } = this.getState()
 
         let self = this;
@@ -83,7 +82,7 @@ export default class Cropper {
             viewMode: 1,
             aspectRatio,
             ready() {
-                this.cropper.setData(config);
+                this.cropper.setData(self.config.cropped_config);
                 self.render()
             },
             crop() {

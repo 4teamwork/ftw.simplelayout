@@ -134,8 +134,14 @@ class ImageCroppingView(BrowserView):
     def soft_limit_validation_template(self):
         return self.soft_limit_template()
 
-    def limits_json(self):
-        return json.dumps(self.limits())
+    def config(self):
+        return json.dumps({
+            'limits': self.limits(),
+            'cropped_config': self.cropped_config()
+        })
+
+    def cropped_config(self):
+        return json.loads(self.context.cropped_config or '{}')
 
     def limits(self):
         return self.image_limits.get_all_limits_for(self.context.portal_type)
