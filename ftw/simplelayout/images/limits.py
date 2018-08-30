@@ -26,8 +26,8 @@ class ImageLimits(object):
         - the configured limits are respected
         """
         limits = self.get_limits_for(limit_type, identifier)
-        if self._validate(width, limits.get('width', 0)) and \
-                self._validate(height, limits.get('height', 0)):
+        if self._validate(width, limits.get('width')) and \
+                self._validate(height, limits.get('height')):
             return True
         return False
 
@@ -37,8 +37,13 @@ class ImageLimits(object):
         i.e. {'width': 100, 'height': 150}
         """
         limit_config = self.limit_configuration.get(identifier, {})
+        limits = {
+            'width': 0,
+            'height': 0
+        }
+        limits.update(limit_config.get(limit_type, {}))
+        return limits
 
-        return limit_config.get(limit_type, {})
 
     def has_low_quality_image(self, image, identifier):
         """Returns true or false, depending if the soft limit of the image

@@ -146,8 +146,8 @@ class TestImageLimits(SimplelayoutTestCase):
             }
         })
 
-        self.assertDictEqual(
-            {},
+        self.assertEqual(
+            {'width': 0, 'height': 0},
             limits.get_limits_for('hard', BAR_IMAGE_LIMIT_IDENTIFIER))
 
         self.assertDictEqual(
