@@ -154,6 +154,26 @@ class TestImageLimits(SimplelayoutTestCase):
             {'width': 50, 'height': 75},
             limits.get_limits_for('hard', FOO_IMAGE_LIMIT_IDENTIFIER))
 
+    def test_get_all_limits_for_returns_all_registered_limits(self):
+        limits = self.image_limits({
+            FOO_IMAGE_LIMIT_IDENTIFIER: {
+                'soft': {
+                    'width': 100,
+                },
+                'hard': {
+                    'width': 50,
+                    'height': 75,
+                }
+            }
+        })
+
+        self.assertDictEqual({
+            'hard': {'width': 50, 'height': 75},
+            'soft': {'width': 100, 'height': 0}
+            },
+            limits.get_all_limits_for(FOO_IMAGE_LIMIT_IDENTIFIER)
+        )
+
     def test_has_low_quality_image_returns_true_if_soft_limit_not_satisfied(self):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())

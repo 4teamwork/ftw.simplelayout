@@ -44,6 +44,18 @@ class ImageLimits(object):
         limits.update(limit_config.get(limit_type, {}))
         return limits
 
+    def get_all_limits_for(self, identifier):
+        """Returns all defined limit-types for the given identifier:
+
+        i.e. {
+            'hard': {'width': 100, 'height': 150},
+            'soft': {'width': 200, 'height': 2000}
+        }
+        """
+        return {
+            'hard': self.get_limits_for('hard', identifier),
+            'soft': self.get_limits_for('soft', identifier)
+        }
 
     def has_low_quality_image(self, image, identifier):
         """Returns true or false, depending if the soft limit of the image
