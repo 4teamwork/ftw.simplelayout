@@ -5,6 +5,8 @@ from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import statusmessages
+from ftw.testbrowser.tests.helpers import asset
 from plone import api
 import json
 import transaction
@@ -71,6 +73,22 @@ class TestCropping(SimplelayoutTestCase):
             ['0'],
             [el.get('data-value') for el in browser.css('.btnAspectRatioButton')]
             )
+
+    @browsing
+    def test_remove_cropped_image_if_main_image_has_changed(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page)
+                       .with_cropped_image())
+
+        self.assertIsNotNone(block.cropped_image)
+
+        browser.login().visit(block, view='edit.json')
+        browser.parse(browser.json['content'])
+
+        with asset('mario.gif') as mario:
+            browser.fill({'Image': (mario.read(), 'mario.gif')}).save()
+
+        self.assertIsNone(block.cropped_image)
 
     def _set_settings(self, setting):
         api.portal.set_registry_record(
