@@ -744,3 +744,9 @@ ul[class^="sl-toolbar"] {
 #plonebrowser #anchor_link {
   display: none;
 }
+
+// Fixes a bug in the file-selector widget. See IImageCropping behavior
+// schmea interface for more information.
+#formfield-form-widgets-IImageCropping-cropped_image {
+  display: none;
+}

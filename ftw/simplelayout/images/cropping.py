@@ -41,7 +41,15 @@ class IImageCropping(model.Schema):
         default=True,
         missing_value=True)
 
-    form.mode(cropped_image='hidden')
+    # This field should be hidden. Unfortunately, that's not possible due to a
+    # weird bug in the file-selector-widget.
+    # If this field is hidden and contains an image, it will raise a validation
+    # error on form-save. If we skip the validation of this field, the image will
+    # be broken after saving. So, we just hide this field through css.
+    #
+    # WARNING: This case is not testet. I can't reproduce this issue in the test.
+    #
+    # form.mode(cropped_config='hidden')
     cropped_image = NamedBlobImage(
         title=_(u'label_cropped_image', default=u'Cropped Image'),
         required=False)
