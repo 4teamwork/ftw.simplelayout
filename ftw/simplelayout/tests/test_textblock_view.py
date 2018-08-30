@@ -1,12 +1,14 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
+from plone import api
 from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
 from plone.uuid.interfaces import IUUID
+from Products.CMFCore.utils import getToolByName
 from StringIO import StringIO
 from unittest2 import skipUnless
 from unittest2 import TestCase
@@ -276,3 +278,58 @@ class TestTextBlockRendering(TestCase):
             u'The caption',
             browser.css('a.colorboxLink').first.attrib['data-caption']
         )
+
+    def set_config(self, config={}):
+        json_config = json.dumps(config).decode('utf-8')
+        api.portal.set_registry_record(
+            'image_limits', json_config, ISimplelayoutDefaultSettings)
+
+        transaction.commit()
+
+    @browsing
+    def test_show_low_image_quality_indicator_if_image_is_low_quality(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        browser.login().visit(block)
+        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+
+        self.set_config({
+            block.portal_type: {
+                "soft": {"width": block.image._width + 100}
+            }
+        })
+
+        browser.visit(block)
+        self.assertEquals(1, len(browser.css('.lowImageQualityIndicator')))
+
+    @browsing
+    def test_do_not_show_low_image_quality_indicator_if_image_is_high_quality(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        browser.login().visit(block)
+        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+
+        self.set_config({
+            block.portal_type: {
+                "soft": {"width": block.image._width - 100}
+            }
+        })
+
+        browser.visit(block)
+        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+
+    @browsing
+    def test_only_show_low_image_quality_indicator_for_editors(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        self.set_config({
+            block.portal_type: {
+                "soft": {"width": block.image._width + 100}
+            }
+        })
+
+        browser.logout().visit(block)
+        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))

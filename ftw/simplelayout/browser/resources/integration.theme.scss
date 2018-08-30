@@ -353,6 +353,16 @@
     background-color: $color-gray-dark;
     box-shadow: $box-shadow-secondary;
   }
+  .lowImageQualityIndicator {
+    position: absolute;
+    width: 100%;
+    padding: $padding-vertical;
+    background-color: rgba(white, 0.9);
+    border: 1px solid $color-warning;
+    .description {
+      font-size: 0.8em;
+    }
+  }
 }
 
 $editbar-height: $line-height-base + 2 * $padding-vertical;

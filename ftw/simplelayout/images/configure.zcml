@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+    <adapter for="zope.interface.Interface"
+             factory=".limits.ImageLimits" />
+
+    <adapter for="zope.interface.Interface"
+             factory=".validators.ImageLimitValidatorMessages" />
+
+    <browser:page
+      for="*"
+      name="ftw.simplelayout.images.macros"
+      template="templates/macros.pt"
+      permission="zope2.View"
+      />
+
+</configure>
