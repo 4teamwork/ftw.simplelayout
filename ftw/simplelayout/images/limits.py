@@ -71,7 +71,8 @@ class ImageLimits(object):
         return current >= expected
 
     def _load_limit_configuration(self):
-        self.limit_configuration = json.loads(self._limit_configuration_json)
+        self.limit_configuration = json.loads(
+            self._limit_configuration_json or '{}')
 
     @property
     def _limit_configuration_json(self):

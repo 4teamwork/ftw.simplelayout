@@ -1,11 +1,16 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.images.limits import ImageLimits
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
+from plone import api
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from zope.interface import Interface
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+import transaction
+import json
+
 
 FOO_IMAGE_LIMIT_IDENTIFIER = 'foo'
 BAR_IMAGE_LIMIT_IDENTIFIER = 'bar'
@@ -38,6 +43,17 @@ class TestImageLimits(SimplelayoutTestCase):
         limits.limit_configuration = config
 
         return limits
+
+    def test_do_not_fail_if_configuration_has_empty_string(self):
+        api.portal.set_registry_record(
+            name='image_limits',
+            value=u'',
+            interface=ISimplelayoutDefaultSettings)
+
+        transaction.commit()
+        limits = self.image_limits({})
+
+        self.assertEqual({}, limits.limit_configuration)
 
     def test_validate_limit_returns_true_if_no_field_is_configured(self):
         limits = self.image_limits({})
