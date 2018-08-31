@@ -80,6 +80,7 @@ export default class Cropper {
 
         let self = this;
         this.cropper = new Cropperjs(this.originalImage,  {
+            autoCrop: cropperData !== undefined,
             viewMode: 1,
             aspectRatio,
             ready() {
