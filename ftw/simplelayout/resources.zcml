@@ -15,7 +15,8 @@
 
         <theme:scss file="browser/resources/theming.toolbar-icons.scss" />
 
-        <theme:scss file="browser/resources/vendor/cropper.min.css" />
+        <!-- Do not use minified version of cropper.css due to a compilation-bug in pyScss -->
+        <theme:scss file="browser/resources/vendor/cropper.css" />
     </theme:resources>
 
 </configure>
