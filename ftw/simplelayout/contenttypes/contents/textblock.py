@@ -3,7 +3,7 @@ from collective import dexteritytextindexer
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.actions import DefaultActions
 from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
-from ftw.simplelayout.images.cropping import IImageCropping
+from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
 from ftw.simplelayout.images.validators import ImageLimitValidator

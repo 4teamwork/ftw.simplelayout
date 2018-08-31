@@ -1,5 +1,5 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
-from ftw.simplelayout.images.cropping import IImageCropping
+from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.utils import get_block_html
 from plone.app.uuid.utils import uuidToObject

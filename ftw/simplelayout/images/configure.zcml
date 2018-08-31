@@ -5,7 +5,7 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="ftw.simplelayout">
 
-    <include package="plone.behavior" file="meta.zcml" />
+    <include package=".cropping" />
 
     <adapter for="zope.interface.Interface"
              factory=".limits.ImageLimits" />
@@ -18,20 +18,6 @@
       name="ftw.simplelayout.images.macros"
       template="templates/macros.pt"
       permission="zope2.View"
-      />
-
-    <plone:behavior
-        title="Image cropping"
-        description="Allows to crop an image and use the cropped image for display "
-        provides="ftw.simplelayout.images.cropping.IImageCropping"
-        for="plone.dexterity.interfaces.IDexterityContent"
-        />
-
-    <browser:page
-      for="ftw.simplelayout.images.cropping.IImageCropping"
-      name="image_cropping.json"
-      class=".cropping.ImageCroppingView"
-      permission="cmf.ModifyPortalContent"
       />
 
 </configure>

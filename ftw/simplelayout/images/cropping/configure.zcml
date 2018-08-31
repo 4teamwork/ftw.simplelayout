@@ -1,0 +1,16 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ftw.simplelayout">
+
+    <include package=".browser" />
+    <include package="plone.behavior" file="meta.zcml" />
+
+    <plone:behavior
+        title="Image cropping"
+        description="Allows to crop an image and use the cropped image for display "
+        provides="ftw.simplelayout.images.cropping.behaviors.IImageCropping"
+        for="plone.dexterity.interfaces.IDexterityContent"
+        />
+
+</configure>

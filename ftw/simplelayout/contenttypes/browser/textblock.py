@@ -3,7 +3,7 @@ from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.behaviors import ITeaser
 from ftw.simplelayout.contenttypes.contents.textblock import ITextBlockSchema
-from ftw.simplelayout.images.cropping import IImageCropping
+from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.interfaces import ISimplelayoutActions
 from ftw.simplelayout.utils import normalize_portal_type
 from plone.memoize.instance import memoize
