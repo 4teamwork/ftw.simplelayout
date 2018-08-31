@@ -1,32 +1,33 @@
-import $ from "jquery";
-const EE = require("wolfy87-eventemitter");
+import $ from 'jquery'
+const EE = require('wolfy87-eventemitter')
 
-var instance = null;
-var eventEmitter = null;
+let instance = null
+let eventEmitter = null
 
-export default function EventEmitter(){
+export default function EventEmitter() {
   this.trigger = function(eventType, data) {
-    $(document).trigger(eventType, data);
-    eventEmitter.trigger(eventType, data);
-  };
+    $(document).trigger(eventType, data)
+    eventEmitter.trigger(eventType, data)
+  }
 
-  this.on = function(eventType, callback) { eventEmitter.on(eventType, callback); };
+  this.on = function(eventType, callback) {
+    eventEmitter.on(eventType, callback)
+  }
 
   this.clean = function() {
-    var listeners = [];
+    let listeners = []
     $.each(eventEmitter.getListeners(/./g), (i, e) => {
-      listeners = listeners.concat(eventEmitter.flattenListeners(e));
-    });
-    eventEmitter.removeListeners.call(eventEmitter, /./g, listeners);
+      listeners = listeners.concat(eventEmitter.flattenListeners(e))
+    })
+    eventEmitter.removeListeners.call(eventEmitter, /./g, listeners)
   }
 }
 
-EventEmitter.getInstance = function(){
-
-  if(instance === null){
-    eventEmitter = new EE();
-    instance = new EventEmitter();
+EventEmitter.getInstance = function() {
+  if (instance === null) {
+    eventEmitter = new EE()
+    instance = new EventEmitter()
   }
 
-  return instance;
-};
+  return instance
+}

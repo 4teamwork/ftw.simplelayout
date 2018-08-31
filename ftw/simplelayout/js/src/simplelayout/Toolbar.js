@@ -1,16 +1,14 @@
-import Element from "simplelayout/Element";
-import $ from "jquery";
-import Handlebars from "handlebars";
+import Element from 'simplelayout/Element'
+import $ from 'jquery'
 
 export default function Toolbar(actions, orientation, type) {
-
   if (!(this instanceof Toolbar)) {
-    throw new TypeError("Toolbar constructor cannot be called as a function.");
+    throw new TypeError('Toolbar constructor cannot be called as a function.')
   }
 
-  actions = actions || {};
+  actions = actions || {}
 
-  var template = `
+  let template = `
     <ul class='sl-toolbar{{#if type}}-{{type}}{{/if}}{{#if orientation}} {{orientation}}{{/if}}'>
       {{#each actions}}
         <li>
@@ -23,16 +21,19 @@ export default function Toolbar(actions, orientation, type) {
         </li>
       {{/each}}
     </ul>
-  `;
+  `
 
-  Element.call(this, template);
+  Element.call(this, template)
 
-  this.create({ actions: actions, orientation: orientation, type: type });
+  this.create({ actions: actions, orientation: orientation, type: type })
 
-  this.disable = function(action) { $("." + action, this.element).css("display", "none"); };
+  this.disable = function(action) {
+    $('.' + action, this.element).css('display', 'none')
+  }
 
-  this.enable = function(action) { $("." + action, this.element).css("display", "block"); };
+  this.enable = function(action) {
+    $('.' + action, this.element).css('display', 'block')
+  }
+}
 
-};
-
-Element.call(Toolbar.prototype);
+Element.call(Toolbar.prototype)

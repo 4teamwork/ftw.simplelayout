@@ -1,81 +1,105 @@
-import Block from "simplelayout/Block";
-import Toolbar from "simplelayout/Toolbar";
-import $ from "jquery";
+import Block from 'simplelayout/Block'
+import Toolbar from 'simplelayout/Toolbar'
+import $ from 'jquery'
 
-describe("Block", function() {
-  var block;
+describe('Block', function() {
+  let block
 
   beforeEach(function() {
-    block = new Block("<p>Test</p>", "textblock");
-  });
+    block = new Block('<p>Test</p>', 'textblock')
+  })
 
-  it("is a constructor function", function() {
-    assert.throw(Block, TypeError, "Block constructor cannot be called as a function.");
-  });
+  it('is a constructor function', function() {
+    assert.throw(Block, TypeError, 'Block constructor cannot be called as a function.')
+  })
 
-  it("can create a block", function() {
-    var node = $.map(block.element, function(blockNode) {
-      return { tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type };
-    });
-
-    assert.deepEqual(node, [{tagName: "DIV", content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Test</p></div>', type: "textblock"}]);
-  });
-
-  it("can set block-content", function() {
-    block.content("<p>Hallo</p>");
-
-    var node = $.map(block.element, function(blockNode) {
-      return {tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type};
-    });
-
-    assert.deepEqual(node, [{tagName: "DIV", content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Hallo</p></div>', type: "textblock"}]);
-  });
-
-  it("should set id on block content when adding a new block", () => {
-    block.content("<p>hallo</p>", "block-id");
-
-    var node = $.map(block.element, function(blockNode) {
-      return {tagName: blockNode.tagName, content: blockNode.innerHTML, type: blockNode.dataset.type };
-    });
+  it('can create a block', function() {
+    let node = $.map(block.element, function(blockNode) {
+      return {
+        tagName: blockNode.tagName,
+        content: blockNode.innerHTML,
+        type: blockNode.dataset.type
+      }
+    })
 
     assert.deepEqual(node, [
       {
-        tagName: "DIV",
-        content: '<div class="iFrameFix"></div><div class="sl-block-content" id="block-id"><p>hallo</p></div>',
-        type: "textblock",
+        tagName: 'DIV',
+        content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Test</p></div>',
+        type: 'textblock'
       }
-    ]);
-  });
+    ])
+  })
 
-  it("can attach a toolbar", function() {
-    var toolbar = new Toolbar();
+  it('can set block-content', function() {
+    block.content('<p>Hallo</p>')
 
-    block.attachToolbar(toolbar);
+    let node = $.map(block.element, function(blockNode) {
+      return {
+        tagName: blockNode.tagName,
+        content: blockNode.innerHTML,
+        type: blockNode.dataset.type
+      }
+    })
 
-    var node = $.map($(".sl-toolbar", block.element), function(toolbarNode) {
-      return { tagName: toolbarNode.tagName, classes: toolbarNode.className };
-    });
-    assert.deepEqual(node, [{tagName: "UL", classes: "sl-toolbar"}]);
-  });
+    assert.deepEqual(node, [
+      {
+        tagName: 'DIV',
+        content: '<div class="iFrameFix"></div><div class="sl-block-content"><p>Hallo</p></div>',
+        type: 'textblock'
+      }
+    ])
+  })
 
-  it("prepends frameFix", function() {
-    var frameFixElement = $.map($(".iFrameFix", block.element), function(frame) {
-      return { classes: frame.className, tagName: frame.tagName };
-    });
-    assert.deepEqual(frameFixElement, [{ classes: "iFrameFix", tagName: "DIV" }]);
-  });
+  it('should set id on block content when adding a new block', () => {
+    block.content('<p>hallo</p>', 'block-id')
 
-  it("can enable and disable frameFix", function() {
-    block.enableFrame();
-    var frameFixElement = $.map(block.element.find(".iFrameFix"), function(frame) {
-      return { display: frame.style.display };
-    });
-    assert.deepEqual(frameFixElement, [{ display: "block" }]);
-    block.disableFrame();
-    frameFixElement = $.map(block.element.find(".iFrameFix"), function(frame) {
-      return { display: frame.style.display };
-    });
-    assert.deepEqual(frameFixElement, [{ display: "none" }]);
-  });
+    let node = $.map(block.element, function(blockNode) {
+      return {
+        tagName: blockNode.tagName,
+        content: blockNode.innerHTML,
+        type: blockNode.dataset.type
+      }
+    })
 
-});
+    assert.deepEqual(node, [
+      {
+        tagName: 'DIV',
+        content:
+          '<div class="iFrameFix"></div><div class="sl-block-content" id="block-id"><p>hallo</p></div>',
+        type: 'textblock'
+      }
+    ])
+  })
+
+  it('can attach a toolbar', function() {
+    let toolbar = new Toolbar()
+
+    block.attachToolbar(toolbar)
+
+    let node = $.map($('.sl-toolbar', block.element), function(toolbarNode) {
+      return { tagName: toolbarNode.tagName, classes: toolbarNode.className }
+    })
+    assert.deepEqual(node, [{ tagName: 'UL', classes: 'sl-toolbar' }])
+  })
+
+  it('prepends frameFix', function() {
+    let frameFixElement = $.map($('.iFrameFix', block.element), function(frame) {
+      return { classes: frame.className, tagName: frame.tagName }
+    })
+    assert.deepEqual(frameFixElement, [{ classes: 'iFrameFix', tagName: 'DIV' }])
+  })
+
+  it('can enable and disable frameFix', function() {
+    block.enableFrame()
+    let frameFixElement = $.map(block.element.find('.iFrameFix'), function(frame) {
+      return { display: frame.style.display }
+    })
+    assert.deepEqual(frameFixElement, [{ display: 'block' }])
+    block.disableFrame()
+    frameFixElement = $.map(block.element.find('.iFrameFix'), function(frame) {
+      return { display: frame.style.display }
+    })
+    assert.deepEqual(frameFixElement, [{ display: 'none' }])
+  })
+})
