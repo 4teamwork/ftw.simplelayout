@@ -1,6 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.images.limits import ImageLimits
+from ftw.simplelayout.images.limits.limits import ImageLimits
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase

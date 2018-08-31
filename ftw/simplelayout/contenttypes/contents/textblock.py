@@ -6,7 +6,7 @@ from ftw.simplelayout.contenttypes.contents.interfaces import ITextBlock
 from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
-from ftw.simplelayout.images.validators import ImageLimitValidator
+from ftw.simplelayout.images.limits.validators import ImageLimitValidator
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from plone.app.textfield import RichText
