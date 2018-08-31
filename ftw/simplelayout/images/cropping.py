@@ -36,6 +36,10 @@ class IImageCropping(model.Schema):
     use_cropped_image_for_overlay = schema.Bool(
         title=_(u'use_cropped_image_for_overlay',
                 default=u'Use cropped image for overlay'),
+        description=_(u'use_cropped_image_for_overlay_desc',
+                      default=u'If you crop an image, the original image will be still available. '
+                              u'Per default, the original image will be used for the overlay. '
+                              u'If you want to show the cropped image instead, mark this option.'),
         required=False,
         default=True,
         missing_value=True)

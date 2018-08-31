@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-30 09:06+0000\n"
+"POT-Creation-Date: 2018-08-31 07:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,7 +23,7 @@ msgstr "Fügt eine checkbox hinzu, mit der der Titel einer Inhaltsseite versteck
 msgid "Allows to crop an image and use the cropped image for display"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:49
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:56
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -89,7 +89,6 @@ msgid "Image"
 msgstr "Bild"
 
 #: ./ftw/simplelayout/images/configure.zcml:28
-#: ./ftw/simplelayout/images/cropping.py:32
 msgid "Image cropping"
 msgstr "Bildbearbeitung"
 
@@ -97,7 +96,7 @@ msgstr "Bildbearbeitung"
 msgid "Image cropping aspect ratios"
 msgstr "Seitenverhältnisse"
 
-#: ./ftw/simplelayout/images/templates/cropping.pt:7
+#: ./ftw/simplelayout/images/templates/cropping.pt:6
 msgid "Image editor"
 msgstr "Bildbearbeitung"
 
@@ -125,7 +124,7 @@ msgstr "Ändere die geographischen Daten für diesen Inhalt"
 msgid "Multiple users are separated by comma"
 msgstr "Mehrere Benutzer werden mit Komma getrennt"
 
-#: ./ftw/simplelayout/images/templates/cropping.pt:51
+#: ./ftw/simplelayout/images/templates/cropping.pt:50
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
@@ -133,7 +132,7 @@ msgstr "Kein Bild zum Bearbeiten vorhanden."
 msgid "OpenGraph global type"
 msgstr "Globaler OpenGraph Typ"
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:38
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:39
 msgid "Save"
 msgstr "Speichern"
 
@@ -439,12 +438,12 @@ msgid "label_crop_image"
 msgstr ""
 
 #. Default: "The final cropped area position and size data"
-#: ./ftw/simplelayout/images/cropping.py:51
+#: ./ftw/simplelayout/images/cropping.py:62
 msgid "label_cropped_config"
 msgstr ""
 
 #. Default: "Cropped Image"
-#: ./ftw/simplelayout/images/cropping.py:46
+#: ./ftw/simplelayout/images/cropping.py:57
 msgid "label_cropped_image"
 msgstr ""
 
@@ -668,7 +667,12 @@ msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 
 #. Default: "Use cropped image for overlay"
-#: ./ftw/simplelayout/images/cropping.py:38
+#: ./ftw/simplelayout/images/cropping.py:37
 msgid "use_cropped_image_for_overlay"
 msgstr "Verwende ein zugeschnittenes Bild ebenfalls für das Overlay"
+
+#. Default: "If you crop an image, the original image will be still available. Per default, the original image will be used for the overlay. If you want to show the cropped image instead, mark this option."
+#: ./ftw/simplelayout/images/cropping.py:39
+msgid "use_cropped_image_for_overlay_desc"
+msgstr "Wenn ein Bild im Bildeditor zugeschnitten wird, ist das Originalbild weiterhin verfügbar. Standardmässig wird das Originalbild für das Bildoverlay verwendet. Wenn Sie stattdessen das zugeschnittene Bild für das Overlay verwenden möchten, dann markieren Sie diese Option."
 
