@@ -28,8 +28,7 @@ class IImageCroppingMarker(Interface):
 @provider(IFormFieldProvider)
 class IImageCropping(model.Schema):
 
-    model.fieldset('image_cropping',
-                   label=_(u'Image cropping'),
+    model.fieldset('image',
                    fields=['use_cropped_image_for_overlay',
                            'cropped_image',
                            'cropped_config'])
