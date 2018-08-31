@@ -1,16 +1,16 @@
+from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
+from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from plone import api
 from zope.interface import implementer
 import json
 
 
-@implementer(IImageLimits)
-class ImageLimits(object):
+class Limits(object):
     limit_configuration = {}
 
-    def __init__(self, context):
-        self.context = context
+    def __init__(self):
         self._load_limit_configuration()
 
     def validate(self, limit_type, identifier,
@@ -57,14 +57,6 @@ class ImageLimits(object):
             'soft': self.get_limits_for('soft', identifier)
         }
 
-    def has_low_quality_image(self, image, identifier):
-        """Returns true or false, depending if the soft limit of the image
-        of the given context is satisfied or not.
-        """
-        if not image:
-            return False
-        return not self.validate('soft', identifier, image._width, image._height)
-
     def _validate(self, current, expected):
         if not current or not expected:
             return True
@@ -78,3 +70,44 @@ class ImageLimits(object):
     def _limit_configuration_json(self):
         return api.portal.get_registry_record(
             name='image_limits', interface=ISimplelayoutDefaultSettings)
+
+
+@implementer(IImageLimits)
+class ImageLimits(object):
+    limitsCls = Limits
+    image_field_name = 'image'
+
+    def __init__(self, context):
+        self.context = context
+        self.limits = self.limitsCls()
+        self.identifier = self.context.portal_type
+
+    def validate(self, limit_type):
+        return self.limits.validate(
+            limit_type, self.identifier,
+            self._image._width, self._image._height)
+
+    def get_limits_for(self, limit_type):
+        return self.limits.get_limits_for(limit_type, self.identifier)
+
+    def get_all_limits(self):
+        return self.limits.get_all_limits_for(self.identifier)
+
+    def has_low_quality_image(self):
+        """Returns true or false, depending if the soft limit of the image
+        of the given context is satisfied or not.
+        """
+        if not self._image:
+            return False
+        return not self.validate('soft')
+
+    def low_quality_image_message(self):
+        return IImageLimitValidatorMessages(self.context).limit_str(
+            'soft', self.identifier, self._image)
+
+    @property
+    def _image(self):
+        image = getattr(self.context, self.image_field_name)
+        if IImageCropping.providedBy(self.context):
+            image = self.context.cropped_image or image
+        return image

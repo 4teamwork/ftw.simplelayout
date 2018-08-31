@@ -6,8 +6,9 @@
 
     <browser:page
       for="*"
-      name="ftw.simplelayout.images.macros"
-      template="templates/macros.pt"
+      name="low_image_quality_indicator"
+      template="templates/low_image_quality_indicator.pt"
+      class=".limits.LowImageQualityIndicator"
       permission="zope2.View"
       />
 

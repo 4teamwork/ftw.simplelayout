@@ -16,7 +16,7 @@
     <div tal:attributes="class image/wrapper_css_classes">
         <div class="imageContainer">
             <tal:block condition="view/show_low_image_quality_indicator">
-              <div metal:use-macro="view/context/@@ftw.simplelayout.images.macros/low_image_quality_indicator"></div>
+              <div tal:content="structure context/@@low_image_quality_indicator"></div>
             </tal:block>
             <a tal:omit-tag="not: image/link_url"
                tal:attributes="href image/link_url;

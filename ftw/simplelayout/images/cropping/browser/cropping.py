@@ -104,4 +104,4 @@ class ImageCroppingView(BrowserView):
         return json.loads(self.context.cropped_config or '{}')
 
     def limits(self):
-        return self.image_limits.get_all_limits_for(self.context.portal_type)
+        return self.image_limits.get_all_limits()

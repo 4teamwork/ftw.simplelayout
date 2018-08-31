@@ -1,16 +1,15 @@
 from ftw.simplelayout import _
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
+from ftw.simplelayout.images.limits.limits import Limits
 from z3c.form import validator
 from zope.interface import implementer
 from zope.interface import Invalid
 
 
-@implementer(IImageLimitValidatorMessages)
-class ImageLimitValidatorMessages(object):
-    def __init__(self, context):
-        self.context = context
-        self.image_limits = IImageLimits(self.context)
+class LimitValidatorMessages(object):
+    def __init__(self):
+        self.limits = Limits()
 
     def hard_limit_invalid_error_message(self, identifier, image):
         limit_str = self.limit_str('hard', identifier, image)
@@ -57,7 +56,23 @@ class ImageLimitValidatorMessages(object):
                  )
 
     def _get_image_limits_for(self, limit_type, identifier):
-        return self.image_limits.get_limits_for(limit_type, identifier)
+        return self.limits.get_limits_for(limit_type, identifier)
+
+
+@implementer(IImageLimitValidatorMessages)
+class ImageLimitValidatorMessages(object):
+    def __init__(self, context):
+        self.context = context
+        self.limit_validator_messages = LimitValidatorMessages()
+        self.image_limits = IImageLimits(self.context)
+
+    def hard_limit_invalid_error_message(self):
+        return self.limit_validator_messages.hard_limit_invalid_error_message(
+            self.image_limits.identifier, self.image_limits._image)
+
+    def limit_str(self, limit_type):
+        return self.limit_validator_messages.limit_str(
+            limit_type, self.image_limits.identifier, self.image_limits._image)
 
 
 class ImageLimitValidator(validator.SimpleFieldValidator):
@@ -77,8 +92,8 @@ class ImageLimitValidator(validator.SimpleFieldValidator):
 
     def __init__(self, *args, **kwargs):
         super(ImageLimitValidator, self).__init__(*args, **kwargs)
-        self.image_limits = IImageLimits(self.context)
-        self.validator_messages = IImageLimitValidatorMessages(self.context)
+        self.limits = Limits()
+        self.validator_messages = LimitValidatorMessages()
 
     def validate(self, value):
         super(ImageLimitValidator, self).validate(value)
@@ -93,5 +108,5 @@ class ImageLimitValidator(validator.SimpleFieldValidator):
                 self.identifier, value))
 
     def _validate_limit_for(self, limit_type, value):
-        return self.image_limits.validate(
+        return self.limits.validate(
             limit_type, self.identifier, width=value._width, height=value._height)
