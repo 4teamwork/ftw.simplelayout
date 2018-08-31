@@ -8,12 +8,9 @@ from zope.interface import provider
 
 
 @provider(IFormFieldProvider)
-class IImageCropping(model.Schema):
-
+class ICroppedImageInOverlay(model.Schema):
     model.fieldset('image',
-                   fields=['use_cropped_image_for_overlay',
-                           'cropped_image',
-                           'cropped_config'])
+                   fields=['use_cropped_image_for_overlay'])
 
     use_cropped_image_for_overlay = schema.Bool(
         title=_(u'use_cropped_image_for_overlay',
@@ -25,6 +22,10 @@ class IImageCropping(model.Schema):
         required=False,
         default=True,
         missing_value=True)
+
+
+@provider(IFormFieldProvider)
+class IImageCropping(model.Schema):
 
     # This field should be hidden. Unfortunately, that's not possible due to a
     # weird bug in the file-selector-widget.

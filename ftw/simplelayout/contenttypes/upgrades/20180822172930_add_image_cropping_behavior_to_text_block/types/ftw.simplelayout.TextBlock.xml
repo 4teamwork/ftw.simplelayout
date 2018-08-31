@@ -6,6 +6,7 @@
 
     <!-- enabled behaviors -->
     <property name="behaviors" purge="False">
+        <element value="ftw.simplelayout.images.cropping.behaviors.ICroppedImageInOverlay"/>
         <element value="ftw.simplelayout.images.cropping.behaviors.IImageCropping"/>
     </property>
 

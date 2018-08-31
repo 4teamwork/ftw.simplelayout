@@ -3,6 +3,7 @@ from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.behaviors import ITeaser
 from ftw.simplelayout.contenttypes.contents.textblock import ITextBlockSchema
+from ftw.simplelayout.images.cropping.behaviors import ICroppedImageInOverlay
 from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.interfaces import ISimplelayoutActions
@@ -64,8 +65,10 @@ class TextBlockView(BaseBlock):
         if self.context.open_image_in_overlay:
             # Get the scale defined in `ftw.colorbox`.
             force_original = False
-            if IImageCropping.providedBy(self.context):
+            if ICroppedImageInOverlay.providedBy(self.context):
                 force_original = not self.context.use_cropped_image_for_overlay
+            else:
+                force_original = True
 
             image_scale = self._get_image_scale('colorbox', force_original)
             # Don't fail if the scale has been removed in the policy.
