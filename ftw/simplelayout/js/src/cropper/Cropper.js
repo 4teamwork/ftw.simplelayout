@@ -76,13 +76,14 @@ export default class Cropper {
 
     run() {
         let { aspectRatio } = this.getState()
+        let { cropperData } = this.config.cropped_config
 
         let self = this;
         this.cropper = new Cropperjs(this.originalImage,  {
             viewMode: 1,
             aspectRatio,
             ready() {
-                this.cropper.setData(self.config.cropped_config);
+                this.cropper.setData(cropperData);
                 self.render()
             },
             crop() {
@@ -186,6 +187,9 @@ export default class Cropper {
     }
 
     getDefaultAspectRatio() {
+        let { currentAspectRatio } = this.config.cropped_config
+
+        if ( typeof currentAspectRatio !== 'undefined') { return currentAspectRatio };
         return this.btnAspectRatios.length > 0
             ? this.btnAspectRatios[0].element.data('value')
             : 0
@@ -265,8 +269,12 @@ export default class Cropper {
     }
 
     processFormData(formData) {
+        let { aspectRatio } = this.getState();
+
         formData.append('is_cropped', this.cropper.cropped);
-        formData.append('cropped_config', JSON.stringify(this.cropper.getData()));
+        formData.append('cropped_config', JSON.stringify({
+            cropperData: this.cropper.getData(),
+            currentAspectRatio: aspectRatio }));
         formData.append('cropped_image_data', this.cropper.getCroppedCanvas().toDataURL('image/jpeg'));
     }
 }

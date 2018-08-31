@@ -59,7 +59,7 @@ class IImageCropping(model.Schema):
 
     form.mode(cropped_config='hidden')
     cropped_config = schema.TextLine(
-        title=_(u'label_cropped_config', default=u'The final cropped area position and size data'),
+        title=_(u'label_cropped_config', default=u'The final cropped configuration'),
         required=False)
 
 

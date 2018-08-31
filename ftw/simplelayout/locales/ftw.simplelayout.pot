@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-31 07:47+0000\n"
+"POT-Creation-Date: 2018-08-31 07:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -440,7 +440,7 @@ msgstr ""
 msgid "label_crop_image"
 msgstr ""
 
-#. Default: "The final cropped area position and size data"
+#. Default: "The final cropped configuration"
 #: ./ftw/simplelayout/images/cropping.py:62
 msgid "label_cropped_config"
 msgstr ""
