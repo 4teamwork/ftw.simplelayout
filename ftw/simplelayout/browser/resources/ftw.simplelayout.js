@@ -1,20 +1,20 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}(g.ftw || (g.ftw = {})).simplelayout = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _cropperjs = require("cropperjs");
+var _cropperjs = require('cropperjs');
 
 var _cropperjs2 = _interopRequireDefault(_cropperjs);
 
-var _handlebars = require("handlebars");
+var _handlebars = require('handlebars');
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
@@ -27,383 +27,383 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Button = function () {
-    function Button(element) {
-        _classCallCheck(this, Button);
+  function Button(element) {
+    _classCallCheck(this, Button);
 
-        this.element = (0, _jquery2.default)(element);
+    this.element = (0, _jquery2.default)(element);
+  }
+
+  _createClass(Button, [{
+    key: 'render',
+    value: function render() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      props.disabled ? this.element.prop('disabled', true) : this.element.prop('disabled', false);
     }
+  }]);
 
-    _createClass(Button, [{
-        key: "render",
-        value: function render() {
-            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            props.disabled ? this.element.prop("disabled", true) : this.element.prop("disabled", false);
-        }
-    }]);
-
-    return Button;
+  return Button;
 }();
 
 var ToolbarButton = function () {
-    function ToolbarButton(element) {
-        _classCallCheck(this, ToolbarButton);
+  function ToolbarButton(element) {
+    _classCallCheck(this, ToolbarButton);
 
-        this.element = (0, _jquery2.default)(element);
+    this.element = (0, _jquery2.default)(element);
+  }
+
+  _createClass(ToolbarButton, [{
+    key: 'render',
+    value: function render() {
+      var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+      this.element.off('click');
+      this.element.on('click', props.onClick);
+      var container = this.element.parent('li');
+      props.active ? container.addClass('active') : container.removeClass('active');
     }
+  }]);
 
-    _createClass(ToolbarButton, [{
-        key: "render",
-        value: function render() {
-            var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-            this.element.off('click');
-            this.element.on('click', props.onClick);
-            var container = this.element.parent('li');
-            props.active ? container.addClass('active') : container.removeClass('active');
-        }
-    }]);
-
-    return ToolbarButton;
+  return ToolbarButton;
 }();
 
 var Cropper = function () {
-    function Cropper(imageCropperWrapper) {
-        var _this = this;
+  function Cropper(imageCropperWrapper) {
+    var _this2 = this;
 
-        _classCallCheck(this, Cropper);
+    _classCallCheck(this, Cropper);
 
-        this.HARD_LIMIT_IDENTIFIER = 'hard';
-        this.SOFT_LIMIT_IDENTIFIER = 'soft';
+    this.HARD_LIMIT_IDENTIFIER = 'hard';
+    this.SOFT_LIMIT_IDENTIFIER = 'soft';
 
-        this.wrapper = (0, _jquery2.default)(imageCropperWrapper);
-        this.config = this.wrapper.data('config');
+    this.wrapper = (0, _jquery2.default)(imageCropperWrapper);
+    this.config = this.wrapper.data('config');
 
-        this.originalImage = (0, _jquery2.default)('.croppingImage', (0, _jquery2.default)(imageCropperWrapper)).get(0);
+    this.originalImage = (0, _jquery2.default)('.croppingImage', (0, _jquery2.default)(imageCropperWrapper)).get(0);
 
-        this.btnDragModeMove = new ToolbarButton((0, _jquery2.default)('.btnDragModeMove', this.wrapper));
-        this.btnDragModeCrop = new ToolbarButton((0, _jquery2.default)('.btnDragModeCrop', this.wrapper));
+    this.btnDragModeMove = new ToolbarButton((0, _jquery2.default)('.btnDragModeMove', this.wrapper));
+    this.btnDragModeCrop = new ToolbarButton((0, _jquery2.default)('.btnDragModeCrop', this.wrapper));
 
-        this.btnZoomIn = new ToolbarButton((0, _jquery2.default)('.btnZoomIn', this.wrapper));
-        this.btnZoomOut = new ToolbarButton((0, _jquery2.default)('.btnZoomOut', this.wrapper));
+    this.btnZoomIn = new ToolbarButton((0, _jquery2.default)('.btnZoomIn', this.wrapper));
+    this.btnZoomOut = new ToolbarButton((0, _jquery2.default)('.btnZoomOut', this.wrapper));
 
-        this.btnAspectRatios = [];
-        (0, _jquery2.default)('.btnAspectRatioButton', this.wrapper).each(function (index, element) {
-            _this.btnAspectRatios.push(new ToolbarButton(element));
-        });
+    this.btnAspectRatios = [];
+    (0, _jquery2.default)('.btnAspectRatioButton', this.wrapper).each(function (index, element) {
+      _this2.btnAspectRatios.push(new ToolbarButton(element));
+    });
 
-        this.btnClear = new ToolbarButton((0, _jquery2.default)('.btnClear', this.wrapper));
+    this.btnClear = new ToolbarButton((0, _jquery2.default)('.btnClear', this.wrapper));
 
-        this.btnSave = new Button((0, _jquery2.default)('.btnSave', this.wrapper));
+    this.btnSave = new Button((0, _jquery2.default)('.btnSave', this.wrapper));
 
-        this.validationMessageContainer = document.getElementById("image-cropper-validation-message-container");
+    this.validationMessageContainer = document.getElementById('image-cropper-validation-message-container');
 
-        this.hardLimitValidationTemplate = _handlebars2.default.compile(document.getElementById("hard-limit-validation-template").innerHTML);
+    this.hardLimitValidationTemplate = _handlebars2.default.compile(document.getElementById('hard-limit-validation-template').innerHTML);
 
-        this.softLimitValidationTemplate = _handlebars2.default.compile(document.getElementById("soft-limit-validation-template").innerHTML);
+    this.softLimitValidationTemplate = _handlebars2.default.compile(document.getElementById('soft-limit-validation-template').innerHTML);
 
-        this.state = {
-            dragMode: 'crop',
-            aspectRatio: this.getDefaultAspectRatio(),
-            limits: this.config.limits,
-            allowSave: true,
-            showLimitValidation: ''
-        };
+    this.state = {
+      dragMode: 'crop',
+      aspectRatio: this.getDefaultAspectRatio(),
+      limits: this.config.limits,
+      allowSave: true,
+      showLimitValidation: ''
+    };
 
-        this.cropper = null;
+    this.cropper = null;
 
-        imageCropperWrapper.slcropper = this;
+    imageCropperWrapper.slcropper = this;
+  }
+
+  _createClass(Cropper, [{
+    key: 'run',
+    value: function run() {
+      var _getState = this.getState(),
+          aspectRatio = _getState.aspectRatio;
+
+      var cropperData = this.config.cropped_config.cropperData;
+
+
+      var _this = this;
+      this.cropper = new _cropperjs2.default(this.originalImage, {
+        autoCrop: typeof cropperData !== 'undefined',
+        viewMode: 1,
+        aspectRatio: aspectRatio,
+        ready: function ready() {
+          this.cropper.setData(cropperData);
+          _this.render();
+        },
+        crop: function crop() {
+          _this.validateLimits();
+        }
+      });
     }
+  }, {
+    key: 'getState',
+    value: function getState() {
+      return _extends({}, this.state);
+    }
+  }, {
+    key: 'setState',
+    value: function setState(callback) {
+      this.state = _extends({}, this.state, callback(this.getState()));
 
-    _createClass(Cropper, [{
-        key: "run",
-        value: function run() {
-            var _getState = this.getState(),
-                aspectRatio = _getState.aspectRatio;
+      this.render();
+    }
+  }, {
+    key: 'validateLimits',
+    value: function validateLimits() {
+      this.validationMessageContainer.innerHTML = '';
+      if (this.validateHardLimit() && this.validateSoftLimit()) {
+        this.setState(function () {
+          return {
+            showLimitValidation: false,
+            allowSave: true
+          };
+        });
+      }
+    }
+  }, {
+    key: 'validateSoftLimit',
+    value: function validateSoftLimit() {
+      var _this3 = this;
 
-            var cropperData = this.config.cropped_config.cropperData;
+      var _getState2 = this.getState(),
+          limits = _getState2.limits;
+
+      var _cropper$getData = this.cropper.getData(),
+          width = _cropper$getData.width,
+          height = _cropper$getData.height;
+
+      var cropped = this.cropper.cropped;
 
 
-            var self = this;
-            this.cropper = new _cropperjs2.default(this.originalImage, {
-                autoCrop: cropperData !== undefined,
-                viewMode: 1,
-                aspectRatio: aspectRatio,
-                ready: function ready() {
-                    this.cropper.setData(cropperData);
-                    self.render();
-                },
-                crop: function crop() {
-                    self.validateLimits();
-                }
-            });
+      if (!cropped) {
+        return true;
+      }
+
+      if (width < limits.soft.width || height < limits.soft.height) {
+        this.setState(function () {
+          return {
+            showLimitValidation: _this3.SOFT_LIMIT_IDENTIFIER,
+            allowSave: true
+          };
+        });
+        return false;
+      }
+      return true;
+    }
+  }, {
+    key: 'validateHardLimit',
+    value: function validateHardLimit() {
+      var _this4 = this;
+
+      var _getState3 = this.getState(),
+          limits = _getState3.limits;
+
+      var _cropper$getData2 = this.cropper.getData(),
+          width = _cropper$getData2.width,
+          height = _cropper$getData2.height;
+
+      var cropped = this.cropper.cropped;
+
+
+      if (!cropped) {
+        return true;
+      }
+
+      if (width < limits.hard.width || height < limits.hard.height) {
+        this.setState(function () {
+          return {
+            showLimitValidation: _this4.HARD_LIMIT_IDENTIFIER,
+            allowSave: false
+          };
+        });
+        return false;
+      }
+      return true;
+    }
+  }, {
+    key: 'handleLimitValidationMessage',
+    value: function handleLimitValidationMessage() {
+      var _getState4 = this.getState(),
+          showLimitValidation = _getState4.showLimitValidation,
+          limits = _getState4.limits;
+
+      var _cropper$getData3 = this.cropper.getData(),
+          width = _cropper$getData3.width,
+          height = _cropper$getData3.height;
+
+      switch (showLimitValidation) {
+        case this.SOFT_LIMIT_IDENTIFIER:
+          this.showLimitValidationMessage(this.softLimitValidationTemplate, width, limits.soft.width, height, limits.soft.height);
+
+          break;
+
+        case this.HARD_LIMIT_IDENTIFIER:
+          this.showLimitValidationMessage(this.hardLimitValidationTemplate, width, limits.hard.width, height, limits.hard.height);
+
+          break;
+      }
+    }
+  }, {
+    key: 'showLimitValidationMessage',
+    value: function showLimitValidationMessage(template, width, limitWidth, height, limitHeight) {
+      this.validationMessageContainer.innerHTML = template({
+        currentWidth: Math.round(width),
+        limitWidth: limitWidth,
+        currentHeight: Math.round(height),
+        limitHeight: limitHeight
+      });
+    }
+  }, {
+    key: 'getDefaultAspectRatio',
+    value: function getDefaultAspectRatio() {
+      var currentAspectRatio = this.config.cropped_config.currentAspectRatio;
+
+
+      if (typeof currentAspectRatio !== 'undefined') {
+        return currentAspectRatio;
+      }
+
+      return this.btnAspectRatios.length > 0 ? this.btnAspectRatios[0].element.data('value') : 0;
+    }
+  }, {
+    key: 'setDragMode',
+    value: function setDragMode(mode) {
+      this.setState(function () {
+        return { dragMode: mode };
+      });
+    }
+  }, {
+    key: 'zoomIn',
+    value: function zoomIn() {
+      this.cropper.zoom(0.1);
+    }
+  }, {
+    key: 'zoomOut',
+    value: function zoomOut() {
+      this.cropper.zoom(-0.1);
+    }
+  }, {
+    key: 'setAspectRatio',
+    value: function setAspectRatio(aspectRatio) {
+      this.cropper.setAspectRatio(aspectRatio);
+      this.setState(function () {
+        return { aspectRatio: aspectRatio };
+      });
+    }
+  }, {
+    key: 'clear',
+    value: function clear() {
+      this.cropper.clear();
+    }
+  }, {
+    key: 'allowSave',
+    value: function allowSave() {
+      var _getState5 = this.getState(),
+          showLimitValidation = _getState5.showLimitValidation;
+
+      var cropped = this.cropper.cropped;
+
+
+      if (cropped && showLimitValidation === this.HARD_LIMIT_IDENTIFIER) {
+        return false;
+      }
+      return true;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this5 = this;
+
+      var _getState6 = this.getState(),
+          dragMode = _getState6.dragMode,
+          aspectRatio = _getState6.aspectRatio;
+
+      this.cropper.setDragMode(dragMode);
+
+      this.btnDragModeMove.render({
+        active: dragMode === 'move',
+        onClick: function onClick() {
+          return _this5.setDragMode('move');
         }
-    }, {
-        key: "getState",
-        value: function getState() {
-            return _extends({}, this.state);
+      });
+
+      this.btnDragModeCrop.render({
+        active: dragMode === 'crop',
+        onClick: function onClick() {
+          return _this5.setDragMode('crop');
         }
-    }, {
-        key: "setState",
-        value: function setState(callback) {
-            this.state = _extends({}, this.state, callback(this.getState()));
+      });
 
-            this.render();
+      this.btnZoomIn.render({
+        onClick: function onClick() {
+          return _this5.zoomIn();
         }
-    }, {
-        key: "validateLimits",
-        value: function validateLimits() {
-            this.validationMessageContainer.innerHTML = '';
-            if (this.validateHardLimit() && this.validateSoftLimit()) {
-                this.setState(function () {
-                    return {
-                        showLimitValidation: false,
-                        allowSave: true
-                    };
-                });
-            };
+      });
+
+      this.btnZoomOut.render({
+        onClick: function onClick() {
+          return _this5.zoomOut();
         }
-    }, {
-        key: "validateSoftLimit",
-        value: function validateSoftLimit() {
-            var _this2 = this;
+      });
 
-            var _getState2 = this.getState(),
-                limits = _getState2.limits;
+      this.btnAspectRatios.forEach(function (button) {
+        var ratio = button.element.data('value');
+        button.render({
+          active: aspectRatio === ratio,
+          onClick: function onClick() {
+            return _this5.setAspectRatio(ratio);
+          }
+        });
+      });
 
-            var _cropper$getData = this.cropper.getData(),
-                width = _cropper$getData.width,
-                height = _cropper$getData.height;
-
-            var cropped = this.cropper.cropped;
-
-
-            if (!cropped) {
-                return true;
-            }
-
-            if (width < limits.soft.width || height < limits.soft.height) {
-                this.setState(function () {
-                    return {
-                        showLimitValidation: _this2.SOFT_LIMIT_IDENTIFIER,
-                        allowSave: true
-                    };
-                });
-                return false;
-            }
-            return true;
+      this.btnClear.render({
+        onClick: function onClick() {
+          return _this5.clear();
         }
-    }, {
-        key: "validateHardLimit",
-        value: function validateHardLimit() {
-            var _this3 = this;
+      });
 
-            var _getState3 = this.getState(),
-                limits = _getState3.limits;
+      this.btnSave.render({
+        disabled: !this.allowSave()
+      });
 
-            var _cropper$getData2 = this.cropper.getData(),
-                width = _cropper$getData2.width,
-                height = _cropper$getData2.height;
+      this.handleLimitValidationMessage();
+    }
+  }, {
+    key: 'processFormData',
+    value: function processFormData(formData) {
+      var _getState7 = this.getState(),
+          aspectRatio = _getState7.aspectRatio;
 
-            var cropped = this.cropper.cropped;
+      formData.append('is_cropped', this.cropper.cropped);
+      formData.append('cropped_config', JSON.stringify({
+        cropperData: this.cropper.getData(),
+        currentAspectRatio: aspectRatio
+      }));
+      formData.append('cropped_image_data', this.cropper.getCroppedCanvas().toDataURL('image/jpeg'));
+    }
+  }]);
 
-
-            if (!cropped) {
-                return true;
-            }
-
-            if (width < limits.hard.width || height < limits.hard.height) {
-                this.setState(function () {
-                    return {
-                        showLimitValidation: _this3.HARD_LIMIT_IDENTIFIER,
-                        allowSave: false
-                    };
-                });
-                return false;
-            };
-            return true;
-        }
-    }, {
-        key: "handleLimitValidationMessage",
-        value: function handleLimitValidationMessage() {
-            var _getState4 = this.getState(),
-                showLimitValidation = _getState4.showLimitValidation,
-                limits = _getState4.limits;
-
-            var _cropper$getData3 = this.cropper.getData(),
-                width = _cropper$getData3.width,
-                height = _cropper$getData3.height;
-
-            switch (showLimitValidation) {
-                case this.SOFT_LIMIT_IDENTIFIER:
-                    this.showLimitValidationMessage(this.softLimitValidationTemplate, width, limits.soft.width, height, limits.soft.height);
-
-                    break;
-
-                case this.HARD_LIMIT_IDENTIFIER:
-                    this.showLimitValidationMessage(this.hardLimitValidationTemplate, width, limits.hard.width, height, limits.hard.height);
-
-                    break;
-            }
-        }
-    }, {
-        key: "showLimitValidationMessage",
-        value: function showLimitValidationMessage(template, width, limitWidth, height, limitHeight) {
-
-            this.validationMessageContainer.innerHTML = template({
-                currentWidth: Math.round(width),
-                limitWidth: limitWidth,
-                currentHeight: Math.round(height),
-                limitHeight: limitHeight
-            });
-        }
-    }, {
-        key: "getDefaultAspectRatio",
-        value: function getDefaultAspectRatio() {
-            var currentAspectRatio = this.config.cropped_config.currentAspectRatio;
-
-
-            if (typeof currentAspectRatio !== 'undefined') {
-                return currentAspectRatio;
-            };
-            return this.btnAspectRatios.length > 0 ? this.btnAspectRatios[0].element.data('value') : 0;
-        }
-    }, {
-        key: "setDragMode",
-        value: function setDragMode(mode) {
-            this.setState(function () {
-                return { dragMode: mode };
-            });
-        }
-    }, {
-        key: "zoomIn",
-        value: function zoomIn() {
-            this.cropper.zoom(0.1);
-        }
-    }, {
-        key: "zoomOut",
-        value: function zoomOut() {
-            this.cropper.zoom(-0.1);
-        }
-    }, {
-        key: "setAspectRatio",
-        value: function setAspectRatio(aspectRatio) {
-            this.cropper.setAspectRatio(aspectRatio);
-            this.setState(function () {
-                return { aspectRatio: aspectRatio };
-            });
-        }
-    }, {
-        key: "clear",
-        value: function clear() {
-            this.cropper.clear();
-        }
-    }, {
-        key: "allowSave",
-        value: function allowSave() {
-            var _getState5 = this.getState(),
-                showLimitValidation = _getState5.showLimitValidation;
-
-            var cropped = this.cropper.cropped;
-
-
-            if (cropped && showLimitValidation == this.HARD_LIMIT_IDENTIFIER) {
-                return false;
-            }
-            return true;
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            var _this4 = this;
-
-            var _getState6 = this.getState(),
-                dragMode = _getState6.dragMode,
-                aspectRatio = _getState6.aspectRatio,
-                allowSave = _getState6.allowSave;
-
-            this.cropper.setDragMode(dragMode);
-
-            this.btnDragModeMove.render({
-                active: dragMode === 'move',
-                onClick: function onClick() {
-                    return _this4.setDragMode('move');
-                }
-            });
-
-            this.btnDragModeCrop.render({
-                active: dragMode === 'crop',
-                onClick: function onClick() {
-                    return _this4.setDragMode('crop');
-                }
-            });
-
-            this.btnZoomIn.render({
-                onClick: function onClick() {
-                    return _this4.zoomIn();
-                }
-            });
-
-            this.btnZoomOut.render({
-                onClick: function onClick() {
-                    return _this4.zoomOut();
-                }
-            });
-
-            this.btnAspectRatios.forEach(function (button) {
-                var ratio = button.element.data('value');
-                button.render({
-                    active: aspectRatio === ratio,
-                    onClick: function onClick() {
-                        return _this4.setAspectRatio(ratio);
-                    }
-                });
-            });
-
-            this.btnClear.render({
-                onClick: function onClick() {
-                    return _this4.clear();
-                }
-            });
-
-            this.btnSave.render({
-                disabled: !this.allowSave()
-            });
-
-            this.handleLimitValidationMessage();
-        }
-    }, {
-        key: "processFormData",
-        value: function processFormData(formData) {
-            var _getState7 = this.getState(),
-                aspectRatio = _getState7.aspectRatio;
-
-            formData.append('is_cropped', this.cropper.cropped);
-            formData.append('cropped_config', JSON.stringify({
-                cropperData: this.cropper.getData(),
-                currentAspectRatio: aspectRatio }));
-            formData.append('cropped_image_data', this.cropper.getCroppedCanvas().toDataURL('image/jpeg'));
-        }
-    }]);
-
-    return Cropper;
+  return Cropper;
 }();
 
 exports.default = Cropper;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"cropperjs":17,"handlebars":47}],2:[function(require,module,exports){
-"use strict";
+},{"cropperjs":16,"handlebars":46}],2:[function(require,module,exports){
+'use strict';
 
-var _Toolbox = require("toolbox/Toolbox");
+var _Toolbox = require('toolbox/Toolbox');
 
 var _Toolbox2 = _interopRequireDefault(_Toolbox);
 
-var _Simplelayout = require("simplelayout/Simplelayout");
+var _Simplelayout = require('simplelayout/Simplelayout');
 
 var _Simplelayout2 = _interopRequireDefault(_Simplelayout);
 
-var _Cropper = require("cropper/Cropper");
+var _Cropper = require('cropper/Cropper');
 
 var _Cropper2 = _interopRequireDefault(_Cropper);
 
@@ -415,36 +415,11 @@ module.exports = {
   Cropper: _Cropper2.default
 };
 
-},{"cropper/Cropper":1,"simplelayout/Simplelayout":11,"toolbox/Toolbox":14}],3:[function(require,module,exports){
-(function (global){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getNodeAttributesAsObject = getNodeAttributesAsObject;
-
-var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getNodeAttributesAsObject(node) {
-  var attributesMap = node.attributes;
-  var attributesObject = {};
-  _jquery2.default.each(attributesMap, function (i, e) {
-    attributesObject[e.name] = e.value;
-  });
-  return attributesObject;
-}
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],4:[function(require,module,exports){
+},{"cropper/Cropper":1,"simplelayout/Simplelayout":10,"toolbox/Toolbox":13}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = handlebarsTimes;
 
@@ -455,47 +430,48 @@ var _handlebars2 = _interopRequireDefault(_handlebars);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _handlebars2.default.registerHelper('times', function (n, block) {
-    var accum = '';
-    for (var i = 0; i < n; ++i) {
-        accum += block.fn(i);
-    }return accum;
+  var accum = '';
+  for (var i = 0; i < n; i += 1) {
+    accum += block.fn(i);
+  }
+  return accum;
 });
 
 function handlebarsTimes() {}
 
-},{"handlebars":47}],5:[function(require,module,exports){
-"use strict";
+},{"handlebars":46}],4:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 exports.default = createGUID;
 function createGUID() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-        var r = Math.random() * 16 | 0;
-        var v = c === "x" ? r : r & 0x3 | 0x8;
-        return v.toString(16);
-    });
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0;
+    var v = c === 'x' ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
 }
 
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Block;
 
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
-var _transactional = require("simplelayout/transactional");
+var _transactional = require('simplelayout/transactional');
 
 var _transactional2 = _interopRequireDefault(_transactional);
 
-var _Element = require("simplelayout/Element");
+var _Element = require('simplelayout/Element');
 
 var _Element2 = _interopRequireDefault(_Element);
 
@@ -503,7 +479,7 @@ var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _handlebars = require("handlebars");
+var _handlebars = require('handlebars');
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
@@ -512,26 +488,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EE = _EventEmitter2.default.getInstance();
 
 function Block(content, type) {
-
   if (!(this instanceof Block)) {
-    throw new TypeError("Block constructor cannot be called as a function.");
+    throw new TypeError('Block constructor cannot be called as a function.');
   }
 
-  this.name = "block";
+  this.name = 'block';
 
   this.type = type;
 
   var frame = (0, _jquery2.default)(_handlebars2.default.compile('<div class="iFrameFix"></div>')());
 
-  var template = "<div data-type=\"{{type}}\" class=\"sl-block {{type}}\"><div class=\"sl-block-content\">{{{content}}}</div></div>";
+  var template = '<div data-type="{{type}}" class="sl-block {{type}}"><div class="sl-block-content">{{{content}}}</div></div>';
 
   _Element2.default.call(this, template);
 
   this.create({ type: type, content: content });
 
   this.content = function (toReplace, id) {
-    (0, _jquery2.default)(".sl-block-content", this.element).attr('id', id).html(toReplace);
-    EE.trigger("blockReplaced", [this]);
+    (0, _jquery2.default)('.sl-block-content', this.element).attr('id', id).html(toReplace);
+    EE.trigger('blockReplaced', [this]);
     return this;
   };
 
@@ -547,12 +522,12 @@ function Block(content, type) {
   this.fixFrame();
 
   this.enableFrame = function () {
-    frame.css("display", "block");
+    frame.css('display', 'block');
     return this;
   };
 
   this.disableFrame = function () {
-    frame.css("display", "none");
+    frame.css('display', 'none');
     return this;
   };
 
@@ -566,22 +541,22 @@ function Block(content, type) {
   this.toJSON = function () {
     return { represents: this.represents, type: this.type };
   };
-};
+}
 
 _transactional2.default.call(Block.prototype);
 _Element2.default.call(Block.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":47,"simplelayout/Element":7,"simplelayout/EventEmitter":8,"simplelayout/transactional":13}],7:[function(require,module,exports){
+},{"handlebars":46,"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/transactional":12}],6:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Element;
 
-var _idHelper = require("helpers/idHelper");
+var _idHelper = require('helpers/idHelper');
 
 var _idHelper2 = _interopRequireDefault(_idHelper);
 
@@ -589,11 +564,11 @@ var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _handlebars = require("handlebars");
+var _handlebars = require('handlebars');
 
 var _handlebars2 = _interopRequireDefault(_handlebars);
 
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
@@ -602,8 +577,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EE = _EventEmitter2.default.getInstance();
 
 function Element(template, represents) {
-
-  this.template = _handlebars2.default.compile(template || "");
+  this.template = _handlebars2.default.compile(template || '');
   this.represents = represents;
   this.enabled = true;
 
@@ -634,12 +608,12 @@ function Element(template, represents) {
   this.attachToolbar = function (toolbar) {
     this.toolbar = toolbar;
     this.element.append(toolbar.element);
-    EE.trigger("toolbar-attached", [this]);
+    EE.trigger('toolbar-attached', [this]);
     return this;
   };
 
   this.isEnabled = function (state) {
-    this.element.toggleClass("disabled", !state);
+    this.element.toggleClass('disabled', !state);
     this.enabled = state;
     return this;
   };
@@ -655,9 +629,9 @@ function Element(template, represents) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":47,"helpers/idHelper":5,"simplelayout/EventEmitter":8}],8:[function(require,module,exports){
+},{"handlebars":46,"helpers/idHelper":4,"simplelayout/EventEmitter":7}],7:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -670,7 +644,7 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var EE = require("wolfy87-eventemitter");
+var EE = require('wolfy87-eventemitter');
 
 var instance = null;
 var eventEmitter = null;
@@ -695,7 +669,6 @@ function EventEmitter() {
 }
 
 EventEmitter.getInstance = function () {
-
   if (instance === null) {
     eventEmitter = new EE();
     instance = new EventEmitter();
@@ -705,44 +678,40 @@ EventEmitter.getInstance = function () {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"wolfy87-eventemitter":61}],9:[function(require,module,exports){
+},{"wolfy87-eventemitter":60}],8:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Layout;
 
-var _Block = require("simplelayout/Block");
+var _Block = require('simplelayout/Block');
 
 var _Block2 = _interopRequireDefault(_Block);
 
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
-var _transactional = require("simplelayout/transactional");
+var _transactional = require('simplelayout/transactional');
 
 var _transactional2 = _interopRequireDefault(_transactional);
 
-var _Element = require("simplelayout/Element");
+var _Element = require('simplelayout/Element');
 
 var _Element2 = _interopRequireDefault(_Element);
 
-var _Toolbar = require("simplelayout/Toolbar");
+var _Toolbar = require('simplelayout/Toolbar');
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
-
-var _handlebars = require("helpers/handlebars");
-
-var _handlebars2 = _interopRequireDefault(_handlebars);
 
 var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _DOMHelpers = require("../helpers/DOMHelpers");
+require('helpers/handlebars');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -750,16 +719,16 @@ var EE = _EventEmitter2.default.getInstance();
 
 function Layout(columns) {
   if (!(this instanceof Layout)) {
-    throw new TypeError("Layout constructor cannot be called as a function.");
+    throw new TypeError('Layout constructor cannot be called as a function.');
   }
 
   columns = columns || 4;
 
-  var template = "\n    <div class='sl-layout'>\n      <div class='sl-layout-content' data-config='{}'>\n        <div class=\"sl-columns\">\n          {{#times columns}}\n            <div class='sl-column sl-col-{{../columns}}'></div>\n          {{/times}}\n        </div>\n      </div>\n    </div>\n  ";
+  var template = '\n    <div class=\'sl-layout\'>\n      <div class=\'sl-layout-content\' data-config=\'{}\'>\n        <div class="sl-columns">\n          {{#times columns}}\n            <div class=\'sl-column sl-col-{{../columns}}\'></div>\n          {{/times}}\n        </div>\n      </div>\n    </div>\n  ';
 
   _Element2.default.call(this, template);
 
-  this.name = "layout";
+  this.name = 'layout';
 
   this.create({ columns: columns });
 
@@ -782,14 +751,14 @@ function Layout(columns) {
     block.parent = this;
     block.data({ parent: this });
     this.blocks[block.id] = block;
-    EE.trigger("blockInserted", [block]);
+    EE.trigger('blockInserted', [block]);
     return block;
   };
 
   this.deleteBlock = function (id) {
     var block = this.blocks[id];
     delete this.blocks[id];
-    EE.trigger("blockDeleted", [block]);
+    EE.trigger('blockDeleted', [block]);
     return block;
   };
 
@@ -810,23 +779,23 @@ function Layout(columns) {
   };
 
   this.moveBlock = function (block, target) {
-    EE.trigger("beforeBlockMoved", [block]);
+    EE.trigger('beforeBlockMoved', [block]);
     this.deleteBlock(block.id);
     block.parent = target;
     block.data({ parent: target });
     target.blocks[block.id] = block;
-    EE.trigger("blockMoved", [block]);
+    EE.trigger('blockMoved', [block]);
     return this;
   };
 
   this.content = function (toReplace) {
-    var self = this;
+    var _this = this;
     (0, _jquery2.default)(this.element).html(toReplace);
     this.blocks = {};
-    (0, _jquery2.default)(".sl-block", this.element).each(function () {
-      self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+    (0, _jquery2.default)('.sl-block', this.element).each(function () {
+      _this.insertBlock().restore(this, _this, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
     });
-    EE.trigger("layout-committed", [this]);
+    EE.trigger('layout-committed', [this]);
     return this;
   };
 
@@ -836,54 +805,50 @@ function Layout(columns) {
     var restoreColumn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : this.columns;
     var represents = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : this.represents;
 
-    var self = this;
+    var _this = this;
     this.columns = restoreColumn;
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
     this.commit();
-    (0, _jquery2.default)(".sl-block", restoreElement).each(function () {
-      self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+    (0, _jquery2.default)('.sl-block', restoreElement).each(function () {
+      _this.insertBlock().restore(this, _this, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
     });
   };
 
   this.config = function () {
-    return this.element.find(".sl-layout-content").data('config');
+    return this.element.find('.sl-layout-content').data('config');
   };
 
   this.toJSON = function () {
     return { columns: this.columns, blocks: this.blocks };
   };
-};
+}
 
 _transactional2.default.call(Layout.prototype);
 _Element2.default.call(Layout.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../helpers/DOMHelpers":3,"helpers/handlebars":4,"simplelayout/Block":6,"simplelayout/Element":7,"simplelayout/EventEmitter":8,"simplelayout/Toolbar":12,"simplelayout/transactional":13}],10:[function(require,module,exports){
+},{"helpers/handlebars":3,"simplelayout/Block":5,"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/Toolbar":11,"simplelayout/transactional":12}],9:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Layoutmanager;
 
-var _Layout = require("simplelayout/Layout");
+var _Layout = require('simplelayout/Layout');
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _Block = require("simplelayout/Block");
-
-var _Block2 = _interopRequireDefault(_Block);
-
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
-var _Element = require("simplelayout/Element");
+var _Element = require('simplelayout/Element');
 
 var _Element2 = _interopRequireDefault(_Element);
 
-var _transactional = require("simplelayout/transactional");
+var _transactional = require('simplelayout/transactional');
 
 var _transactional2 = _interopRequireDefault(_transactional);
 
@@ -896,16 +861,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EE = _EventEmitter2.default.getInstance();
 
 function Layoutmanager() {
-
   if (!(this instanceof Layoutmanager)) {
-    throw new TypeError("Layoutmanager constructor cannot be called as a function.");
+    throw new TypeError('Layoutmanager constructor cannot be called as a function.');
   }
 
-  var template = "<div class='sl-simplelayout'></div>";
+  var template = '<div class=\'sl-simplelayout\'></div>';
 
   _Element2.default.call(this, template);
 
-  this.name = "layoutmanager";
+  this.name = 'layoutmanager';
 
   this.create();
 
@@ -921,14 +885,14 @@ function Layoutmanager() {
     layout.parent = this;
     layout.data({ parent: this });
     this.layouts[layout.id] = layout;
-    EE.trigger("layoutInserted", [layout]);
+    EE.trigger('layoutInserted', [layout]);
     return layout;
   };
 
   this.deleteLayout = function (id) {
     var layout = this.layouts[id];
     delete this.layouts[id];
-    EE.trigger("layoutDeleted", [layout]);
+    EE.trigger('layoutDeleted', [layout]);
     return layout;
   };
 
@@ -970,45 +934,45 @@ function Layoutmanager() {
   };
 
   this.restore = function (restoreElement, represents) {
-    var self = this;
+    var _this = this;
     Layoutmanager.prototype.restore.call(this, restoreElement, null, represents);
     this.commit();
-    (0, _jquery2.default)(".sl-layout", restoreElement).each(function () {
-      self.insertLayout().restore(this, self, (0, _jquery2.default)(".sl-column", this).length);
+    (0, _jquery2.default)('.sl-layout', restoreElement).each(function () {
+      _this.insertLayout().restore(this, _this, (0, _jquery2.default)('.sl-column', this).length);
     });
   };
 
   this.toJSON = function () {
     return { layouts: this.layouts, represents: this.represents };
   };
-};
+}
 
 _Element2.default.call(Layoutmanager.prototype);
 _transactional2.default.call(Layoutmanager.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"simplelayout/Block":6,"simplelayout/Element":7,"simplelayout/EventEmitter":8,"simplelayout/Layout":9,"simplelayout/transactional":13}],11:[function(require,module,exports){
+},{"simplelayout/Element":6,"simplelayout/EventEmitter":7,"simplelayout/Layout":8,"simplelayout/transactional":12}],10:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Simplelayout;
 
-var _Layoutmanager = require("simplelayout/Layoutmanager");
+var _Layoutmanager = require('simplelayout/Layoutmanager');
 
 var _Layoutmanager2 = _interopRequireDefault(_Layoutmanager);
 
-var _Toolbar = require("simplelayout/Toolbar");
+var _Toolbar = require('simplelayout/Toolbar');
 
 var _Toolbar2 = _interopRequireDefault(_Toolbar);
 
-var _Toolbox = require("toolbox/Toolbox");
+var _Toolbox = require('toolbox/Toolbox');
 
 var _Toolbox2 = _interopRequireDefault(_Toolbox);
 
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
@@ -1023,96 +987,95 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EE = _EventEmitter2.default.getInstance();
 
 function Simplelayout(options) {
-
   if (!(this instanceof Simplelayout)) {
-    throw new TypeError("Simplelayout constructor cannot be called as a function.");
+    throw new TypeError('Simplelayout constructor cannot be called as a function.');
   }
 
-  var root = (0, _jquery2.default)(":root");
+  var root = (0, _jquery2.default)(':root');
 
-  var self = this;
+  var _this = this;
 
   var sortableHelper = function sortableHelper() {
     return (0, _jquery2.default)('<div class="draggableHelper"><div>');
   };
 
   var LAYOUT_SORTABLE = {
-    connectWith: ".sl-simplelayout",
-    items: ".sl-layout",
-    handle: ".sl-toolbar-layout .move",
-    placeholder: "layout-placeholder",
+    connectWith: '.sl-simplelayout',
+    items: '.sl-layout',
+    handle: '.sl-toolbar-layout .move',
+    placeholder: 'layout-placeholder',
     cursorAt: { left: 50, top: 50 },
     forcePlaceholderSize: true,
     helper: sortableHelper,
     receive: function receive(event, ui) {
-      var layout;
-      if (ui.item.hasClass("sl-toolbox-layout")) {
-        var item = (0, _jquery2.default)(this).find(".ui-draggable");
+      var layout = void 0;
+      if (ui.item.hasClass('sl-toolbox-layout')) {
+        var item = (0, _jquery2.default)(this).find('.ui-draggable');
         layout = (0, _jquery2.default)(this).data().object.insertLayout(ui.item.data().columns);
         layout.element.insertAfter(item);
         item.remove();
         layout.commit();
       } else {
-        self.moveLayout((0, _jquery2.default)(ui.item).data().object, (0, _jquery2.default)(this).data().object);
-        self.disableFrames();
+        _this.moveLayout((0, _jquery2.default)(ui.item).data().object, (0, _jquery2.default)(this).data().object);
+        _this.disableFrames();
       }
     },
     beforeStart: function beforeStart(event, ui) {
-      if (ui.item.hasClass("sl-layout")) {
-        self.restrictLayout(ui.item.data().object.columns);
+      if (ui.item.hasClass('sl-layout')) {
+        _this.restrictLayout(ui.item.data().object.columns);
       }
     },
     start: function start() {
-      self.enableFrames();
-      root.addClass("sl-layout-dragging");
-      (0, _jquery2.default)(".sl-simplelayout").sortable("refreshPositions");
+      _this.enableFrames();
+      root.addClass('sl-layout-dragging');
+      (0, _jquery2.default)('.sl-simplelayout').sortable('refreshPositions');
     },
     update: function update(event, ui) {
       if (ui.item.parent()[0] === this && !ui.sender) {
-        EE.trigger("layoutMoved", [ui.item.data().object]);
+        EE.trigger('layoutMoved', [ui.item.data().object]);
       }
     },
     stop: function stop(event, ui) {
-      if (ui.item.hasClass("sl-layout")) {
-        self.allowLayout(ui.item.data().object.columns);
+      if (ui.item.hasClass('sl-layout')) {
+        _this.allowLayout(ui.item.data().object.columns);
       }
-      root.removeClass("sl-layout-dragging");
-      self.disableFrames();
+      root.removeClass('sl-layout-dragging');
+      _this.disableFrames();
     }
   };
 
   var BLOCK_SORTABLE = {
-    connectWith: ".sl-column",
-    placeholder: "block-placeholder",
+    connectWith: '.sl-column',
+    placeholder: 'block-placeholder',
     forcePlaceholderSize: true,
-    handle: ".sl-toolbar-block .move",
+    handle: '.sl-toolbar-block .move',
     helper: sortableHelper,
     cursorAt: { left: 50, top: 50 },
     receive: function receive(event, ui) {
-      var block;
-      if ((0, _jquery2.default)(ui.item).hasClass("sl-toolbox-block")) {
-        var item = (0, _jquery2.default)(this).find(".ui-draggable");
-        var layout = (0, _jquery2.default)(this).parents(".sl-layout").data().object;
-        block = layout.insertBlock("", (0, _jquery2.default)(ui.item).data().type);
+      var block = void 0;
+      if ((0, _jquery2.default)(ui.item).hasClass('sl-toolbox-block')) {
+        var item = (0, _jquery2.default)(this).find('.ui-draggable');
+        var layout = (0, _jquery2.default)(this).parents('.sl-layout').data().object;
+        block = layout.insertBlock('', (0, _jquery2.default)(ui.item).data().type);
         block.element.insertAfter(item);
         item.remove();
       } else {
-        var sourceLayout = ui.sender.parents(".sl-layout").data().object;
-        sourceLayout.moveBlock(ui.item.data().object, (0, _jquery2.default)(this).parents(".sl-layout").data().object);
+        var sourceLayout = ui.sender.parents('.sl-layout').data().object;
+        sourceLayout.moveBlock(ui.item.data().object, (0, _jquery2.default)(this).parents('.sl-layout').data().object);
       }
     },
     start: function start() {
-      self.enableFrames();
-      root.addClass("sl-block-dragging");
-      (0, _jquery2.default)(".sl-column").sortable("refreshPositions");
+      _this.enableFrames();
+      root.addClass('sl-block-dragging');
+      (0, _jquery2.default)('.sl-column').sortable('refreshPositions');
     },
     stop: function stop() {
-      self.disableFrames();
-      root.removeClass("sl-block-dragging");
+      _this.disableFrames();
+      root.removeClass('sl-block-dragging');
     },
     update: function update(event, ui) {
       if (ui.item.parent()[0] === this && !ui.sender) {
-        EE.trigger("blockMoved", [ui.item.data().object]);
+        EE.trigger('blockMoved', [ui.item.data().object]);
       }
     }
   };
@@ -1139,7 +1102,7 @@ function Simplelayout(options) {
     target.layouts[layout.id] = layout;
 
     source.deleteLayout(layout.id);
-    EE.trigger("layoutMoved", [layout]);
+    EE.trigger('layoutMoved', [layout]);
     return this;
   };
 
@@ -1172,7 +1135,7 @@ function Simplelayout(options) {
   this.restrictLayout = function (layout) {
     if (this.options.layoutRestrictions[layout]) {
       _jquery2.default.each(this.options.layoutRestrictions[layout], function (idx, managerId) {
-        self.managers[managerId].isEnabled(false).element.sortable("disable");
+        _this.managers[managerId].isEnabled(false).element.sortable('disable');
       });
     }
   };
@@ -1180,7 +1143,7 @@ function Simplelayout(options) {
   this.allowLayout = function (layout) {
     if (this.options.layoutRestrictions[layout]) {
       _jquery2.default.each(this.options.layoutRestrictions[layout], function (idx, managerId) {
-        self.managers[managerId].isEnabled(true).element.sortable("enable");
+        _this.managers[managerId].isEnabled(true).element.sortable('enable');
       });
     }
   };
@@ -1196,11 +1159,11 @@ function Simplelayout(options) {
 
   this.restore = function (source) {
     this.source = source;
-    (0, _jquery2.default)(".sl-simplelayout", source).each(function () {
-      self.insertManager().restore(this, (0, _jquery2.default)(this).attr("id"));
+    (0, _jquery2.default)('.sl-simplelayout', source).each(function () {
+      _this.insertManager().restore(this, (0, _jquery2.default)(this).attr('id'));
     });
-    (0, _jquery2.default)(".sl-simplelayout", this.source).sortable(LAYOUT_SORTABLE);
-    (0, _jquery2.default)(".sl-column", this.source).sortable(BLOCK_SORTABLE);
+    (0, _jquery2.default)('.sl-simplelayout', this.source).sortable(LAYOUT_SORTABLE);
+    (0, _jquery2.default)('.sl-column', this.source).sortable(BLOCK_SORTABLE);
     return this;
   };
 
@@ -1217,90 +1180,90 @@ function Simplelayout(options) {
   };
 
   var TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS = {
-    helper: "clone",
-    cursor: "pointer",
+    helper: 'clone',
+    cursor: 'pointer',
     beforeStart: function beforeStart() {
-      if ((0, _jquery2.default)(this).hasClass("sl-toolbox-layout")) {
-        self.restrictLayout((0, _jquery2.default)(this).data().columns);
+      if ((0, _jquery2.default)(this).hasClass('sl-toolbox-layout')) {
+        _this.restrictLayout((0, _jquery2.default)(this).data().columns);
       }
     },
     start: function start() {
-      self.enableFrames();
-      if ((0, _jquery2.default)(this).hasClass("sl-toolbox-block")) {
-        root.addClass("sl-block-dragging");
+      _this.enableFrames();
+      if ((0, _jquery2.default)(this).hasClass('sl-toolbox-block')) {
+        root.addClass('sl-block-dragging');
       } else {
-        root.addClass("sl-layout-dragging");
+        root.addClass('sl-layout-dragging');
       }
     },
     stop: function stop() {
-      self.allowLayout((0, _jquery2.default)(this).data().columns);
-      self.disableFrames();
-      root.removeClass("sl-block-dragging sl-layout-dragging");
+      _this.allowLayout((0, _jquery2.default)(this).data().columns);
+      _this.disableFrames();
+      root.removeClass('sl-block-dragging sl-layout-dragging');
     }
   };
 
   this._checkMoveAction = function () {
-    var layouts = self.getCommittedLayouts();
+    var layouts = _this.getCommittedLayouts();
 
-    if (Object.keys(self.managers).length === 1 && layouts.length === 1) {
-      layouts[0].toolbar.disable("move");
+    if (Object.keys(_this.managers).length === 1 && layouts.length === 1) {
+      layouts[0].toolbar.disable('move');
     } else {
       _jquery2.default.map(layouts, function (layout) {
-        layout.toolbar.enable("move");
+        layout.toolbar.enable('move');
       });
     }
   };
 
-  this.on("layoutDeleted", function (layout) {
-    self._checkMoveAction();
+  this.on('layoutDeleted', function (layout) {
+    _this._checkMoveAction();
   });
 
-  this.on("layout-committed", function (layout) {
-    if (self.options.editLayouts) {
-      var layoutToolbar = new _Toolbar2.default(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
+  this.on('layout-committed', function (layout) {
+    if (_this.options.editLayouts) {
+      var layoutToolbar = new _Toolbar2.default(_this.options.toolbox.options.layoutActions[layout.columns], 'vertical', 'layout');
       layout.attachToolbar(layoutToolbar);
-      (0, _jquery2.default)(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+      (0, _jquery2.default)('.sl-column', layout.element).sortable(BLOCK_SORTABLE);
     }
     if (layout.hasBlocks()) {
-      layout.toolbar.disable("delete");
+      layout.toolbar.disable('delete');
     }
   });
 
-  this.on("block-committed", function (block) {
-    if (self.options.toolbox.options.blocks[block.type]) {
-      var blockToolbar = new _Toolbar2.default(self.options.toolbox.options.blocks[block.type].actions, "horizontal", "block");
+  this.on('block-committed', function (block) {
+    if (_this.options.toolbox.options.blocks[block.type]) {
+      var blockToolbar = new _Toolbar2.default(_this.options.toolbox.options.blocks[block.type].actions, 'horizontal', 'block');
       block.attachToolbar(blockToolbar);
     }
   });
 
-  this.options.toolbox.element.find(".sl-toolbox-block, .sl-toolbox-layout").draggable(TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS);
-  this.options.toolbox.element.find(".sl-toolbox-layout").draggable("option", "connectToSortable", ".sl-simplelayout");
-  this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
+  this.options.toolbox.element.find('.sl-toolbox-block, .sl-toolbox-layout').draggable(TOOLBOX_COMPONENT_DRAGGABLE_SETTINGS);
+  this.options.toolbox.element.find('.sl-toolbox-layout').draggable('option', 'connectToSortable', '.sl-simplelayout');
+  this.options.toolbox.element.find('.sl-toolbox-block').draggable('option', 'connectToSortable', '.sl-column');
 
-  (0, _jquery2.default)(".sl-simplelayout").sortable(LAYOUT_SORTABLE);
-  (0, _jquery2.default)(".sl-column").sortable(BLOCK_SORTABLE);
+  (0, _jquery2.default)('.sl-simplelayout').sortable(LAYOUT_SORTABLE);
+  (0, _jquery2.default)('.sl-column').sortable(BLOCK_SORTABLE);
 
-  root.addClass("simplelayout-initialized");
+  root.addClass('simplelayout-initialized');
 
   /* Patch for registering beforeStart event */
   var oldMouseStart = _jquery2.default.ui.sortable.prototype._mouseStart;
   _jquery2.default.ui.sortable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
-    this._trigger("beforeStart", event, this._uiHash());
+    this._trigger('beforeStart', event, this._uiHash());
     oldMouseStart.apply(this, [event, overrideHandle, noActivation]);
   };
-};
+}
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"simplelayout/EventEmitter":8,"simplelayout/Layoutmanager":10,"simplelayout/Toolbar":12,"toolbox/Toolbox":14}],12:[function(require,module,exports){
+},{"simplelayout/EventEmitter":7,"simplelayout/Layoutmanager":9,"simplelayout/Toolbar":11,"toolbox/Toolbox":13}],11:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Toolbar;
 
-var _Element = require("simplelayout/Element");
+var _Element = require('simplelayout/Element');
 
 var _Element2 = _interopRequireDefault(_Element);
 
@@ -1308,47 +1271,42 @@ var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
-var _handlebars = require("handlebars");
-
-var _handlebars2 = _interopRequireDefault(_handlebars);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Toolbar(actions, orientation, type) {
-
   if (!(this instanceof Toolbar)) {
-    throw new TypeError("Toolbar constructor cannot be called as a function.");
+    throw new TypeError('Toolbar constructor cannot be called as a function.');
   }
 
   actions = actions || {};
 
-  var template = "\n    <ul class='sl-toolbar{{#if type}}-{{type}}{{/if}}{{#if orientation}} {{orientation}}{{/if}}'>\n      {{#each actions}}\n        <li>\n          <a\n            {{#each this}}\n            {{@key}}=\"{{this}}\"\n            {{/each}}\n          >\n          </a>\n        </li>\n      {{/each}}\n    </ul>\n  ";
+  var template = '\n    <ul class=\'sl-toolbar{{#if type}}-{{type}}{{/if}}{{#if orientation}} {{orientation}}{{/if}}\'>\n      {{#each actions}}\n        <li>\n          <a\n            {{#each this}}\n            {{@key}}="{{this}}"\n            {{/each}}\n          >\n          </a>\n        </li>\n      {{/each}}\n    </ul>\n  ';
 
   _Element2.default.call(this, template);
 
   this.create({ actions: actions, orientation: orientation, type: type });
 
   this.disable = function (action) {
-    (0, _jquery2.default)("." + action, this.element).css("display", "none");
+    (0, _jquery2.default)('.' + action, this.element).css('display', 'none');
   };
 
   this.enable = function (action) {
-    (0, _jquery2.default)("." + action, this.element).css("display", "block");
+    (0, _jquery2.default)('.' + action, this.element).css('display', 'block');
   };
-};
+}
 
 _Element2.default.call(Toolbar.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":47,"simplelayout/Element":7}],13:[function(require,module,exports){
-"use strict";
+},{"simplelayout/Element":6}],12:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = transactional;
 
-var _EventEmitter = require("simplelayout/EventEmitter");
+var _EventEmitter = require('simplelayout/EventEmitter');
 
 var _EventEmitter2 = _interopRequireDefault(_EventEmitter);
 
@@ -1357,48 +1315,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EE = _EventEmitter2.default.getInstance();
 
 function transactional() {
-
   this.committed = false;
 
   this.commit = function () {
     if (this.committed) {
-      throw new Error("Transaction is already committed");
+      throw new Error('Transaction is already committed');
     }
     this.committed = true;
-    EE.trigger(this.name + "-committed", [this]);
+    EE.trigger(this.name + '-committed', [this]);
     return this;
   };
 
   this.rollback = function () {
     if (!this.committed) {
-      throw new Error("Transaction on not yet committed");
+      throw new Error('Transaction on not yet committed');
     }
     this.committed = false;
-    EE.trigger(this.name + "-rollbacked", [this]);
+    EE.trigger(this.name + '-rollbacked', [this]);
     return this;
   };
-};
+}
 
-},{"simplelayout/EventEmitter":8}],14:[function(require,module,exports){
+},{"simplelayout/EventEmitter":7}],13:[function(require,module,exports){
 (function (global){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Toolbox;
 
-var _Element = require("simplelayout/Element");
+var _Element = require('simplelayout/Element');
 
 var _Element2 = _interopRequireDefault(_Element);
-
-var _path = require("path");
-
-var _path2 = _interopRequireDefault(_path);
-
-var _handlebars = require("handlebars");
-
-var _handlebars2 = _interopRequireDefault(_handlebars);
 
 var _jquery = (typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null);
 
@@ -1412,10 +1361,10 @@ function Toolbox(options) {
   var _this = this;
 
   if (!(this instanceof Toolbox)) {
-    throw new TypeError("Toolbox constructor cannot be called as a function.");
+    throw new TypeError('Toolbox constructor cannot be called as a function.');
   }
 
-  var template = "\n  <div id='sl-toolbox' class='sl-toolbox'>\n    <div>\n      <a class='sl-toolbox-header blocks'>\n        <span></span>\n      </a>\n        <div class='sl-toolbox-blocks'>\n          {{#each blocks}}\n            <a class='sl-toolbox-block {{contentType}}' data-type='{{contentType}}' data-form-url='{{formUrl}}'>\n              <span class='icon-{{contentType}}'></span>\n              <span class='description'>{{title}}</span>\n            </a>\n          {{/each}}\n        </div>\n        {{#if canChangeLayout}}\n          <a class='sl-toolbox-header layouts'>\n            <span></span>\n          </a>\n          <div class='sl-toolbox-layouts'>\n            {{#each layouts}}\n              <a class='sl-toolbox-layout' data-columns='{{this}}'>\n                <span>{{this}}</span>\n                <span class='description'>{{this}}{{../labels.labelColumnPostfix}}</span>\n              </a>\n            {{/each}}\n          </div>\n        {{/if}}\n      </div>\n    </div>\n    ";
+  var template = '\n  <div id=\'sl-toolbox\' class=\'sl-toolbox\'>\n    <div>\n      <a class=\'sl-toolbox-header blocks\'>\n        <span></span>\n      </a>\n        <div class=\'sl-toolbox-blocks\'>\n          {{#each blocks}}\n            <a class=\'sl-toolbox-block {{contentType}}\'\n               data-type=\'{{contentType}}\'\n               data-form-url=\'{{formUrl}}\'>\n              <span class=\'icon-{{contentType}}\'></span>\n              <span class=\'description\'>{{title}}</span>\n            </a>\n          {{/each}}\n        </div>\n        {{#if canChangeLayout}}\n          <a class=\'sl-toolbox-header layouts\'>\n            <span></span>\n          </a>\n          <div class=\'sl-toolbox-layouts\'>\n            {{#each layouts}}\n              <a class=\'sl-toolbox-layout\' data-columns=\'{{this}}\'>\n                <span>{{this}}</span>\n                <span class=\'description\'>{{this}}{{../labels.labelColumnPostfix}}</span>\n              </a>\n            {{/each}}\n          </div>\n        {{/if}}\n      </div>\n    </div>\n    ';
 
   _Element2.default.call(this, template);
 
@@ -1457,21 +1406,21 @@ function Toolbox(options) {
   };
 
   this.blocksEnabled = function (state) {
-    (0, _jquery2.default)(".sl-toolbox-blocks", this.element).toggleClass("disabled", !state);
+    (0, _jquery2.default)('.sl-toolbox-blocks', this.element).toggleClass('disabled', !state);
   };
 
   /* Patch for registering beforeStart event */
   var oldMouseStart = _jquery2.default.ui.draggable.prototype._mouseStart;
   _jquery2.default.ui.draggable.prototype._mouseStart = function (event, overrideHandle, noActivation) {
-    this._trigger("beforeStart", event, this._uiHash());
+    this._trigger('beforeStart', event, this._uiHash());
     oldMouseStart.apply(this, [event, overrideHandle, noActivation]);
   };
-};
+}
 
 _Element2.default.call(Toolbox.prototype);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"handlebars":47,"path":48,"simplelayout/Element":7}],15:[function(require,module,exports){
+},{"simplelayout/Element":6}],14:[function(require,module,exports){
 (function (process,__filename){
 /** vim: et:ts=4:sw=4:sts=4
  * @license amdefine 1.0.1 Copyright (c) 2011-2016, The Dojo Foundation All Rights Reserved.
@@ -1776,9 +1725,9 @@ function amdefine(module, requireFn) {
 module.exports = amdefine;
 
 }).call(this,require('_process'),"/node_modules/amdefine/amdefine.js")
-},{"_process":49,"path":48}],16:[function(require,module,exports){
+},{"_process":48,"path":47}],15:[function(require,module,exports){
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /*!
  * Cropper.js v1.4.1
  * https://fengyuanchen.github.io/cropperjs
@@ -5498,7 +5447,7 @@ assign(Cropper.prototype, render, preview, events, handlers, change, methods);
 
 module.exports = Cropper;
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5565,7 +5514,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars.runtime":19,"./handlebars/compiler/ast":21,"./handlebars/compiler/base":22,"./handlebars/compiler/compiler":24,"./handlebars/compiler/javascript-compiler":26,"./handlebars/compiler/visitor":29,"./handlebars/no-conflict":43}],19:[function(require,module,exports){
+},{"./handlebars.runtime":18,"./handlebars/compiler/ast":20,"./handlebars/compiler/base":21,"./handlebars/compiler/compiler":23,"./handlebars/compiler/javascript-compiler":25,"./handlebars/compiler/visitor":28,"./handlebars/no-conflict":42}],18:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5633,7 +5582,7 @@ exports['default'] = inst;
 module.exports = exports['default'];
 
 
-},{"./handlebars/base":20,"./handlebars/exception":33,"./handlebars/no-conflict":43,"./handlebars/runtime":44,"./handlebars/safe-string":45,"./handlebars/utils":46}],20:[function(require,module,exports){
+},{"./handlebars/base":19,"./handlebars/exception":32,"./handlebars/no-conflict":42,"./handlebars/runtime":43,"./handlebars/safe-string":44,"./handlebars/utils":45}],19:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5739,7 +5688,7 @@ exports.createFrame = _utils.createFrame;
 exports.logger = _logger2['default'];
 
 
-},{"./decorators":31,"./exception":33,"./helpers":34,"./logger":42,"./utils":46}],21:[function(require,module,exports){
+},{"./decorators":30,"./exception":32,"./helpers":33,"./logger":41,"./utils":45}],20:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5772,7 +5721,7 @@ exports['default'] = AST;
 module.exports = exports['default'];
 
 
-},{}],22:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -5822,7 +5771,7 @@ function parse(input, options) {
 }
 
 
-},{"../utils":46,"./helpers":25,"./parser":27,"./whitespace-control":30}],23:[function(require,module,exports){
+},{"../utils":45,"./helpers":24,"./parser":26,"./whitespace-control":29}],22:[function(require,module,exports){
 /* global define */
 'use strict';
 
@@ -5990,7 +5939,7 @@ exports['default'] = CodeGen;
 module.exports = exports['default'];
 
 
-},{"../utils":46,"source-map":50}],24:[function(require,module,exports){
+},{"../utils":45,"source-map":49}],23:[function(require,module,exports){
 /* eslint-disable new-cap */
 
 'use strict';
@@ -6564,7 +6513,7 @@ function transformLiteralToPath(sexpr) {
 }
 
 
-},{"../exception":33,"../utils":46,"./ast":21}],25:[function(require,module,exports){
+},{"../exception":32,"../utils":45,"./ast":20}],24:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -6796,7 +6745,7 @@ function preparePartialBlock(open, program, close, locInfo) {
 }
 
 
-},{"../exception":33}],26:[function(require,module,exports){
+},{"../exception":32}],25:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -7924,7 +7873,7 @@ exports['default'] = JavaScriptCompiler;
 module.exports = exports['default'];
 
 
-},{"../base":20,"../exception":33,"../utils":46,"./code-gen":23}],27:[function(require,module,exports){
+},{"../base":19,"../exception":32,"../utils":45,"./code-gen":22}],26:[function(require,module,exports){
 /* istanbul ignore next */
 /* Jison generated parser */
 "use strict";
@@ -8664,7 +8613,7 @@ var handlebars = (function () {
 exports['default'] = handlebars;
 
 
-},{}],28:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* eslint-disable new-cap */
 'use strict';
 
@@ -8852,7 +8801,7 @@ PrintVisitor.prototype.HashPair = function (pair) {
 /* eslint-enable new-cap */
 
 
-},{"./visitor":29}],29:[function(require,module,exports){
+},{"./visitor":28}],28:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -8994,7 +8943,7 @@ exports['default'] = Visitor;
 module.exports = exports['default'];
 
 
-},{"../exception":33}],30:[function(require,module,exports){
+},{"../exception":32}],29:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9217,7 +9166,7 @@ exports['default'] = WhitespaceControl;
 module.exports = exports['default'];
 
 
-},{"./visitor":29}],31:[function(require,module,exports){
+},{"./visitor":28}],30:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9235,7 +9184,7 @@ function registerDefaultDecorators(instance) {
 }
 
 
-},{"./decorators/inline":32}],32:[function(require,module,exports){
+},{"./decorators/inline":31}],31:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9266,7 +9215,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":46}],33:[function(require,module,exports){
+},{"../utils":45}],32:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9308,7 +9257,7 @@ exports['default'] = Exception;
 module.exports = exports['default'];
 
 
-},{}],34:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9356,7 +9305,7 @@ function registerDefaultHelpers(instance) {
 }
 
 
-},{"./helpers/block-helper-missing":35,"./helpers/each":36,"./helpers/helper-missing":37,"./helpers/if":38,"./helpers/log":39,"./helpers/lookup":40,"./helpers/with":41}],35:[function(require,module,exports){
+},{"./helpers/block-helper-missing":34,"./helpers/each":35,"./helpers/helper-missing":36,"./helpers/if":37,"./helpers/log":38,"./helpers/lookup":39,"./helpers/with":40}],34:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9397,7 +9346,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":46}],36:[function(require,module,exports){
+},{"../utils":45}],35:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9493,7 +9442,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":33,"../utils":46}],37:[function(require,module,exports){
+},{"../exception":32,"../utils":45}],36:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9520,7 +9469,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../exception":33}],38:[function(require,module,exports){
+},{"../exception":32}],37:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9551,7 +9500,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":46}],39:[function(require,module,exports){
+},{"../utils":45}],38:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9579,7 +9528,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],40:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9593,7 +9542,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{}],41:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9628,7 +9577,7 @@ exports['default'] = function (instance) {
 module.exports = exports['default'];
 
 
-},{"../utils":46}],42:[function(require,module,exports){
+},{"../utils":45}],41:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9677,7 +9626,7 @@ exports['default'] = logger;
 module.exports = exports['default'];
 
 
-},{"./utils":46}],43:[function(require,module,exports){
+},{"./utils":45}],42:[function(require,module,exports){
 (function (global){
 /* global window */
 'use strict';
@@ -9701,7 +9650,7 @@ module.exports = exports['default'];
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],44:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -9995,7 +9944,7 @@ function executeDecorators(fn, prog, container, depths, data, blockParams) {
 }
 
 
-},{"./base":20,"./exception":33,"./utils":46}],45:[function(require,module,exports){
+},{"./base":19,"./exception":32,"./utils":45}],44:[function(require,module,exports){
 // Build out our basic SafeString type
 'use strict';
 
@@ -10012,7 +9961,7 @@ exports['default'] = SafeString;
 module.exports = exports['default'];
 
 
-},{}],46:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 exports.__esModule = true;
@@ -10138,7 +10087,7 @@ function appendContextPath(contextPath, id) {
 }
 
 
-},{}],47:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 // USAGE:
 // var handlebars = require('handlebars');
 /* eslint-disable no-var */
@@ -10165,7 +10114,7 @@ if (typeof require !== 'undefined' && require.extensions) {
   require.extensions['.hbs'] = extension;
 }
 
-},{"../dist/cjs/handlebars":18,"../dist/cjs/handlebars/compiler/printer":28,"fs":16}],48:[function(require,module,exports){
+},{"../dist/cjs/handlebars":17,"../dist/cjs/handlebars/compiler/printer":27,"fs":15}],47:[function(require,module,exports){
 (function (process){
 // .dirname, .basename, and .extname methods are extracted from Node.js v8.11.1,
 // backported and transplited with Babel, with backwards-compat fixes
@@ -10471,7 +10420,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":49}],49:[function(require,module,exports){
+},{"_process":48}],48:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -10657,7 +10606,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],50:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -10667,7 +10616,7 @@ exports.SourceMapGenerator = require('./source-map/source-map-generator').Source
 exports.SourceMapConsumer = require('./source-map/source-map-consumer').SourceMapConsumer;
 exports.SourceNode = require('./source-map/source-node').SourceNode;
 
-},{"./source-map/source-map-consumer":57,"./source-map/source-map-generator":58,"./source-map/source-node":59}],51:[function(require,module,exports){
+},{"./source-map/source-map-consumer":56,"./source-map/source-map-generator":57,"./source-map/source-node":58}],50:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10776,7 +10725,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":60,"amdefine":15}],52:[function(require,module,exports){
+},{"./util":59,"amdefine":14}],51:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10924,7 +10873,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./base64":53,"amdefine":15}],53:[function(require,module,exports){
+},{"./base64":52,"amdefine":14}],52:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -10999,7 +10948,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":15}],54:[function(require,module,exports){
+},{"amdefine":14}],53:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11118,7 +11067,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":15}],55:[function(require,module,exports){
+},{"amdefine":14}],54:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2014 Mozilla Foundation and contributors
@@ -11206,7 +11155,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./util":60,"amdefine":15}],56:[function(require,module,exports){
+},{"./util":59,"amdefine":14}],55:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -11328,7 +11277,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":15}],57:[function(require,module,exports){
+},{"amdefine":14}],56:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12407,7 +12356,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":51,"./base64-vlq":52,"./binary-search":54,"./quick-sort":56,"./util":60,"amdefine":15}],58:[function(require,module,exports){
+},{"./array-set":50,"./base64-vlq":51,"./binary-search":53,"./quick-sort":55,"./util":59,"amdefine":14}],57:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -12808,7 +12757,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./array-set":51,"./base64-vlq":52,"./mapping-list":55,"./util":60,"amdefine":15}],59:[function(require,module,exports){
+},{"./array-set":50,"./base64-vlq":51,"./mapping-list":54,"./util":59,"amdefine":14}],58:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -13224,7 +13173,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"./source-map-generator":58,"./util":60,"amdefine":15}],60:[function(require,module,exports){
+},{"./source-map-generator":57,"./util":59,"amdefine":14}],59:[function(require,module,exports){
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -13596,7 +13545,7 @@ define(function (require, exports, module) {
 
 });
 
-},{"amdefine":15}],61:[function(require,module,exports){
+},{"amdefine":14}],60:[function(require,module,exports){
 /*!
  * EventEmitter v5.1.0 - git.io/ee
  * Unlicense - http://unlicense.org/
