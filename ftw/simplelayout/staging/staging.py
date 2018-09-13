@@ -9,11 +9,13 @@ from ftw.simplelayout.configuration import columns_in_config
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
+from ftw.simplelayout.properties import BLOCK_PROPERTIES_KEY
 from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from operator import methodcaller
 from persistent.list import PersistentList
+from persistent.mapping import PersistentMapping
 from plone.app.textfield.interfaces import IRichText
 from plone.app.textfield.value import RichTextValue
 from plone.app.uuid.utils import uuidToObject
@@ -269,6 +271,14 @@ class Staging(object):
         if source_configuration:
             config = deepcopy(source_configuration.load())
             IBlockConfiguration(target).store(config)
+
+        source_ann = IAnnotations(source)
+        target_ann = IAnnotations(target)
+        if BLOCK_PROPERTIES_KEY in source_ann:
+            target_ann[BLOCK_PROPERTIES_KEY] = PersistentMapping(
+                source_ann[BLOCK_PROPERTIES_KEY])
+        else:
+            target_ann.pop(BLOCK_PROPERTIES_KEY, None)
 
     def _update_internal_links_recursively(self, obj, uuid_map, condition=None):
         if IDexterityContent.providedBy(obj):
