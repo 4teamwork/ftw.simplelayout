@@ -211,7 +211,7 @@ class TestWorkingCopy(TestCase):
         self.assertEquals(
             {'default': [{'cols': [{'blocks': [
                 {'uid': 'baseline000000000000000000000002'},
-                {'uid': 'editing0000000000000000000000001'}]}]}]},
+                {'uid': 'applying000000000000000000000001'}]}]}]},
             IPageConfiguration(baseline).load())
 
     def test_sl_block_state_is_copied_when_applying(self):
@@ -274,7 +274,7 @@ class TestWorkingCopy(TestCase):
 <p>
   <a class="internal-link" href="resolveuid/baseline000000000000000000000001">One</a>
   <a class="internal-link" href="resolveuid/baseline000000000000000000000002">Two</a>
-  <a class="internal-link" href="resolveuid/editing0000000000000000000000001">Three</a>
+  <a class="internal-link" href="resolveuid/apply000000000000000000000000001">Three</a>
 </p>
         '''.strip(), bl_page.toc.text.raw.strip())
 

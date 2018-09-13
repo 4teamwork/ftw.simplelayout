@@ -247,6 +247,7 @@ class Staging(object):
                 self._apply_children(source_child, target_child, uuid_map=uuid_map)
             else:
                 target_child = self._copy_new_obj(source_child, target)
+                uuid_map[IUUID(source_child)] = IUUID(target_child)
 
         target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
         return uuid_map
