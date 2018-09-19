@@ -281,8 +281,13 @@
     $(global.document).on("click", ".sl-block .crop-image", function(event) {
       event.preventDefault();
       var block = $(this).parents(".sl-block").data().object;
+      var blockUID = $(this).data('uid');
+      if (!blockUID) {
+        blockUID = block.represents;
+      };
+
       var cropper = null;
-      cropImageOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })}, function() {
+      cropImageOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": blockUID })}, function() {
         if ($('.croppingImage ', this.element).length > 0) {
           cropper = new ftw.simplelayout.Cropper($('.imageCropperWrapper', this.element)[0])
           cropper.run();

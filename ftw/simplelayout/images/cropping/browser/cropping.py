@@ -1,6 +1,8 @@
+from Acquisition import aq_chain
 from binascii import a2b_base64
 from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.images.interfaces import IImageLimits
+from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import get_block_html
 from plone import api
@@ -76,7 +78,12 @@ class ImageCroppingView(BrowserView):
         return self.aspect_ratio_configuration.get(self.context.portal_type, [])
 
     def get_block_content(self):
-        return get_block_html(self.context)
+        # It's possible, that we're cropping an image within a block instead an
+        # image of a block. In this case, we're not able to return the sl-block
+        # html. To fix this issue, we're looking up the next sl-block.
+        #
+        # This case happens i.e. while cropping a slider pane within the sliderblock.
+        return get_block_html(self._sl_block())
 
     def _load_aspect_ratio_configuration(self):
         self.aspect_ratio_configuration = json.loads(
@@ -105,3 +112,10 @@ class ImageCroppingView(BrowserView):
 
     def limits(self):
         return self.image_limits.get_all_limits()
+
+    def _sl_block(self):
+        for obj in aq_chain(self.context):
+            if ISimplelayoutBlock.providedBy(obj):
+                return obj
+
+        raise AttributeError('No simplelayout block in aq_chain')
