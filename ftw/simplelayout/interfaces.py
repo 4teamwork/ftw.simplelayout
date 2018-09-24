@@ -5,6 +5,7 @@
 from ftw.simplelayout import _
 from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
+from plone.registry import field
 from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
@@ -131,19 +132,22 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
     )
 
-    image_limits = schema.List(
+    image_limits = schema.Dict(
         title=_(u'Image limits'),
-        value_type=schema.TextLine(),
+        key_type=schema.ASCIILine(),
+        value_type=schema.List(value_type=schema.TextLine()),
         description=_(
             u'desc_image_limits',
             default=u'An image limit will check the image dimensions and validates it agains the '
             u'limit-types.<br><br>'
-            u'Use the following configuration-format for each line:<br>'
-            u'contenttype => limit_type: dimension=value, dimension=value; limit_type: dimension=value, dimension=value<br>br>'
+            u'Use the following configuration-format:<br>'
+            u'key: contenttype<br>'
+            u'value: limit_type: dimension=value, dimension=value<br>br>'
             u'example:<br>'
-            u'ftw.simplelayout.TextBlock => soft: width=400, height=300; hard: width=150'
+            u'key: ftw.simplelayout.TextBlock<br>'
+            u'value: soft: width=400, height=300'
             ),
-        default=[],
+        default={},
         required=False
         )
 

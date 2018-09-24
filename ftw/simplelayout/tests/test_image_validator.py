@@ -24,10 +24,10 @@ class TestImageLimitValidation(TestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self.set_config(
-            [
-                u'{} => hard: width={}'.format(block.portal_type, block.image._width + 100)
-            ]
+        self.set_config({
+            block.portal_type: [
+                u'hard: width={}'.format(block.image._width + 100)
+            ]}
         )
 
         browser.login().visit(block, view="edit")
@@ -42,10 +42,10 @@ class TestImageLimitValidation(TestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self.set_config(
-            [
-                u'{} => hard: height={}'.format(block.portal_type, block.image._height + 100)
-            ]
+        self.set_config({
+            block.portal_type: [
+                u'hard: height={}'.format(block.image._height + 100)
+            ]}
         )
 
         browser.login().visit(block, view="edit")
@@ -60,13 +60,12 @@ class TestImageLimitValidation(TestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self.set_config(
-            [
-                u'{} => hard: width={}, height={}'.format(
-                    block.portal_type,
+        self.set_config({
+            block.portal_type: [
+                u'hard: width={}, height={}'.format(
                     block.image._width + 100,
                     block.image._height + 100)
-            ]
+            ]}
         )
 
         browser.login().visit(block, view="edit")

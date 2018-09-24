@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 16:30+0000\n"
+"POT-Creation-Date: 2018-09-24 19:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ./ftw/simplelayout/interfaces.py:116
+#: ./ftw/simplelayout/interfaces.py:117
 msgid "Check possible values on http://ogp.me"
 msgstr "Prüfe mögliche Werte auf http://ogp.me"
 
@@ -55,7 +55,7 @@ msgstr "Koordinaten"
 msgid "Delete"
 msgstr "Löschen"
 
-#: ./ftw/simplelayout/interfaces.py:109
+#: ./ftw/simplelayout/interfaces.py:110
 msgid "Enable OpenGraph support on plone root"
 msgstr "Aktiviere den OpenGraph Support auf dem Plone Root"
 
@@ -63,11 +63,11 @@ msgstr "Aktiviere den OpenGraph Support auf dem Plone Root"
 msgid "Extends a content by two fields internal and external link"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:129
+#: ./ftw/simplelayout/interfaces.py:130
 msgid "Facebook Admins"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:122
+#: ./ftw/simplelayout/interfaces.py:123
 msgid "Facebook App ID"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr "Bild"
 msgid "Image cropping"
 msgstr "Bildbearbeitung"
 
-#: ./ftw/simplelayout/interfaces.py:151
+#: ./ftw/simplelayout/interfaces.py:155
 msgid "Image cropping aspect ratios"
 msgstr "Seitenverhältnisse"
 
@@ -104,7 +104,7 @@ msgstr "Seitenverhältnisse"
 msgid "Image editor"
 msgstr "Bildbearbeitung"
 
-#: ./ftw/simplelayout/interfaces.py:135
+#: ./ftw/simplelayout/interfaces.py:136
 msgid "Image limits"
 msgstr "Bilderauflösungslimits"
 
@@ -124,7 +124,7 @@ msgstr "Karte"
 msgid "Modify geographical data for this content"
 msgstr "Ändere die geographischen Daten für diesen Inhalt"
 
-#: ./ftw/simplelayout/interfaces.py:123
+#: ./ftw/simplelayout/interfaces.py:124
 msgid "Multiple users are separated by comma"
 msgstr "Mehrere Benutzer werden mit Komma getrennt"
 
@@ -132,7 +132,7 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
-#: ./ftw/simplelayout/interfaces.py:115
+#: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
 msgstr "Globaler OpenGraph Typ"
 
@@ -144,7 +144,7 @@ msgstr "Speichern"
 msgid "Show cropped image in overlay"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:31
+#: ./ftw/simplelayout/interfaces.py:32
 msgid "Show title"
 msgstr "Zeige Titel"
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Simplelayout block content marker"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:99
+#: ./ftw/simplelayout/interfaces.py:100
 msgid "Simplelayout default configuration"
 msgstr "Simplelayout Standard-Konfiguration"
 
@@ -338,17 +338,18 @@ msgid "cropper_soft_limit_reached_width"
 msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
 
 #. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>contenttype => title::value; title::value<br><br>example:<br>ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:153
+#: ./ftw/simplelayout/interfaces.py:157
 msgid "desc_image_cropping_options"
 msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>contenttype => title::value; title::value<br><br>Beispiel:<br>ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
 
-#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format for each line:<br>contenttype => limit_type: dimension=value, dimension=value; limit_type: dimension=value, dimension=value<br>br>example:<br>ftw.simplelayout.TextBlock => soft: width=400, height=300; hard: width=150"
-#: ./ftw/simplelayout/interfaces.py:137
+#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br>br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
+#: ./ftw/simplelayout/interfaces.py:139
+#, fuzzy
 msgid "desc_image_limits"
 msgstr "Ein Bildauflösungslimit überprüft das hochgeladene Bild auf seine Breite und Höhe.<br><br>Verwende für jede Zeile das folgende Format:<br>Inhaltstyp => Limit-Typ: Dimension=Wert, Dimension=Wert; Limit-Typ: Dimension=Wert<br><br>Beispiel:<br>ftw.simplelayout.TextBlock => soft: width=400, height=300; hard: width=150"
 
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
-#: ./ftw/simplelayout/interfaces.py:100
+#: ./ftw/simplelayout/interfaces.py:101
 msgid "desc_sl_config_control_panel"
 msgstr "Simplelayout Standard-Konfiguration hinzufügen, siehe Dokumentation: https://github.com/4teamwork/ftw.simplelayout#usage"
 
