@@ -5,10 +5,8 @@ from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
-from ftw.testbrowser.pages import statusmessages
 from ftw.testbrowser.tests.helpers import asset
 from plone import api
-import json
 import transaction
 
 
@@ -46,7 +44,7 @@ class TestCropping(SimplelayoutTestCase):
         self.assertTrue(browser.css('.btnZoomOut'))
 
         self.assertEqual(
-            ['4/3', '16/9'],
+            ['4:3', '16:9'],
             [el.text for el in browser.css('.btnAspectRatioButton')]
             )
 
