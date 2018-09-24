@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 16:23+0000\n"
+"POT-Creation-Date: 2018-09-24 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -337,10 +337,10 @@ msgstr "Höhe: {{currentHeight}}px (optimal: {{limitHeight}}px)"
 msgid "cropper_soft_limit_reached_width"
 msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
 
-#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:152
+#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>contenttype => title::value; title::value<br><br>example:<br>ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
+#: ./ftw/simplelayout/interfaces.py:153
 msgid "desc_image_cropping_options"
-msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
+msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>contenttype => title::value; title::value<br><br>Beispiel:<br>ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
 
 #. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format for each line:<br>contenttype => limit_type: dimension=value, dimension=value; limit_type: dimension=value, dimension=value<br>br>example:<br>ftw.simplelayout.TextBlock => soft: width=400, height=300; hard: width=150"
 #: ./ftw/simplelayout/interfaces.py:137

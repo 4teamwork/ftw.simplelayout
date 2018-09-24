@@ -1,11 +1,10 @@
 from Acquisition import aq_chain
 from binascii import a2b_base64
 from ftw.simplelayout.browser.ajax.utils import json_response
+from ftw.simplelayout.images.configuration import Configuration
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.utils import get_block_html
-from plone import api
 from plone.namedfile.file import NamedBlobImage as NamedBlobImageFile
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -86,14 +85,7 @@ class ImageCroppingView(BrowserView):
         return get_block_html(self._sl_block())
 
     def _load_aspect_ratio_configuration(self):
-        self.aspect_ratio_configuration = json.loads(
-            self._aspect_ratio_configuration_json)
-
-    @property
-    def _aspect_ratio_configuration_json(self):
-        return api.portal.get_registry_record(
-            name='image_cropping_aspect_ratios',
-            interface=ISimplelayoutDefaultSettings) or '{}'
+        self.aspect_ratio_configuration = Configuration().aspect_ratios()
 
     def hard_limit_validation_template(self):
         return self.hard_limit_template()

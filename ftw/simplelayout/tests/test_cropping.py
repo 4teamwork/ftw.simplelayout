@@ -57,9 +57,9 @@ class TestCropping(SimplelayoutTestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self._set_settings({
-            block.portal_type: [{'title': 'free', 'value': 0}]
-        })
+        self._set_settings([
+            u'{} => free::0'.format(block.portal_type)
+        ])
 
         browser.login().visit(block, view='image_cropping.json')
         browser.open_html(browser.json.get('content'))
@@ -93,7 +93,7 @@ class TestCropping(SimplelayoutTestCase):
     def _set_settings(self, setting):
         api.portal.set_registry_record(
             name='image_cropping_aspect_ratios',
-            value=json.dumps(setting).decode('utf-8'),
+            value=setting,
             interface=ISimplelayoutDefaultSettings)
 
         transaction.commit()

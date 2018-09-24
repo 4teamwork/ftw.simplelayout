@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 16:23+0000\n"
+"POT-Creation-Date: 2018-09-24 16:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -340,8 +340,8 @@ msgstr ""
 msgid "cropper_soft_limit_reached_width"
 msgstr ""
 
-#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:152
+#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>contenttype => title::value; title::value<br><br>example:<br>ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
+#: ./ftw/simplelayout/interfaces.py:153
 msgid "desc_image_cropping_options"
 msgstr ""
 

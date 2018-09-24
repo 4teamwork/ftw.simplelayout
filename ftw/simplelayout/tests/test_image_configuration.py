@@ -103,3 +103,46 @@ class TestImageConfigurationImageLimits(SimplelayoutTestCase):
                 }
             },
             Configuration().image_limits())
+
+
+class TestImageConfigurationIAspectRatios(SimplelayoutTestCase):
+
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
+
+    def _set_aspect_rations(self, value):
+        api.portal.set_registry_record(
+            name='image_cropping_aspect_ratios',
+            value=value,
+            interface=ISimplelayoutDefaultSettings)
+
+        transaction.commit()
+
+    def test_format_with_no_configuration(self):
+        self._set_aspect_rations([])
+        self.assertEqual({}, Configuration().aspect_ratios())
+
+    def test_format_with_aspect_ratios(self):
+        self._set_aspect_rations([
+            u'example.contenttype_1 => 4/3::1.33333; 16/9::1.7777'
+            ])
+
+        self.assertDictEqual({
+            'example.contenttype_1': [
+                {'title': '4/3', 'value': '1.33333'},
+                {'title': '16/9', 'value': '1.7777'},
+            ]}, Configuration().aspect_ratios())
+
+    def test_format_with_multiple_contenttypes(self):
+        self._set_aspect_rations([
+            u'example.contenttype_1 => 4/3::1.33333; 16/9::1.7777',
+            u'example.contenttype_2 => Free::0'
+            ])
+
+        self.assertDictEqual({
+            'example.contenttype_1': [
+                {'title': '4/3', 'value': '1.33333'},
+                {'title': '16/9', 'value': '1.7777'},
+            ],
+            'example.contenttype_2': [
+                {'title': 'Free', 'value': '0'},
+            ]}, Configuration().aspect_ratios())

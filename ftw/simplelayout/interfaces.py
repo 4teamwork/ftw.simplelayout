@@ -147,18 +147,21 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
         )
 
-    image_cropping_aspect_ratios = schema.Text(
+    image_cropping_aspect_ratios = schema.List(
         title=_(u'Image cropping aspect ratios'),
+        value_type=schema.TextLine(),
         description=_(
             u'desc_image_cropping_options',
             default=u'Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) '
             u'available for your contenttypes.<br><br>'
             u'Format:<br>'
-            u'{"contenttype": [{"title": title, "value": ratio]}<br><br>'
+            u'contenttype => title::value; title::value<br><br>'
+            u'example:<br>'
+            u'ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777<br><br>'
             u'Calculation: if you want a ratio of 16:9, you need to define the ratio '
             u'to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>'
             ),
-        default=u'{"ftw.simplelayout.TextBlock": [{"title": "4/3", "value": 1.333333333}, {"title": "16/9", "value": 1.777777778}]}',
+        default=[u'ftw.simplelayout.TextBlock => 4/3::1.33333; 16/9::1.7777'],
         required=False
         )
 
