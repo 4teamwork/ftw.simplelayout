@@ -6,9 +6,9 @@
 
     <browser:page
       for="*"
-      name="low_image_quality_indicator"
-      template="templates/low_image_quality_indicator.pt"
-      class=".limits.LowImageQualityIndicator"
+      name="limit_indicator"
+      template="templates/limit_indicator.pt"
+      class=".limits.LimitIndicator"
       permission="zope2.View"
       />
 

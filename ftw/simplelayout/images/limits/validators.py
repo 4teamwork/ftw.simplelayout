@@ -11,12 +11,13 @@ class LimitValidatorMessages(object):
     def __init__(self):
         self.limits = Limits()
 
-    def hard_limit_invalid_error_message(self, identifier, image):
-        limit_str = self.limit_str('hard', identifier, image)
+    def limit_not_satisfied_message(self, limit_type, identifier, image):
+        if limit_type == 'soft':
+            return self._soft_limit_not_satisfied_message(identifier, image)
+        elif limit_type == 'hard':
+            return self._hard_limit_not_satisfied_message(identifier, image)
 
-        return _(u'hard_limit_not_satisfied',
-                 default=u"The image doesn't fit the required dimensions of ${limit_str}",
-                 mapping={'limit_str': limit_str})
+        return ''
 
     def limit_str(self, limit_type, identifier, image):
         limits = self._get_image_limits_for(limit_type, identifier)
@@ -43,6 +44,20 @@ class LimitValidatorMessages(object):
 
         return limit_str
 
+    def _hard_limit_not_satisfied_message(self, identifier, image):
+        limit_str = self.limit_str('hard', identifier, image)
+
+        return _(u'hard_limit_not_satisfied',
+                 default=u"The image doesn't fit the required dimensions of ${limit_str}",
+                 mapping={'limit_str': limit_str})
+
+    def _soft_limit_not_satisfied_message(self, identifier, image):
+        limit_str = self.limit_str('soft', identifier, image)
+
+        return _(u'soft_limit_not_satisfied',
+                 default=u"Optimal image quality: ${limit_str}",
+                 mapping={'limit_str': limit_str})
+
     def _width_str(self, width, current_width):
         return _(u'limit_width_str',
                  default=u"width: ${width}px (current: ${current_width}px)",
@@ -66,9 +81,9 @@ class ImageLimitValidatorMessages(object):
         self.limit_validator_messages = LimitValidatorMessages()
         self.image_limits = IImageLimits(self.context)
 
-    def hard_limit_invalid_error_message(self):
-        return self.limit_validator_messages.hard_limit_invalid_error_message(
-            self.image_limits.identifier, self.image_limits._image)
+    def limit_not_satisfied_message(self, limit_type):
+        return self.limit_validator_messages.limit_not_satisfied_message(
+            limit_type, self.image_limits.identifier, self.image_limits._image)
 
     def limit_str(self, limit_type):
         return self.limit_validator_messages.limit_str(
@@ -104,8 +119,8 @@ class ImageLimitValidator(validator.SimpleFieldValidator):
 
     def _validate_hard_limit(self, value):
         if not self._validate_limit_for('hard', value):
-            raise Invalid(self.validator_messages.hard_limit_invalid_error_message(
-                self.identifier, value))
+            raise Invalid(self.validator_messages.limit_not_satisfied_message(
+                'hard', self.identifier, value))
 
     def _validate_limit_for(self, limit_type, value):
         return self.limits.validate(

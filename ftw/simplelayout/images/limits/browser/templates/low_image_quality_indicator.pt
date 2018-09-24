@@ -1,7 +1,0 @@
-<div class="lowImageQualityIndicator"
-     i18n:domain="ftw.simplelayout">
-     <div class="title" i18n:translate="low_quality_image_label">low image quality</div>
-     <div class="description">
-         <span i18n:translate="optimal_image_quality_label">Optimal image quality:</span> <span tal:content="view/low_quality_limit_str"></span>
-     </div>
- </div>

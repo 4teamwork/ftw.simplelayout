@@ -156,5 +156,5 @@ class TextBlockView(BaseBlock):
             'ftw.simplelayout: Add TextBlock', context)
         return bool(permission)
 
-    def show_low_image_quality_indicator(self):
-        return self.can_add and IImageLimits(self.context).has_low_quality_image()
+    def show_limit_indicator(self):
+        return self.can_add

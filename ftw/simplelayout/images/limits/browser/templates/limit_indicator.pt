@@ -1,0 +1,9 @@
+<div tal:condition="view/show_indicator"
+     tal:attributes="class view/css_klass"
+     i18n:domain="ftw.simplelayout">
+     <div class="title" tal:content="view/title"></div>
+     <div class="description">
+        <span tal:content="view/description"></span>
+     </div>
+ </div>
+

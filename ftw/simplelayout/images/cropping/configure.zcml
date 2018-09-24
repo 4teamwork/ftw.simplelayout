@@ -7,7 +7,7 @@
     <include package="plone.behavior" file="meta.zcml" />
 
     <plone:behavior
-        title="Sho cropped image in overlay"
+        title="Show cropped image in overlay"
         description="Allows to define if a cropped image should be used for the overlay"
         provides="ftw.simplelayout.images.cropping.behaviors.ICroppedImageInOverlay"
         for="plone.dexterity.interfaces.IDexterityContent"

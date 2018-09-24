@@ -353,14 +353,19 @@
     background-color: $color-gray-dark;
     box-shadow: $box-shadow-secondary;
   }
-  .lowImageQualityIndicator {
+  .limitIndicator {
     position: absolute;
     width: 100%;
     padding: $padding-vertical;
     background-color: rgba(white, 0.9);
-    border: 1px solid $color-warning;
     .description {
       font-size: 0.8em;
+    }
+    &.softLimitIndicator {
+      border: 1px solid $color-warning;
+    }
+    &.hardLimitIndicator {
+      border: 1px solid $color-danger;
     }
   }
 }

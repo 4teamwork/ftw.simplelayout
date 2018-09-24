@@ -287,12 +287,12 @@ class TestTextBlockRendering(TestCase):
         transaction.commit()
 
     @browsing
-    def test_show_low_image_quality_indicator_if_image_is_low_quality(self, browser):
+    def test_show_soft_limit_indicator_if_soft_limit_is_not_satisfied(self, browser):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
         browser.login().visit(block)
-        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+        self.assertEquals(0, len(browser.css('.softLimitIndicator')))
 
         self.set_config({
             block.portal_type: {
@@ -301,27 +301,67 @@ class TestTextBlockRendering(TestCase):
         })
 
         browser.visit(block)
-        self.assertEquals(1, len(browser.css('.lowImageQualityIndicator')))
+
+        self.assertEquals(1, len(browser.css('.softLimitIndicator')))
 
     @browsing
-    def test_do_not_show_low_image_quality_indicator_if_image_is_high_quality(self, browser):
+    def test_show_hard_limit_indicator_if_hard_limit_is_not_satisfied(self, browser):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
         browser.login().visit(block)
-        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+        self.assertEquals(0, len(browser.css('.hardLimitIndicator')))
 
         self.set_config({
             block.portal_type: {
-                "soft": {"width": block.image._width - 100}
+                "hard": {"width": block.image._width + 100}
             }
         })
 
         browser.visit(block)
-        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+
+        self.assertEquals(1, len(browser.css('.hardLimitIndicator')))
 
     @browsing
-    def test_only_show_low_image_quality_indicator_for_editors(self, browser):
+    def test_show_only_hard_limit_indicator_if_hard_and_soft_limit_are_not_satisfied(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        browser.login().visit(block)
+        self.assertEquals(0, len(browser.css('.limitIndicator')))
+
+        self.set_config({
+            block.portal_type: {
+                "hard": {"width": block.image._width + 100},
+                "soft": {"width": block.image._width + 200}
+            }
+        })
+
+        browser.visit(block)
+
+        self.assertEquals(1, len(browser.css('.limitIndicator')))
+        self.assertEquals(1, len(browser.css('.hardLimitIndicator')))
+
+    @browsing
+    def test_do_not_show_limit_indicator_if_all_limits_are_satisfied(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        browser.login().visit(block)
+        self.assertEquals(0, len(browser.css('.limitIndicator')))
+
+        self.set_config({
+            block.portal_type: {
+                "soft": {"width": block.image._width - 100},
+                "hard": {"width": block.image._width - 200}
+            }
+        })
+
+        browser.visit(block)
+        self.assertEquals(0, len(browser.css('.limitIndicator')))
+
+    @browsing
+    def test_only_show_limit_indicator_for_editors(self, browser):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
@@ -330,12 +370,15 @@ class TestTextBlockRendering(TestCase):
                 "soft": {"width": block.image._width + 100}
             }
         })
+
+        browser.login().visit(block)
+        self.assertEquals(1, len(browser.css('.limitIndicator')))
 
         browser.logout().visit(block)
-        self.assertEquals(0, len(browser.css('.lowImageQualityIndicator')))
+        self.assertEquals(0, len(browser.css('.limitIndicator')))
 
     @browsing
-    def test_show_low_image_quality_indicator_respects_cropped_image(self, browser):
+    def test_limit_indicator_respects_cropped_image(self, browser):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page)
                        .with_dummy_image()
@@ -356,7 +399,7 @@ class TestTextBlockRendering(TestCase):
         self.assertLess(block.cropped_image._width, image_limit)
 
         browser.login().visit(block)
-        self.assertEquals(1, len(browser.css('.lowImageQualityIndicator')))
+        self.assertEquals(1, len(browser.css('.limitIndicator')))
 
     @browsing
     def test_display_corpped_image_if_available(self, browser):
