@@ -44,23 +44,19 @@ class Configuration(object):
 
     def aspect_ratios(self):
         # Example aspect_ration-configuration line:
-        # 'ftw.simplelayout.TextBlock => 4/3::1.33333;16/9::1.7777'
+        # {'ftw.simplelayout.TextBlock': ['4/3 => 1.33333', '16/9 => 0.7777']
         entries = self._get_registry_property('image_cropping_aspect_ratios')
         aspect_ratios = {}
 
-        for entry in entries:
-            entry = entry.encode('utf-8')
+        for portal_type, values in entries.items():
+            aspect_ratios[portal_type] = []
 
-            # 'ftw.simplelayout.TextBlock', '4/3::1.33333;16/9::1.7777'
-            portal_type, value = map(str.strip, entry.split('=>'))
-            if portal_type not in aspect_ratios:
-                aspect_ratios[portal_type] = []
-
-            # ['4/3::1.33333, '16/9::1.7777']
-            for aspect_ration_configuration in map(str.strip, value.split(';')):
+            # ['4/3 => 1.33333', '16/9 => 0.7777']
+            for value in values:
+                value = value.encode('utf-8')
 
                 # '4/3', '1.33333'
-                title, ratio = map(str.strip, aspect_ration_configuration.split('::'))
+                title, ratio = map(str.strip, value.split('=>'))
                 aspect_ratios[portal_type].append({
                     'title': title,
                     'value': ratio

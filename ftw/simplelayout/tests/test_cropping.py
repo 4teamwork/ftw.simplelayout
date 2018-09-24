@@ -57,9 +57,9 @@ class TestCropping(SimplelayoutTestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self._set_settings([
-            u'{} => free::0'.format(block.portal_type)
-        ])
+        self._set_settings({
+            block.portal_type: [u'free => 0']
+        })
 
         browser.login().visit(block, view='image_cropping.json')
         browser.open_html(browser.json.get('content'))

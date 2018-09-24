@@ -99,13 +99,13 @@ class TestImageConfigurationIAspectRatios(SimplelayoutTestCase):
         transaction.commit()
 
     def test_format_with_no_configuration(self):
-        self._set_aspect_rations([])
+        self._set_aspect_rations({})
         self.assertEqual({}, Configuration().aspect_ratios())
 
     def test_format_with_aspect_ratios(self):
-        self._set_aspect_rations([
-            u'example.contenttype_1 => 4/3::1.33333; 16/9::1.7777'
-            ])
+        self._set_aspect_rations({
+            'example.contenttype_1': [u'4/3 => 1.33333', u'16/9 => 1.7777']
+            })
 
         self.assertDictEqual({
             'example.contenttype_1': [
@@ -114,10 +114,10 @@ class TestImageConfigurationIAspectRatios(SimplelayoutTestCase):
             ]}, Configuration().aspect_ratios())
 
     def test_format_with_multiple_contenttypes(self):
-        self._set_aspect_rations([
-            u'example.contenttype_1 => 4/3::1.33333; 16/9::1.7777',
-            u'example.contenttype_2 => Free::0'
-            ])
+        self._set_aspect_rations({
+            'example.contenttype_1': [u'4/3 => 1.33333', u'16/9 => 1.7777'],
+            'example.contenttype_2': [u'Free => 0']
+            })
 
         self.assertDictEqual({
             'example.contenttype_1': [
