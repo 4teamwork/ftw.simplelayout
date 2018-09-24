@@ -329,7 +329,7 @@ msgstr "Höhe: {{currentHeight}}px (optimal: {{limitHeight}}px)"
 msgid "cropper_soft_limit_reached_width"
 msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
 
-#. Default: "Define the aspecet ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
+#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
 #: ./ftw/simplelayout/interfaces.py:155
 msgid "desc_image_cropping_options"
 msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
@@ -435,7 +435,7 @@ msgstr "Spalten"
 #. Default: "Crop image"
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:192
 msgid "label_crop_image"
-msgstr ""
+msgstr "Bild zuschneiden"
 
 #. Default: "The final cropped configuration"
 #: ./ftw/simplelayout/images/cropping.py:62
@@ -669,10 +669,10 @@ msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 #. Default: "Use cropped image for overlay"
 #: ./ftw/simplelayout/images/cropping.py:37
 msgid "use_cropped_image_for_overlay"
-msgstr "Verwende ein zugeschnittenes Bild ebenfalls für das Overlay"
+msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 
 #. Default: "If you crop an image, the original image will be still available. Per default, the original image will be used for the overlay. If you want to show the cropped image instead, mark this option."
 #: ./ftw/simplelayout/images/cropping.py:39
 msgid "use_cropped_image_for_overlay_desc"
-msgstr "Wenn ein Bild im Bildeditor zugeschnitten wird, ist das Originalbild weiterhin verfügbar. Standardmässig wird das Originalbild für das Bildoverlay verwendet. Wenn Sie stattdessen das zugeschnittene Bild für das Overlay verwenden möchten, dann markieren Sie diese Option."
+msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
 

@@ -332,7 +332,7 @@ msgstr ""
 msgid "cropper_soft_limit_reached_width"
 msgstr ""
 
-#. Default: "Define the aspecet ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
+#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
 #: ./ftw/simplelayout/interfaces.py:155
 msgid "desc_image_cropping_options"
 msgstr ""

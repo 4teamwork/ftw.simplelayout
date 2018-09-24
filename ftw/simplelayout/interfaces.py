@@ -154,7 +154,7 @@ class ISimplelayoutDefaultSettings(Interface):
         title=_(u'Image cropping aspect ratios'),
         description=_(
             u'desc_image_cropping_options',
-            default=u'Define the aspecet ratios (https://github.com/fengyuanchen/cropperjs#options) '
+            default=u'Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) '
             u'available for your contenttypes.<br><br>'
             u'Format:<br>'
             u'{"contenttype": [{"title": title, "value": ratio]}<br><br>'
