@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 12:50+0000\n"
+"POT-Creation-Date: 2018-09-24 16:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Image cropping"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:154
+#: ./ftw/simplelayout/interfaces.py:151
 msgid "Image cropping aspect ratios"
 msgstr ""
 
@@ -341,12 +341,12 @@ msgid "cropper_soft_limit_reached_width"
 msgstr ""
 
 #. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>{\"contenttype\": [{\"title\": title, \"value\": ratio]}<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:155
+#: ./ftw/simplelayout/interfaces.py:152
 msgid "desc_image_cropping_options"
 msgstr ""
 
-#. Default: "An image limit will check the image dimensions and validates it agains thelimit-types.<br><br>Define your limits as json in the following format:<br>{\"portal-type\": {\"limit_type\": {\"width\": value, \"height\": value}}}<br><br>example:<br>{\"ftw.simplelayout.TextBlock\" : {<br>   \"soft\": {\"width\": 400, \"height\": 300},<br>   \"hard\": {\"width\": 150}<br>  }}"
-#: ./ftw/simplelayout/interfaces.py:136
+#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format for each line:<br>contenttype => limit_type: dimension=value, dimension=value; limit_type: dimension=value, dimension=value<br>br>example:<br>ftw.simplelayout.TextBlock => soft: width=400, height=300; hard: width=150"
+#: ./ftw/simplelayout/interfaces.py:137
 msgid "desc_image_limits"
 msgstr ""
 

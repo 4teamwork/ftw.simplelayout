@@ -279,10 +279,9 @@ class TestTextBlockRendering(TestCase):
             browser.css('a.colorboxLink').first.attrib['data-caption']
         )
 
-    def set_config(self, config={}):
-        json_config = json.dumps(config).decode('utf-8')
+    def set_config(self, config=[]):
         api.portal.set_registry_record(
-            'image_limits', json_config, ISimplelayoutDefaultSettings)
+            'image_limits', config, ISimplelayoutDefaultSettings)
 
         transaction.commit()
 
@@ -294,11 +293,11 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block)
         self.assertEquals(0, len(browser.css('.softLimitIndicator')))
 
-        self.set_config({
-            block.portal_type: {
-                "soft": {"width": block.image._width + 100}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => soft: width={}'.format(block.portal_type, block.image._width + 100)
+            ]
+        )
 
         browser.visit(block)
 
@@ -312,11 +311,11 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block)
         self.assertEquals(0, len(browser.css('.hardLimitIndicator')))
 
-        self.set_config({
-            block.portal_type: {
-                "hard": {"width": block.image._width + 100}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => hard: width={}'.format(block.portal_type, block.image._width + 100)
+            ]
+        )
 
         browser.visit(block)
 
@@ -330,12 +329,14 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block)
         self.assertEquals(0, len(browser.css('.limitIndicator')))
 
-        self.set_config({
-            block.portal_type: {
-                "hard": {"width": block.image._width + 100},
-                "soft": {"width": block.image._width + 200}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => soft: width={}; hard: width={}'.format(
+                    block.portal_type,
+                    block.image._width + 200,
+                    block.image._width + 100)
+            ]
+        )
 
         browser.visit(block)
 
@@ -350,12 +351,14 @@ class TestTextBlockRendering(TestCase):
         browser.login().visit(block)
         self.assertEquals(0, len(browser.css('.limitIndicator')))
 
-        self.set_config({
-            block.portal_type: {
-                "soft": {"width": block.image._width - 100},
-                "hard": {"width": block.image._width - 200}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => soft: width={}; hard: width={}'.format(
+                    block.portal_type,
+                    block.image._width - 100,
+                    block.image._width - 200)
+            ]
+        )
 
         browser.visit(block)
         self.assertEquals(0, len(browser.css('.limitIndicator')))
@@ -365,11 +368,11 @@ class TestTextBlockRendering(TestCase):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
-        self.set_config({
-            block.portal_type: {
-                "soft": {"width": block.image._width + 100}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => soft: width={}'.format(block.portal_type, block.image._width + 100)
+            ]
+        )
 
         browser.login().visit(block)
         self.assertEquals(1, len(browser.css('.limitIndicator')))
@@ -386,11 +389,11 @@ class TestTextBlockRendering(TestCase):
 
         image_limit = block.cropped_image._width + 100
 
-        self.set_config({
-            block.portal_type: {
-                "soft": {"width": image_limit}
-            }
-        })
+        self.set_config(
+            [
+                u'{} => soft: width={}'.format(block.portal_type, image_limit)
+            ]
+        )
 
         # This only verifies the image widths for further assertions.
         # The image should be higher thant the limit and the cropped image

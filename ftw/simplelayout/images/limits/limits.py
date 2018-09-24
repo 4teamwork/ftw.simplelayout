@@ -1,10 +1,8 @@
+from ftw.simplelayout.images.configuration import Configuration
 from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
-from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
-from plone import api
 from zope.interface import implementer
-import json
 
 
 class Limits(object):
@@ -63,13 +61,7 @@ class Limits(object):
         return current >= expected
 
     def _load_limit_configuration(self):
-        self.limit_configuration = json.loads(
-            self._limit_configuration_json or '{}')
-
-    @property
-    def _limit_configuration_json(self):
-        return api.portal.get_registry_record(
-            name='image_limits', interface=ISimplelayoutDefaultSettings)
+        self.limit_configuration = Configuration().image_limits()
 
 
 @implementer(IImageLimits)

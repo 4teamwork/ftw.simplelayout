@@ -45,10 +45,10 @@ class TestLimits(SimplelayoutTestCase):
 
         return limits
 
-    def test_do_not_fail_if_configuration_has_empty_string(self):
+    def test_do_not_fail_if_no_configuration_is_set(self):
         api.portal.set_registry_record(
             name='image_limits',
-            value=u'',
+            value=[],
             interface=ISimplelayoutDefaultSettings)
 
         transaction.commit()
