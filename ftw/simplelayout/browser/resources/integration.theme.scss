@@ -676,6 +676,7 @@ ul[class^="sl-toolbar"] {
       border: 1px solid;
       border-top: none;
       border-right: none;
+      z-index: 10;
       .icon {
         font-size: $font-size-h1;
         margin-right: $margin-horizontal;
