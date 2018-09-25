@@ -1,11 +1,17 @@
 from ftw.builder import Builder
 from ftw.builder import create
-from ftw.simplelayout.images.limits import ImageLimits
+from ftw.simplelayout.images.interfaces import IImageLimits
+from ftw.simplelayout.images.limits.limits import Limits
+from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
+from plone import api
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
 from zope.interface import Interface
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+import transaction
+import json
+
 
 FOO_IMAGE_LIMIT_IDENTIFIER = 'foo'
 BAR_IMAGE_LIMIT_IDENTIFIER = 'bar'
@@ -29,30 +35,41 @@ class IBarSchema(Interface):
         required=False)
 
 
-class TestImageLimits(SimplelayoutTestCase):
+class TestLimits(SimplelayoutTestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
-    def image_limits(self, config, context=None):
-        limits = ImageLimits(context)
+    def limits(self, config):
+        limits = Limits()
         limits.limit_configuration = config
 
         return limits
 
+    def test_do_not_fail_if_no_configuration_is_set(self):
+        api.portal.set_registry_record(
+            name='image_limits',
+            value={},
+            interface=ISimplelayoutDefaultSettings)
+
+        transaction.commit()
+        limits = self.limits({})
+
+        self.assertEqual({}, limits.limit_configuration)
+
     def test_validate_limit_returns_true_if_no_field_is_configured(self):
-        limits = self.image_limits({})
+        limits = self.limits({})
         self.assertTrue(
             limits.validate('soft', FOO_IMAGE_LIMIT_IDENTIFIER, width=10))
 
     def test_validate_limit_returns_true_if_no_limit_type_is_configured(self):
-        limits = self.image_limits({
+        limits = self.limits({
             FOO_IMAGE_LIMIT_IDENTIFIER: {}
         })
 
         self.assertTrue(limits.validate('soft', FOO_IMAGE_LIMIT_IDENTIFIER, width=10))
 
     def test_validate_limit_returns_true_if_no_width_and_height_is_configured(self):
-        limits = self.image_limits({
+        limits = self.limits({
             FOO_IMAGE_LIMIT_IDENTIFIER: {
                 'soft': {}
             }
@@ -61,7 +78,7 @@ class TestImageLimits(SimplelayoutTestCase):
         self.assertTrue(limits.validate('soft', FOO_IMAGE_LIMIT_IDENTIFIER, width=10))
 
     def test_validate_limit_returns_true_if_no_width_and_height_is_given(self):
-        limits = self.image_limits({
+        limits = self.limits({
             FOO_IMAGE_LIMIT_IDENTIFIER: {
                 'soft': {
                     'width': 100,
@@ -73,7 +90,7 @@ class TestImageLimits(SimplelayoutTestCase):
         self.assertTrue(limits.validate('soft', FOO_IMAGE_LIMIT_IDENTIFIER))
 
     def test_validate_limits(self):
-        limits = self.image_limits({
+        limits = self.limits({
             FOO_IMAGE_LIMIT_IDENTIFIER: {
                 'soft': {
                     'width': 100,
@@ -133,7 +150,7 @@ class TestImageLimits(SimplelayoutTestCase):
                                          width=70, height=600))
 
     def test_get_limits_for_returns_limits(self):
-        limits = self.image_limits({
+        limits = self.limits({
             FOO_IMAGE_LIMIT_IDENTIFIER: {
                 'soft': {
                     'width': 100,
@@ -146,38 +163,124 @@ class TestImageLimits(SimplelayoutTestCase):
             }
         })
 
-        self.assertDictEqual(
-            {},
+        self.assertEqual(
+            {'width': 0, 'height': 0},
             limits.get_limits_for('hard', BAR_IMAGE_LIMIT_IDENTIFIER))
 
         self.assertDictEqual(
             {'width': 50, 'height': 75},
             limits.get_limits_for('hard', FOO_IMAGE_LIMIT_IDENTIFIER))
 
+    def test_get_all_limits_for_returns_all_registered_limits(self):
+        limits = self.limits({
+            FOO_IMAGE_LIMIT_IDENTIFIER: {
+                'soft': {
+                    'width': 100,
+                },
+                'hard': {
+                    'width': 50,
+                    'height': 75,
+                }
+            }
+        })
+
+        self.assertDictEqual({
+            'hard': {'width': 50, 'height': 75},
+            'soft': {'width': 100, 'height': 0}
+            },
+            limits.get_all_limits_for(FOO_IMAGE_LIMIT_IDENTIFIER)
+        )
+
+
+class TestImageLimits(SimplelayoutTestCase):
+
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
+
+    def image_limits(self, config, context=None):
+        image_limits = IImageLimits(context)
+        image_limits.limits.limit_configuration = config
+
+        return image_limits
+
+    def test_validate_limits(self):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        image_limits = self.image_limits({
+            block.portal_type: {
+                'soft': {
+                    'width': block.image._width + 100,
+                },
+                'hard': {
+                    'width': block.image._width - 100,
+                }
+            },
+        }, block)
+
+        # Soft limit width
+        self.assertFalse(image_limits.validate('soft'))
+
+        # Hard limit width
+        self.assertTrue(image_limits.validate('hard'))
+
+    def test_get_limits_for_returns_limits(self):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        image_limits = self.image_limits({
+            block.portal_type: {
+                'soft': {
+                    'width': 100,
+                }
+            }
+        }, block)
+
+        self.assertEqual(
+            {'width': 100, 'height': 0},
+            image_limits.get_limits_for('soft'))
+
+    def test_get_all_limits_for_returns_all_registered_limits(self):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        image_limits = self.image_limits({
+            block.portal_type: {
+                'soft': {
+                    'width': 100,
+                }
+            }
+        }, block)
+
+        self.assertDictEqual({
+            'hard': {'width': 0, 'height': 0},
+            'soft': {'width': 100, 'height': 0}
+            },
+            image_limits.get_all_limits()
+        )
+
     def test_has_low_quality_image_returns_true_if_soft_limit_not_satisfied(self):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
-        limits = self.image_limits({
-            FOO_IMAGE_LIMIT_IDENTIFIER: {
+        image_limits = self.image_limits({
+            block.portal_type: {
                 'soft': {
                     'width': block.image._width + 100,
                 },
             }
-        })
+        }, block)
 
-        self.assertTrue(
-            limits.has_low_quality_image(block.image, FOO_IMAGE_LIMIT_IDENTIFIER))
+        self.assertTrue(image_limits.has_low_quality_image())
 
     def test_has_low_quality_image_returns_false_if_soft_limit_is_satisfied(self):
         page = create(Builder('sl content page'))
         block = create(Builder('sl textblock').within(page).with_dummy_image())
-        limits = self.image_limits({
-            FOO_IMAGE_LIMIT_IDENTIFIER: {
+
+        image_limits = self.image_limits({
+            block.portal_type: {
                 'soft': {
                     'width': block.image._width < 100,
                 },
             }
-        })
+        }, block)
 
-        self.assertFalse(
-            limits.has_low_quality_image(block.image, FOO_IMAGE_LIMIT_IDENTIFIER))
+        self.assertFalse(image_limits.has_low_quality_image())

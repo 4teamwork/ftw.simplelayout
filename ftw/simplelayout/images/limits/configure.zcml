@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ftw.simplelayout">
+
+    <include package=".browser" />
+
+    <adapter for="zope.interface.Interface"
+             factory=".limits.ImageLimits" />
+
+    <adapter for="zope.interface.Interface"
+             factory=".validators.ImageLimitValidatorMessages" />
+
+</configure>

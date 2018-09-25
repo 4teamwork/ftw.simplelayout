@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:page
+      for="*"
+      name="limit_indicator"
+      template="templates/limit_indicator.pt"
+      class=".limits.LimitIndicator"
+      permission="zope2.View"
+      />
+
+</configure>

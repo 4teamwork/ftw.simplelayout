@@ -5,6 +5,7 @@
 from ftw.simplelayout import _
 from plone.autoform import directives
 from plone.autoform.interfaces import IFormFieldProvider
+from plone.registry import field
 from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
@@ -131,22 +132,43 @@ class ISimplelayoutDefaultSettings(Interface):
         required=False
     )
 
-    image_limits = schema.Text(
+    image_limits = schema.Dict(
         title=_(u'Image limits'),
+        key_type=schema.ASCIILine(),
+        value_type=schema.List(value_type=schema.TextLine()),
         description=_(
             u'desc_image_limits',
-            default=u'An image limit will check the image dimensions and validates it agains the'
+            default=u'An image limit will check the image dimensions and validates it agains the '
             u'limit-types.<br><br>'
-            u'Define your limits as json in the following format:<br>'
-            u'{"portal-type": {"limit_type": {"width": value, "height": value}}}<br><br>'
+            u'Use the following configuration-format:<br>'
+            u'key: contenttype<br>'
+            u'value: limit_type: dimension=value, dimension=value<br>br>'
             u'example:<br>'
-            u'{"ftw.simplelayout.TextBlock" : {<br>'
-            u'   "soft": {"width": 400, "height": 300},<br>'
-            u'   "hard": {"width": 150}<br>'
-            u'  }'
-            u'}'
+            u'key: ftw.simplelayout.TextBlock<br>'
+            u'value: soft: width=400, height=300'
             ),
-        default=u'{}',
+        default={},
+        required=False
+        )
+
+    image_cropping_aspect_ratios = schema.Dict(
+        title=_(u'Image cropping aspect ratios'),
+        key_type=schema.ASCIILine(),
+        value_type=schema.List(value_type=schema.TextLine()),
+        description=_(
+            u'desc_image_cropping_options',
+            default=u'Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) '
+            u'available for your contenttypes.<br><br>'
+            u'Format:<br>'
+            u'key: contenttype<br>'
+            u'value: title => value<br><br>'
+            u'example:<br>'
+            u'key: ftw.simplelayout.TextBlock<br>'
+            u'value: 4/3 => 1.33333<br><br>'
+            u'Calculation: if you want a ratio of 16:9, you need to define the ratio '
+            u'to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>'
+            ),
+        default={'ftw.simplelayout.TextBlock': [u'4:3 => 1.33333', u'16:9 => 1.777777778']},
         required=False
         )
 

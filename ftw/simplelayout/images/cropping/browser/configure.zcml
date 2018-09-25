@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:page
+      for="ftw.simplelayout.images.cropping.behaviors.IImageCropping"
+      name="image_cropping.json"
+      class=".cropping.ImageCroppingView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+</configure>

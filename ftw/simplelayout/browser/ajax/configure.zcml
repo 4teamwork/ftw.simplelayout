@@ -72,4 +72,11 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="*"
+        name="sl-ajax-crop-image"
+        class=".crop_image.CropImageRedirector"
+        permission="cmf.ModifyPortalContent"
+        />
+
 </configure>

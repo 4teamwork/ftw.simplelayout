@@ -14,6 +14,9 @@
                     after="ftw.theming:resources/scss/iconset_font-awesome.scss" />
 
         <theme:scss file="browser/resources/theming.toolbar-icons.scss" />
+
+        <!-- Do not use minified version of cropper.css due to a compilation-bug in pyScss -->
+        <theme:scss file="browser/resources/vendor/cropper.css" />
     </theme:resources>
 
 </configure>

@@ -1,0 +1,19 @@
+<div class="softLimit"
+     i18n:domain="ftw.simplelayout">
+    <div class="icon"><span class="fa fa-exclamation-triangle"></span></div>
+    <div class="content">
+        <div class="title" i18n:translate="low_quality_image_label">low image quality</div>
+        <div class="description">
+            {{#if limitWidth}}
+                <div i18n:translate="cropper_soft_limit_reached_width">
+                    Width: {{currentWidth}}px (optimal: {{limitWidth}}px)
+                </div>
+            {{/if}}
+            {{#if limitHeight}}
+                <div i18n:translate="cropper_soft_limit_reached_height">
+                    Height: {{currentHeight}}px (optimal: {{limitHeight}}px)
+                </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

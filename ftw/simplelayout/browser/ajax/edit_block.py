@@ -1,4 +1,5 @@
 from ftw.simplelayout.browser.ajax.utils import json_response
+from ftw.simplelayout.images.cropping.behaviors import IImageCropping
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
 from ftw.simplelayout.utils import get_block_html
 from plone.app.uuid.utils import uuidToObject
@@ -41,6 +42,12 @@ class EditForm(DefaultEditForm):
         if errors:
             self.status = self.formErrorsMessage
             return
+
+        if IImageCropping.providedBy(self.context) and \
+                self.context.image is not data.get('image'):
+            data['IImageCropping.cropped_config'] = None
+            data['IImageCropping.cropped_image'] = None
+
         self.applyChanges(data)
         notify(EditFinishedEvent(self.context))
 

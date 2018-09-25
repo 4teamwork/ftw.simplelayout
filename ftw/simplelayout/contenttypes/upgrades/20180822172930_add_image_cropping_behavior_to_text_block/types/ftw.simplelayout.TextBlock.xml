@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="ftw.simplelayout.TextBlock"
+        meta_type="Dexterity FTI"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        i18n:domain="ftw.simplelayout">
+
+    <!-- enabled behaviors -->
+    <property name="behaviors" purge="False">
+        <element value="ftw.simplelayout.images.cropping.behaviors.ICroppedImageInOverlay"/>
+        <element value="ftw.simplelayout.images.cropping.behaviors.IImageCropping"/>
+    </property>
+
+</object>

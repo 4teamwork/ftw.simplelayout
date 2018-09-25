@@ -6,7 +6,6 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.dexterity import erroneous_fields
 from plone import api
 from unittest2 import TestCase
-import json
 import transaction
 
 
@@ -14,10 +13,9 @@ class TestImageLimitValidation(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
-    def set_config(self, config={}):
-        json_config = json.dumps(config).decode('utf-8')
+    def set_config(self, config=[]):
         api.portal.set_registry_record(
-            'image_limits', json_config, ISimplelayoutDefaultSettings)
+            'image_limits', config, ISimplelayoutDefaultSettings)
 
         transaction.commit()
 
@@ -27,10 +25,10 @@ class TestImageLimitValidation(TestCase):
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
         self.set_config({
-            block.portal_type: {
-                "hard": {"width": block.image._width + 100}
-            }
-        })
+            block.portal_type: [
+                u'hard: width={}'.format(block.image._width + 100)
+            ]}
+        )
 
         browser.login().visit(block, view="edit")
         browser.find_button_by_label('Save').click()
@@ -45,10 +43,10 @@ class TestImageLimitValidation(TestCase):
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
         self.set_config({
-            block.portal_type: {
-                "hard": {"height": block.image._height + 100}
-            }
-        })
+            block.portal_type: [
+                u'hard: height={}'.format(block.image._height + 100)
+            ]}
+        )
 
         browser.login().visit(block, view="edit")
         browser.find_button_by_label('Save').click()
@@ -63,13 +61,12 @@ class TestImageLimitValidation(TestCase):
         block = create(Builder('sl textblock').within(page).with_dummy_image())
 
         self.set_config({
-            block.portal_type: {
-                "hard": {
-                    "width": block.image._width + 100,
-                    "height": block.image._height + 100
-                    }
-            }
-        })
+            block.portal_type: [
+                u'hard: width={}, height={}'.format(
+                    block.image._width + 100,
+                    block.image._height + 100)
+            ]}
+        )
 
         browser.login().visit(block, view="edit")
         browser.find_button_by_label('Save').click()

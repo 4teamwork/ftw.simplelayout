@@ -1,0 +1,75 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  tal:omit-tag="python: 1"
+  i18n:domain="ftw.simplelayout">
+      <div class="imageCropperWrapper" tal:attributes="data-config view/config">
+          <h1 i18n:translate="" class="documentFirstHeading">Image editor</h1>
+          <div id="image-cropper-validation-message-container"></div>
+          <div class="imageCropperHeader">
+              <div class="imageCropperControls">
+                  <ul class="sl-toolbar-image-cropper horizontal">
+                      <li>
+                          <a class="btnDragModeMove icon-move" title="Move">
+                          </a>
+                      </li>
+                      <li>
+                          <a class="btnDragModeCrop icon-crop" title="Crop">
+                          </a>
+                      </li>
+                  </ul>
+                  <ul class="sl-toolbar-image-cropper horizontal">
+                      <li>
+                          <a class="btnZoomIn icon-zoom-in" title="Zoom in">
+                          </a>
+                      </li>
+                      <li>
+                          <a class="btnZoomOut icon-zoom-out" title="Zoom out">
+                          </a>
+                      </li>
+                  </ul>
+                  <ul class="sl-toolbar-image-cropper horizontal">
+                      <li tal:repeat="aspect_ratio view/aspect_ratios">
+                          <a tal:attributes="data-value aspect_ratio/value;"
+                             class="btnAspectRatioButton textButton"
+                             tal:content="aspect_ratio/title">
+                          </a>
+                      </li>
+                  </ul>
+                  <ul class="sl-toolbar-image-cropper horizontal">
+                      <li>
+                          <a class="btnClear icon-delete"></a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="imageCropperContent">
+            <tal:image condition="nocall:context/image">
+              <img class="croppingImage" tal:attributes="src string:${context/absolute_url}/@@images/image">
+            </tal:image>
+            <tal:image condition="not:nocall:context/image">
+              <span i18n:translate="">No image available</span>
+            </tal:image>
+          </div>
+          <div class="imageCropperFooter">
+              <form tal:attributes="action string:${context/absolute_url}/image_cropping.json">
+                    <input class="context btnSave"
+                           type="submit"
+                           name="form.button.Save"
+                           value="Save"
+                           i18n:domain="plone"
+                           i18n:attributes="value label_save;"
+                           />
+                    <input class="btnCancel"
+                           type="submit"
+                           id="form-buttons-cancel"
+                           name="form.button.Cancel"
+                           value="Cancel"
+                           i18n:domain="plone"
+                           i18n:attributes="value label_cancel;"
+                           />
+              </form>
+          </div>
+    </div>
+    <script id="hard-limit-validation-template" type="text/x-handlebars-template" tal:content="structure view/hard_limit_validation_template"></script>
+    <script id="soft-limit-validation-template" type="text/x-handlebars-template" tal:content="structure view/soft_limit_validation_template"></script>
+ </html>

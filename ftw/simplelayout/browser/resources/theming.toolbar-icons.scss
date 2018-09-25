@@ -5,7 +5,12 @@ $color-icon-hover: $color-text-inverted;
 [class^="sl-toolbar-"] {
   > li > a {
     background-repeat: no-repeat;
-
+    &.textButton {
+      color: $color-icon;
+      &:hover {
+        color: $color-icon-hover;
+      }
+    }
     &.icon-delete {
       background-image: embed-resource("fonts/delete.svg", $fill-css:('.icon', $color-icon));
       &:hover {
@@ -106,6 +111,24 @@ $color-icon-hover: $color-text-inverted;
       background-image: embed-resource("fonts/reverse.svg", $fill-css:('.icon', $color-icon));
       &:hover {
         background-image: embed-resource("fonts/reverse.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-crop {
+      background-image: embed-resource("fonts/crop-solid.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/crop-solid.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-zoom-in {
+      background-image: embed-resource("fonts/search-plus-solid.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/search-plus-solid.svg", $fill-css:('.icon', $color-icon-hover));
+      }
+    }
+    &.icon-zoom-out {
+      background-image: embed-resource("fonts/search-minus-solid.svg", $fill-css:('.icon', $color-icon));
+      &:hover {
+        background-image: embed-resource("fonts/search-minus-solid.svg", $fill-css:('.icon', $color-icon-hover));
       }
     }
   }

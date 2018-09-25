@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-08-24 10:48+0000\n"
+"POT-Creation-Date: 2018-09-24 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,11 +22,19 @@ msgstr ""
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:49
+#: ./ftw/simplelayout/images/cropping/configure.zcml:21
+msgid "Allows to crop an image and use the cropped image for display"
+msgstr ""
+
+#: ./ftw/simplelayout/images/cropping/configure.zcml:14
+msgid "Allows to define if a cropped image should be used for the overlay"
+msgstr ""
+
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:56
 msgid "Cancel"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:116
+#: ./ftw/simplelayout/interfaces.py:117
 msgid "Check possible values on http://ogp.me"
 msgstr ""
 
@@ -50,7 +58,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:109
+#: ./ftw/simplelayout/interfaces.py:110
 msgid "Enable OpenGraph support on plone root"
 msgstr ""
 
@@ -58,11 +66,11 @@ msgstr ""
 msgid "Extends a content by two fields internal and external link"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:129
+#: ./ftw/simplelayout/interfaces.py:130
 msgid "Facebook Admins"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:122
+#: ./ftw/simplelayout/interfaces.py:123
 msgid "Facebook App ID"
 msgstr ""
 
@@ -83,11 +91,23 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:29
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:27
 msgid "Image"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:135
+#: ./ftw/simplelayout/images/cropping/configure.zcml:21
+msgid "Image cropping"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:155
+msgid "Image cropping aspect ratios"
+msgstr ""
+
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping.pt:6
+msgid "Image editor"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:136
 msgid "Image limits"
 msgstr ""
 
@@ -107,19 +127,27 @@ msgstr ""
 msgid "Modify geographical data for this content"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:123
+#: ./ftw/simplelayout/interfaces.py:124
 msgid "Multiple users are separated by comma"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:115
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping.pt:50
+msgid "No image available"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:38
+#: ./ftw/simplelayout/browser/ajax/edit_block.py:39
 msgid "Save"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:31
+#: ./ftw/simplelayout/images/cropping/configure.zcml:14
+msgid "Show cropped image in overlay"
+msgstr ""
+
+#: ./ftw/simplelayout/interfaces.py:32
 msgid "Show title"
 msgstr ""
 
@@ -155,7 +183,7 @@ msgstr ""
 msgid "Simplelayout block content marker"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:99
+#: ./ftw/simplelayout/interfaces.py:100
 msgid "Simplelayout default configuration"
 msgstr ""
 
@@ -210,7 +238,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:35
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:34
 msgid "This block is empty."
 msgstr ""
 
@@ -287,23 +315,53 @@ msgstr ""
 msgid "column_type"
 msgstr ""
 
-#. Default: "An image limit will check the image dimensions and validates it agains thelimit-types.<br><br>Define your limits as json in the following format:<br>{\"portal-type\": {\"limit_type\": {\"width\": value, \"height\": value}}}<br><br>example:<br>{\"ftw.simplelayout.TextBlock\" : {<br>   \"soft\": {\"width\": 400, \"height\": 300},<br>   \"hard\": {\"width\": 150}<br>  }}"
-#: ./ftw/simplelayout/interfaces.py:136
+#. Default: "Height: {{currentHeight}}px (allowed: {{limitHeight}}px)"
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_hard_limit_message.pt:13
+msgid "cropper_hard_limit_reached_height"
+msgstr ""
+
+#. Default: "image section is too small"
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_hard_limit_message.pt:5
+msgid "cropper_hard_limit_reached_label"
+msgstr ""
+
+#. Default: "Width: {{currentWidth}}px (allowed: {{limitWidth}}px)"
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_hard_limit_message.pt:8
+msgid "cropper_hard_limit_reached_width"
+msgstr ""
+
+#. Default: "Height: {{currentHeight}}px (optimal: {{limitHeight}}px)"
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_soft_limit_message.pt:13
+msgid "cropper_soft_limit_reached_height"
+msgstr ""
+
+#. Default: "Width: {{currentWidth}}px (optimal: {{limitWidth}}px)"
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_soft_limit_message.pt:8
+msgid "cropper_soft_limit_reached_width"
+msgstr ""
+
+#. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>key: contenttype<br>value: title => value<br><br>example:<br>key: ftw.simplelayout.TextBlock<br>value: 4/3 => 1.33333<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
+#: ./ftw/simplelayout/interfaces.py:158
+msgid "desc_image_cropping_options"
+msgstr ""
+
+#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br>br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
+#: ./ftw/simplelayout/interfaces.py:139
 msgid "desc_image_limits"
 msgstr ""
 
 #. Default: "Add Simplelayout defaultconfiguration, Check simplelayoutdocu: https://github.com/4teamwork/ftw.simplelayout#usage"
-#: ./ftw/simplelayout/interfaces.py:100
+#: ./ftw/simplelayout/interfaces.py:101
 msgid "desc_sl_config_control_panel"
 msgstr ""
 
 #. Default: "Enter an alternative text for the image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:57
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
 msgid "description_image_alt_text"
 msgstr ""
 
 #. Default: "Opens image in an overlay"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:70
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:68
 msgid "description_image_clickable"
 msgstr ""
 
@@ -334,7 +392,7 @@ msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
 #. Default: "The image doesn't fit the required dimensions of ${limit_str}"
-#: ./ftw/simplelayout/images/validators.py:18
+#: ./ftw/simplelayout/images/limits/validators.py:50
 msgid "hard_limit_not_satisfied"
 msgstr ""
 
@@ -344,14 +402,19 @@ msgid "help_drag_hint"
 msgstr ""
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:29
 msgid "hidden_label_image_caption"
 msgstr ""
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:83
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:92
 msgid "image_link_alttext"
+msgstr ""
+
+#. Default: "imageresolution is too small"
+#: ./ftw/simplelayout/images/limits/browser/limits.py:26
+msgid "imageresolution_too_small_label"
 msgstr ""
 
 #. Default: "Delete block"
@@ -385,6 +448,21 @@ msgstr ""
 msgid "label_columns"
 msgstr ""
 
+#. Default: "Crop image"
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:174
+msgid "label_crop_image"
+msgstr ""
+
+#. Default: "The final cropped configuration"
+#: ./ftw/simplelayout/images/cropping/behaviors.py:45
+msgid "label_cropped_config"
+msgstr ""
+
+#. Default: "Cropped Image"
+#: ./ftw/simplelayout/images/cropping/behaviors.py:40
+msgid "label_cropped_image"
+msgstr ""
+
 #. Default: "Delete layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:82
 msgid "label_delete_layout"
@@ -410,22 +488,22 @@ msgid "label_external_link"
 msgstr ""
 
 #. Default: "Float image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:135
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:125
 msgid "label_float_image_left"
 msgstr ""
 
 #. Default: "Float image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:174
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:164
 msgid "label_float_image_right"
 msgstr ""
 
 #. Default: "Float large image left"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:144
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:134
 msgid "label_float_large_image_left"
 msgstr ""
 
 #. Default: "Float large image right"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:164
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:154
 msgid "label_float_large_image_right"
 msgstr ""
 
@@ -450,22 +528,22 @@ msgid "label_id"
 msgstr ""
 
 #. Default: "Image"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:51
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:49
 msgid "label_image"
 msgstr ""
 
 #. Default: "Image alternative text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:55
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:53
 msgid "label_image_alt_text"
 msgstr ""
 
 #. Default: "Image caption"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:61
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:59
 msgid "label_image_caption"
 msgstr ""
 
 #. Default: "Image without floating"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:154
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:144
 msgid "label_image_without_floating"
 msgstr ""
 
@@ -515,7 +593,7 @@ msgid "label_move_layout"
 msgstr ""
 
 #. Default: "Open image in overlay (only if there is no teaser url)"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:65
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:63
 msgid "label_open_image_in_overlay"
 msgstr ""
 
@@ -531,7 +609,7 @@ msgstr ""
 #. Default: "Show title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:39
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:37
 msgid "label_show_title"
 msgstr ""
 
@@ -551,14 +629,14 @@ msgid "label_sortable_title"
 msgstr ""
 
 #. Default: "Text"
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:46
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:44
 msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
-#: ./ftw/simplelayout/contenttypes/contents/textblock.py:35
+#: ./ftw/simplelayout/contenttypes/contents/textblock.py:33
 msgid "label_title"
 msgstr ""
 
@@ -574,32 +652,43 @@ msgid "label_video_url"
 msgstr ""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
-#: ./ftw/simplelayout/images/validators.py:54
+#: ./ftw/simplelayout/images/limits/validators.py:68
 msgid "limit_height_str"
 msgstr ""
 
 #. Default: "${width_str} and ${height_str}"
-#: ./ftw/simplelayout/images/validators.py:36
+#: ./ftw/simplelayout/images/limits/validators.py:36
 msgid "limit_width_and_height"
 msgstr ""
 
 #. Default: "width: ${width}px (current: ${current_width}px)"
-#: ./ftw/simplelayout/images/validators.py:48
+#: ./ftw/simplelayout/images/limits/validators.py:62
 msgid "limit_width_str"
 msgstr ""
 
 #. Default: "low image quality"
-#: ./ftw/simplelayout/images/templates/macros.pt:4
+#: ./ftw/simplelayout/images/cropping/browser/templates/cropping_soft_limit_message.pt:5
+#: ./ftw/simplelayout/images/limits/browser/limits.py:29
 msgid "low_quality_image_label"
 msgstr ""
 
-#. Default: "Optimal image quality:"
-#: ./ftw/simplelayout/images/templates/macros.pt:6
-msgid "optimal_image_quality_label"
+#. Default: "Optimal image quality: ${limit_str}"
+#: ./ftw/simplelayout/images/limits/validators.py:57
+msgid "soft_limit_not_satisfied"
 msgstr ""
 
 #. Default: "These internal links will be broken"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
+msgstr ""
+
+#. Default: "Use cropped image for overlay"
+#: ./ftw/simplelayout/images/cropping/behaviors.py:16
+msgid "use_cropped_image_for_overlay"
+msgstr ""
+
+#. Default: "If you crop an image, the original image will be still available. Per default, the original image will be used for the overlay. If you want to show the cropped image instead, mark this option."
+#: ./ftw/simplelayout/images/cropping/behaviors.py:18
+msgid "use_cropped_image_for_overlay_desc"
 msgstr ""
 
