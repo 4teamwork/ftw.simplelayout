@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.21.2 (unreleased)
+1.22.0 (2018-09-25)
 -------------------
 
 - Add imagecropping with configurable aspect-ratios for textblock-images. [elioschmutz]
