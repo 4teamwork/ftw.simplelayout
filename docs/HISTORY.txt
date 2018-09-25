@@ -5,7 +5,7 @@ Changelog
 1.22.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix image cropper styling with blueberry marketing theme. [elioschmutz]
 
 
 1.22.0 (2018-09-25)
