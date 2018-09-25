@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.22.1 (unreleased)
+1.22.1 (2018-09-25)
 -------------------
 
 - Fix image cropper styling with blueberry marketing theme. [elioschmutz]
