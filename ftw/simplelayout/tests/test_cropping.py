@@ -1,3 +1,4 @@
+from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.images.limits.limits import ImageLimits
@@ -7,6 +8,8 @@ from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from ftw.testbrowser.tests.helpers import asset
 from plone import api
+from urlparse import parse_qs
+from urlparse import urlparse
 import transaction
 
 
@@ -95,3 +98,21 @@ class TestCropping(SimplelayoutTestCase):
             interface=ISimplelayoutDefaultSettings)
 
         transaction.commit()
+
+    @browsing
+    def test_append_last_modified_to_image_src_to_fix_caching_issues(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock').within(page).with_dummy_image())
+
+        last_modified = DateTime(2014, 5, 7, 12, 30)
+        block.setModificationDate(last_modified)
+
+        transaction.commit()
+
+        browser.login().visit(block, view='image_cropping.json')
+        browser.open_html(browser.json.get('content'))
+        image_src = browser.css('.croppingImage').first.attrib.get('src')
+        query = parse_qs(urlparse(image_src).query)
+
+        self.assertEqual(['last_modified'], query.keys())
+        self.assertEqual([last_modified.strftime('%s')], query.get('last_modified'))

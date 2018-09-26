@@ -5,7 +5,7 @@ Changelog
 1.22.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix a caching issue where the cropping overlay have showed the old image after uploading a new one. [elioschmutz]
 
 
 1.22.1 (2018-09-25)
