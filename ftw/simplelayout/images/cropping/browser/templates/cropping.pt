@@ -44,7 +44,7 @@
           </div>
           <div class="imageCropperContent">
             <tal:image condition="nocall:context/image">
-              <img class="croppingImage" tal:attributes="src string:${context/absolute_url}/@@images/image">
+              <img class="croppingImage" tal:attributes="src view/cropping_image_src">
             </tal:image>
             <tal:image condition="not:nocall:context/image">
               <span i18n:translate="">No image available</span>

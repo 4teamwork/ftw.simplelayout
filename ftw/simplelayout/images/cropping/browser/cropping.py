@@ -105,6 +105,12 @@ class ImageCroppingView(BrowserView):
     def limits(self):
         return self.image_limits.get_all_limits()
 
+    def cropping_image_src(self):
+        return '{}/@@images/image?last_modified={}'.format(
+            self.context.absolute_url(),
+            self.context.modified().strftime('%s')
+            )
+
     def _sl_block(self):
         for obj in aq_chain(self.context):
             if ISimplelayoutBlock.providedBy(obj):
