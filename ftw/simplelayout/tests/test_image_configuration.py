@@ -2,6 +2,7 @@ from ftw.simplelayout.images.configuration import Configuration
 from ftw.simplelayout.interfaces import ISimplelayoutDefaultSettings
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
+from ftw.testbrowser import browsing
 from plone import api
 import transaction
 
@@ -20,6 +21,16 @@ class TestImageConfigurationImageLimits(SimplelayoutTestCase):
 
     def test_format_with_no_configuration(self):
         self._set_image_limit({})
+        self.assertEqual({}, Configuration().image_limits())
+
+    @browsing
+    def test_missing_value(self, browser):
+        self._set_image_limit({})
+
+        browser.login().visit(self.layer['portal'],
+                              view='simplelayout-controlpanel')
+
+        browser.find_button_by_label('Save').click()
         self.assertEqual({}, Configuration().image_limits())
 
     def test_format_with_only_one_limit_type(self):
@@ -101,6 +112,16 @@ class TestImageConfigurationIAspectRatios(SimplelayoutTestCase):
     def test_format_with_no_configuration(self):
         self._set_aspect_rations({})
         self.assertEqual({}, Configuration().aspect_ratios())
+
+    @browsing
+    def test_missing_value(self, browser):
+        self._set_aspect_rations({})
+
+        browser.login().visit(self.layer['portal'],
+                              view='simplelayout-controlpanel')
+
+        browser.find_button_by_label('Save').click()
+        self.assertEqual({}, Configuration().image_limits())
 
     def test_format_with_aspect_ratios(self):
         self._set_aspect_rations({
