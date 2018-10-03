@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.22.3 (unreleased)
+1.22.3 (2018-10-03)
 -------------------
 
 - Add missing_value attribute to the `image_limits` and `image_cropping_aspect_ratios`
