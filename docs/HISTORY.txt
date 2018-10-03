@@ -5,7 +5,9 @@ Changelog
 1.22.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add missing_value attribute to the `image_limits` and `image_cropping_aspect_ratios`
+  interfaces to prevent the form @@simplelayout-controlpanel from saving `None`
+  if no values are given. [elioschmutz]
 
 
 1.22.2 (2018-09-26)

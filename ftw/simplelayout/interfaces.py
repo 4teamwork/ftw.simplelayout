@@ -148,6 +148,7 @@ class ISimplelayoutDefaultSettings(Interface):
             u'value: soft: width=400, height=300'
             ),
         default={},
+        missing_value={},
         required=False
         )
 
@@ -169,6 +170,7 @@ class ISimplelayoutDefaultSettings(Interface):
             u'to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>'
             ),
         default={'ftw.simplelayout.TextBlock': [u'4:3 => 1.33333', u'16:9 => 1.777777778']},
+        missing_value={},
         required=False
         )
 
