@@ -5,7 +5,7 @@ Changelog
 1.20.2.1 (unreleased)
 ---------------------
 
-- Nothing changed yet.
+- Add support for www.youtube-nocookie.com video urls. [mathias.leimgruber]
 
 
 1.20.2 (2018-03-26)
