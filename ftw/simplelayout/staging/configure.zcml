@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.simplelayout">
+
+  <adapter factory=".staging.staging_lookup" />
+  <adapter factory=".staging.Staging" />
+
+  <browser:viewlet
+      for="ftw.simplelayout.staging.interfaces.IWorkingCopy"
+      name="ftw.simplelayout.staging.viewlets.WorkingCopyViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class="ftw.simplelayout.staging.viewlets.WorkingCopyViewlet"
+      permission="zope2.View"
+      layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+      />
+
+  <browser:viewlet
+      for="ftw.simplelayout.staging.interfaces.IBaseline"
+      name="ftw.simplelayout.staging.viewlets.BaselineViewlet"
+      manager="plone.app.layout.viewlets.interfaces.IAboveContentTitle"
+      class="ftw.simplelayout.staging.viewlets.BaselineViewlet"
+      permission="zope2.View"
+      layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+      />
+
+</configure>

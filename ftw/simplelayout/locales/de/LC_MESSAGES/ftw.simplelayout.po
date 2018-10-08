@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 20:38+0000\n"
+"POT-Creation-Date: 2018-10-03 15:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgstr "Bild"
 msgid "Image cropping"
 msgstr "Bildbearbeitung"
 
-#: ./ftw/simplelayout/interfaces.py:155
+#: ./ftw/simplelayout/interfaces.py:156
 msgid "Image cropping aspect ratios"
 msgstr "Seitenverhältnisse"
 
@@ -112,7 +112,7 @@ msgstr "Bilderauflösungslimits"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:81
+#: ./ftw/simplelayout/configure.zcml:82
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -156,7 +156,7 @@ msgstr "Zeigt die OpenGraph Meta Tags"
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:56
+#: ./ftw/simplelayout/configure.zcml:57
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -338,7 +338,7 @@ msgid "cropper_soft_limit_reached_width"
 msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
 
 #. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>key: contenttype<br>value: title => value<br><br>example:<br>key: ftw.simplelayout.TextBlock<br>value: 4/3 => 1.33333<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:158
+#: ./ftw/simplelayout/interfaces.py:159
 msgid "desc_image_cropping_options"
 msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>key: Inhaltstyp<br>value: title => value<br><br>Beispiel:<br>key: ftw.simplelayout.TextBlock<br>value:4/3 => 1.33333<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
 
@@ -372,11 +372,11 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:81
+#: ./ftw/simplelayout/configure.zcml:82
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:56
+#: ./ftw/simplelayout/configure.zcml:57
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -668,6 +668,16 @@ msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 #: ./ftw/simplelayout/images/limits/browser/limits.py:29
 msgid "low_quality_image_label"
 msgstr "Bildauflösung ist nicht optimal"
+
+#. Default: "${owner} is working on this page in a working copy created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "message_baseline"
+msgstr "${owner} überarbeitet diese Seite gerade in einer Arbeitskopie, erstellt am ${date}."
+
+#. Default: "This is the working copy of ${owner}, created at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+msgid "message_working_copy"
+msgstr "Dies ist die Arbeitskopie von ${owner}, erstellt am ${date}."
 
 #. Default: "Optimal image quality: ${limit_str}"
 #: ./ftw/simplelayout/images/limits/validators.py:57

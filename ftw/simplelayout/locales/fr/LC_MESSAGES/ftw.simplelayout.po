@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-09-24 20:38+0000\n"
+"POT-Creation-Date: 2018-10-03 15:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "Image cropping"
 msgstr ""
 
-#: ./ftw/simplelayout/interfaces.py:155
+#: ./ftw/simplelayout/interfaces.py:156
 msgid "Image cropping aspect ratios"
 msgstr ""
 
@@ -115,7 +115,7 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:81
+#: ./ftw/simplelayout/configure.zcml:82
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -159,7 +159,7 @@ msgstr ""
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:56
+#: ./ftw/simplelayout/configure.zcml:57
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -341,7 +341,7 @@ msgid "cropper_soft_limit_reached_width"
 msgstr ""
 
 #. Default: "Define the aspect ratios (https://github.com/fengyuanchen/cropperjs#options) available for your contenttypes.<br><br>Format:<br>key: contenttype<br>value: title => value<br><br>example:<br>key: ftw.simplelayout.TextBlock<br>value: 4/3 => 1.33333<br><br>Calculation: if you want a ratio of 16:9, you need to define the ratio to 1.777777778 (16/9 = 1.777777778). 0 means no ratio restrictions.<br><br>"
-#: ./ftw/simplelayout/interfaces.py:158
+#: ./ftw/simplelayout/interfaces.py:159
 msgid "desc_image_cropping_options"
 msgstr ""
 
@@ -375,11 +375,11 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:81
+#: ./ftw/simplelayout/configure.zcml:82
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:56
+#: ./ftw/simplelayout/configure.zcml:57
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -670,6 +670,16 @@ msgstr ""
 #: ./ftw/simplelayout/images/cropping/browser/templates/cropping_soft_limit_message.pt:5
 #: ./ftw/simplelayout/images/limits/browser/limits.py:29
 msgid "low_quality_image_label"
+msgstr ""
+
+#. Default: "${owner} is working on this page in a working copy created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "message_baseline"
+msgstr ""
+
+#. Default: "This is the working copy of ${owner}, created at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+msgid "message_working_copy"
 msgstr ""
 
 #. Default: "Optimal image quality: ${limit_str}"

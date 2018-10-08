@@ -49,6 +49,18 @@ builder_registry.register('sl textblock', TextBlockBuilder)
 class ListingBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.FileListingBlock'
 
+    def __init__(self, session):
+        super(ListingBlockBuilder, self).__init__(session)
+        self.children_builders = []
+
+    def with_files(self, *file_builders):
+        self.children_builders.extend(file_builders)
+        return self
+
+    def after_create(self, obj):
+        map(create, map(methodcaller('within', obj), self.children_builders))
+        return super(ListingBlockBuilder, self).after_create(obj)
+
 builder_registry.register('sl listingblock', ListingBlockBuilder)
 
 

@@ -10,6 +10,7 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
+    'ftw.trash',
     'path.py',
     'plone.app.lockingbehavior',
     'plone.app.testing',
