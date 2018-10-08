@@ -265,7 +265,7 @@ msgstr "Video"
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:43
 msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
-msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) Format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:6
