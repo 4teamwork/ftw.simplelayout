@@ -1,0 +1,2 @@
+<h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
+<iframe tal:attributes="src view/youtbube_no_cookie_player" width="100%" height="500px" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
