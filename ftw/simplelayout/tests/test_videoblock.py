@@ -14,6 +14,7 @@ import json
 if not IS_PLONE_5:
     from ftw.simplelayout.contenttypes.contents.videoblock import is_vimeo_url
     from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_url
+    from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_nocookie_url
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')
@@ -64,6 +65,10 @@ class TestVideoValidators(TestCase):
 
         url = 'http://vimeo.com/channels/'
         self.assertFalse(is_vimeo_url(url))
+
+    def test_valid_youtube_nocookie_url(self):
+        url = 'https://www.youtube-nocookie.com/embed/UUrddqT9i_s'
+        self.assertTrue(is_youtube_nocookie_url(url))
 
 
 @skipUnless(not IS_PLONE_5, 'requires plone < 5')
