@@ -5,7 +5,7 @@ Changelog
 1.23.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add support for www.youtube-nocookie.com video urls. [mathias.leimgruber]
 
 
 1.23.0 (2018-10-08)
