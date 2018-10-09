@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.16.1 (unreleased)
+1.16.1 (2018-10-09)
 -------------------
 
 - Add support for www.youtube-nocookie.com video urls. [mathias.leimgruber]
