@@ -5,6 +5,8 @@ Changelog
 1.23.1 (unreleased)
 -------------------
 
+- Implement unrestricted_uuidToObject to get the infos for the staging viewlet, regardless of the workflow. [mathias.leimgruber]
+
 - Add support for www.youtube-nocookie.com video urls. [mathias.leimgruber]
 
 
