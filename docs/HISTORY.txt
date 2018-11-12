@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.1 (unreleased)
+1.23.1 (2018-11-12)
 -------------------
 
 - Implement unrestricted_uuidToObject to get the infos for the staging viewlet, regardless of the workflow. [mathias.leimgruber]
