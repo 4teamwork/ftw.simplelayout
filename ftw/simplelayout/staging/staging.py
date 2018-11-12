@@ -13,6 +13,7 @@ from ftw.simplelayout.properties import BLOCK_PROPERTIES_KEY
 from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
+from ftw.simplelayout.utils import unrestricted_uuidToObject
 from operator import methodcaller
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
@@ -93,7 +94,7 @@ class Staging(object):
         if not self.is_baseline():
             return None
 
-        return map(uuidToObject, self.context._working_copies)
+        return map(unrestricted_uuidToObject, self.context._working_copies)
 
     def create_working_copy(self, target_container):
         """Make a working copy of the adapted context into the given target container.

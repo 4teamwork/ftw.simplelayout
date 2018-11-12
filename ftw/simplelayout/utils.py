@@ -1,5 +1,6 @@
 from ftw.simplelayout.interfaces import IBlockProperties
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
+from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import safe_utf8
 from plone.i18n.normalizer.interfaces import IIDNormalizer
@@ -31,3 +32,17 @@ def get_block_types():
     return filter(
         lambda fti: ISimplelayoutBlock.__identifier__ in fti.behaviors,
         dexterity_ftis)
+
+
+def unrestricted_uuidToObject(uuid):
+    platform = getSite()
+    catalog = getToolByName(platform, 'portal_catalog', None)
+    if catalog is None:
+        return None
+
+    result = catalog.unrestrictedSearchResults(UID=uuid)
+    if len(result) != 1:
+        return None
+
+    with api.env.adopt_roles(roles=['Manager']):
+        return result[0].getObject()
