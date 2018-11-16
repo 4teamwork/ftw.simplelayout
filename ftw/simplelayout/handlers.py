@@ -1,12 +1,12 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
 from DateTime import DateTime
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone.uuid.interfaces import IUUID
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 import json
 
 
@@ -100,3 +100,9 @@ def modify_parent_on_block_edit(block, event):
         parent.setModificationDate(DateTime())
     else:
         parent.reindexObject()
+
+    try:
+        from collective.lastmodifier.utils import set_last_modifier
+        set_last_modifier(parent)
+    except ImportError:
+        pass
