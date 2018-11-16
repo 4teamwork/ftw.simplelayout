@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.2 (unreleased)
+1.23.2 (2018-11-16)
 -------------------
 
 - Set last modifier for parent object, when sl block is edited if collective.lastmodifier is installed
