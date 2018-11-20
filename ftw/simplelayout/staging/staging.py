@@ -27,12 +27,14 @@ from plone.uuid.interfaces import IUUID
 from Products.Archetypes.interfaces import IBaseContent
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapter
+from zope.component import getGlobalSiteManager
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import noLongerProvides
+from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 from zope.schema import getFieldsInOrder
 import pkg_resources
 
@@ -170,11 +172,38 @@ class Staging(object):
                              if self.is_child_integrated(value)})
         original_count = obj._count()
         obj._count.set(len(obj._tree))
+
+        # Revert the tree patch within a IObjectCopiedEvent subscriber in order
+        # to revert right after inserting the working copy object but before
+        # other event subscribers are triggered.
+        # One regular paste subscriber is from plone.app.linkitegrity, verifying
+        # the relations. If we have relations with a subpage as target in our
+        # pasted content, it will fail when the tree change is not reverted since
+        # the subpage is then not reachable at all.
+        def object_copied_subscriber(event):
+            if event.original == obj:
+                revert()
+
+        handler_args = (object_copied_subscriber, (IObjectCopiedEvent,))
+
+        def revert():
+            if getattr(original, '_p_jar', object()) != getattr(obj, '_p_jar', object()):
+                # The handler is registered for all thread; this is a call from another
+                # thread, so ignore it.
+                return
+
+            if obj._tree == original:
+                # revert() usually is called twice; only reset once.
+                return
+            getGlobalSiteManager().unregisterHandler(*handler_args)
+            obj._tree = original
+            obj._count.set(original_count)
+
+        getGlobalSiteManager().registerHandler(*handler_args)
         try:
             yield
         finally:
-            obj._tree = original
-            obj._count.set(original_count)
+            revert()
 
     @contextmanager
     def _cleanup_filter_order(self, obj):

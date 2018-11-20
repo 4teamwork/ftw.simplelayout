@@ -329,6 +329,30 @@ class TestWorkingCopy(TestCase):
         statusmessages.assert_message(
             'test_user_1_ is working on this page in a working copy created at Jul 24, 2017.')
 
+    @browsing
+    def test_does_not_break_with_reference_to_sub_page(self, browser):
+        """When pasting an object, the linkintegrity checker verifies the references.
+        When creating the working copy, the tree is filtered while copy/pasting the
+        page.
+        Regression: when a block of the baseline contains a link to a sub page, the link
+        integrity checker failed since it was executed while the tree still was filtered
+        and thus the sub page was not reachable with traversal at all.
+        """
+        baseline = create(Builder('sl content page').titled(u'Baseline'))
+
+        with staticuid('childpage'):
+            childpage = create(Builder('sl content page').titled(u'Childpage')
+                               .within(baseline))
+
+        create(Builder('sl textblock').titled(u'Block').within(baseline)
+               .having(text=RichTextValue(u'''
+               <p>
+                   <a class="internal-link"
+                      href="resolveuid/childpage00000000000000000000001">Childpage</a>
+               </p>'''.strip())))
+
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)
         got = set(filter(lambda iface: iface.providedBy(obj), (IBaseline, IWorkingCopy)))

@@ -5,7 +5,7 @@ Changelog
 1.23.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Staging: fix an error which broke staging when having a link to a sub page. [jone]
 
 
 1.23.2 (2018-11-16)
