@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.3 (unreleased)
+1.23.3 (2018-11-20)
 -------------------
 
 - Staging: fix an error which broke staging when having a link to a sub page. [jone]
