@@ -561,9 +561,9 @@ Blocks
 +-------------+-------------+------------------------------------+
 | description |             | Used for titleattribute            |
 +-------------+-------------+------------------------------------+
-| contentType | ✓           | Represents the type for each block |
+| contentType | yes         | Represents the type for each block |
 +-------------+-------------+------------------------------------+
-| actions     | ✓           | Describes the actions              |
+| actions     | yes         | Describes the actions              |
 +-------------+-------------+------------------------------------+
 
 Actions
@@ -572,7 +572,7 @@ Actions
 +-------------+-------------+------------------------------------+
 | key         | is required | description                        |
 +-------------+-------------+------------------------------------+
-| key         | ✓           | Name for the action                |
+| key         | yes         | Name for the action                |
 +-------------+-------------+------------------------------------+
 | class       |             | Classattribute for the action      |
 +-------------+-------------+------------------------------------+
