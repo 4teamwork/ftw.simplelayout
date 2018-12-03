@@ -3,8 +3,10 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.trash.trasher import Trasher
+from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.textfield.value import RichTextValue
 
 
 class TestTrashIntegration(SimplelayoutTestCase):
@@ -39,3 +41,17 @@ class TestTrashIntegration(SimplelayoutTestCase):
 
         page.manage_permission('Modify portal content', roles=[], acquire=False)
         self.assertFalse(Trasher(block).is_restorable())
+
+    def test_dont_index_trashed_blocks(self):
+        portal = api.portal.get()
+        page = create(Builder('sample container'))
+        block = create(Builder('sample block').titled(u'title').within(page)
+                       .having(text=RichTextValue(u'hans')))
+
+        self.assertEquals(1, len(portal.portal_catalog(SearchableText='hans')))
+
+        Trasher(block).trash()
+        self.assertEquals(0, len(portal.portal_catalog(SearchableText='hans')))
+
+        Trasher(block).restore()
+        self.assertEquals(1, len(portal.portal_catalog(SearchableText='hans')))
