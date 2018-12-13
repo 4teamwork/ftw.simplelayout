@@ -8,6 +8,16 @@ from Products.CMFCore.utils import getToolByName
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.component.hooks import getSite
+import pkg_resources
+
+
+try:
+    pkg_resources.get_distribution('ftw.trash')
+except pkg_resources.DistributionNotFound:
+    FTW_TRASH_SUPPORT = False
+else:
+    FTW_TRASH_SUPPORT = True
+    from ftw.trash.interfaces import ITrashed
 
 
 def normalize_portal_type(portal_type):
@@ -46,3 +56,9 @@ def unrestricted_uuidToObject(uuid):
 
     with api.env.adopt_roles(roles=['Manager']):
         return result[0].getObject()
+
+
+def is_trashed(obj):
+    if FTW_TRASH_SUPPORT:
+        return ITrashed.providedBy(obj)
+    return False

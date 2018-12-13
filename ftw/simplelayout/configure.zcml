@@ -114,4 +114,16 @@
         handler=".handlers.modify_parent_on_block_edit"
         />
 
+    <subscriber
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
+             ftw.trash.interfaces.IObjectTrashedEvent"
+        handler=".handlers.handle_trashed_and_restored_blocks"
+        />
+
+    <subscriber
+        for="ftw.simplelayout.interfaces.ISimplelayoutBlock
+             ftw.trash.interfaces.IObjectRestoredEvent"
+        handler=".handlers.handle_trashed_and_restored_blocks"
+        />
+
 </configure>
