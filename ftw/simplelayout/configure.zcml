@@ -115,12 +115,14 @@
         />
 
     <subscriber
+        zcml:condition="have ftw.simplelayout:trash"
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              ftw.trash.interfaces.IObjectTrashedEvent"
         handler=".handlers.handle_trashed_and_restored_blocks"
         />
 
     <subscriber
+        zcml:condition="have ftw.simplelayout:trash"
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock
              ftw.trash.interfaces.IObjectRestoredEvent"
         handler=".handlers.handle_trashed_and_restored_blocks"
