@@ -5,7 +5,7 @@ Changelog
 1.23.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Add zcml:condition="have ftw.simplelayout:trash" to trash related handlers. [mathias.leimgruber]
 
 
 1.23.4 (2018-12-13)
