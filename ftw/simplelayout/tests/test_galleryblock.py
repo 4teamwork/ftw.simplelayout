@@ -6,12 +6,15 @@ from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from plone import api
 from plone.registry.interfaces import IRegistry
-from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
 from Products.CMFPlone.utils import parent
 from unittest2 import TestCase
 from zope.component import queryUtility
 import os
 import transaction
+
+
+if IS_PLONE_5:
+    from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
 
 
 def get_allowed_size_names():
