@@ -52,7 +52,7 @@
              *"
         />
 
-    <configure package="plone.app.content.browser.selection">
+    <configure package="plone.app.content.browser.selection" zcml:condition="have plone-5">
         <browser:page
             for="ftw.simplelayout.interfaces.ISimplelayout"
             name="select_default_page"

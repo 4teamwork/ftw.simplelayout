@@ -9,7 +9,6 @@ from plone.app.textfield.value import RichTextValue
 from plone.namedfile.file import NamedBlobImage
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
-from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
 from StringIO import StringIO
 from unittest2 import TestCase
 from z3c.relationfield import RelationValue
@@ -18,6 +17,10 @@ from zope.component import queryUtility
 from zope.intid.interfaces import IIntIds
 import json
 import transaction
+
+
+if IS_PLONE_5:
+    from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
 
 
 class TestTextBlockRendering(TestCase):
@@ -212,7 +215,7 @@ class TestTextBlockRendering(TestCase):
             sizes = registry.forInterface(IImagingSchema, prefix="plone").allowed_sizes
 
         else:
-            ptool = api.get_tool('portal_properties')
+            ptool = api.portal.get_tool('portal_properties')
             sizes = ptool.get('imaging_properties').allowed_sizes
 
         # Remove the colorbox scale.
