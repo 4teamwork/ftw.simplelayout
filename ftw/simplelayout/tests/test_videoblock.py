@@ -2,6 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.contenttypes.contents.videoblock import is_vimeo_url
 from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_url
+from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_nocookie_url
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
@@ -11,13 +12,6 @@ from unittest2 import TestCase
 import json
 
 
-if not IS_PLONE_5:
-    from ftw.simplelayout.contenttypes.contents.videoblock import is_vimeo_url
-    from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_url
-    from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_nocookie_url
-
-
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestVideoValidators(TestCase):
 
     def test_valid_youtube_url(self):
