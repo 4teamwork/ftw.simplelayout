@@ -27,6 +27,8 @@
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.contenttypes.behaviors.ITeaser" />
+        <element value="ftw.simplelayout.images.cropping.behaviors.ICroppedImageInOverlay"/>
+        <element value="ftw.simplelayout.images.cropping.behaviors.IImageCropping"/>
     </property>
 
     <!-- View information -->
