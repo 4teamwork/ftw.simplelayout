@@ -61,8 +61,10 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
 class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
     def setUpPloneSite(self, portal):
 
-        applyProfile(portal, 'plone.app.contenttypes:default')
         applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
+
+        if IS_PLONE_5:
+            applyProfile(portal, 'plone.app.contenttypes:default')
 
         if not IS_PLONE_5:
             applyProfile(portal, 'ftw.simplelayout.mapblock:default')
