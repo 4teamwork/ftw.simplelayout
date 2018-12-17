@@ -215,7 +215,7 @@ class TestTextBlockRendering(TestCase):
             sizes = registry.forInterface(IImagingSchema, prefix="plone").allowed_sizes
 
         else:
-            ptool = api.get_tool('portal_properties')
+            ptool = api.portal.get_tool('portal_properties')
             sizes = ptool.get('imaging_properties').allowed_sizes
 
         # Remove the colorbox scale.

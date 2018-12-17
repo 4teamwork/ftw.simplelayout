@@ -23,7 +23,7 @@ def get_allowed_size_names():
         sizes = registry.forInterface(IImagingSchema, prefix="plone", check=False).allowed_sizes
 
     else:
-        ptool = api.get_tool('portal_properties')
+        ptool = api.portal.get_tool('portal_properties')
         sizes = ptool.get('imaging_properties').allowed_sizes
 
     return map(lambda size: size.split(' ')[0], sizes)
