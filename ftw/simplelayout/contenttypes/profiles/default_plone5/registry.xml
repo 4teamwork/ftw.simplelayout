@@ -36,4 +36,10 @@
     </value>
   </records>
 
+  <record name="plone.displayed_types">
+    <value purge="false">
+      <element>ftw.simplelayout.ContentPage</element>
+    </value>
+  </record>
+
 </registry>
