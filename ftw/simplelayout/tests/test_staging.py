@@ -27,6 +27,9 @@ class TestWorkingCopy(TestCase):
 
         for fti in (self.portal.portal_types.File,
                     self.portal.portal_types.Image):
+            if not hasattr(fti, 'behaviors'):
+                # File and image are not DX in Plone 4.3.x, but AT.
+                continue
             behaviors = list(fti.behaviors)
             behaviors.remove('plone.app.dexterity.behaviors.filename.INameFromFileName')
             behaviors += ['plone.app.content.interfaces.INameFromTitle']
