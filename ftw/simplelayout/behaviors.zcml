@@ -33,7 +33,6 @@
         title="Hide block"
         description="Adds an option to (visually) hide a block"
         provides="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"
-        for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         />
 
 </configure>
