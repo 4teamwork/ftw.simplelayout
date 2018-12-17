@@ -12,6 +12,8 @@ eggs/
 parts/
 /src/
 var/
+/include/
+/lib/
 
 ### Node ###
 node_modules
@@ -19,4 +21,3 @@ node_modules
 
 ### Grunt ###
 .grunt
-
