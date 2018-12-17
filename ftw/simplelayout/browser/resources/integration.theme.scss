@@ -324,7 +324,7 @@
   .sl-layout {
     border: 1px dashed $color-text;
   }
-  .documentEditable {
+  .sl-simplelayout.sl-can-edit {
     .sl-column:empty {
       border: none;
     }
@@ -584,10 +584,8 @@ ul[class^="sl-toolbar"] {
 }
 
 // If user is permitted to edit the simplelayout page
-.documentEditable {
-  .sl-simplelayout {
-    min-height: 100px;
-  }
+.sl-simplelayout.sl-can-edit {
+  min-height: 100px;
   .sl-layout {
     @include transition(box-shadow .3s ease-out);
     min-height: 100px;
