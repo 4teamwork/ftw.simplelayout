@@ -141,7 +141,6 @@ msgstr ""
 #: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
 msgstr ""
-
 #: ./ftw/simplelayout/images/cropping/configure.zcml:13
 msgid "Show cropped image in overlay"
 msgstr ""
