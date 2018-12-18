@@ -41,7 +41,6 @@ extras_require = {
         'collective.geo.bundle [dexterity]',
     ],
     'plone4': [
-        'collective.quickupload',
         'plone.app.referenceablebehavior',
     ],
     'trash': [
