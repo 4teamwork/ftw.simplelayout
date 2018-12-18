@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "cropperjs": "1.4.1",
+    "dropzone": "5.5.1",
     "group-by": "0.0.1",
     "handlebars": "4.0.5",
     "jsrender": "0.9.83",
@@ -40,7 +41,9 @@
     },
     "jquery-ui": {
       "exports": "global:$.ui",
-      "deps": ["jquery"]
+      "deps": [
+        "jquery"
+      ]
     }
   },
   "scripts": {
