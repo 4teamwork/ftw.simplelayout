@@ -51,14 +51,6 @@
         />
 
     <browser:page
-        for="*"
-        name="sl-ajax-upload-block-view"
-        class=".upload.UploadForm"
-        permission="cmf.ModifyPortalContent"
-        />
-
-
-    <browser:page
         for="ftw.simplelayout.interfaces.ISimplelayoutBlock"
         name="edit.json"
         class=".edit_block.EditForm"
