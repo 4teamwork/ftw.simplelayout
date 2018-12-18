@@ -4,6 +4,7 @@ from ftw.builder.testing import set_builder_session_factory
 from ftw.simplelayout.tests import sample_types
 from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testing.layer import ComponentRegistryLayer
+from path import Path
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone.app.testing import applyProfile
@@ -113,6 +114,9 @@ class SimplelayoutTestCase(TestCase):
 
     def setup_block_views(self):
         sample_types.setup_views()
+
+    def asset(self, name):
+        return Path(__file__).joinpath('..', 'tests', 'assets', name).abspath()
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()

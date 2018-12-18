@@ -46,4 +46,18 @@
       layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
       />
 
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        name="dropzone-upload"
+        class=".dropzone.FileListingUpload"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
+        name="dropzone-upload"
+        class=".dropzone.GalleryUpload"
+        permission="cmf.ModifyPortalContent"
+        />
+
 </configure>

@@ -103,7 +103,7 @@ class TestAddableBlocksDefaultContent(TestCase):
                                     u'href': u'http://nohost/plone/ftw-simplelayout-contentpage/sl-ajax-edit-block-view',
                                     u'title': u'Edit block'},
                           u'upload': {u'class': u'upload sl-icon-image-upload',
-                                      u'href': u'./sl-ajax-upload-block-view',
+                                      u'href': u'#',
                                       u'title': u'Upload'},
                           u'folderContents': {u'class': u'sl-icon-folder-contents redirect',
                                               u'href': u'/folder_contents',
