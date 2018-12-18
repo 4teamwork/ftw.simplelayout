@@ -165,14 +165,14 @@ class ListingBlockActions(DefaultActions):
     def specific_actions(self):
         return OrderedDict([
             ('upload', {
-                'class': 'upload icon-image-upload',
+                'class': 'upload sl-icon-image-upload',
                 'title': translate(
                     _(u'label_upload', default=u'Upload'),
                     context=self.request),
                 'href': './sl-ajax-upload-block-view'
             }),
             ('folderContents', {
-                'class': 'icon-folder-contents redirect',
+                'class': 'sl-icon-folder-contents redirect',
                 'title': translate(
                     _(u'label_folder_contents_files',
                       default=u'Go to folder contents for managing files'),

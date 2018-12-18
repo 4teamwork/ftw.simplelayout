@@ -9,21 +9,21 @@
               <div class="imageCropperControls">
                   <ul class="sl-toolbar-image-cropper horizontal">
                       <li>
-                          <a class="btnDragModeMove icon-move" title="Move">
+                          <a class="btnDragModeMove sl-icon-move" title="Move">
                           </a>
                       </li>
                       <li>
-                          <a class="btnDragModeCrop icon-crop" title="Crop">
+                          <a class="btnDragModeCrop sl-icon-crop" title="Crop">
                           </a>
                       </li>
                   </ul>
                   <ul class="sl-toolbar-image-cropper horizontal">
                       <li>
-                          <a class="btnZoomIn icon-zoom-in" title="Zoom in">
+                          <a class="btnZoomIn sl-icon-zoom-in" title="Zoom in">
                           </a>
                       </li>
                       <li>
-                          <a class="btnZoomOut icon-zoom-out" title="Zoom out">
+                          <a class="btnZoomOut sl-icon-zoom-out" title="Zoom out">
                           </a>
                       </li>
                   </ul>
@@ -37,7 +37,7 @@
                   </ul>
                   <ul class="sl-toolbar-image-cropper horizontal">
                       <li>
-                          <a class="btnClear icon-delete"></a>
+                          <a class="btnClear sl-icon-delete"></a>
                       </li>
                   </ul>
               </div>
