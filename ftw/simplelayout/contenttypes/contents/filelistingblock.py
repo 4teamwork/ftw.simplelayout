@@ -169,7 +169,7 @@ class ListingBlockActions(DefaultActions):
                 'title': translate(
                     _(u'label_upload', default=u'Upload'),
                     context=self.request),
-                'href': './sl-ajax-upload-block-view'
+                'href': '#'
             }),
             ('folderContents', {
                 'class': 'sl-icon-folder-contents redirect',
