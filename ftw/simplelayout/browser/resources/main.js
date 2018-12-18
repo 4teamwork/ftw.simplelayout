@@ -15,6 +15,43 @@
     }
   }
 
+  function initDropZone(element) {
+    var target = $(element).find('.filedropzone');
+    if (target.length === 0) {
+      return;
+    }
+
+    target.dropzone({
+      url: target.data('endpoint'),
+      autoProcessQueue: true,
+      parallelUploads: 1,
+      uploadMultiple: false,
+    });
+
+    var dropzoneObj = target[0].dropzone;
+
+    dropzoneObj.on('sending', function(file, xhr, formData){
+      formData.append('_authenticator', $('[name="_authenticator"]').val());
+    });
+    dropzoneObj.on('queuecomplete', function(){
+      var block = target.parents(".sl-block").data().object;
+      var payLoad = { uid: block.represents };
+      var configRequest = $.post('./sl-ajax-reload-block-view', { "data": JSON.stringify(payLoad) });
+      configRequest.done(function(blockContent) {
+        block.content(blockContent);
+        initDropZone(block.element);
+      });
+
+    });
+  }
+
+  $(document).on('ready', function(){
+    $('.sl-block').each(function(){
+      initDropZone(this);  
+    });
+  });
+
+
   function StateKeeper() {
 
     var counter = 0;
@@ -156,6 +193,7 @@
           block.commit();
           saveState();
           initializeColorbox();
+          initDropZone(block.element);
           this.close();
           $(document).trigger('block-added', [block]);
         });
@@ -271,6 +309,7 @@
         $(document).trigger('block-edited', [block]);
         block.content(data.content);
         initializeColorbox();
+        initDropZone(block.element);
         this.close();
       });
     });
