@@ -8,22 +8,22 @@ describe("Toolbar", function() {
   });
 
   it("can add a edit action", function() {
-    var toolbar = new Toolbar({edit: {"class": "edit icon-edit", "title": "Can edit this block"}});
+    var toolbar = new Toolbar({edit: {"class": "edit sl-icon-edit", "title": "Can edit this block"}});
     var actionNodes = $.map(toolbar.element.find("a"), function(action) {
       return {tagName: action.tagName, classes: action.className, title: action.title};
     });
 
-    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block"}]);
+    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit sl-icon-edit", title: "Can edit this block"}]);
   });
 
   it("can disable or enable an action", function() {
-    var toolbar = new Toolbar({edit: {"class": "edit icon-edit", "title": "Can edit this block"}});
+    var toolbar = new Toolbar({edit: {"class": "edit sl-icon-edit", "title": "Can edit this block"}});
     toolbar.disable("edit");
     var actionNodes = $.map(toolbar.element.find("a"), function(action) {
       return {tagName: action.tagName, classes: action.className, title: action.title, display: action.style.display};
     });
 
-    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block", display: "none"}]);
+    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit sl-icon-edit", title: "Can edit this block", display: "none"}]);
 
     toolbar.enable("edit");
 
@@ -31,7 +31,7 @@ describe("Toolbar", function() {
       return {tagName: action.tagName, classes: action.className, title: action.title, display: action.style.display};
     });
 
-    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit icon-edit", title: "Can edit this block", display: "block"}]);
+    assert.deepEqual(actionNodes, [{tagName: "A", classes: "edit sl-icon-edit", title: "Can edit this block", display: "block"}]);
   });
 
 });

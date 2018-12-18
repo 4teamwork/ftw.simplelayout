@@ -20,7 +20,7 @@ export default function Toolbox(options) {
         <div class='sl-toolbox-blocks'>
           {{#each blocks}}
             <a class='sl-toolbox-block {{contentType}}' data-type='{{contentType}}' data-form-url='{{formUrl}}'>
-              <span class='icon-{{contentType}}'></span>
+              <span class='sl-icon-{{contentType}}'></span>
               <span class='description'>{{title}}</span>
             </a>
           {{/each}}
