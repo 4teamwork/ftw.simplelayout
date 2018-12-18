@@ -5,7 +5,7 @@ Changelog
 1.23.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Remove development GS profile because it did not work. [jone]
 
 
 1.23.5 (2018-12-18)
