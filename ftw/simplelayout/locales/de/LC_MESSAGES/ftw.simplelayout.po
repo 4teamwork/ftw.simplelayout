@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-12-18 13:19+0000\n"
+"POT-Creation-Date: 2018-12-18 13:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -130,6 +130,10 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 #: ./ftw/simplelayout/images/cropping/browser/templates/cropping.pt:50
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
+
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+msgid "Only images can be added to the gallery."
+msgstr "Es können nur Bilder in den Galerie-Block hochgeladen werden. Dies scheint kein Bild zu sein."
 
 #: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
@@ -699,4 +703,3 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
-

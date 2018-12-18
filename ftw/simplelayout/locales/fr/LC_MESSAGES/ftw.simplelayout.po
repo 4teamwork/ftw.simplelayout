@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-12-18 13:19+0000\n"
+"POT-Creation-Date: 2018-12-18 13:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,6 +132,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/images/cropping/browser/templates/cropping.pt:50
 msgid "No image available"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+msgid "Only images can be added to the gallery."
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:116
