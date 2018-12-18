@@ -29,14 +29,14 @@ class DefaultActions(object):
                 'title': translate(
                     _(u'label_edit_block', default='Edit block'),
                     context=self.request),
-                'href': './sl-ajax-edit-block-view'
+                'href': self.context.absolute_url() + '/sl-ajax-edit-block-view'
             }),
             ('delete', {
                 'class': 'delete sl-icon-delete',
                 'title': translate(
                     _(u'label:delete_block', default='Delete block'),
                     context=self.request),
-                'href': './sl-ajax-delete-blocks-view'
+                'href': self.context.absolute_url() + '/sl-ajax-delete-blocks-view'
             })
         ])
 
