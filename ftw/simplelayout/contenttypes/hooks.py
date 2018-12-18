@@ -35,3 +35,7 @@ def clean_plone5_registry(site):
     contains_objects.remove(u'ftw.simplelayout.FileListingBlock')
     contains_objects.remove(u'ftw.simplelayout.GalleryBlock')
     registry['plone.contains_objects'] = contains_objects
+
+    displayed_types = list(registry['plone.displayed_types'])
+    displayed_types.remove(u'ftw.simplelayout.ContentPage')
+    registry['plone.displayed_types'] = tuple(displayed_types)
