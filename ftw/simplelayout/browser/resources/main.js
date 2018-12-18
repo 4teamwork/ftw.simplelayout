@@ -72,8 +72,6 @@
 
     var baseUrl = $("base").length === 1 ? $("base").attr("href") : $("body").data("base-url") + "/";
 
-    var isUploading = function() { return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0; };
-
     var initializeColorbox = function() {
       if($(".colorboxLink").length > 0) {
         if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
@@ -95,7 +93,6 @@
 
     var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
     var editOverlay = new global.FormOverlay({cssclass: "overlay-edit"});
-    var uploadOverlay = new global.FormOverlay({ cssclass: "overlay-upload", disableClose: isUploading });
     var addOverlay = new global.FormOverlay({cssclass: "overlay-add"});
     var cropImageOverlay = new global.FormOverlay({cssclass: "crop-image"});
     var toolbox;
@@ -335,31 +332,6 @@
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
-      });
-    });
-
-    $(global.document).on("click", ".sl-block .upload", function(event) {
-      event.preventDefault();
-      var block = $(this).parents(".sl-block").data().object;
-      uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })}, function(){
-        var self = this;
-        global.Browser.onUploadComplete = function(){ return; };
-        self.element.on("click", "#button-upload-done", function(uploadEvent) {
-          uploadEvent.preventDefault();
-          self.onFormCancel.call(self);
-        });
-
-      });
-      uploadOverlay.onCancel(function(){
-        var payLoad = {};
-        var action = $(this);
-        payLoad.uid = block.represents;
-        $.extend(payLoad, action.data());
-        var configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
-        configRequest.done(function(blockContent) {
-          block.content(blockContent);
-          initializeColorbox();
-        });
       });
     });
 
