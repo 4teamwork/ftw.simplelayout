@@ -1,7 +1,7 @@
 @if $standard-iconset == font-awesome {
 
   @each $type, $value in get-portal-type-icons-for-iconset(font-awesome) {
-    body .sl-toolbox a.sl-toolbox-block .icon-#{$type} {
+    body .sl-toolbox a.sl-toolbox-block .sl-icon-#{$type} {
       @extend body.icons-on .contenttype-#{$type};
       &:before {
         color: inherit;

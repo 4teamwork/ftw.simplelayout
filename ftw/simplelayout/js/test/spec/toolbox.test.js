@@ -92,9 +92,9 @@ describe("Toolbox", function() {
         blocks: [{ title: "Textblock", contentType: "textblock", formUrl: "URL" }]
       });
 
-      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks .icon-textblock"), function(icon) {
+      assert.deepEqual($.map(toolbox.element.find(".sl-toolbox-blocks .sl-icon-textblock"), function(icon) {
         return { className: icon.className };
-      }), [{ className: "icon-textblock" }]);
+      }), [{ className: "sl-icon-textblock" }]);
     });
 
     it("creates Object references from blocks", function() {

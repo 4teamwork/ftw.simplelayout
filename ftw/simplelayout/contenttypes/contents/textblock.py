@@ -120,7 +120,7 @@ class TextBlockActions(DefaultActions):
     def specific_actions(self):
         return OrderedDict([
             ('imageLeft', {
-                'class': 'icon-image-left block-server-action',
+                'class': 'sl-icon-image-left block-server-action',
                 'title': translate(
                     _(u'label_float_image_left', default=u'Float image left'),
                     context=self.request),
@@ -129,7 +129,7 @@ class TextBlockActions(DefaultActions):
                 'data-imagefloat': 'left'
             }),
             ('imageLeftLarge', {
-                'class': 'icon-image-left-large block-server-action',
+                'class': 'sl-icon-image-left-large block-server-action',
                 'title': translate(
                     _(u'label_float_large_image_left',
                       default=u'Float large image left'),
@@ -139,7 +139,7 @@ class TextBlockActions(DefaultActions):
                 'data-imagefloat': 'left'
             }),
             ('image', {
-                'class': 'icon-image block-server-action',
+                'class': 'sl-icon-image block-server-action',
                 'title': translate(
                     _(u'label_image_without_floating',
                       default=u'Image without floating'),
@@ -149,7 +149,7 @@ class TextBlockActions(DefaultActions):
                 'data-imagefloat': 'no-float'
             }),
             ('imageRightLarge', {
-                'class': 'icon-image-right-large block-server-action',
+                'class': 'sl-icon-image-right-large block-server-action',
                 'title': translate(
                     _(u'label_float_large_image_right',
                       default=u'Float large image right'),
@@ -159,7 +159,7 @@ class TextBlockActions(DefaultActions):
                 'data-imagefloat': 'right'
             }),
             ('imageRight', {
-                'class': 'icon-image-right block-server-action',
+                'class': 'sl-icon-image-right block-server-action',
                 'title': translate(
                     _(u'label_float_image_right',
                       default=u'Float image right'),
@@ -169,7 +169,7 @@ class TextBlockActions(DefaultActions):
                 'data-imagefloat': 'right'
             }),
             ('cropping', {
-                'class': 'icon-crop crop-image',
+                'class': 'sl-icon-crop crop-image',
                 'title': translate(
                     _(u'label_crop_image', default='Crop image'),
                     context=self.request),
