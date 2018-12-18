@@ -41,7 +41,6 @@ Features dropped but needs to be implemented again with plone 5.1:
 - Plone 4 profile is need, which installs c.quickupload in metadata.xml.
 - Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
 - Mapblock relpacement for plone 5.1 (c.geo is no longer supported)
-- Development profile for plone 5.1 is missing.
 
 
 
@@ -77,8 +76,6 @@ Then you got several profile from wich you can choose from:
 - ``ftw.simplelayout`` **lib** profile - Just the basics without any ContentTypes. This profile is also available for Plone 5
 
 - ``ftw.simplelayout`` **default** profile - Installs Simplelayout with default ContentTypes and everything you need to create content the Simplelayout way.
-
-- ``ftw.simplelayout`` **development** profile - Installs non minified versions of *simplelayout.js* and *simplelayout.css* - for DEV environments. You need to install this profile on top of lib or the default profile
 
 - Overlays for manipulate blocks, such as adding, deleting and modifying.
 - Saving the current Simplelayout state.
