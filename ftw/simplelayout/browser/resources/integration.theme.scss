@@ -726,6 +726,10 @@ ul[class^="sl-toolbar"] {
   }
 }
 
+.plone-modal-backdrop {
+  z-index: $zindex-modal !important;
+}
+
 // Prevent FOUC when manually setting the video dimensions
 .sl-youtube-video {
   visibility: hidden;
