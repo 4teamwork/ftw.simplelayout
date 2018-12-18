@@ -7,7 +7,6 @@
     "sl-ajax-delete-blocks-view",
     "add_block",
     "sl-ajax-edit-block-view",
-    "sl-ajax-upload-block-view",
     "edit.json",
     "tiny_mce_gzip.js"
   ];
