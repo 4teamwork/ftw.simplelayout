@@ -20,10 +20,22 @@
     if (target.length === 0) {
       return;
     }
+    var button = target.next();
 
     target.dropzone({
       url: target.data('endpoint'),
-      autoProcessQueue: true,
+      autoProcessQueue: false,
+      init: function () {
+        var dropzoneObj = this;
+        button.on('click', function(event){
+          event.stopPropagation();
+          event.preventDefault();
+          dropzoneObj.processQueue();      
+        });
+        dropzoneObj.on("success", function() {
+           dropzoneObj.options.autoProcessQueue = true; 
+        });
+      },
       parallelUploads: 1,
       uploadMultiple: false,
     });
@@ -41,7 +53,6 @@
         block.content(blockContent);
         initDropZone(block.element);
       });
-
     });
   }
 

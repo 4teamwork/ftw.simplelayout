@@ -173,8 +173,16 @@
 .filedropzone, .filedropzone * {
   box-sizing: border-box; }
 
-.filedropzone {
+.dropzonewrapper {
   border: 2px dashed $color-secondary;
+}
+
+.filedropzone {
+  padding: $margin-vertical / 2 $margin-horizontal / 2;
+  min-height: 1.5em;
+  background-color: transparent;
+  color: $color-text;
+  @include transition(min-height .2s, color .2s, background-color .2s);
   background: white; }
   .filedropzone.dz-clickable {
     cursor: pointer; }
@@ -185,7 +193,8 @@
   .filedropzone.dz-started .dz-message {
     display: none; }
   .filedropzone.dz-drag-hover {
-    border-style: solid;
+    background-color: $color-secondary;
+    @include auto-text-color($color-secondary);
     min-height: 100px; }
     .filedropzone.dz-drag-hover .dz-message {
       opacity: 0.5; }
@@ -195,8 +204,8 @@
     position: relative;
     display: inline-block;
     vertical-align: top;
-    margin: 16px;
-    min-height: 100px; }
+    margin: $margin-vertical $margin-horizontal;
+    height: 100px; }
     .filedropzone .dz-preview:hover {
       z-index: 1000; }
       .filedropzone .dz-preview:hover .dz-details {
@@ -384,3 +393,12 @@
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         border-bottom: 6px solid #be2626; }
+
+.filedropzone ~ button {
+  display: none;
+  margin: $margin-vertical $margin-horizontal;
+}
+
+.filedropzone.dz-started ~ button {
+  display: block;
+}
