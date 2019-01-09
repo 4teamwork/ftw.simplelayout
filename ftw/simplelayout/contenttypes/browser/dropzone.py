@@ -49,7 +49,7 @@ class DropzoneUploadBase(BrowserView):
         filename = safe_unicode(os.path.basename(file_.filename))
         kwargs = {'container': self.context,
                   'type': portal_type,
-                  'title': filename,
+                  'title': self.request.get('title', filename),
                   'safe_id': True}
 
         if self.is_dexterity_fti(portal_type):
