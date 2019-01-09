@@ -25,6 +25,8 @@
     target.dropzone({
       url: target.data('endpoint'),
       autoProcessQueue: false,
+      parallelUploads: 1,
+      uploadMultiple: false,
       init: function () {
         var dropzoneObj = this;
         button.on('click', function(event){
@@ -35,14 +37,24 @@
         dropzoneObj.on("success", function() {
            dropzoneObj.options.autoProcessQueue = true; 
         });
+        dropzoneObj.on('addedfile', function (file) {
+          var unique_field_id = new Date().getTime();
+          var title = $(`
+            <input id="${file.name}${unique_field_id}_title"
+                   value="${file.name}"
+                   type="text" name="title"
+                   placeholder="Title">
+          `);
+          $(file.previewElement).append(title);  
+        });
       },
-      parallelUploads: 1,
-      uploadMultiple: false,
     });
 
     var dropzoneObj = target[0].dropzone;
 
     dropzoneObj.on('sending', function(file, xhr, formData){
+      var title = file.previewElement.querySelector("input[name='title']");
+      formData.append("title", $(title).val());
       formData.append('_authenticator', $('[name="_authenticator"]').val());
     });
     dropzoneObj.on('queuecomplete', function(){
