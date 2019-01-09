@@ -45,7 +45,7 @@ class TestTrashIntegration(SimplelayoutTestCase):
     def test_dont_index_trashed_blocks(self):
         portal = api.portal.get()
         page = create(Builder('sample container'))
-        block = create(Builder('sample block').titled(u'title').within(page)
+        block = create(Builder('sample block').titled(u'fritz').within(page)
                        .having(text=RichTextValue(u'hans')))
 
         self.assertEquals(1, len(portal.portal_catalog(SearchableText='hans')))
