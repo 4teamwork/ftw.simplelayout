@@ -77,13 +77,6 @@ class GalleryBlockActions(DefaultActions):
 
     def specific_actions(self):
         return OrderedDict([
-            ('upload', {
-                'class': 'upload sl-icon-image-upload',
-                'title': translate(
-                    _(u'label_upload', default=u'Upload'),
-                    context=self.request),
-                'href': '#'
-            }),
             ('folderContents', {
                 'class': 'sl-icon-folder-contents redirect',
                 'title': translate(
