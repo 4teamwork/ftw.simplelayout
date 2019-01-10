@@ -15,6 +15,66 @@
     }
   }
 
+  function initDropZone(element) {
+    var target = $(element).find('.filedropzone');
+    if (target.length === 0) {
+      return;
+    }
+    var button = target.next();
+
+    target.dropzone({
+      url: target.data('endpoint'),
+      autoProcessQueue: false,
+      parallelUploads: 1,
+      uploadMultiple: false,
+      init: function () {
+        var dropzoneObj = this;
+        button.on('click', function(event){
+          event.stopPropagation();
+          event.preventDefault();
+          dropzoneObj.processQueue();      
+        });
+        dropzoneObj.on("success", function() {
+           dropzoneObj.options.autoProcessQueue = true; 
+        });
+        dropzoneObj.on('addedfile', function (file) {
+          var unique_field_id = new Date().getTime();
+          var title = $(`
+            <input id="${file.name}${unique_field_id}_title"
+                   value="${file.name}"
+                   type="text" name="title"
+                   placeholder="Title">
+          `);
+          $(file.previewElement).append(title);  
+        });
+      },
+    });
+
+    var dropzoneObj = target[0].dropzone;
+
+    dropzoneObj.on('sending', function(file, xhr, formData){
+      var title = file.previewElement.querySelector("input[name='title']");
+      formData.append("title", $(title).val());
+      formData.append('_authenticator', $('[name="_authenticator"]').val());
+    });
+    dropzoneObj.on('queuecomplete', function(){
+      var block = target.parents(".sl-block").data().object;
+      var payLoad = { uid: block.represents };
+      var configRequest = $.post('./sl-ajax-reload-block-view', { "data": JSON.stringify(payLoad) });
+      configRequest.done(function(blockContent) {
+        block.content(blockContent);
+        initDropZone(block.element);
+      });
+    });
+  }
+
+  $(document).on('ready', function(){
+    $('.sl-block').each(function(){
+      initDropZone(this);  
+    });
+  });
+
+
   function StateKeeper() {
 
     var counter = 0;
@@ -156,6 +216,7 @@
           block.commit();
           saveState();
           initializeColorbox();
+          initDropZone(block.element);
           this.close();
           $(document).trigger('block-added', [block]);
         });
@@ -271,6 +332,7 @@
         $(document).trigger('block-edited', [block]);
         block.content(data.content);
         initializeColorbox();
+        initDropZone(block.element);
         this.close();
       });
     });

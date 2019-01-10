@@ -6,6 +6,7 @@ from ftw.simplelayout.utils import IS_PLONE_5
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.namedfile.file import NamedFile
+from plone.namedfile.file import NamedImage
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
@@ -48,11 +49,14 @@ class DropzoneUploadBase(BrowserView):
         filename = safe_unicode(os.path.basename(file_.filename))
         kwargs = {'container': self.context,
                   'type': portal_type,
-                  'title': filename,
+                  'title': self.request.get('title', filename),
                   'safe_id': True}
 
         if self.is_dexterity_fti(portal_type):
-            kwargs[file_field_name] = NamedFile(file_, filename=filename)
+            if file_field_name == 'image':
+                kwargs[file_field_name] = NamedImage(file_, filename=filename)    
+            else:
+                kwargs[file_field_name] = NamedFile(file_, filename=filename)
             return api.content.create(**kwargs)
 
         else:

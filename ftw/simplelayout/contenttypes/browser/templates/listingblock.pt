@@ -6,6 +6,18 @@
     <h2 tal:content="view/block_title"
         tal:condition="view/block_title" />
 
+
+    <div class="dropzonewrapper"
+         tal:condition="view/can_add">
+        <div class="filedropzone"
+             tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
+                             data-type string:File">
+            <div class="dz-message" data-dz-message><span i18n:translate="">Dateien hier hochladen</span></div>
+        </div>
+        <button class="upload">Upload</button>
+    </div>
+
+
     <div tal:replace="structure view/render_table" />
     <p tal:condition="python: view.can_add and not view.get_table_contents()"
      i18n:translate="">This block is empty.</p>
