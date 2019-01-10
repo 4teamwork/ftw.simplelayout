@@ -40,17 +40,24 @@
         permission="zope2.View"
         />
 
-    <adapter
-        zcml:condition="not-have plone-5"
-        factory=".uploadcapable.FileListingQuickUploadCapableFileFactory"
-        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
-        provides="collective.quickupload.interfaces.IQuickUploadFileFactory"
-        />
-
   <browser:resource
       name="orderedselect_input.js"
       file="overrides/orderedselect_input.js"
       layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
       />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        name="dropzone-upload"
+        class=".dropzone.FileListingUpload"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
+        name="dropzone-upload"
+        class=".dropzone.GalleryUpload"
+        permission="cmf.ModifyPortalContent"
+        />
 
 </configure>

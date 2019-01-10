@@ -114,6 +114,10 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
+#: ./ftw/simplelayout/configure.zcml:88
+msgid "Javascript resources from client are not compressed"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr ""
@@ -130,10 +134,13 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+msgid "Only images can be added to the gallery."
+msgstr ""
+
 #: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
 msgstr ""
-
 #: ./ftw/simplelayout/images/cropping/configure.zcml:13
 msgid "Show cropped image in overlay"
 msgstr ""
@@ -370,6 +377,10 @@ msgstr ""
 #. Default: "Use the teaser to redirect to another content or website.The title and the image of the block will be used to show a link"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:21
 msgid "description_teaser_fieldset"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:88
+msgid "ftw.simplelayout development"
 msgstr ""
 
 #: ./ftw/simplelayout/configure.zcml:57

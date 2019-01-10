@@ -111,6 +111,10 @@ msgstr "Bilderauflösungslimits"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
+#: ./ftw/simplelayout/configure.zcml:88
+msgid "Javascript resources from client are not compressed"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr "Karte"
@@ -126,6 +130,10 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 #: ./ftw/simplelayout/images/cropping/browser/templates/cropping.pt:50
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
+
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+msgid "Only images can be added to the gallery."
+msgstr "Es können nur Bilder in den Galerie-Block hochgeladen werden. Dies scheint kein Bild zu sein."
 
 #: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
@@ -368,6 +376,10 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 #: ./ftw/simplelayout/contenttypes/behaviors.py:21
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
+
+#: ./ftw/simplelayout/configure.zcml:88
+msgid "ftw.simplelayout development"
+msgstr ""
 
 #: ./ftw/simplelayout/configure.zcml:57
 msgid "ftw.simplelayout js library"
@@ -691,4 +703,3 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
-
