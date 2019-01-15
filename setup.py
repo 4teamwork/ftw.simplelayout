@@ -18,7 +18,7 @@ tests_require = [
     'transaction',
     'unittest2',
     'zope.configuration',
-    'ftw.simplelayout [trash]',
+    'ftw.simplelayout [trash, mapblock]',
 ]
 
 extras_require = {

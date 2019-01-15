@@ -7,7 +7,6 @@ from unittest2 import skipUnless
 
 
 @apply_generic_setup_layer
-@skipIf(IS_PLONE_5, 'The map block is not available for Plone 5.')
 class TestGenericSetupUninstallMapBlock(TestCase, GenericSetupUninstallMixin):
     package = 'ftw.simplelayout.mapblock'
 
