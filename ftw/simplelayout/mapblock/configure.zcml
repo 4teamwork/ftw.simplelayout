@@ -17,9 +17,19 @@
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
     <genericsetup:registerProfile
+        zcml:condition="not-have plone-5"
         name="default"
         title="ftw.simplelayout mapblock default"
         directory="profiles/default"
+        description="Simlelayout map block type"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        zcml:condition="have plone-5"
+        name="default"
+        title="ftw.simplelayout mapblock default"
+        directory="profiles/default_plone5"
         description="Simlelayout map block type"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
