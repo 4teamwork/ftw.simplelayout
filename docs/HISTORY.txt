@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.20.2.1 (unreleased)
+1.20.2.1 (2019-01-21)
 ---------------------
 
 - Add support for www.youtube-nocookie.com video urls. [mathias.leimgruber]
