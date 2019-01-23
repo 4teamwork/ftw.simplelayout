@@ -7,8 +7,18 @@ from unittest2 import skipUnless
 
 
 @apply_generic_setup_layer
+@skipIf(IS_PLONE_5, 'Test the uninstall profile for Plone 4')
 class TestGenericSetupUninstallMapBlock(TestCase, GenericSetupUninstallMixin):
     package = 'ftw.simplelayout.mapblock'
+
+
+@apply_generic_setup_layer
+@skipUnless(IS_PLONE_5, 'Test the uninstall profile for Plone 5')
+class TestGenericSetupUninstallMapBlockPlone5(TestCase, GenericSetupUninstallMixin):
+    package = 'ftw.simplelayout.mapblock'
+
+    # Plone 5 does not support "propertiestool.xml" anymore.
+    skip_files = ('propertiestool.xml',)
 
 
 @apply_generic_setup_layer
@@ -19,7 +29,7 @@ class TestGenericSetupUninstallContentTypes(TestCase, GenericSetupUninstallMixin
 
 @apply_generic_setup_layer
 @skipUnless(IS_PLONE_5, 'Test the uninstall profile for Plone 5')
-class TestGenericSetupUninstallContentTypes(TestCase, GenericSetupUninstallMixin):
+class TestGenericSetupUninstallContentTypesPlone5(TestCase, GenericSetupUninstallMixin):
     package = 'ftw.simplelayout.contenttypes'
 
     # Plone 5 does not support "propertiestool.xml" anymore.
