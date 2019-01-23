@@ -1,7 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from ftw.simplelayout.utils import IS_PLONE_5
 from unittest2 import TestCase
 import json
 
@@ -22,21 +21,13 @@ class TestAddableBlocksDefaultContent(TestCase):
                   for item in list(view.addable_blocks())]
         result.sort()
 
-        if IS_PLONE_5:
-            self.assertEquals(
-                ['ftw-simplelayout-filelistingblock',
-                 'ftw-simplelayout-galleryblock',
-                 'ftw-simplelayout-textblock',
-                 'ftw-simplelayout-videoblock'],
-                result)
-        else:
-            self.assertEquals(
-                ['ftw-simplelayout-filelistingblock',
-                 'ftw-simplelayout-galleryblock',
-                 'ftw-simplelayout-mapblock',
-                 'ftw-simplelayout-textblock',
-                 'ftw-simplelayout-videoblock'],
-                result)
+        self.assertEquals(
+            ['ftw-simplelayout-filelistingblock',
+             'ftw-simplelayout-galleryblock',
+             'ftw-simplelayout-mapblock',
+             'ftw-simplelayout-textblock',
+             'ftw-simplelayout-videoblock'],
+            result)
 
     def test_addable_blocks_json(self):
         page = create(Builder('sl content page'))
@@ -45,7 +36,6 @@ class TestAddableBlocksDefaultContent(TestCase):
         addable_types_json = json.loads(view())['blocks']
 
         self.maxDiff = None
-
 
         self.assertDictEqual(
             {u'title': u'TextBlock',

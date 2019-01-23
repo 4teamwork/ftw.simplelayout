@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:profilehook="http://namespaces.zope.org/profilehook"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
@@ -36,9 +37,9 @@
 
     <genericsetup:registerProfile
         name="uninstall"
-        title="Uninstall ftw.simplelayout.mapblocks"
+        title="Uninstall ftw.simplelayout.mapblock"
         directory="profiles/uninstall"
-        description="Uninstalls the ftw.simplelayout.mapblocks package."
+        description="Uninstalls the ftw.simplelayout.mapblock package."
         provides="Products.GenericSetup.interfaces.EXTENSION"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         />
@@ -60,5 +61,9 @@
         factory="collective.geo.behaviour.behaviour.Coordinates"
         />
 
+    <profilehook:hook
+        profile="ftw.simplelayout.mapblock:uninstall"
+        handler=".hooks.profile_uninstalled"
+        />
 
 </configure>
