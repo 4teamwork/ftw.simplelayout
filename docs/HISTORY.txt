@@ -9,6 +9,8 @@ Changelog
 
 - Reimplement file uploading by replacing quickupload with Dropzone.js. [mathias.leimgruber, jone]
 
+- Make mapblock plone 5.1 compatible. Mainly by updating to a good known set of c.geo packages [mathias.leimgruber]
+
 
 1.23.5 (2018-12-18)
 -------------------

@@ -38,7 +38,6 @@ Features dropped but needs to be implemented again with plone 5.1:
 
 - Anchor extraction from Blocks for anchors on a page.
 - Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
-- Mapblock relpacement for plone 5.1 (c.geo is no longer supported)
 
 
 
