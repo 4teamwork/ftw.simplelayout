@@ -18,7 +18,7 @@ tests_require = [
     'transaction',
     'unittest2',
     'zope.configuration',
-    'ftw.simplelayout [trash, mapblock]',
+    'ftw.simplelayout [trash, mapblock, pam]',
 ]
 
 extras_require = {
@@ -35,7 +35,10 @@ extras_require = {
     ],
     'trash': [
         'ftw.trash',
-    ]
+    ],
+    'pam': [
+        'plone.app.multilingual >=2.0.4, <3a',
+    ],
 }
 
 

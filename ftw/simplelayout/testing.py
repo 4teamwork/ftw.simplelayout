@@ -7,6 +7,7 @@ from ftw.testing.layer import ComponentRegistryLayer
 from path import Path
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
+from plone.app.multilingual.browser.setup import SetupMultilingualSite
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -15,9 +16,10 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.testing import z2
 from plone.testing import zca
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 from zope.configuration import xmlconfig
-import ftw.simplelayout.tests.builders
+import ftw.simplelayout.tests.builders  # noqa
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -33,6 +35,7 @@ class SimplelayoutZCMLLayer(ComponentRegistryLayer):
 
         import ftw.simplelayout.tests
         self.load_zcml_file('tests.zcml', ftw.simplelayout.tests)
+
 
 SIMPLELAYOUT_ZCML_LAYER = SimplelayoutZCMLLayer()
 
@@ -70,6 +73,23 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
+
+
+class FtwSimplelayoutContentPAMLayer(FtwSimplelayoutContentLayer):
+
+    def setUpPloneSite(self, portal):
+        super(FtwSimplelayoutContentPAMLayer, self).setUpPloneSite(portal)
+
+        language_tool = getToolByName(portal, 'portal_languages')
+        language_tool.addSupportedLanguage('de')
+        language_tool.addSupportedLanguage('en')
+        language_tool.use_request_negotiation = True
+
+        applyProfile(portal, 'plone.app.multilingual:default')
+
+        setup_tool = SetupMultilingualSite()
+        setup_tool.folder_type = 'ftw.simplelayout.ContentPage'
+        setup_tool.setupSite(portal)
 
 
 class SimplelayoutTestCase(TestCase):
@@ -130,3 +150,9 @@ FTW_SIMPLELAYOUT_CONTENT_TESTING = FunctionalTesting(
     bases=(FTW_SIMPLELAYOUT_CONTENT_FIXTURE,
            set_builder_session_factory(functional_session_factory)),
     name='FtwSimplelayoutContent:Functional')
+
+FTW_SIMPLELAYOUT_CONTENT_PAM_FIXTURE = FtwSimplelayoutContentPAMLayer()
+FTW_SIMPLELAYOUT_CONTENT_PAM_TESTING = FunctionalTesting(
+    bases=(FTW_SIMPLELAYOUT_CONTENT_PAM_FIXTURE,
+           set_builder_session_factory(functional_session_factory)),
+    name='FtwSimplelayoutContentPAM:Functional')
