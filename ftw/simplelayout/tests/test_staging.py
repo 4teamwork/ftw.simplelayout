@@ -341,8 +341,8 @@ class TestWorkingCopy(TestCase):
         baseline = create(Builder('sl content page').titled(u'Baseline'))
 
         with staticuid('childpage'):
-            childpage = create(Builder('sl content page').titled(u'Childpage')
-                               .within(baseline))
+            create(Builder('sl content page').titled(u'Childpage')
+                   .within(baseline))
 
         create(Builder('sl textblock').titled(u'Block').within(baseline)
                .having(text=RichTextValue(u'''
@@ -351,7 +351,7 @@ class TestWorkingCopy(TestCase):
                       href="resolveuid/childpage00000000000000000000001">Childpage</a>
                </p>'''.strip())))
 
-        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        IStaging(baseline).create_working_copy(self.portal)
 
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)
