@@ -1,17 +1,19 @@
 *.egg-info
 *.mo
 *.pyc
-.installed.cfg
-.mr.developer.cfg
-bin/
+/.installed.cfg
+/.mr.developer.cfg
+/bin/
 /build/
-buildout.cfg
-coverage/
-develop-eggs/
-eggs/
-parts/
+/buildout.cfg
+/coverage/
+/develop-eggs/
+/eggs/
+/include/
+/lib/
+/parts/
 /src/
-var/
+/var/
 
 ### Node ###
 node_modules
@@ -19,4 +21,3 @@ node_modules
 
 ### Grunt ###
 .grunt
-
