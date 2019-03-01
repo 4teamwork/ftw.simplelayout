@@ -25,20 +25,25 @@ Compatibility
 .. image:: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg/badge/icon
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
+
+**Plone 5.1.x**
+
+So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it on your own risk.
+
+Features dropped for Plone 5.1.x:
+
+- Anchor extraction from Blocks for anchors on a page.
+- Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
+
+
 **Themes**
 
 To have proper styles we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
 
 
-**Plone 5**
+**Upgrade form Plone 4.3.x to Plone 5.1.x**
 
-WIP Plone 5.1 Support.
-
-Features dropped but needs to be implemented again with plone 5.1:
-
-- Anchor extraction from Blocks for anchors on a page.
-- Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
-
+TODO: Needs to be implemented and tested.
 
 
 **Trash**
