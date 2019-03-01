@@ -39,7 +39,7 @@
         });
         dropzoneObj.on('addedfile', function (file) {
           var unique_field_id = new Date().getTime();
-          var title = $('<input id="${file.name}${unique_field_id}_title" value="${file.name}" type="text" name="title" placeholder="Title">');
+          var title = $('<input id="' + file.name + unique_field_id + '_title" value="' + file.name + '" type="text" name="title" placeholder="Title">');
           $(file.previewElement).append(title);  
         });
       },
