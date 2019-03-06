@@ -35,7 +35,7 @@ extras_require = {
         'plone.dexterity',
         'plone.directives.form',
         'ftw.iframefix',
-        'ftw.referencewidget',
+        'ftw.referencewidget >= 2.1.0',
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
