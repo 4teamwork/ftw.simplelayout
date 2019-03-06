@@ -156,7 +156,7 @@ class PageConfiguration(object):
     def load(self):
         annotations = IAnnotations(self.context)
         default_state = deepcopy(self._default_page_config())
-        page_state = deepcopy(annotations.setdefault(
+        page_state = deepcopy(annotations.get(
             SL_ANNOTATION_KEY,
             make_resursive_persistent(default_state)))
 
@@ -241,5 +241,5 @@ class BlockConfiguration(object):
 
     def load(self):
         annotations = IAnnotations(self.context)
-        return annotations.setdefault(BLOCK_ANNOTATION_KEY,
-                                      PersistentMapping())
+        return annotations.get(BLOCK_ANNOTATION_KEY,
+                               PersistentMapping())

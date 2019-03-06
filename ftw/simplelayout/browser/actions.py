@@ -19,24 +19,24 @@ class DefaultActions(object):
         """Contains default action - move, edit, delete"""
         return OrderedDict([
             ('move', {
-                'class': 'move icon-move',
+                'class': 'move sl-icon-move',
                 'title': translate(
                     _(u'label_move_block', default='Move block'),
                     context=self.request),
             }),
             ('edit', {
-                'class': 'edit icon-edit',
+                'class': 'edit sl-icon-edit',
                 'title': translate(
                     _(u'label_edit_block', default='Edit block'),
                     context=self.request),
-                'href': './sl-ajax-edit-block-view'
+                'href': self.context.absolute_url() + '/sl-ajax-edit-block-view'
             }),
             ('delete', {
-                'class': 'delete icon-delete',
+                'class': 'delete sl-icon-delete',
                 'title': translate(
                     _(u'label:delete_block', default='Delete block'),
                     context=self.request),
-                'href': './sl-ajax-delete-blocks-view'
+                'href': self.context.absolute_url() + '/sl-ajax-delete-blocks-view'
             })
         ])
 

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<registry>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+           prefix="plone">
+    <value key="allowed_sizes" purge="false">
+      <element>simplelayout_galleryblock 480:480</element>
+      <element>sl_textblock_small 480:480</element>
+      <element>sl_textblock_middle 800:800</element>
+      <element>sl_textblock_large 1280:1280</element>
+    </value>
+  </records>
+
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+           prefix="plone">
+    <value key="types_not_searched" purge="false">
+      <element>ftw.simplelayout.TextBlock</element>
+      <element>ftw.simplelayout.FileListingBlock</element>
+      <element>ftw.simplelayout.VideoBlock</element>
+      <element>ftw.simplelayout.GalleryBlock</element>
+    </value>
+  </records>
+
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ITypesSchema"
+           prefix="plone">
+    <value key="default_page_types" purge="false">
+      <element>ftw.simplelayout.ContentPage</element>
+    </value>
+  </records>
+
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+           prefix="plone">
+    <value key="contains_objects" purge="false">
+      <element>ftw.simplelayout.ContentPage</element>
+      <element>ftw.simplelayout.FileListingBlock</element>
+      <element>ftw.simplelayout.GalleryBlock</element>
+    </value>
+  </records>
+
+  <record name="plone.displayed_types">
+    <value purge="false">
+      <element>ftw.simplelayout.ContentPage</element>
+    </value>
+  </record>
+
+</registry>

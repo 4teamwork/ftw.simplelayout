@@ -18,16 +18,15 @@ tests_require = [
     'transaction',
     'unittest2',
     'zope.configuration',
-    'ftw.simplelayout [trash]',
+    'ftw.simplelayout [trash, mapblock]',
 ]
 
 extras_require = {
     'tests': tests_require,
     'test': tests_require,
     'contenttypes': [
-        'collective.quickupload',
-        'ftw.colorbox',
-        'ftw.table',
+        'ftw.colorbox >= 1.3.0',
+        'ftw.table >= 1.22.0',
         'ftw.upgrade',
         'plone.app.dexterity',
         'plone.app.relationfield',
@@ -36,10 +35,13 @@ extras_require = {
         'plone.dexterity',
         'plone.directives.form',
         'ftw.iframefix',
-        'ftw.referencewidget',
+        'ftw.referencewidget >= 2.1.0',
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
+    ],
+    'plone4': [
+        'plone.app.referenceablebehavior',
     ],
     'trash': [
         'ftw.trash',
@@ -88,7 +90,6 @@ setup(name='ftw.simplelayout',
           'ftw.autofeature',
           'plone.api',
           'plone.app.blob',
-          'plone.app.referenceablebehavior',
           'plone.uuid',
           'Products.Archetypes',
           'Products.ATContentTypes',

@@ -52,11 +52,13 @@
              *"
         />
 
-    <browser:page
-        for="ftw.simplelayout.interfaces.ISimplelayout"
-        name="content_anchors"
-        class=".anchors.BlockAnchorsView"
-        permission="zope2.View"
-        />
-
+    <configure package="plone.app.content.browser.selection" zcml:condition="have plone-5">
+        <browser:page
+            for="ftw.simplelayout.interfaces.ISimplelayout"
+            name="select_default_page"
+            class="ftw.simplelayout.browser.selection.SimplelayoutDefaultPageSelectionView"
+            template="templates/select_default_page.pt"
+            permission="cmf.ModifyViewTemplate"
+            />
+    </configure>
 </configure>

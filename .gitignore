@@ -14,9 +14,12 @@
 /parts/
 /src/
 /var/
+/include/
+/lib/
 
 ### Node ###
 node_modules
+package-lock.json
 .npm
 
 ### Grunt ###

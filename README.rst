@@ -25,14 +25,26 @@ Compatibility
 .. image:: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg/badge/icon
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
+
+**Plone 5.1.x**
+
+So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it on your own risk.
+
+Features dropped for Plone 5.1.x:
+
+- Anchor extraction from Blocks for anchors on a page.
+- Upgrade step, which removes the plone.app.referenceablebehavior.referenceable.IReferenceable from all sl content types.
+
+
 **Themes**
 
 To have proper styles we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
 
 
-**Plone 5**
+**Upgrade form Plone 4.3.x to Plone 5.1.x**
 
-Plone 5 is supported but without any default contenttypes.
+TODO: Needs to be implemented and tested.
+
 
 **Trash**
 
@@ -50,14 +62,6 @@ Installation
         ...
         ftw.simplelayout[contenttypes]
 
-- With mapblock:
-
-::
-
-    [instance]
-    eggs +=
-        ...
-        ftw.simplelayout[contenttypes, mapblock]
 
 - Or wihtout any extras (Plone 5 is supported):
 
@@ -74,8 +78,6 @@ Then you got several profile from wich you can choose from:
 - ``ftw.simplelayout`` **lib** profile - Just the basics without any ContentTypes. This profile is also available for Plone 5
 
 - ``ftw.simplelayout`` **default** profile - Installs Simplelayout with default ContentTypes and everything you need to create content the Simplelayout way.
-
-- ``ftw.simplelayout`` **development** profile - Installs non minified versions of *simplelayout.js* and *simplelayout.css* - for DEV environments. You need to install this profile on top of lib or the default profile
 
 - Overlays for manipulate blocks, such as adding, deleting and modifying.
 - Saving the current Simplelayout state.

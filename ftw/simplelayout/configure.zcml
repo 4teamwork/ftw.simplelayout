@@ -71,15 +71,13 @@
             description="Simlelayout js library"
             provides="Products.GenericSetup.interfaces.EXTENSION"
             />
-    </configure>
 
-    <genericsetup:registerProfile
-        name="development"
-        title="ftw.simplelayout development"
-        directory="profiles/development"
-        description="Javascript resources from client are not compressed"
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
+        <upgrade-step:directory
+            profile="ftw.simplelayout:lib"
+            directory="./upgrades"
+            />
+
+    </configure>
 
     <adapter
         zcml:condition="have ftw.simplelayout:trash"

@@ -356,6 +356,9 @@ class Staging(object):
 
     def _copy_dx_field_values(self, source, target):
         for name, field, schemata in self._iter_fields(source.portal_type):
+            if name == 'id':
+                # never re-set the id.
+                continue
             source_storage = schemata(source)
             target_storage = schemata(target)
             value = getattr(source_storage, name)

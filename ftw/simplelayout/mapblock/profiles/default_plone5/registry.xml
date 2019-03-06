@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<registry>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+           prefix="plone">
+    <value key="types_not_searched" purge="false">
+      <element>ftw.simplelayout.MapBlock</element>
+    </value>
+  </records>
+
+
+  <records prefix="plone.resources/mjolnic-bootstrap-colorpicker"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry' remove="True"/>
+
+  <records prefix="plone.resources/colorpicker-patterns-colorpicker"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry' remove="True" />
+
+
+  <records prefix="plone.resources/mockup-bundles-colorpicker"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry' remove="true" />
+
+
+  <records prefix="plone.bundles/mockup-bundles-colorpicker"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry' remove="True" />
+
+</registry>

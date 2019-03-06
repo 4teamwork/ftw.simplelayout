@@ -25,6 +25,16 @@ class TestWorkingCopy(TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
 
+        for fti in (self.portal.portal_types.File,
+                    self.portal.portal_types.Image):
+            if not hasattr(fti, 'behaviors'):
+                # File and image are not DX in Plone 4.3.x, but AT.
+                continue
+            behaviors = list(fti.behaviors)
+            behaviors.remove('plone.app.dexterity.behaviors.filename.INameFromFileName')
+            behaviors += ['plone.app.content.interfaces.INameFromTitle']
+            fti.behaviors = tuple(behaviors)
+
     def test_staging_manager_implements_interface(self):
         page = create(Builder('sl content page'))
         verifyObject(IStaging, IStaging(page))

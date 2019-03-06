@@ -8,7 +8,6 @@ from unittest2 import TestCase
 import transaction
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestMapBlock(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING

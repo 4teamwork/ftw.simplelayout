@@ -2,10 +2,11 @@ from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
 from ftw.simplelayout.tests import sample_types
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testing.layer import ComponentRegistryLayer
+from path import Path
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
-from pkg_resources import get_distribution
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -17,9 +18,6 @@ from plone.testing import zca
 from unittest2 import TestCase
 from zope.configuration import xmlconfig
 import ftw.simplelayout.tests.builders
-
-
-IS_PLONE_5 = get_distribution('Plone').version >= '5'
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -64,9 +62,11 @@ class FtwSimplelayoutLayer(PloneSandboxLayer):
 class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
     def setUpPloneSite(self, portal):
 
-        if not IS_PLONE_5:
-            applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
-            applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+        applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
+        applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+
+        if IS_PLONE_5:
+            applyProfile(portal, 'plone.app.contenttypes:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
@@ -112,6 +112,9 @@ class SimplelayoutTestCase(TestCase):
 
     def setup_block_views(self):
         sample_types.setup_views()
+
+    def asset(self, name):
+        return Path(__file__).joinpath('..', 'tests', 'assets', name).abspath()
 
 
 FTW_SIMPLELAYOUT_FIXTURE = FtwSimplelayoutLayer()

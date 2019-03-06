@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-10-03 15:44+0000\n"
+"POT-Creation-Date: 2018-12-18 15:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/simplelayout/behaviors.zcml:37
+#: ./ftw/simplelayout/behaviors.zcml:36
 msgid "Adds an option to (visually) hide a block"
 msgstr ""
 
@@ -22,16 +22,12 @@ msgstr ""
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr ""
 
-#: ./ftw/simplelayout/images/cropping/configure.zcml:21
+#: ./ftw/simplelayout/images/cropping/configure.zcml:19
 msgid "Allows to crop an image and use the cropped image for display"
 msgstr ""
 
-#: ./ftw/simplelayout/images/cropping/configure.zcml:14
+#: ./ftw/simplelayout/images/cropping/configure.zcml:13
 msgid "Allows to define if a cropped image should be used for the overlay"
-msgstr ""
-
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:56
-msgid "Cancel"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:117
@@ -43,6 +39,7 @@ msgid "Collective Geo Maps"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.ContentPage.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.ContentPage.xml
 msgid "ContentPage"
 msgstr ""
 
@@ -75,14 +72,16 @@ msgid "Facebook App ID"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.FileListingBlock.xml
 msgid "FileListingBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.GalleryBlock.xml
 msgid "GalleryBlock"
 msgstr ""
 
-#: ./ftw/simplelayout/behaviors.zcml:37
+#: ./ftw/simplelayout/behaviors.zcml:36
 msgid "Hide block"
 msgstr ""
 
@@ -95,7 +94,7 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: ./ftw/simplelayout/images/cropping/configure.zcml:21
+#: ./ftw/simplelayout/images/cropping/configure.zcml:19
 msgid "Image cropping"
 msgstr ""
 
@@ -115,7 +114,7 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:82
+#: ./ftw/simplelayout/configure.zcml:88
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -135,15 +134,15 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+msgid "Only images can be added to the gallery."
+msgstr ""
+
 #: ./ftw/simplelayout/interfaces.py:116
 msgid "OpenGraph global type"
 msgstr ""
 
-#: ./ftw/simplelayout/browser/ajax/edit_block.py:39
-msgid "Save"
-msgstr ""
-
-#: ./ftw/simplelayout/images/cropping/configure.zcml:14
+#: ./ftw/simplelayout/images/cropping/configure.zcml:13
 msgid "Show cropped image in overlay"
 msgstr ""
 
@@ -155,7 +154,7 @@ msgstr ""
 msgid "Shows OpenGraph meta tags"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:35
+#: ./ftw/simplelayout/contenttypes/configure.zcml:36
 msgid "Simlelayout default content types"
 msgstr ""
 
@@ -171,7 +170,7 @@ msgstr ""
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:58
+#: ./ftw/simplelayout/contenttypes/configure.zcml:71
 msgid "Simplelayout View"
 msgstr ""
 
@@ -213,22 +212,27 @@ msgid "Teaser"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.TextBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.TextBlock.xml
 msgid "TextBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.FileListingBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.FileListingBlock.xml
 msgid "The file listing block renders a list of uploaded files with configurable header which can be used to change the order of the listing."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.GalleryBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.GalleryBlock.xml
 msgid "The gallery block renders a variable amount of images as thumbnails and opens a larger image in an overlay."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.TextBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.TextBlock.xml
 msgid "The text block renders text and images."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.VideoBlock.xml
 msgid "The video block renders videos loaded from YouTube or Vimeo."
 msgstr ""
 
@@ -242,11 +246,11 @@ msgstr ""
 msgid "This block is empty."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:55
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:44
+#: ./ftw/simplelayout/contenttypes/configure.zcml:54
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr ""
 
@@ -254,7 +258,7 @@ msgstr ""
 msgid "Uninstall ftw.simplelayout.mapblocks"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:44
+#: ./ftw/simplelayout/contenttypes/configure.zcml:54
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr ""
 
@@ -263,11 +267,12 @@ msgid "Uninstalls the ftw.simplelayout.mapblocks package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.VideoBlock.xml
 msgid "VideoBlock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:43
-msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 msgstr ""
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
@@ -375,7 +380,7 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:82
+#: ./ftw/simplelayout/configure.zcml:88
 msgid "ftw.simplelayout development"
 msgstr ""
 
@@ -387,7 +392,7 @@ msgstr ""
 msgid "ftw.simplelayout mapblock default"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:35
+#: ./ftw/simplelayout/contenttypes/configure.zcml:36
 msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
@@ -397,7 +402,7 @@ msgid "hard_limit_not_satisfied"
 msgstr ""
 
 #. Default: "Please drag, no click required"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:141
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:142
 msgid "help_drag_hint"
 msgstr ""
 
@@ -439,7 +444,7 @@ msgid "label_cancel"
 msgstr ""
 
 #. Default: " Column(s)"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:136
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:137
 msgid "label_column_postfix"
 msgstr ""
 
@@ -464,7 +469,7 @@ msgid "label_cropped_image"
 msgstr ""
 
 #. Default: "Delete layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:82
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:83
 msgid "label_delete_layout"
 msgstr ""
 
@@ -518,7 +523,7 @@ msgid "label_folder_contents_images"
 msgstr ""
 
 #. Default: "golden ratio"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:97
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:98
 msgid "label_golden_ratio"
 msgstr ""
 
@@ -558,22 +563,22 @@ msgid "label_is_hidden"
 msgstr ""
 
 #. Default: "1-1-2 layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:124
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:125
 msgid "label_layout112"
 msgstr ""
 
 #. Default: "1-2-1 layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:115
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:116
 msgid "label_layout121"
 msgstr ""
 
 #. Default: "1-3 layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:106
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:107
 msgid "label_layout13"
 msgstr ""
 
 #. Default: "Invert layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:88
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:89
 msgid "label_layout_inverse"
 msgstr ""
 
@@ -588,7 +593,7 @@ msgid "label_move_block"
 msgstr ""
 
 #. Default: "Move layout"
-#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:76
+#: ./ftw/simplelayout/browser/ajax/toolbox_view.py:77
 msgid "label_move_layout"
 msgstr ""
 
@@ -647,7 +652,7 @@ msgid "label_upload"
 msgstr ""
 
 #. Default: "Youtube, or Vimeo URL"
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:42
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:49
 msgid "label_video_url"
 msgstr ""
 

@@ -2,7 +2,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.portlets.portlet import Assignment
-from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.testbrowser import browsing
 from plone.app.textfield.value import RichTextValue
@@ -17,7 +17,7 @@ import transaction
 
 class TestSimplelayoutPortlet(SimplelayoutTestCase):
 
-    layer = FTW_SIMPLELAYOUT_FUNCTIONAL_TESTING
+    layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
         self.portal = self.layer['portal']
@@ -119,12 +119,12 @@ class TestSimplelayoutPortlet(SimplelayoutTestCase):
         # Add "Link" to addable types of "SampleContainer".
         fti = self.portal.portal_types.get('SampleContainer')
         allowed_content_types = list(fti.allowed_content_types)
-        allowed_content_types += ['Link']
+        allowed_content_types += ['File']
         fti.allowed_content_types = tuple(set(allowed_content_types))
         transaction.commit()
 
         # Create a link below the container where the portlet is assigned.
-        link = create(Builder('link').within(self.container))
+        link = create(Builder('file').within(self.container))
 
         # Get the portlet renderer on the link.
         request = self.layer['request']

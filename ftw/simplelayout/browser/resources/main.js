@@ -15,6 +15,61 @@
     }
   }
 
+  function initDropZone(element) {
+    var target = $(element).find('.filedropzone');
+    if (target.length === 0) {
+      return;
+    }
+    var button = target.next();
+
+    target.dropzone({
+      url: target.data('endpoint'),
+      autoProcessQueue: false,
+      parallelUploads: 1,
+      uploadMultiple: false,
+      init: function () {
+        var dropzoneObj = this;
+        button.on('click', function(event){
+          event.stopPropagation();
+          event.preventDefault();
+          dropzoneObj.processQueue();      
+        });
+        dropzoneObj.on("success", function() {
+           dropzoneObj.options.autoProcessQueue = true; 
+        });
+        dropzoneObj.on('addedfile', function (file) {
+          var unique_field_id = new Date().getTime();
+          var title = $('<input id="' + file.name + unique_field_id + '_title" value="' + file.name + '" type="text" name="title" placeholder="Title">');
+          $(file.previewElement).append(title);  
+        });
+      },
+    });
+
+    var dropzoneObj = target[0].dropzone;
+
+    dropzoneObj.on('sending', function(file, xhr, formData){
+      var title = file.previewElement.querySelector("input[name='title']");
+      formData.append("title", $(title).val());
+      formData.append('_authenticator', $('[name="_authenticator"]').val());
+    });
+    dropzoneObj.on('queuecomplete', function(){
+      var block = target.parents(".sl-block").data().object;
+      var payLoad = { uid: block.represents };
+      var configRequest = $.post('./sl-ajax-reload-block-view', { "data": JSON.stringify(payLoad) });
+      configRequest.done(function(blockContent) {
+        block.content(blockContent);
+        initDropZone(block.element);
+      });
+    });
+  }
+
+  $(document).on('ready', function(){
+    $('.sl-block').each(function(){
+      initDropZone(this);  
+    });
+  });
+
+
   function StateKeeper() {
 
     var counter = 0;
@@ -72,8 +127,6 @@
 
     var baseUrl = $("base").length === 1 ? $("base").attr("href") : $("body").data("base-url") + "/";
 
-    var isUploading = function() { return global["xhr_" + $(".main-uploader").attr("id")]._filesInProgress > 0; };
-
     var initializeColorbox = function() {
       if($(".colorboxLink").length > 0) {
         if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
@@ -95,7 +148,6 @@
 
     var deleteOverlay = new global.FormOverlay({cssclass: "overlay-delete"});
     var editOverlay = new global.FormOverlay({cssclass: "overlay-edit"});
-    var uploadOverlay = new global.FormOverlay({ cssclass: "overlay-upload", disableClose: isUploading });
     var addOverlay = new global.FormOverlay({cssclass: "overlay-add"});
     var cropImageOverlay = new global.FormOverlay({cssclass: "crop-image"});
     var toolbox;
@@ -159,6 +211,7 @@
           block.commit();
           saveState();
           initializeColorbox();
+          initDropZone(block.element);
           this.close();
           $(document).trigger('block-added', [block]);
         });
@@ -274,6 +327,7 @@
         $(document).trigger('block-edited', [block]);
         block.content(data.content);
         initializeColorbox();
+        initDropZone(block.element);
         this.close();
       });
     });
@@ -335,31 +389,6 @@
       var configRequest = $.post(action.attr("href"), { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
-      });
-    });
-
-    $(global.document).on("click", ".sl-block .upload", function(event) {
-      event.preventDefault();
-      var block = $(this).parents(".sl-block").data().object;
-      uploadOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": block.represents })}, function(){
-        var self = this;
-        global.Browser.onUploadComplete = function(){ return; };
-        self.element.on("click", "#button-upload-done", function(uploadEvent) {
-          uploadEvent.preventDefault();
-          self.onFormCancel.call(self);
-        });
-
-      });
-      uploadOverlay.onCancel(function(){
-        var payLoad = {};
-        var action = $(this);
-        payLoad.uid = block.represents;
-        $.extend(payLoad, action.data());
-        var configRequest = $.post("./sl-ajax-reload-block-view", {"data": JSON.stringify(payLoad)});
-        configRequest.done(function(blockContent) {
-          block.content(blockContent);
-          initializeColorbox();
-        });
       });
     });
 

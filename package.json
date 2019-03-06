@@ -28,12 +28,12 @@
     "underscore": "1.8.3"
   },
   "dependencies": {
-    "cropperjs": "^1.4.1",
+    "cropperjs": "1.4.1",
+    "dropzone": "5.5.1",
     "group-by": "0.0.1",
     "handlebars": "4.0.5",
     "jsrender": "0.9.83",
-    "wolfy87-eventemitter": "5.1.0",
-    "handlebars": "4.0.5"
+    "wolfy87-eventemitter": "5.1.0"
   },
   "browserify-shim": {
     "jquery": {
@@ -41,7 +41,9 @@
     },
     "jquery-ui": {
       "exports": "global:$.ui",
-      "deps": ["jquery"]
+      "deps": [
+        "jquery"
+      ]
     }
   },
   "scripts": {

@@ -1,13 +1,32 @@
-import os
 from DateTime import DateTime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
-from Products.CMFCore.utils import getToolByName
+from plone import api
+from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.utils import parent
 from unittest2 import TestCase
+from zope.component import queryUtility
+import os
 import transaction
+
+
+if IS_PLONE_5:
+    from Products.CMFPlone.interfaces.controlpanel import IImagingSchema
+
+
+def get_allowed_size_names():
+    if IS_PLONE_5:
+        registry = queryUtility(IRegistry)
+        sizes = registry.forInterface(IImagingSchema, prefix="plone", check=False).allowed_sizes
+
+    else:
+        ptool = api.portal.get_tool('portal_properties')
+        sizes = ptool.get('imaging_properties').allowed_sizes
+
+    return map(lambda size: size.split(' ')[0], sizes)
 
 
 class TestGalleryBlock(TestCase):
@@ -18,23 +37,13 @@ class TestGalleryBlock(TestCase):
         super(TestGalleryBlock, self).setUp()
         self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
-        self.ptool = getToolByName(self.page, 'portal_properties')
 
     def test_scale_is_available(self):
         name = 'simplelayout_galleryblock'
-
-        # the format of allowed_sizes is <name> <width>:<height>
-        allowed_sizes = self.ptool.get('imaging_properties').allowed_sizes
-        scale_found = False
-        for size in allowed_sizes:
-            size_name, sizes = size.split(' ')
-            if size_name == name:
-                scale_found = True
-
-        self.assertTrue(
-            scale_found,
-            "The simplelayout_galleryblock scale is not available." +
-            "Available scales: {0}".format(allowed_sizes))
+        names = get_allowed_size_names()
+        self.assertIn(name, names,
+                      "The simplelayout_galleryblock scale is not available." +
+                      "Available scales: {0}".format(names))
 
     @browsing
     def test_get_images_only_returns_images_of_current_context(self, browser):
@@ -196,10 +205,8 @@ class TestGalleryBlock(TestCase):
             browser.css('.ftw-simplelayout-galleryblock').first.attrib['class']
         )
 
-        # Edit the block and make appear again.
-        browser.visit(galleryblock, view='edit.json')
-        response = browser.json
-        browser.parse(response['content'])
+        # Edit the block and make it appear again.
+        browser.visit(galleryblock, view='edit')
         browser.fill({'Hide the block': False}).submit()
 
         # The block must no longer have a class "hidden".
@@ -537,11 +544,13 @@ class TestGalleryBlock(TestCase):
         browser.open(self.page)
         self.assertEqual(
             u'T\xe4st',
-            browser.css('.ftw-simplelayout-galleryblock .sl-block-content a').first.attrib['title']
+            browser.css(
+                '.ftw-simplelayout-galleryblock .sl-block-content a').first.attrib['title']
         )
         self.assertEqual(
             u'T\xe4st, enlarged picture.',
-            browser.css('.ftw-simplelayout-galleryblock .sl-block-content a img').first.attrib['alt']
+            browser.css(
+                '.ftw-simplelayout-galleryblock .sl-block-content a img').first.attrib['alt']
         )
 
     @browsing
@@ -551,9 +560,11 @@ class TestGalleryBlock(TestCase):
                        .having(show_title=True)
                        .within(self.page))
 
-        # Create an image inside the gallery block using a truncated image file.
+        # Create an image inside the gallery block using a truncated image
+        # file.
         current_folder = os.path.dirname(__file__)
-        truncated_image_path = os.path.join(current_folder, 'assets', 'truncated_image.jpg')
+        truncated_image_path = os.path.join(
+            current_folder, 'assets', 'truncated_image.jpg')
         with open(truncated_image_path, 'rb') as truncated_image:
             create(Builder('image')
                    .titled('Test image')

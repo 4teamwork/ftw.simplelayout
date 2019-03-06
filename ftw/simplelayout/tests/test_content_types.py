@@ -3,16 +3,13 @@ from ftw.builder import create
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
-from unittest2 import skipUnless
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 
 
-@skipUnless(not IS_PLONE_5, 'requires plone < 5')
 class TestSampleTypes(TestCase):
 
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING

@@ -26,14 +26,15 @@ class MultiViewBlockProperties(object):
         if not self.is_view_available(name):
             raise ValueError('"{0}" is not in available views.'.format(name))
 
-        self.get_storage()['view-name'] = name
-
-    def get_storage(self):
         annotations = IAnnotations(self.context)
         if BLOCK_PROPERTIES_KEY not in annotations:
             annotations[BLOCK_PROPERTIES_KEY] = PersistentMapping()
 
-        return annotations[BLOCK_PROPERTIES_KEY]
+        self.get_storage()['view-name'] = name
+
+    def get_storage(self):
+        annotations = IAnnotations(self.context)
+        return annotations.get(BLOCK_PROPERTIES_KEY, {})
 
     def is_view_available(self, name):
         return self.context.restrictedTraverse(safe_utf8(name), None) is not None
