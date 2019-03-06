@@ -5,6 +5,8 @@ Changelog
 1.23.6 (unreleased)
 -------------------
 
+- Add Plone 5.1 compatibility [jone, mbaechtold, mathas.leimgruber] 
+
 - Remove development GS profile because it did not work. [jone]
 
 - Reimplement file uploading by replacing quickupload with Dropzone.js. [mathias.leimgruber, jone]
