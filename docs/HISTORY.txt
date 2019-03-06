@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.23.6 (unreleased)
--------------------
+2.0.0 (2019-03-06)
+------------------
 
 - Add Plone 5.1 compatibility [jone, mbaechtold, mathas.leimgruber] 
 
