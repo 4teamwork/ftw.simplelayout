@@ -5,7 +5,11 @@ Changelog
 2.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update Readme with some plone 4/5 installation hints [mathias.leimgruber]
+
+- Update package metadata. [mathias.leimgruber]
+
+- Add collective.quickupload as dependency for the plone4 extra.
 
 
 2.0.0 (2019-03-06)

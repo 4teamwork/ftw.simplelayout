@@ -26,6 +26,9 @@ Compatibility
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
 
+Please use the `plone4` extra on Plone 4 Installations in order to have the right dependencies. 
+
+
 **Plone 5.1.x**
 
 So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it on your own risk.
@@ -53,24 +56,24 @@ TODO: Needs to be implemented and tested.
 Installation
 ============
 
-- Add the package to your buildout configuration (Plone 4.3.x with ContentTypes):
+- Add the package to your buildout configuration:
 
 ::
 
     [instance]
     eggs +=
         ...
-        ftw.simplelayout[contenttypes]
+        ftw.simplelayout[contenttypes, mapblock]
 
 
-- Or wihtout any extras (Plone 5 is supported):
+- With ftw.simplelayout 2.0.0 we introduced Plone support for this package. But Plone 4 has different dependencies. In order to use ftw.simpellayout 2.0.0 with Plone 4 also install the plone4 extra
 
 ::
 
     [instance]
     eggs +=
         ...
-        ftw.simplelayout
+        ftw.simplelayout[contenttypes, mapblock, plone4]
 
 
 Then you got several profile from wich you can choose from:
