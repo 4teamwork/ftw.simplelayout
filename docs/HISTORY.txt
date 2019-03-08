@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.0.1 (unreleased)
+2.0.1 (2019-03-08)
 ------------------
 
 - Update Readme with some plone 4/5 installation hints [mathias.leimgruber]
