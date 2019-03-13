@@ -5,7 +5,7 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix plone 4 build by pinning collective.z3cform.datagridfield to 1.4.0. [mathias.leimgruber]
 
 
 2.0.1 (2019-03-08)
