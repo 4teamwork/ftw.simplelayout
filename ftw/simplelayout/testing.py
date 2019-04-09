@@ -68,6 +68,12 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
         if IS_PLONE_5:
             applyProfile(portal, 'plone.app.contenttypes:default')
 
+            # Plone cooks the ressources quite often during tests and with
+            # mapblock installed, there's a ton of JS to cook, including Openlayers.js
+            # Since the testbrowser does not support JS, we hide the resources viewlets
+            self.load_zcml_file('profile.zcml', ftw.simplelayout.tests)
+            applyProfile(portal, 'ftw.simplelayout.tests:testing')
+
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)
 

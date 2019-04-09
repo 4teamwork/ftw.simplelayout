@@ -1,0 +1,14 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="ftw.simplelayout">
+
+    <genericsetup:registerProfile
+        name="testing"
+        title="ftw.simplelayout testing profile"
+        directory="profiles/testing"
+        description="Simlelayout testing"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+</configure>
