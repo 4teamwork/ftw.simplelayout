@@ -5,6 +5,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
+- Staging: remove auto generated children when creating a working copy. [jone]
+
 - Fix plone 4 build by pinning collective.z3cform.datagridfield to 1.4.0. [mathias.leimgruber]
 
 
@@ -21,7 +23,7 @@ Changelog
 2.0.0 (2019-03-06)
 ------------------
 
-- Add Plone 5.1 compatibility [jone, mbaechtold, mathas.leimgruber] 
+- Add Plone 5.1 compatibility [jone, mbaechtold, mathas.leimgruber]
 
 - Remove development GS profile because it did not work. [jone]
 

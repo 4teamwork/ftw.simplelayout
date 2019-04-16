@@ -2,6 +2,7 @@ from datetime import datetime
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
+from ftw.simplelayout.contenttypes.contents.interfaces import IContentPage
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.staging.interfaces import IBaseline
@@ -15,8 +16,15 @@ from ftw.testing import staticuid
 from plone.app.textfield.value import RichTextValue
 from plone.uuid.interfaces import IUUID
 from unittest2 import TestCase
+from zope.component import adapter
 from zope.interface.verify import verifyObject
+from zope.lifecycleevent.interfaces import IObjectAddedEvent
 import transaction
+
+
+@adapter(IContentPage, IObjectAddedEvent)
+def create_block_when_page_is_added(parent, event):
+    create(Builder('sl textblock').titled(u'Auto generated').within(parent))
 
 
 class TestWorkingCopy(TestCase):
@@ -362,6 +370,24 @@ class TestWorkingCopy(TestCase):
                </p>'''.strip())))
 
         IStaging(baseline).create_working_copy(self.portal)
+
+    @browsing
+    def test_no_children_added_when_cloning(self, browser):
+        """Some FTIs have subscribors which add children when an object is created.
+        Example: when a news folder (ftw.news) is created, a news listing block is added.
+
+        But when creating a working copy of such an object, we probably already have this
+        kind of block and do not want to create an additional one in the clone step.
+
+        Therefore all children created in the cloning step must be removed.
+        """
+        self.portal.getSiteManager().registerHandler(create_block_when_page_is_added)
+
+        baseline = create(Builder('sl content page').titled(u'Baseline'))
+        self.assertEquals(['auto-generated'], baseline.objectIds())
+
+        working_copy = IStaging(baseline).create_working_copy(self.portal)
+        self.assertEquals(['auto-generated'], working_copy.objectIds())
 
     def assert_staging_interfaces(self, expected, obj):
         expected = set(expected)
