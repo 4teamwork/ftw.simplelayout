@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.6 (unreleased)
+1.23.6 (2019-04-16)
 -------------------
 
 - Staging: remove auto generated children when creating a working copy. [jone]
