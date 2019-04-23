@@ -5,7 +5,7 @@ Changelog
 1.23.7 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Staging: Add link to working copies in warning message. [mathias.leimgruber]
 
 
 1.23.6 (2019-04-16)
