@@ -7,6 +7,8 @@ Changelog
 
 - Staging: remove auto generated children when creating a working copy. [jone]
 
+- Staging: Add link to working copies in warning message. [mathias.leimgruber]
+
 - Fix plone 4 build by pinning collective.z3cform.datagridfield to 1.4.0. [mathias.leimgruber]
 
 
