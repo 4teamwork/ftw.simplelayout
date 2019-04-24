@@ -5,7 +5,7 @@ Changelog
 1.23.8 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- In order to trigger the plone transform chain, we need to maintain the mimeType of the RichTextValue. [mathias.leimgruber]
 
 
 1.23.7 (2019-04-23)
