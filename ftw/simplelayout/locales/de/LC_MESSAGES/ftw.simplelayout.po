@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2018-12-18 15:19+0000\n"
+"POT-Creation-Date: 2019-04-23 12:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -674,10 +674,10 @@ msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 msgid "low_quality_image_label"
 msgstr "Bildauflösung ist nicht optimal"
 
-#. Default: "${owner} is working on this page in a working copy created at ${date}."
+#. Default: "${owner} is working on this page in a ${link} copy created at ${date}."
 #: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
 msgid "message_baseline"
-msgstr "${owner} überarbeitet diese Seite gerade in einer Arbeitskopie, erstellt am ${date}."
+msgstr "${owner} überarbeitet diese Seite gerade in einer <a href='${link}'>Arbeitskopie</a>, erstellt am ${date}."
 
 #. Default: "This is the working copy of ${owner}, created at ${date}."
 #: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
