@@ -29,10 +29,6 @@
     }
   };
 
-  $(window).on('load', function(){
-    initGoogleMaps();
-  });
-
   $(document).on('blockMoved', function(event, data){
     var map = data.element.find('.blockwidget-cgmap');
     setMapHeight(map);
@@ -131,5 +127,11 @@
 
     });
   });
+
+  $(window).on('load', function(){
+    initGoogleMaps();
+    window.MapBlockEditInitializer();
+  });
+
 })();
 
