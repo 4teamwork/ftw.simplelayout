@@ -5,6 +5,8 @@ Changelog
 2.0.2 (unreleased)
 ------------------
 
+- Fix JavaScript of the map block. [mbaechtold]
+
 - Staging: remove auto generated children when creating a working copy. [jone]
 
 - Staging: Add link to working copies in warning message. [mathias.leimgruber]
