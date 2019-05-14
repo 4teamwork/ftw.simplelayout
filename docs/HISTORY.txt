@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.9 (unreleased)
+1.23.9 (2019-05-14)
 -------------------
 
 - Fix JavaScript of the map block. [mbaechtold]
