@@ -7,6 +7,8 @@ Changelog
 
 - Fix JavaScript of the map block. [mbaechtold]
 
+- Revert: Commit abc8 mistakenly removed IReferencable [busykoala]
+
 - Staging: remove auto generated children when creating a working copy. [jone]
 
 - Staging: Add link to working copies in warning message. [mathias.leimgruber]
