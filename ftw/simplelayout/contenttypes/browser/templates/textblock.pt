@@ -1,20 +1,27 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
-  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-  tal:omit-tag="python: 1"
-  tal:define="teaser_url view/teaser_url;
-              image view/get_image_data"
-  i18n:domain="ftw.simplelayout">
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.simplelayout">
+  <metal:MAIN define-macro="main">
 
-  <h2 tal:condition="view/block_title">
-      <a tal:attributes="href teaser_url;
-                         title view/block_title"
-         tal:content="view/block_title"
-         tal:omit-tag="not:teaser_url">Title</a>
-  </h2>
 
-  <tal:image tal:condition="image">
-    <div tal:attributes="class image/wrapper_css_classes">
-        <div class="imageContainer">
+    <metal:TITLE define-slot="title">
+      <h2 tal:define="teaser_url view/teaser_url"
+          tal:condition="view/block_title">
+        <a tal:attributes="href teaser_url;
+                           title view/block_title"
+           tal:content="view/block_title"
+           tal:omit-tag="not:teaser_url">Title</a>
+      </h2>
+    </metal:TITLE>
+
+
+    <metal:BODY define-slot="body">
+      <tal:image tal:define="image view/get_image_data"
+                 tal:condition="image">
+        <div tal:attributes="class image/wrapper_css_classes">
+          <div class="imageContainer">
             <tal:block condition="view/show_limit_indicator">
               <div tal:content="structure context/@@limit_indicator"></div>
             </tal:block>
@@ -23,15 +30,18 @@
                                title image/link_title;
                                data-caption context/image_caption;
                                class image/link_css_classes">
-                <img tal:replace="structure image/image_tag" />
+              <img tal:replace="structure image/image_tag" />
             </a>
+          </div>
+          <div class="hiddenStructure" i18n:translate="hidden_label_image_caption">Image caption:</div>
+          <div class="image-caption" tal:content="context/image_caption" />
         </div>
-        <div class="hiddenStructure" i18n:translate="hidden_label_image_caption">Image caption:</div>
-        <div class="image-caption" tal:content="context/image_caption" />
-    </div>
-  </tal:image>
-  <div tal:replace="structure here/text/output | nothing" />
-  <p tal:condition="python: view.can_add and not (here.image or here.text or here.title)"
-     i18n:translate="">This block is empty.</p>
+      </tal:image>
+      <div tal:replace="structure here/text/output | nothing" />
+      <p tal:condition="python: view.can_add and not (here.image or here.text or here.title)"
+         i18n:translate="">This block is empty.</p>
+    </metal:BODY>
 
+
+  </metal:MAIN>
 </html>
