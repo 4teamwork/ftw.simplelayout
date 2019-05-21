@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Add macros and slots to block views for easy customization. [jone]
+- Include map preferences behaviours in mapblock.js [Nachtalb]
 
 
 2.0.2 (2019-05-17)
