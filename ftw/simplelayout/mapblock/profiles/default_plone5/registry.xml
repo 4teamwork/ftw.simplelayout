@@ -36,7 +36,7 @@
       <element>ftw-simplelayout-mapblock-js</element>
     </value>
     <value key="enabled">True</value>
-    <value key="depends">plone-legacy</value>
+    <value key="depends">ftw-simplelayout</value>
     <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-mapblock.js</value>
   </records>
 
