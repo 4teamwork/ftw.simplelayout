@@ -75,7 +75,7 @@
       var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
       ol_map.events.register('zoomend', ol_map, function(event){
         var zoom = event.object.zoom;
-        var zoomField = $('#form-widgets-zoomlevel');
+        var zoomField = $('[id^=form-widgets][id$=-zoomlevel]');
 
         if (zoomField !== undefined) {
           zoomField.val(zoom);
@@ -84,7 +84,8 @@
 
       ol_map.events.register('changebaselayer', ol_map, function(event){
         var layer = event.object.baseLayer.name;
-        var layerField = $('#form-widgets-maplayer');
+        var layerField = $('[id^=form-widgets][id$=-maplayer]');
+
         if (layerField !== undefined) {
           layerField.val(layer);
         }

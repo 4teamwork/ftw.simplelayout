@@ -5,7 +5,7 @@ Changelog
 1.23.10 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Include map preferences behaviours in mapblock.js [Nachtalb]
 
 
 1.23.9 (2019-05-14)
