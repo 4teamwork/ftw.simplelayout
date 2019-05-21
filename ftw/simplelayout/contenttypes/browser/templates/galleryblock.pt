@@ -1,35 +1,48 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
-	  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-	  tal:omit-tag="python: 1"
-	  i18n:domain="ftw.simplelayout">
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag="python: 1"
+      i18n:domain="ftw.simplelayout">
+  <metal:MAIN define-macro="main">
 
-	<h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
 
-    <span class="dropzonewrapper"
-         tal:condition="view/can_add">
+    <metal:TITLE define-slot="title">
+      <h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
+    </metal:TITLE>
+
+
+    <metal:DROPZONE define-slot="dropzone">
+      <span class="dropzonewrapper"
+            tal:condition="view/can_add">
         <div class="filedropzone"
              tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
                              data-type string:File">
-            <div class="dz-message" data-dz-message><span i18n:translate="">Upload files here</span></div>
+          <div class="dz-message" data-dz-message><span i18n:translate="">Upload files here</span></div>
         </div>
         <button class="upload">Upload</button>
-    </span>
+      </span>
+    </metal:DROPZONE>
 
-    <p tal:condition="python: view.can_add and not view.get_images()"
-     i18n:translate="">This block is empty.</p>
 
-	<tal:boxes repeat="img view/get_images">
+    <metal:BODY define-slot="body">
+      <p tal:condition="python: view.can_add and not view.get_images()"
+         i18n:translate="">This block is empty.</p>
 
-		<div class="galleryblockImageWrapper">
-			<a class="colorboxLink" href="#"
-				tal:attributes="
-					title img/title_or_id;
-					rel string:colorbox-${here/getId};
-					href python: view.get_full_image_scale(img)">
-                <img tal:replace="structure python: view.get_image_scale_tag(img)" />
-			</a>
-		</div>
+      <tal:boxes repeat="img view/get_images">
 
-	</tal:boxes>
+        <div class="galleryblockImageWrapper">
+          <a class="colorboxLink" href="#"
+             tal:attributes="
+                             title img/title_or_id;
+                             rel string:colorbox-${here/getId};
+                             href python: view.get_full_image_scale(img)">
+            <img tal:replace="structure python: view.get_image_scale_tag(img)" />
+          </a>
+        </div>
 
+      </tal:boxes>
+    </metal:BODY>
+
+
+  </metal:MAIN>
 </html>

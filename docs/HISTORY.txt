@@ -5,7 +5,7 @@ Changelog
 2.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add macros and slots to block views for easy customization. [jone]
 
 
 2.0.2 (2019-05-17)
