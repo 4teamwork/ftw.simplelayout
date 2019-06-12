@@ -106,10 +106,12 @@
           // No widget initialized
           // Get hidden maps (maps with no size yet)
           if ($('.blockwidget-cgmap').filter(':hidden').length > 0) {
-              var tabs = $('select.formTabs, ul.formTabs');
+              var tabs = $('form.autotabs .autotoc-level-1, select.formTabs, ul.formTabs');
               tabs.bind("onClick", function (e, index) {
                 initGoogleMaps();
-                var curpanel = $(this).data('tabs').getCurrentPane();
+                var curpanel = $(this).parents('form').find('.autotoc-section.active');
+                if (curpanel.length === 0)
+                  curpanel = $(this).data('tabs').getCurrentPane();
                 initEdit(curpanel.find('.blockwidget-cgmap'));
               });
           }
