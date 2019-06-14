@@ -26,7 +26,7 @@
 
   <records prefix="plone.resources/ftw-simplelayout-mapblock-js"
            interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">ftw.simplelayout.mapblock.resources/mapblock.js</value>
+    <value key="js">++resource++ftw.simplelayout.mapblock.resources/mapblock.js</value>
     <value key="deps">jquery</value>
   </records>
 
@@ -37,6 +37,7 @@
     </value>
     <value key="enabled">True</value>
     <value key="depends">ftw-simplelayout</value>
+    <value key="compile">False</value>
     <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-mapblock.js</value>
   </records>
 
