@@ -9,6 +9,8 @@ Changelog
 
 - Move contenttypes js to resource bundles. [busykoala]
 
+- Fix html entities in data-googlejs url [mathias.leimgruber]
+
 
 2.1.0 (2019-05-21)
 ------------------
