@@ -3,8 +3,8 @@ from ftw.upgrade import UpgradeStep
 from plone import api
 
 
-class MoveJSToRegistryForMapblockForPlone5(UpgradeStep):
-    """Move JS to registry for mapblock. Only for plone 5
+class MoveMapblockJsFromLegacyToItsOwnBundle(UpgradeStep):
+    """Move mapblock js from legacy to its own bundle.
     """
 
     def __call__(self):
@@ -14,6 +14,6 @@ class MoveJSToRegistryForMapblockForPlone5(UpgradeStep):
 
             record = 'plone.bundles/plone-legacy.resources'
             resources = api.portal.get_registry_record(record)
-            name = u'resource-ftw-simplelayout-videoblock-js'
+            name = u'resource-ftw-simplelayout-mapblock-resources'
             if name in resources:
                 resources.remove(name)

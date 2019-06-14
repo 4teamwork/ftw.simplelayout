@@ -11,6 +11,9 @@ Changelog
 
 - Fix html entities in data-googlejs url [mathias.leimgruber]
 
+- Fix contenttypes and mapblock js resources. [mathias.leimgruber]
+
+
 
 2.1.0 (2019-05-21)
 ------------------
