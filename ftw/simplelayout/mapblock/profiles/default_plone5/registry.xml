@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <registry>
+
   <records interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
            prefix="plone">
     <value key="types_not_searched" purge="false">
@@ -21,5 +22,22 @@
 
   <records prefix="plone.bundles/mockup-bundles-colorpicker"
            interface='Products.CMFPlone.interfaces.IBundleRegistry' remove="True" />
+  <records interface="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings" />
+
+  <records prefix="plone.resources/ftw-simplelayout-mapblock-js"
+           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
+    <value key="js">ftw.simplelayout.mapblock.resources/mapblock.js</value>
+    <value key="deps">jquery</value>
+  </records>
+
+  <records prefix="plone.bundles/ftw-simplelayout-mapblock-resources"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="resources">
+      <element>ftw-simplelayout-mapblock-js</element>
+    </value>
+    <value key="enabled">True</value>
+    <value key="depends">ftw-simplelayout</value>
+    <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-mapblock.js</value>
+  </records>
 
 </registry>

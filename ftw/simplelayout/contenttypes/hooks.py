@@ -4,8 +4,7 @@ from zope.component import getUtility
 
 
 def profile_uninstalled(site):
-    if IS_PLONE_5:
-        clean_plone5_registry(site)
+    clean_plone5_registry(site)
 
 
 def clean_plone5_registry(site):

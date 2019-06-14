@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<registry>
+    <records prefix="plone.resources/ftw-simplelayout-videoblock"
+             interface='Products.CMFPlone.interfaces.IResourceRegistry'
+             remove="True"/>
+
+    <records prefix="plone.bundles/ftw-simplelayout-contenttype"
+             interface='Products.CMFPlone.interfaces.IBundleRegistry'
+             remove="True"/>
+</registry>

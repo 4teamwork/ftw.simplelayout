@@ -7,6 +7,8 @@ Changelog
 
 - Fix mapblock.js compatibility with plone5 [Nachtalb]
 
+- Move contenttypes js to resource bundles. [busykoala]
+
 
 2.1.0 (2019-05-21)
 ------------------
