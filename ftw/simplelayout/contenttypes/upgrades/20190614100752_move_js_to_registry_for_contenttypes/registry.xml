@@ -11,10 +11,11 @@
            interface='Products.CMFPlone.interfaces.IBundleRegistry'>
     <value key="resources">
       <element>ftw-simplelayout-videoblock</element>
-        </value>
-        <value key="enabled">True</value>
-        <value key="depends">plone-legacy</value>
-        <value key="jscompilation">++plone++ftw.simplelayout-contenttype/simplelayout-compiled.js</value>
+    </value>
+    <value key="enabled">True</value>
+    <value key="depends">ftw-simplelayout</value>
+    <value key="compile">False</value>
+    <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-contenttype-compiled.js</value>
   </records>
 
 </registry>
