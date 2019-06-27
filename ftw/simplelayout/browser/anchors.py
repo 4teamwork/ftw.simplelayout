@@ -7,8 +7,7 @@ from Products.Five.browser import BrowserView
 from zope.interface import implements
 from zope.schema import getFieldsInOrder
 
-
-SEARCHPATTERN = "a"
+SEARCHPATTERN = "//a[@name]/@name"
 
 
 class BlockAnchorsView(BrowserView):
@@ -50,7 +49,4 @@ class BlockAnchorsView(BrowserView):
         if not text:
             return []
         tree = fromstring(text)
-        return [
-            anchor.get('name') for anchor in tree.findall(SEARCHPATTERN)
-            if "name" in anchor.keys()
-        ]
+        return tree.xpath(SEARCHPATTERN)
