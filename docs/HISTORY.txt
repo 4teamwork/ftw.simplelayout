@@ -5,7 +5,7 @@ Changelog
 1.23.11 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Fix a tag anchor retrieval [Nachtalb]
 
 
 1.23.10 (2019-05-21)
