@@ -15,7 +15,8 @@
 				tal:attributes="
 					title img/title_or_id;
 					rel string:colorbox-${here/getId};
-					href python: view.get_full_image_scale(img)">
+					href python: view.get_full_image_scale(img);
+                    data-caption python: view.get_image_caption(img)">
                 <img tal:replace="structure python: view.get_image_scale_tag(img)" />
 			</a>
 		</div>

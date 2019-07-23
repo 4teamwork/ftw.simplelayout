@@ -65,6 +65,11 @@ class IGalleryBlockSchema(form.Schema):
         default="ascending",
         vocabulary=sort_order_vocabulary)
 
+    show_legend = schema.Bool(
+        title=_(u'label_legend', default=u'Show description of images as legend'),
+        default=True,
+        required=False)
+
 
 alsoProvides(IGalleryBlockSchema, IFormFieldProvider)
 

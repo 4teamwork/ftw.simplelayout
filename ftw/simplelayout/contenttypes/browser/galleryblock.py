@@ -74,6 +74,11 @@ class GalleryBlockView(BaseBlock):
             alt=self.generate_image_alttext(img),
         )
 
+    def get_image_caption(self, img):
+        if getattr(self.context, 'show_legend', True):
+            return img.Description()
+        return ''
+
     def _get_fallback_image_scale(self):
         current_folder = os.path.dirname(__file__)
 
