@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-04-23 12:14+0000\n"
+"POT-Creation-Date: 2019-07-23 15:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -513,7 +513,7 @@ msgid "label_folder_contents_files"
 msgstr ""
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:90
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:95
 msgid "label_folder_contents_images"
 msgstr ""
 
@@ -575,6 +575,11 @@ msgstr ""
 #. Default: "Invert layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:88
 msgid "label_layout_inverse"
+msgstr ""
+
+#. Default: "Show description of images as legend"
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:69
+msgid "label_legend"
 msgstr ""
 
 #. Default: "Modification date"
@@ -642,12 +647,12 @@ msgstr ""
 
 #. Default: "Upload"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:88
 msgid "label_upload"
 msgstr ""
 
 #. Default: "Youtube, or Vimeo URL"
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:42
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:49
 msgid "label_video_url"
 msgstr ""
 
