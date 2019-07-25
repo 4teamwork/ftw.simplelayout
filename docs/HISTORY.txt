@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.23.11 (unreleased)
+1.23.11 (2019-07-25)
 --------------------
 
 - Fix a tag anchor retrieval [Nachtalb]
