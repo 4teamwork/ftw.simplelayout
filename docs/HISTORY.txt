@@ -32,6 +32,8 @@ Changelog
 
 - Staging: remove auto generated children when creating a working copy. [jone]
 
+- In order to trigger the plone transform chain, we need to maintain the mimeType of the RichTextValue. [mathias.leimgruber]
+
 - Staging: Add link to working copies in warning message. [mathias.leimgruber]
 
 - Fix plone 4 build by pinning collective.z3cform.datagridfield to 1.4.0. [mathias.leimgruber]

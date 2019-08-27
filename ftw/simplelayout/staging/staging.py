@@ -350,7 +350,9 @@ class Staging(object):
             if new_text == ori_text.raw:
                 continue
 
-            setattr(storage, name, RichTextValue(new_text))
+            setattr(storage, name, RichTextValue(new_text,
+                                                 mimeType=ori_text._mimeType,
+                                                 outputMimeType=ori_text._outputMimeType))
 
     def _replace_uids_in_html(self, html, uuid_map):
         for from_uuid, to_uuid in uuid_map.items():
