@@ -5,7 +5,7 @@ Changelog
 1.23.12 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Preserve childrens children order when applying working copies [Nachtalb]
 
 
 1.23.11 (2019-07-25)
