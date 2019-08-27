@@ -2,42 +2,38 @@
 
   "use strict";
 
-    var setMapHeight = function(maps){
-      maps.each(function(index, map){
-        $(map).css('height', $(map).width() / 3 * 2);
-      });
-    };
+  var setMapHeight = function(maps){
+    maps.each(function(index, map){
+      $(map).css('height', $(map).width() / 3 * 2);
+    });
+  };
 
-    var initGoogleMaps = function(callback){
-      var widget = $('.blockwidget-cgmap, .map-widget');
-      if (widget.length > 0) {
-        var googleJS = widget.data('googlejs');
-        if (callback !== undefined) {
-          $.getScript(googleJS + '&callback=' + callback);
+  var initGoogleMaps = function(callback){
+    var widget = $('.blockwidget-cgmap, .map-widget');
+    if (widget.length > 0) {
+      var googleJS = widget.data('googlejs');
+      if (callback !== undefined) {
+        $.getScript(googleJS + '&callback=' + callback);
 
-        } else {
-          $.getScript(googleJS, function(){
-            if ($.fn.collectivegeo) {
-              var maps = $(".blockwidget-cgmap").filter(":visible");
+      } else {
+        $.getScript(googleJS, function(){
+          if ($.fn.collectivegeo) {
+            var maps = $(".blockwidget-cgmap").filter(":visible");
 
-              setMapHeight(maps);
-              maps.collectivegeo();
-            }
+            setMapHeight(maps);
+            maps.collectivegeo();
+          }
 
-          });
-        }
+        });
       }
-    };
+    }
+  };
 
-    $(window).on('load', function(){
-      initGoogleMaps();
-    });
-
-    $(document).on('blockMoved', function(event, data){
-      var map = data.element.find('.blockwidget-cgmap');
-      setMapHeight(map);
-      map.collectivegeo('refresh');
-    });
+  $(document).on('blockMoved', function(event, data){
+    var map = data.element.find('.blockwidget-cgmap');
+    setMapHeight(map);
+    map.collectivegeo('refresh');
+  });
 
 
   $(function() {
@@ -66,62 +62,65 @@
 
     });
 
-    $(document).on("onLoad", ".overlay", function() {
+    function initEdit(mapWidgets) {
 
-      function initEdit(mapWidgets) {
-
-        if (mapWidgets.length === 0) {
-          return;
-        }
-
-        mapWidgets.collectivegeo();
-        mapWidgets.collectivegeo("add_edit_layer");
-        mapWidgets.collectivegeo("add_geocoder");
-
-        var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
-        ol_map.events.register('zoomend', ol_map, function(event){
-          var zoom = event.object.zoom;
-          var zoomField = $('#form-widgets-zoomlevel');
-
-          if (zoomField !== undefined) {
-            zoomField.val(zoom);
-          }
-        });
-
-        ol_map.events.register('changebaselayer', ol_map, function(event){
-          var layer = event.object.baseLayer.name;
-          var layerField = $('#form-widgets-maplayer');
-          if (layerField !== undefined) {
-            layerField.val(layer);
-          }
-        });
-
-        // Fix mouse pointer position according to openlayers pointer
-        $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
-          mapWidgets.collectivegeo("refresh");
-        });
+      if (mapWidgets.length === 0) {
+        return;
       }
 
-      window.MapBlockEditInitializer = function() {
-        if ($.fn.collectivegeo) {
-          var mapWidgets = $(".map-widget .blockwidget-cgmap").filter(":visible");
-          initEdit(mapWidgets);
+      mapWidgets.collectivegeo();
+      mapWidgets.collectivegeo("add_edit_layer");
+      mapWidgets.collectivegeo("add_geocoder");
 
-          if (mapWidgets.data('collectivegeo') === undefined) {
-            // No widget initialized
-            // Get hidden maps (maps with no size yet)
-            if ($('.blockwidget-cgmap').filter(':hidden').length > 0) {
-                var tabs = $('select.formTabs, ul.formTabs');
-                tabs.bind("onClick", function (e, index) {
-                  initGoogleMaps();
-                  var curpanel = $(this).data('tabs').getCurrentPane();
-                  initEdit(curpanel.find('.blockwidget-cgmap'));
-                });
-            }
-            return;
-          }
+      var ol_map = mapWidgets.data('collectivegeo').mapwidget.map;
+      ol_map.events.register('zoomend', ol_map, function(event){
+        var zoom = event.object.zoom;
+        var zoomField = $('[id^=form-widgets][id$=-zoomlevel]');
+
+        if (zoomField !== undefined) {
+          zoomField.val(zoom);
         }
-      };
+      });
+
+      ol_map.events.register('changebaselayer', ol_map, function(event){
+        var layer = event.object.baseLayer.name;
+        var layerField = $('[id^=form-widgets][id$=-maplayer]');
+
+        if (layerField !== undefined) {
+          layerField.val(layer);
+        }
+      });
+
+      // Fix mouse pointer position according to openlayers pointer
+      $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
+        mapWidgets.collectivegeo("refresh");
+      });
+    }
+
+    window.MapBlockEditInitializer = function() {
+      if ($.fn.collectivegeo) {
+        var mapWidgets = $(".map-widget .blockwidget-cgmap").filter(":visible");
+        initEdit(mapWidgets);
+
+        if (mapWidgets.data('collectivegeo') === undefined) {
+          // No widget initialized
+          // Get hidden maps (maps with no size yet)
+          if ($('.blockwidget-cgmap').filter(':hidden').length > 0) {
+              var tabs = $('form.autotabs .autotoc-level-1, select.formTabs, ul.formTabs');
+              tabs.bind("onClick", function (e, index) {
+                initGoogleMaps();
+                var curpanel = $(this).parents('form').find('.autotoc-section.active');
+                if (curpanel.length === 0)
+                  curpanel = $(this).data('tabs').getCurrentPane();
+                initEdit(curpanel.find('.blockwidget-cgmap'));
+              });
+          }
+          return;
+        }
+      }
+    };
+
+    $(document).on("onLoad", ".overlay", function() {
 
       if (typeof google === 'object' && typeof google.maps === 'object'){
         window.MapBlockEditInitializer();
@@ -131,5 +130,11 @@
 
     });
   });
+
+  $(window).on('load', function(){
+    initGoogleMaps();
+    window.MapBlockEditInitializer();
+  });
+
 })();
 

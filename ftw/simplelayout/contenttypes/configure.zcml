@@ -45,6 +45,7 @@
         />
 
     <genericsetup:registerProfile
+        zcml:condition="not-have plone-5"
         name="uninstall"
         title="Uninstall ftw.simplelayout.contenttypes"
         directory="profiles/uninstall"
@@ -53,7 +54,18 @@
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
         />
 
+    <genericsetup:registerProfile
+        zcml:condition="have plone-5"
+        name="uninstall"
+        title="Uninstall ftw.simplelayout.contenttypes"
+        directory="profiles/uninstall_plone5"
+        description="Uninstalls the ftw.simplelayout.contenttypes package."
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        />
+
     <profilehook:hook
+        zcml:condition="have plone-5"
         profile="ftw.simplelayout.contenttypes:uninstall"
         handler=".hooks.profile_uninstalled"
         />

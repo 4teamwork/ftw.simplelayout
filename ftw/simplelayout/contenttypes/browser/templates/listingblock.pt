@@ -1,25 +1,36 @@
 <html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       tal:omit-tag="python: 1"
       i18n:domain="ftw.simplelayout">
-
-    <h2 tal:content="view/block_title"
-        tal:condition="view/block_title" />
+  <metal:MAIN define-macro="main">
 
 
-    <div class="dropzonewrapper"
-         tal:condition="view/can_add">
+    <metal:TITLE define-slot="title">
+      <h2 tal:content="view/block_title"
+          tal:condition="view/block_title" />
+    </metal:TITLE>
+
+
+    <metal:DROPZONE define-slot="dropzone">
+      <div class="dropzonewrapper"
+           tal:condition="view/can_add">
         <div class="filedropzone"
              tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
                              data-type string:File">
-            <div class="dz-message" data-dz-message><span i18n:translate="">Dateien hier hochladen</span></div>
+          <div class="dz-message" data-dz-message><span i18n:translate="">Dateien hier hochladen</span></div>
         </div>
         <button class="upload">Upload</button>
-    </div>
+      </div>
+    </metal:DROPZONE>
 
 
-    <div tal:replace="structure view/render_table" />
-    <p tal:condition="python: view.can_add and not view.get_table_contents()"
-     i18n:translate="">This block is empty.</p>
+    <metal:BODY define-slot="body">
+      <div tal:replace="structure view/render_table" />
+      <p tal:condition="python: view.can_add and not view.get_table_contents()"
+         i18n:translate="">This block is empty.</p>
+    </metal:BODY>
 
+
+  </metal:MAIN>
 </html>

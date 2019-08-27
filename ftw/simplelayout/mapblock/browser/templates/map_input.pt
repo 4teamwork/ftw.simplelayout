@@ -8,7 +8,7 @@
     tal:define="cgmap view/cgmap;
                 mapid cgmap/mapid;
                 geosettings python:context.restrictedTraverse('@@geosettings-view');"
-        tal:attributes="data-googlejs string:${geosettings/google_maps_js};">
+        tal:attributes="data-googlejs geosettings/google_maps_js">
 
     <metal:use use-macro="context/@@collectivegeo-macros/geocoding"/>
 
@@ -21,7 +21,7 @@
       <div id="map" class="blockwidget-cgmap"
            tal:attributes="id mapid;
               style context/@@collectivegeo-macros/map_inline_css;
-              data-googlejs string:${geosettings/google_maps_js};
+              data-googlejs geosettings/google_maps_js;
               data-cgeolatitude map_defaults/latitude|nothing;
               data-cgeolongitude map_defaults/longitude|nothing;
               data-cgeozoom map_defaults/zoom|nothing;

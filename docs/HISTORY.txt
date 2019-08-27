@@ -2,12 +2,39 @@ Changelog
 =========
 
 
-2.0.2 (unreleased)
+2.1.1 (unreleased)
 ------------------
+
+- Fix mapblock.js compatibility with plone5 [Nachtalb]
+
+- Move contenttypes js to resource bundles. [busykoala]
+
+- Fix html entities in data-googlejs url [mathias.leimgruber]
+
+- Fix contenttypes and mapblock js resources. [mathias.leimgruber]
+
+- Preserve childrens children order when applying working copies [Nachtalb]
+
+
+2.1.0 (2019-05-21)
+------------------
+
+- Add macros and slots to block views for easy customization. [jone]
+- Include map preferences behaviours in mapblock.js [Nachtalb]
+
+
+2.0.2 (2019-05-17)
+------------------
+
+- Fix JavaScript of the map block. [mbaechtold]
+
+- Revert: Commit abc8 mistakenly removed IReferencable [busykoala]
 
 - Staging: remove auto generated children when creating a working copy. [jone]
 
 - In order to trigger the plone transform chain, we need to maintain the mimeType of the RichTextValue. [mathias.leimgruber]
+
+- Staging: Add link to working copies in warning message. [mathias.leimgruber]
 
 - Fix plone 4 build by pinning collective.z3cform.datagridfield to 1.4.0. [mathias.leimgruber]
 

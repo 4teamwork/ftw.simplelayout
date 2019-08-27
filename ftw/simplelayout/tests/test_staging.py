@@ -195,6 +195,35 @@ class TestWorkingCopy(TestCase):
         self.assertEquals('The first one', bl_page.downloads.one.Title())
         self.assertEquals(['one', 'three'], bl_page.downloads.objectIds())
 
+    def test_childrens_children_order_is_preserved(self):
+        bl_page = create(Builder('sl content page').titled(u'Page'))
+        bl_dow = create(Builder('sl listingblock').titled(u'Downloads')
+                        .within(bl_page)
+                        .with_files(Builder('file').titled(u'One'),
+                                    Builder('file').titled(u'Two')))
+        create(Builder('sl content page').titled(u'Sub Page 1').within(bl_page))
+        create(Builder('sl content page').titled(u'Sub Page 2').within(bl_page))
+
+        wc_page = IStaging(bl_page).create_working_copy(self.portal)
+
+        self.assertEquals(['one', 'two'], bl_dow.objectIds())
+        self.assertEquals(['downloads', 'sub-page-1', 'sub-page-2'], bl_page.objectIds())
+
+        IStaging(wc_page).apply_working_copy()
+        self.assertEquals(['one', 'two'], bl_dow.objectIds())
+        self.assertEquals(['downloads', 'sub-page-1', 'sub-page-2'], bl_page.objectIds())
+
+        wc_page = IStaging(bl_page).create_working_copy(self.portal)
+        wc_page.downloads.moveObjectsToTop('two')
+        IStaging(wc_page).apply_working_copy()
+        self.assertEquals(['two', 'one'], bl_dow.objectIds())
+
+        wc_page = IStaging(bl_page).create_working_copy(self.portal)
+        create(Builder('file').titled(u'Three').within(wc_page.downloads))
+        wc_page.downloads.moveObjectsUp('three')
+        IStaging(wc_page).apply_working_copy()
+        self.assertEquals(['two', 'three', 'one'], bl_dow.objectIds())
+
     def test_sl_page_state_is_updated_when_applying_working_copy(self):
         with staticuid('baseline'):
             baseline = create(Builder('sl content page').titled(u'A page')
@@ -345,7 +374,7 @@ class TestWorkingCopy(TestCase):
 
         browser.login().open(baseline)
         statusmessages.assert_message(
-            'test_user_1_ is working on this page in a working copy created at Jul 24, 2017.')
+            'test_user_1_ is working on this page in a http://nohost/plone/copy_of_a-page copy created at Jul 24, 2017.')
 
     @browsing
     def test_does_not_break_with_reference_to_sub_page(self, browser):
