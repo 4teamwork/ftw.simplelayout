@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.1.2 (unreleased)
+2.1.2 (2019-08-29)
 ------------------
 
 - Fix plone.app.events EventBasic timezone conflict when applying working copies [Nachtalb]
