@@ -15,7 +15,6 @@ from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
 from ftw.simplelayout.utils import unrestricted_uuidToObject
-from ftw.simplelayout.utils import IS_PLONE_5
 from operator import methodcaller
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
@@ -40,15 +39,13 @@ from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 from zope.schema import getFieldsInOrder
 import pkg_resources
 
-EVENT_SUPPORT = False
 try:
     pkg_resources.get_distribution('plone.app.event')
 except pkg_resources.DistributionNotFound:
-    pass
+    EVENT_SUPPORT = False
 else:
-    if not IS_PLONE_5:
-        EVENT_SUPPORT = True
-        from plone.app.event.dx.behaviors import EventBasic
+    EVENT_SUPPORT = True
+    from plone.app.event.dx.behaviors import EventBasic
 
 
 try:
