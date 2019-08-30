@@ -5,6 +5,7 @@ from BTrees.OOBTree import OOBTree
 from contextlib import contextmanager
 from copy import deepcopy
 from DateTime import DateTime
+from datetime import datetime
 from ftw.simplelayout.configuration import columns_in_config
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
@@ -37,6 +38,14 @@ from zope.interface import noLongerProvides
 from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 from zope.schema import getFieldsInOrder
 import pkg_resources
+
+try:
+    pkg_resources.get_distribution('plone.app.event')
+except pkg_resources.DistributionNotFound:
+    EVENT_SUPPORT = False
+else:
+    EVENT_SUPPORT = True
+    from plone.app.event.dx.behaviors import EventBasic
 
 
 try:
@@ -380,8 +389,13 @@ class Staging(object):
             source_storage = schemata(source)
             target_storage = schemata(target)
             value = getattr(source_storage, name)
-            if isinstance(value, str):
+
+            if EVENT_SUPPORT and isinstance(target_storage, EventBasic) and \
+               isinstance(value, datetime):
+                value = getattr(source, name)
+            elif isinstance(value, str):
                 value = value.decode('utf-8')
+
             setattr(target_storage, field.getName(), value)
 
     def _copy_at_field_values(self, source, target):
