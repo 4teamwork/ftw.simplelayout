@@ -63,7 +63,7 @@ Installation
     [instance]
     eggs +=
         ...
-        ftw.simplelayout[contenttypes, mapblock]
+        ftw.simplelayout[mapblock]
 
 
 - With ftw.simplelayout 2.0.0 we introduced Plone 5 support for this package. But Plone 4 has different dependencies. In order to use ftw.simplelayout 2.0.0 with Plone 4 also install the plone4 extra
@@ -73,7 +73,7 @@ Installation
     [instance]
     eggs +=
         ...
-        ftw.simplelayout[contenttypes, mapblock, plone4]
+        ftw.simplelayout[mapblock, plone4]
 
 
 Then you got several profile from wich you can choose from:
