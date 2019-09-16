@@ -26,7 +26,7 @@ Compatibility
    :target: https://jenkins.4teamwork.ch/job/ftw.simplelayout-master-test-plone-4.3.x.cfg
 
 
-Please use the `plone4` extra on Plone 4 Installations in order to have the right dependencies. 
+Please use the `plone4` extra on Plone 4 Installations in order to have the right dependencies.
 
 
 **Plone 5.1.x**
