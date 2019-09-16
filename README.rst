@@ -66,7 +66,7 @@ Installation
         ftw.simplelayout[contenttypes, mapblock]
 
 
-- With ftw.simplelayout 2.0.0 we introduced Plone support for this package. But Plone 4 has different dependencies. In order to use ftw.simpellayout 2.0.0 with Plone 4 also install the plone4 extra
+- With ftw.simplelayout 2.0.0 we introduced Plone 5 support for this package. But Plone 4 has different dependencies. In order to use ftw.simpellayout 2.0.0 with Plone 4 also install the plone4 extra
 
 ::
 
