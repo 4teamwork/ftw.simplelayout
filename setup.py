@@ -71,7 +71,6 @@ setup(name='ftw.simplelayout',
       zip_safe=False,
 
       install_requires=[
-          # 'cssutils', # TODO: is this used anywhere?
           'AccessControl',
           'Acquisition',
           'Persistence',
