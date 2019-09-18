@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-04-23 12:14+0000\n"
+"POT-Creation-Date: 2019-09-18 17:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Check possible values on http://ogp.me"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:51
+#: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "Collective Geo Maps"
 msgstr ""
 
@@ -49,6 +49,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/mapblock/behavior.py:15
 msgid "Coordinates"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
+msgid "Dateien hier hochladen"
 msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
@@ -114,11 +118,8 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:88
-msgid "Javascript resources from client are not compressed"
-msgstr ""
-
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
+#: ./ftw/simplelayout/mapblock/profiles/default_plone5/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr ""
 
@@ -134,7 +135,7 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:81
 msgid "Only images can be added to the gallery."
 msgstr ""
 
@@ -162,7 +163,7 @@ msgstr ""
 msgid "Simlelayout js library"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:25
+#: ./ftw/simplelayout/mapblock/configure.zcml:27
 msgid "Simlelayout map block type"
 msgstr ""
 
@@ -170,7 +171,7 @@ msgstr ""
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:71
+#: ./ftw/simplelayout/contenttypes/configure.zcml:83
 msgid "Simplelayout View"
 msgstr ""
 
@@ -236,13 +237,13 @@ msgstr ""
 msgid "The video block renders videos loaded from YouTube or Vimeo."
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:51
+#: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "This behaviour will make a content geo referenceable"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:34
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:28
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr ""
 
@@ -250,20 +251,24 @@ msgstr ""
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:54
+#: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:34
-msgid "Uninstall ftw.simplelayout.mapblocks"
+#: ./ftw/simplelayout/mapblock/configure.zcml:45
+msgid "Uninstall ftw.simplelayout.mapblock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:54
+#: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:34
-msgid "Uninstalls the ftw.simplelayout.mapblocks package."
+#: ./ftw/simplelayout/mapblock/configure.zcml:45
+msgid "Uninstalls the ftw.simplelayout.mapblock package."
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
+msgid "Upload files here"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
@@ -380,15 +385,11 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:88
-msgid "ftw.simplelayout development"
-msgstr ""
-
 #: ./ftw/simplelayout/configure.zcml:57
 msgid "ftw.simplelayout js library"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:25
+#: ./ftw/simplelayout/mapblock/configure.zcml:27
 msgid "ftw.simplelayout mapblock default"
 msgstr ""
 
@@ -407,7 +408,7 @@ msgid "help_drag_hint"
 msgstr ""
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:29
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:36
 msgid "hidden_label_image_caption"
 msgstr ""
 
@@ -513,12 +514,12 @@ msgid "label_float_large_image_right"
 msgstr ""
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:177
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
 msgid "label_folder_contents_files"
 msgstr ""
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:90
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
 msgid "label_folder_contents_images"
 msgstr ""
 
@@ -643,12 +644,6 @@ msgstr ""
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:33
 msgid "label_title"
-msgstr ""
-
-#. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
-msgid "label_upload"
 msgstr ""
 
 #. Default: "Youtube, or Vimeo URL"

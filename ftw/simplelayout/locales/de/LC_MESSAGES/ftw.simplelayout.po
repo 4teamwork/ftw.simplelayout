@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-04-23 12:14+0000\n"
+"POT-Creation-Date: 2019-09-18 17:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Check possible values on http://ogp.me"
 msgstr "Prüfe mögliche Werte auf http://ogp.me"
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:51
+#: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "Collective Geo Maps"
 msgstr ""
 
@@ -47,6 +47,10 @@ msgstr "Inhaltsseite show title behavior"
 #: ./ftw/simplelayout/mapblock/behavior.py:15
 msgid "Coordinates"
 msgstr "Koordinaten"
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
+msgid "Dateien hier hochladen"
+msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
 msgid "Delete"
@@ -111,11 +115,8 @@ msgstr "Bilderauflösungslimits"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:88
-msgid "Javascript resources from client are not compressed"
-msgstr ""
-
 #: ./ftw/simplelayout/mapblock/profiles/default/types/ftw.simplelayout.MapBlock.xml
+#: ./ftw/simplelayout/mapblock/profiles/default_plone5/types/ftw.simplelayout.MapBlock.xml
 msgid "MapBlock"
 msgstr "Karte"
 
@@ -131,7 +132,7 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:59
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:81
 msgid "Only images can be added to the gallery."
 msgstr "Es können nur Bilder in den Galerie-Block hochgeladen werden. Dies scheint kein Bild zu sein."
 
@@ -159,7 +160,7 @@ msgstr ""
 msgid "Simlelayout js library"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:25
+#: ./ftw/simplelayout/mapblock/configure.zcml:27
 msgid "Simlelayout map block type"
 msgstr ""
 
@@ -167,7 +168,7 @@ msgstr ""
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:71
+#: ./ftw/simplelayout/contenttypes/configure.zcml:83
 msgid "Simplelayout View"
 msgstr "Simplelayout Ansicht"
 
@@ -233,13 +234,13 @@ msgstr "Der Block \"Text/Bild\" zeigt Text und Bilder an."
 msgid "The video block renders videos loaded from YouTube or Vimeo."
 msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:51
+#: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "This behaviour will make a content geo referenceable"
 msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:8
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:10
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:34
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:28
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
@@ -247,21 +248,25 @@ msgstr "Dieser Block hat keinen Inhalt."
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:54
+#: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr "Deinstalliere ftw.simplelayout.contenttypes"
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:34
-msgid "Uninstall ftw.simplelayout.mapblocks"
-msgstr "Deinstalliere ftw.simplelayout.mapblocks"
+#: ./ftw/simplelayout/mapblock/configure.zcml:45
+msgid "Uninstall ftw.simplelayout.mapblock"
+msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:54
+#: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr "Deinstalliert das ftw.simplelayout.contenttypes Paket"
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:34
-msgid "Uninstalls the ftw.simplelayout.mapblocks package."
-msgstr "Deinstalliert das ftw.simplelayout.mapblocks Paket"
+#: ./ftw/simplelayout/mapblock/configure.zcml:45
+msgid "Uninstalls the ftw.simplelayout.mapblock package."
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
+msgid "Upload files here"
+msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
 #: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.VideoBlock.xml
@@ -377,15 +382,11 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:88
-msgid "ftw.simplelayout development"
-msgstr ""
-
 #: ./ftw/simplelayout/configure.zcml:57
 msgid "ftw.simplelayout js library"
 msgstr ""
 
-#: ./ftw/simplelayout/mapblock/configure.zcml:25
+#: ./ftw/simplelayout/mapblock/configure.zcml:27
 msgid "ftw.simplelayout mapblock default"
 msgstr ""
 
@@ -404,7 +405,7 @@ msgid "help_drag_hint"
 msgstr "Bitte den Inhalt per Drag & Drop hinzufügen."
 
 #. Default: "Image caption:"
-#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:29
+#: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:36
 msgid "hidden_label_image_caption"
 msgstr "Bild Legende:"
 
@@ -510,12 +511,12 @@ msgid "label_float_large_image_right"
 msgstr "Grosses Bild rechts ausrichten"
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:177
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
 #. Default: "Go to folder contents for managing images"
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:90
+#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
 msgid "label_folder_contents_images"
 msgstr "Bilder über Inhalte verwalten."
 
@@ -642,12 +643,6 @@ msgstr "Text"
 msgid "label_title"
 msgstr "Titel"
 
-#. Default: "Upload"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
-#: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:83
-msgid "label_upload"
-msgstr "Datei hochladen"
-
 #. Default: "Youtube, or Vimeo URL"
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:49
 msgid "label_video_url"
@@ -703,3 +698,4 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
+
