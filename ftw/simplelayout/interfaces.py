@@ -142,7 +142,7 @@ class ISimplelayoutDefaultSettings(Interface):
             u'limit-types.<br><br>'
             u'Use the following configuration-format:<br>'
             u'key: contenttype<br>'
-            u'value: limit_type: dimension=value, dimension=value<br>br>'
+            u'value: limit_type: dimension=value, dimension=value<br><br>'
             u'example:<br>'
             u'key: ftw.simplelayout.TextBlock<br>'
             u'value: soft: width=400, height=300'

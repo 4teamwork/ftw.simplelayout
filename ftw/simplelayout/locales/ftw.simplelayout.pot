@@ -355,7 +355,7 @@ msgstr ""
 msgid "desc_image_cropping_options"
 msgstr ""
 
-#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br>br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
+#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br><br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
 #: ./ftw/simplelayout/interfaces.py:139
 msgid "desc_image_limits"
 msgstr ""

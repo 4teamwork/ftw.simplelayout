@@ -352,7 +352,7 @@ msgstr "Breite: {{currentWidth}}px (optimal: {{limitWidth}}px)"
 msgid "desc_image_cropping_options"
 msgstr "Definieren Sie die Seitenverhältnisse (https://github.com/fengyuanchen/cropperjs#options) für Ihre Inhaltstypen.<br><br>Format:<br>key: Inhaltstyp<br>value: title => value<br><br>Beispiel:<br>key: ftw.simplelayout.TextBlock<br>value:4/3 => 1.33333<br><br>Berechnung: Wenn Sie ein Verhältnis von 16:9 zulassen wollen, dann müssen Sie als Seitenverhältnis 1.777777778 (16/9 = 1.777777778) angeben. 0 bedeutet, dass es keine Einschränkungen gibt."
 
-#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br>br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
+#. Default: "An image limit will check the image dimensions and validates it agains the limit-types.<br><br>Use the following configuration-format:<br>key: contenttype<br>value: limit_type: dimension=value, dimension=value<br><br>example:<br>key: ftw.simplelayout.TextBlock<br>value: soft: width=400, height=300"
 #: ./ftw/simplelayout/interfaces.py:139
 msgid "desc_image_limits"
 msgstr "Ein Bildauflösungslimit überprüft das hochgeladene Bild auf seine Breite und Höhe.<br><br>Verwende das folgende Format:<br>key: Inhaltstyp<br>Wert: Limit-Typ: Dimension=Wert, Dimension=Wert<br><br>Beispiel:<br>key: ftw.simplelayout.TextBlock<br>Wert: soft: width=400, height=300"
@@ -698,4 +698,3 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
-
