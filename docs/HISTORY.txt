@@ -5,7 +5,7 @@ Changelog
 1.23.15 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Leadimage: support changing the scale direction in the view call. [jone]
 
 
 1.23.14 (2019-11-11)
