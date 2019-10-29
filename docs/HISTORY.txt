@@ -8,6 +8,8 @@ Changelog
 - Fix galleryblock on click no big image available [Nachtalb]
 - Fix typo in settings description. [jone]
 - Install contenttypes extras by default and deprecate the extra itself [Nachtalb]
+- Save files uploaded via dropzone as blobs [Nachtalb]
+- Fix image rotation for images uploaded via dropzone [Nachtalb]
 
 
 2.1.2 (2019-08-29)

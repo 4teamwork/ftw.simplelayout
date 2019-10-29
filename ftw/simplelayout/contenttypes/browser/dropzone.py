@@ -5,8 +5,8 @@ from ftw.simplelayout.browser.ajax.utils import json_response
 from ftw.simplelayout.utils import IS_PLONE_5
 from plone import api
 from plone.dexterity.interfaces import IDexterityFTI
-from plone.namedfile.file import NamedFile
-from plone.namedfile.file import NamedImage
+from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
@@ -54,9 +54,9 @@ class DropzoneUploadBase(BrowserView):
 
         if self.is_dexterity_fti(portal_type):
             if file_field_name == 'image':
-                kwargs[file_field_name] = NamedImage(file_, filename=filename)    
+                kwargs[file_field_name] = NamedBlobImage(file_, filename=filename)
             else:
-                kwargs[file_field_name] = NamedFile(file_, filename=filename)
+                kwargs[file_field_name] = NamedBlobFile(file_, filename=filename)
             return api.content.create(**kwargs)
 
         else:
