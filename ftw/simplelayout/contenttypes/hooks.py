@@ -13,6 +13,7 @@ def clean_plone5_registry(site):
     allowed_sizes = registry['plone.allowed_sizes']
     # allowed_sizes.remove(u'colorbox 2000:2000')
     allowed_sizes.remove(u'simplelayout_galleryblock 480:480')
+    allowed_sizes.remove(u'sl_galleryblock_4k 3840:2160')
     allowed_sizes.remove(u'sl_textblock_small 480:480')
     allowed_sizes.remove(u'sl_textblock_middle 800:800')
     allowed_sizes.remove(u'sl_textblock_large 1280:1280')
