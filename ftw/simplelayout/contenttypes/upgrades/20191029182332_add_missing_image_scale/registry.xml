@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<registry>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.IImagingSchema"
+           prefix="plone">
+    <value key="allowed_sizes" purge="false">
+      <element>sl_galleryblock_4k 3840:2160</element>
+    </value>
+  </records>
+</registry>
