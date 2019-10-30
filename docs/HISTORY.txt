@@ -10,6 +10,7 @@ Changelog
 - Install contenttypes extras by default and deprecate the extra itself [Nachtalb]
 - Save files uploaded via dropzone as blobs [Nachtalb]
 - Fix image rotation for images uploaded via dropzone [Nachtalb]
+- Remove collective.quickupload as a dependency for plone 4 (replaced by dropzone.js in 2.0.0) [Nachtalb]
 
 
 2.1.2 (2019-08-29)
