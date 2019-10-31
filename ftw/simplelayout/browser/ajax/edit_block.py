@@ -7,7 +7,7 @@ from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.events import EditCancelledEvent
 from plone.dexterity.events import EditFinishedEvent
 from plone.dexterity.interfaces import IDexterityEditForm
-from Products.CMFPlone import PloneMessageFactory
+from plone.dexterity.i18n import MessageFactory as DXMF
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -36,7 +36,7 @@ class EditForm(DefaultEditForm):
 
     _finished_edit = False
 
-    @button.buttonAndHandler(PloneMessageFactory(u'Save'), name='save')
+    @button.buttonAndHandler(DXMF(u'Save'), name='save')
     def handleApply(self, action):
         data, errors = self.extractData()
         if errors:
@@ -53,7 +53,7 @@ class EditForm(DefaultEditForm):
 
         self._finished_edit = True
 
-    @button.buttonAndHandler(PloneMessageFactory(u'Cancel'), name='cancel')
+    @button.buttonAndHandler(DXMF(u'Cancel'), name='cancel')
     def handleCancel(self, action):
         notify(EditCancelledEvent(self.context))
 
