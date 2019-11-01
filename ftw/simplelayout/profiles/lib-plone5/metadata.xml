@@ -2,5 +2,6 @@
 <metadata>
   <dependencies>
     <dependency>profile-collective.js.jqueryui:default</dependency>
+    <dependency>profile-ftw.theming:default</dependency>
   </dependencies>
 </metadata>
