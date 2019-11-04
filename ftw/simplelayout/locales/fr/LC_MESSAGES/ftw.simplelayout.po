@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-07-23 15:26+0000\n"
+"POT-Creation-Date: 2019-11-04 14:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -242,7 +242,7 @@ msgstr ""
 msgid "This block is empty."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:55
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
@@ -266,8 +266,8 @@ msgstr ""
 msgid "VideoBlock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:43
-msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 msgstr ""
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
