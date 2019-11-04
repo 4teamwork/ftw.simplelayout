@@ -290,6 +290,10 @@ msgstr ""
 msgid "alert_really_delete_folder"
 msgstr ""
 
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:13
+msgid "baseline"
+msgstr ""
+
 #. Default: "creater"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
 msgid "column_creater"
@@ -682,8 +686,8 @@ msgstr ""
 msgid "message_baseline"
 msgstr ""
 
-#. Default: "This is the working copy of ${owner}, created at ${date}."
-#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+#. Default: "This is the working copy of this ${link}, created by ${owner} at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:17
 msgid "message_working_copy"
 msgstr ""
 

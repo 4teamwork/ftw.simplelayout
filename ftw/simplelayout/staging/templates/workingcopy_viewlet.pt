@@ -9,9 +9,11 @@
     <dl class="portalMessage error">
       <dt i18n:translate="" i18n:domain="plone">Warning</dt>
       <dd i18n:translate="message_working_copy">
-        This is the working copy of
-        <tal:creator i18n:name="owner" content="view/owner_name" />,
-        created at
+        This is the working copy of this
+        <a i18n:name="link" tal:attributes="href view/baseline_url" i18n:translate="baseline">baseline</a>,
+        created by
+        <tal:creator i18n:name="owner" content="view/owner_name" />
+        at
         <tal:date i18n:name="date" content="python:toLocalizedTime(context.created())" />.
       </dd>
     </dl>
