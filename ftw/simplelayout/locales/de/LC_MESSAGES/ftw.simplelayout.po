@@ -678,10 +678,10 @@ msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 msgid "low_quality_image_label"
 msgstr "Bildauflösung ist nicht optimal"
 
-#. Default: "${owner} is working on this page in a ${link} copy created at ${date}."
-#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+#. Default: "${owner} is working on this page in a ${link} created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:17
 msgid "message_baseline"
-msgstr "${owner} überarbeitet diese Seite gerade in einer <a href='${link}'>Arbeitskopie</a>, erstellt am ${date}."
+msgstr "${owner} überarbeitet diese Seite gerade in einer ${link}, erstellt am ${date}."
 
 #. Default: "This is the working copy of this ${link}, created by ${owner} at ${date}."
 #: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:17
@@ -707,4 +707,9 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
+
+#. Default: "working copy"
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "working_copy"
+msgstr "Arbeitskopie"
 
