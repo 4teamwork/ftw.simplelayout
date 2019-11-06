@@ -352,7 +352,8 @@ class TestWorkingCopy(TestCase):
 
         browser.login().open(working_copy)
         statusmessages.assert_message(
-            'This is the working copy of test_user_1_, created at Jul 24, 2017.')
+            'This is the working copy of this baseline, created by '
+            'test_user_1_ at Jul 24, 2017.')
 
     @browsing
     def test_message_is_displayed_on_baseline(self, browser):
@@ -364,7 +365,8 @@ class TestWorkingCopy(TestCase):
 
         browser.login().open(baseline)
         statusmessages.assert_message(
-            'test_user_1_ is working on this page in a http://nohost/plone/copy_of_a-page copy created at Jul 24, 2017.')
+            'test_user_1_ is working on this page in a working copy created '
+            'at Jul 24, 2017.')
 
     @browsing
     def test_does_not_break_with_reference_to_sub_page(self, browser):
