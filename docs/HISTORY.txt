@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Add ftw.theming:default (upgrade step not provided). [busykoala]
+- Unify "Save" translation across content types and plone versions [Nachtalb]
 
 
 2.2.0 (2019-10-30)
