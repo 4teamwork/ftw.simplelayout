@@ -275,7 +275,7 @@ msgstr "Video"
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
 msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
-msgstr ""
+msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (kein Cookie) Format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:6
@@ -296,6 +296,10 @@ msgstr "Möchten Sie diesen Eintrag wirklich löschen?"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:15
 msgid "alert_really_delete_folder"
 msgstr "Möchten Sie diesen Ordner und seinen Inhalt wirklich löschen?"
+
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:13
+msgid "baseline"
+msgstr "Originalseite"
 
 #. Default: "creater"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
@@ -669,15 +673,15 @@ msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 msgid "low_quality_image_label"
 msgstr "Bildauflösung ist nicht optimal"
 
-#. Default: "${owner} is working on this page in a ${link} copy created at ${date}."
-#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+#. Default: "${owner} is working on this page in a ${link} created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:17
 msgid "message_baseline"
-msgstr "${owner} überarbeitet diese Seite gerade in einer <a href='${link}'>Arbeitskopie</a>, erstellt am ${date}."
+msgstr "${owner} überarbeitet diese Seite gerade in einer ${link}, erstellt am ${date}."
 
-#. Default: "This is the working copy of ${owner}, created at ${date}."
-#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+#. Default: "This is the working copy of this ${link}, created by ${owner} at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:17
 msgid "message_working_copy"
-msgstr "Dies ist die Arbeitskopie von ${owner}, erstellt am ${date}."
+msgstr "Dies ist die Arbeitskopie von dieser ${link}, erstellt von ${owner} am ${date}."
 
 #. Default: "Optimal image quality: ${limit_str}"
 #: ./ftw/simplelayout/images/limits/validators.py:57
@@ -698,3 +702,8 @@ msgstr "Verwende das zugeschnittenes Bild ebenfalls für das Overlay"
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
 msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene Bild verwendet, sofern das Bild im Bildeditor zugeschnitten wurde. Deaktivieren Sie diese Option um das Originalbild im Bild-Overlay anzuzeigen."
+
+#. Default: "working copy"
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "working_copy"
+msgstr "Arbeitskopie"

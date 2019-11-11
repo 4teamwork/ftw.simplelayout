@@ -11,7 +11,9 @@
       <dd i18n:translate="message_baseline">
         <tal:creator i18n:name="owner"
                      content="python:view.owner_name(working_copy)" />
-        is working on this page in a <tal:url i18n:name="link" content="working_copy/absolute_url" /> copy created at
+        is working on this page in a
+        <a i18n:name="link" tal:attributes="href working_copy/absolute_url" i18n:translate="working_copy">working copy</a>
+        created at
         <tal:date i18n:name="date" content="python:toLocalizedTime(working_copy.created())" />.
       </dd>
     </dl>
