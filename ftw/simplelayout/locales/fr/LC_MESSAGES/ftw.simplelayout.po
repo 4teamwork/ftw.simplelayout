@@ -300,6 +300,10 @@ msgstr ""
 msgid "alert_really_delete_folder"
 msgstr ""
 
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:13
+msgid "baseline"
+msgstr ""
+
 #. Default: "creater"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
 msgid "column_creater"
@@ -672,13 +676,13 @@ msgstr ""
 msgid "low_quality_image_label"
 msgstr ""
 
-#. Default: "${owner} is working on this page in a ${link} copy created at ${date}."
-#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+#. Default: "${owner} is working on this page in a ${link} created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:17
 msgid "message_baseline"
 msgstr ""
 
-#. Default: "This is the working copy of ${owner}, created at ${date}."
-#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+#. Default: "This is the working copy of this ${link}, created by ${owner} at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:17
 msgid "message_working_copy"
 msgstr ""
 
@@ -700,5 +704,10 @@ msgstr ""
 #. Default: "If you crop an image, the original image will be still available. Per default, the original image will be used for the overlay. If you want to show the cropped image instead, mark this option."
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
+msgstr ""
+
+#. Default: "working copy"
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "working_copy"
 msgstr ""
 

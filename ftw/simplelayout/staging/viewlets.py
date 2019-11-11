@@ -15,6 +15,11 @@ class WorkingCopyViewlet(common.PathBarViewlet):
         owner = self.context.getOwner()
         return owner.getProperty('fullname') or owner.getId()
 
+    @property
+    def baseline_url(self):
+        baseline = IStaging(self.context).get_baseline()
+        return baseline.absolute_url()
+
 
 class BaselineViewlet(common.PathBarViewlet):
     index = ViewPageTemplateFile('templates/baseline_viewlet.pt')
