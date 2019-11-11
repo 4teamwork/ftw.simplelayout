@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-07-23 15:26+0000\n"
+"POT-Creation-Date: 2019-11-04 14:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -242,7 +242,7 @@ msgstr ""
 msgid "This block is empty."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:55
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
@@ -266,8 +266,8 @@ msgstr ""
 msgid "VideoBlock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:43
-msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 msgstr ""
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
@@ -288,6 +288,10 @@ msgstr ""
 #. Default: "Do you really want to delete this folder and all its contents?"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:15
 msgid "alert_really_delete_folder"
+msgstr ""
+
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:13
+msgid "baseline"
 msgstr ""
 
 #. Default: "creater"
@@ -677,13 +681,13 @@ msgstr ""
 msgid "low_quality_image_label"
 msgstr ""
 
-#. Default: "${owner} is working on this page in a ${link} copy created at ${date}."
-#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+#. Default: "${owner} is working on this page in a ${link} created at ${date}."
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:17
 msgid "message_baseline"
 msgstr ""
 
-#. Default: "This is the working copy of ${owner}, created at ${date}."
-#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:15
+#. Default: "This is the working copy of this ${link}, created by ${owner} at ${date}."
+#: ./ftw/simplelayout/staging/templates/workingcopy_viewlet.pt:17
 msgid "message_working_copy"
 msgstr ""
 
@@ -705,5 +709,10 @@ msgstr ""
 #. Default: "If you crop an image, the original image will be still available. Per default, the original image will be used for the overlay. If you want to show the cropped image instead, mark this option."
 #: ./ftw/simplelayout/images/cropping/behaviors.py:18
 msgid "use_cropped_image_for_overlay_desc"
+msgstr ""
+
+#. Default: "working copy"
+#: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
+msgid "working_copy"
 msgstr ""
 
