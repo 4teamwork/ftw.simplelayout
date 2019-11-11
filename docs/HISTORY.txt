@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.2.1 (unreleased)
+2.3.0 (2019-11-11)
 ------------------
 
 - Add ftw.theming:default (upgrade step not provided). [busykoala]
