@@ -5,7 +5,7 @@ Changelog
 2.3.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Improve English in README.rst. [djowett-ftw]
 
 
 2.3.0 (2019-11-11)
