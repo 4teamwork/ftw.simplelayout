@@ -11,6 +11,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser import BrowserView
 from zExceptions import BadRequest
+from zope.component import getUtility
 from zope.i18n import translate
 import os.path
 
@@ -69,7 +70,15 @@ class DropzoneUploadBase(BrowserView):
 class FileListingUpload(DropzoneUploadBase):
 
     def create(self, file_):
-        return self.create_obj('File', 'file', file_)
+        return self.create_obj(self.get_upload_portal_type(), 'file', file_)
+
+    def get_upload_portal_type(self):
+        context_fti = getUtility(IDexterityFTI, name=self.context.portal_type)
+
+        if context_fti.allowed_content_types:
+            return context_fti.allowed_content_types[0]
+        else:
+            return 'File'
 
 
 class GalleryUpload(DropzoneUploadBase):

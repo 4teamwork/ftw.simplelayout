@@ -8,6 +8,7 @@ tests_require = [
     'Products.CMFPlone',
     'Products.GenericSetup',
     'ftw.builder',
+    'ftw.file',
     'ftw.testbrowser',
     'ftw.testing',
     'ftw.trash',

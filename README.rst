@@ -31,7 +31,7 @@ Please use the `plone4` extra on Plone 4 Installations in order to have the righ
 
 **Plone 5.1.x**
 
-So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it on your own risk.
+So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it at your own risk.
 
 Features dropped for Plone 5.1.x:
 
@@ -41,10 +41,10 @@ Features dropped for Plone 5.1.x:
 
 **Themes**
 
-To have proper styles we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
+For consistent styling of the Simplelayout UI we recommend using `plonetheme.blueberry <https://github.com/4teamwork/plonetheme.blueberry/>`_.
 
 
-**Upgrade form Plone 4.3.x to Plone 5.1.x**
+**Upgrade from Plone 4.3.x to Plone 5.1.x**
 
 TODO: Needs to be implemented and tested.
 
@@ -66,7 +66,7 @@ Installation
         ftw.simplelayout[mapblock]
 
 
-- With ftw.simplelayout 2.0.0 we introduced Plone 5 support for this package. But Plone 4 has different dependencies. In order to use ftw.simplelayout 2.0.0 with Plone 4 also install the plone4 extra
+- With ftw.simplelayout 2.0.0 we introduced Plone 5 support. But Plone 4 has different dependencies. In order to use ftw.simplelayout 2.0.0 with Plone 4 also install the plone4 extra
 
 ::
 
@@ -76,13 +76,13 @@ Installation
         ftw.simplelayout[mapblock, plone4]
 
 
-Then you got several profile from wich you can choose from:
+Then you have several profiles to choose from:
 
 - ``ftw.simplelayout`` **lib** profile - Just the basics without any ContentTypes. This profile is also available for Plone 5
 
 - ``ftw.simplelayout`` **default** profile - Installs Simplelayout with default ContentTypes and everything you need to create content the Simplelayout way.
 
-- Overlays for manipulate blocks, such as adding, deleting and modifying.
+- Overlays for manipulating blocks, such as adding, deleting and modifying.
 - Saving the current Simplelayout state.
 - Loading the configuration of a simplelayout page.
 - Reloading blocks with additional parameters, view, or data attributes.
@@ -97,14 +97,14 @@ First steps
 
 It's a good idea to install the default profile, which ships some basic contenttypes, such as ContentPage and TextBlock.
 
-Simply add a new ContentPage instead of a Plone Document. A Toolbox appears on right, which allows you to create content on/in your ContentPage with Simplelayout.
+Simply add a new ContentPage instead of a Plone Document. A Toolbox appears on the right, which allows you to create content on/in your ContentPage with Simplelayout.
 
 By default you can choose between a 1 column, 2 Column or 4 Column layout.
 Simplelayout adds an empty 1 column layout for you by default, so you can directly start adding a Block.
 
 Just drag the Block of your choice, for example a TextBlock, into the layout. Enter title, body text and/or an image. Then click save.
 
-As you see, you never going to leave the ContentPage, all actions with Simplelayout are asynchronous.
+As you can see, you never have to leave the ContentPage, all actions with Simplelayout are asynchronous.
 This means adding, deleting and editing always opens an overlay, where you can make the modifications.
 
 
@@ -212,10 +212,10 @@ Run ``bin/test`` to test your changes.
 Or start an instance by running ``bin/instance fg``.
 
 
-Create new Block
-----------------
+Creating a new Block
+--------------------
 
-Make your content blockish, needs only two steps.
+Make your content 'blockish', needs only two steps.
 
 
 1. The only difference between a block and other DX content types is the ``SimplelayoutBlockBehavior``. You can simply add the Block behavior to your content by adding the following line to FTI:
@@ -226,7 +226,7 @@ Make your content blockish, needs only two steps.
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
     </property>
 
-2. In order you block knows how to represent himself on a simplelayout page you need to register a ``block_view`` for your Block.
+2. In order for your block to know how to represent itself on a simplelayout page you need to register a ``block_view`` for your Block.
 
 Register view with zcml:
 
@@ -250,7 +250,7 @@ Corresponding template:
       <div tal:replace="structure here/text/output | nothing" />
 
 
-Well basically that's it :-) You just created a new block!!
+Basically that's it :-) You just created a new block!!
 
 
 Create custom actions for Blocks
@@ -267,7 +267,7 @@ Create new Block representations
 Directly edit items in a folderish block
 ----------------------------------------
 
-For this purpose you can place a link in the rendered block.
+To implement this, you just need to place a link in the rendered block.
 Assume you want to edit a file in a listing block: you need a link, which is pointing to ``./sl-ajax-inner-edit-view``,
 has the css class ``inneredit`` and a data attribute named ``uid`` containing the uid of the content.
 
@@ -284,7 +284,7 @@ Additional plone.restapi methods
 --------------------------------
 
 After creating blocks in a simplelayout content page they should be synchronized with the pages config. Otherwise
-the order in the frontend might me wrong. It also removes objects which are in the pages config but not in the page itself.
+the order in the frontend might be wrong. It also removes objects which are in the pages config but not in the page itself.
 
 To do this, you can simply send a RestAPI Post (more information about
 `plone.restapi <https://github.com/plone/plone.restapi>`_ ) request to the path of your page, appended with
@@ -327,7 +327,7 @@ to the working copy. This has the advantage that a root page of a large structur
 revised and copied without a performance problem because of many subpages.
 
 When the working copy is applied back, the content of its children are copied back to the
-baseline. The simplalyout state and relations are updated accordingly.
+baseline. The simplelayout state and relations are updated accordingly.
 
 
 
@@ -429,7 +429,7 @@ Example:
 
 Note 1: The adapter gets called with the settings Dictionary, so you don't have to return it.
 
-Note 2: With the ``default_page_layout`` method you can also define default layouts, which are pre renderd on a empty page.
+Note 2: With the ``default_page_layout`` method you can also define default layouts, which are pre-rendered on a empty page.
 
 
 
@@ -462,7 +462,7 @@ Migration from ftw.contentpage
 This package is the successor of
 `ftw.contentpage <https://github.com/4teamwork/ftw.contentpage>`_.
 In order to migrate from `ftw.contentpage` types to `ftw.simplelayout` types,
-take a look at the preconfigured inplace migrators in the `migration.py` of
+take a look at the preconfigured inplace migrators in the `migration.py` module of
 `ftw.simplelayout`.
 
 Client Library
@@ -477,7 +477,7 @@ Rebuilding the library (resources/ftw.simplelayout.js):
 
     grunt dist
 
-Watching for changes and rebuild the bundle automatically:
+To watch for changes and rebuild the bundle automatically:
 
 .. code-block:: bash
 
@@ -674,7 +674,7 @@ Each DOM element provides the following properties:
 - object --> object representation in simplelayout
 - parent --> parent object representation in simplelayout
 - id --> generated UUID for this element
-- represents --> representer from origin (empty if object only exists local)
+- represents --> representer from origin (empty if object only exists locally)
 
 These properties can get extracted as a jQueryElement:
 
