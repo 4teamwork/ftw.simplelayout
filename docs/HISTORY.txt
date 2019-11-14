@@ -6,6 +6,8 @@ Changelog
 ------------------
 
 - Improve English in README.rst. [djowett-ftw]
+- Make the upload widget in FileListingBlock choose the content type it creates
+  based on it's `allowed_content_types`. [djowett-ftw]
 
 
 2.3.0 (2019-11-11)
