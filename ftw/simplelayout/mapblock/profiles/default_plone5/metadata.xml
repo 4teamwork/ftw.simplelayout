@@ -2,5 +2,6 @@
 <metadata>
   <dependencies>
     <dependency>profile-collective.geo.bundle:default</dependency>
+    <dependency>profile-ftw.simplelayout.contenttypes:default</dependency>
   </dependencies>
 </metadata>
