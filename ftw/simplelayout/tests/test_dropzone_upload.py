@@ -5,16 +5,19 @@ from ftw.simplelayout.testing import SimplelayoutTestCase
 from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browser as defaultbrowser
 from ftw.testbrowser import browsing
+from plone.dexterity.interfaces import IDexterityFTI
 from plone.protect import createToken
+from zope.component import getUtility
 
 
 class TestDropZoneUpload(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     @browsing
-    def test_create_files_in_filelinstingblock(self, browser):
+    def test_create_files_in_filelistingblock(self, browser):
         listing = create(Builder('sl listingblock').titled(u'Downloads')
-                         .within(create(Builder('sl content page').titled(u'Page'))))
+                         .within(create(Builder('sl content page')
+                                 .titled(u'Page'))))
         self.assertEquals([], listing.objectIds())
 
         browser.login()
@@ -32,6 +35,37 @@ class TestDropZoneUpload(SimplelayoutTestCase):
             self.assertEquals('Hello World', doc.file.data.strip())
         else:
             self.assertEquals('Hello World', doc.getFile().data.strip())
+
+    @browsing
+    def test_create_ftw_files_in_filelistingblock(self, browser):
+        """
+        Ensure filelistingblock uploads can be configured to create
+        ftw.file.File
+        """
+        fti = getUtility(IDexterityFTI,
+                         name='ftw.simplelayout.FileListingBlock')
+        act = list(fti.allowed_content_types)
+        act.insert(0, 'ftw.file.File')
+        fti.allowed_content_types = tuple(act)
+
+        listing = create(Builder('sl listingblock').titled(u'Downloads')
+                         .within(create(Builder('sl content page')
+                                 .titled(u'Page'))))
+        self.assertEquals([], listing.objectIds())
+
+        browser.login()
+        self.make_dropzone_upload(listing, self.asset('world.txt').open('r'))
+        self.assertEqual(201, browser.status_code)
+        self.assertEqual(
+            {u'content': u'Created',
+             u'url': u'http://nohost/plone/page/downloads/world.txt',
+             u'proceed': True},
+            browser.json
+        )
+        self.assertEquals(['world.txt'], listing.objectIds())
+
+        doc, = listing.objectValues()
+        self.assertEquals('ftw.file.File', doc.portal_type)
 
     @browsing
     def test_create_images_in_galleries(self, browser):
