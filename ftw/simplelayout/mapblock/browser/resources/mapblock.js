@@ -107,7 +107,7 @@
           // Get hidden maps (maps with no size yet)
           if ($('.blockwidget-cgmap').filter(':hidden').length > 0) {
               var tabs = $('form.autotabs .autotoc-level-1, select.formTabs, ul.formTabs');
-              tabs.bind("onClick", function (e, index) {
+              tabs.bind("click", function (e, index) {
                 var curpanel = $(this).parents('form').find('.autotoc-section.active');
                 if (curpanel.length === 0)
                   curpanel = $(this).data('tabs').getCurrentPane();
