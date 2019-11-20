@@ -7,6 +7,8 @@ Changelog
 
 - Nothing changed yet.
 
+- No longer accidentally load google maps api js twice. [mathias.leimgruber]
+
 
 2.4.1 (2019-11-14)
 ------------------
