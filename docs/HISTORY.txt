@@ -5,7 +5,10 @@ Changelog
 2.4.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Change event binding on tab from onClick to just click in order to trigger the function on plone 5 too. [mathias.leimgruber]
+
+- No longer accidentally load google maps api js twice. [mathias.leimgruber]
+
 
 
 2.4.1 (2019-11-14)
