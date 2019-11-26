@@ -9,6 +9,7 @@ Changelog
 
 - No longer accidentally load google maps api js twice. [mathias.leimgruber]
 
+- Add ftw.simplelayout.contenttypes profile when mapblock is added by default. [busykoala]
 
 
 2.4.1 (2019-11-14)
