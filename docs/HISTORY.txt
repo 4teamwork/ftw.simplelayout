@@ -5,7 +5,8 @@ Changelog
 1.24.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Remove (AT) LinkBuilder in favour of the one in ftw.builder. (backport)
+  [djowett-ftw]
 
 
 1.24.0 (2019-11-14)
