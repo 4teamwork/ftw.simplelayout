@@ -81,8 +81,3 @@ class GalleryBlockBuilder(DexterityBuilder):
 
 builder_registry.register('sl galleryblock', GalleryBlockBuilder)
 
-
-class LinkBuilder(ArchetypesBuilder):
-    portal_type = 'Link'
-
-builder_registry.register('link', LinkBuilder)
