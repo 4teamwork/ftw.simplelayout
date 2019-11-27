@@ -11,6 +11,8 @@ Changelog
 
 - Add ftw.simplelayout.contenttypes profile when mapblock is added by default. [busykoala]
 
+- Remove AT link builder. [busykoala]
+
 
 2.4.1 (2019-11-14)
 ------------------
