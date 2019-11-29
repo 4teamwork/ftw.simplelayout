@@ -5,7 +5,8 @@ Changelog
 2.5.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Old versions of ftw.sliderblock depended on this product to require collective.upload, which
+is no longer done after version 2.0.  We raise ImportError on startup to make this clear. [djowett-ftw]
 
 
 2.5.1 (2019-11-29)
