@@ -21,7 +21,7 @@ class TestDropZoneUpload(SimplelayoutTestCase):
         self.assertEquals([], listing.objectIds())
 
         browser.login()
-        self.make_dropzone_upload(listing, self.asset('world.txt').open('r'))
+        self.make_dropzone_upload(listing, self.asset('world.txt').open('rb'))
         self.assertEqual(201, browser.status_code)
         self.assertEqual({u'content': u'Created',
                           u'url': u'http://nohost/plone/page/downloads/world.txt',
@@ -54,7 +54,7 @@ class TestDropZoneUpload(SimplelayoutTestCase):
         self.assertEquals([], listing.objectIds())
 
         browser.login()
-        self.make_dropzone_upload(listing, self.asset('world.txt').open('r'))
+        self.make_dropzone_upload(listing, self.asset('world.txt').open('rb'))
         self.assertEqual(201, browser.status_code)
         self.assertEqual(
             {u'content': u'Created',
@@ -92,7 +92,7 @@ class TestDropZoneUpload(SimplelayoutTestCase):
         self.assertEquals([], gallery.objectIds())
 
         with browser.login().expect_http_error(400):
-            self.make_dropzone_upload(gallery, self.asset('world.txt').open('r'))
+            self.make_dropzone_upload(gallery, self.asset('world.txt').open('rb'))
 
         self.assertEqual({u'error': u'Only images can be added to the gallery.',
                           u'proceed': False}, browser.json)
