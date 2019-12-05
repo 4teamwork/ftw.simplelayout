@@ -3,8 +3,8 @@ from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import IS_PLONE_5
 from ftw.testbrowser import browsing
-from unittest2 import skipUnless
-from unittest2 import TestCase
+from unittest import skipUnless
+from unittest import TestCase
 import transaction
 
 

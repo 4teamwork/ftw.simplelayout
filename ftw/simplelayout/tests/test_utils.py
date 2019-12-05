@@ -5,7 +5,7 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.utils import get_block_html
 from ftw.testbrowser import browsing
 from Persistence import PersistentMapping
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.annotation import IAnnotations
 
 

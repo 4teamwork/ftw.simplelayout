@@ -10,7 +10,7 @@ from plone.namedfile.file import NamedBlobImage
 from plone.registry.interfaces import IRegistry
 from plone.uuid.interfaces import IUUID
 from StringIO import StringIO
-from unittest2 import TestCase
+from unittest import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.component import queryUtility

@@ -5,8 +5,8 @@ from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
-from unittest2 import skipIf
-from unittest2 import TestCase
+from unittest import skipIf
+from unittest import TestCase
 
 
 class TestSampleTypes(TestCase):

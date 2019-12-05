@@ -17,7 +17,6 @@ tests_require = [
     'plone.app.testing',
     'plone.testing',
     'transaction',
-    'unittest2',
     'zope.configuration',
     'ftw.simplelayout [trash, mapblock]',
 ]

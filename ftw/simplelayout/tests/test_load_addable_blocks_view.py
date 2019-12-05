@@ -1,7 +1,7 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
-from unittest2 import TestCase
+from unittest import TestCase
 import json
 
 

@@ -15,7 +15,7 @@ from ftw.testing import freeze
 from ftw.testing import staticuid
 from plone.app.textfield.value import RichTextValue
 from plone.uuid.interfaces import IUUID
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import adapter
 from zope.interface.verify import verifyObject
 from zope.lifecycleevent.interfaces import IObjectAddedEvent

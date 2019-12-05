@@ -7,7 +7,7 @@ from ftw.testbrowser import browsing
 from plone import api
 from plone.registry.interfaces import IRegistry
 from Products.CMFPlone.utils import parent
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import queryUtility
 import os
 import transaction

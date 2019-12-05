@@ -3,7 +3,7 @@ from ftw.builder import create
 from ftw.simplelayout.contenttypes.behaviors import ITeaser
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
-from unittest2 import TestCase
+from unittest import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds

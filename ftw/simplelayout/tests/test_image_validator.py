@@ -5,7 +5,7 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages.dexterity import erroneous_fields
 from plone import api
-from unittest2 import TestCase
+from unittest import TestCase
 import transaction
 
 
