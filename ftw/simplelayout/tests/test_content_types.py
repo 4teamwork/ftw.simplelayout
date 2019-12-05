@@ -6,7 +6,7 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getMultiAdapter
 
 

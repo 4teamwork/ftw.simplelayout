@@ -1,7 +1,7 @@
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from Products.CMFCore.utils import getToolByName
 from zope.component.hooks import getSite
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestBlocks(TestCase):

@@ -7,8 +7,8 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from plone.app.testing import TEST_USER_ID
-from unittest2 import skip
-from unittest2 import TestCase
+from unittest import skip
+from unittest import TestCase
 from zope.component import queryMultiAdapter
 from zope.interface.verify import verifyClass
 from zope.schema.vocabulary import SimpleVocabulary

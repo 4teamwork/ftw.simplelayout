@@ -9,7 +9,7 @@ from ftw.testbrowser import browsing
 from plone import api
 from plone.uuid.interfaces import IUUID
 from plone.registry.interfaces import IRegistry
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 import transaction

@@ -15,7 +15,7 @@ from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import setRoles, TEST_USER_ID, TEST_USER_NAME, login
 from plone.testing import z2
 from plone.testing import zca
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.configuration import xmlconfig
 import ftw.simplelayout.tests.builders
 
