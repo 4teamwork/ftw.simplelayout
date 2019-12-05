@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.2 (unreleased)
+2.5.2 (2019-12-05)
 ------------------
 
 - Old versions of ftw.sliderblock depended on this product to require collective.upload, which
