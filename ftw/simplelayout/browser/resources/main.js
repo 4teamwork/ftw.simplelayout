@@ -1,5 +1,11 @@
-(function(global, $) {
-
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(["jquery", "ftw.simplelayout"], factory);
+  } else {
+    factory(root.jQuery, root.ftw.simplelayout);
+  }
+}(typeof self !== 'undefined' ? self : this, function ($, ftwsimplelayout) {
+  var global = window;
   "use strict";
 
   // Disable inline validation of the Plone forms in the overlay.
@@ -191,10 +197,10 @@
 
       settings = $.extend(settings, options);
 
-      toolbox = new global.ftw.simplelayout.toolbox(settings);
+      toolbox = new ftwsimplelayout.toolbox(settings);
       toolbox.attachTo(target);
 
-      simplelayout = new global.ftw.simplelayout.simplelayout({ toolbox: toolbox, editLayouts: settings.canChangeLayout });
+      simplelayout = new ftwsimplelayout.simplelayout({ toolbox: toolbox, editLayouts: settings.canChangeLayout });
 
       simplelayout.on("blockInserted", function(block) {
         var layout = block.parent;
@@ -343,7 +349,7 @@
       var cropper = null;
       cropImageOverlay.load($(this).attr("href"), {"data": JSON.stringify({ "block": blockUID })}, function() {
         if ($('.croppingImage ', this.element).length > 0) {
-          cropper = new ftw.simplelayout.Cropper($('.imageCropperWrapper', this.element)[0])
+          cropper = new ftwsimplelayout.Cropper($('.imageCropperWrapper', this.element)[0])
           cropper.run();
         }
       });
@@ -396,4 +402,4 @@
 
   $(init);
 
-}(window, jQuery));
+}));

@@ -2,57 +2,16 @@
 <registry>
   <records interface="ftw.simplelayout.interfaces.ISimplelayoutDefaultSettings" />
 
-  <records prefix="plone.resources/ftw-simplelayout"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/ftw.simplelayout.js</value>
-    <value key="deps">jquery,jqueryui</value>
-  </records>
-
-  <records prefix="plone.resources/ftw-simplelayout-overlay"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/Overlay.js</value>
-    <value key="deps">jquery</value>
-  </records>
-
-  <records prefix="plone.resources/ftw-simplelayout-integration"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/main.js</value>
-    <value key="deps">jquery</value>
-  </records>
-
-  <records prefix="plone.resources/ftw-simplelayout-xhrhttperrorhandler"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/XHRHTTPErrorHandler.js</value>
-    <value key="deps">jquery</value>
-  </records>
-
-  <records prefix="plone.resources/ftw-simplelayout-xhrhttperrorhandler"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/XHRHTTPErrorHandler.js</value>
-    <value key="deps">jquery</value>
-  </records>
-
-  <records prefix="plone.resources/ftw-simplelayout-requesttracker"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++resource++ftw.simplelayout/RequestTracker.js</value>
-    <value key="deps">jquery</value>
-  </records>
-
-
     <records prefix="plone.bundles/ftw-simplelayout"
              interface='Products.CMFPlone.interfaces.IBundleRegistry'>
-      <value key="resources">
-        <element>ftw-simplelayout</element>
-        <element>ftw-simplelayout-overlay</element>
-        <element>ftw-simplelayout-integration</element>
-        <element>ftw-simplelayout-xhrhttperrorhandler</element>
-        <element>ftw-simplelayout-requesttracker</element>
-      </value>
       <value key="enabled">True</value>
       <value key="expression">python: member is not None</value>
-      <value key="depends">plone-legacy</value>
+      <value key="depends">plone-logged-in</value>
+      <value key="stub_js_modules">jquery,jquery-ui</value>
       <value key="compile">False</value>
-      <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-compiled.js</value>
+      <value key="jscompilation">++resource++ftw.simplelayout/simplelayout-compiled.js</value>
+      <value key="last_compilation">2019-12-09 15:25:00</value>
+      <value key="merge_with">logged-in</value>
     </records>
 
 </registry>
