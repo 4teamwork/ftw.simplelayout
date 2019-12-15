@@ -40,6 +40,10 @@ class TextBlockView(BaseBlock):
         if not self.context.image:
             return
 
+        scale = self._get_image_scale()
+        if not scale:
+            return
+
         data = {
             'wrapper_css_classes': ' '.join(
                 ['sl-image', self._get_image_scale_name(),
@@ -48,7 +52,7 @@ class TextBlockView(BaseBlock):
             'link_url': '',
             'link_title': self._get_link_title(),
             'link_css_classes': '',
-            'image_tag': self._get_image_scale().tag(
+            'image_tag': scale.tag(
                 alt=self._get_image_alt_text(),
                 title=None,
                 height=None,
