@@ -475,19 +475,16 @@ Rebuilding the library (resources/ftw.simplelayout.js):
 
 .. code-block:: bash
 
-    grunt dist
+    yarn build
 
 To watch for changes and rebuild the bundle automatically:
 
 .. code-block:: bash
 
-    grunt dev
+    yarn watch
 
-or the default task
-
-.. code-block:: bash
-
-    grunt
+You can get an expanded version of the compiled js, by disabling the uglifying
+with the additional option ``optimize: "none"`` in the ``Gruntfile.js``.
 
 Testing
 -------

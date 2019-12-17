@@ -9,9 +9,10 @@
     "babelify-es6-polyfill": "1.0.4",
     "browserify-shim": "3.8.12",
     "chai": "3.5.0",
-    "chokidar-cli": "^2.1.0",
     "grunt": "1.0.1",
     "grunt-browserify": "5.0.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-karma": "2.0.0",
     "jasmine-core": "2.5.2",
     "jquery": "2.1.0",
@@ -49,9 +50,9 @@
     }
   },
   "scripts": {
-    "build": "r.js -o build.js",
+    "build": "grunt build",
     "test": "karma start",
-    "watch": "chokidar \"./ftw/simplelayout/browser/resources/*.js\" -i \"**/*-compiled.js\" -c \"r.js -o build.js\""
+    "watch": "grunt watch"
   },
   "repository": {
     "type": "git",
