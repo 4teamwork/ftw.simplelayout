@@ -38,15 +38,15 @@
         button.on('click', function(event){
           event.stopPropagation();
           event.preventDefault();
-          dropzoneObj.processQueue();      
+          dropzoneObj.processQueue();
         });
         dropzoneObj.on("success", function() {
-           dropzoneObj.options.autoProcessQueue = true; 
+           dropzoneObj.options.autoProcessQueue = true;
         });
         dropzoneObj.on('addedfile', function (file) {
           var unique_field_id = new Date().getTime();
           var title = $('<input id="' + file.name + unique_field_id + '_title" value="' + file.name + '" type="text" name="title" placeholder="Title">');
-          $(file.previewElement).append(title);  
+          $(file.previewElement).append(title);
         });
       },
     });
@@ -71,7 +71,7 @@
 
   $(document).on('ready', function(){
     $('.sl-block').each(function(){
-      initDropZone(this);  
+      initDropZone(this);
     });
   });
 
