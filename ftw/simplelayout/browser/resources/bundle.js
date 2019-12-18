@@ -1,1 +1,1 @@
-require(['Overlay', 'main', 'XHRHTTPErrorHandler', 'RequestTracker'], function (overlay, main, errorHandler, requestTracker) {});
+require(['Overlay', 'simplelayout_main', 'XHRHTTPErrorHandler', 'RequestTracker'], function (overlay, simplelayout_main, errorHandler, requestTracker) {});

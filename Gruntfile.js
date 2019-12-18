@@ -31,6 +31,7 @@ module.exports = function(grunt) {
           baseUrl: "./ftw/simplelayout/browser/resources",
            paths: {
              jquery: "empty:",
+             simplelayout_main: "main",
            },
            name: "bundle",
            out: "./ftw/simplelayout/browser/resources/simplelayout-compiled.js",
