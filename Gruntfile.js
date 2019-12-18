@@ -7,25 +7,6 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON("package.json"),
 
     browserify: {
-      dev: {
-        dest: "./ftw/simplelayout/browser/resources/<%= pkg.name %>.js",
-        src: "./ftw/simplelayout/js/src/<%= pkg.name %>.js",
-        options: {
-          watch: true,
-          keepAlive: true,
-          browserifyOptions: {
-            debug: true,
-            standalone: "<%= pkg.name %>",
-            paths: ["./ftw/simplelayout/js/src"],
-            transform: [
-              ["babelify", {
-                presets: "es2015"
-              }],
-              "browserify-shim"
-            ]
-          }
-        },
-      },
       dist: {
         dest: "./ftw/simplelayout/browser/resources/<%= pkg.name %>.js",
         src: "./ftw/simplelayout/js/src/<%= pkg.name %>.js",
@@ -44,6 +25,22 @@ module.exports = function(grunt) {
       }
     },
 
+    requirejs: {
+      compile: {
+        options: {
+          baseUrl: "./ftw/simplelayout/browser/resources",
+           paths: {
+             jquery: "empty:",
+           },
+           name: "bundle",
+           out: "./ftw/simplelayout/browser/resources/simplelayout-compiled.js",
+           preserveLicenseComments: false,
+           // Uncomment the line below for JS development
+           // optimize: "none",
+        },
+      },
+    },
+
     karma: {
       options: {
         configFile: "karma.conf.js"
@@ -56,16 +53,29 @@ module.exports = function(grunt) {
         autoWatch: false,
         singleRun: true
       }
+    },
+
+    watch: {
+      scripts: {
+        files: [
+          "./ftw/simplelayout/js/src/**/*.js",
+          "./ftw/simplelayout/js/src/*.js",
+          "./ftw/simplelayout/resources/*.js",
+          "!./ftw/simplelayout/browser/resources/simplelayout-compiled.js",
+          "!./ftw/simplelayout/browser/resources/ftw.simplelayout.js",
+        ],
+        tasks: ["browserify", "requirejs" ]
+      }
     }
   });
 
   grunt.loadNpmTasks("grunt-browserify");
   grunt.loadNpmTasks("grunt-karma");
+  grunt.loadNpmTasks("grunt-contrib-watch");
+  grunt.loadNpmTasks("grunt-contrib-requirejs");
 
-  grunt.registerTask("dev", ["browserify:dev"]);
-  grunt.registerTask("dist", ["browserify:dist"]);
+  grunt.registerTask("default", ["watch"]);
+  grunt.registerTask("build", ["browserify", "requirejs"]);
   grunt.registerTask("test", ["karma:dev"]);
   grunt.registerTask("test-ci", ["karma:ci"]);
-  grunt.registerTask("default", ["dev"]);
-
 };

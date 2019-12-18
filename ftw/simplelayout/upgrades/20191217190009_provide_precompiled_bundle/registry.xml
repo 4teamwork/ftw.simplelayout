@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records prefix="plone.bundles/ftw-simplelayout"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="enabled">True</value>
+    <value key="expression">python: member is not None</value>
+    <value key="depends">plone-logged-in</value>
+    <value key="stub_js_modules">jquery,jquery-ui</value>
+    <value key="compile">False</value>
+    <value key="jscompilation">++resource++ftw.simplelayout/simplelayout-compiled.js</value>
+    <value key="last_compilation">2019-12-09 15:25:00</value>
+    <value key="merge_with">logged-in</value>
+  </records>
+
+</registry>

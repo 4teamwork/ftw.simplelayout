@@ -5,7 +5,7 @@ Changelog
 2.5.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Provide precompile bundle. [buchi, jone]
 
 
 2.5.2 (2019-12-05)

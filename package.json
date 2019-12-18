@@ -11,6 +11,8 @@
     "chai": "3.5.0",
     "grunt": "1.0.1",
     "grunt-browserify": "5.0.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
     "grunt-karma": "2.0.0",
     "jasmine-core": "2.5.2",
     "jquery": "2.1.0",
@@ -25,6 +27,7 @@
     "karma-jasmine": "1.0.2",
     "karma-mocha-reporter": "^2.2.2",
     "karma-phantomjs-launcher": "1.0.2",
+    "requirejs": "^2.3.6",
     "underscore": "1.8.3"
   },
   "dependencies": {
@@ -47,7 +50,9 @@
     }
   },
   "scripts": {
-    "test": "karma start"
+    "build": "grunt build",
+    "test": "karma start",
+    "watch": "grunt watch"
   },
   "repository": {
     "type": "git",
