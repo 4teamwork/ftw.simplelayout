@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix js module name clash [Nachtalb]
+- Fix error when file is uploaded as ZPublisher.HTTPRequest.FileUpload in plone 4 [Nachtalb]
 
 
 2.5.3 (2019-12-18)

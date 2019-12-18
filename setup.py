@@ -32,6 +32,7 @@ extras_require = {
     ],
     'plone4': [
         'plone.app.referenceablebehavior',
+        'ftw.uploadutility',
     ],
     'trash': [
         'ftw.trash',
