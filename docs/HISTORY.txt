@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.4 (unreleased)
+2.5.4 (2019-12-18)
 ------------------
 
 - Fix js module name clash [Nachtalb]
