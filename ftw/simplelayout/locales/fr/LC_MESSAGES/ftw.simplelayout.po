@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-18 17:20+0000\n"
+"POT-Creation-Date: 2019-12-19 09:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,10 +49,6 @@ msgstr ""
 
 #: ./ftw/simplelayout/mapblock/behavior.py:15
 msgid "Coordinates"
-msgstr ""
-
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
-msgid "Dateien hier hochladen"
 msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
@@ -135,7 +131,7 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:81
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:90
 msgid "Only images can be added to the gallery."
 msgstr ""
 
@@ -268,8 +264,9 @@ msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
 msgid "Upload files here"
-msgstr ""
+msgstr "Téléchargez des fichiers ici"
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
 #: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.VideoBlock.xml
@@ -418,7 +415,7 @@ msgstr ""
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:92
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:96
 msgid "image_link_alttext"
 msgstr ""
 

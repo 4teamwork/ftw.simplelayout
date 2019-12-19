@@ -18,7 +18,7 @@
         <div class="filedropzone"
              tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
                              data-type string:File">
-          <div class="dz-message" data-dz-message><span i18n:translate="">Dateien hier hochladen</span></div>
+          <div class="dz-message" data-dz-message><span i18n:translate="">Upload files here</span></div>
         </div>
         <button class="upload">Upload</button>
       </div>

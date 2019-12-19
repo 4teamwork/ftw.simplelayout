@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-09-18 17:20+0000\n"
+"POT-Creation-Date: 2019-12-19 09:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,10 +47,6 @@ msgstr "Inhaltsseite show title behavior"
 #: ./ftw/simplelayout/mapblock/behavior.py:15
 msgid "Coordinates"
 msgstr "Koordinaten"
-
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
-msgid "Dateien hier hochladen"
-msgstr ""
 
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:61
 msgid "Delete"
@@ -132,7 +128,7 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:81
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:90
 msgid "Only images can be added to the gallery."
 msgstr "Es können nur Bilder in den Galerie-Block hochgeladen werden. Dies scheint kein Bild zu sein."
 
@@ -265,8 +261,9 @@ msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
 msgid "Upload files here"
-msgstr ""
+msgstr "Dateien hier hochladen"
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.VideoBlock.xml
 #: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.VideoBlock.xml
@@ -415,7 +412,7 @@ msgstr "Bild Legende:"
 
 #. Default: "${title}, enlarged picture."
 #: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:92
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:96
 msgid "image_link_alttext"
 msgstr "${title}. Vergrösserte Ansicht"
 
@@ -707,3 +704,4 @@ msgstr "Wenn diese Option aktiviert ist, wird im Bild-Overlay das zugeschnittene
 #: ./ftw/simplelayout/staging/templates/baseline_viewlet.pt:15
 msgid "working_copy"
 msgstr "Arbeitskopie"
+
