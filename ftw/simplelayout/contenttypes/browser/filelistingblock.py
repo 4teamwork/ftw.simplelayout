@@ -1,9 +1,10 @@
 from Acquisition._Acquisition import aq_inner
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.table.interfaces import ITableGenerator
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.dexterity.utils import safe_utf8
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 
@@ -25,7 +26,7 @@ class FileListingBlockView(BaseBlock):
         path = '/'.join(self.context.getPhysicalPath())
         query['path'] = {'query': path, 'depth': 1}
         query['sort_on'] = self.context.sort_on
-        query['sort_order'] = self.context.sort_order
+        query['sort_order'] = safe_utf8(self.context.sort_order)
         return query
 
     def _get_columns(self, column_id):
