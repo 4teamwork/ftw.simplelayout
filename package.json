@@ -34,7 +34,7 @@
     "cropperjs": "1.4.1",
     "dropzone": "5.5.1",
     "group-by": "0.0.1",
-    "handlebars": "4.0.5",
+    "handlebars": "4.3.0",
     "jsrender": "0.9.83",
     "wolfy87-eventemitter": "5.1.0"
   },
