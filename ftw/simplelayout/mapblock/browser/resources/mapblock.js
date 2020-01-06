@@ -92,7 +92,7 @@
       });
 
       // Fix mouse pointer position according to openlayers pointer
-      $(mapWidgets.closest(".pb-ajax")).on("scroll", function(){
+      $(mapWidgets.closest(".sl-ajax")).on("scroll", function(){
         mapWidgets.collectivegeo("refresh");
       });
     }

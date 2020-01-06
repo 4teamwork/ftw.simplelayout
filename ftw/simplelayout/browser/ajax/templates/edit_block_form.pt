@@ -1,4 +1,4 @@
-<div class="pb-ajax">
+<div class="sl-ajax">
   <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
   <div id="content-core">
       <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
