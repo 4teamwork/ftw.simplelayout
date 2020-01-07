@@ -1,5 +1,5 @@
 
-<div class="pb-ajax">
+<div class="sl-ajax">
   <h1 class="documentFirstHeading" tal:content="view/label">Title</h1>
   <div id="content-core" tal:content="structure view/contents" />
 </div>
