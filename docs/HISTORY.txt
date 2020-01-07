@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.6 (unreleased)
+2.5.6 (2020-01-07)
 ------------------
 
 - Repair overlay styles. [djowett-ftw]
