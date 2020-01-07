@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Repair overlay styles. [djowett-ftw]
+- To create a file, get the correct file type from the schema. [tinagerber]
 
 
 2.5.5 (2019-12-20)
