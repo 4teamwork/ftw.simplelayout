@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2020-01-08 16:55+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+msgid "ftw.simplelayout.ContentPage"
+msgstr "Inhaltsseite"
+
+msgid "ftw.simplelayout.FileListingBlock"
+msgstr "Dateiauflistung"
+
+msgid "ftw.simplelayout.GalleryBlock"
+msgstr "Bildergalerie"
+
+msgid "ftw.simplelayout.MapBlock"
+msgstr "Karte"
+
+msgid "ftw.simplelayout.TextBlock"
+msgstr "Text/Bild"
+
+msgid "ftw.simplelayout.VideoBlock"
+msgstr "Video"
+
