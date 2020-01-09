@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.7 (unreleased)
+2.5.7 (2020-01-09)
 ------------------
 
 - Add ftw.simplelayout portal_types translations to plone domain. [tinagerber]
