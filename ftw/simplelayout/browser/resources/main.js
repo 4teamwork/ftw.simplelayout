@@ -33,6 +33,8 @@
       autoProcessQueue: false,
       parallelUploads: 1,
       uploadMultiple: false,
+      addRemoveLinks: true,
+      dictRemoveFile: 'Datei löschen',
       init: function () {
         var dropzoneObj = this;
         button.on('click', function(event){
