@@ -33,6 +33,7 @@
       autoProcessQueue: false,
       parallelUploads: 1,
       uploadMultiple: false,
+      previewTemplate: document.querySelector('#dropzone-tmpl').innerHTML,
       init: function () {
         var dropzoneObj = this;
         button.on('click', function(event){

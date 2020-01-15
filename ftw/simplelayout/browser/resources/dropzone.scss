@@ -236,11 +236,15 @@
         -o-transition: opacity 0.2s linear;
         transition: opacity 0.2s linear; }
     .filedropzone .dz-preview .dz-remove {
-      font-size: 14px;
+      font-size: 1.5em;
       text-align: center;
       display: block;
       cursor: pointer;
-      border: none; }
+      border: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 24; }
       .filedropzone .dz-preview .dz-remove:hover {
         text-decoration: underline; }
     .filedropzone .dz-preview:hover .dz-details {
@@ -408,5 +412,9 @@
 }
 
 .dz-filename {
+  display: none;
+}
+
+#dropzone-tmpl {
   display: none;
 }

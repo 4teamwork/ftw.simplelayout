@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-12-19 09:22+0000\n"
+"POT-Creation-Date: 2020-01-15 12:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:90
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:92
 msgid "Only images can be added to the gallery."
 msgstr ""
 
@@ -238,7 +238,7 @@ msgid "This behaviour will make a content geo referenceable"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:28
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:30
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:48
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr ""
@@ -264,7 +264,7 @@ msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:21
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:39
 msgid "Upload files here"
 msgstr ""
 
@@ -691,6 +691,11 @@ msgstr ""
 #. Default: "These internal links will be broken"
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:37
 msgid "title_delete_link_check"
+msgstr ""
+
+#. Default: "Remove file"
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:20
+msgid "title_dropzone_remove"
 msgstr ""
 
 #. Default: "Use cropped image for overlay"

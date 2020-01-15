@@ -15,6 +15,24 @@
     <metal:DROPZONE define-slot="dropzone">
       <div class="dropzonewrapper"
            tal:condition="view/can_add">
+        <div id="dropzone-tmpl">
+          <div class="dz-preview dz-image-preview">
+            <i class="fa fa-window-close dz-remove" data-dz-remove
+               title="Remove file" i18n:attributes="title title_dropzone_remove;"
+            ></i>
+            <div class="dz-image">
+              <img data-dz-thumbnail>
+            </div>
+            <div class="dz-details">
+              <div class="dz-size" data-dz-size></div>
+              <div class="dz-filename"><span data-dz-name></span></div>
+            </div>
+            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+            <div class="dz-success-mark"><span>✔</span></div>
+            <div class="dz-error-mark"><span>✘</span></div>
+          </div>
+        </div>
         <div class="filedropzone"
              tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
                              data-type string:File">
