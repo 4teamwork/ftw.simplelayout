@@ -50,6 +50,7 @@ class DropzoneUploadBase(BrowserView):
         kwargs = {'container': self.context,
                   'type': portal_type,
                   'title': self.request.get('title', filename),
+                  'description': self.request.get('description'),
                   'safe_id': True}
 
         if self.is_dexterity_fti(portal_type):

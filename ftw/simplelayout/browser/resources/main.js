@@ -46,8 +46,13 @@
         });
         dropzoneObj.on('addedfile', function (file) {
           var unique_field_id = new Date().getTime();
-          var title = $('<input id="' + file.name + unique_field_id + '_title" value="' + file.name + '" type="text" name="title" placeholder="Title">');
-          $(file.previewElement).append(title);
+          var title_id = file.name + unique_field_id + '_title';
+          var title_label = '<label for="' + title_id + '" class="horizontal">Title</label>';
+          var title_field = '<input id="' + title_id + '" value="' + file.name + '" type="text" name="title">';
+          var desc_id = file.name + unique_field_id + '_desc';
+          var desc_label = '<label for="' + desc_id + '" class="horizontal">Description</label>';
+          var desc_field = '<input id="' + desc_id + '" value="" type="text" name="description">';
+          $(file.previewElement).append(title_label, title_field, desc_label, desc_field);
         });
       },
     });
@@ -56,7 +61,9 @@
 
     dropzoneObj.on('sending', function(file, xhr, formData){
       var title = file.previewElement.querySelector("input[name='title']");
+      var description = file.previewElement.querySelector("input[name='description']");
       formData.append("title", $(title).val());
+      formData.append("description", $(description).val());
       formData.append('_authenticator', $('[name="_authenticator"]').val());
     });
     dropzoneObj.on('queuecomplete', function(){
