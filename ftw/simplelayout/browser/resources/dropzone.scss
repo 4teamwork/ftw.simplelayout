@@ -293,8 +293,10 @@
       position: relative;
       display: block;
       z-index: 10; }
-      .filedropzone .dz-preview .dz-image img {
-        display: block; }
+    .filedropzone .dz-preview .dz-image img,
+    .filedropzone .dz-preview input,
+    .filedropzone .dz-preview label {
+      display: block; }
     .filedropzone .dz-preview.dz-success .dz-success-mark {
       -webkit-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
       -moz-animation: passing-through 3s cubic-bezier(0.77, 0, 0.175, 1);
