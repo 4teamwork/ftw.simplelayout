@@ -31,7 +31,18 @@
             <div class="dz-error-message"><span data-dz-errormessage></span></div>
             <div class="dz-success-mark"><span>✔</span></div>
             <div class="dz-error-mark"><span>✘</span></div>
+            <div class="dz-file-metadata"
+                 i18n:domain="plone">
+              <label for="MAKEUNIQUE_title" i18n:translate="label_title">Title</label>
+              <input id="MAKEUNIQUE_title" value="" type="text" name="title">
+              <label for="MAKEUNIQUE_desc" i18n:translate="label_description">Description</label>
+              <input id="MAKEUNIQUE_desc" value="" type="text" name="description">
+           </div>
+
           </div>
+
+
+
         </div>
         <div class="filedropzone"
              tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;

@@ -33,7 +33,7 @@
       autoProcessQueue: false,
       parallelUploads: 1,
       uploadMultiple: false,
-      previewTemplate: document.querySelector('#dropzone-tmpl').innerHTML,
+      previewTemplate: $(element).find('#dropzone-tmpl').html(),
       init: function () {
         var dropzoneObj = this;
         button.on('click', function(event){
@@ -45,14 +45,19 @@
            dropzoneObj.options.autoProcessQueue = true;
         });
         dropzoneObj.on('addedfile', function (file) {
-          var unique_field_id = new Date().getTime();
-          var title_id = file.name + unique_field_id + '_title';
-          var title_label = '<label for="' + title_id + '" class="horizontal">Title</label>';
-          var title_field = '<input id="' + title_id + '" value="' + file.name + '" type="text" name="title">';
-          var desc_id = file.name + unique_field_id + '_desc';
-          var desc_label = '<label for="' + desc_id + '" class="horizontal">Description</label>';
-          var desc_field = '<input id="' + desc_id + '" value="" type="text" name="description">';
-          $(file.previewElement).append(title_label, title_field, desc_label, desc_field);
+          var timestamp = new Date().getTime();
+          var unique_field_prefix = file.name + '_' + timestamp;
+          $(file.previewElement).find('.dz-file-metadata').children('input').each(function() {
+            var new_id = $(this).attr('id').replace('MAKEUNIQUE', unique_field_prefix);
+            $(this).attr('id', new_id);
+            if ($(this).attr('name') == 'title') {
+              $(this).val(file.name);
+            }
+          });
+          $(file.previewElement).find('.dz-file-metadata').children('label').each(function() {
+            var new_for = $(this).attr('for').replace('MAKEUNIQUE', unique_field_prefix);
+            $(this).attr('for', new_for);
+          });
         });
       },
     });
