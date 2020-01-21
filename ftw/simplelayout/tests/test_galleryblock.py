@@ -107,7 +107,7 @@ class TestGalleryBlock(TestCase):
                .within(block))
 
         browser.login().visit(self.page)
-        self.assertEquals(2, len(browser.css('.sl-block-content img')))
+        self.assertEquals(2, len(browser.css('.sl-block-content .galleryblockImageWrapper img')))
 
     @browsing
     def test_each_gallery_has_a_unique_rel_name(self, browser):
@@ -575,5 +575,5 @@ class TestGalleryBlock(TestCase):
         browser.login().visit(self.page)
         self.assertEqual(
             'http://nohost/plone/++resource++ftw.simplelayout/image_unavailable.png',
-            browser.css('.sl-block-content img').first.attrib['src']
+            browser.css('.sl-block-content .galleryblockImageWrapper img').first.attrib['src']
         )

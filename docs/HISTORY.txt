@@ -5,7 +5,8 @@ Changelog
 2.5.9 (unreleased)
 ------------------
 
-- Allow a description to be added when files are uploaded via the listingblock. [djowett-ftw]
+- Allow a description to be added when files are uploaded via
+  listingblock or galleryblock. [djowett-ftw]
 
 
 2.5.8 (2020-01-15)
