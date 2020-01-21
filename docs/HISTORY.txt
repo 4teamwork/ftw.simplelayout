@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.9 (unreleased)
+2.5.9 (2020-01-21)
 ------------------
 
 - Allow a description to be added when files are uploaded via
