@@ -7,8 +7,8 @@ maintainer = 'Mathias Leimgruber'
 tests_require = [
     'Products.CMFPlone',
     'Products.GenericSetup',
-    'ftw.builder',
-    'ftw.testbrowser',
+    'ftw.builder<1.12a',
+    'ftw.testbrowser<2a',
     'ftw.testing',
     'path.py',
     'plone.app.lockingbehavior',
@@ -38,6 +38,8 @@ extras_require = {
     ],
     'mapblock': [
         'collective.geo.bundle [dexterity]',
+        'collective.geo.mapwidget<3a',
+        'collective.geo.openlayers<4a',
     ]
 }
 
