@@ -5,7 +5,7 @@ Changelog
 2.5.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make migration more robust. [mbaechtold]
 
 
 2.5.9 (2020-01-21)

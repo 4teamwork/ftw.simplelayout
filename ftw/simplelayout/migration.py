@@ -268,7 +268,9 @@ def migrate_image_to_file(obj):
     MigrateToFile(obj.portal_setup)
 
     # clear archetypes.schemaextender cache
-    getattr(obj.REQUEST, CACHE_KEY).pop(IUUID(obj), None)
+    archetypes_schemaextender_cache = getattr(obj.REQUEST, CACHE_KEY)
+    if archetypes_schemaextender_cache:
+        archetypes_schemaextender_cache.pop(IUUID(obj), None)
 
     ifaces_to_remove = (set(providedBy(obj)) -
                         set(implementedBy(obj.__class__)))
