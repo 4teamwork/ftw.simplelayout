@@ -31,8 +31,6 @@ Please use the `plone4` extra on Plone 4 Installations in order to have the righ
 
 **Plone 5.1.x**
 
-So far Simplelayout for Plone 5.1.x has reached beta state and has never been used on a production site so far. Use it at your own risk.
-
 Features dropped for Plone 5.1.x:
 
 - Anchor extraction from Blocks for anchors on a page.
