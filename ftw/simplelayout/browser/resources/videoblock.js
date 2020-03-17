@@ -1,5 +1,10 @@
-(function(global) {
-
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    require(["jquery"], factory);
+  } else {
+    factory(root.jQuery);
+  }
+}(typeof self !== 'undefined' ? self : this, function ($) {
   "use strict";
 
   // Return function that will be only called during a free painting loop
@@ -47,7 +52,7 @@
 
         var options = $.extend(defaults, config);
 
-        new global.YT.Player(container, options);
+        new window.YT.Player(container, options);
       }
     };
 
@@ -63,7 +68,7 @@
           });
         };
 
-        if (typeof YT === "undefined" || typeof global.YT.Player === "undefined") {
+        if (typeof YT === "undefined" || typeof window.YT.Player === "undefined") {
           $.getScript("//www.youtube.com/iframe_api");
         } else {
           window.onYouTubePlayerAPIReady();
@@ -77,6 +82,5 @@
     initializeYoutubeApi();
 
   });
-
-})(window);
+}));
 
