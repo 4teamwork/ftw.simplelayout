@@ -7,6 +7,8 @@ Changelog
 
 - Make migration more robust. [mbaechtold]
 
+- Fix youtube player integration [mathias.leimgruber]
+
 
 2.5.9 (2020-01-21)
 ------------------
