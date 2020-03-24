@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.10 (unreleased)
+2.5.10 (2020-03-24)
 -------------------
 
 - Make migration more robust. [mbaechtold]
