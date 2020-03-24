@@ -73,7 +73,11 @@ def update_page_state_on_block_remove(block, event):
         if parent is not event.oldParent:
             return
 
-        config = IPageConfiguration(parent)
+        config = IPageConfiguration(parent, None)
+        if not config:
+            # We are not able to update the page state if the parent
+            # of the block is not simplelayoutish at all.
+            return
         page_state = config.load()
 
         for container in page_state.values():

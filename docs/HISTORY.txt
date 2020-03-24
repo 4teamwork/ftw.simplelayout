@@ -5,7 +5,7 @@ Changelog
 2.5.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix deletion of blocks if parent is not simplelayoutish. [mbaechtold]
 
 
 2.5.10 (2020-03-24)
