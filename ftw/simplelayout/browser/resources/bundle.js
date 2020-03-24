@@ -1,1 +1,1 @@
-require(['Overlay', 'simplelayout_main', 'XHRHTTPErrorHandler', 'RequestTracker'], function (overlay, simplelayout_main, errorHandler, requestTracker) {});
+require(['Overlay', 'simplelayout_main', 'XHRHTTPErrorHandler', 'RequestTracker', 'videoblock'], function (overlay, simplelayout_main, errorHandler, requestTracker, videoblock) {});
