@@ -5,7 +5,8 @@ Changelog
 1.25.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Backport of from 2.x e1392375e96cf3f6575c59555fe16ae9ce6bc522
+  Fix youtube player integration [mathias.leimgruber]
 
 
 1.25 (2020-02-05)
