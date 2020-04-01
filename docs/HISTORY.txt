@@ -5,7 +5,7 @@ Changelog
 2.5.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Always load videoblock js, not only when logged in [Nachtalb]
 
 
 2.5.12 (2020-04-24)

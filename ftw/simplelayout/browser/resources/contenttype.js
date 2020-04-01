@@ -1,0 +1,1 @@
+require(['videoblock'], function (videoblock) {});
