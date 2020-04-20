@@ -32,6 +32,7 @@ module.exports = function(grunt) {
            paths: {
              jquery: "empty:",
              simplelayout_main: "main",
+             ftwcolorbox_init: "empty:",
            },
            name: "bundle",
            out: "./ftw/simplelayout/browser/resources/simplelayout-compiled.js",

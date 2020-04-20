@@ -1,12 +1,12 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
-    define(["jquery", "ftw.simplelayout"], factory);
+    define(["jquery", "ftw.simplelayout", "ftwcolorbox_init"], factory);
   } else {
-    factory(root.jQuery, root.ftw.simplelayout);
+    factory(root.jQuery, root.ftw.simplelayout, root.ftwColorboxInitialize);
   }
-}(typeof self !== 'undefined' ? self : this, function ($, ftwsimplelayout) {
-  var global = window;
+}(typeof self !== 'undefined' ? self : this, function ($, ftwsimplelayout, ftwColorboxInitialize) {
   "use strict";
+  var global = window;
 
   // Disable inline validation of the Plone forms in the overlay.
   $(document).on('onLoad OverlayContentReloaded', '.overlay', function(){
@@ -77,10 +77,20 @@
       var configRequest = $.post('./sl-ajax-reload-block-view', { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
         block.content(blockContent);
+        initializeColorbox();
         initDropZone(block.element);
       });
     });
   }
+
+
+  function initializeColorbox() {
+    if($(".colorboxLink").length > 0) {
+      if (typeof ftwColorboxInitialize !== "undefined" && $.isFunction(ftwColorboxInitialize)) {
+        ftwColorboxInitialize();
+      }
+    }
+  };
 
   $(document).ready(function(){
     $('.sl-block').each(function(){
@@ -145,14 +155,6 @@
     var target = $("body");
 
     var baseUrl = $("base").length === 1 ? $("base").attr("href") : $("body").data("base-url") + "/";
-
-    var initializeColorbox = function() {
-      if($(".colorboxLink").length > 0) {
-        if (typeof global.ftwColorboxInitialize !== "undefined" && $.isFunction(global.ftwColorboxInitialize)) {
-          global.ftwColorboxInitialize();
-        }
-      }
-    };
 
     var options = $.extend({
       canChangeLayout: false,

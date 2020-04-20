@@ -82,6 +82,7 @@ setup(name='ftw.simplelayout',
           'collective.dexteritytextindexer',
           'collective.js.jqueryui',
           'ftw.autofeature',
+          # TODO require latest release of ftw.colorbox (1.6.0) for AMD module
           'ftw.colorbox >= 1.3.0',
           'ftw.iframefix',
           'ftw.referencewidget >= 2.1.0',
