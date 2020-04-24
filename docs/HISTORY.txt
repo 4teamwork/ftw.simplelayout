@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.12 (unreleased)
+2.5.12 (2020-04-24)
 -------------------
 
 - Fix 'upload files here' dropzone not working except just after galleryblock creation. [djowett-ftw]
