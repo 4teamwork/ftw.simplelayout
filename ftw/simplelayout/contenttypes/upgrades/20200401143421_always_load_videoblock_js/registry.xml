@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<registry>
+  <records prefix="plone.bundles/ftw-simplelayout-contenttype"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="enabled">True</value>
+    <value key="stub_js_modules">jquery</value>
+    <value key="compile">False</value>
+    <value key="jscompilation">++plone++ftw.simplelayout/simplelayout-contenttype-compiled.js</value>
+    <value key="last_compilation">2020-03-30 15:25:00</value>
+    <value key="merge_with">default</value>
+  </records>
+</registry>

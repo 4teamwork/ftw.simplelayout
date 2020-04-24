@@ -25,9 +25,9 @@ module.exports = function(grunt) {
       }
     },
 
-    requirejs: {
-      compile: {
-        options: {
+    requirejs:{
+      simplelayout:{
+        options:{
           baseUrl: "./ftw/simplelayout/browser/resources",
            paths: {
              jquery: "empty:",
@@ -38,8 +38,21 @@ module.exports = function(grunt) {
            preserveLicenseComments: false,
            // Uncomment the line below for JS development
            // optimize: "none",
-        },
+        }
       },
+      simplelayout_contenttype:{
+        options:{
+          baseUrl: "./ftw/simplelayout/browser/resources",
+           paths: {
+             jquery: "empty:",
+           },
+           name: "contenttype",
+           out: "./ftw/simplelayout/browser/resources/simplelayout-contenttype-compiled.js",
+           preserveLicenseComments: false,
+           // Uncomment the line below for JS development
+           // optimize: "none",
+        }
+       }
     },
 
     karma: {
