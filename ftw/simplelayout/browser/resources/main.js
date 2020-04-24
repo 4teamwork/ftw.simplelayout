@@ -82,7 +82,7 @@
     });
   }
 
-  $(document).on('ready', function(){
+  $(document).ready(function(){
     $('.sl-block').each(function(){
       initDropZone(this);
     });
