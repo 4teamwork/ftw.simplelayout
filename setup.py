@@ -36,7 +36,10 @@ extras_require = {
     ],
     'trash': [
         'ftw.trash',
-    ]
+    ],
+    'aliasblock': [
+        # Use ftw.autofeature to automatically add aliasblock
+    ],
 }
 
 
