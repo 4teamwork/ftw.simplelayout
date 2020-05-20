@@ -1,0 +1,3 @@
+<div:aliasblock class="sl-alias-block">
+  <h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
+</div:aliasblock>

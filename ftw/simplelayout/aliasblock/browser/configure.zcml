@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:page
+        for="ftw.simplelayout.aliasblock.contents.interfaces.IAliasBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".aliasblock.AliasBlockView"
+        />
+
+</configure>
