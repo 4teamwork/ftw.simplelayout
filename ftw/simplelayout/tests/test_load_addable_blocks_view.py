@@ -22,7 +22,8 @@ class TestAddableBlocksDefaultContent(TestCase):
         result.sort()
 
         self.assertEquals(
-            ['ftw-simplelayout-filelistingblock',
+            ['ftw-simplelayout-aliasblock',
+             'ftw-simplelayout-filelistingblock',
              'ftw-simplelayout-galleryblock',
              'ftw-simplelayout-mapblock',
              'ftw-simplelayout-textblock',
