@@ -64,6 +64,7 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
 
         applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
         applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+        applyProfile(portal, 'ftw.simplelayout.aliasblock:default')
         applyProfile(portal, 'ftw.file:default')
 
         if IS_PLONE_5:
