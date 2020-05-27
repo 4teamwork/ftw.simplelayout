@@ -1,5 +1,6 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from zExceptions import Unauthorized
 
 
 class AliasBlockView(BaseBlock):
@@ -13,5 +14,8 @@ class AliasBlockView(BaseBlock):
     def get_referenced_block_content(self):
         """Returns the rendered simplayout block"""
 
-        view = self.referenced_page.restrictedTraverse('@@block_view')
-        return view.template()
+        try:
+            view = self.referenced_page.restrictedTraverse('@@block_view')
+            return view.template()
+        except Unauthorized:
+            return
