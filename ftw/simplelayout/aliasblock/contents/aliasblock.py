@@ -36,7 +36,7 @@ class IAliasBlockSchema(form.Schema):
                 'ftw.simplelayout.TextBlock',
                 'ftw.simplelayout.GalleryBlock',
                 'ftw.simplelayout.FileListingBlock',
-                'ftw.slider.SliderBlock',
+                'ftw.slider.Container',
                 'ftw.news.NewsListingBlock',
                 'ftw.events.EventListingBlock',
                 'ftw.iframeblock.IFrameBlock',
