@@ -17,7 +17,8 @@ from plone.testing import z2
 from plone.testing import zca
 from unittest import TestCase
 from zope.configuration import xmlconfig
-import ftw.simplelayout.tests.builders
+import ftw.referencewidget.tests.widgets  # noqa
+import ftw.simplelayout.tests.builders  # noqa
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
