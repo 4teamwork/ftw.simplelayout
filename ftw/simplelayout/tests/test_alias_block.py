@@ -46,3 +46,20 @@ class TestAliasBlockRendering(TestCase):
         browser.find_button_by_label('Save').click()
 
         self.assertTrue(browser.css('.sl-alias-block'))
+
+    @browsing
+    def test_render_textblock_in_aliasblock(self, browser):
+        textblock = create(Builder('sl textblock')
+                           .titled(u'\xc4s Bl\xf6ckli')
+                           .within(self.page1))
+        alias = create(Builder('sl aliasblock')
+                       .having(alias=RelationValue(
+                           self.intids.getId(textblock)))
+                       .within(self.page2))
+
+        browser.visit(self.page2)
+        visit_link = browser.css('.sl-alias-block-visit-block').first.text
+        textblock_title = browser.css('.sl-alias-block h2').first.text
+
+        self.assertEqual(u'\U0001f517 Visit embedded block', visit_link)
+        self.assertEqual(u'\xc4s Bl\xf6ckli', textblock_title)
