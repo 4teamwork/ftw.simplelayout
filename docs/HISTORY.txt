@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.5.14 (unreleased)
+2.5.14 (2020-05-28)
 -------------------
 
 - Add vimeo video iframe wrapper for better styling possibility. [busykoala]
