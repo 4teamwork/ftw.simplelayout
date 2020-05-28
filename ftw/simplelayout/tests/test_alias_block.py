@@ -4,6 +4,9 @@ from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from unittest import TestCase
+from z3c.relationfield import RelationValue
+from zope.component import getUtility
+from zope.intid.interfaces import IIntIds
 
 
 class TestAliasBlockRendering(TestCase):
@@ -11,20 +14,35 @@ class TestAliasBlockRendering(TestCase):
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
 
     def setUp(self):
-        self.page = create(Builder('sl content page'))
+        self.page1 = create(Builder('sl content page'))
+        self.page2 = create(Builder('sl content page'))
+        self.intids = getUtility(IIntIds)
 
     @browsing
     def test_create_aliasblock(self, browser):
+        textblock = create(Builder('sl textblock')
+                           .titled(u'\xc4s Bl\xf6ckli')
+                           .within(self.page1))
         alias = create(Builder('sl aliasblock')
-                       .titled(u'\xc4lias Block')
-                       .within(self.page))
-        title = browser.visit(alias).css('.sl-alias-block h2').first.text
+                       .having(alias=RelationValue(
+                           self.intids.getId(textblock)))
+                       .within(self.page2))
 
-        self.assertEqual(u'\xc4lias Block', title)
+        browser.visit(self.page2)
+        block_elements = browser.visit(alias).css('.sl-alias-block')
+
+        self.assertEqual(len(block_elements), 1)
 
     @browsing
     def test_add_aliasblock_using_factoriesmenu(self, browser):
-        browser.login().visit(self.page)
+        textblock = create(Builder('sl textblock')
+                           .titled(u'\xc4s Bl\xf6ckli')
+                           .within(self.page1))
+        browser.login().visit(self.page2)
         factoriesmenu.add('AliasBlock')
-        browser.fill({'Title': u'\xc4lias Block'}).save()
+
+        form = browser.find_form_by_field('Alias Content')
+        form.find_widget('Alias Content').fill(textblock)
+        browser.find_button_by_label('Save').click()
+
         self.assertTrue(browser.css('.sl-alias-block'))
