@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-15 12:51+0000\n"
+"POT-Creation-Date: 2020-05-29 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr "Fügt eine Option hinzu, die es erlaubt, Blöcke visuell zu verstecken"
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr "Fügt eine checkbox hinzu, mit der der Titel einer Inhaltsseite versteckt werden kann"
+
+#: ./ftw/simplelayout/aliasblock/profiles/default/types/ftw.simplelayout.AliasBlock.xml
+msgid "AliasBlock"
+msgstr ""
 
 #: ./ftw/simplelayout/images/cropping/configure.zcml:19
 msgid "Allows to crop an image and use the cropped image for display"
@@ -128,7 +132,7 @@ msgstr "Mehrere Benutzer werden mit Komma getrennt"
 msgid "No image available"
 msgstr "Kein Bild zum Bearbeiten vorhanden."
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:92
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:93
 msgid "Only images can be added to the gallery."
 msgstr "Es können nur Bilder in den Galerie-Block hochgeladen werden. Dies scheint kein Bild zu sein."
 
@@ -148,11 +152,15 @@ msgstr "Zeige Titel"
 msgid "Shows OpenGraph meta tags"
 msgstr "Zeigt die OpenGraph Meta Tags"
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "Simlelayout aliasblock type"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:36
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -234,8 +242,8 @@ msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 msgid "This behaviour will make a content geo referenceable"
 msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:28
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:48
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:57
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:59
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
@@ -244,12 +252,20 @@ msgstr "Dieser Block hat keinen Inhalt."
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstall ftw.simplelayout.aliasblock"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr "Deinstalliere ftw.simplelayout.contenttypes"
 
 #: ./ftw/simplelayout/mapblock/configure.zcml:45
 msgid "Uninstall ftw.simplelayout.mapblock"
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstalls the ftw.simplelayout.aliasblock package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:55
@@ -260,8 +276,8 @@ msgstr "Deinstalliert das ftw.simplelayout.contenttypes Paket"
 msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:39
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:49
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:50
 msgid "Upload files here"
 msgstr "Dateien hier hochladen"
 
@@ -383,7 +399,11 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "ftw.simplelayout aliasblock default"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -430,6 +450,16 @@ msgstr "Block entfernen"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
 msgid "label_%ssort_index"
 msgstr "Sortierung"
+
+#. Default: "Alias Content"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:39
+msgid "label_alias_content"
+msgstr "Alias Inhalt"
+
+#. Default: "Choose a block to be rendered within this block."
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:41
+msgid "label_alias_description"
+msgstr "Wähle den Block, der im AliasBlock angezeigt werden soll."
 
 #. Default: "Ascending"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:118
@@ -556,6 +586,11 @@ msgstr "Bild ohne Ausrichtung"
 msgid "label_internal_link"
 msgstr "Interne Referenz"
 
+#. Default: "The embedded block does not exist."
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+msgid "label_invalid_reference"
+msgstr "Der eingebettete Block existiert nicht."
+
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
 msgid "label_is_hidden"
@@ -649,6 +684,11 @@ msgstr "Titel"
 msgid "label_video_url"
 msgstr "Video-URL"
 
+#. Default: "&#128279; Visit embedded block"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+msgid "label_visit_block"
+msgstr "&#128279; Zum Original-Block"
+
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68
 msgid "limit_height_str"
@@ -691,6 +731,7 @@ msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 
 #. Default: "Remove file"
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:19
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:20
 msgid "title_dropzone_remove"
 msgstr "Datei löschen"

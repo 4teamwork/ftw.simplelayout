@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-01-15 12:51+0000\n"
+"POT-Creation-Date: 2020-05-29 10:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/profiles/default/types/ftw.simplelayout.AliasBlock.xml
+msgid "AliasBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/images/cropping/configure.zcml:19
@@ -131,7 +135,7 @@ msgstr ""
 msgid "No image available"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:92
+#: ./ftw/simplelayout/contenttypes/browser/dropzone.py:93
 msgid "Only images can be added to the gallery."
 msgstr ""
 
@@ -151,11 +155,15 @@ msgstr ""
 msgid "Shows OpenGraph meta tags"
 msgstr ""
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "Simlelayout aliasblock type"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:36
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -237,14 +245,18 @@ msgstr ""
 msgid "This behaviour will make a content geo referenceable"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:28
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:48
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:57
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:59
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
 msgid "This is no a valid youtube, or vimeo url."
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstall ftw.simplelayout.aliasblock"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:55
@@ -255,6 +267,10 @@ msgstr ""
 msgid "Uninstall ftw.simplelayout.mapblock"
 msgstr ""
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstalls the ftw.simplelayout.aliasblock package."
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:55
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr ""
@@ -263,8 +279,8 @@ msgstr ""
 msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:20
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:39
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:49
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:50
 msgid "Upload files here"
 msgstr "Téléchargez des fichiers ici"
 
@@ -386,7 +402,11 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "ftw.simplelayout aliasblock default"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -432,6 +452,16 @@ msgstr ""
 #. Default: "sort_index"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
 msgid "label_%ssort_index"
+msgstr ""
+
+#. Default: "Alias Content"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:39
+msgid "label_alias_content"
+msgstr ""
+
+#. Default: "Choose a block to be rendered within this block."
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:41
+msgid "label_alias_description"
 msgstr ""
 
 #. Default: "Ascending"
@@ -559,6 +589,11 @@ msgstr ""
 msgid "label_internal_link"
 msgstr ""
 
+#. Default: "The embedded block does not exist."
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+msgid "label_invalid_reference"
+msgstr ""
+
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
 msgid "label_is_hidden"
@@ -652,6 +687,11 @@ msgstr ""
 msgid "label_video_url"
 msgstr ""
 
+#. Default: "&#128279; Visit embedded block"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+msgid "label_visit_block"
+msgstr ""
+
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68
 msgid "limit_height_str"
@@ -694,6 +734,7 @@ msgid "title_delete_link_check"
 msgstr ""
 
 #. Default: "Remove file"
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:19
 #: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:20
 msgid "title_dropzone_remove"
 msgstr ""
