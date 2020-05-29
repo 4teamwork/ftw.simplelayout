@@ -1,13 +1,9 @@
-from Products.CMFCore.utils import getToolByName
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
-import logging
 import pkg_resources
-import re
 
 
 IS_PLONE_5 = pkg_resources.get_distribution('Products.CMFPlone').version >= '5'
-PROFILE_ID = 'profile-ftw.book:default'
 
 
 def installed(site):
