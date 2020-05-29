@@ -143,6 +143,19 @@ images and a single block for text.
 
    Add TextBlock
 
+Extra Blocks
+************
+
+**AliasBlock**
+
+The alias can be installed with an extra ``aliasblock``. The block uses the
+scss variable ``$color-primary`` for its styling which can be overwritten by
+a custom design. The ``dropzonewrapper`` class is set to ``display: none;`` to
+avoid errors trying to upload content on the aliasblock. There is also a link
+provided to jump to the original content.
+The selectable blocks are returned by
+``ftw.simplelayout.aliasblock.contents.aliasblock.get_selectable_blocks``.
+
 
 Behaviors
 ---------
