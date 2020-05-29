@@ -16,6 +16,18 @@ def get_alias_path(widget):
     return '/'.join(api.portal.get().getPhysicalPath())
 
 
+def get_selectable_blocks():
+    return ['ftw.simplelayout.TextBlock',
+            'ftw.simplelayout.GalleryBlock',
+            'ftw.simplelayout.FileListingBlock',
+            'ftw.sliderblock.SliderBlock',
+            'ftw.news.NewsListingBlock',
+            'ftw.events.EventListingBlock',
+            'ftw.iframeblock.IFrameBlock',
+            'ftw.addressblock.AddressBlock',
+            'ftw.simplelayout.MapBlock']
+
+
 class IAliasBlockSchema(form.Schema):
     """AliasBlock for simplelayout
     """
@@ -32,16 +44,7 @@ class IAliasBlockSchema(form.Schema):
         required=True,
         source=ReferenceObjSourceBinder(
             root_path=get_alias_path,
-            selectable=[
-                'ftw.simplelayout.TextBlock',
-                'ftw.simplelayout.GalleryBlock',
-                'ftw.simplelayout.FileListingBlock',
-                'ftw.sliderblock.SliderBlock',
-                'ftw.news.NewsListingBlock',
-                'ftw.events.EventListingBlock',
-                'ftw.iframeblock.IFrameBlock',
-                'ftw.addressblock.AddressBlock',
-                'ftw.simplelayout.MapBlock'],
+            selectable=get_selectable_blocks(),
             override=True
         )
     )
