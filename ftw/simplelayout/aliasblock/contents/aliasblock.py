@@ -29,7 +29,7 @@ class IAliasBlockSchema(form.Schema):
     """
 
     widget('alias', ReferenceBrowserWidget,
-           start=get_alias_path,
+           start='parent',
            )
     alias = RelationChoice(
         title=_(u'label_alias_content',
