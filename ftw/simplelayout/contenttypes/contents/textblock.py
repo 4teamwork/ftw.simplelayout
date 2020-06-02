@@ -16,6 +16,7 @@ from zope import schema
 from zope.i18n import translate
 from zope.interface import alsoProvides
 from zope.interface import implements
+import os
 
 
 class ITextBlockSchema(form.Schema):
@@ -118,13 +119,15 @@ class TextBlockModifier(object):
 class TextBlockActions(DefaultActions):
 
     def specific_actions(self):
+        base_path = '/'.join(self.context.getPhysicalPath())
+
         return OrderedDict([
             ('imageLeft', {
                 'class': 'sl-icon-image-left block-server-action',
                 'title': translate(
                     _(u'label_float_image_left', default=u'Float image left'),
                     context=self.request),
-                'href': './sl-ajax-reload-block-view',
+                'href': os.path.join(base_path, 'sl-ajax-reload-block-view'),
                 'data-scale': 'sl_textblock_small',
                 'data-imagefloat': 'left'
             }),
@@ -134,7 +137,7 @@ class TextBlockActions(DefaultActions):
                     _(u'label_float_large_image_left',
                       default=u'Float large image left'),
                     context=self.request),
-                'href': './sl-ajax-reload-block-view',
+                'href': os.path.join(base_path, 'sl-ajax-reload-block-view'),
                 'data-scale': 'sl_textblock_middle',
                 'data-imagefloat': 'left'
             }),
@@ -144,7 +147,7 @@ class TextBlockActions(DefaultActions):
                     _(u'label_image_without_floating',
                       default=u'Image without floating'),
                     context=self.request),
-                'href': './sl-ajax-reload-block-view',
+                'href': os.path.join(base_path, 'sl-ajax-reload-block-view'),
                 'data-scale': 'sl_textblock_large',
                 'data-imagefloat': 'no-float'
             }),
@@ -154,7 +157,7 @@ class TextBlockActions(DefaultActions):
                     _(u'label_float_large_image_right',
                       default=u'Float large image right'),
                     context=self.request),
-                'href': './sl-ajax-reload-block-view',
+                'href': os.path.join(base_path, 'sl-ajax-reload-block-view'),
                 'data-scale': 'sl_textblock_middle',
                 'data-imagefloat': 'right'
             }),
@@ -164,7 +167,7 @@ class TextBlockActions(DefaultActions):
                     _(u'label_float_image_right',
                       default=u'Float image right'),
                     context=self.request),
-                'href': './sl-ajax-reload-block-view',
+                'href': os.path.join(base_path, 'sl-ajax-reload-block-view'),
                 'data-scale': 'sl_textblock_small',
                 'data-imagefloat': 'right'
             }),
@@ -173,6 +176,6 @@ class TextBlockActions(DefaultActions):
                 'title': translate(
                     _(u'label_crop_image', default='Crop image'),
                     context=self.request),
-                'href': './sl-ajax-crop-image'
+                'href': os.path.join(base_path, 'sl-ajax-crop-image')
             }),
         ])
