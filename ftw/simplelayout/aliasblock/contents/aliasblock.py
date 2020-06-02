@@ -12,10 +12,6 @@ from zope.interface import alsoProvides
 from zope.interface import implements
 
 
-def get_alias_path(widget):
-    return '/'.join(api.portal.get().getPhysicalPath())
-
-
 def get_selectable_blocks():
     return ['ftw.simplelayout.TextBlock',
             'ftw.simplelayout.GalleryBlock',
@@ -33,7 +29,7 @@ class IAliasBlockSchema(form.Schema):
     """
 
     widget('alias', ReferenceBrowserWidget,
-           start=get_alias_path,
+           start='parent',
            )
     alias = RelationChoice(
         title=_(u'label_alias_content',
@@ -43,7 +39,6 @@ class IAliasBlockSchema(form.Schema):
             default=u'Choose a block to be rendered within this block.'),
         required=True,
         source=ReferenceObjSourceBinder(
-            root_path=get_alias_path,
             selectable=get_selectable_blocks(),
             override=True
         )
