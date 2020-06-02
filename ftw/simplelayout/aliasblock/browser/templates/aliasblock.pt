@@ -1,0 +1,24 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.simplelayout">
+
+<div class="sl-alias-block">
+
+  <tal:ref-valid condition="not: context/alias/isBroken">
+    <tal:authorized condition="view/get_referenced_block_content">
+      <a tal:attributes="href context/alias/to_path"
+         class="sl-alias-block-visit-block"
+         i18n:translate="label_visit_block">
+        &#128279; Visit embedded block
+      </a>
+      <tal:alias-block content="structure view/get_referenced_block_content" />
+    </tal:authorized>
+  </tal:ref-valid>
+
+  <tal:ref-invalid condition="context/alias/isBroken">
+    <p i18n:translate="label_invalid_reference">The embedded block does not exist.</p>
+  </tal:ref-invalid>
+
+</div>
+
+</html>

@@ -17,7 +17,8 @@ from plone.testing import z2
 from plone.testing import zca
 from unittest import TestCase
 from zope.configuration import xmlconfig
-import ftw.simplelayout.tests.builders
+import ftw.referencewidget.tests.widgets  # noqa
+import ftw.simplelayout.tests.builders  # noqa
 
 
 class SimplelayoutZCMLLayer(ComponentRegistryLayer):
@@ -33,6 +34,7 @@ class SimplelayoutZCMLLayer(ComponentRegistryLayer):
 
         import ftw.simplelayout.tests
         self.load_zcml_file('tests.zcml', ftw.simplelayout.tests)
+
 
 SIMPLELAYOUT_ZCML_LAYER = SimplelayoutZCMLLayer()
 
@@ -64,6 +66,7 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
 
         applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
         applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+        applyProfile(portal, 'ftw.simplelayout.aliasblock:default')
         applyProfile(portal, 'ftw.file:default')
 
         if IS_PLONE_5:
@@ -78,7 +81,7 @@ class SimplelayoutTestCase(TestCase):
     def assert_recursive_persistence(self, structure):
 
         def is_persistent(item):
-            if not isinstance(item, basestring) and not isinstance(item, int):
+            if not isinstance(item, basestring) and not isinstance(item, int):  # noqa
                 assert isinstance(item, PersistentMapping) or \
                     isinstance(item, PersistentList), \
                     '{0} needs to be persistent'.format(str(item))
@@ -94,7 +97,7 @@ class SimplelayoutTestCase(TestCase):
 
     def assert_unwrapped_persistence(self, structure):
         def is_unwrapped(item):
-            if not isinstance(item, basestring) and not isinstance(item, int):
+            if not isinstance(item, basestring) and not isinstance(item, int):  # noqa
                 assert isinstance(item, dict) or \
                     isinstance(item, list), \
                     '{0} needs to be unwrapped'.format(str(item))

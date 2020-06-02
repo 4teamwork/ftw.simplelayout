@@ -2,10 +2,11 @@ Changelog
 =========
 
 
-2.5.15 (unreleased)
--------------------
+2.6.0 (unreleased)
+------------------
 
-- Nothing changed yet.
+- Add new block (AliasBlock) which renders the content of other blocks.
+  The extra "aliasblock" is required to install this block. [busykoala]
 
 
 2.5.14 (2020-05-28)

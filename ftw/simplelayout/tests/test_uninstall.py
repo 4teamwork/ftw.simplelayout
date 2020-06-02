@@ -35,3 +35,12 @@ class TestGenericSetupUninstallContentTypesPlone5(TestCase, GenericSetupUninstal
 
     # Plone 5 does not support "propertiestool.xml" anymore.
     skip_files = ('propertiestool.xml',)
+
+
+@apply_generic_setup_layer
+class TestGenericSetupUninstallAliasBlock(TestCase, GenericSetupUninstallMixin):
+    package = 'ftw.simplelayout.aliasblock'
+
+    if IS_PLONE_5:
+        # Plone 5 does not support "propertiestool.xml" anymore.
+        skip_files = ('propertiestool.xml',)
