@@ -5,7 +5,7 @@ Changelog
 2.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add collective.quickupload in plone4. [busykoala]
 
 
 2.6.0 (2020-06-02)
