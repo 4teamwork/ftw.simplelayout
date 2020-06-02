@@ -33,6 +33,7 @@ extras_require = {
     'plone4': [
         'plone.app.referenceablebehavior',
         'ftw.uploadutility',
+        'collective.quickupload',
     ],
     'trash': [
         'ftw.trash',
