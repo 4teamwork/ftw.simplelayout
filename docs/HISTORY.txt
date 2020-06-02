@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.0 (unreleased)
+2.6.0 (2020-06-02)
 ------------------
 
 - Add new block (AliasBlock) which renders the content of other blocks.
