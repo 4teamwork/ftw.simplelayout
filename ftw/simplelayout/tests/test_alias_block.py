@@ -90,7 +90,7 @@ class TestAliasBlockRendering(TestCase):
         browser.find_button_by_label('Save').click()
         self.assertEquals(['There were some errors.'],
                           statusmessages.error_messages())
-        self.assertEquals('Constraint not satisfied',
+        self.assertEquals('The selected Content cannot be selected',
                           browser.css('#formfield-form-widgets-alias .error').first.text)
 
     @browsing
@@ -110,5 +110,5 @@ class TestAliasBlockRendering(TestCase):
         browser.find_button_by_label('Save').click()
         self.assertEquals(['There were some errors.'],
                           statusmessages.error_messages())
-        self.assertEquals('Constraint not satisfied',
+        self.assertEquals('The selected ContentPage contains a Aliasblock and cannot be selected',
                           browser.css('#formfield-form-widgets-alias .error').first.text)
