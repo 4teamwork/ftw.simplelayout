@@ -19,16 +19,17 @@ class TestAliasBlockRendering(TestCase):
     def setUp(self):
         self.page1 = create(Builder('sl content page'))
         self.page2 = create(Builder('sl content page'))
+        self.textblock = create(Builder('sl textblock')
+                                .titled(u'\xc4s Bl\xf6ckli')
+                                .within(self.page1))
+
         self.intids = getUtility(IIntIds)
 
     @browsing
     def test_create_aliasblock(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled(u'\xc4s Bl\xf6ckli')
-                           .within(self.page1))
         alias = create(Builder('sl aliasblock')
                        .having(alias=RelationValue(
-                           self.intids.getId(textblock)))
+                           self.intids.getId(self.textblock)))
                        .within(self.page2))
 
         browser.visit(self.page2)
@@ -38,26 +39,20 @@ class TestAliasBlockRendering(TestCase):
 
     @browsing
     def test_add_aliasblock_using_factoriesmenu(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled(u'\xc4s Bl\xf6ckli')
-                           .within(self.page1))
         browser.login().visit(self.page2)
         factoriesmenu.add('AliasBlock')
 
         form = browser.find_form_by_field('Alias Content')
-        form.find_widget('Alias Content').fill(textblock)
+        form.find_widget('Alias Content').fill(self.textblock)
         browser.find_button_by_label('Save').click()
 
         self.assertTrue(browser.css('.sl-alias-block'))
 
     @browsing
     def test_render_textblock_in_aliasblock(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled(u'\xc4s Bl\xf6ckli')
-                           .within(self.page1))
         create(Builder('sl aliasblock')
                .having(alias=RelationValue(
-                       self.intids.getId(textblock)))
+                       self.intids.getId(self.textblock)))
                .within(self.page2))
 
         browser.visit(self.page2)
@@ -69,15 +64,12 @@ class TestAliasBlockRendering(TestCase):
 
     @browsing
     def test_has_message_if_referenced_block_was_deleted(self, browser):
-        textblock = create(Builder('sl textblock')
-                           .titled(u'\xc4s Bl\xf6ckli')
-                           .within(self.page1))
         create(Builder('sl aliasblock')
                .having(alias=RelationValue(
-                       self.intids.getId(textblock)))
+                       self.intids.getId(self.textblock)))
                .within(self.page2))
 
-        api.content.delete(obj=textblock, check_linkintegrity=False)
+        api.content.delete(obj=self.textblock, check_linkintegrity=False)
         transaction.commit()
         browser.visit(self.page2)
         block_content = browser.css('.sl-alias-block').first.text
