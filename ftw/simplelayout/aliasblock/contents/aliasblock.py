@@ -39,7 +39,8 @@ def get_selectable_blocks():
             'ftw.events.EventListingBlock',
             'ftw.iframeblock.IFrameBlock',
             'ftw.addressblock.AddressBlock',
-            'ftw.simplelayout.MapBlock']
+            'ftw.simplelayout.MapBlock',
+            'ftw.simplelayout.ContentPage']
 
 
 class IAliasBlockSchema(form.Schema):
