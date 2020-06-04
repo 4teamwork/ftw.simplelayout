@@ -1,3 +1,4 @@
+from ftw.referencewidget.selectable import DefaultSelectable
 from ftw.referencewidget.sources import ReferenceObjSourceBinder
 from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
@@ -10,6 +11,14 @@ from plone.directives.form import widget
 from z3c.relationfield.schema import RelationChoice
 from zope.interface import alsoProvides
 from zope.interface import implements
+
+
+class AliasBlockSelectable(DefaultSelectable):
+
+    def is_selectable(self):
+        selectable = super(AliasBlockSelectable, self).is_selectable()
+        return selectable
+
 
 
 def get_selectable_blocks():
@@ -39,6 +48,7 @@ class IAliasBlockSchema(form.Schema):
             default=u'Choose a block to be rendered within this block.'),
         required=True,
         source=ReferenceObjSourceBinder(
+            selectable_class=AliasBlockSelectable,
             selectable=get_selectable_blocks(),
             override=True
         )
