@@ -92,3 +92,23 @@ class TestAliasBlockRendering(TestCase):
                           statusmessages.error_messages())
         self.assertEquals('Constraint not satisfied',
                           browser.css('#formfield-form-widgets-alias .error').first.text)
+
+    @browsing
+    def test_dont_allow_pages_with_alias_block(self, browser):
+        browser.login().visit(self.page1)
+        alias = create(Builder('sl aliasblock')
+                       .having(alias=RelationValue(
+                           self.intids.getId(self.textblock)))
+                       .within(self.page2))
+
+        browser.login().visit(self.page1)
+        factoriesmenu.add('AliasBlock')
+
+        form = browser.find_form_by_field('Alias Content')
+        form.find_widget('Alias Content').fill(self.page2)
+
+        browser.find_button_by_label('Save').click()
+        self.assertEquals(['There were some errors.'],
+                          statusmessages.error_messages())
+        self.assertEquals('Constraint not satisfied',
+                          browser.css('#formfield-form-widgets-alias .error').first.text)

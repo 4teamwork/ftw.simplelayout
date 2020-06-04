@@ -17,8 +17,15 @@ class AliasBlockSelectable(DefaultSelectable):
 
     def is_selectable(self):
         selectable = super(AliasBlockSelectable, self).is_selectable()
-        return selectable
+        is_sl_page = self.content.portal_type == 'ftw.simplelayout.ContentPage'
 
+        # Don't allow sl pages containing another AliasBlock
+        if is_sl_page:
+            return not bool(filter(
+                lambda item: item.portal_type == 'ftw.simplelayout.AliasBlock',
+                self.content.objectValues()
+            ))
+        return selectable
 
 
 def get_selectable_blocks():
