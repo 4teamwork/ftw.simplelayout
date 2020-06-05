@@ -21,7 +21,7 @@ export default function Simplelayout(options) {
 
   var LAYOUT_SORTABLE = {
     connectWith: ".sl-simplelayout",
-    items: ".sl-layout",
+    items: "> .sl-layout",
     handle: ".sl-toolbar-layout .move",
     placeholder: "layout-placeholder",
     cursorAt: { left: 50, top: 50 },
@@ -87,7 +87,7 @@ export default function Simplelayout(options) {
     start: function() {
       self.enableFrames();
       root.addClass("sl-block-dragging");
-      $(".sl-column").sortable("refreshPositions");
+      $(".sl-column").filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable("refreshPositions");
     },
     stop: function() {
       self.disableFrames();
@@ -180,8 +180,8 @@ export default function Simplelayout(options) {
     $(".sl-simplelayout", source).each(function() {
       self.insertManager().restore(this, $(this).attr("id"));
     });
-    $(".sl-simplelayout", this.source).sortable(LAYOUT_SORTABLE);
-    $(".sl-column", this.source).sortable(BLOCK_SORTABLE);
+    $(".sl-simplelayout", this.source).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable(LAYOUT_SORTABLE);
+    $(".sl-column", this.source).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable(BLOCK_SORTABLE);
     return this;
   };
 
@@ -238,7 +238,7 @@ export default function Simplelayout(options) {
     if(self.options.editLayouts) {
       var layoutToolbar = new Toolbar(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
-      $(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+      $(".sl-column", layout.element).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable(BLOCK_SORTABLE);
     }
     if(layout.hasBlocks()) {
       layout.toolbar.disable("delete");
@@ -256,8 +256,8 @@ export default function Simplelayout(options) {
   this.options.toolbox.element.find(".sl-toolbox-layout").draggable("option", "connectToSortable", ".sl-simplelayout");
   this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
 
-  $(".sl-simplelayout").sortable(LAYOUT_SORTABLE);
-  $(".sl-column").sortable(BLOCK_SORTABLE);
+  $(".sl-simplelayout").filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable(LAYOUT_SORTABLE);
+  $(".sl-column").filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 }).sortable(BLOCK_SORTABLE);
 
   root.addClass("simplelayout-initialized");
 

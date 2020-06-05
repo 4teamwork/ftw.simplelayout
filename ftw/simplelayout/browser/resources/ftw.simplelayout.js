@@ -1044,7 +1044,7 @@ function Simplelayout(options) {
 
   var LAYOUT_SORTABLE = {
     connectWith: ".sl-simplelayout",
-    items: ".sl-layout",
+    items: "> .sl-layout",
     handle: ".sl-toolbar-layout .move",
     placeholder: "layout-placeholder",
     cursorAt: { left: 50, top: 50 },
@@ -1110,7 +1110,9 @@ function Simplelayout(options) {
     start: function start() {
       self.enableFrames();
       root.addClass("sl-block-dragging");
-      (0, _jquery2.default)(".sl-column").sortable("refreshPositions");
+      (0, _jquery2.default)(".sl-column").filter(function (index, element) {
+        return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+      }).sortable("refreshPositions");
     },
     stop: function stop() {
       self.disableFrames();
@@ -1205,8 +1207,12 @@ function Simplelayout(options) {
     (0, _jquery2.default)(".sl-simplelayout", source).each(function () {
       self.insertManager().restore(this, (0, _jquery2.default)(this).attr("id"));
     });
-    (0, _jquery2.default)(".sl-simplelayout", this.source).sortable(LAYOUT_SORTABLE);
-    (0, _jquery2.default)(".sl-column", this.source).sortable(BLOCK_SORTABLE);
+    (0, _jquery2.default)(".sl-simplelayout", this.source).filter(function (index, element) {
+      return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+    }).sortable(LAYOUT_SORTABLE);
+    (0, _jquery2.default)(".sl-column", this.source).filter(function (index, element) {
+      return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+    }).sortable(BLOCK_SORTABLE);
     return this;
   };
 
@@ -1265,7 +1271,9 @@ function Simplelayout(options) {
     if (self.options.editLayouts) {
       var layoutToolbar = new _Toolbar2.default(self.options.toolbox.options.layoutActions[layout.columns], "vertical", "layout");
       layout.attachToolbar(layoutToolbar);
-      (0, _jquery2.default)(".sl-column", layout.element).sortable(BLOCK_SORTABLE);
+      (0, _jquery2.default)(".sl-column", layout.element).filter(function (index, element) {
+        return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+      }).sortable(BLOCK_SORTABLE);
     }
     if (layout.hasBlocks()) {
       layout.toolbar.disable("delete");
@@ -1283,8 +1291,12 @@ function Simplelayout(options) {
   this.options.toolbox.element.find(".sl-toolbox-layout").draggable("option", "connectToSortable", ".sl-simplelayout");
   this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
 
-  (0, _jquery2.default)(".sl-simplelayout").sortable(LAYOUT_SORTABLE);
-  (0, _jquery2.default)(".sl-column").sortable(BLOCK_SORTABLE);
+  (0, _jquery2.default)(".sl-simplelayout").filter(function (index, element) {
+    return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+  }).sortable(LAYOUT_SORTABLE);
+  (0, _jquery2.default)(".sl-column").filter(function (index, element) {
+    return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+  }).sortable(BLOCK_SORTABLE);
 
   root.addClass("simplelayout-initialized");
 
