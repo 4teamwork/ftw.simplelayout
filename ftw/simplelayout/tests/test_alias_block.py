@@ -11,6 +11,7 @@ from unittest import TestCase
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
+import difflib
 import transaction
 
 
@@ -26,6 +27,17 @@ class TestAliasBlockRendering(TestCase):
                                 .within(self.page1))
 
         self.intids = getUtility(IIntIds)
+
+    def assert_html(self, page_html, aliasblock_html):
+        diff = difflib.unified_diff(
+            page_html.strip().split('\n'),
+            aliasblock_html.strip().split('\n'),
+            fromfile='page',
+            tofile='aliasblock'
+        )
+        output = list(diff)
+        if len(output) != 0:            
+            self.fail('HTML differs:\n{}'.format('\n'.join(output)))
 
     @browsing
     def test_create_aliasblock(self, browser):
@@ -148,4 +160,5 @@ class TestAliasBlockRendering(TestCase):
             browser.css('.sl-alias-block .sl-layout').first.node,
             pretty_print=True
         )
-        self.assertEquals(html_page1_layout1, html_aliasblock_layout1)
+        self.assert_html(html_page1_layout1, html_aliasblock_layout1)
+
