@@ -84,7 +84,9 @@
 
   $(document).ready(function(){
     $('.sl-block').each(function(){
-      initDropZone(this);
+      if ($(this).closest('.sl-alias-block').length === 0) {
+        initDropZone(this);
+      }
     });
   });
 
