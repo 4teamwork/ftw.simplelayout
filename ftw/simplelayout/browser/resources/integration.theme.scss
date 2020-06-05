@@ -274,6 +274,9 @@
 .sl-block-dragging {
   .sl-column {
     border: 1px dashed $color-text;
+    .sl-alias-block .sl-column {
+      border: 0;
+    }
   }
 }
 
@@ -323,6 +326,10 @@
   }
   .sl-layout {
     border: 1px dashed $color-text;
+
+    .sl-alias-block .sl-layout {
+      border: 0;
+    }
   }
   .sl-simplelayout.sl-can-edit {
     .sl-column:empty {
@@ -585,6 +592,14 @@ ul[class^="sl-toolbar"] {
 
 // If user is permitted to edit the simplelayout page
 .sl-simplelayout.sl-can-edit {
+  .sl-alias-block {
+    .sl-block:hover {
+      box-shadow: none;
+    }
+    .sl-layout:hover {
+      box-shadow: none;
+    }
+  }
   min-height: 100px;
   .sl-layout {
     @include transition(box-shadow .3s ease-out);
