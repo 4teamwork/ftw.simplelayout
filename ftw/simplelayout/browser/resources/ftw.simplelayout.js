@@ -843,7 +843,9 @@ function Layout(columns) {
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
     this.commit();
     (0, _jquery2.default)(".sl-block", restoreElement).each(function () {
-      self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+      if ((0, _jquery2.default)(this).closest('.sl-alias-block').length === 0) {
+        self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+      }
     });
   };
 
@@ -976,7 +978,9 @@ function Layoutmanager() {
     Layoutmanager.prototype.restore.call(this, restoreElement, null, represents);
     this.commit();
     (0, _jquery2.default)(".sl-layout", restoreElement).each(function () {
-      self.insertLayout().restore(this, self, (0, _jquery2.default)(".sl-column", this).length);
+      if ((0, _jquery2.default)(this).closest('.sl-alias-block').length === 0) {
+        self.insertLayout().restore(this, self, (0, _jquery2.default)(".sl-column", this).length);
+      }
     });
   };
 

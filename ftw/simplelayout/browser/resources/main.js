@@ -189,12 +189,15 @@
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
         $(".sl-layout", manager).each(function(layIdx, layout) {
+          if ($(layout).closest('.sl-alias-block').length === 1) { return; }
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
           state[manager.id][layIdx].config = $(layout).data().object.config();
           $(".sl-column", layout).each(function(colIdx, column) {
+            if ($(column).closest('.sl-alias-block').length === 1) { return; }
             state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
-            $(".sl-block", column).each(function(bloIdx, block) {
+            const blocks = $(".sl-block", column).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 })
+            blocks.each(function(bloIdx, block) {
               state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data().represents };
             });
           });
