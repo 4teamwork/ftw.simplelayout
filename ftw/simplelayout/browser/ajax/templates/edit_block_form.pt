@@ -3,4 +3,5 @@
   <div id="content-core">
       <metal:block use-macro="context/@@ploneform-macros/titlelessform" />
   </div>
+  <div tal:replace="structure provider:ftw.simplelayout.forms.manager" />
 </div>

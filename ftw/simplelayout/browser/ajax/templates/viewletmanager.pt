@@ -1,0 +1,5 @@
+<div id="simplelayout-form-manager">
+  <tal:viewlets repeat="viewlet view/viewlets">
+    <tal:viewlet replace="structure python:viewlet.render()" />
+  </tal:viewlets>
+</div>
