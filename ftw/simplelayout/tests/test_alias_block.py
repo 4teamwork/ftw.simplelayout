@@ -36,7 +36,7 @@ class TestAliasBlockRendering(TestCase):
             tofile='aliasblock'
         )
         output = list(diff)
-        if len(output) != 0:            
+        if len(output) != 0:
             self.fail('HTML differs:\n{}'.format('\n'.join(output)))
 
     @browsing
@@ -175,3 +175,18 @@ class TestAliasBlockRendering(TestCase):
         browser.login().visit(self.page2)
         self.assertEquals('The content is no longer accessible to you',
                           browser.css('.sl-alias-block p').first.text)
+
+    @browsing
+    def test_google_api_key_is_on_add_and_edit_form(self, browser):
+        browser.login().visit(self.page2, view='++add_block++ftw.simplelayout.AliasBlock')
+        browser.parse(browser.json['content'])
+        self.assertTrue(browser.css('[data-googlejs]'), 'Googlejs should be there.')
+
+        aliasblock = create(Builder('sl aliasblock')
+                            .having(alias=RelationValue(
+                                self.intids.getId(self.textblock)))
+                            .within(self.page2))
+
+        browser.visit(aliasblock, view='edit.json')
+        browser.parse(browser.json['content'])
+        self.assertTrue(browser.css('[data-googlejs]'), 'Googlejs should be there.')
