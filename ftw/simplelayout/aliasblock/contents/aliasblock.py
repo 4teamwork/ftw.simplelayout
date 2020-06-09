@@ -8,17 +8,26 @@ from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
 from plone.directives.form import widget
+from z3c.form import validator
 from z3c.relationfield.schema import RelationChoice
 from zope.interface import alsoProvides
 from zope.interface import implements
+from zope.interface import Invalid
 
 
 class AliasBlockSelectable(DefaultSelectable):
 
     def is_selectable(self):
         selectable = super(AliasBlockSelectable, self).is_selectable()
-        return selectable
+        is_sl_page = self.content.portal_type == 'ftw.simplelayout.ContentPage'
 
+        # Don't allow sl pages containing another AliasBlock
+        if is_sl_page:
+            return not bool(filter(
+                lambda item: item.portal_type == 'ftw.simplelayout.AliasBlock',
+                self.content.objectValues()
+            ))
+        return selectable
 
 
 def get_selectable_blocks():
@@ -54,6 +63,27 @@ class IAliasBlockSchema(form.Schema):
         )
     )
 
+
+class ContentPageValidator(validator.SimpleFieldValidator):
+    """Don't allow sl pages containing another AliasBlock"""
+
+    def validate(self, value):
+        """Validate international phone number on input"""
+        if not AliasBlockSelectable(self.field.source, value)():
+            if value.portal_type == 'ftw.simplelayout.ContentPage':
+                raise Invalid(
+                    _(u'eror_text_sl_page_aliasblock',
+                      default=u'The selected ContentPage contains a Aliasblock and cannot be selected'))
+            else:
+                raise Invalid(
+                    _(u'eror_text_alias_aliasblock',
+                      default=u'The selected Content cannot be selected'))
+
+
+validator.WidgetValidatorDiscriminators(
+    ContentPageValidator,
+    field=IAliasBlockSchema['alias']
+)
 
 alsoProvides(IAliasBlockSchema, IFormFieldProvider)
 
