@@ -71,4 +71,13 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:viewletManager
+        name="ftw.simplelayout.forms.manager"
+        provides="ftw.simplelayout.interfaces.ISimplelayoutBlockFormManager"
+        class="plone.app.viewletmanager.manager.OrderedViewletManager"
+        layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        permission="zope2.View"
+        template="templates/viewletmanager.pt"
+        />
+
 </configure>
