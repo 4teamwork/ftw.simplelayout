@@ -162,3 +162,16 @@ class TestAliasBlockRendering(TestCase):
         )
         self.assert_html(html_page1_layout1, html_aliasblock_layout1)
 
+    @browsing
+    def test_respect_view_permission(self, browser):
+        alias = create(Builder('sl aliasblock')
+                       .having(alias=RelationValue(
+                           self.intids.getId(self.textblock)))
+                       .within(self.page2))
+
+        self.page1.manage_permission('View', roles=[])
+        self.page1.reindexObjectSecurity()
+        transaction.commit()
+        browser.login().visit(self.page2)
+        self.assertEquals('The content is no longer accessible to you',
+                          browser.css('.sl-alias-block p').first.text)
