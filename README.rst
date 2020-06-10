@@ -156,6 +156,15 @@ provided to jump to the original content.
 The selectable blocks are returned by
 ``ftw.simplelayout.aliasblock.contents.aliasblock.get_selectable_blocks``.
 
+It's also possible to select a whole ContentPage to render within the AliasBlock.
+It's not possible to select another ContentPage which already contains an AliasBlock.
+All Blocks within this package are supported (incl. MapBlock).
+Blocks from other packages won't work because the list of aliasable blocks is hard coded.
+
+Exceptions:
+    - ftw.addressblock
+    - ftw.sliderblock
+
 
 Behaviors
 ---------

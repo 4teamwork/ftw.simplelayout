@@ -1,0 +1,9 @@
+<div tal:condition="view/do_render_mapwidget">
+
+      <div id="aliasblock-map"
+           tal:define="geosettings python:context.restrictedTraverse('@@geosettings-view')"
+           class="blockwidget-cgmap"
+           tal:attributes="data-googlejs python:geosettings.google_maps_js;" />
+
+</div>
+

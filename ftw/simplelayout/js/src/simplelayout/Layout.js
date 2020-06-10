@@ -99,7 +99,9 @@ export default function Layout(columns) {
     Layout.prototype.restore.call(this, restoreElement, restoreParent, represents);
     this.commit();
     $(".sl-block", restoreElement).each(function() {
-      self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
+      if ($(this).closest('.sl-alias-block').length === 0) {
+        self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
+      }
     });
   };
 

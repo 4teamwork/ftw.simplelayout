@@ -5,7 +5,8 @@ Changelog
 2.6.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add viewletmanager for block add/edit form in order to load custom code. [mathias.leimgruber]
+- ContentPage support for AliasBlock. [mathias.leimgruber]
 
 
 2.6.1 (2020-06-02)
