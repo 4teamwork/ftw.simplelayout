@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-09 14:40+0000\n"
+"POT-Creation-Date: 2020-06-10 06:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -399,14 +399,20 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#. Default: "The selected Content cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:80
-msgid "eror_text_alias_aliasblock"
+#. Default: "The selected content cannot be selected"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:89
+#, fuzzy
+msgid "error_text_alias_aliasblock"
 msgstr "Der ausgwählte Inhalt kann nicht als Ziel in einem AliasBlock verwendet werden"
 
+#. Default: "A input is required"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:78
+msgid "error_text_required_aliasblock"
+msgstr "Es muss ein Ziel ausgewählt werden."
+
 #. Default: "The selected ContentPage contains a Aliasblock and cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:76
-msgid "eror_text_sl_page_aliasblock"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:85
+msgid "error_text_sl_page_aliasblock"
 msgstr "Die ausgwählte Inhlatsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält."
 
 #: ./ftw/simplelayout/aliasblock/configure.zcml:24
@@ -462,12 +468,12 @@ msgid "label_%ssort_index"
 msgstr "Sortierung"
 
 #. Default: "Alias Content"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:54
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:57
 msgid "label_alias_content"
 msgstr "Alias Inhalt"
 
 #. Default: "Choose a block to be rendered within this block."
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:56
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:59
 msgid "label_alias_description"
 msgstr "Wähle den Block, der im AliasBlock angezeigt werden soll."
 

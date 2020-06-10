@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-09 14:40+0000\n"
+"POT-Creation-Date: 2020-06-10 06:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -403,13 +403,18 @@ msgid "description_teaser_fieldset"
 msgstr ""
 
 #. Default: "The selected content cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:80
-msgid "eror_text_alias_aliasblock"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:89
+msgid "error_text_alias_aliasblock"
+msgstr ""
+
+#. Default: "A input is required"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:78
+msgid "error_text_required_aliasblock"
 msgstr ""
 
 #. Default: "The selected ContentPage contains a Aliasblock and cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:76
-msgid "eror_text_sl_page_aliasblock"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:85
+msgid "error_text_sl_page_aliasblock"
 msgstr ""
 
 #: ./ftw/simplelayout/aliasblock/configure.zcml:24
@@ -465,12 +470,12 @@ msgid "label_%ssort_index"
 msgstr ""
 
 #. Default: "Alias Content"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:54
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:57
 msgid "label_alias_content"
 msgstr ""
 
 #. Default: "Choose a block to be rendered within this block."
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:56
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:59
 msgid "label_alias_description"
 msgstr ""
 

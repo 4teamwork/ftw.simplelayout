@@ -18,6 +18,9 @@ from zope.interface import Invalid
 class AliasBlockSelectable(DefaultSelectable):
 
     def is_selectable(self):
+        if not self.content:
+            return False
+
         selectable = super(AliasBlockSelectable, self).is_selectable()
         is_sl_page = self.content.portal_type == 'ftw.simplelayout.ContentPage'
 
@@ -70,14 +73,20 @@ class ContentPageValidator(validator.SimpleFieldValidator):
 
     def validate(self, value):
         """Validate international phone number on input"""
+        if not value:
+            raise Invalid(
+                _(u'error_text_required_aliasblock',
+                  default=u'A input is required'))
+
+
         if not AliasBlockSelectable(self.field.source, value)():
             if value.portal_type == 'ftw.simplelayout.ContentPage':
                 raise Invalid(
-                    _(u'eror_text_sl_page_aliasblock',
+                    _(u'error_text_sl_page_aliasblock',
                       default=u'The selected ContentPage contains a Aliasblock and cannot be selected'))
             else:
                 raise Invalid(
-                    _(u'eror_text_alias_aliasblock',
+                    _(u'error_text_alias_aliasblock',
                       default=u'The selected content cannot be selected'))
 
 
