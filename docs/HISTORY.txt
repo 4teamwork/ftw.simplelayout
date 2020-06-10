@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Do not allow to reference the ContentPage you are creating the AliasBlock on to prevent recursion [Nachtalb]
+- Fix AliasBlock text for link to referenced ContentPage [Nachtalb]
 
 
 2.7.0 (2020-06-10)

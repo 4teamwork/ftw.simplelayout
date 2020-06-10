@@ -18,9 +18,12 @@ class AliasBlockView(BaseBlock):
     def has_view_permission(self):
         return api.user.has_permission('View', obj=self.referenced_obj)
 
+    def referece_is_page(self):
+        return ISimplelayout.providedBy(self.referenced_obj)
+
     def get_referenced_block_content(self):
         """Returns the rendered simplayout content"""
-        if ISimplelayout.providedBy(self.referenced_obj):
+        if self.referece_is_page():
             return self.get_referenced_page_content()
         else:
             return get_block_html(self.referenced_obj)
