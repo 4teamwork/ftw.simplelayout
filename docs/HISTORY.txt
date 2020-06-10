@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.6.2 (unreleased)
+2.7.0 (2020-06-10)
 ------------------
 
 - Add viewletmanager for block add/edit form in order to load custom code. [mathias.leimgruber]
