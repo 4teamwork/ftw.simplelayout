@@ -104,7 +104,7 @@ class TestAliasBlockRendering(TestCase):
         browser.find_button_by_label('Save').click()
         self.assertEquals(['There were some errors.'],
                           statusmessages.error_messages())
-        self.assertEquals('The selected Content cannot be selected',
+        self.assertEquals('The selected content cannot be selected',
                           browser.css('#formfield-form-widgets-alias .error').first.text)
 
     @browsing

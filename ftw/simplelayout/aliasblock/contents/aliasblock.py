@@ -78,7 +78,7 @@ class ContentPageValidator(validator.SimpleFieldValidator):
             else:
                 raise Invalid(
                     _(u'eror_text_alias_aliasblock',
-                      default=u'The selected Content cannot be selected'))
+                      default=u'The selected content cannot be selected'))
 
 
 validator.WidgetValidatorDiscriminators(
