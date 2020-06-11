@@ -4,6 +4,7 @@ from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
 from ftw.simplelayout.aliasblock.contents.interfaces import IAliasBlock
 from plone import api
+from plone.uuid.interfaces import IUUID
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
@@ -26,6 +27,8 @@ class AliasBlockSelectable(DefaultSelectable):
 
         # Don't allow sl pages containing another AliasBlock
         if is_sl_page:
+            if IUUID(self.content) == IUUID(self.source.context):
+                return False
             return not bool(filter(
                 lambda item: item.portal_type == 'ftw.simplelayout.AliasBlock',
                 self.content.objectValues()
@@ -83,7 +86,7 @@ class ContentPageValidator(validator.SimpleFieldValidator):
             if value.portal_type == 'ftw.simplelayout.ContentPage':
                 raise Invalid(
                     _(u'error_text_sl_page_aliasblock',
-                      default=u'The selected ContentPage contains a Aliasblock and cannot be selected'))
+                      default=u'The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected'))
             else:
                 raise Invalid(
                     _(u'error_text_alias_aliasblock',

@@ -5,7 +5,7 @@ Changelog
 2.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Do not allow to reference the ContentPage you are creating the AliasBlock on to prevent recursion [Nachtalb]
 
 
 2.7.0 (2020-06-10)

@@ -124,7 +124,23 @@ class TestAliasBlockRendering(TestCase):
         browser.find_button_by_label('Save').click()
         self.assertEquals(['There were some errors.'],
                           statusmessages.error_messages())
-        self.assertEquals('The selected ContentPage contains a Aliasblock and cannot be selected',
+        self.assertEquals('The selected ContentPage contains a Aliasblock or is the '
+                          'page you are creating the block on and thus cannot be selected',
+                          browser.css('#formfield-form-widgets-alias .error').first.text)
+
+    @browsing
+    def test_dont_allow_creating_block_on_current_page(self, browser):
+        browser.login().visit(self.page1)
+        factoriesmenu.add('AliasBlock')
+
+        form = browser.find_form_by_field('Alias Content')
+        form.find_widget('Alias Content').fill(self.page1)
+
+        browser.find_button_by_label('Save').click()
+        self.assertEquals(['There were some errors.'],
+                          statusmessages.error_messages())
+        self.assertEquals('The selected ContentPage contains a Aliasblock or is the '
+                          'page you are creating the block on and thus cannot be selected',
                           browser.css('#formfield-form-widgets-alias .error').first.text)
 
     @browsing
