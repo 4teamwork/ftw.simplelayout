@@ -148,22 +148,20 @@ Extra Blocks
 
 **AliasBlock**
 
-The alias can be installed with an extra ``aliasblock``. The block uses the
-scss variable ``$color-primary`` for its styling which can be overwritten by
+The AliasBlock can be installed with an extra ``aliasblock``. The block uses the
+SCSS variable ``$color-primary`` for its styling which can be overwritten by
 a custom design. The ``dropzonewrapper`` class is set to ``display: none;`` to
-avoid errors trying to upload content on the aliasblock. There is also a link
+avoid errors trying to upload content on the AliasBlock. There is also a link
 provided to jump to the original content.
-The selectable blocks are returned by
+
+All Blocks within this package, ftw.addressblock and ftw.sliderblock are supported.
+Other Blocks from different packages or policies won't work because the list of
+aliasable blocks is hardcoded. This list of blocks is available via
 ``ftw.simplelayout.aliasblock.contents.aliasblock.get_selectable_blocks``.
 
 It's also possible to select a whole ContentPage to render within the AliasBlock.
-It's not possible to select another ContentPage which already contains an AliasBlock.
-All Blocks within this package are supported (incl. MapBlock).
-Blocks from other packages won't work because the list of aliasable blocks is hard coded.
-
-Exceptions:
-    - ftw.addressblock
-    - ftw.sliderblock
+It's not possible however to select a ContentPage which already contains an AliasBlock
+or the ContentPage an AliasBlock is being created on to prevent recursion.
 
 
 Behaviors
