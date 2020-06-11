@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-10 12:47+0000\n"
+"POT-Creation-Date: 2020-06-10 11:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -602,12 +602,12 @@ msgid "label_internal_link"
 msgstr "Interne Referenz"
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
 msgid "label_invalid_permission"
 msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
 
 #. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:23
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
 msgid "label_invalid_reference"
 msgstr "Der eingebettete Block existiert nicht."
 
@@ -708,6 +708,11 @@ msgstr "Video-URL"
 #: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
 msgid "label_visit_block"
 msgstr "&#128279; Zum Original-Block"
+
+#. Default: "&#128279; Visit embedded page"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:15
+msgid "label_visit_page"
+msgstr "Zur Originalseite"
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68

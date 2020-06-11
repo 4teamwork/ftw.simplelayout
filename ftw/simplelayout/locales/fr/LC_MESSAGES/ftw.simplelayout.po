@@ -605,12 +605,12 @@ msgid "label_internal_link"
 msgstr ""
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
 msgid "label_invalid_permission"
 msgstr ""
 
 #. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:23
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
 msgid "label_invalid_reference"
 msgstr ""
 
@@ -711,6 +711,11 @@ msgstr ""
 #: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
 msgid "label_visit_block"
 msgstr ""
+
+#. Default: "&#128279; Visit embedded page"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:15
+msgid "label_visit_page"
+msgstr "Vers la page d'origine"
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68
