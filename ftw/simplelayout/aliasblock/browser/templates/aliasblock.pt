@@ -16,7 +16,7 @@
          tal:attributes="href context/alias/to_path"
          class="sl-alias-block-visit-block"
          i18n:translate="label_visit_page">
-        &#128279; Visit embedded page
+        &#128279; Visit embedded page <span class="page-title" i18n:name="page_title" tal:content="context/alias/to_object/Title" />
       </a>
       <tal:alias-block content="structure view/get_referenced_block_content" />
     </tal:authorized>
