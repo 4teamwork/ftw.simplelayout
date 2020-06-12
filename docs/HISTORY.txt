@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.1 (unreleased)
+2.7.1 (2020-06-12)
 ------------------
 
 - Show linked page title on aliasblock. [mathias.leimgruber]
