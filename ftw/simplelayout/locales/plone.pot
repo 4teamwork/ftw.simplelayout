@@ -31,3 +31,6 @@ msgstr ""
 
 msgid "ftw.simplelayout.VideoBlock"
 msgstr ""
+
+msgid "ftw.simplelayout.AliasBlock"
+msgstr ""

@@ -11,6 +11,9 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+msgid "ftw.simplelayout.AliasBlock"
+msgstr "Alias"
+
 msgid "ftw.simplelayout.ContentPage"
 msgstr "Inhaltsseite"
 
