@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-10 11:48+0000\n"
+"POT-Creation-Date: 2020-06-11 14:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -709,10 +709,10 @@ msgstr "Video-URL"
 msgid "label_visit_block"
 msgstr "&#128279; Zum Original-Block"
 
-#. Default: "&#128279; Visit embedded page"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:15
+#. Default: "&#128279; Visit embedded page ${page_title}"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
 msgid "label_visit_page"
-msgstr "Zur Originalseite"
+msgstr "Zur Originalseite: \"${page_title}\""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68

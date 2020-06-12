@@ -5,6 +5,7 @@ Changelog
 2.7.1 (unreleased)
 ------------------
 
+- Show linked page title on aliasblock. [mathias.leimgruber]
 - Do not allow to reference the ContentPage you are creating the AliasBlock on to prevent recursion [Nachtalb]
 - Fix AliasBlock text for link to referenced ContentPage [Nachtalb]
 
