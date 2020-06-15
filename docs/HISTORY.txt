@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.3 (unreleased)
+2.7.3 (2020-06-15)
 ------------------
 
 - Fix link to referenced object [Nachtalb]
