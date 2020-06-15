@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix link to referenced object [Nachtalb]
+- Remove ``aliasblock`` and ``contenttypes`` conditions because empty extras cannot be checked [Nachtalb]
 
 
 2.7.2 (2020-06-12)
