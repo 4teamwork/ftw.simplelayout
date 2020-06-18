@@ -19,6 +19,7 @@ tests_require = [
     'transaction',
     'zope.configuration',
     'ftw.simplelayout [trash, mapblock]',
+    'ftw.logo',
 ]
 
 extras_require = {

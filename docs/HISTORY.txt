@@ -5,7 +5,7 @@ Changelog
 2.7.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add ftw.logo support for plone root opengraph integration. [mathias.leimgruber]
 
 
 2.7.3 (2020-06-15)

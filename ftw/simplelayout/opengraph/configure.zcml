@@ -12,6 +12,11 @@
     </class>
 
     <adapter factory=".og_site_root.PloneRootOpenGraph" name="opengraph" />
+
+    <configure zcml:condition="installed ftw.logo">
+        <include package=".ftwlogo" />
+    </configure>
+
     <adapter factory=".og_sl_page.SimplelayoutPageOpenGraph" name="opengraph" />
 
     <browser:viewlet
