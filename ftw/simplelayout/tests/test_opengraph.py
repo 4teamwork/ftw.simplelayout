@@ -115,3 +115,14 @@ class TestOpenGraph(TestCase):
         page_config = IPageConfiguration(page)
         page_config.store(self.page_state)
         transaction.commit()
+
+    @browsing
+    def test_opengraph_ftwlogo_integration(self, browser):
+        self.portal.portal_setup.runAllImportStepsFromProfile('profile-ftw.logo:default')
+        transaction.commit()
+        browser.login().visit()
+
+        logo_url_without_cache = '{}/@@logo/logo/get_logo'.format(self.portal.absolute_url())
+
+        og_image = browser.css('meta[property="og:image"]').first.attrib['content']
+        self.assertTrue(og_image.startswith(logo_url_without_cache))
