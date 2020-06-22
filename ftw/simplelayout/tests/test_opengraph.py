@@ -125,4 +125,5 @@ class TestOpenGraph(TestCase):
         logo_url_without_cache = '{}/@@logo/logo/get_logo'.format(self.portal.absolute_url())
 
         og_image = browser.css('meta[property="og:image"]').first.attrib['content']
+        browser.open(og_image)
         self.assertTrue(og_image.startswith(logo_url_without_cache))
