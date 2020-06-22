@@ -5,7 +5,7 @@ Changelog
 2.7.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix ftw.logo opengraph integration [Nachtalb]
 
 
 2.7.4 (2020-06-19)

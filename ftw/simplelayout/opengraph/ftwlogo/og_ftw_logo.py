@@ -20,7 +20,7 @@ class FtwLogoRootOpenGraph(PloneRootOpenGraph):
     def get_image_url(self):
         """ftw.logo image"""
 
-        return '{}/@@logo/logo/get_logor={}'.format(
+        return '{}/@@logo/logo/get_logo?r={}'.format(
             api.portal.get().absolute_url(),
             self.get_cache_key()
         )
