@@ -10,7 +10,7 @@ from plone.supermodel import model
 from zope import schema
 from zope.interface import Interface
 from zope.interface import provider
-
+from zope.viewlet.interfaces import IViewletManager
 
 class ISimplelayoutLayer(Interface):
     """Browserlayer for simplelayout"""
@@ -223,3 +223,9 @@ class ISimplelayoutContainerConfig(Interface):
         Results in one layout with one.
         Return None, will trigger a fallback to on layout with one column.
         """
+
+
+class ISimplelayoutBlockFormManager(IViewletManager):
+    """Viewletmanager used to render custom information into add/edit form of
+    blocks.
+    """

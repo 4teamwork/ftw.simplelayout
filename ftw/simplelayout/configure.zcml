@@ -27,8 +27,9 @@
     <include file="lawgiver.zcml" zcml:condition="installed ftw.lawgiver" />
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
-    <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
-    <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
+    <include package=".contenttypes" />
+    <include package=".aliasblock" />
+    <include package=".mapblock" zcml:condition="have ftw.simplelayout:mapblock" />
     <include package=".restapi" zcml:condition="installed plone.restapi" />
 
     <cmf:registerDirectory
