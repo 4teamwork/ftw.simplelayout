@@ -5,7 +5,8 @@ Changelog
 1.25.2 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Backport 2.7.5: Add new block (AliasBlock) which renders the content of other blocks / contentpages. [Nachtalb]
+- Backport 2.7.5: Add viewletmanager for block add/edit form in order to load custom code. [Nachtalb]
 
 
 1.25.1 (2020-03-24)

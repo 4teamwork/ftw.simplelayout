@@ -140,6 +140,26 @@ images and a single block for text.
 
    Add TextBlock
 
+Extra Blocks
+------------
+
+**AliasBlock**
+
+The AliasBlock can be installed with an extra ``aliasblock``. The block uses the
+SCSS variable ``$color-primary`` for its styling which can be overwritten by
+a custom design. The ``dropzonewrapper`` class is set to ``display: none;`` to
+avoid errors trying to upload content on the AliasBlock. There is also a link
+provided to jump to the original content.
+
+All Blocks within this package, ftw.addressblock and ftw.sliderblock are supported.
+Other Blocks from different packages or policies won't work because the list of
+aliasable blocks is hardcoded. This list of blocks is available via
+``ftw.simplelayout.aliasblock.contents.aliasblock.get_selectable_blocks``.
+
+It's also possible to select a whole ContentPage to render within the AliasBlock.
+It's not possible however to select a ContentPage which already contains an AliasBlock
+or the ContentPage an AliasBlock is being created on to prevent recursion.
+
 
 Behaviors
 ---------
