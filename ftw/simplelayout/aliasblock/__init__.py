@@ -1,4 +1,4 @@
 def initialize(context):
-    """Required for beeing able to uninstall the aliasblock product.
+    """Required to enable to uninstall the aliasblock product.
     """
     pass

@@ -77,7 +77,7 @@ class ContentPageValidator(validator.SimpleFieldValidator):
     """Don't allow sl pages containing another AliasBlock"""
 
     def validate(self, value):
-        """Validate international phone number on input"""
+        """Check for a valid reference"""
         if not value:
             raise Invalid(
                 _(u'error_text_required_aliasblock',
