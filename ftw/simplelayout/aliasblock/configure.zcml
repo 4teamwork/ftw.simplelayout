@@ -4,7 +4,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
-    xmlns:profilehook="http://namespaces.zope.org/profilehook"
     i18n_domain="ftw.simplelayout">
 
     <five:registerPackage package="." initialize=".initialize" />
@@ -30,16 +29,6 @@
         description="Uninstalls the ftw.simplelayout.aliasblock package."
         provides="Products.GenericSetup.interfaces.EXTENSION"
         for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
-        />
-
-    <profilehook:hook
-        profile="ftw.simplelayout.aliasblock:default"
-        handler=".hooks.installed"
-        />
-
-    <profilehook:hook
-        profile="ftw.simplelayout.aliasblock:uninstall"
-        handler=".hooks.uninstalled"
         />
 
     <include package="ftw.upgrade" file="meta.zcml" />
