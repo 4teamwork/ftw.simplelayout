@@ -1108,7 +1108,6 @@ function Simplelayout(options) {
     start: function start() {
       self.enableFrames();
       root.addClass("sl-block-dragging");
-      (0, _jquery2.default)(".sl-column").sortable("refreshPositions");
       (0, _jquery2.default)(".sl-column").filter(function (index, element) {
         return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
       }).sortable("refreshPositions");
@@ -1290,12 +1289,13 @@ function Simplelayout(options) {
   this.options.toolbox.element.find(".sl-toolbox-layout").draggable("option", "connectToSortable", ".sl-simplelayout");
   this.options.toolbox.element.find(".sl-toolbox-block").draggable("option", "connectToSortable", ".sl-column");
 
-   (0, _jquery2.default)(".sl-simplelayout").filter(function (index, element) {
-     return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
-   }).sortable(LAYOUT_SORTABLE);
-   (0, _jquery2.default)(".sl-column").filter(function (index, element) {
-     return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
-   }).sortable(BLOCK_SORTABLE);
+  (0, _jquery2.default)(".sl-simplelayout").filter(function (index, element) {
+    return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+  }).sortable(LAYOUT_SORTABLE);
+  (0, _jquery2.default)(".sl-column").filter(function (index, element) {
+    return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+  }).sortable(BLOCK_SORTABLE);
+
   root.addClass("simplelayout-initialized");
 
   /* Patch for registering beforeStart event */

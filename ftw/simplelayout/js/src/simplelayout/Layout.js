@@ -87,9 +87,7 @@ export default function Layout(columns) {
     $(this.element).html(toReplace);
     this.blocks = {};
     $(".sl-block", this.element).each(function() {
-      if ($(this).closest('.sl-alias-block').length === 0) {
-        self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
-      }
+      self.insertBlock().restore(this, self, $(this).data().type, $(this).data().uid);
     });
     EE.trigger("layout-committed", [this]);
     return this;
