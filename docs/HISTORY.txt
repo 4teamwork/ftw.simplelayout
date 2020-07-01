@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Update aliasblock integration JS for full multi columns/layouts contentpage support. [mathias.leimgruber]
+- Aliasblock only show link to referenced page if you are able to modify the aliasblock. [mathias.leimgruber]
 
 
 2.7.5 (2020-06-22)

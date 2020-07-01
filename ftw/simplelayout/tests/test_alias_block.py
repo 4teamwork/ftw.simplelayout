@@ -69,7 +69,7 @@ class TestAliasBlockRendering(TestCase):
                        self.intids.getId(self.textblock)))
                .within(self.page2))
 
-        browser.visit(self.page2)
+        browser.login().visit(self.page2)
         visit_link = browser.css('.sl-alias-block-visit-block').first.text
         textblock_title = browser.css('.sl-alias-block h2').first.text
 
