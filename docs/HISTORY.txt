@@ -5,7 +5,7 @@ Changelog
 1.26.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Aliasblock only show link to referenced page if you are able to modify the aliasblock. [mathias.leimgruber]
 
 
 1.26.0 (2020-07-01)
