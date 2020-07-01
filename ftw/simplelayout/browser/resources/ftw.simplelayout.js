@@ -826,7 +826,9 @@ function Layout(columns) {
     (0, _jquery2.default)(this.element).html(toReplace);
     this.blocks = {};
     (0, _jquery2.default)(".sl-block", this.element).each(function () {
-      self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+      if ((0, _jquery2.default)(this).closest('.sl-alias-block').length === 0) {
+        self.insertBlock().restore(this, self, (0, _jquery2.default)(this).data().type, (0, _jquery2.default)(this).data().uid);
+      }
     });
     EE.trigger("layout-committed", [this]);
     return this;
@@ -979,7 +981,10 @@ function Layoutmanager() {
     this.commit();
     (0, _jquery2.default)(".sl-layout", restoreElement).each(function () {
       if ((0, _jquery2.default)(this).closest('.sl-alias-block').length === 0) {
-        self.insertLayout().restore(this, self, (0, _jquery2.default)(".sl-column", this).length);
+        var cols = (0, _jquery2.default)(".sl-column", this).filter(function (index, element) {
+          return (0, _jquery2.default)(element).closest('.sl-alias-block').length === 0;
+        });
+        self.insertLayout().restore(this, self, cols.length);
       }
     });
   };
