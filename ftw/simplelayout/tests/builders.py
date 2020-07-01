@@ -79,3 +79,9 @@ class GalleryBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.GalleryBlock'
 
 builder_registry.register('sl galleryblock', GalleryBlockBuilder)
+
+
+class AliasBlockBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.AliasBlock'
+
+builder_registry.register('sl aliasblock', AliasBlockBuilder)

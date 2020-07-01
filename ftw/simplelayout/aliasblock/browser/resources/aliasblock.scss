@@ -1,0 +1,21 @@
+@include portal-type-font-awesome-icon(ftw-simplelayout-aliasblock, link);
+
+$color-primary: tomato !default;
+
+.sl-can-edit .sl-alias-block {
+  border: solid 2px $color-primary;
+  display: inline-block;
+  padding: 10px;
+  width: 100%;
+}
+
+.sl-can-edit .sl-alias-block-visit-block {
+  background-color: rgba($color-primary, .1);
+  display: block;
+  margin: -10px -10px 10px -10px;
+  padding: 10px;
+}
+
+.sl-can-edit .sl-alias-block .dropzonewrapper {
+  display: none;
+}

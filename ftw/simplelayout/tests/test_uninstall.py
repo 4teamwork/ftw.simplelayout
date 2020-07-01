@@ -11,3 +11,8 @@ class TestGenericSetupUninstallMapBlock(TestCase, GenericSetupUninstallMixin):
 @apply_generic_setup_layer
 class TestGenericSetupUninstallContentTypes(TestCase, GenericSetupUninstallMixin):
     package = 'ftw.simplelayout.contenttypes'
+
+
+@apply_generic_setup_layer
+class TestGenericSetupUninstallAliasBlock(TestCase, GenericSetupUninstallMixin):
+    package = 'ftw.simplelayout.aliasblock'

@@ -80,7 +80,10 @@ export default function Layoutmanager() {
     Layoutmanager.prototype.restore.call(this, restoreElement, null, represents);
     this.commit();
     $(".sl-layout", restoreElement).each(function() {
-      self.insertLayout().restore(this, self, $(".sl-column", this).length);
+      if ($(this).closest('.sl-alias-block').length === 0) {
+        const cols = $(".sl-column", this).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 })
+        self.insertLayout().restore(this, self, cols.length);
+      }
     });
   };
 

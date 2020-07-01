@@ -16,7 +16,8 @@ from plone.testing import z2
 from plone.testing import zca
 from unittest2 import TestCase
 from zope.configuration import xmlconfig
-import ftw.simplelayout.tests.builders
+import ftw.simplelayout.tests.builders  # noqa
+import ftw.referencewidget.tests.widgets  # noqa
 
 
 IS_PLONE_5 = get_distribution('Plone').version >= '5'
@@ -35,6 +36,7 @@ class SimplelayoutZCMLLayer(ComponentRegistryLayer):
 
         import ftw.simplelayout.tests
         self.load_zcml_file('tests.zcml', ftw.simplelayout.tests)
+
 
 SIMPLELAYOUT_ZCML_LAYER = SimplelayoutZCMLLayer()
 
@@ -67,6 +69,7 @@ class FtwSimplelayoutContentLayer(FtwSimplelayoutLayer):
         if not IS_PLONE_5:
             applyProfile(portal, 'ftw.simplelayout.contenttypes:default')
             applyProfile(portal, 'ftw.simplelayout.mapblock:default')
+            applyProfile(portal, 'ftw.simplelayout.aliasblock:default')
 
         setRoles(portal, TEST_USER_ID, ['Manager', 'Site Administrator'])
         login(portal, TEST_USER_NAME)

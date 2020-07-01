@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-11-04 14:42+0000\n"
+"POT-Creation-Date: 2020-06-25 13:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,6 +18,10 @@ msgstr "Fügt eine Option hinzu, die es erlaubt, Blöcke visuell zu verstecken"
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
 msgstr "Fügt eine checkbox hinzu, mit der der Titel einer Inhaltsseite versteckt werden kann"
+
+#: ./ftw/simplelayout/aliasblock/profiles/default/types/ftw.simplelayout.AliasBlock.xml
+msgid "AliasBlock"
+msgstr ""
 
 #: ./ftw/simplelayout/images/cropping/configure.zcml:21
 msgid "Allows to crop an image and use the cropped image for display"
@@ -112,7 +116,7 @@ msgstr "Bilderauflösungslimits"
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu definieren."
 
-#: ./ftw/simplelayout/configure.zcml:82
+#: ./ftw/simplelayout/configure.zcml:83
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -152,11 +156,15 @@ msgstr "Zeige Titel"
 msgid "Shows OpenGraph meta tags"
 msgstr "Zeigt die OpenGraph Meta Tags"
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "Simlelayout aliasblock type"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:35
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -243,6 +251,10 @@ msgstr "Dieser Block hat keinen Inhalt."
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstall ftw.simplelayout.aliasblock"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:44
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr "Deinstalliere ftw.simplelayout.contenttypes"
@@ -250,6 +262,10 @@ msgstr "Deinstalliere ftw.simplelayout.contenttypes"
 #: ./ftw/simplelayout/mapblock/configure.zcml:34
 msgid "Uninstall ftw.simplelayout.mapblocks"
 msgstr "Deinstalliere ftw.simplelayout.mapblocks"
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstalls the ftw.simplelayout.aliasblock package."
+msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:44
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
@@ -376,11 +392,30 @@ msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature
 msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
-#: ./ftw/simplelayout/configure.zcml:82
+#. Default: "The selected content cannot be selected"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:94
+msgid "error_text_alias_aliasblock"
+msgstr ""
+
+#. Default: "A input is required"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:83
+msgid "error_text_required_aliasblock"
+msgstr ""
+
+#. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:90
+msgid "error_text_sl_page_aliasblock"
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "ftw.simplelayout aliasblock default"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:83
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -427,6 +462,16 @@ msgstr "Block entfernen"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
 msgid "label_%ssort_index"
 msgstr "Sortierung"
+
+#. Default: "Alias Content"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:62
+msgid "label_alias_content"
+msgstr ""
+
+#. Default: "Choose a block to be rendered within this block."
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:64
+msgid "label_alias_description"
+msgstr ""
 
 #. Default: "Ascending"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:118
@@ -553,6 +598,16 @@ msgstr "Bild ohne Ausrichtung"
 msgid "label_internal_link"
 msgstr "Interne Referenz"
 
+#. Default: "The content is no longer accessible to you"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
+msgid "label_invalid_permission"
+msgstr ""
+
+#. Default: "The embedded block does not exist."
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
+msgid "label_invalid_reference"
+msgstr ""
+
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
 msgid "label_is_hidden"
@@ -656,6 +711,16 @@ msgstr "Datei hochladen"
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:49
 msgid "label_video_url"
 msgstr "Video-URL"
+
+#. Default: "&#128279; Visit embedded block"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+msgid "label_visit_block"
+msgstr ""
+
+#. Default: "&#128279; Visit embedded page ${page_title}"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+msgid "label_visit_page"
+msgstr ""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68

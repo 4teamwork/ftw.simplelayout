@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-11-04 14:42+0000\n"
+"POT-Creation-Date: 2020-06-25 13:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/behaviors.zcml:24
 msgid "Adds checkbox to hide title of a contentpage"
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/profiles/default/types/ftw.simplelayout.AliasBlock.xml
+msgid "AliasBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/images/cropping/configure.zcml:21
@@ -115,7 +119,7 @@ msgstr ""
 msgid "It's not possible to have an internal_link and an external_link together"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:82
+#: ./ftw/simplelayout/configure.zcml:83
 msgid "Javascript resources from client are not compressed"
 msgstr ""
 
@@ -155,11 +159,15 @@ msgstr ""
 msgid "Shows OpenGraph meta tags"
 msgstr ""
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "Simlelayout aliasblock type"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:35
 msgid "Simlelayout default content types"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "Simlelayout js library"
 msgstr ""
 
@@ -246,12 +254,20 @@ msgstr ""
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstall ftw.simplelayout.aliasblock"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/configure.zcml:44
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr ""
 
 #: ./ftw/simplelayout/mapblock/configure.zcml:34
 msgid "Uninstall ftw.simplelayout.mapblocks"
+msgstr ""
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+msgid "Uninstalls the ftw.simplelayout.aliasblock package."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:44
@@ -379,11 +395,30 @@ msgstr ""
 msgid "description_teaser_fieldset"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:82
+#. Default: "The selected content cannot be selected"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:94
+msgid "error_text_alias_aliasblock"
+msgstr "Der ausgwählte Inhalt kann nicht als Ziel in einem AliasBlock verwendet werden"
+
+#. Default: "A input is required"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:83
+msgid "error_text_required_aliasblock"
+msgstr "Es muss ein Ziel ausgewählt werden."
+
+#. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:90
+msgid "error_text_sl_page_aliasblock"
+msgstr "Die ausgwählte Inhlatsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält oder die Seite ist auf welcher sie den Block erstellen."
+
+#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+msgid "ftw.simplelayout aliasblock default"
+msgstr ""
+
+#: ./ftw/simplelayout/configure.zcml:83
 msgid "ftw.simplelayout development"
 msgstr ""
 
-#: ./ftw/simplelayout/configure.zcml:57
+#: ./ftw/simplelayout/configure.zcml:58
 msgid "ftw.simplelayout js library"
 msgstr ""
 
@@ -430,6 +465,16 @@ msgstr ""
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
 msgid "label_%ssort_index"
 msgstr ""
+
+#. Default: "Alias Content"
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:62
+msgid "label_alias_content"
+msgstr "Alias Inhalt"
+
+#. Default: "Choose a block to be rendered within this block."
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:64
+msgid "label_alias_description"
+msgstr "Wähle den Block, der im AliasBlock angezeigt werden soll."
 
 #. Default: "Ascending"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:118
@@ -556,6 +601,16 @@ msgstr ""
 msgid "label_internal_link"
 msgstr ""
 
+#. Default: "The content is no longer accessible to you"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
+msgid "label_invalid_permission"
+msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
+
+#. Default: "The embedded block does not exist."
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
+msgid "label_invalid_reference"
+msgstr "Der eingebettete Block existiert nicht."
+
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
 msgid "label_is_hidden"
@@ -659,6 +714,16 @@ msgstr ""
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:49
 msgid "label_video_url"
 msgstr ""
+
+#. Default: "&#128279; Visit embedded block"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+msgid "label_visit_block"
+msgstr "&#128279; Zum Original-Block"
+
+#. Default: "&#128279; Visit embedded page ${page_title}"
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+msgid "label_visit_page"
+msgstr "Zur Originalseite: \"${page_title}\""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
 #: ./ftw/simplelayout/images/limits/validators.py:68

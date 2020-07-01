@@ -1,0 +1,35 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.simplelayout">
+
+<div class="sl-alias-block">
+
+  <tal:ref-valid condition="not: context/alias/isBroken">
+    <tal:authorized condition="view/has_view_permission">
+      <a tal:condition="not: view/referece_is_page"
+         tal:attributes="href context/alias/to_object/absolute_url"
+         class="sl-alias-block-visit-block"
+         i18n:translate="label_visit_block">
+        &#128279; Visit embedded block
+      </a>
+      <a tal:condition="view/referece_is_page"
+         tal:attributes="href context/alias/to_object/absolute_url"
+         class="sl-alias-block-visit-block"
+         i18n:translate="label_visit_page">
+        &#128279; Visit embedded page <span class="page-title" i18n:name="page_title" tal:content="context/alias/to_object/Title" />
+      </a>
+      <tal:alias-block content="structure view/get_referenced_block_content" />
+    </tal:authorized>
+  </tal:ref-valid>
+
+  <tal:not-authorized condition="not: view/has_view_permission">
+    <p i18n:translate="label_invalid_permission">The content is no longer accessible to you</p>
+  </tal:not-authorized>
+
+  <tal:ref-invalid condition="context/alias/isBroken">
+    <p i18n:translate="label_invalid_reference">The embedded block does not exist.</p>
+  </tal:ref-invalid>
+
+</div>
+
+</html>

@@ -28,6 +28,7 @@
     <include file="resources.zcml" zcml:condition="installed ftw.theming" />
 
     <include package=".contenttypes" zcml:condition="have ftw.simplelayout:contenttypes" />
+    <include package=".aliasblock" zcml:condition="have ftw.simplelayout:contenttypes"/>
     <include package=".mapblock" zcml:condition="have ftw.simplelayout:contenttypes:mapblock" />
     <include package=".restapi" zcml:condition="installed plone.restapi" />
 

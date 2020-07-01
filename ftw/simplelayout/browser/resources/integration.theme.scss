@@ -274,6 +274,9 @@
 .sl-block-dragging {
   .sl-column {
     border: 1px dashed $color-text;
+    .sl-alias-block .sl-column {
+      border: 0;
+    }
   }
 }
 
@@ -323,6 +326,9 @@
   }
   .sl-layout {
     border: 1px dashed $color-text;
+    .sl-alias-block .sl-layout {
+      border: 0;
+    }
   }
   .documentEditable {
     .sl-column:empty {
@@ -587,6 +593,14 @@ ul[class^="sl-toolbar"] {
 .documentEditable {
   .sl-simplelayout {
     min-height: 100px;
+    .sl-alias-block {
+      .sl-block:hover {
+        box-shadow: none;
+      }
+      .sl-layout:hover {
+        box-shadow: none;
+      }
+    }
   }
   .sl-layout {
     @include transition(box-shadow .3s ease-out);

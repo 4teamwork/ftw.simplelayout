@@ -1,0 +1,22 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.simplelayout">
+
+    <browser:page
+        for="ftw.simplelayout.aliasblock.contents.interfaces.IAliasBlock"
+        name="block_view"
+        permission="zope2.View"
+        class=".aliasblock.AliasBlockView"
+        />
+
+
+    <browser:viewlet
+        name="aliasblock.form"
+        for="*"
+        manager="ftw.simplelayout.interfaces.ISimplelayoutBlockFormManager"
+        layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        class=".viewlet.AliasBlockFormViewlet"
+        permission="zope2.View"
+        />
+</configure>
