@@ -5,7 +5,7 @@ Changelog
 2.7.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update aliasblock integration JS for full multi columns/layouts contentpage support. [mathias.leimgruber]
 
 
 2.7.5 (2020-06-22)

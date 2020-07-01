@@ -81,7 +81,8 @@ export default function Layoutmanager() {
     this.commit();
     $(".sl-layout", restoreElement).each(function() {
       if ($(this).closest('.sl-alias-block').length === 0) {
-        self.insertLayout().restore(this, self, $(".sl-column", this).length);
+        const cols = $(".sl-column", this).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 })
+        self.insertLayout().restore(this, self, cols.length);
       }
     });
   };
