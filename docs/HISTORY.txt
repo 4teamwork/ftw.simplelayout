@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.25.2 (unreleased)
+1.26.0 (2020-07-01)
 -------------------
 
 - Backport 2.7.5: Add new block (AliasBlock) which renders the content of other blocks / contentpages. [Nachtalb]
