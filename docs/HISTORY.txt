@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.1 (unreleased)
+1.26.1 (2020-07-01)
 -------------------
 
 - Aliasblock only show link to referenced page if you are able to modify the aliasblock. [mathias.leimgruber]
