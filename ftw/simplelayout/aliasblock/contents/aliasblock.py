@@ -3,18 +3,17 @@ from ftw.referencewidget.sources import ReferenceObjSourceBinder
 from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
 from ftw.simplelayout.aliasblock.contents.interfaces import IAliasBlock
-from plone import api
-from plone.uuid.interfaces import IUUID
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
 from plone.directives.form import widget
+from plone.uuid.interfaces import IUUID
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from z3c.form import validator
 from z3c.relationfield.schema import RelationChoice
 from zope.interface import alsoProvides
 from zope.interface import implements
 from zope.interface import Invalid
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 
 class AliasBlockSelectable(DefaultSelectable):
@@ -29,7 +28,7 @@ class AliasBlockSelectable(DefaultSelectable):
         # Don't allow sl pages containing another AliasBlock
         if is_sl_page:
             if (not IPloneSiteRoot.providedBy(self.source.context) and
-                IUUID(self.content) == IUUID(self.source.context)):
+                    IUUID(self.content) == IUUID(self.source.context)):
                 return False
             return not bool(filter(
                 lambda item: item.portal_type == 'ftw.simplelayout.AliasBlock',
@@ -48,7 +47,8 @@ def get_selectable_blocks():
             'ftw.iframeblock.IFrameBlock',
             'ftw.addressblock.AddressBlock',
             'ftw.simplelayout.MapBlock',
-            'ftw.simplelayout.ContentPage']
+            'ftw.simplelayout.ContentPage',
+            'ftw.contacts.MemberBlock']
 
 
 class IAliasBlockSchema(form.Schema):
@@ -82,7 +82,6 @@ class ContentPageValidator(validator.SimpleFieldValidator):
             raise Invalid(
                 _(u'error_text_required_aliasblock',
                   default=u'A input is required'))
-
 
         if not AliasBlockSelectable(self.field.source, value)():
             if value.portal_type == 'ftw.simplelayout.ContentPage':
