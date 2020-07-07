@@ -2,7 +2,8 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.simplelayout">
 
-<div class="sl-alias-block">
+<div class="sl-alias-block"
+      tal:attributes="class python:not context.alias.isBroken() and view.has_view_permission() and 'sl-alias-block' or 'sl-alias-block no-access'">
 
   <tal:ref-valid condition="not: context/alias/isBroken">
     <tal:authorized condition="view/has_view_permission">
@@ -20,7 +21,7 @@
           &#128279; Visit embedded page <span class="page-title" i18n:name="page_title" tal:content="context/alias/to_object/Title" />
         </a>
       </tal:authenticated>
-      <tal:alias-block content="structure view/get_referenced_block_content" />
+      <div tal:attributes="class view/get_css_classes" tal:content="structure view/get_referenced_block_content" />
     </tal:authorized>
   </tal:ref-valid>
 

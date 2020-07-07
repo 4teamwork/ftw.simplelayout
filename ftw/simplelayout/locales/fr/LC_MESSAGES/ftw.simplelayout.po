@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-25 13:00+0000\n"
+"POT-Creation-Date: 2020-07-06 15:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -159,7 +159,7 @@ msgstr ""
 msgid "Shows OpenGraph meta tags"
 msgstr ""
 
-#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+#: ./ftw/simplelayout/aliasblock/configure.zcml:23
 msgid "Simlelayout aliasblock type"
 msgstr ""
 
@@ -254,7 +254,7 @@ msgstr ""
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
-#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+#: ./ftw/simplelayout/aliasblock/configure.zcml:32
 msgid "Uninstall ftw.simplelayout.aliasblock"
 msgstr ""
 
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Uninstall ftw.simplelayout.mapblocks"
 msgstr ""
 
-#: ./ftw/simplelayout/aliasblock/configure.zcml:33
+#: ./ftw/simplelayout/aliasblock/configure.zcml:32
 msgid "Uninstalls the ftw.simplelayout.aliasblock package."
 msgstr ""
 
@@ -410,7 +410,7 @@ msgstr ""
 msgid "error_text_sl_page_aliasblock"
 msgstr ""
 
-#: ./ftw/simplelayout/aliasblock/configure.zcml:24
+#: ./ftw/simplelayout/aliasblock/configure.zcml:23
 msgid "ftw.simplelayout aliasblock default"
 msgstr ""
 
@@ -602,12 +602,12 @@ msgid "label_internal_link"
 msgstr ""
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
 msgid "label_invalid_permission"
 msgstr ""
 
 #. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
 msgid "label_invalid_reference"
 msgstr ""
 
@@ -716,12 +716,12 @@ msgid "label_video_url"
 msgstr ""
 
 #. Default: "&#128279; Visit embedded block"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:10
 msgid "label_visit_block"
 msgstr ""
 
 #. Default: "&#128279; Visit embedded page ${page_title}"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:20
 msgid "label_visit_page"
 msgstr ""
 
