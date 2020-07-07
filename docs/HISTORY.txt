@@ -5,6 +5,7 @@ Changelog
 1.26.2 (unreleased)
 -------------------
 
+- Add addtional css class, which indicates no access. [mathias.leimgruber]
 - Add additional wrapper div with more css class to aliasblock. [mathias.leimgruber]
 - Also allow ftw.contacts Memberblock in Aliasblock. [mathias.leimgruber]
 - Update AliasBlock releated translations. [mathias.leimgruber]
