@@ -5,6 +5,7 @@ Changelog
 1.26.2 (unreleased)
 -------------------
 
+- Add additional wrapper div with more css class to aliasblock. [mathias.leimgruber]
 - Also allow ftw.contacts Memberblock in Aliasblock. [mathias.leimgruber]
 - Update AliasBlock releated translations. [mathias.leimgruber]
 

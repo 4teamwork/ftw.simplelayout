@@ -20,7 +20,7 @@
           &#128279; Visit embedded page <span class="page-title" i18n:name="page_title" tal:content="context/alias/to_object/Title" />
         </a>
       </tal:authenticated>
-      <tal:alias-block content="structure view/get_referenced_block_content" />
+      <div tal:attributes="class view/get_css_classes" tal:content="structure view/get_referenced_block_content" />
     </tal:authorized>
   </tal:ref-valid>
 

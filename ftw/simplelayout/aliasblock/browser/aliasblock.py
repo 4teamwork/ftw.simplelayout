@@ -3,6 +3,7 @@ from ftw.simplelayout.browser.provider import SimplelayoutRenderer
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
 from ftw.simplelayout.utils import get_block_html
+from ftw.simplelayout.utils import normalize_portal_type
 from plone import api
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -40,3 +41,6 @@ class AliasBlockView(BaseBlock):
                                            'default',
                                            view=view)
         return sl_renderer.render_layout()
+
+    def get_css_classes(self):
+        return 'alias-from-' + normalize_portal_type(self.context.alias.to_object.portal_type)
