@@ -3,11 +3,14 @@ from ftw.builder import create
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IBlockModifier
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
+from unittest import skipUnless
 from unittest import TestCase
 from zope.component import getMultiAdapter
+import json
 
 
 class TestSampleTypes(TestCase):
@@ -62,3 +65,14 @@ class TestSampleTypes(TestCase):
         self.assertEqual(
             ['A page'],
             browser.css('.documentFirstHeading').text)
+
+    @browsing
+    @skipUnless(IS_PLONE_5, 'Only testable on plone 5')
+    def test_patterns_lib_tinymce_config_prependToUrl(self, browser):
+        browser.login().visit(self.portal)
+        factoriesmenu.add('TextBlock')
+        tiny_settings = json.loads(
+            browser.css('.richtext-field').first.attrib['data-pat-tinymce']
+        )
+
+        self.assertEquals('resolveuid/', tiny_settings['prependToUrl'])

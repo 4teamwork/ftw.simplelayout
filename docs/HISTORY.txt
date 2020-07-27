@@ -5,7 +5,7 @@ Changelog
 2.7.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix tinymce prependToUrl value, in order to make internal links work on plone root. [mathias.leimgruber]
 
 
 2.7.6 (2020-07-01)

@@ -61,4 +61,15 @@
             permission="cmf.ModifyViewTemplate"
             />
     </configure>
+
+    <!-- Adapters for patterns settings -->
+    <configure zcml:condition="have plone-5">
+        <adapter
+            factory=".tinymce.SimplelayoutPatternSettingsAdapter"
+            for="* ftw.simplelayout.interfaces.ISimplelayoutLayer *"
+            name="plone_settings"
+            provides="Products.CMFPlone.interfaces.IPatternsSettings"
+            />
+    </configure>
+
 </configure>
