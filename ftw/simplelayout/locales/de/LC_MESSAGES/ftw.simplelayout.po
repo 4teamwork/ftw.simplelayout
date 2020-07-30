@@ -412,7 +412,7 @@ msgstr "Es muss ein Ziel ausgewählt werden."
 #. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
 #: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:88
 msgid "error_text_sl_page_aliasblock"
-msgstr "Die ausgwählte Inhlatsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält oder die Seite ist auf welcher sie den Block erstellen."
+msgstr "Die ausgewählte Inhaltsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält oder es sich um die Seite handelt, auf welcher der AliasBlock erstellt werden soll."
 
 #: ./ftw/simplelayout/aliasblock/configure.zcml:24
 msgid "ftw.simplelayout aliasblock default"
