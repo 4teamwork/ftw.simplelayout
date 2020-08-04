@@ -39,7 +39,7 @@ extras_require = {
         'ftw.referencewidget',
     ],
     'mapblock': [
-        'collective.geo.bundle [dexterity]',
+        'collective.geo.leaflet',
     ],
     'trash': [
         'ftw.trash',
