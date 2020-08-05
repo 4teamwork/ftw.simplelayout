@@ -15,6 +15,10 @@
     }
   }
 
+  function inAliasblock(idx, element) {
+    return $(element).closest('.sl-alias-block').length === 0;
+  }
+
   function StateKeeper() {
 
     var counter = 0;
@@ -115,16 +119,13 @@
       var state = {};
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
-        $(".sl-layout", manager).each(function(layIdx, layout) {
-          if ($(layout).closest('.sl-alias-block').length === 1) { return; }
+        $(".sl-layout", manager).filter(inAliasblock).each(function(layIdx, layout) {
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
           state[manager.id][layIdx].config = $(layout).data().object.config();
-          $(".sl-column", layout).each(function(colIdx, column) {
-            if ($(column).closest('.sl-alias-block').length === 1) { return; }
+          $(".sl-column", layout).filter(inAliasblock).each(function(colIdx, column) {
             state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
-            const blocks = $(".sl-block", column).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 });
-            blocks.each(function(bloIdx, block) {
+            $(".sl-block", column).filter(inAliasblock).each(function(bloIdx, block) {
               state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data().represents };
             });
           });
