@@ -6,6 +6,7 @@ Changelog
 ------------------
 
 - Fix typo in aliasblock. [busykoala]
+- Fix state saving error when aliasblock linked to a page is used [Nachtalb]
 
 
 2.7.7 (2020-07-27)
