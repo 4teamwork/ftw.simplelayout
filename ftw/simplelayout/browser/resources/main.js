@@ -188,8 +188,13 @@
       var state = {};
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
-        $(".sl-layout", manager).each(function(layIdx, layout) {
+        var layIdx = -1;
+        $(".sl-layout", manager).each(function(_, layout) {
           if ($(layout).closest('.sl-alias-block').length === 1) { return; }
+          // Count the layIdx up manually instead of using jQuerys each methods counter so that it only increases if
+          // we're not in an aliasblock. Otherwise we would get empty items in the manager lists which will result in
+          // null when JSONified and cause errors in the backend.
+          layIdx++;
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
           state[manager.id][layIdx].config = $(layout).data().object.config();
