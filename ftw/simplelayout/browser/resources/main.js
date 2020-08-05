@@ -21,6 +21,10 @@
     }
   }
 
+  function inAliasblock(idx, element) {
+    return $(element).closest('.sl-alias-block').length === 0;
+  }
+
   function initDropZone(element) {
     var target = $(element).find('.filedropzone');
     if (target.length === 0) {
@@ -83,10 +87,8 @@
   }
 
   $(document).ready(function(){
-    $('.sl-block').each(function(){
-      if ($(this).closest('.sl-alias-block').length === 0) {
-        initDropZone(this);
-      }
+    $('.sl-block').filter(inAliasblock).each(function(){
+      initDropZone(this);
     });
   });
 
@@ -188,21 +190,13 @@
       var state = {};
       $(".sl-simplelayout").each(function(manIdx, manager) {
         state[manager.id] = [];
-        var layIdx = -1;
-        $(".sl-layout", manager).each(function(_, layout) {
-          if ($(layout).closest('.sl-alias-block').length === 1) { return; }
-          // Count the layIdx up manually instead of using jQuerys each methods counter so that it only increases if
-          // we're not in an aliasblock. Otherwise we would get empty items in the manager lists which will result in
-          // null when JSONified and cause errors in the backend.
-          layIdx++;
+        $(".sl-layout", manager).filter(inAliasblock).each(function(layIdx, layout) {
           state[manager.id][layIdx] = {};
           state[manager.id][layIdx].cols = [];
           state[manager.id][layIdx].config = $(layout).data().object.config();
-          $(".sl-column", layout).each(function(colIdx, column) {
-            if ($(column).closest('.sl-alias-block').length === 1) { return; }
+          $(".sl-column", layout).filter(inAliasblock).each(function(colIdx, column) {
             state[manager.id][layIdx].cols[colIdx] = { blocks: [] };
-            const blocks = $(".sl-block", column).filter(function(index, element){ return $(element).closest('.sl-alias-block').length === 0 })
-            blocks.each(function(bloIdx, block) {
+            $(".sl-block", column).filter(inAliasblock).each(function(bloIdx, block) {
               state[manager.id][layIdx].cols[colIdx].blocks[bloIdx] = { uid: $(block).data().represents };
             });
           });
