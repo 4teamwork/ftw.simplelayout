@@ -5,7 +5,7 @@ Changelog
 2.7.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix column in aliasblock results in failure [Nachtalb]
 
 
 2.7.8 (2020-08-05)
