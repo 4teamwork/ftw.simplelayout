@@ -110,6 +110,28 @@ class TestTextBlockRendering(TestCase):
         self.assertEquals('W42x6-Wf3Cs', youtube_config['videoId'])
 
     @browsing
+    def test_youtube_video_view_has_startSeconds_based_on_querystring(self, browser):
+        videoblock = create(Builder('sl videoblock')
+                            .having(video_url='https://youtu.be/W42x6-Wf3Cs?start=5')
+                            .within(self.page))
+
+        browser.login().visit(videoblock, view='@@block_view')
+        youtube_config = json.loads(browser.css(
+            '.sl-youtube-video').first.attrib['data-youtube'])
+
+        self.assertEquals(5, youtube_config['playerVars-start'])
+
+        videoblock2 = create(Builder('sl videoblock')
+                             .having(video_url='https://youtu.be/W42x6-Wf3Cs?t=5')
+                             .within(self.page))
+
+        browser.login().visit(videoblock2, view='@@block_view')
+        youtube_config = json.loads(browser.css(
+            '.sl-youtube-video').first.attrib['data-youtube'])
+
+        self.assertEquals(5, youtube_config['playerVars-start'])
+
+    @browsing
     def test_vimeo_view_iframe_src_contains_videoid(self, browser):
         videoblock = create(Builder('sl videoblock')
                             .having(video_url='https://vimeo.com/channels/staffpicks/128510631')
