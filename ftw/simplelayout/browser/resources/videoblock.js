@@ -45,7 +45,8 @@
             autoplay: 0,
             controls: 1,
             rel: 0,
-            showInfo: 0
+            showInfo: 0,
+            origin:window.location.origin
           },
           events: { "onReady": onPlayerReady }
         };
