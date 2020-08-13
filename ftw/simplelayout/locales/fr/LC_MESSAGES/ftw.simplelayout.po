@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-11 14:42+0000\n"
+"POT-Creation-Date: 2020-08-13 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Show title"
 msgstr ""
 
-#: ./ftw/simplelayout/opengraph/configure.zcml:32
+#: ./ftw/simplelayout/opengraph/configure.zcml:37
 msgid "Shows OpenGraph meta tags"
 msgstr ""
 
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Simlelayout map block type"
 msgstr ""
 
-#: ./ftw/simplelayout/opengraph/configure.zcml:32
+#: ./ftw/simplelayout/opengraph/configure.zcml:37
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
@@ -251,7 +251,7 @@ msgstr ""
 msgid "This block is empty."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:66
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
@@ -290,7 +290,7 @@ msgid "VideoBlock"
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
-msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID (add start parameter to let the vide start at a specific position)<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 msgstr ""
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
@@ -605,12 +605,12 @@ msgid "label_internal_link"
 msgstr ""
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
 msgid "label_invalid_permission"
 msgstr ""
 
 #. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
 msgid "label_invalid_reference"
 msgstr ""
 
@@ -708,12 +708,12 @@ msgid "label_video_url"
 msgstr ""
 
 #. Default: "&#128279; Visit embedded block"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:10
 msgid "label_visit_block"
 msgstr ""
 
 #. Default: "&#128279; Visit embedded page ${page_title}"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:20
 msgid "label_visit_page"
 msgstr "Vers la page d'origine: \"${page_title}\""
 
