@@ -25,7 +25,7 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
 
     def get_title(self):
         """OG Title"""
-        return self.context.title_or_id()
+        return self._escape(self.context.title_or_id())
 
     def get_url(self):
         """OG url"""
@@ -42,8 +42,8 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
 
     def get_site_name(self):
         """OG site name"""
-        return api.portal.get().Title().decode('utf-8')
+        return self._escape(api.portal.get().Title().decode('utf-8'))
 
     def get_description(self):
         """OG description"""
-        return self.context.Description().decode('utf-8')
+        return self._escape(self.context.Description().decode('utf-8'))
