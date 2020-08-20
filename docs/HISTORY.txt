@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.10 (unreleased)
+2.7.10 (2020-08-20)
 -------------------
 
 - Hansle start/t querysting for youtube videos. [mathias.leimgruber]
