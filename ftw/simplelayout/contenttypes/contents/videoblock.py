@@ -47,7 +47,8 @@ class IVideoBlockSchema(form.Schema):
 
     video_url = schema.URI(
         title=_(u'label_video_url', default=u'Youtube, or Vimeo URL'),
-        description=_(u'Youtube format: http(s)://youtu.be/VIDEO_ID<br/>'
+        description=_(u'Youtube format: http(s)://youtu.be/VIDEO_ID (add start parameter to let '
+                      u'the vide start at a specific position)<br/>'
                       u'Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>'
                       u'Vimeo format: http(s)://vimeo.com/(channels/groups)/'
                       u'VIDEO_ID'),

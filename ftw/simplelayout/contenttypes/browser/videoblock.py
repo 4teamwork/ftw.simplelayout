@@ -4,6 +4,7 @@ from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_nocooki
 from ftw.simplelayout.contenttypes.contents.videoblock import is_youtube_url
 from plone.uuid.interfaces import IUUID
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from urlparse import parse_qs
 from urlparse import urlparse
 import json
 
@@ -38,6 +39,8 @@ class VideoBlockView(BaseBlock):
     def youtube_config(self):
         config = {'videoId': self.get_video_id()}
 
+        self.updateStartSeconds(config)
+
         return json.dumps(config)
 
     def vimeo_player(self):
@@ -60,3 +63,14 @@ class VideoBlockView(BaseBlock):
             return path[-1]
         else:
             return None
+
+    def updateStartSeconds(self, config):
+        """Adds the start option if `start` or `t` is available in 
+        query string. Only works for youtube player
+        """
+        if is_youtube_url(self.context.video_url):
+            qs = parse_qs(urlparse(self.context.video_url).query)
+            if 'start' in qs:
+                config['playerVars-start'] = int(qs['start'][0])
+            if 't' in qs:
+                config['playerVars-start'] = int(qs['t'][0])

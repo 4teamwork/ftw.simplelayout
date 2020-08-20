@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-06-11 14:42+0000\n"
+"POT-Creation-Date: 2020-08-13 19:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -148,7 +148,7 @@ msgstr ""
 msgid "Show title"
 msgstr "Zeige Titel"
 
-#: ./ftw/simplelayout/opengraph/configure.zcml:32
+#: ./ftw/simplelayout/opengraph/configure.zcml:37
 msgid "Shows OpenGraph meta tags"
 msgstr "Zeigt die OpenGraph Meta Tags"
 
@@ -168,7 +168,7 @@ msgstr ""
 msgid "Simlelayout map block type"
 msgstr ""
 
-#: ./ftw/simplelayout/opengraph/configure.zcml:32
+#: ./ftw/simplelayout/opengraph/configure.zcml:37
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:66
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
@@ -287,8 +287,8 @@ msgid "VideoBlock"
 msgstr "Video"
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:50
-msgid "Youtube format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
-msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID<br/>Youtube (kein Cookie) Format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+msgid "Youtube format: http(s)://youtu.be/VIDEO_ID (add start parameter to let the vide start at a specific position)<br/>Youtube (no-cookie) format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
+msgstr "Youtube Format: http(s)://youtu.be/VIDEO_ID (Durch hinzufügen vom Parameter start, oder t, kann das Video an einem bestimmten Zeitpunt gestartet werden)<br/>Youtube (kein Cookie) Format: https://www.youtube-nocookie.com/embed/VIDEO_ID<br/>Vimeo Format: http(s)://vimeo.com/(channels/groups)/VIDEO_ID"
 
 #. Default: "This item can not be deleted because it is currently locked by another user."
 #: ./ftw/simplelayout/browser/ajax/templates/block_delete_confirmation.pt:6
@@ -602,12 +602,12 @@ msgid "label_internal_link"
 msgstr "Interne Referenz"
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:26
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
 msgid "label_invalid_permission"
 msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
 
 #. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:30
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
 msgid "label_invalid_reference"
 msgstr "Der eingebettete Block existiert nicht."
 
@@ -705,12 +705,12 @@ msgid "label_video_url"
 msgstr "Video-URL"
 
 #. Default: "&#128279; Visit embedded block"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:9
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:10
 msgid "label_visit_block"
 msgstr "&#128279; Zum Original-Block"
 
 #. Default: "&#128279; Visit embedded page ${page_title}"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:19
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:20
 msgid "label_visit_page"
 msgstr "Zur Originalseite: \"${page_title}\""
 

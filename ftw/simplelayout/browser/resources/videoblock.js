@@ -45,12 +45,18 @@
             autoplay: 0,
             controls: 1,
             rel: 0,
-            showInfo: 0
+            showInfo: 0,
+            origin:window.location.origin
           },
           events: { "onReady": onPlayerReady }
         };
 
         var options = $.extend(defaults, config);
+
+        // If there are more options this could be implemented in a generic way
+        if (options['playerVars-start'] !== undefined) {
+          options.playerVars.start = options['playerVars-start'];
+        }
 
         new window.YT.Player(container, options);
       }
