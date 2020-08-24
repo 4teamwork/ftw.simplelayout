@@ -32,6 +32,9 @@ class TestOpenGraph(TestCase):
 
     @browsing
     def test_og_on_plone_root(self, browser):
+        browser.exception_bubbling = True
+        api.portal.get().manage_changeProperties(
+            {'Title': '"<>& Seite title'})
         browser.login().visit()
 
         self.assertOg('og:title', api.portal.get().Title())
@@ -60,10 +63,13 @@ class TestOpenGraph(TestCase):
 
     @browsing
     def test_og_on_simplelayout_page(self, browser):
-        page = create(Builder('sl content page').titled(u'\xfc Title'))
+        page = create(Builder('sl content page')
+                      .titled(u'\xfc Title "<>&')
+                      .having(description=u"Description '<>&"))
         browser.login().visit(page)
 
         self.assertOg('og:title', page.Title().decode('utf-8'))
+        self.assertOg('og:description', page.Description().decode('utf-8'))
         self.assertOg('og:url', page.absolute_url())
         self.assertOg('og:type', u'website')
         self.assertOg('og:image', self.portal.absolute_url() + '/logo.jpg')

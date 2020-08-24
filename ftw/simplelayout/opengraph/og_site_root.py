@@ -42,9 +42,24 @@ class PloneRootOpenGraph(object):
         return registry.forInterface(
             ISimplelayoutDefaultSettings, check=False)
 
+    def _escape(self, text):
+        """More or less taken from https://wiki.python.org/moin/EscapingHtml
+        """
+        html_escape_table = OrderedDict([
+            ("&", "&amp;"),
+            ('"', "&quot;"),
+            ("'", "&apos;"),
+            (">", "&gt;"),
+            ("<", "&lt;"),
+        ])
+
+        for sign in html_escape_table.items():
+            text = text.replace(*sign)
+        return text
+
     def get_title(self):
         """OG Title"""
-        return api.portal.get().Title().decode('utf-8')
+        return self._escape(api.portal.get().Title().decode('utf-8'))
 
     def get_type(self):
         """OG type"""
@@ -65,7 +80,7 @@ class PloneRootOpenGraph(object):
 
     def get_description(self):
         """OG description"""
-        return api.portal.get().Description().decode('utf-8')
+        return self._escape(api.portal.get().Description().decode('utf-8'))
 
     def get_fb_app_id(self):
         """FB app ID"""
