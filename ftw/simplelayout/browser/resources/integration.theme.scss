@@ -187,15 +187,17 @@
   .sl-image {
     margin-bottom: $margin-paragraph-vertical;
 
-    &.left {
-      margin-right: $margin-paragraph-vertical;
-    }
-
-    &.right {
-      margin-left: $margin-paragraph-vertical;
-    }
     .image-caption {
       text-align: center;
+    }
+    @include screen-small() {
+      &.left {
+        margin-right: $margin-paragraph-vertical;
+      }
+
+      &.right {
+        margin-left: $margin-paragraph-vertical;
+      }
     }
   }
 }
