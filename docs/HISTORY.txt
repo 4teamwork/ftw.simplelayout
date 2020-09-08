@@ -5,7 +5,8 @@ Changelog
 2.7.11 (unreleased)
 -------------------
 
-- Escape special chars for opengraph title and description. [mathias.leimgruber] 
+- Escape special chars for opengraph title and description. [mathias.leimgruber]
+- Fix link integrity check on Plone 5 [Nachtalb]
 
 
 2.7.10 (2020-08-20)

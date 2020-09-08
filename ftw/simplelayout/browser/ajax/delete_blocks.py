@@ -51,6 +51,7 @@ class DeleteBlocks(BrowserView):
 
     def get_link_integrity_breaches(self):
         if isLinked(self.block):
+            breaches_info = []
 
             if IS_PLONE_5:
                 portal = api.portal.get()
@@ -58,17 +59,18 @@ class DeleteBlocks(BrowserView):
                     'delete_confirmation_info',
                     portal,
                     self.request)
-                breaches = view.get_breaches([self.block, ])
+                sources = view.get_breaches([self.block, ])[0]['sources']
+                for source in sources:
+                    breaches_info.append({'title': source['title'],
+                                          'url': source['url']})
             else:
                 breaches = self.link_integrity.getIntegrityBreaches()
+                sources = breaches.values()
+                sources = len(sources) and sources[0] or sources
 
-            breaches_info = []
-            sources = breaches.values()
-            sources = len(sources) and sources[0] or sources
-
-            for source in sources:
-                breaches_info.append({'title': source.title_or_id(),
-                                      'url': source.absolute_url()})
+                for source in sources:
+                    breaches_info.append({'title': source.title_or_id(),
+                                          'url': source.absolute_url()})
 
             return breaches_info
         else:
