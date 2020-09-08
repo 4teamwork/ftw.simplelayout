@@ -5,7 +5,8 @@ Changelog
 2.7.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Remove left and right margin from 100% wide sl-image on small screens (< 480px)
+  [djowett-ftw]
 
 
 2.7.11 (2020-09-08)
