@@ -27,7 +27,6 @@
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.mapblock.behavior.IBlockCoordinates" />
-        <element value="collective.geo.geographer.interfaces.IGeoreferenceable" />
     </property>
 
     <!-- View information -->
