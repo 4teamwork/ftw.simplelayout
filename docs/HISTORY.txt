@@ -7,6 +7,7 @@ Changelog
 
 - Fix layout/column in aliasblock results in failure [Nachtalb]
 - Aliasblock: Show hint to target block/page if you can edit the current aliasblock. [mathias.leimgruber]
+- Aliasblock: Access to_object/isBroken only if there is a RelationValue. [mathias.leimgruber]
 
 
 1.26.3 (2020-07-30)
