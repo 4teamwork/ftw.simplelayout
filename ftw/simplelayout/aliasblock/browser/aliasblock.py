@@ -14,13 +14,17 @@ class AliasBlockView(BaseBlock):
 
     def __init__(self, context, request):
         super(AliasBlockView, self).__init__(context, request)
-        self.referenced_obj = self.context.alias.to_object
+        alias = self.context.alias
+        self.referenced_obj = alias and alias.to_object or None
 
     def has_view_permission(self):
+        if not self.referenced_obj or self.context.alias.isBroken():
+            return False
+
         return api.user.has_permission('View', obj=self.referenced_obj)
 
     def can_modify(self):
-        return api.user.has_permission('Modify portal content', obj=self.referenced_obj)
+        return api.user.has_permission('Modify portal content', obj=self.context)
 
     def referece_is_page(self):
         return ISimplelayout.providedBy(self.referenced_obj)

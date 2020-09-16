@@ -88,7 +88,7 @@ class TestAliasBlockRendering(TestCase):
         browser.visit(self.page2)
         block_content = browser.css('.sl-alias-block').first.text
 
-        self.assertEqual(u'The embedded block does not exist.', block_content)
+        self.assertEqual(u'The content is no longer accessible to you', block_content)
 
     @browsing
     def test_custom_selectable_implementation(self, browser):
