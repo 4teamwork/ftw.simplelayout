@@ -19,7 +19,7 @@ class AliasBlockView(BaseBlock):
         return api.user.has_permission('View', obj=self.referenced_obj)
 
     def can_modify(self):
-        return api.user.has_permission('Modify portal content', obj=self.referenced_obj)
+        return api.user.has_permission('Modify portal content', obj=self.context)
 
     def referece_is_page(self):
         return ISimplelayout.providedBy(self.referenced_obj)
