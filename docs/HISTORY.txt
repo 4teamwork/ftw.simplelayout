@@ -5,7 +5,7 @@ Changelog
 2.7.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Remove non behavior interface from FTI. [djowett-ftw]
 
 
 2.7.12 (2020-09-08)
