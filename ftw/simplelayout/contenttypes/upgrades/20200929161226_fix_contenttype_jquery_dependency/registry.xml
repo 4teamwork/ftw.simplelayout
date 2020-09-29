@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<registry>
+  <records prefix="plone.bundles/ftw-simplelayout-contenttype"
+           interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+    <value key="depends">plone</value>
+  </records>
+</registry>

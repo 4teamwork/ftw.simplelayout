@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Remove non behavior interface from FTI. [djowett-ftw]
+- Fix loading jquery 2 times and with this creating conflicts [Nachtalb]
 
 
 2.7.12 (2020-09-08)
