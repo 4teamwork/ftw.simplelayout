@@ -293,6 +293,7 @@ class Staging(object):
         uuid_map = uuid_map or {}
         uuid_map[IUUID(source)] = IUUID(target)
         target_children_map = {IUUID(obj): obj for obj in self._get_children(target, condition)}
+        source_ids = source.objectIds()
         self._copy_field_values(source, target)
         self._purge_scales(target)
         self._update_simplelayout_block_state(source, target)
@@ -303,10 +304,10 @@ class Staging(object):
                 target_child = target_children_map.pop(target_uid)
                 self._apply_children(source_child, target_child, uuid_map=uuid_map)
             else:
-                target_child = self._copy_new_obj(source_child, target)
+                target_child = self._move_new_obj(source_child, target)
                 uuid_map[IUUID(source_child)] = IUUID(target_child)
 
-        target.moveObjectsToTop(source.objectIds())
+        target.moveObjectsToTop(source_ids)
         target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
         return uuid_map
 
@@ -421,8 +422,8 @@ class Staging(object):
         for schema in getAdditionalSchemata(portal_type=portal_type):
             yield schema
 
-    def _copy_new_obj(self, obj, new_parent):
-        clipboard = aq_parent(aq_inner(obj)).manage_copyObjects([obj.getId()])
+    def _move_new_obj(self, obj, new_parent):
+        clipboard = aq_parent(aq_inner(obj)).manage_cutObjects([obj.getId()])
         info = new_parent.manage_pasteObjects(clipboard)
         return new_parent.get(info[0]['new_id'])
 
