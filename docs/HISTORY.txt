@@ -5,7 +5,8 @@ Changelog
 1.23.15 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Staging: Move instead of copy blocks, which were created in the working copy, in
+  order to preserve the UID. Otherwise internal links within the working copy no longer work. [mathias.leimgruber]
 
 
 1.23.14 (2019-11-11)
