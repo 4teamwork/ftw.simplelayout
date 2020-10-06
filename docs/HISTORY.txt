@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.5 (unreleased)
+1.26.5 (2020-10-06)
 -------------------
 
 - Staging: Move instead of copy blocks, which were created in the working copy, in
