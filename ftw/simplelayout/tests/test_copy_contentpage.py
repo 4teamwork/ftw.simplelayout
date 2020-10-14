@@ -1,5 +1,6 @@
 from ftw.builder import Builder
 from ftw.builder import create
+from ftw.simplelayout.configuration import synchronize_page_config_with_blocks
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
 from ftw.simplelayout.testing import SimplelayoutTestCase
@@ -72,3 +73,18 @@ class TestCopySimplelayoutPage(SimplelayoutTestCase):
 
         newpage = self.portal.get('copy_of_' + self.page.id)
         self.assertPageLayout(newpage)
+
+    def test_page_config_is_update_recursively(self):
+        child_page = create(Builder('sl content page').within(self.page))
+        create(Builder('sl textblock').within(child_page))
+        create(Builder('sl textblock').within(child_page))
+        synchronize_page_config_with_blocks(child_page)
+        original_config = IPageConfiguration(child_page).load()
+
+        clipboard = self.portal.manage_copyObjects(self.page.id)
+        self.portal.manage_pasteObjects(clipboard)
+        new_child = self.portal['copy_of_' + self.page.id][child_page.id]
+        new_config = IPageConfiguration(new_child).load()
+
+        self.assertNotEqual(original_config, new_config,
+                            'The configs must be update recursively')
