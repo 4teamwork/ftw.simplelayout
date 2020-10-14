@@ -1,10 +1,11 @@
 from ftw.simplelayout import _
-from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.interfaces import IImageLimitValidatorMessages
+from ftw.simplelayout.images.interfaces import IImageLimits
 from ftw.simplelayout.images.limits.limits import Limits
 from z3c.form import validator
-from zope.interface import implementer
+from z3c.form.interfaces import NOT_CHANGED
 from zope.interface import Invalid
+from zope.interface import implementer
 
 
 class LimitValidatorMessages(object):
@@ -118,6 +119,8 @@ class ImageLimitValidator(validator.SimpleFieldValidator):
         self._validate_hard_limit(value)
 
     def _validate_hard_limit(self, value):
+        if value == NOT_CHANGED:
+            value = getattr(self.context, self.field.getName())
         if not self._validate_limit_for('hard', value):
             raise Invalid(self.validator_messages.limit_not_satisfied_message(
                 'hard', self.identifier, value))
