@@ -8,6 +8,9 @@ Changelog
 - Fix compatibility with plone.formwidget.namedfile 2.0.10+ (included in Plone 5.1.7+) [Nachtalb]
 - Fix broken page configuration on copy paste for child pages [Nachtalb]
 
+- Staging: Move instead of copy blocks, which were created in the working copy, in
+  order to preserve the UID. Otherwise internal links within the working copy no longer work. [mathias.leimgruber]
+
 
 2.7.13 (2020-10-01)
 -------------------

@@ -195,6 +195,28 @@ class TestWorkingCopy(TestCase):
         self.assertEquals('The first one', bl_page.downloads.one.Title())
         self.assertEquals(['one', 'three'], bl_page.downloads.objectIds())
 
+    @browsing
+    def test_internal_links_to_files_in_filelistingblocks_are_synced(self, browser):
+        bl_page = create(Builder('sl content page').titled(u'Page'))
+        wc_page = IStaging(bl_page).create_working_copy(self.portal)
+
+        listingblock = create(Builder('sl listingblock').titled(u'Downloads').within(wc_page))
+        file1 = create(Builder('file').titled(u'One').within(listingblock))
+
+        create(Builder('sl textblock').titled(u'Link on file').within(wc_page)
+               .having(text=RichTextValue(u'''
+<p>
+  <a class="internal-link" href="resolveuid/{0}">One</a>
+</p>
+                            '''.format(IUUID(file1)).strip())))
+
+        IStaging(wc_page).apply_working_copy()
+
+        transaction.commit()
+        self.assertEquals(
+            'resolveuid/{}'.format(IUUID(self.portal.page.downloads.one)),
+            browser.login().visit(self.portal.page).css('a.internal-link').first.attrib['href'])
+
     def test_childrens_children_order_is_preserved(self):
         bl_page = create(Builder('sl content page').titled(u'Page'))
         bl_dow = create(Builder('sl listingblock').titled(u'Downloads')
@@ -258,7 +280,7 @@ class TestWorkingCopy(TestCase):
         self.assertEquals(
             {'default': [{'cols': [{'blocks': [
                 {'uid': 'baseline000000000000000000000002'},
-                {'uid': 'applying000000000000000000000001'}]}]}]},
+                {'uid': 'editing0000000000000000000000001'}]}]}]},
             IPageConfiguration(baseline).load())
 
     def test_sl_block_state_is_copied_when_applying(self):
@@ -321,7 +343,7 @@ class TestWorkingCopy(TestCase):
 <p>
   <a class="internal-link" href="resolveuid/baseline000000000000000000000001">One</a>
   <a class="internal-link" href="resolveuid/baseline000000000000000000000002">Two</a>
-  <a class="internal-link" href="resolveuid/apply000000000000000000000000001">Three</a>
+  <a class="internal-link" href="resolveuid/editing0000000000000000000000001">Three</a>
 </p>
         '''.strip(), bl_page.toc.text.raw.strip())
 
