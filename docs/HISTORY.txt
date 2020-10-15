@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.14 (unreleased)
+2.7.14 (2020-10-15)
 -------------------
 
 - Fix compatibility with plone.formwidget.namedfile 2.0.10+ (included in Plone 5.1.7+) [Nachtalb]
