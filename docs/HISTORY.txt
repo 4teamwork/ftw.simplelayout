@@ -7,7 +7,8 @@ Changelog
 
 - Fix compatibility with plone.formwidget.namedfile 2.0.10+ (included in Plone 5.1.7+) [Nachtalb]
 - Fix broken page configuration on copy paste for child pages [Nachtalb]
-
+- Aliasblock: Show hint to target block/page if you can edit the current aliasblock. [mathias.leimgruber]
+- Aliasblock: Access to_object/isBroken only if there is a RelationValue. [mathias.leimgruber]
 - Staging: Move instead of copy blocks, which were created in the working copy, in
   order to preserve the UID. Otherwise internal links within the working copy no longer work. [mathias.leimgruber]
 
