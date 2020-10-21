@@ -5,7 +5,7 @@ Changelog
 1.26.6 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix broken page configuration on copy paste for child pages [Nachtalb]
 
 
 1.26.5 (2020-10-06)
