@@ -32,18 +32,23 @@ def update_page_state_on_copy_paste_block(block, event):
     """Update the uid of the new created block in the page state.
     block: new block
     event.original: origin of the copy event - usually the simplelayout page"""
+    parent = aq_parent(block)
+    original_parent = event.original
+
+    if not parent:
+        return
+
+    if len(parent.getPhysicalPath()) > 1:
+        # If we are in a child page of the copied page get the actual parent
+        original_parent = event.original.restrictedTraverse(
+            '/'.join(parent.getPhysicalPath()[1:]))
 
     # Only update page state, if the original object is a Simplelayout page.
-    if not ISimplelayout.providedBy(event.original):
+    if not ISimplelayout.providedBy(original_parent):
         return
 
-    # The event is triggered recursively - we need to check if the block is
-    # actually part of the original page
-    if event.original.get(block.id) is None:
-        return
-
-    origin_block_uid = IUUID(event.original.get(block.id))
-    page_config = IPageConfiguration(block.aq_parent)
+    origin_block_uid = IUUID(original_parent.get(block.id))
+    page_config = IPageConfiguration(parent)
     page_state = unwrap_persistence(page_config.load())
 
     new_block_uid = IUUID(block)
