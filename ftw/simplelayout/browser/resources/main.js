@@ -31,7 +31,6 @@
       return;
     }
     var button = target.next();
-
     target.dropzone({
       url: target.data('endpoint'),
       autoProcessQueue: false,
@@ -45,8 +44,15 @@
           event.preventDefault();
           dropzoneObj.processQueue();
         });
-        dropzoneObj.on("success", function() {
-           dropzoneObj.options.autoProcessQueue = true;
+        dropzoneObj.on("success", function(file) {
+          dropzoneObj.removeFile(file);
+          dropzoneObj.options.autoProcessQueue = true;
+        });
+        dropzoneObj.on("error", function(file, response, xhr) {
+          if (xhr !== null) {
+            $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response.error); 
+          }
+          dropzoneObj.options.autoProcessQueue = true;
         });
         dropzoneObj.on('addedfile', function (file) {
           var timestamp = new Date().getTime();
@@ -80,8 +86,10 @@
       var payLoad = { uid: block.represents };
       var configRequest = $.post('./sl-ajax-reload-block-view', { "data": JSON.stringify(payLoad) });
       configRequest.done(function(blockContent) {
+        dropzoneObj.options.autoProcessQueue = false;
+        var dropzone = target.parents(".sl-block").find('.dropzonewrapper').detach();
         block.content(blockContent);
-        initDropZone(block.element);
+        block.element.find('.dropzonewrapper').replaceWith(dropzone);
       });
     });
   }

@@ -420,3 +420,28 @@
 #dropzone-tmpl {
   display: none;
 }
+
+.dropzonewrapper .filedropzone {
+  .dz-success-mark, .dz-error-mark {
+    display: none;  
+  }
+}
+
+.filedropzone .dz-preview.dz-error {
+  border: 1px solid #be2626;
+
+  .dz-error-message {
+    position: relative;
+    opacity: 1;
+    top: 0;
+    left: 0;
+    width: auto;
+  }
+
+  .dz-file-metadata {
+    display: none;
+  }
+  .dz-filename {
+    display: block;
+  }
+}
