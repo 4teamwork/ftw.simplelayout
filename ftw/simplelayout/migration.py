@@ -42,6 +42,7 @@ try:
     from ftw.simplelayout.interfaces import ISimplelayoutBlock as INewSLBlock
     from ftw.upgrade.migration import DUBLIN_CORE_IGNORES
     from functools import partial
+    from OFS.interfaces import IOrderedContainer
     from operator import attrgetter
     from plone.app.blob.interfaces import IBlobWrapper
     from plone.app.event.dx.behaviors import IEventBasic
@@ -61,15 +62,14 @@ try:
     from simplelayout.portlet.dropzone.interfaces import ISlotBlock
     from zope.component import implementedBy
     from zope.component import providedBy
-    from zope.interface import noLongerProvides
     from zope.interface import alsoProvides
+    from zope.interface import noLongerProvides
     from zope.schema import getFieldsInOrder
 
 except ImportError, IMPORT_ERROR:
     pass
 else:
     IMPORT_ERROR = None
-
 
 
 class ExampleUpgradeStep(UpgradeStep):
@@ -104,7 +104,7 @@ SL_BLOCK_DEFAULT_IGNORED_FIELDS = (
 )
 
 
-def move_sl_block_into_slot(old_page, new_page, block, slot_name):
+def move_sl_block_into_slot(old_page, new_page, block, slot_name, prepend=False):
     page_configuration = IPageConfiguration(new_page)
     page_state = page_configuration.load()
 
@@ -135,29 +135,49 @@ def move_sl_block_into_slot(old_page, new_page, block, slot_name):
         # two column layout
         if ISimplelayoutTwoColumnView.providedBy(old_page):
             if ISlotA.providedBy(block):  # left column
-                slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+                if prepend:
+                    slot[0]['cols'][0]['blocks'].insert(0, {'uid': IUUID(block)})
+                else:
+                    slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
             elif ISlotB.providedBy(block):  # right column
-                slot[0]['cols'][1]['blocks'].append({'uid': IUUID(block)})
+                if prepend:
+                    slot[0]['cols'][1]['blocks'].insert(0, {'uid': IUUID(block)})
+                else:
+                    slot[0]['cols'][1]['blocks'].append({'uid': IUUID(block)})
             else:
                 raise ValueError('Block has unused slot in layout.')
 
         # two columns and a top row layout
         elif ISimplelayoutTwoColumnOneOnTopView.providedBy(old_page):
             if ISlotA.providedBy(block):  # top row
-                slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+                if prepend:
+                    slot[0]['cols'][0]['blocks'].insert(0, {'uid': IUUID(block)})
+                else:
+                    slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
             elif ISlotB.providedBy(block):  # bottom row, left column
-                slot[1]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+                if prepend:
+                    slot[1]['cols'][0]['blocks'].insert(0, {'uid': IUUID(block)})
+                else:
+                    slot[1]['cols'][0]['blocks'].append({'uid': IUUID(block)})
             elif ISlotC.providedBy(block):  # bottom row, right column
-                slot[1]['cols'][1]['blocks'].append({'uid': IUUID(block)})
+                if prepend:
+                    slot[1]['cols'][1]['blocks'].insert(0, {'uid': IUUID(block)})
+                else:
+                    slot[1]['cols'][1]['blocks'].append({'uid': IUUID(block)})
             else:
                 raise ValueError('Block has unused slot in layout.')
 
         else:
-            slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
+            if prepend:
+                slot[0]['cols'][0]['blocks'].insert(0, {'uid': IUUID(block)})
+            else:
+                slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
 
     else:
-        page_state[slot_name][0]['cols'][0]['blocks'].append({
-            'uid': IUUID(block)})
+        if prepend:
+            page_state[slot_name][0]['cols'][0]['blocks'].insert(0, {'uid': IUUID(block)})
+        else:
+            page_state[slot_name][0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
 
     page_configuration.store(page_state)
 
@@ -252,8 +272,7 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     # Therefore we must migrate the view from the page to the new
     # teaser block.
     migrate_sl_image_layout(old_page, teaser_block)
-    alsoProvides(teaser_block, ISlotA)
-    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default')
+    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default', prepend=True)
 
 
 def migrate_image_to_file(obj):
