@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.7 (unreleased)
+1.26.7 (2020-12-10)
 -------------------
 
 - Fix Videoblock YouTube integration [Nachtalb]
