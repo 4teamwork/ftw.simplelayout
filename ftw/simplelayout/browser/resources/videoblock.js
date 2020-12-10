@@ -12,7 +12,7 @@
   function resizeAll() { $.map($(".sl-youtube-video"), resizeYoutubePlayer); }
 
   function onPlayerReady(player) {
-    var iframe = player.target.a;
+    var iframe = player.target.getIframe();
 
     ratios[iframe.id] = ratios[iframe.id] || iframe.height/iframe.width;
 

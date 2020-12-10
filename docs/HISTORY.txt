@@ -5,7 +5,7 @@ Changelog
 1.20.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix Videoblock YouTube integration [Nachtalb]
 
 
 1.20.3 (2018-07-05)
