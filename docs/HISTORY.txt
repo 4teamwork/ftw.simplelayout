@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.8 (unreleased)
+1.26.8 (2020-12-15)
 -------------------
 
 - Working copy BugFix: Reindex modified children, since the value may have changed. [mathias.leimgruber]
