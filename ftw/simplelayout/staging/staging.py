@@ -312,6 +312,7 @@ class Staging(object):
 
         target.moveObjectsToTop(source_ids)
         target.manage_delObjects(map(methodcaller('getId'), target_children_map.values()))
+        target.reindexObject()
         return uuid_map
 
     def _update_simplelayout_page_state(self, working_copy, baseline, uuid_map):

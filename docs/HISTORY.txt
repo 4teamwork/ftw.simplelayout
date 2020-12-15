@@ -5,7 +5,7 @@ Changelog
 2.7.17 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Working copy BugFix: Reindex modified children, since the value may have changed. [mathias.leimgruber]
 
 
 2.7.16 (2020-12-10)
