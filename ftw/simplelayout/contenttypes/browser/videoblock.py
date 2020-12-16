@@ -60,3 +60,6 @@ class VideoBlockView(BaseBlock):
             return path[-1]
         else:
             return None
+
+    def player_height(self):
+        return self.context.player_height or '500px'
