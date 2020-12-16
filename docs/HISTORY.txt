@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.10 (unreleased)
+1.26.10 (2020-12-16)
 --------------------
 
 - Update translations. [mathias.leimgruber]
