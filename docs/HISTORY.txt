@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.9 (unreleased)
+1.26.9 (2020-12-16)
 -------------------
 
 - Add height field to videoblock in order to set a fixed height for vimeo/youtube nocookie block. [mathias.leimgruber]
