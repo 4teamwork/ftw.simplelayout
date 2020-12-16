@@ -5,7 +5,7 @@ Changelog
 1.26.10 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Update translations. [mathias.leimgruber]
 
 
 1.26.9 (2020-12-16)

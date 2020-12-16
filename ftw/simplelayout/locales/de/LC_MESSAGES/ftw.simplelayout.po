@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-07-06 15:47+0000\n"
+"POT-Creation-Date: 2020-12-16 22:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,7 +247,7 @@ msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:65
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:69
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
@@ -393,7 +393,7 @@ msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
 #. Default: "The selected content cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:94
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:93
 msgid "error_text_alias_aliasblock"
 msgstr "Der ausgwählte Inhalt kann nicht als Ziel in einem AliasBlock verwendet werden"
 
@@ -403,7 +403,7 @@ msgid "error_text_required_aliasblock"
 msgstr "Es muss ein Ziel ausgewählt werden."
 
 #. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:90
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:89
 msgid "error_text_sl_page_aliasblock"
 msgstr "Die ausgewählte Inhaltsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält oder es sich um die Seite handelt, auf welcher der AliasBlock erstellt werden soll."
 
@@ -568,6 +568,11 @@ msgstr "Bilder über Inhalte verwalten."
 msgid "label_golden_ratio"
 msgstr "Goldener Schnitt"
 
+#. Default: "Fixed hight for Vimeo and Youtube nocookie"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:57
+msgid "label_height"
+msgstr "Fixe Höhe für Vimeo und Youtube nocookie Inhalte"
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
@@ -599,14 +604,9 @@ msgid "label_internal_link"
 msgstr "Interne Referenz"
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:27
 msgid "label_invalid_permission"
 msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
-
-#. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
-msgid "label_invalid_reference"
-msgstr "Der eingebettete Inhalt existiert nicht mehr."
 
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
