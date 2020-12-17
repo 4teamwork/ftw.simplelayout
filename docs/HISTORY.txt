@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.26.11 (unreleased)
+1.26.11 (2020-12-17)
 --------------------
 
 - Aliasblock Remove explicit dependency on sl contenttypes. [mathias.leimgruber]
