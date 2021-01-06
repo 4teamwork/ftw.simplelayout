@@ -5,7 +5,7 @@ Changelog
 1.19.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix Videoblock YouTube integration [Nachtalb]
 
 
 1.19.2 (2020-10-30)
