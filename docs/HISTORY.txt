@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Aliasblock Remove explicit dependency on sl contenttypes. [mathias.leimgruber]
+- Check all incoming references upon block deletion. This includes AliasBlocks. [mathias.leimgruber]
 
 
 2.7.16 (2020-12-10)
