@@ -3,12 +3,23 @@ from ftw.simplelayout.utils import IS_PLONE_5
 from plone import api
 from plone.app.uuid.utils import uuidToObject
 from plone.uuid.interfaces import IUUID
-from Products.CMFPlone.utils import isLinked
 from Products.CMFPlone.utils import transaction_note
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zExceptions import BadRequest
 import json
+
+
+if IS_PLONE_5:
+    from plone.app.linkintegrity.utils import getIncomingLinks
+
+    def isLinked(obj):
+        # Important - Check all incoming references, not just tinymce relations
+        for it in getIncomingLinks(obj=obj, intid=None, from_attribute=None):
+            return True
+        return False
+else:
+    from Products.CMFPlone.utils import isLinked
 
 
 class DeleteBlocks(BrowserView):

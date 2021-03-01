@@ -103,3 +103,10 @@ alsoProvides(IAliasBlockSchema, IFormFieldProvider)
 
 class AliasBlock(Item):
     implements(IAliasBlock)
+
+
+    def Title(self):
+        if self.alias.isBroken():
+            return 'AliasBlock: "No target"'
+        return 'AliasBlock: "{}"'.format(self.alias.to_object.Title())
+

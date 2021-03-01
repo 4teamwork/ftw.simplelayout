@@ -1,17 +1,21 @@
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.simplelayout.testing import FTW_SIMPLELAYOUT_CONTENT_TESTING
+from ftw.simplelayout.utils import IS_PLONE_5
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import statusmessages
 from lxml import etree
 from plone import api
 from plone.app.textfield.value import RichTextValue
+from plone.uuid.interfaces import IUUID
 from unittest import TestCase
+from unittest import skipUnless
 from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.intid.interfaces import IIntIds
 import difflib
+import json
 import transaction
 
 
@@ -89,6 +93,35 @@ class TestAliasBlockRendering(TestCase):
         block_content = browser.css('.sl-alias-block').first.text
 
         self.assertEqual(u'The content is no longer accessible to you', block_content)
+
+    @browsing
+    @skipUnless(IS_PLONE_5, 'Link integrity check for DX only works with Plone 5')
+    def test_link_integrity_message_if_target_will_be_deleted(self, browser):
+        create(Builder('sl aliasblock')
+               .having(alias=RelationValue(
+                       self.intids.getId(self.textblock)))
+               .within(self.page2))
+
+        payload = {'data': json.dumps({'block': IUUID(self.textblock)})}
+        browser.login().visit(self.page1,
+                              view='@@sl-ajax-delete-blocks-view',
+                              data=payload)
+
+        browser.parse(browser.json['content'])
+        self.assertEquals(
+            'These internal links will be broken',
+            browser.css('#content-core > div p').first.text
+        )
+
+        self.assertEquals(
+            'These internal links will be broken',
+            browser.css('#content-core > div p').first.text
+        )
+
+        self.assertEquals(
+            u'AliasBlock: "{}"'.format(self.textblock.Title().decode('utf-8')),
+            browser.css('#content-core > div ul li a').first.text
+        )
 
     @browsing
     def test_custom_selectable_implementation(self, browser):
