@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.17 (unreleased)
+2.7.17 (2021-03-01)
 -------------------
 
 - Aliasblock Remove explicit dependency on sl contenttypes. [mathias.leimgruber]
