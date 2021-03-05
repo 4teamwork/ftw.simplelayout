@@ -1,14 +1,19 @@
 Changelog
 =========
 
-
 2.7.19 (unreleased)
 -------------------
+
+- Implement simplelayout in plone.restapi responses. [mathias.leimgruber]
+
+  - The "simpleayout" key contains the simplelayout page state.
+  - The "slblocks" key contains all blocks accessable via their UID.
+  - Simplelayout data is only available on ISimplelayout
+  - The 'block-configuration' key contains the block configuration stored on ISimplelayoutBlock.
 
 - Add height field to videoblock in order to set a fixed height for vimeo/youtube nocookie block. [mathias.leimgruber]
 
 - Make rendering the aliasblock add/edit form viewlet more safe. [mathias.leimgruber]
-
 
 
 2.7.18 (2021-03-18)
