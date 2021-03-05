@@ -5,7 +5,12 @@ Changelog
 1.26.12 (unreleased)
 --------------------
 
-- Nothing changed yet.
+- Implement simplelayout in plone.restapi responses. [mathias.leimgruber]
+
+  - The "simpleayout" key contains the simplelayout page state.
+  - The "slblocks" key contains all blocks accessable via their UID.
+  - Simplelayout data is only available on ISimplelayout
+  - The 'block-configuration' key contains the block configuration stored on ISimplelayoutBlock.
 
 
 1.26.11 (2020-12-17)

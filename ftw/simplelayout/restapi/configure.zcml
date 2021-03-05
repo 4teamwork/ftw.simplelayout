@@ -4,6 +4,11 @@
     xmlns:zcml="http://namespaces.zope.org/zcml">
 
   <include package="plone.rest" file="meta.zcml" />
+  <include package="plone.restapi" />
+
+  <adapter factory=".content.SimplelayoutSerializer" />
+  <adapter factory=".content.SimplelayoutSerializeSiteRootToJson" />
+  <adapter factory=".content.SimplelayoutBlockSerializeToJson" />
 
   <plone:service
       method="POST"

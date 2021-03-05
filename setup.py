@@ -12,8 +12,10 @@ tests_require = [
     'ftw.testing',
     'ftw.trash',
     'path.py',
+    'plone.app.contenttypes',
     'plone.app.lockingbehavior',
     'plone.app.testing',
+    'plone.restapi',
     'plone.testing',
     'transaction',
     'unittest2',
@@ -43,7 +45,10 @@ extras_require = {
     ],
     'trash': [
         'ftw.trash',
-    ]
+    ],
+    'restapi': [
+        'plone.restapi',
+    ],
 }
 
 
