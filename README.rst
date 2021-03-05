@@ -117,6 +117,7 @@ The key "blocks" was already in use by Plone.
 Load the restapi extras by adding the following to your buildout config
 
 ::
+
     [instance]
     eggs +=
         ...
