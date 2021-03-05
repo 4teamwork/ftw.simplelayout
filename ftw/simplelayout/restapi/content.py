@@ -1,4 +1,5 @@
 from Products.CMFPlone.interfaces import IPloneSiteRoot
+from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
@@ -8,6 +9,7 @@ from persistent.mapping import PersistentMapping
 from plone import api
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.serializer.dxcontent import SerializeFolderToJson
+from plone.restapi.serializer.dxcontent import SerializeToJson
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import Interface
@@ -36,7 +38,8 @@ def enrich_with_simplelayout(context, result):
 
     result['simplelayout'] = json.loads(json.dumps(
         IPageConfiguration(context).load(),
-        cls=PersistenceDecoder))
+        cls=PersistenceDecoder)
+    )
 
     catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(_sl_blocks_query(context))
@@ -62,4 +65,18 @@ class SimplelayoutSerializeSiteRootToJson(SerializeSiteRootToJson):
     def __call__(self, version=None):
         result = super(SimplelayoutSerializeSiteRootToJson, self).__call__(version=version)
         enrich_with_simplelayout(self.context, result)
+        return result
+
+
+@implementer(ISerializeToJson)
+@adapter(ISimplelayoutBlock, Interface)
+class SimplelayoutBlockSerializeToJson(SerializeToJson):
+    def __call__(self, version=None, include_items=True):
+        result = super(SimplelayoutBlockSerializeToJson, self).__call__(version=version, include_items=include_items)
+
+        result['block-configuration'] = json.loads(json.dumps(
+            IBlockConfiguration(self.context).load(),
+            cls=PersistenceDecoder)
+        )
+
         return result

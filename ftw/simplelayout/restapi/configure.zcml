@@ -8,6 +8,7 @@
 
   <adapter factory=".content.SimplelayoutSerializer" />
   <adapter factory=".content.SimplelayoutSerializeSiteRootToJson" />
+  <adapter factory=".content.SimplelayoutBlockSerializeToJson" />
 
   <plone:service
       method="POST"
