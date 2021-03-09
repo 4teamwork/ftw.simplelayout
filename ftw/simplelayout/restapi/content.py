@@ -7,15 +7,16 @@ from ftw.simplelayout.interfaces import ISimplelayoutLayer
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
+from plone.dexterity.interfaces import IDexterityContainer
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.serializer.dxcontent import SerializeFolderToJson
 from plone.restapi.serializer.dxcontent import SerializeToJson
+from plone.restapi.serializer.site import SerializeSiteRootToJson
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import Interface
 from zope.interface import implementer
 import json
-from plone.restapi.serializer.site import SerializeSiteRootToJson
 
 
 class PersistenceDecoder(json.JSONEncoder):
@@ -78,5 +79,8 @@ class SimplelayoutBlockSerializeToJson(SerializeToJson):
             IBlockConfiguration(self.context).load(),
             cls=PersistenceDecoder)
         )
+
+        if IDexterityContainer.providedBy(self.context):
+            result['items'] = SerializeFolderToJson(self.context, self.request)()['items']
 
         return result
