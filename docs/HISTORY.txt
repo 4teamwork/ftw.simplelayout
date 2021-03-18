@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-2.7.18 (unreleased)
+2.7.18 (2021-03-18)
 -------------------
 
 - Make aliasblock Title more robust, since the content might be created via script. [mathias.leimgruber]
