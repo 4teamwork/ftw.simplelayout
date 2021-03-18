@@ -3,17 +3,16 @@ from ftw.referencewidget.sources import ReferenceObjSourceBinder
 from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
 from ftw.simplelayout.aliasblock.contents.interfaces import IAliasBlock
-from plone import api
-from plone.uuid.interfaces import IUUID
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.dexterity.content import Item
 from plone.directives import form
 from plone.directives.form import widget
+from plone.uuid.interfaces import IUUID
 from z3c.form import validator
 from z3c.relationfield.schema import RelationChoice
+from zope.interface import Invalid
 from zope.interface import alsoProvides
 from zope.interface import implements
-from zope.interface import Invalid
 
 
 class AliasBlockSelectable(DefaultSelectable):
@@ -81,7 +80,6 @@ class ContentPageValidator(validator.SimpleFieldValidator):
                 _(u'error_text_required_aliasblock',
                   default=u'A input is required'))
 
-
         if not AliasBlockSelectable(self.field.source, value)():
             if value.portal_type == 'ftw.simplelayout.ContentPage':
                 raise Invalid(
@@ -104,9 +102,7 @@ alsoProvides(IAliasBlockSchema, IFormFieldProvider)
 class AliasBlock(Item):
     implements(IAliasBlock)
 
-
     def Title(self):
-        if self.alias.isBroken():
+        if not self.alias or self.alias.isBroken():
             return 'AliasBlock: "No target"'
         return 'AliasBlock: "{}"'.format(self.alias.to_object.Title())
-
