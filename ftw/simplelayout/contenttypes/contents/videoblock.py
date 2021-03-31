@@ -54,6 +54,10 @@ class IVideoBlockSchema(form.Schema):
                       u'VIDEO_ID'),
         required=True)
 
+    player_height = schema.TextLine(
+        title=_(u'label_height', default=u'Fixed hight for Vimeo and Youtube nocookie'),
+        required=False)
+
     @invariant
     def validate_video_url(data):
         if is_youtube_url(data.video_url):

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-13 19:03+0000\n"
+"POT-Creation-Date: 2020-12-16 22:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,7 +248,7 @@ msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:66
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:70
 msgid "This is no a valid youtube, or vimeo url."
 msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 
@@ -431,7 +431,7 @@ msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
 #. Default: "The image doesn't fit the required dimensions of ${limit_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:50
+#: ./ftw/simplelayout/images/limits/validators.py:51
 msgid "hard_limit_not_satisfied"
 msgstr "Die Bildauflösung entspricht nicht den Anforderungen von: ${limit_str}"
 
@@ -571,6 +571,11 @@ msgstr "Bilder über Inhalte verwalten."
 msgid "label_golden_ratio"
 msgstr "Goldener Schnitt"
 
+#. Default: "Fixed hight for Vimeo and Youtube nocookie"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:58
+msgid "label_height"
+msgstr "Fixe Höhe für Vimeo und Youtube nocookie Inhalte"
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
@@ -602,14 +607,9 @@ msgid "label_internal_link"
 msgstr "Interne Referenz"
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:27
 msgid "label_invalid_permission"
 msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
-
-#. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
-msgid "label_invalid_reference"
-msgstr "Der eingebettete Block existiert nicht."
 
 #. Default: "Hide the block"
 #: ./ftw/simplelayout/contenttypes/behaviors.py:55
@@ -715,17 +715,17 @@ msgid "label_visit_page"
 msgstr "Zur Originalseite: \"${page_title}\""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
-#: ./ftw/simplelayout/images/limits/validators.py:68
+#: ./ftw/simplelayout/images/limits/validators.py:69
 msgid "limit_height_str"
 msgstr "Höhe: ${height}px (aktuell: ${current_height}px)"
 
 #. Default: "${width_str} and ${height_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:36
+#: ./ftw/simplelayout/images/limits/validators.py:37
 msgid "limit_width_and_height"
 msgstr "${width_str} und ${height_str}"
 
 #. Default: "width: ${width}px (current: ${current_width}px)"
-#: ./ftw/simplelayout/images/limits/validators.py:62
+#: ./ftw/simplelayout/images/limits/validators.py:63
 msgid "limit_width_str"
 msgstr "Breite: ${width}px (aktuell: ${current_width}px)"
 
@@ -746,7 +746,7 @@ msgid "message_working_copy"
 msgstr "Dies ist die Arbeitskopie von dieser ${link}, erstellt von ${owner} am ${date}."
 
 #. Default: "Optimal image quality: ${limit_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:57
+#: ./ftw/simplelayout/images/limits/validators.py:58
 msgid "soft_limit_not_satisfied"
 msgstr "Optimale Bildauflösung: ${limit_str}"
 

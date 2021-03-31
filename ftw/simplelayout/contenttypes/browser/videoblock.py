@@ -74,3 +74,6 @@ class VideoBlockView(BaseBlock):
                 config['playerVars-start'] = int(qs['start'][0])
             if 't' in qs:
                 config['playerVars-start'] = int(qs['t'][0])
+
+    def player_height(self):
+        return self.context.player_height or '500px'

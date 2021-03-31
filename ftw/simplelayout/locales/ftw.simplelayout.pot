@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-08-13 19:03+0000\n"
+"POT-Creation-Date: 2020-12-16 22:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,7 +251,7 @@ msgstr ""
 msgid "This block is empty."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:66
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:70
 msgid "This is no a valid youtube, or vimeo url."
 msgstr ""
 
@@ -434,7 +434,7 @@ msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
 #. Default: "The image doesn't fit the required dimensions of ${limit_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:50
+#: ./ftw/simplelayout/images/limits/validators.py:51
 msgid "hard_limit_not_satisfied"
 msgstr ""
 
@@ -574,6 +574,11 @@ msgstr ""
 msgid "label_golden_ratio"
 msgstr ""
 
+#. Default: "Fixed hight for Vimeo and Youtube nocookie"
+#: ./ftw/simplelayout/contenttypes/contents/videoblock.py:58
+msgid "label_height"
+msgstr ""
+
 #. Default: "ID"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:27
 msgid "label_id"
@@ -605,13 +610,8 @@ msgid "label_internal_link"
 msgstr ""
 
 #. Default: "The content is no longer accessible to you"
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:28
+#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:27
 msgid "label_invalid_permission"
-msgstr ""
-
-#. Default: "The embedded block does not exist."
-#: ./ftw/simplelayout/aliasblock/browser/templates/aliasblock.pt:32
-msgid "label_invalid_reference"
 msgstr ""
 
 #. Default: "Hide the block"
@@ -718,17 +718,17 @@ msgid "label_visit_page"
 msgstr ""
 
 #. Default: "height: ${height}px (current: ${current_height}px)"
-#: ./ftw/simplelayout/images/limits/validators.py:68
+#: ./ftw/simplelayout/images/limits/validators.py:69
 msgid "limit_height_str"
 msgstr ""
 
 #. Default: "${width_str} and ${height_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:36
+#: ./ftw/simplelayout/images/limits/validators.py:37
 msgid "limit_width_and_height"
 msgstr ""
 
 #. Default: "width: ${width}px (current: ${current_width}px)"
-#: ./ftw/simplelayout/images/limits/validators.py:62
+#: ./ftw/simplelayout/images/limits/validators.py:63
 msgid "limit_width_str"
 msgstr ""
 
@@ -749,7 +749,7 @@ msgid "message_working_copy"
 msgstr ""
 
 #. Default: "Optimal image quality: ${limit_str}"
-#: ./ftw/simplelayout/images/limits/validators.py:57
+#: ./ftw/simplelayout/images/limits/validators.py:58
 msgid "soft_limit_not_satisfied"
 msgstr ""
 
