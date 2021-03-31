@@ -7,6 +7,9 @@ Changelog
 
 - Add height field to videoblock in order to set a fixed height for vimeo/youtube nocookie block. [mathias.leimgruber]
 
+- Make rendering the aliasblock add/edit form viewlet more safe. [mathias.leimgruber]
+
+
 
 2.7.18 (2021-03-18)
 -------------------
