@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.27.1 (unreleased)
+1.27.1 (2021-04-01)
 -------------------
 
 - Make rendering the aliasblock add/edit form viewlet more safe. [mathias.leimgruber]
