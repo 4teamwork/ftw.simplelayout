@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.27.2 (unreleased)
+1.27.2 (2021-04-02)
 -------------------
 
 - Make sure geo settings doe not have to be available at all. [mathias.leimgruber]
