@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.8.1 (unreleased)
+2.8.1 (2021-04-02)
 ------------------
 
 - Make sure geo settings doe not have to be available at all. [mathias.leimgruber]
