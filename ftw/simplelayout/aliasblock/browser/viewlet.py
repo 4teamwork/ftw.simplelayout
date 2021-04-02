@@ -1,22 +1,20 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from collective.geo.settings.interfaces import IGeoSettings
 from ftw.simplelayout.aliasblock.contents.interfaces import IAliasBlock
-from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.registry.interfaces import IRegistry
 from zope.component import getUtility
 
 
 def geo_settings_installed():
-    version = api.portal.get().portal_setup.getLastVersionForProfile('collective.geo.settings:default')
-
     has_settings = True
     try:
+        from collective.geo.settings.interfaces import IGeoSettings
         getUtility(IRegistry).forInterface(IGeoSettings)
-    except KeyError:
+    except (KeyError, ImportError):
+        # Getting the record migh yield a KeyError
         has_settings = False
 
-    return version != 'unknown' and has_settings
+    return has_settings
 
 
 class AliasBlockFormViewlet(ViewletBase):
