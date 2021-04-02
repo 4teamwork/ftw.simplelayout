@@ -106,6 +106,25 @@ As you can see, you never have to leave the ContentPage, all actions with Simple
 This means adding, deleting and editing always opens an overlay, where you can make the modifications.
 
 
+RESTAPI
+=======
+
+Simplelayout supports the plone.restapi (read only).
+The simplelayout page state is accessable with the key "simplelayout".
+The key "slblocks" stores a UID -> Block Json mapping, which is handy to access the blocks via the page state.
+The block configuration is accessable per block via the key "block-configuration"
+
+The key "blocks" was already in use by Plone.
+
+
+Load the restapi extras by adding the following to your buildout config
+
+::
+
+    [instance]
+    eggs +=
+        ...
+        ftw.simplelayout[contenttypes, restapi]
 
 
 
