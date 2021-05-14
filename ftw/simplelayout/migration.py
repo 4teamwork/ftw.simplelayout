@@ -45,6 +45,7 @@ try:
     from operator import attrgetter
     from plone.app.blob.interfaces import IBlobWrapper
     from plone.app.event.dx.behaviors import IEventBasic
+    from plone.app.textfield import RichTextValue
     from plone.dexterity.utils import createContentInContainer
     from plone.dexterity.utils import iterSchemata
     from plone.uuid.interfaces import IUUID
@@ -61,8 +62,8 @@ try:
     from simplelayout.portlet.dropzone.interfaces import ISlotBlock
     from zope.component import implementedBy
     from zope.component import providedBy
-    from zope.interface import noLongerProvides
     from zope.interface import alsoProvides
+    from zope.interface import noLongerProvides
     from zope.schema import getFieldsInOrder
 
 except ImportError, IMPORT_ERROR:
@@ -104,7 +105,7 @@ SL_BLOCK_DEFAULT_IGNORED_FIELDS = (
 )
 
 
-def move_sl_block_into_slot(old_page, new_page, block, slot_name):
+def move_sl_block_into_slot(old_page, new_page, block, slot_name, is_teaser=False):
     page_configuration = IPageConfiguration(new_page)
     page_state = page_configuration.load()
 
@@ -132,8 +133,11 @@ def move_sl_block_into_slot(old_page, new_page, block, slot_name):
     if slot_name == 'default':
         slot = page_state['default']
 
+        # New block from text / image of the old contentpage
+        if is_teaser:
+            slot.insert(0, {'cols': [{'blocks': [{'uid': IUUID(block)}]}]},)
         # two column layout
-        if ISimplelayoutTwoColumnView.providedBy(old_page):
+        elif ISimplelayoutTwoColumnView.providedBy(old_page):
             if ISlotA.providedBy(block):  # left column
                 slot[0]['cols'][0]['blocks'].append({'uid': IUUID(block)})
             elif ISlotB.providedBy(block):  # right column
@@ -226,8 +230,10 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     teaser_block = createContentInContainer(
         container=new_page,
         portal_type='ftw.simplelayout.TextBlock',
-        title='Teaser'
+        title='Teaser',
+        text=RichTextValue(old_page.getRawDescription())
     )
+    new_page.description = u''
 
     fields = dict(reduce(list.__add__,
                          map(getFieldsInOrder, iterSchemata(teaser_block))))
@@ -252,8 +258,7 @@ def migrate_lead_image_into_textblock(old_page, new_page):
     # Therefore we must migrate the view from the page to the new
     # teaser block.
     migrate_sl_image_layout(old_page, teaser_block)
-    alsoProvides(teaser_block, ISlotA)
-    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default')
+    move_sl_block_into_slot(old_page, new_page, teaser_block, 'default', is_teaser=True)
 
 
 def migrate_image_to_file(obj):
