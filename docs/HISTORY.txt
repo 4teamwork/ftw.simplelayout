@@ -5,7 +5,7 @@ Changelog
 1.27.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- FileListingblock: sort_on and sort_order are not allowed to be unicode for the catalog query. [mathias.leimgruber]
 
 
 1.27.2 (2021-04-02)
