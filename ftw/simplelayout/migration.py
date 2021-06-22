@@ -190,6 +190,11 @@ def migrate_sl_image_layout(old_object, new_object):
 
     old_config = IBlockConfig(old_object)
     image_layout = old_config.get_image_layout()
+
+    if old_config.get_image_layout() == 'no-image':
+        new_object.image = None
+        return
+
     if not image_layout or image_layout == 'dummy-dummy-dummy':
         return
 
@@ -239,6 +244,7 @@ def migrate_lead_image_into_textblock(old_page, new_page):
                          map(getFieldsInOrder, iterSchemata(teaser_block))))
 
     fields['show_title'].set(teaser_block, False)
+
     fields['image_alt_text'].set(
         teaser_block, old_page.getImageAltText().decode('utf-8'))
     fields['image_caption'].set(
