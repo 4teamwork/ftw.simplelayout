@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.8.2 (unreleased)
+2.8.2 (2021-07-20)
 ------------------
 
 - Only apply 20200929161226_fix_contenttype_jquery_dependency on Plone 5.x sites. [mathias.leimgruber]
