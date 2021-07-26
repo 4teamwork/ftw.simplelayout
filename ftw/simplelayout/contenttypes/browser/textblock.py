@@ -15,6 +15,17 @@ from zope.component import queryMultiAdapter
 from zope.i18n import translate
 
 
+# Order is important
+DISALLOWED_CSS_CLASSES =[
+    'sl-layout-content',
+    'sl-layout',
+    'sl-block',
+    'sl-columns',
+    'sl-column',
+    'sl-simplelayout',
+]
+
+
 class TextBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/textblock.pt')
@@ -162,3 +173,15 @@ class TextBlockView(BaseBlock):
 
     def show_limit_indicator(self):
         return self.can_add
+
+    def get_sl_safe_markup(self):
+        # XXX: This should be implemented as a portal transform, in order to
+        # use the right tool for it and get caching for free.
+        text = self.context.text
+
+        if text:
+            safe_html = text.output
+            for css_class in DISALLOWED_CSS_CLASSES:
+                safe_html = safe_html.replace(css_class, '')
+            return safe_html
+        return ''

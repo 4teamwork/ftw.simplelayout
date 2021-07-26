@@ -458,3 +458,15 @@ class TestTextBlockRendering(TestCase):
         browser.open_html(block_view())
 
         self.assertNotEqual(browser.css('.sl-image .colorboxLink').first.get('href'), url)
+
+    @browsing
+    def test_if_harmeful_css_classes_are_removed(self, browser):
+        page = create(Builder('sl content page'))
+        block = create(Builder('sl textblock')
+                       .having(text=RichTextValue(
+                           '<p id="test-textblock" class="anotherclass sl-simplelayout sl-layout">The text</p>'))
+                       .within(page))
+
+        browser.login().visit(page)
+        self.assertNotIn('sl-simplelayout', browser.css('#test-textblock').first.attrib['class'])
+        self.assertNotIn('sl-layout', browser.css('#test-textblock').first.attrib['class'])
