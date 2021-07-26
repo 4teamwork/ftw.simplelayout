@@ -37,7 +37,7 @@
           <div class="image-caption" tal:content="context/image_caption" />
         </div>
       </tal:image>
-      <div tal:replace="structure here/text/output | nothing" />
+      <div tal:replace="structure view/get_sl_safe_markup | nothing" />
       <p tal:condition="python: view.can_add and not (here.image or here.text or here.title)"
          i18n:translate="">This block is empty.</p>
     </metal:BODY>
