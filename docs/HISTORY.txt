@@ -5,7 +5,7 @@ Changelog
 1.27.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Make sure there are no harmful css classes withing the content of a TextBlock. [mathias.leimgruber]
 
 
 1.27.3 (2021-08-20)
