@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.8.3 (unreleased)
+2.8.3 (2021-08-09)
 ------------------
 
 - Make sure there are no harmful css classes withing the content of a TextBlock. [mathias.leimgruber]
