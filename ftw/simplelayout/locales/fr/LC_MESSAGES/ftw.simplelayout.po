@@ -320,27 +320,27 @@ msgstr ""
 #. Default: "creater"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:61
 msgid "column_creater"
-msgstr ""
+msgstr "Créateur"
 
 #. Default: "modified"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:55
 msgid "column_modified"
-msgstr ""
+msgstr "Modifié"
 
 #. Default: "size"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:66
 msgid "column_size"
-msgstr ""
+msgstr "Taille"
 
 #. Default: "Title"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:50
 msgid "column_title"
-msgstr ""
+msgstr "Titre"
 
 #. Default: "Type"
 #: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:45
 msgid "column_type"
-msgstr ""
+msgstr "Taper"
 
 #. Default: "Height: {{currentHeight}}px (allowed: {{limitHeight}}px)"
 #: ./ftw/simplelayout/images/cropping/browser/templates/cropping_hard_limit_message.pt:13
