@@ -4,7 +4,7 @@ Changelog
 2.8.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Re-add french translations for FileListingBlock clumns.
 
 
 2.8.3 (2021-08-09)
