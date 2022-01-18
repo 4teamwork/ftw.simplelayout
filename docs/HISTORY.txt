@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.27.4 (unreleased)
+1.27.4 (2022-01-18)
 -------------------
 
 - Make sure there are no harmful css classes withing the content of a TextBlock. [mathias.leimgruber]
