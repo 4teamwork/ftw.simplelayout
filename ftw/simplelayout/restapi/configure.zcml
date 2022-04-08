@@ -6,10 +6,10 @@
   <include package="plone.rest" file="meta.zcml" />
   <include package="plone.restapi" />
 
-  <adapter factory=".content.SimplelayoutSerializer" />
+<!--   <adapter factory=".content.SimplelayoutSerializer" />
   <adapter factory=".content.SimplelayoutSerializeSiteRootToJson" />
   <adapter factory=".content.SimplelayoutBlockSerializeToJson" />
-
+ -->
   <plone:service
       method="POST"
       name="@sl-synchronize-page-config-with-blocks"
