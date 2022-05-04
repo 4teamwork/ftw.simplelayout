@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from ftw.simplelayout.interfaces import ISimplelayout
 from ftw.simplelayout.opengraph.og_site_root import PloneRootOpenGraph
 from plone import api
