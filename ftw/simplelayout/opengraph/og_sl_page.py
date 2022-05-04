@@ -12,16 +12,17 @@ class SimplelayoutPageOpenGraph(PloneRootOpenGraph):
     def __call__(self):
         """Returns a dict with all og:key, value"""
 
-        return OrderedDict([
-            ('og:title', self.get_title()),
-            ('og:type', self.get_type()),
-            ('og:url', self.get_url()),
-            ('og:image', self.get_image_url()),
-            ('og:site_name', self.get_site_name()),
-            ('og:description', self.get_description()),
-            ('fb:app_id', self.get_fb_app_id()),
-            ('fb:admins', self.get_fb_admins()),
-        ])
+        return [
+            ('property', 'og:title', self.get_title()),
+            ('property', 'og:type', self.get_type()),
+            ('property', 'og:url', self.get_url()),
+            ('property', 'og:image', self.get_image_url()),
+            ('property', 'og:site_name', self.get_site_name()),
+            ('property', 'og:description', self.get_description()),
+            ('property', 'fb:app_id', self.get_fb_app_id()),
+            ('property', 'fb:admins', self.get_fb_admins()),
+            ('name', 'twitter:image', self.get_image_url()),
+        ]
 
     def get_title(self):
         """OG Title"""

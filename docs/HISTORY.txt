@@ -4,7 +4,9 @@ Changelog
 2.8.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add twitter:image meta tag to opengraph metga tags. [mathias.leimgruber]
+
+- Use LOGO endpoint of ftw.logo in order to make sure to serve a PNG, not a SVG. [mathias.leimgruber]
 
 
 2.8.4 (2021-10-04)

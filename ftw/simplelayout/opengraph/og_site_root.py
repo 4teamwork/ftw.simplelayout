@@ -24,15 +24,16 @@ class PloneRootOpenGraph(object):
         """Returns a dict with all og:key, value"""
 
         if self._settings.opengraph_plone_root:
-            return OrderedDict([
-                ('og:title', self.get_title()),
-                ('og:type', self.get_type()),
-                ('og:url', self.get_url()),
-                ('og:image', self.get_image_url()),
-                ('og:description', self.get_description()),
-                ('fb:app_id', self.get_fb_app_id()),
-                ('fb:admins', self.get_fb_admins()),
-            ])
+            return [
+                ('property', 'og:title', self.get_title()),
+                ('property', 'og:type', self.get_type()),
+                ('property', 'og:url', self.get_url()),
+                ('property', 'og:image', self.get_image_url()),
+                ('property', 'og:description', self.get_description()),
+                ('property', 'fb:app_id', self.get_fb_app_id()),
+                ('property', 'fb:admins', self.get_fb_admins()),
+                ('name', 'twitter:image', self.get_image_url()),
+            ]
         else:
             return OrderedDict([])
 
