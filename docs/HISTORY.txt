@@ -5,7 +5,7 @@ Changelog
 1.27.5 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Staging: copy over ftw.bumblebee checksum after applying changes to baseline. [mathias.leimgruber]
 
 
 1.27.4 (2022-01-18)

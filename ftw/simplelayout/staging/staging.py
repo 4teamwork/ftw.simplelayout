@@ -295,6 +295,7 @@ class Staging(object):
         target_children_map = {IUUID(obj): obj for obj in self._get_children(target, condition)}
         source_ids = source.objectIds()
         self._copy_field_values(source, target)
+        self._copy_bumblebee_data(source, target)
         self._purge_scales(target)
         self._update_simplelayout_block_state(source, target)
 
@@ -410,6 +411,11 @@ class Staging(object):
             target_field = target.Schema().getField(source_field.__name__)
             value = source_field.getRaw(source)
             target_field.set(target, value)
+
+    def _copy_bumblebee_data(self, source, target):
+        source_checksum = IAnnotations(source).get('bumblebee-document-checksum', '')
+        if source_checksum:
+            IAnnotations(target)['bumblebee-document-checksum'] = source_checksum
 
     def _iter_fields(self, portal_type):
         for schemata in self._iter_schemata_for_protal_type(portal_type):
