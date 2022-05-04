@@ -7,8 +7,8 @@ class OpenGraph(ViewletBase):
 
     def index(self):
         return '\n'.join(map(
-            lambda og: u'<meta property="{0}" content="{1}" />'.format(*og),
-            self.get_og_data().items()))
+            lambda og: u'<meta {0}="{1}" content="{2}" />'.format(*og),
+            self.get_og_data()))
 
     def get_og_data(self):
         return getMultiAdapter((self.context, self.request, self.view),

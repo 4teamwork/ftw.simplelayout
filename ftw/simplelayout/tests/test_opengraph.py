@@ -128,7 +128,7 @@ class TestOpenGraph(TestCase):
         transaction.commit()
         browser.login().visit()
 
-        logo_url_without_cache = '{}/@@logo/logo/get_logo'.format(self.portal.absolute_url())
+        logo_url_without_cache = '{}/@@logo/logo/LOGO'.format(self.portal.absolute_url())
 
         og_image = browser.css('meta[property="og:image"]').first.attrib['content']
         browser.open(og_image)
