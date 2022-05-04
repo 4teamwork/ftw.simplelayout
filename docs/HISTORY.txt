@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.8.5 (unreleased)
+2.8.5 (2022-05-04)
 ------------------
 
 - Add twitter:image meta tag to opengraph metga tags. [mathias.leimgruber]
