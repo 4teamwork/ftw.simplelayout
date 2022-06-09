@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.8.7 (unreleased)
+2.8.7 (2022-06-09)
 ------------------
 
 - Fix condition for discarding a cropped version of a image. [mathias.leimgruber]
