@@ -6,11 +6,12 @@ from plone.app.uuid.utils import uuidToObject
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.dexterity.events import EditCancelledEvent
 from plone.dexterity.events import EditFinishedEvent
-from plone.dexterity.interfaces import IDexterityEditForm
 from plone.dexterity.i18n import MessageFactory as DXMF
+from plone.dexterity.interfaces import IDexterityEditForm
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
+from z3c.form.interfaces import NOT_CHANGED
 from zExceptions import BadRequest
 from zope.event import notify
 from zope.interface import classImplements
@@ -44,7 +45,7 @@ class EditForm(DefaultEditForm):
             return
 
         if IImageCropping.providedBy(self.context) and \
-                self.context.image is not data.get('image'):
+                data.get('image') != NOT_CHANGED:
             data['IImageCropping.cropped_config'] = None
             data['IImageCropping.cropped_image'] = None
 
