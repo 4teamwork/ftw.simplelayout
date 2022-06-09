@@ -4,7 +4,7 @@ Changelog
 2.8.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix condition for discarding a cropped version of a image. [mathias.leimgruber]
 
 
 2.8.6 (2022-05-04)
