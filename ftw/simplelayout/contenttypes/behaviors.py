@@ -69,6 +69,8 @@ class IMediaFolderReference(model.Schema):
     widget('mediafolder',
            ReferenceBrowserWidget,
            allow_nonsearched_types=True,
+           start='parent',
+           override=True,
            selectable=['ftw.simplelayout.MediaFolder', ])
     mediafolder = Relation(
         title=_(u'label_mediafolder', default=u'Mediafolder reference'),
