@@ -54,6 +54,13 @@
         />
 
     <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        name="add-and-link-mediafolder"
+        class=".filelistingblock.CreateAndLinkMediaFolder"
+        permission="ftw.simplelayout.AddContentPage"
+        />
+
+    <browser:page
         for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
         name="dropzone-upload"
         class=".dropzone.GalleryUpload"

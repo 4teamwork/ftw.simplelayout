@@ -26,6 +26,12 @@
         factory="plone.behavior.AnnotationStorage"
         />
 
+    <plone:behavior
+        title="MediaFolder reference field"
+        description="Extends the content with a reference field to a media folder"
+        provides="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference"
+        />
+
     <genericsetup:registerProfile
         zcml:condition="not-have plone-5"
         name="default"

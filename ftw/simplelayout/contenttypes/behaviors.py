@@ -45,6 +45,7 @@ class ITeaser(model.Schema):
                 u"It's not possible to have an internal_link and an "
                 u"external_link together"))
 
+
 alsoProvides(ITeaser, IFormFieldProvider)
 
 
@@ -59,5 +60,17 @@ class IHiddenBlock(model.Schema):
                     u'security feature, the block and its content can '
                     u'still be accessed.'),
         default=False,
+        required=False,
+    )
+
+
+@provider(IFormFieldProvider)
+class IMediaFolderReference(model.Schema):
+    widget('mediafolder',
+           ReferenceBrowserWidget,
+           allow_nonsearched_types=True,
+           selectable=['ftw.simplelayout.MediaFolder', ])
+    mediafolder = Relation(
+        title=_(u'label_mediafolder', default=u'Mediafolder reference'),
         required=False,
     )

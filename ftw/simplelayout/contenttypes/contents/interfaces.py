@@ -30,4 +30,8 @@ class IGalleryBlock(Interface):
 
 
 class IContentPage(ISimplelayout):
-    """Marker interface for ConetPages"""
+    """Marker interface for ContentPages"""
+
+
+class IMediaFolder(Interface):
+    """Marker interface for MediaFolders"""
