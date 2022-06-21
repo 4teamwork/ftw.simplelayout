@@ -33,8 +33,10 @@ class TestAliasBlockRendering(TestCase):
         self.intids = getUtility(IIntIds)
 
     def assert_html(self, page, aliasblock):
-        page.css('[name="_authenticator"]').first.node.drop_tree()
-        aliasblock.css('[name="_authenticator"]').first.node.drop_tree()
+
+        if IS_PLONE_5:
+            page.css('[name="_authenticator"]').first.node.drop_tree()
+            aliasblock.css('[name="_authenticator"]').first.node.drop_tree()
 
         page_html = etree.tostring(page.first.node, pretty_print=True)
         aliasblock_html = etree.tostring(page.first.node, pretty_print=True)

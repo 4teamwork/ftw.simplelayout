@@ -1,6 +1,7 @@
 from AccessControl.requestmethod import postonly
 from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.contenttypes.behaviors import IMediaFolderReference
 from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.table.interfaces import ITableGenerator
 from plone import api
@@ -24,6 +25,8 @@ class FileListingBlockView(BaseBlock):
         'templates/ftw.table.custom.template.pt')
 
     def has_mediafolder(self):
+        if not IMediaFolderReference(self.context, None):
+            return False
         return self.context.mediafolder and self.context.mediafolder.to_object
 
     def get_table_contents(self):

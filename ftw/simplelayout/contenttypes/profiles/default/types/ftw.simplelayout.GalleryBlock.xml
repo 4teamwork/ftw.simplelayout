@@ -30,6 +30,7 @@
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"/>
         <element value="plone.app.referenceablebehavior.referenceable.IReferenceable"/>
+        <element value="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference" />
     </property>
 
     <!-- View information -->
