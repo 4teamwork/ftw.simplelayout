@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-12-16 22:21+0000\n"
+"POT-Creation-Date: 2022-06-21 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,19 @@ msgstr ""
 msgid "Check possible values on http://ogp.me"
 msgstr "Prüfe mögliche Werte auf http://ogp.me"
 
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:17
+msgid "Click here do manage (add, edit, delete) files"
+msgstr "Hier klicken zum Hinzufügen, Bearbeiten und Löschen von Dateien"
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:15
+msgid "Click here do manage (add, edit, delete) images"
+msgstr "Hier klicken zum Hinzufügen, Bearbeiten und Löschen von Bilder"
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:21
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:23
+msgid "Click here to create a new Media Folder"
+msgstr "Neuen Medien Ordner erstellen."
+
 #: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "Collective Geo Maps"
 msgstr ""
@@ -62,6 +75,10 @@ msgstr "Aktiviere den OpenGraph Support auf dem Plone Root"
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:27
 msgid "Extends a content by two fields internal and external link"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:33
+msgid "Extends the content with a reference field to a media folder"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:131
@@ -120,6 +137,15 @@ msgstr "Es ist nicht möglich, einen internen und externen Link gleichzeitig zu 
 msgid "MapBlock"
 msgstr "Karte"
 
+#: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.MediaFolder.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.MediaFolder.xml
+msgid "MediaFolder"
+msgstr "Medien Ordner"
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:33
+msgid "MediaFolder reference field"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/behavior.py:16
 msgid "Modify geographical data for this content"
 msgstr "Ändere die geographischen Daten für diesen Inhalt"
@@ -156,7 +182,7 @@ msgstr "Zeigt die OpenGraph Meta Tags"
 msgid "Simlelayout aliasblock type"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:36
+#: ./ftw/simplelayout/contenttypes/configure.zcml:42
 msgid "Simlelayout default content types"
 msgstr ""
 
@@ -172,7 +198,7 @@ msgstr ""
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:83
+#: ./ftw/simplelayout/contenttypes/configure.zcml:89
 msgid "Simplelayout View"
 msgstr "Simplelayout Ansicht"
 
@@ -242,8 +268,8 @@ msgstr "Der Video-Block zeigt Videos von YouTube oder Vimeo an."
 msgid "This behaviour will make a content geo referenceable"
 msgstr "Dieses behavior macht einen Inhalt geo-referenzierbar"
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:57
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:59
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:72
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:75
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr "Dieser Block hat keinen Inhalt."
@@ -256,7 +282,7 @@ msgstr "Dies ist keine gültige Youtube- oder Vimeo-URL."
 msgid "Uninstall ftw.simplelayout.aliasblock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:55
+#: ./ftw/simplelayout/contenttypes/configure.zcml:61
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr "Deinstalliere ftw.simplelayout.contenttypes"
 
@@ -268,7 +294,7 @@ msgstr ""
 msgid "Uninstalls the ftw.simplelayout.aliasblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:55
+#: ./ftw/simplelayout/contenttypes/configure.zcml:61
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr "Deinstalliert das ftw.simplelayout.contenttypes Paket"
 
@@ -276,8 +302,8 @@ msgstr "Deinstalliert das ftw.simplelayout.contenttypes Paket"
 msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:49
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:50
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:63
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:65
 msgid "Upload files here"
 msgstr "Dateien hier hochladen"
 
@@ -390,7 +416,7 @@ msgid "description_image_clickable"
 msgstr "Wird das Bild angeklickt, öffnet es sich in einem Overlay"
 
 #. Default: "This will visually hide the block. This is not a security feature, the block and its content can still be accessed."
-#: ./ftw/simplelayout/contenttypes/behaviors.py:56
+#: ./ftw/simplelayout/contenttypes/behaviors.py:57
 msgid "description_is_hidden"
 msgstr "Dies versteckt den Block rein visuell. Dies ist kein Sicherheits-Feature, der Block und sein Inhalt bleibt immer noch aufrufbar."
 
@@ -400,17 +426,17 @@ msgid "description_teaser_fieldset"
 msgstr "Mit der Link-Funktion kann ein Block direkt mit weiterführendem Inhalt verknüpft werden.<br /> Der Titel und das Bild vom Block werden als Link mit dem Ziel verknüpft.<br /><br /> Oft wird die Linkfunktion auch auf sogenannten Triage- oder Portal-Seiten verwendet. In diesen Fällen reicht ein Link in der Navigation nicht aus, sondern der Benutzer benötigt weitere Informationen, damit dieser auf der richten Seite landet."
 
 #. Default: "The selected content cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:92
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:90
 msgid "error_text_alias_aliasblock"
 msgstr "Der ausgwählte Inhalt kann nicht als Ziel in einem AliasBlock verwendet werden"
 
 #. Default: "A input is required"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:81
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:80
 msgid "error_text_required_aliasblock"
 msgstr "Es muss ein Ziel ausgewählt werden."
 
 #. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:88
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:86
 msgid "error_text_sl_page_aliasblock"
 msgstr "Die ausgewählte Inhaltsseite kann nicht verwendet werden, da diese bereits einen AliasBlock enthält oder es sich um die Seite handelt, auf welcher der AliasBlock erstellt werden soll."
 
@@ -426,7 +452,7 @@ msgstr ""
 msgid "ftw.simplelayout mapblock default"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:36
+#: ./ftw/simplelayout/contenttypes/configure.zcml:42
 msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
@@ -446,8 +472,8 @@ msgid "hidden_label_image_caption"
 msgstr "Bild Legende:"
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:96
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:66
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:107
 msgid "image_link_alttext"
 msgstr "${title}. Vergrösserte Ansicht"
 
@@ -462,22 +488,22 @@ msgid "label:delete_block"
 msgstr "Block entfernen"
 
 #. Default: "sort_index"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:104
 msgid "label_%ssort_index"
 msgstr "Sortierung"
 
 #. Default: "Alias Content"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:60
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:59
 msgid "label_alias_content"
 msgstr "Alias Inhalt"
 
 #. Default: "Choose a block to be rendered within this block."
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:62
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:61
 msgid "label_alias_description"
 msgstr "Wähle den Block, der im AliasBlock angezeigt werden soll."
 
 #. Default: "Ascending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:118
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:120
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:37
 msgid "label_ascending"
 msgstr "Aufsteigend"
@@ -493,7 +519,7 @@ msgid "label_column_postfix"
 msgstr " Spalte(n)"
 
 #. Default: "Columns"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:138
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:140
 msgid "label_columns"
 msgstr "Spalten"
 
@@ -518,7 +544,7 @@ msgid "label_delete_layout"
 msgstr "Zeile löschen"
 
 #. Default: "Descending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:120
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:122
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:39
 msgid "label_descending"
 msgstr "Absteigend"
@@ -557,7 +583,7 @@ msgid "label_float_large_image_right"
 msgstr "Grosses Bild rechts ausrichten"
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:172
 msgid "label_folder_contents_files"
 msgstr "Dateien über Inhalte verwalten."
 
@@ -612,7 +638,7 @@ msgid "label_invalid_permission"
 msgstr "Sie können leider nicht mehr auf den verwendeten Inhalt zugreifen."
 
 #. Default: "Hide the block"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:55
+#: ./ftw/simplelayout/contenttypes/behaviors.py:56
 msgid "label_is_hidden"
 msgstr "Block verstecken"
 
@@ -635,6 +661,11 @@ msgstr "25% - 75% Verteilung"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:89
 msgid "label_layout_inverse"
 msgstr "Umkehren / Spiegeln"
+
+#. Default: "Mediafolder reference"
+#: ./ftw/simplelayout/contenttypes/behaviors.py:76
+msgid "label_mediafolder"
+msgstr "Inhalt von folgendem Medien Ordner anzeigen"
 
 #. Default: "Modification date"
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:23
@@ -660,26 +691,26 @@ msgid "label_portal_type"
 msgstr "Typ"
 
 #. Default: "Position in Folder"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:109
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr "Ordnerreihenfolge"
 
 #. Default: "Show title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:135
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:37
 msgid "label_show_title"
 msgstr "Titel anzeigen?"
 
 #. Default: "Sort by"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:144
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:146
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:57
 msgid "label_sort_on"
 msgstr "Sortieren nach"
 
 #. Default: "Sort order"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:150
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:152
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:63
 msgid "label_sort_order"
 msgstr "Sortierreihenfolge"
@@ -693,7 +724,7 @@ msgid "label_text"
 msgstr "Text"
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:131
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:33
 msgid "label_title"
@@ -756,8 +787,8 @@ msgid "title_delete_link_check"
 msgstr "Folgende Inhalte haben interne Links auf diesen Inhalt:"
 
 #. Default: "Remove file"
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:19
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:20
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:33
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:35
 msgid "title_dropzone_remove"
 msgstr "Datei löschen"
 

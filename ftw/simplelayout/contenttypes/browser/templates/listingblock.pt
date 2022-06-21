@@ -14,12 +14,13 @@
 
     <div class="edit-hints" tal:condition="view/can_add_mediafolder">
         <div tal:condition="view/has_mediafolder">
-            <a tal:attributes="href string:${context/mediafolder/to_object/absolute_url}/folder_contents">Click here do manage (add, edit, delete) files</a>
+            <a tal:attributes="href string:${context/mediafolder/to_object/absolute_url}/folder_contents"
+               i18n:translate="">Click here do manage (add, edit, delete) files</a>
         </div>
         <div tal:condition="not: view/has_mediafolder">
             <form method="POST" tal:attributes="action string:${context/absolute_url}/@@add-and-link-mediafolder">
                 <input tal:replace="structure context/@@authenticator/authenticator" />
-                <button type="submit">Click here to create a new Media Folder</button>
+                <button type="submit" i18n:translate="">Click here to create a new Media Folder</button>
             </form>
         </div>
     </div>

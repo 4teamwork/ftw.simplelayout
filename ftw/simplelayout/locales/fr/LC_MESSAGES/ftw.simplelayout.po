@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2020-12-16 22:21+0000\n"
+"POT-Creation-Date: 2022-06-21 19:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,19 @@ msgstr ""
 msgid "Check possible values on http://ogp.me"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:17
+msgid "Click here do manage (add, edit, delete) files"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:15
+msgid "Click here do manage (add, edit, delete) images"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:21
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:23
+msgid "Click here to create a new Media Folder"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/configure.zcml:62
 msgid "Collective Geo Maps"
 msgstr ""
@@ -65,6 +78,10 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/configure.zcml:27
 msgid "Extends a content by two fields internal and external link"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:33
+msgid "Extends the content with a reference field to a media folder"
 msgstr ""
 
 #: ./ftw/simplelayout/interfaces.py:131
@@ -123,6 +140,15 @@ msgstr ""
 msgid "MapBlock"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.MediaFolder.xml
+#: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.MediaFolder.xml
+msgid "MediaFolder"
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/configure.zcml:33
+msgid "MediaFolder reference field"
+msgstr ""
+
 #: ./ftw/simplelayout/mapblock/behavior.py:16
 msgid "Modify geographical data for this content"
 msgstr ""
@@ -159,7 +185,7 @@ msgstr ""
 msgid "Simlelayout aliasblock type"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:36
+#: ./ftw/simplelayout/contenttypes/configure.zcml:42
 msgid "Simlelayout default content types"
 msgstr ""
 
@@ -175,7 +201,7 @@ msgstr ""
 msgid "Simplelayout OpenGraph Viewlet"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:83
+#: ./ftw/simplelayout/contenttypes/configure.zcml:89
 msgid "Simplelayout View"
 msgstr ""
 
@@ -245,8 +271,8 @@ msgstr ""
 msgid "This behaviour will make a content geo referenceable"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:57
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:59
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:72
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:75
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr ""
@@ -259,7 +285,7 @@ msgstr ""
 msgid "Uninstall ftw.simplelayout.aliasblock"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:55
+#: ./ftw/simplelayout/contenttypes/configure.zcml:61
 msgid "Uninstall ftw.simplelayout.contenttypes"
 msgstr ""
 
@@ -271,7 +297,7 @@ msgstr ""
 msgid "Uninstalls the ftw.simplelayout.aliasblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:55
+#: ./ftw/simplelayout/contenttypes/configure.zcml:61
 msgid "Uninstalls the ftw.simplelayout.contenttypes package."
 msgstr ""
 
@@ -279,8 +305,8 @@ msgstr ""
 msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:49
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:50
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:63
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:65
 msgid "Upload files here"
 msgstr "Téléchargez des fichiers ici"
 
@@ -393,7 +419,7 @@ msgid "description_image_clickable"
 msgstr "Ouvre l'image dans un overlay"
 
 #. Default: "This will visually hide the block. This is not a security feature, the block and its content can still be accessed."
-#: ./ftw/simplelayout/contenttypes/behaviors.py:56
+#: ./ftw/simplelayout/contenttypes/behaviors.py:57
 msgid "description_is_hidden"
 msgstr ""
 
@@ -403,17 +429,17 @@ msgid "description_teaser_fieldset"
 msgstr ""
 
 #. Default: "The selected content cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:92
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:90
 msgid "error_text_alias_aliasblock"
 msgstr ""
 
 #. Default: "A input is required"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:81
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:80
 msgid "error_text_required_aliasblock"
 msgstr ""
 
 #. Default: "The selected ContentPage contains a Aliasblock or is the page you are creating the block on and thus cannot be selected"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:88
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:86
 msgid "error_text_sl_page_aliasblock"
 msgstr ""
 
@@ -429,7 +455,7 @@ msgstr ""
 msgid "ftw.simplelayout mapblock default"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/configure.zcml:36
+#: ./ftw/simplelayout/contenttypes/configure.zcml:42
 msgid "ftw.simplelayout.contenttypes default"
 msgstr ""
 
@@ -449,8 +475,8 @@ msgid "hidden_label_image_caption"
 msgstr ""
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:43
-#: ./ftw/simplelayout/contenttypes/browser/textblock.py:96
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:66
+#: ./ftw/simplelayout/contenttypes/browser/textblock.py:107
 msgid "image_link_alttext"
 msgstr ""
 
@@ -465,22 +491,22 @@ msgid "label:delete_block"
 msgstr ""
 
 #. Default: "sort_index"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:103
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:104
 msgid "label_%ssort_index"
 msgstr ""
 
 #. Default: "Alias Content"
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:60
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:59
 msgid "label_alias_content"
 msgstr ""
 
 #. Default: "Choose a block to be rendered within this block."
-#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:62
+#: ./ftw/simplelayout/aliasblock/contents/aliasblock.py:61
 msgid "label_alias_description"
 msgstr ""
 
 #. Default: "Ascending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:118
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:120
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:37
 msgid "label_ascending"
 msgstr ""
@@ -496,7 +522,7 @@ msgid "label_column_postfix"
 msgstr ""
 
 #. Default: "Columns"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:138
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:140
 msgid "label_columns"
 msgstr ""
 
@@ -521,7 +547,7 @@ msgid "label_delete_layout"
 msgstr ""
 
 #. Default: "Descending"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:120
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:122
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:39
 msgid "label_descending"
 msgstr ""
@@ -560,7 +586,7 @@ msgid "label_float_large_image_right"
 msgstr ""
 
 #. Default: "Go to folder contents for managing files"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:170
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:172
 msgid "label_folder_contents_files"
 msgstr ""
 
@@ -615,7 +641,7 @@ msgid "label_invalid_permission"
 msgstr ""
 
 #. Default: "Hide the block"
-#: ./ftw/simplelayout/contenttypes/behaviors.py:55
+#: ./ftw/simplelayout/contenttypes/behaviors.py:56
 msgid "label_is_hidden"
 msgstr ""
 
@@ -637,6 +663,11 @@ msgstr ""
 #. Default: "Invert layout"
 #: ./ftw/simplelayout/browser/ajax/toolbox_view.py:89
 msgid "label_layout_inverse"
+msgstr ""
+
+#. Default: "Mediafolder reference"
+#: ./ftw/simplelayout/contenttypes/behaviors.py:76
+msgid "label_mediafolder"
 msgstr ""
 
 #. Default: "Modification date"
@@ -663,26 +694,26 @@ msgid "label_portal_type"
 msgstr ""
 
 #. Default: "Position in Folder"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:108
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:109
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:31
 msgid "label_position_in_folder"
 msgstr ""
 
 #. Default: "Show title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:133
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:135
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:52
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:37
 msgid "label_show_title"
 msgstr ""
 
 #. Default: "Sort by"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:144
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:146
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:57
 msgid "label_sort_on"
 msgstr ""
 
 #. Default: "Sort order"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:150
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:152
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:63
 msgid "label_sort_order"
 msgstr ""
@@ -696,7 +727,7 @@ msgid "label_text"
 msgstr ""
 
 #. Default: "Title"
-#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:129
+#: ./ftw/simplelayout/contenttypes/contents/filelistingblock.py:131
 #: ./ftw/simplelayout/contenttypes/contents/galleryblock.py:19
 #: ./ftw/simplelayout/contenttypes/contents/textblock.py:33
 msgid "label_title"
@@ -759,8 +790,8 @@ msgid "title_delete_link_check"
 msgstr ""
 
 #. Default: "Remove file"
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:19
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:20
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:33
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:35
 msgid "title_dropzone_remove"
 msgstr ""
 
