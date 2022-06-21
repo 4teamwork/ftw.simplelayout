@@ -38,6 +38,10 @@ class TestGalleryBlock(TestCase):
         self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
 
+        fti = self.portal.portal_types['ftw.simplelayout.GalleryBlock']
+        fti.allowed_content_types = ('Image', )
+        transaction.commit()
+
     def test_scale_is_available(self):
         name = 'simplelayout_galleryblock'
         names = get_allowed_size_names()

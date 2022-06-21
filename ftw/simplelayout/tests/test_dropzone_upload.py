@@ -16,8 +16,12 @@ class TestDropZoneUpload(SimplelayoutTestCase):
 
     def setUp(self):
         super(TestDropZoneUpload, self).setUp()
+        self.portal = self.layer['portal']
         fti = self.portal.portal_types['ftw.simplelayout.FileListingBlock']
         fti.allowed_content_types = ('File', )
+
+        fti = self.portal.portal_types['ftw.simplelayout.GalleryBlock']
+        fti.allowed_content_types = ('Image', )
         transaction.commit()
 
     @browsing

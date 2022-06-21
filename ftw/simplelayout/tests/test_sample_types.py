@@ -16,7 +16,7 @@ class TestSampleTypes(TestCase):
 
     def setUp(self):
         super(TestSampleTypes, self).setUp()
-
+        self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
 
     @browsing

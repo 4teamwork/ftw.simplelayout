@@ -16,12 +16,22 @@ class GalleryBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/galleryblock.pt')
 
+    def has_mediafolder(self):
+        return self.context.mediafolder and self.context.mediafolder.to_object
+
     def get_images(self):
-        imgBrains = self.context.portal_catalog.searchResults(
+
+        if self.has_mediafolder():
+            path = '/'.join(self.context.mediafolder.to_object.getPhysicalPath())
+        else:
+            # Edge case for migrations/updates
+            path = '/'.join(self.context.getPhysicalPath())
+
+        imgBrains = api.portal.get_tool('portal_catalog').searchResults(
             portal_type="Image",
             sort_on=self.context.sort_on,
             sort_order=self.context.sort_order,
-            path='/'.join(self.context.getPhysicalPath()))
+            path=path)
         images = []
         for img in imgBrains:
             images.append(img.getObject())
@@ -36,6 +46,16 @@ class GalleryBlockView(BaseBlock):
         mtool = getToolByName(context, 'portal_membership')
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add GalleryBlock', context)
+
+        types_tool = api.portal.get_tool('portal_types')
+        addable_content = types_tool['ftw.simplelayout.GalleryBlock'].allowed_content_types
+        return bool(permission) and len(addable_content)
+
+    def can_add_mediafolder(self):
+        context = aq_inner(self.context)
+        mtool = getToolByName(context, 'portal_membership')
+        permission = mtool.checkPermission(
+            'ftw.simplelayout: Add ContentPage', context)
         return bool(permission)
 
     def generate_image_alttext(self, img):

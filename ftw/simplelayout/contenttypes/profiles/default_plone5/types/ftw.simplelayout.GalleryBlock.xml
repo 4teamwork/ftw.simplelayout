@@ -11,9 +11,7 @@
     <property name="allow_discussion">False</property>
     <property name="global_allow">False</property>
     <property name="filter_content_types">True</property>
-    <property name="allowed_content_types">
-        <element value="Image" />
-    </property>
+    <property name="allowed_content_types"></property>
 
     <!-- schema interface -->
     <property name="schema">ftw.simplelayout.contenttypes.contents.galleryblock.IGalleryBlockSchema</property>
@@ -29,6 +27,7 @@
         <element value="plone.app.content.interfaces.INameFromTitle" />
         <element value="ftw.simplelayout.interfaces.ISimplelayoutBlock" />
         <element value="ftw.simplelayout.contenttypes.behaviors.IHiddenBlock"/>
+        <element value="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference"/>
     </property>
 
     <!-- View information -->
