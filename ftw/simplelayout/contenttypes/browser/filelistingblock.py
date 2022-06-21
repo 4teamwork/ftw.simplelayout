@@ -3,6 +3,7 @@ from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.behaviors import IMediaFolderReference
 from ftw.simplelayout.contenttypes.contents import interfaces
+from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.table.interfaces import ITableGenerator
 from plone import api
 from plone.dexterity.utils import safe_utf8
@@ -91,7 +92,11 @@ class FileListingBlockView(BaseBlock):
         return bool(permission) and len(addable_content)
 
     def can_add_mediafolder(self):
-        context = aq_inner(self.context)
+        context = aq_inner(self.context).aq_parent
+
+        if IStaging(context, None) and IStaging(context).is_working_copy():
+            context = IStaging(context).get_baseline()
+
         mtool = getToolByName(context, 'portal_membership')
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add ContentPage', context)
@@ -109,10 +114,9 @@ class FileListingBlockView(BaseBlock):
             translated_state_title = translate(state_id, context=self.request, domain='plone')
             return u'<span class="state-{}">{}</span>'.format(
                 state_id,
-                translated_state_title.decode('utf-8')
+                translated_state_title
             )
         return ''
-
 
 
 class CreateAndLinkMediaFolder(BrowserView):
@@ -121,10 +125,15 @@ class CreateAndLinkMediaFolder(BrowserView):
     def __call__(self, REQUEST):
         CheckAuthenticator(self.request)
 
+        context = self.context.aq_parent
+
+        if IStaging(context, None) and IStaging(context).is_working_copy():
+            context = IStaging(context).get_baseline()
+
         mediafolder = api.content.create(
             type='ftw.simplelayout.MediaFolder',
             title=self.context.title_or_id(),
-            container=self.context.aq_parent)
+            container=context)
 
         intids = getUtility(IIntIds)
         relation = RelationValue(intids.getId(mediafolder))
