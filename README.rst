@@ -51,6 +51,18 @@ TODO: Needs to be implemented and tested.
 
 ``ftw.simplelayout`` integrates automatically with `ftw.trash`_ when both are installed.
 
+
+**Change in Version 3.0.0**
+
+Since the performance with the working copy feature is not great. We decided to implement a new concept (well old plone concept), how the
+GalleryBlock and FilelistingBlock are getting their content.
+
+From Version 3 on upwards the default behavior is, that GalleryBlocks and FileListingBlocks are displaying content from a referenced Media Folder.
+The Media Folder does not get copied if using the working copy feature, thus makes it much much faster, since reindexing files is no longer necessary.
+
+This has also the advantage, that files and images could be organized centrally.
+
+
 Installation
 ============
 
