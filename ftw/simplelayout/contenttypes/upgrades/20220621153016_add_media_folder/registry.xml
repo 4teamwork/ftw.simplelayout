@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<registry>
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
+           prefix="plone">
+    <value key="types_not_searched" purge="false">
+      <element>ftw.simplelayout.MediaFolder</element>
+    </value>
+  </records>
+
+  <records interface="Products.CMFPlone.interfaces.controlpanel.ITinyMCESchema"
+           prefix="plone">
+    <value key="contains_objects" purge="false">
+      <element>ftw.simplelayout.MediaFolder</element>
+    </value>
+  </records>
+</registry>
