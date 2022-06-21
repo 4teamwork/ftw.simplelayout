@@ -6,6 +6,7 @@
 @include portal-type-font-awesome-icon(ftw-simplelayout-listingblock, list-ul);
 @include portal-type-font-awesome-icon(ftw-simplelayout-textblock, paragraph);
 @include portal-type-font-awesome-icon(ftw-simplelayout-videoblock, film);
+@include portal-type-font-awesome-icon(ftw-simplelayout-mediafolder, folder-o);
 
 @include ie-only(".sl-can-edit .ftw-simplelayout-videoblock .sl-block-content") {
   @include fix-iframe-cursor();
