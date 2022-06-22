@@ -14,6 +14,7 @@ from z3c.relationfield import RelationValue
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
+from zope.i18n import translate
 from zope.intid.interfaces import IIntIds
 
 
@@ -95,6 +96,23 @@ class FileListingBlockView(BaseBlock):
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add ContentPage', context)
         return bool(permission)
+
+    def get_review_state_mediafolder(self):
+        if self.has_mediafolder():
+            wftool = api.portal.get_tool('portal_workflow')
+            state_id = wftool.getInfoFor(
+                self.context.mediafolder.to_object,
+                'review_state',
+                default=None)
+            if state_id is None:
+                return ''
+            translated_state_title = translate(state_id, context=self.request, domain='plone')
+            return u'<span class="state-{}">{}</span>'.format(
+                state_id,
+                translated_state_title.decode('utf-8')
+            )
+        return ''
+
 
 
 class CreateAndLinkMediaFolder(BrowserView):

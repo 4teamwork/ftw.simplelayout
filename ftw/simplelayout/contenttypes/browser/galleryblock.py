@@ -61,6 +61,22 @@ class GalleryBlockView(BaseBlock):
             'ftw.simplelayout: Add ContentPage', context)
         return bool(permission)
 
+    def get_review_state_mediafolder(self):
+        if self.has_mediafolder():
+            wftool = api.portal.get_tool('portal_workflow')
+            state_id = wftool.getInfoFor(
+                self.context.mediafolder.to_object,
+                'review_state',
+                default=None)
+            if state_id is None:
+                return ''
+            translated_state_title = translate(state_id, context=self.request, domain='plone')
+            return u'<span class="state-{}">{}</span>'.format(
+                state_id,
+                translated_state_title.decode('utf-8')
+            )
+        return ''
+
     def generate_image_alttext(self, img):
         title = safe_unicode(img.title_or_id())
         return translate(_(u'image_link_alttext',

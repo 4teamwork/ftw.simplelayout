@@ -14,6 +14,7 @@
         <div tal:condition="view/has_mediafolder">
             <a tal:attributes="href string:${context/mediafolder/to_object/absolute_url}/folder_contents"
                i18n:translate="">Click here do manage (add, edit, delete) images</a>
+               (<tal:label i18n:translate="">Status:</tal:label> <span tal:replace="structure view/get_review_state_mediafolder" />)
         </div>
         <div tal:condition="not: view/has_mediafolder">
             <form method="POST" tal:attributes="action string:${context/absolute_url}/@@add-and-link-mediafolder">
