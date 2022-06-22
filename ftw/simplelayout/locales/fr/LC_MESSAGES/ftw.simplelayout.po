@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-06-21 19:11+0000\n"
+"POT-Creation-Date: 2022-06-22 17:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,8 +46,8 @@ msgstr ""
 msgid "Click here do manage (add, edit, delete) images"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:21
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:23
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:22
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:24
 msgid "Click here to create a new Media Folder"
 msgstr ""
 
@@ -142,6 +142,7 @@ msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/profiles/default/types/ftw.simplelayout.MediaFolder.xml
 #: ./ftw/simplelayout/contenttypes/profiles/default_plone5/types/ftw.simplelayout.MediaFolder.xml
+#: ./ftw/simplelayout/contenttypes/upgrades/20220621153016_add_media_folder/types/ftw.simplelayout.MediaFolder.xml
 msgid "MediaFolder"
 msgstr ""
 
@@ -238,6 +239,11 @@ msgstr ""
 msgid "Simplelayout teaser behavior"
 msgstr ""
 
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:17
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:19
+msgid "Status:"
+msgstr ""
+
 #: ./ftw/simplelayout/contenttypes/behaviors.py:19
 msgid "Teaser"
 msgstr ""
@@ -271,14 +277,18 @@ msgstr ""
 msgid "This behaviour will make a content geo referenceable"
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:72
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:75
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:73
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:76
 #: ./ftw/simplelayout/contenttypes/browser/templates/textblock.pt:41
 msgid "This block is empty."
 msgstr ""
 
 #: ./ftw/simplelayout/contenttypes/contents/videoblock.py:70
 msgid "This is no a valid youtube, or vimeo url."
+msgstr ""
+
+#: ./ftw/simplelayout/contenttypes/browser/templates/viewlet.pt:2
+msgid "This media folder is used for the following listing(s)"
 msgstr ""
 
 #: ./ftw/simplelayout/aliasblock/configure.zcml:33
@@ -305,8 +315,8 @@ msgstr ""
 msgid "Uninstalls the ftw.simplelayout.mapblock package."
 msgstr ""
 
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:63
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:65
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:64
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:66
 msgid "Upload files here"
 msgstr "Téléchargez des fichiers ici"
 
@@ -475,7 +485,7 @@ msgid "hidden_label_image_caption"
 msgstr ""
 
 #. Default: "${title}, enlarged picture."
-#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:66
+#: ./ftw/simplelayout/contenttypes/browser/galleryblock.py:82
 #: ./ftw/simplelayout/contenttypes/browser/textblock.py:107
 msgid "image_link_alttext"
 msgstr ""
@@ -790,8 +800,8 @@ msgid "title_delete_link_check"
 msgstr ""
 
 #. Default: "Remove file"
-#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:33
-#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:35
+#: ./ftw/simplelayout/contenttypes/browser/templates/galleryblock.pt:34
+#: ./ftw/simplelayout/contenttypes/browser/templates/listingblock.pt:36
 msgid "title_dropzone_remove"
 msgstr ""
 
