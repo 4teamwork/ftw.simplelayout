@@ -74,4 +74,12 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:viewlet
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IMediaFolder"
+        name="ftw.simplelayout.mediafolder"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+        permission="zope2.View"
+        class=".viewlets.MediaFolderViewlet"
+        layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        />
 </configure>
