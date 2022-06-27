@@ -7,6 +7,7 @@ from copy import deepcopy
 from DateTime import DateTime
 from datetime import datetime
 from ftw.simplelayout.configuration import columns_in_config
+from ftw.simplelayout.contenttypes.behaviors import add_behavior_relations
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
@@ -14,8 +15,8 @@ from ftw.simplelayout.properties import BLOCK_PROPERTIES_KEY
 from ftw.simplelayout.staging.interfaces import IBaseline
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.simplelayout.staging.interfaces import IWorkingCopy
-from ftw.simplelayout.utils import unrestricted_uuidToObject
 from ftw.simplelayout.utils import IS_PLONE_5
+from ftw.simplelayout.utils import unrestricted_uuidToObject
 from operator import methodcaller
 from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
@@ -404,6 +405,8 @@ class Staging(object):
                 value = value.decode('utf-8')
 
             setattr(target_storage, field.getName(), value)
+        # Update relation catalog
+        add_behavior_relations(target, None)
 
     def _copy_at_field_values(self, source, target):
         for source_field in source.Schema().values():
