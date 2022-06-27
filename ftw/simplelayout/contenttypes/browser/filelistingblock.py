@@ -2,6 +2,7 @@ from AccessControl.requestmethod import postonly
 from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout.browser.blocks.base import BaseBlock
 from ftw.simplelayout.contenttypes.behaviors import IMediaFolderReference
+from ftw.simplelayout.contenttypes.behaviors import add_behavior_relations
 from ftw.simplelayout.contenttypes.contents import interfaces
 from ftw.simplelayout.staging.interfaces import IStaging
 from ftw.table.interfaces import ITableGenerator
@@ -138,6 +139,7 @@ class CreateAndLinkMediaFolder(BrowserView):
         intids = getUtility(IIntIds)
         relation = RelationValue(intids.getId(mediafolder))
         self.context.mediafolder = relation
+        add_behavior_relations(self.context, None)
 
         url = mediafolder.absolute_url() + '/folder_contents'
         return self.request.RESPONSE.redirect(url)
