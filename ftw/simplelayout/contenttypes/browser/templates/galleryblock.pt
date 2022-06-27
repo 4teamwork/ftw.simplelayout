@@ -73,19 +73,19 @@
       <p tal:condition="python: view.can_add and not view.get_images()"
          i18n:translate="">This block is empty.</p>
 
-      <tal:boxes repeat="img view/get_images">
-
-        <div class="galleryblockImageWrapper">
-          <a class="colorboxLink" href="#"
-             tal:attributes="
-                             title img/title_or_id;
-                             rel string:colorbox-${here/getId};
-                             href python: view.get_full_image_scale(img)">
-            <img tal:replace="structure python: view.get_image_scale_tag(img)" />
-          </a>
-        </div>
-
-      </tal:boxes>
+      <div>  
+        <tal:boxes repeat="img view/get_images">
+            <div class="galleryblockImageWrapper">
+              <a class="colorboxLink" href="#"
+                 tal:attributes="
+                                 title img/title_or_id;
+                                 rel string:colorbox-${here/getId};
+                                 href python: view.get_full_image_scale(img)">
+                <img tal:replace="structure python: view.get_image_scale_tag(img)" />
+              </a>
+            </div>
+        </tal:boxes>
+      </div>
     </metal:BODY>
 
 
