@@ -1,8 +1,10 @@
 from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
+from plone.app.relationfield.event import extract_relations
 from plone.autoform.interfaces import IFormFieldProvider
 from plone.directives.form import widget
 from plone.supermodel import model
+from z3c.relationfield.event import _setRelation
 from z3c.relationfield.schema import Relation
 from zope import schema
 from zope.interface import alsoProvides
@@ -76,3 +78,13 @@ class IMediaFolderReference(model.Schema):
         title=_(u'label_mediafolder', default=u'Mediafolder reference'),
         required=False,
     )
+
+
+def add_behavior_relations(obj, event):
+    """Register relations in behaviors.
+    This event handler fixes a bug in plone.app.relationfield, which only
+    updates the zc.catalog when an object gets modified, but not when it gets
+    added.
+    """
+    for behavior_interface, name, relation in extract_relations(obj):
+        _setRelation(obj, name, relation)

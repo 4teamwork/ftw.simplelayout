@@ -88,4 +88,11 @@
       title="Simplelayout View"
       action="@@simplelayout-view" />
 
+
+  <subscriber
+      for="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference
+           zope.lifecycleevent.IObjectAddedEvent"
+      handler="ftw.simplelayout.contenttypes.behaviors.add_behavior_relations"
+      />
+
 </configure>
