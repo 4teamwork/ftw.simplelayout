@@ -6,6 +6,7 @@ from ftw.simplelayout.staging.interfaces import IStaging
 from plone import api
 from plone.app.imaging.scale import ImageScale
 from plone.app.imaging.utils import getAllowedSizes
+from plone.dexterity.utils import safe_utf8
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -34,7 +35,7 @@ class GalleryBlockView(BaseBlock):
         imgBrains = api.portal.get_tool('portal_catalog').searchResults(
             portal_type="Image",
             sort_on=self.context.sort_on,
-            sort_order=self.context.sort_order,
+            sort_order=safe_utf8(self.context.sort_order),
             path=path)
         images = []
         for img in imgBrains:
