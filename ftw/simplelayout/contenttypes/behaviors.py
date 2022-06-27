@@ -1,16 +1,19 @@
 from ftw.referencewidget.widget import ReferenceBrowserWidget
 from ftw.simplelayout import _
-from plone.app.relationfield.event import extract_relations
 from plone.autoform.interfaces import IFormFieldProvider
+from plone.behavior.interfaces import IBehaviorAssignable
 from plone.directives.form import widget
 from plone.supermodel import model
 from z3c.relationfield.event import _setRelation
+from z3c.relationfield.interfaces import IRelation
+from z3c.relationfield.interfaces import IRelationList
 from z3c.relationfield.schema import Relation
 from zope import schema
 from zope.interface import alsoProvides
 from zope.interface import Invalid
 from zope.interface import invariant
 from zope.interface import provider
+from zope.schema import getFields
 
 
 class ITeaser(model.Schema):
@@ -80,11 +83,40 @@ class IMediaFolderReference(model.Schema):
     )
 
 
+def custom_extract_relations(obj):
+    assignable = IBehaviorAssignable(obj, None)
+    if assignable is None:
+        return
+    for behavior in assignable.enumerateBehaviors():
+        # The original methods checks for this...
+        # if behavior.marker == behavior.interface:
+        #     continue
+        # But the behavior this should not happen in order to habe refs indexed
+        # while adding.
+        # This worked on edit because of the LinkIntegrity feature, which
+        # updates all realtions upon modifications.
+        for name, field in getFields(behavior.interface).items():
+            if IRelation.providedBy(field):
+                try:
+                    relation = getattr(behavior.interface(obj), name)
+                except AttributeError:
+                    continue
+                yield behavior.interface, name, relation
+            if IRelationList.providedBy(field):
+                try:
+                    rel_list = getattr(behavior.interface(obj), name)
+                except AttributeError:
+                    continue
+                if rel_list is not None:
+                    for relation in rel_list:
+                        yield behavior.interface, name, relation
+
+
 def add_behavior_relations(obj, event):
     """Register relations in behaviors.
     This event handler fixes a bug in plone.app.relationfield, which only
     updates the zc.catalog when an object gets modified, but not when it gets
     added.
     """
-    for behavior_interface, name, relation in extract_relations(obj):
+    for behavior_interface, name, relation in custom_extract_relations(obj):
         _setRelation(obj, name, relation)
