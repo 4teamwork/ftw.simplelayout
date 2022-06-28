@@ -7,7 +7,6 @@ from copy import deepcopy
 from DateTime import DateTime
 from datetime import datetime
 from ftw.simplelayout.configuration import columns_in_config
-from ftw.simplelayout.contenttypes.behaviors import add_behavior_relations
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayoutBlock
@@ -28,6 +27,12 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.dexterity.utils import getAdditionalSchemata
 from plone.uuid.interfaces import IUUID
 from Products.Archetypes.interfaces import IBaseContent
+from z3c.relationfield import RelationValue
+from z3c.relationfield.event import updateRelations
+from z3c.relationfield.interfaces import IRelation
+from z3c.relationfield.interfaces import IRelationChoice
+from z3c.relationfield.interfaces import IRelationList
+from z3c.relationfield.interfaces import IRelationValue
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapter
 from zope.component import getGlobalSiteManager
@@ -37,6 +42,7 @@ from zope.interface import alsoProvides
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import noLongerProvides
+from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent.interfaces import IObjectCopiedEvent
 from zope.schema import getFieldsInOrder
 import pkg_resources
@@ -85,6 +91,7 @@ class Staging(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+        self.intids = getUtility(IIntIds)
 
     def is_baseline(self):
         """Returns whether the adapted object is a baseline.
@@ -403,10 +410,15 @@ class Staging(object):
                 value = getattr(source, name)
             elif isinstance(value, str):
                 value = value.decode('utf-8')
+            elif self._provided_by_one_of(field, (
+                    IRelation,
+                    IRelationChoice,
+                    IRelationList)):
+                value = self._create_new_relations(value, field)
 
             setattr(target_storage, field.getName(), value)
         # Update relation catalog
-        add_behavior_relations(target, None)
+        updateRelations(target, None)
 
     def _copy_at_field_values(self, source, target):
         for source_field in source.Schema().values():
@@ -454,3 +466,23 @@ class Staging(object):
             children = filter(lambda item: not ITrashed.providedBy(item), children)
 
         return children
+
+    def _provided_by_one_of(self, obj, ifaces):
+        """Checks if at least one interface of the list `ifaces` is provied
+        by the `obj`.
+        """
+
+        for ifc in ifaces:
+            if ifc.providedBy(obj):
+                return True
+        return False
+
+    def _create_new_relations(self, value, field):
+        if IRelationValue.providedBy(value):
+            intid = self.intids.getId(aq_base(value.to_object))
+            return RelationValue(intid)
+        elif IRelationList.providedBy(field):
+            return [self._create_new_relations(item, field) for item in value]
+        else:
+            return value
+        
