@@ -3,6 +3,9 @@
     <ul>
         <li tal:repeat="item view/listingblocks">
             <a tal:attributes="href item/url" tal:content="item/title"></a>
+            <tal:state condition="item/review_state">
+                (<span tal:replace="structure item/review_state" />)
+            </tal:state>
         </li>
     </ul>
 </div>

@@ -1,9 +1,11 @@
 from Acquisition import aq_inner
 from operator import attrgetter
+from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zc.relation.interfaces import ICatalog
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.intid.interfaces import IIntIds
 
 
@@ -29,6 +31,20 @@ class MediaFolderViewlet(ViewletBase):
                 {
                     'title': obj.Title(),
                     'url': obj.aq_parent.absolute_url() + '#' + obj.getId(),
+                    'review_state': self._get_review_state(obj)
                 }
             )
         return result
+
+    def _get_review_state(self, obj):
+        parent = obj.aq_parent
+        wftool = api.portal.get_tool('portal_workflow')
+        state_id = wftool.getInfoFor(parent, 'review_state', default=None)
+        if state_id is None:
+            return ''
+        translated_state_title = translate(state_id, context=self.request, domain='plone')
+        return u'<span class="state-{}">{}</span>'.format(
+            state_id,
+            translated_state_title
+        )
+        return ''
