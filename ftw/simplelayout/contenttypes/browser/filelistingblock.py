@@ -32,6 +32,11 @@ class FileListingBlockView(BaseBlock):
             return False
         return self.context.mediafolder and self.context.mediafolder.to_object
 
+    def can_access_media_folder(self):
+        if not self.has_mediafolder():
+            return False
+        return api.user.has_permission('View', obj=self.context.mediafolder.to_object)
+
     def get_table_contents(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         return catalog(self._build_query)
@@ -40,7 +45,7 @@ class FileListingBlockView(BaseBlock):
     def _build_query(self):
         query = {}
 
-        if self.has_mediafolder():
+        if self.has_mediafolder() and self.can_access_media_folder():
             path = '/'.join(self.context.mediafolder.to_object.getPhysicalPath())
         else:
             # Edge case for migrations/updates
