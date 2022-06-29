@@ -74,6 +74,13 @@
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IMediaFolder"
+        name="mediafolder_view"
+        class=".mediafolder.MediaFolderView"
+        permission="zope2.View"
+        />
+
     <browser:viewlet
         for="ftw.simplelayout.contenttypes.contents.interfaces.IMediaFolder"
         name="ftw.simplelayout.mediafolder"

@@ -33,10 +33,10 @@
     </property>
 
     <!-- View information -->
-    <property name="default_view">view</property>
+    <property name="default_view">@@mediafolder_view</property>
     <property name="default_view_fallback">False</property>
     <property name="view_methods">
-        <element value="view"/>
+        <element value="@@mediafolder_view"/>
     </property>
 
     <!-- Method aliases -->
