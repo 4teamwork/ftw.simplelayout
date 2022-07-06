@@ -7,6 +7,7 @@ from ftw.testbrowser.pages import factoriesmenu
 from ftw.testbrowser.pages import plone
 from unittest import skipIf
 from unittest import TestCase
+import transaction
 
 
 class TestSampleTypes(TestCase):
@@ -15,7 +16,7 @@ class TestSampleTypes(TestCase):
 
     def setUp(self):
         super(TestSampleTypes, self).setUp()
-
+        self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
 
     @browsing
@@ -74,6 +75,10 @@ class TestSampleTypes(TestCase):
 
     @browsing
     def test_add_file_to_listingblock(self, browser):
+        fti = self.portal.portal_types['ftw.simplelayout.FileListingBlock']
+        fti.allowed_content_types = ('File', )
+        transaction.commit()
+
         listingblock = create(Builder('sl listingblock')
                               .titled('ListingBlock')
                               .within(self.page))

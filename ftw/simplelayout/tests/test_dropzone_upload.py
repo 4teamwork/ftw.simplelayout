@@ -8,10 +8,21 @@ from ftw.testbrowser import browsing
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.protect import createToken
 from zope.component import getUtility
+import transaction
 
 
 class TestDropZoneUpload(SimplelayoutTestCase):
     layer = FTW_SIMPLELAYOUT_CONTENT_TESTING
+
+    def setUp(self):
+        super(TestDropZoneUpload, self).setUp()
+        self.portal = self.layer['portal']
+        fti = self.portal.portal_types['ftw.simplelayout.FileListingBlock']
+        fti.allowed_content_types = ('File', )
+
+        fti = self.portal.portal_types['ftw.simplelayout.GalleryBlock']
+        fti.allowed_content_types = ('Image', )
+        transaction.commit()
 
     @browsing
     def test_create_files_in_filelistingblock(self, browser):

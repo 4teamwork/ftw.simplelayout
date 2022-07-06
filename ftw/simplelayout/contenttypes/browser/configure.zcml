@@ -54,10 +54,39 @@
         />
 
     <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IFileListingBlock"
+        name="add-and-link-mediafolder"
+        class=".filelistingblock.CreateAndLinkMediaFolder"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
+        name="add-and-link-mediafolder"
+        class=".filelistingblock.CreateAndLinkMediaFolder"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
         for="ftw.simplelayout.contenttypes.contents.interfaces.IGalleryBlock"
         name="dropzone-upload"
         class=".dropzone.GalleryUpload"
         permission="cmf.ModifyPortalContent"
         />
 
+    <browser:page
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IMediaFolder"
+        name="mediafolder_view"
+        class=".mediafolder.MediaFolderView"
+        permission="zope2.View"
+        />
+
+    <browser:viewlet
+        for="ftw.simplelayout.contenttypes.contents.interfaces.IMediaFolder"
+        name="ftw.simplelayout.mediafolder"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContentBody"
+        permission="zope2.View"
+        class=".viewlets.MediaFolderViewlet"
+        layer="ftw.simplelayout.interfaces.ISimplelayoutLayer"
+        />
 </configure>

@@ -10,46 +10,62 @@
       <h2 tal:content="view/block_title" tal:condition="view/block_title">Title</h2>
     </metal:TITLE>
 
+    <div class="edit-hints" tal:condition="view/can_add_mediafolder">
+        <div tal:condition="view/has_mediafolder">
+            <a tal:attributes="href string:${context/mediafolder/to_object/absolute_url}/folder_contents"
+               i18n:translate="">Click here do manage (add, edit, delete) images</a>
+               (<tal:label i18n:translate="">Status:</tal:label> <span tal:replace="structure view/get_review_state_mediafolder" />)
+        </div>
+        <div tal:condition="not: view/has_mediafolder">
+            <form method="POST" tal:attributes="action string:${context/absolute_url}/@@add-and-link-mediafolder">
+                <input tal:replace="structure context/@@authenticator/authenticator" />
+                <button type="submit" i18n:translate="">Click here to create a new Media Folder</button>
+            </form>
+        </div>
+    </div>
+
 
     <metal:DROPZONE define-slot="dropzone">
-      <span class="dropzonewrapper"
-            tal:condition="view/can_add">
-        <div id="dropzone-tmpl">
-          <div class="dz-preview dz-image-preview">
-            <i class="fa fa-window-close dz-remove" data-dz-remove
-               title="Remove file" i18n:attributes="title title_dropzone_remove;"
-            ></i>
-            <div class="dz-image">
-              <img data-dz-thumbnail>
+      <tal:if condition="not: view/has_mediafolder">
+        <span class="dropzonewrapper"
+              tal:condition="view/can_add">
+          <div id="dropzone-tmpl">
+            <div class="dz-preview dz-image-preview">
+              <i class="fa fa-window-close dz-remove" data-dz-remove
+                 title="Remove file" i18n:attributes="title title_dropzone_remove;"
+              ></i>
+              <div class="dz-image">
+                <img data-dz-thumbnail>
+              </div>
+              <div class="dz-details">
+                <div class="dz-size" data-dz-size></div>
+                <div class="dz-filename"><span data-dz-name></span></div>
+              </div>
+              <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+              <div class="dz-error-message"><span data-dz-errormessage></span></div>
+              <div class="dz-success-mark"><span>✔</span></div>
+              <div class="dz-error-mark"><span>✘</span></div>
+              <div class="dz-file-metadata"
+                   i18n:domain="plone">
+                <label for="MAKEUNIQUE_title" i18n:translate="label_title">Title</label>
+                <input id="MAKEUNIQUE_title" value="" type="text" name="title">
+                <label for="MAKEUNIQUE_desc" i18n:translate="label_description">Description</label>
+                <input id="MAKEUNIQUE_desc" value="" type="text" name="description">
+             </div>
+
             </div>
-            <div class="dz-details">
-              <div class="dz-size" data-dz-size></div>
-              <div class="dz-filename"><span data-dz-name></span></div>
-            </div>
-            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-            <div class="dz-error-message"><span data-dz-errormessage></span></div>
-            <div class="dz-success-mark"><span>✔</span></div>
-            <div class="dz-error-mark"><span>✘</span></div>
-            <div class="dz-file-metadata"
-                 i18n:domain="plone">
-              <label for="MAKEUNIQUE_title" i18n:translate="label_title">Title</label>
-              <input id="MAKEUNIQUE_title" value="" type="text" name="title">
-              <label for="MAKEUNIQUE_desc" i18n:translate="label_description">Description</label>
-              <input id="MAKEUNIQUE_desc" value="" type="text" name="description">
-           </div>
+
+
 
           </div>
-
-
-
-        </div>
-        <div class="filedropzone"
-             tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
-                             data-type string:File">
-          <div class="dz-message" data-dz-message><span i18n:translate="">Upload files here</span></div>
-        </div>
-        <button class="upload">Upload</button>
-      </span>
+          <div class="filedropzone"
+               tal:attributes="data-endpoint string:${here/absolute_url}/dropzone-upload;
+                               data-type string:File">
+            <div class="dz-message" data-dz-message><span i18n:translate="">Upload files here</span></div>
+          </div>
+          <button class="upload">Upload</button>
+        </span>
+      </tal:if>
     </metal:DROPZONE>
 
 
@@ -57,19 +73,19 @@
       <p tal:condition="python: view.can_add and not view.get_images()"
          i18n:translate="">This block is empty.</p>
 
-      <tal:boxes repeat="img view/get_images">
-
-        <div class="galleryblockImageWrapper">
-          <a class="colorboxLink" href="#"
-             tal:attributes="
-                             title img/title_or_id;
-                             rel string:colorbox-${here/getId};
-                             href python: view.get_full_image_scale(img)">
-            <img tal:replace="structure python: view.get_image_scale_tag(img)" />
-          </a>
-        </div>
-
-      </tal:boxes>
+      <div>  
+        <tal:boxes repeat="img view/get_images">
+            <div class="galleryblockImageWrapper">
+              <a class="colorboxLink" href="#"
+                 tal:attributes="
+                                 title img/title_or_id;
+                                 rel string:colorbox-${here/getId};
+                                 href python: view.get_full_image_scale(img)">
+                <img tal:replace="structure python: view.get_image_scale_tag(img)" />
+              </a>
+            </div>
+        </tal:boxes>
+      </div>
     </metal:BODY>
 
 

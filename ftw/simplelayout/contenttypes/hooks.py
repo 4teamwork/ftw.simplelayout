@@ -20,6 +20,7 @@ def clean_plone5_registry(site):
     registry['plone.allowed_sizes'] = allowed_sizes
 
     types_not_searched = list(registry['plone.types_not_searched'])
+    types_not_searched.remove('ftw.simplelayout.MediaFolder')
     types_not_searched.remove('ftw.simplelayout.TextBlock')
     types_not_searched.remove('ftw.simplelayout.FileListingBlock')
     types_not_searched.remove('ftw.simplelayout.VideoBlock')
@@ -34,6 +35,7 @@ def clean_plone5_registry(site):
     contains_objects.remove(u'ftw.simplelayout.ContentPage')
     contains_objects.remove(u'ftw.simplelayout.FileListingBlock')
     contains_objects.remove(u'ftw.simplelayout.GalleryBlock')
+    contains_objects.remove(u'ftw.simplelayout.MediaFolder')
     registry['plone.contains_objects'] = contains_objects
 
     displayed_types = list(registry['plone.displayed_types'])

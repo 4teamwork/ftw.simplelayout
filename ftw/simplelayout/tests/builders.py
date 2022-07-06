@@ -85,3 +85,10 @@ class AliasBlockBuilder(DexterityBuilder):
     portal_type = 'ftw.simplelayout.AliasBlock'
 
 builder_registry.register('sl aliasblock', AliasBlockBuilder)
+
+
+class MediaFolderBuilder(DexterityBuilder):
+    portal_type = 'ftw.simplelayout.MediaFolder'
+
+
+builder_registry.register('mediafolder', MediaFolderBuilder)

@@ -31,6 +31,10 @@ class TestListingBlock(TestCase):
         self.portal = self.layer['portal']
         self.page = create(Builder('sl content page').titled(u'A page'))
 
+        fti = self.portal.portal_types['ftw.simplelayout.FileListingBlock']
+        fti.allowed_content_types = ('File', )
+        transaction.commit()
+
     def test_listingblock_default_columns_adapter(self):
         verifyClass(IListingBlockColumns, ListingBlockDefaultColumns)
 

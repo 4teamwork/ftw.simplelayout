@@ -26,6 +26,12 @@
         factory="plone.behavior.AnnotationStorage"
         />
 
+    <plone:behavior
+        title="MediaFolder reference field"
+        description="Extends the content with a reference field to a media folder"
+        provides="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference"
+        />
+
     <genericsetup:registerProfile
         zcml:condition="not-have plone-5"
         name="default"
@@ -81,5 +87,12 @@
       menu="plone_displayviews"
       title="Simplelayout View"
       action="@@simplelayout-view" />
+
+
+  <subscriber
+      for="ftw.simplelayout.contenttypes.behaviors.IMediaFolderReference
+           zope.lifecycleevent.IObjectAddedEvent"
+      handler="ftw.simplelayout.contenttypes.behaviors.add_behavior_relations"
+      />
 
 </configure>

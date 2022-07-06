@@ -32,7 +32,15 @@ class TestAliasBlockRendering(TestCase):
 
         self.intids = getUtility(IIntIds)
 
-    def assert_html(self, page_html, aliasblock_html):
+    def assert_html(self, page, aliasblock):
+
+        if IS_PLONE_5:
+            page.css('[name="_authenticator"]').first.node.drop_tree()
+            aliasblock.css('[name="_authenticator"]').first.node.drop_tree()
+
+        page_html = etree.tostring(page.first.node, pretty_print=True)
+        aliasblock_html = etree.tostring(page.first.node, pretty_print=True)
+
         diff = difflib.unified_diff(
             page_html.strip().split('\n'),
             aliasblock_html.strip().split('\n'),
@@ -200,15 +208,9 @@ class TestAliasBlockRendering(TestCase):
                .within(self.page2))
 
         browser.login().visit(self.page1)
-        html_page1_layout1 = etree.tostring(
-            browser.css('#content-core #default .sl-layout').first.node,
-            pretty_print=True
-        )
+        html_page1_layout1 = browser.css('#content-core #default .sl-layout')
         browser.visit(self.page2)
-        html_aliasblock_layout1 = etree.tostring(
-            browser.css('.sl-alias-block .sl-layout').first.node,
-            pretty_print=True
-        )
+        html_aliasblock_layout1 = browser.css('.sl-alias-block .sl-layout')
         self.assert_html(html_page1_layout1, html_aliasblock_layout1)
 
     @browsing

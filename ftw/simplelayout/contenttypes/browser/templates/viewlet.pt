@@ -1,0 +1,11 @@
+<div class="listingblocks-ref-viewlet" tal:condition="view/listingblocks" i18n:domain="ftw.simplelayout">
+    <h5 i18n:translate="">This media folder is used for the following listing(s)</h5>
+    <ul>
+        <li tal:repeat="item view/listingblocks">
+            <a tal:attributes="href item/url" tal:content="item/title"></a>
+            <tal:state condition="item/review_state">
+                (<span tal:replace="structure item/review_state" />)
+            </tal:state>
+        </li>
+    </ul>
+</div>

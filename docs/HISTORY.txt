@@ -4,7 +4,12 @@ Changelog
 2.8.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- New Feature "Media Folder": Make it possible to reference a MediaFolder in FileListingBlock and GalleryBlock. [mathias.leimgruber]
+
+    - Media Folders contain files and/or images and are references via GalleryBlock or FileListingBlock.
+    - This is the new default implementation.
+    - You can opt out by removing the IMediaFolder behavior and make file/images addable diretly in the GalleryBlock or FilelistingBlock.
+    - If you upgrade to this version make sure you migrate the files and images into Media Folders.
 
 
 2.8.7 (2022-06-09)

@@ -43,6 +43,10 @@ class TestWorkingCopy(TestCase):
             behaviors += ['plone.app.content.interfaces.INameFromTitle']
             fti.behaviors = tuple(behaviors)
 
+        fti = self.portal.portal_types['ftw.simplelayout.FileListingBlock']
+        fti.allowed_content_types = ('File', )
+        transaction.commit()
+
     def test_staging_manager_implements_interface(self):
         page = create(Builder('sl content page'))
         verifyObject(IStaging, IStaging(page))

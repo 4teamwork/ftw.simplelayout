@@ -88,6 +88,7 @@ def listing_block_columns(context):
 
     return SimpleVocabulary(terms)
 
+
 directlyProvides(listing_block_columns, IContextSourceBinder)
 
 
@@ -109,6 +110,7 @@ def sort_index_vocabulary(context):
           default=u'Position in Folder')))
 
     return SimpleVocabulary(terms)
+
 
 directlyProvides(sort_index_vocabulary, IContextSourceBinder)
 

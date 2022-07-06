@@ -16,6 +16,7 @@ $color-primary: tomato !default;
   padding: 10px;
 }
 
-.sl-can-edit .sl-alias-block .dropzonewrapper {
+.sl-can-edit .sl-alias-block .dropzonewrapper,
+.sl-can-edit .sl-alias-block .edit-hints {
   display: none;
 }

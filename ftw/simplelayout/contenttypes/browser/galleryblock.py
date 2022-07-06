@@ -1,9 +1,12 @@
 from Acquisition._Acquisition import aq_inner
 from ftw.simplelayout import _
 from ftw.simplelayout.browser.blocks.base import BaseBlock
+from ftw.simplelayout.contenttypes.behaviors import IMediaFolderReference
+from ftw.simplelayout.staging.interfaces import IStaging
 from plone import api
 from plone.app.imaging.scale import ImageScale
 from plone.app.imaging.utils import getAllowedSizes
+from plone.dexterity.utils import safe_utf8
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -16,12 +19,29 @@ class GalleryBlockView(BaseBlock):
 
     template = ViewPageTemplateFile('templates/galleryblock.pt')
 
+    def has_mediafolder(self):
+        if not IMediaFolderReference(self.context, None):
+            return False
+        return self.context.mediafolder and self.context.mediafolder.to_object
+
+    def can_access_media_folder(self):
+        if not self.has_mediafolder():
+            return False
+        return api.user.has_permission('View', obj=self.context.mediafolder.to_object)
+
     def get_images(self):
-        imgBrains = self.context.portal_catalog.searchResults(
+
+        if self.has_mediafolder() and self.can_access_media_folder():
+            path = '/'.join(self.context.mediafolder.to_object.getPhysicalPath())
+        else:
+            # Edge case for migrations/updates
+            path = '/'.join(self.context.getPhysicalPath())
+
+        imgBrains = api.portal.get_tool('portal_catalog').searchResults(
             portal_type="Image",
             sort_on=self.context.sort_on,
-            sort_order=self.context.sort_order,
-            path='/'.join(self.context.getPhysicalPath()))
+            sort_order=safe_utf8(self.context.sort_order),
+            path=path)
         images = []
         for img in imgBrains:
             images.append(img.getObject())
@@ -36,7 +56,37 @@ class GalleryBlockView(BaseBlock):
         mtool = getToolByName(context, 'portal_membership')
         permission = mtool.checkPermission(
             'ftw.simplelayout: Add GalleryBlock', context)
+
+        types_tool = api.portal.get_tool('portal_types')
+        addable_content = types_tool['ftw.simplelayout.GalleryBlock'].allowed_content_types
+        return bool(permission) and len(addable_content)
+
+    def can_add_mediafolder(self):
+        context = aq_inner(self.context).aq_parent
+
+        if IStaging(context, None) and IStaging(context).is_working_copy():
+            context = IStaging(context).get_baseline()
+
+        mtool = getToolByName(context, 'portal_membership')
+        permission = mtool.checkPermission(
+            'ftw.simplelayout: Add ContentPage', context)
         return bool(permission)
+
+    def get_review_state_mediafolder(self):
+        if self.has_mediafolder():
+            wftool = api.portal.get_tool('portal_workflow')
+            state_id = wftool.getInfoFor(
+                self.context.mediafolder.to_object,
+                'review_state',
+                default=None)
+            if state_id is None:
+                return ''
+            translated_state_title = translate(state_id, context=self.request, domain='plone')
+            return u'<span class="state-{}">{}</span>'.format(
+                state_id,
+                translated_state_title
+            )
+        return ''
 
     def generate_image_alttext(self, img):
         title = safe_unicode(img.title_or_id())
