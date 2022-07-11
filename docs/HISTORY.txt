@@ -4,7 +4,7 @@ Changelog
 3.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- BugFix staging: Do no copy relationvalues with no target. [mathias.leimgruber]
 
 
 3.0.0 (2022-07-06)

@@ -479,10 +479,11 @@ class Staging(object):
 
     def _create_new_relations(self, value, field):
         if IRelationValue.providedBy(value):
+            if not value.to_object:
+                return  None
             intid = self.intids.getId(aq_base(value.to_object))
             return RelationValue(intid)
         elif IRelationList.providedBy(field) and value:
-            return [self._create_new_relations(item, field) for item in value]
+            return [self._create_new_relations(item, field) for item in value if item.to_object]
         else:
             return value
-        
