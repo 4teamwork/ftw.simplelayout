@@ -4,7 +4,7 @@ Changelog
 3.0.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Staging improvement: Do not index position in parent index in old container. [mathias.leimgruber]
 
 
 3.0.1 (2022-07-11)

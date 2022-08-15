@@ -444,7 +444,9 @@ class Staging(object):
             yield schema
 
     def _move_new_obj(self, obj, new_parent):
-        clipboard = aq_parent(aq_inner(obj)).manage_cutObjects([obj.getId()])
+        parent = aq_parent(aq_inner(obj))
+        parent.setOrdering('unordered')
+        clipboard = parent.manage_cutObjects([obj.getId()])
         info = new_parent.manage_pasteObjects(clipboard)
         return new_parent.get(info[0]['new_id'])
 
