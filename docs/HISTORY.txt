@@ -4,7 +4,7 @@ Changelog
 3.0.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Restapi: Do not include block infos in recursively in pages. [mathias.leimgruber]
 
 
 3.0.2 (2022-08-15)

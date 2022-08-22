@@ -1,4 +1,3 @@
-from Products.CMFPlone.interfaces import IPloneSiteRoot
 from ftw.simplelayout.interfaces import IBlockConfiguration
 from ftw.simplelayout.interfaces import IPageConfiguration
 from ftw.simplelayout.interfaces import ISimplelayout
@@ -8,14 +7,16 @@ from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
 from plone.dexterity.interfaces import IDexterityContainer
+from plone.restapi.deserializer import boolean_value
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.serializer.dxcontent import SerializeFolderToJson
 from plone.restapi.serializer.dxcontent import SerializeToJson
 from plone.restapi.serializer.site import SerializeSiteRootToJson
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import adapter
 from zope.component import getMultiAdapter
-from zope.interface import Interface
 from zope.interface import implementer
+from zope.interface import Interface
 import json
 
 
@@ -56,7 +57,11 @@ def enrich_with_simplelayout(context, result):
 class SimplelayoutSerializer(SerializeFolderToJson):
     def __call__(self, version=None, include_items=True):
         result = super(SimplelayoutSerializer, self).__call__(version=version, include_items=include_items)
-        enrich_with_simplelayout(self.context, result)
+
+        include_items_request = self.request.form.get("include_items", include_items)
+        include_items_request = boolean_value(include_items_request)
+        if include_items and include_items_request:
+            enrich_with_simplelayout(self.context, result)
         return result
 
 
