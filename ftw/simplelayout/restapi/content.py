@@ -7,17 +7,24 @@ from persistent.list import PersistentList
 from persistent.mapping import PersistentMapping
 from plone import api
 from plone.dexterity.interfaces import IDexterityContainer
+from plone.restapi.batching import HypermediaBatch
 from plone.restapi.deserializer import boolean_value
 from plone.restapi.interfaces import ISerializeToJson
+from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.serializer.dxcontent import SerializeFolderToJson
 from plone.restapi.serializer.dxcontent import SerializeToJson
 from plone.restapi.serializer.site import SerializeSiteRootToJson
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from zope.component import adapter
 from zope.component import getMultiAdapter
 from zope.interface import implementer
 from zope.interface import Interface
 import json
+import logging
+
+
+LOG = logging.getLogger(__name__)
 
 
 class PersistenceDecoder(json.JSONEncoder):
@@ -46,22 +53,74 @@ def enrich_with_simplelayout(context, result):
     catalog = api.portal.get_tool('portal_catalog')
     brains = catalog(_sl_blocks_query(context))
 
-    blocks = getMultiAdapter(
-        (brains, context.REQUEST), ISerializeToJson
-    )(fullobjects=True)["items"]
+    blocks = []
+    for item in brains:
+        try:
+            obj = item.getObject()
+        except KeyError:
+            LOG.warning(
+                "Brain getObject error: {} doesn't exist anymore".format(
+                    item.getPath()
+                )
+            )
+            continue
+
+        block_data = getMultiAdapter((obj, context.REQUEST), ISerializeToJson)(
+            include_items=False
+        )
+        blocks.append(block_data)
+
     result['slblocks'] = {block['UID']: block for block in blocks}
 
 
 @implementer(ISerializeToJson)
 @adapter(ISimplelayout, Interface)
-class SimplelayoutSerializer(SerializeFolderToJson):
+class SimplelayoutSerializer(SerializeToJson):
+    def _build_query(self):
+        path = "/".join(self.context.getPhysicalPath())
+        query = {
+            "path": {"depth": 1, "query": path},
+            "sort_on": "getObjPositionInParent",
+        }
+        return query
+
     def __call__(self, version=None, include_items=True):
-        result = super(SimplelayoutSerializer, self).__call__(version=version, include_items=include_items)
+        folder_metadata = super(SimplelayoutSerializer, self).__call__(version=version)
+
+        folder_metadata.update({"is_folderish": True})
+        result = folder_metadata
+
+        enrich_with_simplelayout(self.context, result)
 
         include_items_request = self.request.form.get("include_items", include_items)
         include_items_request = boolean_value(include_items_request)
+
+        # Only include items if request and kwarg really want it to inlcude.
+        # This prevents a recursive inclusion of all items (tree), since
+        # the ISerializeToJson of brains calls the serializer with the argument
+        # include_items=False. But so far this go ignored if the request parameter
+        # include_items was present.
         if include_items and include_items_request:
-            enrich_with_simplelayout(self.context, result)
+            query = self._build_query()
+
+            catalog = getToolByName(self.context, "portal_catalog")
+            brains = catalog(query)
+
+            batch = HypermediaBatch(self.request, brains)
+
+            result["items_total"] = batch.items_total
+            if batch.links:
+                result["batching"] = batch.links
+
+            if "fullobjects" in list(self.request.form):
+                result["items"] = getMultiAdapter(
+                    (brains, self.request), ISerializeToJson
+                )(fullobjects=True)["items"]
+            else:
+                result["items"] = [
+                    getMultiAdapter((brain, self.request), ISerializeToJsonSummary)()
+                    for brain in batch
+                ]
         return result
 
 

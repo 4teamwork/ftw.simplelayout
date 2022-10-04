@@ -4,7 +4,7 @@ Changelog
 3.0.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Restapi: Improve sl integration. [mathias.leimgruber]
 
 
 3.0.3 (2022-08-22)
